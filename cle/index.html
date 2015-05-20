@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CLE, a binary loading library</title>
+    <link rel="stylesheet" href="/css/pure-min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://localhost:8080/skewer"></script>
+  </head>
+  <body>
+    <h1>CLE</h1>
+
+    <pre class="codesample">
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">import cle</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">ld = cle.Loader('./fauxware-amd64'); ld</span>
+<span class="pyoutput">&lt;Loaded fauxware-amd64, maps [0x400000:0x22241c7]&gt;</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">ld.main_bin</span>
+<span class="pyoutput">&lt;ELF Object fauxware, maps [0x400000:0x60105f]&gt;</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">ld.shared_objects</span>
+<span class="pyoutput">{'ld-linux-x86-64.so.2': &lt;ELF Object ld-linux-x86-64.so.2, maps [0x2000000:0x22241c7]&gt;,
+ 'libc.so.6': &lt;ELF Object libc.so.6, maps [0x1000000:0x13c42bf]&gt;}</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">hex(ld.main_bin.entry)</span>
+<span class="pyoutput">'0x400580'</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">ld.memory.seek(0x400580)</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">ld.memory.read(8)</span>
+<span class="pyoutput">'1\xedI\x89\xd1^H\x89'</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">ld.main_bin.symbols_by_addr</span>
+<span class="pyoutput">{4195552: &lt;ELFSymbol(type=STT_FUNC, name='_init', addr=0x4004e0, size=0x0)&gt;,
+ 4195712: &lt;ELFSymbol(type=STT_FUNC, name='_start', addr=0x400580, size=0x0)&gt;,
+ ...
+ 6295648: &lt;ELFSymbol(type=STT_NOTYPE, name='_end', addr=0x601060, size=0x0)&gt;}</span>
+</pre>
+
+    <h2>what is CLE?</h2>
+    <p>CLE (<em>CLE Loads Everything</em>) is a general-purpose executable and library loader, in the vein of <span class="tech">ld.so</span>, but written in Python and modular to support multiple formats.</p>
+  </body>
+</html>

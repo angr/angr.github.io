@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>angr, a binary analysis framework</title>
+    <link rel="stylesheet" href="/css/pure-min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <script src="http://localhost:8080/skewer"></script> -->
+  </head>
+  <body>
+    <h1>angr</h1>
+
+    <pre>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">import angr</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">proj = angr.Project('./fauxware-amd64')</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">cfg = proj.analyses.CFG(); cfg.function_manager.functions</span>
+<span class="pyoutput">{4195600L: &lt;Function sub_400510 (0x400510)&gt;,
+ 4195616L: &lt;Function sub_400520 (0x400520)&gt;,
+ 4195632L: &lt;Function sub_400530 (0x400530)&gt;,
+ 4195648L: &lt;Function sub_400540 (0x400540)&gt;,
+ 4195664L: &lt;Function sub_400550 (0x400550)&gt;,
+ 4195680L: &lt;Function sub_400560 (0x400560)&gt;,
+ 4195696L: &lt;Function sub_400570 (0x400570)&gt;,
+ 4195712L: &lt;Function _start (0x400580)&gt;,
+ 4195940L: &lt;Function authenticate (0x400664)&gt;,
+ 4196077L: &lt;Function accepted (0x4006ed)&gt;,
+ 4196093L: &lt;Function rejected (0x4006fd)&gt;,
+ 4196125L: &lt;Function main (0x40071d)&gt;}</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">ex = proj.surveyors.Explorer(find=0x4006ed).run()</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">ex.found[0].state.posix.dumps(0)</span>
+<span class="pyoutput">'\x00\x00\x00\x00\x00\x00\x00\x00\x00SOSNEAKY\x00'</span>
+</pre>
+    <h2>what is angr?</h2>
+    <p>angr is a framework for analyzing binaries. It focuses on both static and dynamic symbolic ("concolic") analysis, making it applicable to a variety of tasks.</p>
+
+    <h2>what's it encompass?</h2>
+    <p>angr is made up of several subprojects, including <a href="/simuvex/">simuvex</a>, <a href="/cle/">cle</a>, <a href="/pyvex/">pyvex</a>, and <a href="/claripy/">claripy</a>.</p>
+  </body>
+</html>
