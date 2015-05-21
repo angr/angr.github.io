@@ -9,6 +9,15 @@ h2 {
     margin-bottom: -0.3em;
 }
 
+pre, p {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+ul {
+    padding-left: 3em;
+}
+
 .tech {
     font-family: monospace;
 }
