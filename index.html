@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="/css/pure-min.css">
     <link rel="stylesheet" href="/css/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- <script src="http://localhost:8080/skewer"></script> -->
+    <script src="http://localhost:8080/skewer"></script>
   </head>
   <body>
     <h1>angr</h1>
@@ -33,7 +33,12 @@
     <h2>what is angr?</h2>
     <p>angr is a framework for analyzing binaries. It focuses on both static and dynamic symbolic ("concolic") analysis, making it applicable to a variety of tasks.</p>
 
-    <h2>what's it encompass?</h2>
-    <p>angr is made up of several subprojects, including <a href="/simuvex/">simuvex</a>, <a href="/cle/">cle</a>, <a href="/pyvex/">pyvex</a>, and <a href="/claripy/">claripy</a>.</p>
+    <h2>what does it encompass?</h2>
+    <p>angr is made up of several subprojects, including</p>
+    <ul>
+      <li>an executable and library loader, <a href="https://github.com/angr/cle">CLE</a></li>
+      <li>a library describing various architectures, <a href="https://github.com/angr/archinfo">archinfo</a></li>
+      <li>a Python wrapper around the binary code lifter VEX, <a href="https://github.com/angr/pyvex">PyVEX</a></li>
+    </ul>
   </body>
 </html>
