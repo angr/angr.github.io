@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="/css/pure-min.css">
     <link rel="stylesheet" href="/css/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="http://localhost:8080/skewer"></script>
   </head>
   <body>
     <h1>angr</h1>
@@ -30,18 +29,24 @@
 <span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">ex.found[0].state.posix.dumps(0)</span>
 <span class="pyoutput">'\x00\x00\x00\x00\x00\x00\x00\x00\x00SOSNEAKY\x00'</span>
 </pre>
-    <h2>what is angr?</h2>
+    <h2>What is angr?</h2>
     <p>angr is a framework for analyzing binaries. It focuses on both static and dynamic symbolic ("concolic") analysis, making it applicable to a variety of tasks.</p>
 
-    <h2>what does it encompass?</h2>
-    <p>angr is made up of several subprojects, including</p>
+    <h2>what's it made of?</h2>
+    <p>angr is made up of several subprojects, an increasing number of which are becoming open source!</p>
     <ul>
       <li>an executable and library loader, <a href="https://github.com/angr/cle">CLE</a></li>
       <li>a library describing various architectures, <a href="https://github.com/angr/archinfo">archinfo</a></li>
       <li>a Python wrapper around the binary code lifter VEX, <a href="https://github.com/angr/pyvex">PyVEX</a></li>
+      <li>a VEX simulation engine, SimuVEX (to be released!)</li>
+      <li>a data backend to abstract away differences between static and symbolic domains, Claripy (to be released!)</li>
+      <li>the full-program analysis suite itself (to be released!)</li>
     </ul>
 
-    <h2>how has it been used academically?</h2>
+    <h2>How has it been used academically?</h2>
+
+    <p>If you have used angr or its sub-components in research, please cite the paper that it was developed for:</p>
+
     <pre>@article{shoshitaishvili2015firmalice,
   title={Firmalice-Automatic Detection of Authentication Bypass Vulnerabilities
          in Binary Firmware},
@@ -50,20 +55,23 @@
   year={2015}
 }</pre>
 
-    <h2>who works on angr?</h2>
-    <p>angr is worked on by several researchers in the Seclab at UC Santa Barbara, including</p>
+    <h2>Whom can I contact?</h2>
+    <p>If you have questions with a subcomponent of angr, please open an issue on github (or send us a pull request!). If you have questions or comments, drop us a line at the <a href="mailto:angr@lists.cs.ucsb.edu">mailing list</a></p>
+
+    <h2>Who works on angr?</h2>
+    <p>angr is worked on by several researchers in the <a href="http://seclab.cs.ucsb.edu">Computer Security Lab at UC Santa Barbara</a>, including</p>
     <ul>
       <li>Yan Shoshitaishvili</li>
       <li>Ruoyu (Fish) Wang</li>
       <li>Christophe Hauser</li>
-      <li>Nilo Redini</li>
-      <li>Jake Corina</li>
       <li>Andrew Dutcher</li>
       <li>John Grosen</li>
       <li>Chris Salls</li>
-      <li>Amat Cama</li>
       <li>Christopher Kruegel</li>
       <li>Giovanni Vigna</li>
+      <li>Jake Corina</li>
+      <li>Amat Cama</li>
+      <li>Nilo Redini</li>
     </ul>
   </body>
 </html>
