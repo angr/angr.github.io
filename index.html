@@ -38,20 +38,20 @@
  4196125L: &lt;Function main (0x40071d)&gt;}</span>
 <span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">ex = proj.surveyors.Explorer(find=0x4006ed).run()</span>
 <span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">ex.found[0].state.posix.dumps(0)</span>
-<span class="pyoutput">'\x00\x00\x00\x00\x00\x00\x00\x00\x00SOSNEAKY\x00'</span>
+<span class="pyoutput">'\x00\x00\x00\x00\x00\x00\x00\x00\x00<strong>SOSNEAKY</strong>\x00'</span>
 </pre>
     <h2>What is angr?</h2>
     <p>angr is a framework for analyzing binaries. It focuses on both static and dynamic symbolic ("concolic") analysis, making it applicable to a variety of tasks.</p>
 
     <h2>What's it made of?</h2>
-    <p>angr is made up of several subprojects, an increasing number of which are becoming open source!</p>
+	<p>angr is made up of several subprojects, all of which are <a href="https://github.com/angr">open-source!</a></p>
     <ul>
       <li>an executable and library loader, <a href="https://github.com/angr/cle">CLE</a></li>
       <li>a library describing various architectures, <a href="https://github.com/angr/archinfo">archinfo</a></li>
       <li>a Python wrapper around the binary code lifter VEX, <a href="https://github.com/angr/pyvex">PyVEX</a></li>
-      <li>a VEX simulation engine, SimuVEX (to be released!)</li>
-      <li>a data backend to abstract away differences between static and symbolic domains, Claripy (to be released!)</li>
-      <li>the full-program analysis suite itself (to be released!)</li>
+	  <li>a VEX simulation engine, <a href="https://github.com/angr/simuvex">SimuVEX</a></li>
+	  <li>a data backend to abstract away differences between static and symbolic domains, <a href="https://github.com/angr/claripy">Claripy</a></li>
+	  <li>the full-program analysis suite itself, <a href="https://github.com/angr/angr">angr</a></li>
     </ul>
 
     <h2>How has it been used academically?</h2>
@@ -74,10 +74,10 @@
     <h2>Who works on angr?</h2>
     <p>angr is worked on by several researchers in the <a href="http://seclab.cs.ucsb.edu">Computer Security Lab at UC Santa Barbara</a>, including</p>
     <ul>
+      <li>Andrew Dutcher</li>
       <li>Yan Shoshitaishvili</li>
       <li>Ruoyu (Fish) Wang</li>
       <li>Christophe Hauser</li>
-      <li>Andrew Dutcher</li>
       <li>John Grosen</li>
       <li>Chris Salls</li>
       <li>Jake Corina</li>
