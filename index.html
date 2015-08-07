@@ -68,25 +68,34 @@
 
     <p>You can also <i>read</i> the paper <a href="http://www.internetsociety.org/doc/firmalice-automatic-detection-authentication-bypass-vulnerabilities-binary-firmware">here</a>!</p>
 
+    <h2>And non-academically?</h2>
+
+    angr was one of the underpinnings of Shellphish's Cyber Reasoning System for the DARPA Cyber Grand Challenge, enabling them to qualify for the CGC finals!
+
     <h2>Whom can I contact?</h2>
     <p>If you have questions with a subcomponent of angr, please open an issue on github (or send us a pull request!). If you have questions or comments, drop us a line at the mailing list at <a href="mailto:angr@lists.cs.ucsb.edu">angr@lists.cs.ucsb.edu</a>.</p>
 
     <h2>Who works on angr?</h2>
-    <p>angr is worked on by several researchers in the <a href="http://seclab.cs.ucsb.edu">Computer Security Lab at UC Santa Barbara</a>, including</p>
+    <p>angr is worked on by several researchers in the <a href="http://seclab.cs.ucsb.edu">Computer Security Lab at UC Santa Barbara</a>. Major contributers (arbirtrarily, 1000+ lines of code!) include:</p>
     <ul>
-      <li>Andrew Dutcher</li>
       <li>Yan Shoshitaishvili</li>
+      <li>Andrew Dutcher</li>
       <li>Ruoyu (Fish) Wang</li>
       <li>Christophe Hauser</li>
       <li>John Grosen</li>
       <li>Chris Salls</li>
-      <li>Jake Corina</li>
-      <li>Amat Cama</li>
-      <li>Nilo Redini</li>
-      <li>Christopher Kruegel</li>
-      <li>Giovanni Vigna</li>
     </ul>
 
     <p>angr owes its existence to research sponsored by DARPA under agreement number <a href="http://www.darpa.mil/program/vetting-commodity-it-software-and-firmware">N66001-13-2-4039</a>!</p>
+
+    <h2>How can I help</h2>
+
+    There are many ways to participate! Here are some ideas:
+
+    <ul>
+      <li>Report bugs. We know they exist, but it's not always clear where they are!</li>
+      <li>Write documentation. An analysis system like angr can be a bit overwhelming. If you're using it, and could send a pull request for our <a href="https://github.com/angr/angr-doc">documentation repo</a>, we would be eternally grateful! This includes examples -- if you use angr for something cool, send us a pull request with an example!</li>
+      <li>Implement more environment support. We use the concept of "function summaries" in angr to model the environment of operating systems (i.e., the effects of their system calls) and library functions. Extending this would be greatly helpful in increasing angr's utility. These function summaries can be found <a href="https://github.com/angr/simuvex/tree/master/simuvex/procedures">here</a>.
+    </ul>
   </body>
 </html>
