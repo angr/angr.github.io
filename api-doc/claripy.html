@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>claripy — Claripy &mdash; angr 4.6.3 documentation</title>
+  <title>claripy — The Claripy Solver Engine &mdash; angr 4.6.3 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="angr 4.6.3 documentation" href="index.html"/>
-        <link rel="next" title="cle — CLE" href="cle.html"/>
+        <link rel="next" title="cle — CLE Loads Everything" href="cle.html"/>
         <link rel="prev" title="pyvex — PyVex" href="pyvex.html"/> 
 
   
@@ -85,14 +85,14 @@
 <li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; angr</a></li>
 <li class="toctree-l1"><a class="reference internal" href="simuvex.html"><code class="docutils literal"><span class="pre">simuvex</span></code> &#8212; Simuvex</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; PyVex</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href=""><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Claripy</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; The Claripy Solver Engine</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.ast">AST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-claripy.backends">Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-claripy.backend">Backends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.frontends">Frontends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.vsa">VSA</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; CLE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; CLE Loads Everything</a></li>
 <li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Info</a></li>
 </ul>
 
@@ -124,7 +124,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Claripy</li>
+    <li><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; The Claripy Solver Engine</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -138,9 +138,349 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-claripy">
-<span id="claripy-claripy"></span><h1><a class="reference internal" href="#module-claripy" title="claripy"><code class="xref py py-mod docutils literal"><span class="pre">claripy</span></code></a> &#8212; Claripy<a class="headerlink" href="#module-claripy" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-claripy.backend"></span><dl class="class">
+  <div class="section" id="claripy-the-claripy-solver-engine">
+<h1><a class="reference internal" href="#module-claripy" title="claripy"><code class="xref py py-mod docutils literal"><span class="pre">claripy</span></code></a> &#8212; The Claripy Solver Engine<a class="headerlink" href="#claripy-the-claripy-solver-engine" title="Permalink to this headline">¶</a></h1>
+<p>Realistically, you should never have to work with in-depth claripy APIs unless you&#8217;re doing some hard-core analysis.
+Most of the time, you&#8217;ll be using claripy as a simple frontend to z3:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">claripy</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">claripy</span><span class="o">.</span><span class="n">BVS</span><span class="p">(</span><span class="s">&quot;sym_val&quot;</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">claripy</span><span class="o">.</span><span class="n">RotateLeft</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">4</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">claripy</span><span class="o">.</span><span class="n">Solver</span><span class="p">()</span>
+<span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="mh">0x41424344</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x41424344</span>
+<span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x40414243</span>
+</pre></div>
+</div>
+<p>Or using its components in angr:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">angr</span><span class="o">,</span> <span class="nn">claripy</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="s">&#39;/bin/true&#39;</span><span class="p">)</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">path</span><span class="p">()</span>
+<span class="n">rax_start</span> <span class="o">=</span> <span class="n">claripy</span><span class="o">.</span><span class="n">BVS</span><span class="p">(</span><span class="s">&#39;rax_start&#39;</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
+<span class="n">path</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">rax</span> <span class="o">=</span> <span class="n">rax_start</span>
+<span class="n">path_new</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">step</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">rax_new</span> <span class="o">=</span> <span class="n">path_new</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">rax</span>
+<span class="n">path_new</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">se</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rax_new</span> <span class="o">==</span> <span class="mi">1337</span><span class="p">)</span>
+<span class="nb">print</span> <span class="n">path_new</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">se</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">rax_start</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<span class="target" id="module-claripy"></span><span class="target" id="module-claripy.backend_manager"></span><span class="target" id="module-claripy.backend_object"></span><dl class="class">
+<dt id="claripy.backend_object.BackendObject">
+<em class="property">class </em><code class="descclassname">claripy.backend_object.</code><code class="descname">BackendObject</code><a class="headerlink" href="#claripy.backend_object.BackendObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This is a base class for custom backend objects to implement.</p>
+<p>It lets Claripy know that how to deal with those objects, in case they&#8217;re directly used in operations.</p>
+<p>Backend objects that <em>don&#8217;t</em> derive from this class need to be wrapped in a type-I claripy.ast.Base.</p>
+<dl class="method">
+<dt id="claripy.backend_object.BackendObject.to_claripy">
+<code class="descname">to_claripy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend_object.BackendObject.to_claripy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Claripy calls this to retrieve something that it can directly reason about.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-claripy.balancer"></span><dl class="class">
+<dt id="claripy.balancer.Balancer">
+<em class="property">class </em><code class="descclassname">claripy.balancer.</code><code class="descname">Balancer</code><span class="sig-paren">(</span><em>helper</em>, <em>c</em>, <em>validation_frontend=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.balancer.Balancer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>The Balancer is an equation redistributor. The idea is to take an AST and rebalance it to, for example, isolate
+unknown terms on one side of an inequality.</p>
+</dd></dl>
+
+<span class="target" id="module-claripy.bv"></span><span class="target" id="module-claripy.errors"></span><span class="target" id="module-claripy.fp"></span><span class="target" id="module-claripy.frontend"></span><span class="target" id="module-claripy.operations"></span><span class="target" id="module-claripy.ops"></span><span class="target" id="module-claripy.replacer"></span><span class="target" id="module-claripy.result"></span><div class="section" id="module-claripy.ast">
+<span id="ast"></span><h2>AST<a class="headerlink" href="#module-claripy.ast" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-claripy.ast.base"></span><dl class="class">
+<dt id="claripy.ast.base.Base">
+<em class="property">class </em><code class="descclassname">claripy.ast.base.</code><code class="descname">Base</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">ana.storable.Storable</span></code></p>
+<p>An AST tracks a tree of operations on arguments. It has the following methods:</p>
+<blockquote>
+<div>op: the operation that is being done on the arguments
+args: the arguments that are being used
+length: the length (in bits)</div></blockquote>
+<p>AST objects have <em>hash identity</em>. This means that an AST that has the same hash as
+another AST will be the <em>same</em> object. For example, the following is true:</p>
+<blockquote>
+<div>a, b = two different ASTs
+c = b + a
+d = b + a
+assert c is d</div></blockquote>
+<p>This is done to better support serialization and better manage memory.</p>
+<p>This is called when you create a new Base object, whether directly or through an operation.
+It finalizes the arguments (see the _finalize function, above) and then computes
+a hash. If an AST of this hash already exists, it returns that AST. Otherwise,
+it creates, initializes, and returns the AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>op</strong> &#8211; The AST operation (&#8216;__add__&#8217;, &#8216;Or&#8217;, etc)</li>
+<li><strong>args</strong> &#8211; The arguments to the AST operation (i.e., the objects to add)</li>
+<li><strong>variables</strong> &#8211; The symbolic variables present in the AST (default: empty set)</li>
+<li><strong>symbolic</strong> &#8211; A flag saying whether or not the AST is symbolic (default: False)</li>
+<li><strong>length</strong> &#8211; An integer specifying the length of this AST (default: None)</li>
+<li><strong>collapsible</strong> &#8211; A flag of whether or not Claripy can feel free to collapse this AST. This is mostly used
+to keep Claripy from collapsing Reverse operations, so that they can be undone with
+another Reverse.</li>
+<li><strong>simplified</strong> &#8211; A measure of how simplified this AST is. 0 means unsimplified, 1 means fast-simplified
+(basically, just undoing the Reverse op), and 2 means simplified through z3.</li>
+<li><strong>errored</strong> &#8211; A set of backends that are known to be unable to handle this AST.</li>
+<li><strong>eager_backends</strong> &#8211; A list of backends with which to attempt eager evaluation</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="claripy.ast.base.Base.depth">
+<code class="descname">depth</code><a class="headerlink" href="#claripy.ast.base.Base.depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>The depth of this AST. For example, an AST representing (a+(b+c)) would have a depth of 2.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.ast.base.Base.ite_burrowed">
+<code class="descname">ite_burrowed</code><a class="headerlink" href="#claripy.ast.base.Base.ite_burrowed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an equivalent AST that &#8220;burrows&#8221; the ITE expressions as deep as possible into the ast, for simpler
+printing.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.ast.base.Base.ite_excavated">
+<code class="descname">ite_excavated</code><a class="headerlink" href="#claripy.ast.base.Base.ite_excavated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an equivalent AST that &#8220;excavates&#8221; the ITE expressions out as far as possible toward the root of the
+AST, for processing in static analyses.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.make_uuid">
+<code class="descname">make_uuid</code><span class="sig-paren">(</span><em>uuid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.make_uuid" title="Permalink to this definition">¶</a></dt>
+<dd><p>This overrides the default ANA uuid with the hash of the AST. UUID is slow, and we&#8217;ll soon replace it from ANA
+itself, and this will go away.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a string representation of the AST hash.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.replace">
+<code class="descname">replace</code><span class="sig-paren">(</span><em>old</em>, <em>new</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an AST with all instances of the AST &#8216;old&#8217; replaced with AST &#8216;new&#8217;.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.replace_dict">
+<code class="descname">replace_dict</code><span class="sig-paren">(</span><em>replacements</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace_dict" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>replacements</strong> &#8211; A dictionary of asts to replace and their replacements.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An AST with all instances of ast&#8217;s in replacements.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.split">
+<code class="descname">split</code><span class="sig-paren">(</span><em>split_on</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits the AST if its operation is <cite>split_on</cite> (i.e., return all the arguments). Otherwise, return a list with
+just the AST.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.structurally_match">
+<code class="descname">structurally_match</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.structurally_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structurally compares two A objects, and check if their corresponding leaves are definitely the same A object
+(name-wise or hash-identity wise).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; the other claripy A object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True/False</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.swap_args">
+<code class="descname">swap_args</code><span class="sig-paren">(</span><em>new_args</em>, <em>new_length=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.swap_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns the same AST, with the arguments swapped out for new_args.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.ast.base.Base.uc_alloc_depth">
+<code class="descname">uc_alloc_depth</code><a class="headerlink" href="#claripy.ast.base.Base.uc_alloc_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>The depth of allocation by lazy-initialization. It&#8217;s only used in under-constrained symbolic execution mode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An integer indicating the allocation depth, or None if it&#8217;s not from lazy-initialization.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.ast.base.Base.uninitialized">
+<code class="descname">uninitialized</code><a class="headerlink" href="#claripy.ast.base.Base.uninitialized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether this AST comes from an uninitialized dereference or not. It&#8217;s only used in under-constrained symbolic
+execution mode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True/False/None (unspecified).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-claripy.ast.bits"></span><span class="target" id="module-claripy.ast.bool"></span><dl class="function">
+<dt id="claripy.ast.bool.BoolS">
+<code class="descclassname">claripy.ast.bool.</code><code class="descname">BoolS</code><span class="sig-paren">(</span><em>name</em>, <em>explicit_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bool.BoolS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a boolean symbol (i.e., a variable).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; The name of the symbol</li>
+<li><strong>explicit_name</strong> &#8211; If False, an identifier is appended to the name to ensure uniqueness.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A Bool object representing this symbol.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.ast.bool.constraint_to_si">
+<code class="descclassname">claripy.ast.bool.</code><code class="descname">constraint_to_si</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bool.constraint_to_si" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a constraint to SI if possible.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>expr</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-claripy.ast.bv"></span><dl class="function">
+<dt id="claripy.ast.bv.BVS">
+<code class="descclassname">claripy.ast.bv.</code><code class="descname">BVS</code><span class="sig-paren">(</span><em>name</em>, <em>size</em>, <em>min=None</em>, <em>max=None</em>, <em>stride=None</em>, <em>uninitialized=False</em>, <em>explicit_name=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bv.BVS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a bit-vector symbol (i.e., a variable).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; The name of the symbol.</li>
+<li><strong>size</strong> &#8211; The size (in bits) of the bit-vector.</li>
+<li><strong>min</strong> &#8211; The minimum value of the symbol.</li>
+<li><strong>max</strong> &#8211; The maximum value of the symbol.</li>
+<li><strong>stride</strong> &#8211; The stride of the symbol.</li>
+<li><strong>uninitialized</strong> &#8211; Whether this value should be counted as an &#8220;uninitialized&#8221; value in the course of an
+analysis.</li>
+<li><strong>explicit_name</strong> &#8211; If False, an identifier is appended to the name to ensure uniqueness.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a BV object representing this symbol.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.ast.bv.BVV">
+<code class="descclassname">claripy.ast.bv.</code><code class="descname">BVV</code><span class="sig-paren">(</span><em>value</em>, <em>size=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bv.BVV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a bit-vector value (i.e., a concrete value).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> &#8211; The value.</li>
+<li><strong>size</strong> &#8211; The size (in bits) of the bit-vector.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A BV object representing this value.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-claripy.ast.fp"></span><dl class="function">
+<dt id="claripy.ast.fp.FPS">
+<code class="descclassname">claripy.ast.fp.</code><code class="descname">FPS</code><span class="sig-paren">(</span><em>name</em>, <em>sort</em>, <em>explicit_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.fp.FPS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a floating-point symbol.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; The name of the symbol</li>
+<li><strong>sort</strong> &#8211; The sort of the floating point</li>
+<li><strong>explicit_name</strong> &#8211; If False, an identifier is appended to the name to ensure uniqueness.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An FP AST.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.ast.fp.FPV">
+<code class="descclassname">claripy.ast.fp.</code><code class="descname">FPV</code><span class="sig-paren">(</span><em>value</em>, <em>sort</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.fp.FPV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a concrete floating-point value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>value</strong> &#8211; The value of the floating point.</li>
+<li><strong>sort</strong> &#8211; The sort of the floating point.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An FP AST.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-claripy.ast.int"></span><span class="target" id="module-claripy.ast.vs"></span></div>
+<div class="section" id="module-claripy.backend">
+<span id="backends"></span><h2>Backends<a class="headerlink" href="#module-claripy.backend" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
 <dt id="claripy.backend.Backend">
 <em class="property">class </em><code class="descclassname">claripy.backend.</code><code class="descname">Backend</code><span class="sig-paren">(</span><em>solver_required=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
@@ -443,7 +783,7 @@ is definitely identical. False eans that, conservatively, it might not be.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>e</strong> &#8211; The AST.</li>
 <li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
 <li><strong>result</strong> &#8211; The result of the previous solve.</li>
@@ -451,9 +791,11 @@ is definitely identical. False eans that, conservatively, it might not be.</p>
 </ul>
 </td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A boolean.</p>
+</td>
+</tr>
 </tbody>
 </table>
-<p>:returns                    A boolean.</p>
 </dd></dl>
 
 <dl class="method">
@@ -642,325 +984,7 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 
 </dd></dl>
 
-<span class="target" id="module-claripy.backend_manager"></span><span class="target" id="module-claripy.backend_object"></span><dl class="class">
-<dt id="claripy.backend_object.BackendObject">
-<em class="property">class </em><code class="descclassname">claripy.backend_object.</code><code class="descname">BackendObject</code><a class="headerlink" href="#claripy.backend_object.BackendObject" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>This is a base class for custom backend objects to implement.</p>
-<p>It lets Claripy know that how to deal with those objects, in case they&#8217;re directly used in operations.</p>
-<p>Backend objects that <em>don&#8217;t</em> derive from this class need to be wrapped in a type-I claripy.ast.Base.</p>
-<dl class="method">
-<dt id="claripy.backend_object.BackendObject.to_claripy">
-<code class="descname">to_claripy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend_object.BackendObject.to_claripy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Claripy calls this to retrieve something that it can directly reason about.</p>
-</dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-claripy.balancer"></span><dl class="class">
-<dt id="claripy.balancer.Balancer">
-<em class="property">class </em><code class="descclassname">claripy.balancer.</code><code class="descname">Balancer</code><span class="sig-paren">(</span><em>helper</em>, <em>c</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.balancer.Balancer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>The Balancer is an equation redistributor. The idea is to take an AST and rebalance it to, for example, isolate
-unknown terms on one side of an inequality.</p>
-</dd></dl>
-
-<span class="target" id="module-claripy.bv"></span><span class="target" id="module-claripy.errors"></span><span class="target" id="module-claripy.fp"></span><span class="target" id="module-claripy.frontend"></span><span class="target" id="module-claripy.operations"></span><span class="target" id="module-claripy.ops"></span><span class="target" id="module-claripy.replacer"></span><span class="target" id="module-claripy.result"></span><div class="section" id="module-claripy.ast">
-<span id="ast"></span><h2>AST<a class="headerlink" href="#module-claripy.ast" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-claripy.ast.base"></span><dl class="class">
-<dt id="claripy.ast.base.Base">
-<em class="property">class </em><code class="descclassname">claripy.ast.base.</code><code class="descname">Base</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">ana.storable.Storable</span></code></p>
-<p>An AST tracks a tree of operations on arguments. It has the following methods:</p>
-<blockquote>
-<div>op: the operation that is being done on the arguments
-args: the arguments that are being used
-length: the length (in bits)</div></blockquote>
-<p>AST objects have <em>hash identity</em>. This means that an AST that has the same hash as
-another AST will be the <em>same</em> object. For example, the following is true:</p>
-<blockquote>
-<div>a, b = two different ASTs
-c = b + a
-d = b + a
-assert c is d</div></blockquote>
-<p>This is done to better support serialization and better manage memory.</p>
-<dl class="method">
-<dt id="claripy.ast.base.Base.__a_init__">
-<code class="descname">__a_init__</code><span class="sig-paren">(</span><em>op</em>, <em>args</em>, <em>variables=None</em>, <em>symbolic=None</em>, <em>length=None</em>, <em>collapsible=None</em>, <em>simplified=0</em>, <em>errored=None</em>, <em>eager_backends=None</em>, <em>add_variables=None</em>, <em>uninitialized=None</em>, <em>uc_alloc_depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.__a_init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes an AST. Takes the same arguments as Base.__new__()</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.ast.base.Base.__iter__">
-<code class="descname">__iter__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.__iter__" title="Permalink to this definition">¶</a></dt>
-<dd><p>This prevents people from iterating over ASTs.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.ast.base.Base.__nonzero__">
-<code class="descname">__nonzero__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.__nonzero__" title="Permalink to this definition">¶</a></dt>
-<dd><p>This prevents people from accidentally using an AST as a condition. For
-example, the following was previously common:</p>
-<blockquote>
-<div><p>a,b = two ASTs
-if a == b:</p>
-<blockquote>
-<div>do something</div></blockquote>
-</div></blockquote>
-<p>The problem is that <cite>a == b</cite> would return an AST, because an AST can be symbolic
-and there could be no way to actually know the value of that without a
-constraint solve. This caused tons of issues.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.base.Base.depth">
-<code class="descname">depth</code><a class="headerlink" href="#claripy.ast.base.Base.depth" title="Permalink to this definition">¶</a></dt>
-<dd><p>The depth of this AST. For example, an AST representing (a+(b+c)) would have a depth of 2.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.base.Base.ite_burrowed">
-<code class="descname">ite_burrowed</code><a class="headerlink" href="#claripy.ast.base.Base.ite_burrowed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an equivalent AST that &#8220;burrows&#8221; the ITE expressions as deep as possible into the ast, for simpler
-printing.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.base.Base.ite_excavated">
-<code class="descname">ite_excavated</code><a class="headerlink" href="#claripy.ast.base.Base.ite_excavated" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an equivalent AST that &#8220;excavates&#8221; the ITE expressions out as far as possible toward the root of the
-AST, for processing in static analyses.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.ast.base.Base.make_uuid">
-<code class="descname">make_uuid</code><span class="sig-paren">(</span><em>uuid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.make_uuid" title="Permalink to this definition">¶</a></dt>
-<dd><p>This overrides the default ANA uuid with the hash of the AST. UUID is slow, and we&#8217;ll soon replace it from ANA
-itself, and this will go away.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a string representation of the AST hash.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.ast.base.Base.replace">
-<code class="descname">replace</code><span class="sig-paren">(</span><em>old</em>, <em>new</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an AST with all instances of the AST &#8216;old&#8217; replaced with AST &#8216;new&#8217;.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.ast.base.Base.replace_dict">
-<code class="descname">replace_dict</code><span class="sig-paren">(</span><em>replacements</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace_dict" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>replacements</strong> &#8211; A dictionary of asts to replace and their replacements.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An AST with all instances of ast&#8217;s in replacements.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.ast.base.Base.split">
-<code class="descname">split</code><span class="sig-paren">(</span><em>split_on</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.split" title="Permalink to this definition">¶</a></dt>
-<dd><p>Splits the AST if its operation is <cite>split_on</cite> (i.e., return all the arguments). Otherwise, return a list with
-just the AST.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.ast.base.Base.structurally_match">
-<code class="descname">structurally_match</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.structurally_match" title="Permalink to this definition">¶</a></dt>
-<dd><p>Structurally compares two A objects, and check if their corresponding leaves are definitely the same A object
-(name-wise or hash-identity wise).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; the other claripy A object</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True/False</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.ast.base.Base.swap_args">
-<code class="descname">swap_args</code><span class="sig-paren">(</span><em>new_args</em>, <em>new_length=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.swap_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>This returns the same AST, with the arguments swapped out for new_args.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.base.Base.uc_alloc_depth">
-<code class="descname">uc_alloc_depth</code><a class="headerlink" href="#claripy.ast.base.Base.uc_alloc_depth" title="Permalink to this definition">¶</a></dt>
-<dd><p>The depth of allocation by lazy-initialization. It&#8217;s only used in under-constrained symbolic execution mode.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An integer indicating the allocation depth, or None if it&#8217;s not from lazy-initialization.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.base.Base.uninitialized">
-<code class="descname">uninitialized</code><a class="headerlink" href="#claripy.ast.base.Base.uninitialized" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether this AST comes from an uninitialized dereference or not. It&#8217;s only used in under-constrained symbolic
-execution mode.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True/False/None (unspecified).</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-claripy.ast.bits"></span><span class="target" id="module-claripy.ast.bool"></span><dl class="function">
-<dt id="claripy.ast.bool.BoolS">
-<code class="descclassname">claripy.ast.bool.</code><code class="descname">BoolS</code><span class="sig-paren">(</span><em>name</em>, <em>explicit_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bool.BoolS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a boolean symbol (i.e., a variable).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; The name of the symbol</li>
-<li><strong>explicit_name</strong> &#8211; If False, an identifier is appended to the name to ensure uniqueness.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A Bool object representing this symbol.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="claripy.ast.bool.constraint_to_si">
-<code class="descclassname">claripy.ast.bool.</code><code class="descname">constraint_to_si</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bool.constraint_to_si" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert a constraint to SI if possible.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>expr</strong> &#8211; </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<span class="target" id="module-claripy.ast.bv"></span><dl class="function">
-<dt id="claripy.ast.bv.BVS">
-<code class="descclassname">claripy.ast.bv.</code><code class="descname">BVS</code><span class="sig-paren">(</span><em>name</em>, <em>size</em>, <em>min=None</em>, <em>max=None</em>, <em>stride=None</em>, <em>uninitialized=False</em>, <em>explicit_name=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bv.BVS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a bit-vector symbol (i.e., a variable).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; The name of the symbol.</li>
-<li><strong>size</strong> &#8211; The size (in bits) of the bit-vector.</li>
-<li><strong>min</strong> &#8211; The minimum value of the symbol.</li>
-<li><strong>max</strong> &#8211; The maximum value of the symbol.</li>
-<li><strong>stride</strong> &#8211; The stride of the symbol.</li>
-<li><strong>uninitialized</strong> &#8211; Whether this value should be counted as an &#8220;uninitialized&#8221; value in the course of an
-analysis.</li>
-<li><strong>explicit_name</strong> &#8211; If False, an identifier is appended to the name to ensure uniqueness.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a BV object representing this symbol.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="claripy.ast.bv.BVV">
-<code class="descclassname">claripy.ast.bv.</code><code class="descname">BVV</code><span class="sig-paren">(</span><em>value</em>, <em>size=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bv.BVV" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a bit-vector value (i.e., a concrete value).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>value</strong> &#8211; The value.</li>
-<li><strong>size</strong> &#8211; The size (in bits) of the bit-vector.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A BV object representing this value.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<span class="target" id="module-claripy.ast.fp"></span><dl class="function">
-<dt id="claripy.ast.fp.FPS">
-<code class="descclassname">claripy.ast.fp.</code><code class="descname">FPS</code><span class="sig-paren">(</span><em>name</em>, <em>sort</em>, <em>explicit_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.fp.FPS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a floating-point symbol.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; The name of the symbol</li>
-<li><strong>sort</strong> &#8211; The sort of the floating point</li>
-<li><strong>explicit_name</strong> &#8211; If False, an identifier is appended to the name to ensure uniqueness.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An FP AST.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="claripy.ast.fp.FPV">
-<code class="descclassname">claripy.ast.fp.</code><code class="descname">FPV</code><span class="sig-paren">(</span><em>value</em>, <em>sort</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.fp.FPV" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a concrete floating-point value.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>value</strong> &#8211; The value of the floating point.</li>
-<li><strong>sort</strong> &#8211; The sort of the floating point.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An FP AST.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<span class="target" id="module-claripy.ast.int"></span><span class="target" id="module-claripy.ast.vs"></span></div>
-<div class="section" id="module-claripy.backends">
-<span id="backends"></span><h2>Backends<a class="headerlink" href="#module-claripy.backends" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-claripy.backends.backend_concrete"></span><span class="target" id="module-claripy.backends.backend_z3_parallel"></span><span class="target" id="module-claripy.backends.celeryconfig"></span></div>
+<span class="target" id="module-claripy.backends"></span><span class="target" id="module-claripy.backends.backend_concrete"></span><span class="target" id="module-claripy.backends.backend_z3"></span><span class="target" id="module-claripy.backends.backend_z3_parallel"></span><span class="target" id="module-claripy.backends.backendremote"></span><span class="target" id="module-claripy.backends.celeryconfig"></span></div>
 <div class="section" id="module-claripy.frontends">
 <span id="frontends"></span><h2>Frontends<a class="headerlink" href="#module-claripy.frontends" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-claripy.frontends.caching_frontend"></span><span class="target" id="module-claripy.frontends.composite_frontend"></span><span class="target" id="module-claripy.frontends.constrained_frontend"></span><span class="target" id="module-claripy.frontends.full_frontend"></span><span class="target" id="module-claripy.frontends.hybrid_frontend"></span><span class="target" id="module-claripy.frontends.light_frontend"></span><span class="target" id="module-claripy.frontends.replacement_frontend"></span></div>
@@ -971,258 +995,6 @@ analysis.</li>
 <em class="property">class </em><code class="descclassname">claripy.vsa.discrete_strided_interval_set.</code><code class="descname">DiscreteStridedIntervalSet</code><span class="sig-paren">(</span><em>name=None</em>, <em>bits=0</em>, <em>si_set=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval" title="claripy.vsa.strided_interval.StridedInterval"><code class="xref py py-class docutils literal"><span class="pre">claripy.vsa.strided_interval.StridedInterval</span></code></a></p>
 <p>A DiscreteStridedIntervalSet represents one or more discrete StridedInterval instances.</p>
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__add__">
-<code class="descname">__add__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__add__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation +</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__and__">
-<code class="descname">__and__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__and__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation &amp;</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An instance of DiscreteStridedIntervalSet.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__div__">
-<code class="descname">__div__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__div__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation /</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__eq__">
-<code class="descname">__eq__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__eq__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation ==</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An instance of BoolResult.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__gt__">
-<code class="descname">__gt__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__gt__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation &gt;</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An instance of BoolResult.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__invert__">
-<code class="descname">__invert__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__invert__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation ~</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The negated value.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__le__">
-<code class="descname">__le__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__le__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation &lt;=</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An instance of BoolResult.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__lshift__">
-<code class="descname">__lshift__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__lshift__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation &lt;&lt;</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An instance of DiscreteStridedIntervalSet.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__lt__">
-<code class="descname">__lt__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__lt__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation &lt;</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An instance of BoolResult.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__mod__">
-<code class="descname">__mod__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__mod__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation %</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__ne__">
-<code class="descname">__ne__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__ne__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation !=</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An instance of BoolResult.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__neg__">
-<code class="descname">__neg__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__neg__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation ~</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The negated value.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__or__">
-<code class="descname">__or__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__or__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation |</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An instance of DiscreteStridedIntervalSet.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__rshift__">
-<code class="descname">__rshift__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__rshift__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation &gt;&gt;</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An instance of DiscreteStridedIntervalSet.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__sub__">
-<code class="descname">__sub__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__sub__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation -</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__xor__">
-<code class="descname">__xor__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.__xor__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation ^</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An instance of DiscreteStridedIntervalSet.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.cardinality">
 <code class="descname">cardinality</code><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.cardinality" title="Permalink to this definition">¶</a></dt>
@@ -1380,13 +1152,13 @@ analysis.</li>
 <dt id="claripy.vsa.strided_interval.StridedInterval">
 <em class="property">class </em><code class="descclassname">claripy.vsa.strided_interval.</code><code class="descname">StridedInterval</code><span class="sig-paren">(</span><em>name=None</em>, <em>bits=0</em>, <em>stride=None</em>, <em>lower_bound=None</em>, <em>upper_bound=None</em>, <em>uninitialized=False</em>, <em>bottom=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.backend_object.BackendObject" title="claripy.backend_object.BackendObject"><code class="xref py py-class docutils literal"><span class="pre">claripy.backend_object.BackendObject</span></code></a></p>
-<dl class="docutils">
-<dt>A Strided Interval is represented in the following form:</dt>
-<dd>&lt;bits&gt; stride[lower_bound, upper_bound]</dd>
-</dl>
+<p>A Strided Interval is represented in the following form:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="o">&lt;</span><span class="n">bits</span><span class="o">&gt;</span> <span class="n">stride</span><span class="p">[</span><span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">]</span>
+</pre></div>
+</div>
 <p>For more details, please refer to relevant papers like TIE and WYSINWYE.</p>
-<p>This implementation is signedness-agostic, please refer to [1]_Signedness-Agnostic Program Analysis: Precise Integer
-Bounds for Low-Level <a href="#id1"><span class="problematic" id="id2">Code_</span></a> by Jorge A. Navas, etc. for more details.
+<p>This implementation is signedness-agostic, please refer to [1] <em>Signedness-Agnostic Program Analysis: Precise Integer
+Bounds for Low-Level Code</em> by Jorge A. Navas, etc. for more details.
 Note that this implementation only takes hint from [1]. Such a work has been improved to be more precise
 (and still sound) when dealing with strided intervals.
 DO NOT expect to see a 1-to-1 reproduction of [1].</p>
@@ -1523,111 +1295,6 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.__div__">
-<code class="descname">__div__</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.__div__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unsigned division</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The divisor</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The quotient (self / o)</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.__ge__">
-<code class="descname">__ge__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.__ge__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unsigned greater than or equal to</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> &#8211; The other operand</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.__gt__">
-<code class="descname">__gt__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.__gt__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unsigned greater than</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> &#8211; The other operand</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.__le__">
-<code class="descname">__le__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.__le__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unsigned less than or equal to</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> &#8211; The other operand</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.__len__">
-<code class="descname">__len__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.__len__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the length in bits of this variable.
-:return:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.__lt__">
-<code class="descname">__lt__</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.__lt__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unsigned less than</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> &#8211; The other operand</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.__rshift__">
-<code class="descname">__rshift__</code><span class="sig-paren">(</span><em>shift_amount</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.__rshift__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Arithmetic shift right.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>shift_amount</strong> (<a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval" title="claripy.vsa.strided_interval.StridedInterval"><em>StridedInterval</em></a>) &#8211; Number of bits to shift right.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The shifted StridedInterval object</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval" title="claripy.vsa.strided_interval.StridedInterval">StridedInterval</a></td>
 </tr>
 </tbody>
 </table>
@@ -2271,7 +1938,7 @@ Hackers Delight.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cle.html" class="btn btn-neutral float-right" title="cle — CLE" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cle.html" class="btn btn-neutral float-right" title="cle — CLE Loads Everything" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="pyvex.html" class="btn btn-neutral" title="pyvex — PyVex" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
