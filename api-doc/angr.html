@@ -83,14 +83,14 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; angr</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#project">Project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#factory">Factory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#paths-path-groups">Paths &amp; Path Groups</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#knowledge-base">Knowledge Base</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#analysis">Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#surveyors">Surveyors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#lifter">Lifter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#simos">SimOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-angr.project">Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-angr.factory">Factory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-angr.path_group">Paths &amp; Path Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-angr.knowledge_base">Knowledge Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-angr.analysis">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-angr.surveyor">Surveyors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-angr.lifter">Lifter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-angr.simos">SimOS</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="simuvex.html"><code class="docutils literal"><span class="pre">simuvex</span></code> &#8212; Simuvex</a></li>
@@ -144,29 +144,3020 @@
             
   <div class="section" id="angr-angr">
 <h1><code class="xref py py-mod docutils literal"><span class="pre">angr</span></code> &#8212; angr<a class="headerlink" href="#angr-angr" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="project">
-<h2>Project<a class="headerlink" href="#project" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-angr.project">
+<span id="project"></span><h2>Project<a class="headerlink" href="#module-angr.project" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="angr.project.Project">
+<em class="property">class </em><code class="descclassname">angr.project.</code><code class="descname">Project</code><span class="sig-paren">(</span><em>thing</em>, <em>default_analysis_mode=None</em>, <em>ignore_functions=None</em>, <em>use_sim_procedures=True</em>, <em>exclude_sim_procedures_func=None</em>, <em>exclude_sim_procedures_list=()</em>, <em>arch=None</em>, <em>simos=None</em>, <em>load_options=None</em>, <em>translation_cache=True</em>, <em>support_selfmodifying_code=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This is the main class of the Angr module. It is meant to contain a set of binaries and the relationships between
+them, and perform analyses on them.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first simple">
+<li><a class="reference internal" href="#module-angr.analyses" title="angr.analyses"><strong>analyses</strong></a> &#8211; The available analyses.</li>
+<li><strong>entry</strong> &#8211; The program entrypoint.</li>
+<li><a class="reference internal" href="#module-angr.factory" title="angr.factory"><strong>factory</strong></a> &#8211; Provides access to important analysis elements such as path groups and symbolic execution results.</li>
+<li><strong>filename</strong> &#8211; The filename of the executable.</li>
+<li><a class="reference internal" href="cle.html#module-cle.loader" title="cle.loader"><strong>loader</strong></a> &#8211; The program loader.</li>
+<li><a class="reference internal" href="#module-angr.surveyor" title="angr.surveyor"><strong>surveyor</strong></a> &#8211; The available surveyors.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first last"><strong>thing</strong> &#8211; The path to the main executable object to analyze, or a CLE Loader object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The following parameters are optional.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>default_analysis_mode</strong> &#8211; The mode of analysis to use by default. Defaults to &#8216;symbolic&#8217;.</li>
+<li><strong>ignore_functions</strong> &#8211; A list of function names that, when imported from shared libraries, should
+never be stepped into in analysis (calls will return an unconstrained value).</li>
+<li><strong>use_sim_procedure</strong> &#8211; Whether to replace resolved dependencies for which simprocedures are
+available with said simprocedures.</li>
+<li><strong>exclude_sim_procedures_func</strong> &#8211; A function that, when passed a function name, returns whether or not to wrap
+it with a simprocedure.</li>
+<li><strong>exclude_sim_procedures_list</strong> &#8211; A list of functions to <em>not</em> wrap with simprocedures.</li>
+<li><strong>arch</strong> &#8211; The target architecture (auto-detected otherwise).</li>
+<li><strong>simos</strong> &#8211; a SimOS class to use for this project.</li>
+<li><strong>load_options</strong> &#8211; a dict of keyword arguments to the CLE loader. See CLE&#8217;s docs.</li>
+<li><strong>translation_cache</strong> &#8211; If True, cache translated basic blocks rather than re-translating them.</li>
+<li><strong>support_selfmodifying_code</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether we support self-modifying code. When enabled, Project.sim_block()
+will try to read code from the given state, not only from the initial memory
+regions.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>A sample <cite>load_options</cite> value could be:</p>
+<div class="highlight-default"><div class="highlight"><pre><span class="p">{</span> <span class="s">&#39;auto_load_libs&#39;</span><span class="p">:</span> <span class="k">False</span><span class="p">,</span>
+  <span class="s">&#39;skip_libs&#39;</span><span class="p">:</span> <span class="s">&#39;ld.so.2&#39;</span><span class="p">,</span>
+  <span class="s">&#39;lib_opts&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s">&#39;libc.so.6&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s">&#39;custom_base_addr&#39;</span><span class="p">:</span> <span class="mh">0x55555400</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 </div>
-<div class="section" id="factory">
-<h2>Factory<a class="headerlink" href="#factory" title="Permalink to this headline">¶</a></h2>
+<dl class="method">
+<dt id="angr.project.Project.hook">
+<code class="descname">hook</code><span class="sig-paren">(</span><em>addr</em>, <em>func</em>, <em>length=0</em>, <em>kwargs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Project.hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook a section of code with a custom function.</p>
+<p>If func is a function, it takes a <cite>SimState</cite> and the given kwargs. It can return None, in which case it
+will generate a single exit to the instruction at addr+length, or it can return an array of successor states.</p>
+<p>If func is a <cite>SimProcedure</cite>, it will be run instead of a <cite>SimBlock</cite> at that address.</p>
+<p>If length is zero, the block at the hooked address will be executed immediately after the hook function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>addr</strong> &#8211; The address to hook.</li>
+<li><strong>func</strong> &#8211; The function that will perform an action when execution reaches the hooked address.</li>
+<li><strong>length</strong> &#8211; How many bytes you&#8217;d like to skip over with your hook. Can be zero.</li>
+<li><strong>kwargs</strong> &#8211; Any additional keyword arguments will be passed to your function or your
+<code class="xref py py-class docutils literal"><span class="pre">SimProcedure</span></code>&#8216;s run function.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.project.Project.hook_symbol">
+<code class="descname">hook_symbol</code><span class="sig-paren">(</span><em>symbol_name</em>, <em>obj</em>, <em>kwargs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Project.hook_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolve a dependency in a binary. Uses the &#8220;externs object&#8221; (project._extern_obj) to provide addresses for
+hook functions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>symbol_name</strong> &#8211; The name of the dependency to resolve.</li>
+<li><strong>obj</strong> &#8211; The thing with which to satisfy the dependency. May be a SimProcedure class or a python
+function (as an appropriate argument to hook()), or a python integer/long.</li>
+<li><strong>kwargs</strong> &#8211; Any additional keyword arguments will be passed to the SimProcedure&#8217;s run() method.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.project.Project.hooked_by">
+<code class="descname">hooked_by</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Project.hooked_by" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current hook for <cite>addr</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> &#8211; An address.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None if the address is not hooked.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.project.Project.is_hooked">
+<code class="descname">is_hooked</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Project.is_hooked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if <cite>addr</cite> is hooked.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> &#8211; An address.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if addr is hooked, False otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.project.Project.unhook">
+<code class="descname">unhook</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Project.unhook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove a hook.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> &#8211; The address of the hook.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="paths-path-groups">
-<h2>Paths &amp; Path Groups<a class="headerlink" href="#paths-path-groups" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-angr.factory">
+<span id="factory"></span><h2>Factory<a class="headerlink" href="#module-angr.factory" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="angr.factory.AngrObjectFactory">
+<em class="property">class </em><code class="descclassname">angr.factory.</code><code class="descname">AngrObjectFactory</code><span class="sig-paren">(</span><em>project</em>, <em>translation_cache=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This factory provides access to important analysis elements.</p>
+<dl class="method">
+<dt id="angr.factory.AngrObjectFactory.blank_state">
+<code class="descname">blank_state</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.blank_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a mostly-uninitialized state object. All parameters are optional.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> &#8211; The address the state should start at instead of the entry point.</li>
+<li><strong>initial_prefix</strong> &#8211; If this is provided, all symbolic registers will hold symbolic values with names
+prefixed by this string.</li>
+<li><strong>fs</strong> &#8211; A dictionary of file names with associated preset SimFile objects.</li>
+<li><strong>concrete_fs</strong> &#8211; bool describing whether the host filesystem should be consulted when opening files.</li>
+<li><strong>chroot</strong> &#8211; A path to use as a fake root directory, Behaves similarly to a real chroot. Used only
+when concrete_fs is set to True.</li>
+<li><strong>kwargs</strong> &#8211; Any additional keyword args will be passed to the SimState constructor.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The blank state.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="simuvex.html#simuvex.s_state.SimState" title="simuvex.s_state.SimState">simuvex.s_state.SimState</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.factory.AngrObjectFactory.callable">
+<code class="descname">callable</code><span class="sig-paren">(</span><em>addr</em>, <em>concrete_only=False</em>, <em>prototype=None</em>, <em>base_state=None</em>, <em>toc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.callable" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Callable is a representation of a function in the binary that can be interacted with like a native python
+function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> &#8211; The address of the function to use.</li>
+<li><strong>concrete_only</strong> &#8211; Optional: Throw an exception if the execution splits into multiple paths.</li>
+<li><strong>prototype</strong> &#8211; Optional: A SimTypeFunction instance describing the functions args and return type.</li>
+<li><strong>base_state</strong> &#8211; Optional: The state from which to do these runs.</li>
+<li><strong>toc</strong> &#8211; Optional: The address of the table of contents for ppc64.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A Callable object that can be used as a interface for executing guest code like a
+python function.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.surveyors.caller.Callable" title="angr.surveyors.caller.Callable">angr.surveyors.caller.Callable</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.factory.AngrObjectFactory.entry_state">
+<code class="descname">entry_state</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.entry_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a state object representing the program at its entry point. All parameters are optional.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> &#8211; The address the state should start at instead of the entry point.</li>
+<li><strong>initial_prefix</strong> &#8211; If this is provided, all symbolic registers will hold symbolic values with names
+prefixed by this string.</li>
+<li><strong>fs</strong> &#8211; a dictionary of file names with associated preset SimFile objects.</li>
+<li><strong>concrete_fs</strong> &#8211; boolean describing whether the host filesystem should be consulted when opening files.</li>
+<li><strong>chroot</strong> &#8211; a path to use as a fake root directory, behaves similar to a real chroot. used only when
+concrete_fs is set to True.</li>
+<li><strong>argc</strong> &#8211; a custom value to use for the program&#8217;s argc. May be either an int or a bitvector. If
+not provided, defaults to the length of args.</li>
+<li><strong>args</strong> &#8211; a list of values to use as the program&#8217;s argv. May be mixed strings and bitvectors.</li>
+<li><strong>env</strong> &#8211; a dictionary to use as the environment for the program. Both keys and values may be
+mixed strings and bitvectors.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The entry state.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="simuvex.html#simuvex.s_state.SimState" title="simuvex.s_state.SimState">simuvex.s_state.SimState</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.factory.AngrObjectFactory.full_init_state">
+<code class="descname">full_init_state</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.full_init_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Very much like <a class="reference internal" href="#angr.factory.AngrObjectFactory.entry_state" title="angr.factory.AngrObjectFactory.entry_state"><code class="xref py py-meth docutils literal"><span class="pre">entry_state()</span></code></a>, except that instead of starting execution at the program entry point,
+execution begins at a special SimProcedure that plays the role of the dynamic loader, calling each of the
+initializer functions that should be called before execution reaches the entry point.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> &#8211; The address the state should start at instead of the entry point.</li>
+<li><strong>initial_prefix</strong> &#8211; If this is provided, all symbolic registers will hold symbolic values with names
+prefixed by this string.</li>
+<li><strong>fs</strong> &#8211; a dictionary of file names with associated preset SimFile objects.</li>
+<li><strong>concrete_fs</strong> &#8211; boolean describing whether the host filesystem should be consulted when opening files.</li>
+<li><strong>chroot</strong> &#8211; a path to use as a fake root directory, behaves similar to a real chroot. used only when
+concrete_fs is set to True.</li>
+<li><strong>argc</strong> &#8211; a custom value to use for the program&#8217;s argc. May be either an int or a bitvector. If
+not provided, defaults to the length of args.</li>
+<li><strong>args</strong> &#8211; a list of values to use as arguments to the program. May be mixed strings and bitvectors.</li>
+<li><strong>env</strong> &#8211; a dictionary to use as the environment for the program. Both keys and values may be
+mixed strings and bitvectors.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The fully initialized state.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="simuvex.html#simuvex.s_state.SimState" title="simuvex.s_state.SimState">simuvex.s_state.SimState</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.factory.AngrObjectFactory.path">
+<code class="descname">path</code><span class="sig-paren">(</span><em>state=None</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> &#8211; Optional - The state to start the new path at. If not provided, an
+<a class="reference internal" href="#angr.factory.AngrObjectFactory.entry_state" title="angr.factory.AngrObjectFactory.entry_state"><code class="xref py py-meth docutils literal"><span class="pre">entry_state()</span></code></a> will be constructed using any additional keyword arguments
+provided.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The new path.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#angr.path.Path" title="angr.path.Path">angr.path.Path</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.factory.AngrObjectFactory.path_group">
+<code class="descname">path_group</code><span class="sig-paren">(</span><em>thing=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.path_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new path group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>thing</strong> &#8211; Optional - What to put in the new path group&#8217;s active stash.</li>
+<li><strong>kwargs</strong> &#8211; Any additional keyword arguments will be passed to the PathGroup constructor</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The new path group</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">angr.path_group.PathGroup</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Many different types can be passed to this method:</p>
+<ul class="simple">
+<li>If nothing is passed in, the path group is seeded with a path containing a state initialized for the program
+entry point, i.e. <a class="reference internal" href="#angr.factory.AngrObjectFactory.entry_state" title="angr.factory.AngrObjectFactory.entry_state"><code class="xref py py-meth docutils literal"><span class="pre">entry_state()</span></code></a>.</li>
+<li>If a <a class="reference internal" href="simuvex.html#simuvex.s_state.SimState" title="simuvex.s_state.SimState"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_state.SimState</span></code></a> is passed in, the path group is seeded with a path wrapping that state.</li>
+<li>If a <a class="reference internal" href="#angr.path.Path" title="angr.path.Path"><code class="xref py py-class docutils literal"><span class="pre">angr.path.Path</span></code></a> is passed in, the path group is seeded with that path.</li>
+<li>If a list is passed in, the list must contain only SimStates and Paths, each SimState will be wrapped in a
+Path, and the whole list will be used to seed the path group.</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.factory.AngrObjectFactory.sim_block">
+<code class="descname">sim_block</code><span class="sig-paren">(</span><em>state</em>, <em>stmt_whitelist=None</em>, <em>last_stmt=None</em>, <em>addr=None</em>, <em>opt_level=None</em>, <em>**block_opts</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.sim_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a SimIRSB object with execution based on state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> &#8211; The state to tick forward with this block.</td>
+</tr>
+</tbody>
+</table>
+<p>The following parameters are optional:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>stmt_whitelist</strong> &#8211; A list of stmt indexes to which to confine execution.</li>
+<li><strong>last_stmt</strong> &#8211; A statement index at which to stop execution.</li>
+<li><strong>addr</strong> &#8211; The address at which to start the block.</li>
+<li><strong>thumb</strong> &#8211; Whether the block should be lifted in ARM&#8217;s THUMB mode.</li>
+<li><strong>backup_state</strong> &#8211; A state to read bytes from instead of using project memory.</li>
+<li><strong>opt_level</strong> &#8211; The VEX optimization level to use.</li>
+<li><strong>insn_bytes</strong> &#8211; A string of bytes to use for the block instead of the project.</li>
+<li><strong>max_size</strong> &#8211; The maximum size of the block, in bytes.</li>
+<li><strong>num_inst</strong> &#8211; The maximum number of instructions.</li>
+<li><strong>traceflags</strong> &#8211; traceflags to be passed to VEX. Default: 0</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.factory.AngrObjectFactory.sim_run">
+<code class="descname">sim_run</code><span class="sig-paren">(</span><em>state</em>, <em>addr=None</em>, <em>jumpkind=None</em>, <em>**block_opts</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.sim_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a simuvex SimRun object (supporting refs() and exits()), automatically choosing whether to create a
+SimIRSB or a SimProcedure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>state</strong> &#8211; The state to analyze</li>
+<li><strong>jumpkind</strong> &#8211; optional, the jumpkind of the previous exit</li>
+<li><strong>addr</strong> &#8211; optional, an address to execute at instead of the state&#8217;s ip</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Additional keyword arguments will be passed directly into factory.sim_block if appropriate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>stmt_whitelist</strong> &#8211; a list of stmt indexes to which to confine execution.</li>
+<li><strong>last_stmt</strong> &#8211; a statement index at which to stop execution.</li>
+<li><strong>thumb</strong> &#8211; whether the block should be lifted in ARM&#8217;s THUMB mode.</li>
+<li><strong>backup_state</strong> &#8211; a state to read bytes from instead of using project memory.</li>
+<li><strong>opt_level</strong> &#8211; the VEX optimization level to use.</li>
+<li><strong>insn_bytes</strong> &#8211; a string of bytes to use for the block instead of the project.</li>
+<li><strong>max_size</strong> &#8211; the maximum size of the block, in bytes.</li>
+<li><strong>num_inst</strong> &#8211; the maximum number of instructions.</li>
+<li><strong>traceflags</strong> &#8211; traceflags to be passed to VEX. Default: 0</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="knowledge-base">
-<h2>Knowledge Base<a class="headerlink" href="#knowledge-base" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-angr.path_group">
+<span id="paths-path-groups"></span><h2>Paths &amp; Path Groups<a class="headerlink" href="#module-angr.path_group" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="angr.path_group.PathGroup">
+<em class="property">class </em><code class="descclassname">angr.path_group.</code><code class="descname">PathGroup</code><span class="sig-paren">(</span><em>project</em>, <em>active_paths=None</em>, <em>stashes=None</em>, <em>hierarchy=None</em>, <em>veritesting=None</em>, <em>veritesting_options=None</em>, <em>immutable=None</em>, <em>resilience=None</em>, <em>save_unconstrained=None</em>, <em>save_unsat=None</em>, <em>strong_path_mapping=None</em>, <em>threads=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">ana.storable.Storable</span></code></p>
+<p>Path groups are the future.</p>
+<p>Path groups allow you to wrangle multiple paths in a slick way. Paths are organized into &#8220;stashes&#8221;, which you can
+step forward, filter, merge, and move around as you wish. This allows you to, for example, step two different
+stashes of paths at different rates, then merge them together.</p>
+<p>Note that path groups are immutable by default (all operations will return new PathGroup objects). See the immutable
+argument to __init__.</p>
+<p>Stashes can be accessed as attributes (i.e. pg.active). A mulpyplexed stash can be retrieved by prepending the name
+with <cite>mp_</cite> (e.g., <cite>pg.mp_active</cite>).</p>
+<p>Note that you shouldn&#8217;t usually be constructing path groups directly - there are convenient shortcuts for
+creating path groups in <cite>Project.factory</cite>: see <a class="reference internal" href="#angr.factory.AngrObjectFactory" title="angr.factory.AngrObjectFactory"><code class="xref py py-class docutils literal"><span class="pre">angr.factory.AngrObjectFactory</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>project</strong> (<a class="reference internal" href="#angr.project.Project" title="angr.project.Project"><em>angr.project.Project</em></a>) &#8211; A Project instance.</td>
+</tr>
+</tbody>
+</table>
+<p>The following parameters are optional.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>active_paths</strong> &#8211; Active paths to seed the &#8220;active&#8221; stash with.</li>
+<li><strong>stashes</strong> &#8211; A dictionary to use as the stash store.</li>
+<li><strong>hierarchy</strong> &#8211; A PathHierarchy object to use to track path reachability.</li>
+<li><strong>immutable</strong> &#8211; If True, all operations will return a new PathGroup. Otherwise (default), all operations
+will modify the PathGroup (and return it, for consistency and chaining).</li>
+<li><strong>threads</strong> &#8211; the number of worker threads to concurrently analyze states.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.path_group.PathGroup.apply">
+<code class="descname">apply</code><span class="sig-paren">(</span><em>path_func=None</em>, <em>stash_func=None</em>, <em>stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a given function to a given stash.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>path_func</strong> &#8211; A function to apply to every path. Should take a path and return a path. The returned path
+will take the place of the old path. If the function <em>doesn&#8217;t</em> return a path, the old
+path will be used. If the function returns a list of paths, they will replace the original
+paths.</li>
+<li><strong>stash_func</strong> &#8211; <p>A function to apply to the whole stash. Should take a list of paths and return a list of
+paths. The resulting list will replace the stash.</p>
+<p>If both path_func and stash_func are provided path_func is applied first, then stash_func
+is applied on the results.</p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The resulting PathGroup.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">PathGroup</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="angr.path_group.PathGroup.call">
+<em class="property">classmethod </em><code class="descname">call</code><span class="sig-paren">(</span><em>project</em>, <em>target</em>, <em>args=()</em>, <em>start=None</em>, <em>prototype=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls a function in the binary, returning a PathGroup with the call set up.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project</strong> (<a class="reference internal" href="#angr.project.Project" title="angr.project.Project"><em>angr.project.Project</em></a>) &#8211; A Project instance.</li>
+<li><strong>target</strong> &#8211; Address of function to call.</li>
+<li><strong>args</strong> &#8211; Arguments to call the function with.</li>
+<li><strong>start</strong> &#8211; Optional, path (or paths) to start the call with.</li>
+<li><strong>prototype</strong> &#8211; Optional, A SimTypeFunction to typecheck arguments against.</li>
+<li><strong>kwargs</strong> &#8211; Any other keyword args will be passed to the PathGroup constructor.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A PathGroup calling the function.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">PathGroup</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.drop">
+<code class="descname">drop</code><span class="sig-paren">(</span><em>filter_func=None</em>, <em>stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.drop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drops paths from a stash. This is an alias for move(), with defaults for the stashes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filter_func</strong> &#8211; Drop paths that match this filter. Should be a function that takes a path and returns True
+or False. (default: drop all paths)</li>
+<li><strong>stash</strong> &#8211; Drop matching paths from this stash. (default: &#8216;active&#8217;)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The resulting PathGroup</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">PathGroup</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.explore">
+<code class="descname">explore</code><span class="sig-paren">(</span><em>stash=None</em>, <em>n=None</em>, <em>find=None</em>, <em>avoid=None</em>, <em>num_find=None</em>, <em>found_stash=None</em>, <em>avoid_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.explore" title="Permalink to this definition">¶</a></dt>
+<dd><p>A replacement for the Explorer surveyor. Tick stash &#8220;stash&#8221; forward (up to n times or until num_find paths are
+found), looking for condition &#8220;find&#8221;, avoiding condition &#8220;avoid&#8221;. Stashes found paths into &#8220;found_stash&#8217; and
+avoided paths into &#8220;avoid_stash&#8221;.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>stash</strong> &#8211; </li>
+<li><strong>n</strong> &#8211; </li>
+<li><strong>find</strong> &#8211; The addresses we want to reach.</li>
+<li><strong>avoid</strong> &#8211; The addresses to avoid.</li>
+<li><strong>num_find</strong> &#8211; Stop when this many paths have been found.</li>
+<li><strong>found_stash</strong> &#8211; </li>
+<li><strong>avoid_stash</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The resulting PathGroup.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">PathGroup</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.merge">
+<code class="descname">merge</code><span class="sig-paren">(</span><em>merge_func=None</em>, <em>stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge the states in a given stash.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>stash</strong> &#8211; The stash (default: &#8216;active&#8217;)</li>
+<li><strong>merge_func</strong> &#8211; If provided, instead of using path.merge, call this function with the paths as the argument.
+Should return the merged path.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The result PathGroup.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">PathGroup</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.move">
+<code class="descname">move</code><span class="sig-paren">(</span><em>from_stash</em>, <em>to_stash</em>, <em>filter_func=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.move" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move paths from one stash to another.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>from_stash</strong> &#8211; Take matching paths from this stash.</li>
+<li><strong>to_stash</strong> &#8211; Put matching paths into this stash.</li>
+<li><strong>filter_func</strong> &#8211; Stash paths that match this filter. Should be a function that takes a path and returns
+True or False. Default: stash all paths</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The resulting PathGroup.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">PathGroup</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.prune">
+<code class="descname">prune</code><span class="sig-paren">(</span><em>filter_func=None</em>, <em>from_stash=None</em>, <em>to_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.prune" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prune unsatisfiable paths from a stash.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filter_func</strong> &#8211; Only prune paths that match this filter.</li>
+<li><strong>from_stash</strong> &#8211; Prune paths from this stash. (default: &#8216;active&#8217;)</li>
+<li><strong>to_stash</strong> &#8211; Put pruned paths in this stash. (default: &#8216;pruned&#8217;)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The resulting PathGroup.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">PathGroup</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.split">
+<code class="descname">split</code><span class="sig-paren">(</span><em>stash_splitter=None</em>, <em>stash_ranker=None</em>, <em>path_ranker=None</em>, <em>limit=None</em>, <em>from_stash=None</em>, <em>to_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split a stash of paths. The stash from_stash will be split into two stashes depending on the other options
+passed in. If to_stash is provided, the second stash will be written there.</p>
+<p>stash_splitter overrides stash_ranker, which in turn overrides path_ranker. If no functions are provided, the
+paths are simply split according to the limit.</p>
+<p>The sort done with path_ranker is ascending.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>stash_splitter</strong> &#8211; A function that should take a list of paths and return a tuple of two lists (the two
+resulting stashes).</li>
+<li><strong>stash_ranker</strong> &#8211; A function that should take a list of paths and return a sorted list of paths. This list
+will then be split according to &#8220;limit&#8221;.</li>
+<li><strong>path_ranker</strong> &#8211; An alternative to stash_splitter. Paths will be sorted with outputs of this function.
+used as a key. The first &#8220;limit&#8221; of them will be kept, the rest split off.</li>
+<li><strong>limit</strong> &#8211; For use with path_ranker. The number of paths to keep. Default: 8</li>
+<li><strong>from_stash</strong> &#8211; The stash to split (default: &#8216;active&#8217;)</li>
+<li><strong>to_stash</strong> &#8211; The stash to write to (default: &#8216;stashed&#8217;)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The resulting PathGroup.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">PathGroup</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.stash">
+<code class="descname">stash</code><span class="sig-paren">(</span><em>filter_func=None</em>, <em>from_stash=None</em>, <em>to_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.stash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stash some paths. This is an alias for move(), with defaults for the stashes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filter_func</strong> &#8211; Stash paths that match this filter. Should be a function. that takes a path and returns True
+or False. (default: stash all paths)</li>
+<li><strong>from_stash</strong> &#8211; Take matching paths from this stash. (default: &#8216;active&#8217;)</li>
+<li><strong>to_stash</strong> &#8211; Put matching paths into this stash. (default: &#8216;stashed&#8217;)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The resulting PathGroup</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">PathGroup</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.stash_addr">
+<code class="descname">stash_addr</code><span class="sig-paren">(</span><em>addr</em>, <em>from_stash=None</em>, <em>to_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.stash_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stash all paths at address addr from stash from_stash to stash to_stash.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.stash_addr_past">
+<code class="descname">stash_addr_past</code><span class="sig-paren">(</span><em>addr</em>, <em>from_stash=None</em>, <em>to_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.stash_addr_past" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stash all paths containg address addr in their backtrace from stash from_stash to stash to_stash.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.stash_all">
+<code class="descname">stash_all</code><span class="sig-paren">(</span><em>from_stash=None</em>, <em>to_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.stash_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stash all paths from stash from_stash to stash to_stash.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.stash_not_addr">
+<code class="descname">stash_not_addr</code><span class="sig-paren">(</span><em>addr</em>, <em>from_stash=None</em>, <em>to_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.stash_not_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stash all paths not at address addr from stash from_stash to stash to_stash.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.stash_not_addr_past">
+<code class="descname">stash_not_addr_past</code><span class="sig-paren">(</span><em>addr</em>, <em>from_stash=None</em>, <em>to_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.stash_not_addr_past" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stash all paths not containg address addr in their backtrace from stash from_stash to stash to_stash.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.step">
+<code class="descname">step</code><span class="sig-paren">(</span><em>n=None</em>, <em>selector_func=None</em>, <em>step_func=None</em>, <em>stash=None</em>, <em>successor_func=None</em>, <em>until=None</em>, <em>check_func=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step a stash of paths forward.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n</strong> &#8211; The number of times to step (default: 1 if &#8220;until&#8221; is not provided)</li>
+<li><strong>selector_func</strong> &#8211; If provided, should be a lambda that takes a Path and returns a boolean. If True, the
+path will be stepped. Otherwise, it will be kept as-is.</li>
+<li><strong>step_func</strong> &#8211; If provided, should be a lambda that takes a PathGroup and returns a PathGroup. Will be
+called with the PathGroup at every step.</li>
+<li><strong>stash</strong> &#8211; The name of the stash to step (default: &#8216;active&#8217;)</li>
+<li><strong>successor_func</strong> &#8211; If provided, this function will be called with a path to get its successors. Otherwise,
+path.successors will be used.</li>
+<li><strong>until</strong> &#8211; If provided, should be a lambda that takes a PathGroup and returns True or False.
+Stepping will terminate when it is True.</li>
+<li><strong>check_func</strong> &#8211; If provided, this function will be called to decide whether the current path is errored
+or not. Path.errored will not be called anymore.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Additionally, you can pass in any of the following keyword args for project.factory.sim_run:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>jumpkind</strong> &#8211; The jumpkind of the previous exit</li>
+<li><strong>addr</strong> &#8211; An address to execute at instead of the state&#8217;s ip.</li>
+<li><strong>stmt_whitelist</strong> &#8211; A list of stmt indexes to which to confine execution.</li>
+<li><strong>last_stmt</strong> &#8211; A statement index at which to stop execution.</li>
+<li><strong>thumb</strong> &#8211; Whether the block should be lifted in ARM&#8217;s THUMB mode.</li>
+<li><strong>backup_state</strong> &#8211; A state to read bytes from instead of using project memory.</li>
+<li><strong>opt_level</strong> &#8211; The VEX optimization level to use.</li>
+<li><strong>insn_bytes</strong> &#8211; A string of bytes to use for the block instead of the project.</li>
+<li><strong>max_size</strong> &#8211; The maximum size of the block, in bytes.</li>
+<li><strong>num_inst</strong> &#8211; The maximum number of instructions.</li>
+<li><strong>traceflags</strong> &#8211; traceflags to be passed to VEX. Default: 0</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The resulting PathGroup.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">PathGroup</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.unstash">
+<code class="descname">unstash</code><span class="sig-paren">(</span><em>filter_func=None</em>, <em>to_stash=None</em>, <em>from_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.unstash" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unstash some paths. This is an alias for move(), with defaults for the stashes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>filter_func</strong> &#8211; Unstash paths that match this filter. Should be a function that takes a path and returns
+True or False. (default: unstash all paths)</li>
+<li><strong>from_stash</strong> &#8211; take matching paths from this stash. (default: &#8216;stashed&#8217;)</li>
+<li><strong>to_stash</strong> &#8211; put matching paths into this stash. (default: &#8216;active&#8217;)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The resulting PathGroup.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">PathGroup</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.unstash_addr">
+<code class="descname">unstash_addr</code><span class="sig-paren">(</span><em>addr</em>, <em>from_stash=None</em>, <em>to_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.unstash_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unstash all paths at address addr.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.unstash_addr_past">
+<code class="descname">unstash_addr_past</code><span class="sig-paren">(</span><em>addr</em>, <em>from_stash=None</em>, <em>to_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.unstash_addr_past" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unstash all paths containing address addr in their backtrace.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.unstash_all">
+<code class="descname">unstash_all</code><span class="sig-paren">(</span><em>from_stash=None</em>, <em>to_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.unstash_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unstash all paths.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.unstash_not_addr">
+<code class="descname">unstash_not_addr</code><span class="sig-paren">(</span><em>addr</em>, <em>from_stash=None</em>, <em>to_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.unstash_not_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unstash all paths not at address addr.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path_group.PathGroup.unstash_not_addr_past">
+<code class="descname">unstash_not_addr_past</code><span class="sig-paren">(</span><em>addr</em>, <em>from_stash=None</em>, <em>to_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.unstash_not_addr_past" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unstash all paths not containing address addr in their backtrace.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.path"></span><dl class="class">
+<dt id="angr.path.CallFrame">
+<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">CallFrame</code><span class="sig-paren">(</span><em>state=None</em>, <em>func_addr=None</em>, <em>stack_ptr=None</em>, <em>ret_addr=None</em>, <em>jumpkind=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.CallFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Stores the address of the function you&#8217;re in and the value of SP
+at the VERY BOTTOM of the stack, i.e. points to the return address</p>
+<p>Initialize with either a state or the function address,
+stack pointer, and return address</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.path.Path">
+<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">Path</code><span class="sig-paren">(</span><em>project</em>, <em>state</em>, <em>path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A Path represents a sequence of basic blocks for an execution of the program.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference internal" href="claripy.html#claripy.backend.Backend.name" title="claripy.backend.Backend.name"><strong>name</strong></a> &#8211; A string to identify the path.</li>
+<li><strong>state</strong> &#8211; The state of the program.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.path.Path.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function clear the execution status.</p>
+<p>After calling this if you call step() successors will be recomputed. If you changed something into path state
+you probably want to call this method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path.Path.detect_loops">
+<code class="descname">detect_loops</code><span class="sig-paren">(</span><em>n=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.detect_loops" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current loop iteration that a path is on.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> &#8211; The minimum number of iterations to check for.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The number of the loop iteration it&#8217;s in.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path.Path.divergence_addr">
+<code class="descname">divergence_addr</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.divergence_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the basic block at which the paths diverged.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> &#8211; The other Path.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The address of the basic block.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path.Path.filter_actions">
+<code class="descname">filter_actions</code><span class="sig-paren">(</span><em>block_addr=None</em>, <em>block_stmt=None</em>, <em>insn_addr=None</em>, <em>read_from=None</em>, <em>write_to=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.filter_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter self.actions based on some common parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>block_addr</strong> &#8211; Only return actions generated in blocks starting at this address.</li>
+<li><strong>block_stmt</strong> &#8211; Only return actions generated in the nth statement of each block.</li>
+<li><strong>insn_addr</strong> &#8211; Only return actions generated in the assembly instruction at this address.</li>
+<li><strong>read_from</strong> &#8211; Only return actions that perform a read from the specified location.</li>
+<li><strong>write_to</strong> &#8211; Only return actions that perform a write to the specified location.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Notes:
+If IR optimization is turned on, reads and writes may not occur in the instruction
+they originally came from. Most commonly, If a register is read from twice in the same
+block, the second read will not happen, instead reusing the temp the value is already
+stored in.</p>
+<p>Valid values for read_from and write_to are the string literals &#8216;reg&#8217; or &#8216;mem&#8217; (matching
+any read or write to registers or memory, respectively), any string (representing a read
+or write to the named register), and any integer (representing a read or write to the
+memory at this address).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path.Path.merge">
+<code class="descname">merge</code><span class="sig-paren">(</span><em>*others</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a merger of this path with <cite>*others</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path.Path.step">
+<code class="descname">step</code><span class="sig-paren">(</span><em>**run_args</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step a path forward. Optionally takes any argument applicable to project.factory.sim_run.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>jumpkind</strong> &#8211; the jumpkind of the previous exit.</li>
+<li><strong>an address</strong> (<em>addr</em>) &#8211; to execute at instead of the state&#8217;s ip.</li>
+<li><strong>stmt_whitelist</strong> &#8211; a list of stmt indexes to which to confine execution.</li>
+<li><strong>last_stmt</strong> &#8211; a statement index at which to stop execution.</li>
+<li><strong>thumb</strong> &#8211; whether the block should be lifted in ARM&#8217;s THUMB mode.</li>
+<li><strong>backup_state</strong> &#8211; a state to read bytes from instead of using project memory.</li>
+<li><strong>opt_level</strong> &#8211; the VEX optimization level to use.</li>
+<li><strong>insn_bytes</strong> &#8211; a string of bytes to use for the block instead of #the project.</li>
+<li><strong>max_size</strong> &#8211; the maximum size of the block, in bytes.</li>
+<li><strong>num_inst</strong> &#8211; the maximum number of instructions.</li>
+<li><strong>traceflags</strong> &#8211; traceflags to be passed to VEX. Default: 0</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An array of paths for the possible successors.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path.Path.unmerge">
+<code class="descname">unmerge</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.unmerge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unmerges the state back into different possible states.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="angr.path.make_path">
+<code class="descclassname">angr.path.</code><code class="descname">make_path</code><span class="sig-paren">(</span><em>project</em>, <em>runs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.make_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helper function to generate a correct angr.Path from a list of runs corresponding to a program path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>runs</strong> &#8211; A list of simruns corresponding to a program path.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-angr.path_hierarchy"></span><span class="target" id="module-angr.pathprioritizer"></span></div>
+<div class="section" id="module-angr.knowledge_base">
+<span id="knowledge-base"></span><h2>Knowledge Base<a class="headerlink" href="#module-angr.knowledge_base" title="Permalink to this headline">¶</a></h2>
+<p>Representing the artifacts of a project.</p>
+<dl class="class">
+<dt id="angr.knowledge_base.KnowledgeBase">
+<em class="property">class </em><code class="descclassname">angr.knowledge_base.</code><code class="descname">KnowledgeBase</code><span class="sig-paren">(</span><em>project</em>, <em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_base.KnowledgeBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Represents a &#8220;model&#8221; of knowledge about an artifact.</p>
+<p>Contains things like a CFG, data references, etc.</p>
+</dd></dl>
+
+<span class="target" id="module-angr.knowledge"></span><span class="target" id="module-angr.knowledge.codenode"></span><span class="target" id="module-angr.knowledge.data"></span><span class="target" id="module-angr.knowledge.function"></span><dl class="class">
+<dt id="angr.knowledge.function.Function">
+<em class="property">class </em><code class="descclassname">angr.knowledge.function.</code><code class="descname">Function</code><span class="sig-paren">(</span><em>function_manager</em>, <em>addr</em>, <em>name=None</em>, <em>syscall=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function.Function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A representation of a function and various information about it.</p>
+<p>Function constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>addr</strong> &#8211; The address of the function.</li>
+<li><strong>name</strong> &#8211; (Optional) The name of the function.</li>
+<li><strong>syscall</strong> &#8211; (Optional) Whether this function is a sycall or not.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="angr.knowledge.function.Function.code_constants">
+<code class="descname">code_constants</code><a class="headerlink" href="#angr.knowledge.function.Function.code_constants" title="Permalink to this definition">¶</a></dt>
+<dd><p>All of the constants that are used by this functions&#8217;s code.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge.function.Function.dbg_draw">
+<code class="descname">dbg_draw</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function.Function.dbg_draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the graph and save it to a PNG file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge.function.Function.dbg_print">
+<code class="descname">dbg_print</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function.Function.dbg_print" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a representation of the list of basic blocks in this function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge.function.Function.get_call_return">
+<code class="descname">get_call_return</code><span class="sig-paren">(</span><em>callsite_addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function.Function.get_call_return" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the hypothetical return address of a call.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>callsite_addr</strong> &#8211; The address of the basic block that ends in a call.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The likely return target of said call, or None if callsite_addr
+is not a callsite.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge.function.Function.get_call_sites">
+<code class="descname">get_call_sites</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function.Function.get_call_sites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a list of all the basic blocks that end in calls.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of the addresses of the blocks that end in calls.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge.function.Function.get_call_target">
+<code class="descname">get_call_target</code><span class="sig-paren">(</span><em>callsite_addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function.Function.get_call_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the target of a call.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>callsite_addr</strong> &#8211; The address of a basic block that ends in a call.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The target of said call, or None if callsite_addr is not a
+callsite.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge.function.Function.graph">
+<code class="descname">graph</code><a class="headerlink" href="#angr.knowledge.function.Function.graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a local transition graph that only contain nodes in current function.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge.function.Function.local_runtime_values">
+<code class="descname">local_runtime_values</code><a class="headerlink" href="#angr.knowledge.function.Function.local_runtime_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to find all runtime values of this function which do not come from inputs.
+These values are generated by starting from a blank state and reanalyzing the basic blocks once each.
+Function calls are skipped, and back edges are never taken so these values are often unreliable,
+This function is good at finding simple constant addresses which the function will use or calculate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a set of constants</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge.function.Function.operations">
+<code class="descname">operations</code><a class="headerlink" href="#angr.knowledge.function.Function.operations" title="Permalink to this definition">¶</a></dt>
+<dd><p>All of the operations that are done by this functions.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge.function.Function.runtime_values">
+<code class="descname">runtime_values</code><a class="headerlink" href="#angr.knowledge.function.Function.runtime_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>All of the concrete values used by this function at runtime (i.e., including passed-in arguments and global
+values).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge.function.Function.string_references">
+<code class="descname">string_references</code><span class="sig-paren">(</span><em>minimum_length=2</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function.Function.string_references" title="Permalink to this definition">¶</a></dt>
+<dd><p>All of the constant string references used by this function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>minimum_length</strong> &#8211; The minimum length of strings to find (default is 1)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of tuples of (address, string) where is address is the location of the string in
+memory.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.knowledge.function_manager"></span><dl class="class">
+<dt id="angr.knowledge.function_manager.FunctionManager">
+<em class="property">class </em><code class="descclassname">angr.knowledge.function_manager.</code><code class="descname">FunctionManager</code><span class="sig-paren">(</span><em>kb</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function_manager.FunctionManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">_abcoll.Mapping</span></code></p>
+<p>This is a function boundaries management tool. It takes in intermediate
+results during CFG generation, and manages a function map of the binary.</p>
+<dl class="method">
+<dt id="angr.knowledge.function_manager.FunctionManager.function">
+<code class="descname">function</code><span class="sig-paren">(</span><em>addr=None</em>, <em>name=None</em>, <em>create=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function_manager.FunctionManager.function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a function object from the function manager
+Pass one of the kwargs addr or name, with the appropriate values.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="analysis">
-<h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-angr.analysis">
+<span id="analysis"></span><h2>Analysis<a class="headerlink" href="#module-angr.analysis" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="angr.analysis.Analyses">
+<em class="property">class </em><code class="descclassname">angr.analysis.</code><code class="descname">Analyses</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analysis.Analyses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class contains functions for all the registered and runnable analyses,</p>
+<p>Creates an Analyses object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>p</strong> &#8211; A project</li>
+<li><strong>analysis_results</strong> &#8211; The result cache.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analysis.Analysis">
+<em class="property">class </em><code class="descclassname">angr.analysis.</code><code class="descname">Analysis</code><a class="headerlink" href="#angr.analysis.Analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class represents an analysis on the program.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><a class="reference internal" href="#module-angr.project" title="angr.project"><strong>project</strong></a> &#8211; The project for this analysis.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-angr.annocfg"></span><dl class="class">
+<dt id="angr.annocfg.AnnotatedCFG">
+<em class="property">class </em><code class="descclassname">angr.annocfg.</code><code class="descname">AnnotatedCFG</code><span class="sig-paren">(</span><em>project</em>, <em>cfg=None</em>, <em>detect_loops=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>AnnotatedCFG is a control flow graph with statement whitelists and exit whitelists to describe a slice of the
+program.</p>
+<p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>project</strong> &#8211; The angr Project instance</li>
+<li><strong>cfg</strong> &#8211; Control flow graph. Only used when path prioritizer is used.</li>
+<li><strong>detect_loops</strong> &#8211; Only used when path prioritizer is used.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.annocfg.AnnotatedCFG.add_loop">
+<code class="descname">add_loop</code><span class="sig-paren">(</span><em>loop_tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG.add_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>A loop tuple contains a series of IRSB addresses that form a loop. Ideally
+it always starts with the first IRSB that we meet during the execution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.annocfg.AnnotatedCFG.dbg_print_irsb">
+<code class="descname">dbg_print_irsb</code><span class="sig-paren">(</span><em>irsb_addr</em>, <em>project=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG.dbg_print_irsb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pretty-print an IRSB with whitelist information</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.annocfg.AnnotatedCFG.filter_path">
+<code class="descname">filter_path</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG.filter_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used for debugging.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> &#8211; A Path instance</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True/False</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.annocfg.AnnotatedCFG.from_digraph">
+<code class="descname">from_digraph</code><span class="sig-paren">(</span><em>digraph</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG.from_digraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize this AnnotatedCFG object with a networkx.DiGraph consisting of the following
+form of nodes:</p>
+<p>Tuples like (SimRun address, statement ID)</p>
+<p>Those nodes are connected by edges indicating the execution flow.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>digraph</strong> &#8211; A networkx.DiGraph object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.annocfg.AnnotatedCFG.get_whitelisted_statements">
+<code class="descname">get_whitelisted_statements</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG.get_whitelisted_statements" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if all statements are whitelisted</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.annocfg.AnnotatedCFG.keep_path">
+<code class="descname">keep_path</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG.keep_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a path, returns True if the path should be kept, False if it should be cut.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.annocfg.AnnotatedCFG.path_priority">
+<code class="descname">path_priority</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG.path_priority" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a path, returns the path priority. A lower number means a higher priority.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.annocfg.AnnotatedCFG.successor_func">
+<code class="descname">successor_func</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG.successor_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback routine that takes in a path, and returns all feasible successors to path group. This callback routine
+should be passed to the keyword argument &#8220;successor_func&#8221; of PathGroup.step().</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> &#8211; A Path instance.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of all feasible Path successors.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.blade"></span><dl class="class">
+<dt id="angr.blade.Blade">
+<em class="property">class </em><code class="descclassname">angr.blade.</code><code class="descname">Blade</code><span class="sig-paren">(</span><em>graph</em>, <em>dst_run</em>, <em>dst_stmt_idx</em>, <em>direction='backward'</em>, <em>project=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.blade.Blade" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Blade is a light-weight program slicer that works with networkx DiGraph containing SimIRSBs.
+It is meant to be used in angr for small or on-the-fly analyses.</p>
+</dd></dl>
+
+<span class="target" id="module-angr.analyses"></span><span class="target" id="module-angr.analyses.backward_slice"></span><dl class="class">
+<dt id="angr.analyses.backward_slice.BackwardSlice">
+<em class="property">class </em><code class="descclassname">angr.analyses.backward_slice.</code><code class="descname">BackwardSlice</code><span class="sig-paren">(</span><em>cfg</em>, <em>cdg</em>, <em>ddg</em>, <em>targets=None</em>, <em>cfg_node=None</em>, <em>stmt_id=None</em>, <em>control_flow_slice=False</em>, <em>same_function=False</em>, <em>no_construct=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.backward_slice.BackwardSlice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
+<p>Represents a backward slice of the program.</p>
+<p>Create a backward slice from a specific statement based on provided control flow graph (CFG), control
+dependence graph (CDG), and data dependence graph (DDG).</p>
+<p>The data dependence graph can be either CFG-based, or Value-set analysis based. A CFG-based DDG is much faster
+to generate, but it only reflects those states while generating the CFG, and it is neither sound nor accurate.
+The VSA based DDG (called VSA_DDG) is based on static analysis, which gives you a much better result.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cfg</strong> &#8211; The control flow graph.</li>
+<li><strong>cdg</strong> &#8211; The control dependence graph.</li>
+<li><strong>ddg</strong> &#8211; The data dependence graph.</li>
+<li><strong>targets</strong> &#8211; A list of &#8220;target&#8221; that specify targets of the backward slices. Each target can be a
+tuple in form of (cfg_node, stmt_idx), or a CodeLocation instance.</li>
+<li><strong>cfg_node</strong> &#8211; Deprecated. The target CFGNode to reach. It should exist in the CFG.</li>
+<li><strong>stmt_id</strong> &#8211; Deprecated. The target statement to reach.</li>
+<li><strong>control_flow_slice</strong> &#8211; True/False, indicates whether we should slice only based on CFG. Sometimes when
+acquiring DDG is difficult or impossible, you can just create a slice on your CFG.
+Well, if you don&#8217;t even have a CFG, then...</li>
+<li><strong>no_construct</strong> &#8211; Only used for testing and debugging to easily create a BackwardSlice object.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.analyses.backward_slice.BackwardSlice.annotated_cfg">
+<code class="descname">annotated_cfg</code><span class="sig-paren">(</span><em>start_point=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.backward_slice.BackwardSlice.annotated_cfg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an AnnotatedCFG based on slicing result.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.backward_slice.BackwardSlice.dbg_repr">
+<code class="descname">dbg_repr</code><span class="sig-paren">(</span><em>max_display=10</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.backward_slice.BackwardSlice.dbg_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Debugging output of this slice.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>max_display</strong> &#8211; The maximum number of SimRun slices to show.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.backward_slice.BackwardSlice.dbg_repr_run">
+<code class="descname">dbg_repr_run</code><span class="sig-paren">(</span><em>run_addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.backward_slice.BackwardSlice.dbg_repr_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Debugging output of a single SimRun slice.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>run_addr</strong> &#8211; Address of the SimRun.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A string representation.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.backward_slice.BackwardSlice.is_taint_impacting_stack_pointers">
+<code class="descname">is_taint_impacting_stack_pointers</code><span class="sig-paren">(</span><em>simrun_addr</em>, <em>stmt_idx</em>, <em>taint_type</em>, <em>simrun_whitelist=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.backward_slice.BackwardSlice.is_taint_impacting_stack_pointers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query in taint graph to check if a specific taint will taint the stack pointer in the future or not.
+The taint is specified with the tuple (simrun_addr, stmt_idx, taint_type).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>simrun_addr</strong> &#8211; Address of the SimRun.</li>
+<li><strong>stmt_idx</strong> &#8211; Statement ID.</li>
+<li><strong>taint_type</strong> &#8211; Type of the taint, might be one of the following: &#8216;reg&#8217;, &#8216;tmp&#8217;, &#8216;mem&#8217;.</li>
+<li><strong>simrun_whitelist</strong> &#8211; A list of SimRun addresses that are whitelisted.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True/False.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.backward_slice.BackwardSlice.is_taint_related_to_ip">
+<code class="descname">is_taint_related_to_ip</code><span class="sig-paren">(</span><em>simrun_addr</em>, <em>stmt_idx</em>, <em>taint_type</em>, <em>simrun_whitelist=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.backward_slice.BackwardSlice.is_taint_related_to_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Query in taint graph to check if a specific taint will taint the IP in the future or not.
+The taint is specified with the tuple (simrun_addr, stmt_idx, taint_type).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>simrun_addr</strong> &#8211; Address of the SimRun.</li>
+<li><strong>stmt_idx</strong> &#8211; Statement ID.</li>
+<li><strong>taint_type</strong> &#8211; Type of the taint, might be one of the following: &#8216;reg&#8217;, &#8216;tmp&#8217;, &#8216;mem&#8217;.</li>
+<li><strong>simrun_whitelist</strong> &#8211; A list of SimRun addresses that are whitelisted, i.e. the tainted exit will be
+ignored if it is in those SimRuns.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True/False</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.bindiff"></span><dl class="class">
+<dt id="angr.analyses.bindiff.BinDiff">
+<em class="property">class </em><code class="descclassname">angr.analyses.bindiff.</code><code class="descname">BinDiff</code><span class="sig-paren">(</span><em>other_project</em>, <em>enable_advanced_backward_slicing=False</em>, <em>cfg_a=None</em>, <em>cfg_b=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.bindiff.BinDiff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
+<p>This class computes the a diff between two binaries represented by angr Projects</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other_project</strong> &#8211; The second project to diff</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="angr.analyses.bindiff.BinDiff.blocks_with_differing_constants">
+<code class="descname">blocks_with_differing_constants</code><a class="headerlink" href="#angr.analyses.bindiff.BinDiff.blocks_with_differing_constants" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>return</em> &#8211; A dict of block matches with differing constants to the tuple of constants</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.bindiff.BinDiff.differing_blocks">
+<code class="descname">differing_blocks</code><a class="headerlink" href="#angr.analyses.bindiff.BinDiff.differing_blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>returns</em> &#8211; A list of block matches that appear to differ</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.bindiff.BinDiff.differing_functions">
+<code class="descname">differing_functions</code><a class="headerlink" href="#angr.analyses.bindiff.BinDiff.differing_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>returns</em> &#8211; A list of function matches that appear to differ</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.bindiff.BinDiff.differing_functions_with_consts">
+<code class="descname">differing_functions_with_consts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.bindiff.BinDiff.differing_functions_with_consts" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of function matches that appear to differ including just by constants</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.bindiff.BinDiff.functions_probably_identical">
+<code class="descname">functions_probably_identical</code><span class="sig-paren">(</span><em>func_a_addr</em>, <em>func_b_addr</em>, <em>check_consts=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.bindiff.BinDiff.functions_probably_identical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compare two functions and return True if they appear identical.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>func_a_addr</strong> &#8211; The address of the first function (in the first binary).</li>
+<li><strong>func_b_addr</strong> &#8211; The address of the second function (in the second binary).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Whether or not the functions appear to be identical.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.bindiff.BinDiff.get_function_diff">
+<code class="descname">get_function_diff</code><span class="sig-paren">(</span><em>function_addr_a</em>, <em>function_addr_b</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.bindiff.BinDiff.get_function_diff" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>function_addr_a</strong> &#8211; The address of the first function (in the first binary)</li>
+<li><strong>function_addr_b</strong> &#8211; The address of the second function (in the second binary)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the FunctionDiff of the two functions</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.bindiff.BinDiff.identical_blocks">
+<code class="descname">identical_blocks</code><a class="headerlink" href="#angr.analyses.bindiff.BinDiff.identical_blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>return A list of all block matches that appear to be identical</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.bindiff.BinDiff.identical_functions">
+<code class="descname">identical_functions</code><a class="headerlink" href="#angr.analyses.bindiff.BinDiff.identical_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>returns</em> &#8211; A list of function matches that appear to be identical</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.bindiff.FunctionDiff">
+<em class="property">class </em><code class="descclassname">angr.analyses.bindiff.</code><code class="descname">FunctionDiff</code><span class="sig-paren">(</span><em>function_a</em>, <em>function_b</em>, <em>bindiff=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.bindiff.FunctionDiff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class computes the a diff between two functions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>function_a</strong> &#8211; The first angr Function object to diff.</li>
+<li><strong>function_b</strong> &#8211; The second angr Function object.</li>
+<li><strong>bindiff</strong> &#8211; An optional Bindiff object. Used for some extra normalization during basic block comparison.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.analyses.bindiff.FunctionDiff.block_similarity">
+<code class="descname">block_similarity</code><span class="sig-paren">(</span><em>block_a</em>, <em>block_b</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.bindiff.FunctionDiff.block_similarity" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>block_a</strong> &#8211; The first block address.</li>
+<li><strong>block_b</strong> &#8211; The second block address.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The similarity of the basic blocks, normalized for the base address of the block and function
+call addresses.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.bindiff.FunctionDiff.blocks_probably_identical">
+<code class="descname">blocks_probably_identical</code><span class="sig-paren">(</span><em>block_a</em>, <em>block_b</em>, <em>check_constants=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.bindiff.FunctionDiff.blocks_probably_identical" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>block_a</strong> &#8211; The first block address.</li>
+<li><strong>block_b</strong> &#8211; The second block address.</li>
+<li><strong>check_constants</strong> &#8211; Whether or not to require matching constants in blocks.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Whether or not the blocks appear to be identical.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.bindiff.FunctionDiff.blocks_with_differing_constants">
+<code class="descname">blocks_with_differing_constants</code><a class="headerlink" href="#angr.analyses.bindiff.FunctionDiff.blocks_with_differing_constants" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>return</em> &#8211; A list of block matches which appear to differ</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.bindiff.FunctionDiff.differing_blocks">
+<code class="descname">differing_blocks</code><a class="headerlink" href="#angr.analyses.bindiff.FunctionDiff.differing_blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>returns</em> &#8211; A list of block matches which appear to differ</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="angr.analyses.bindiff.FunctionDiff.get_normalized_block">
+<em class="property">static </em><code class="descname">get_normalized_block</code><span class="sig-paren">(</span><em>addr</em>, <em>function</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.bindiff.FunctionDiff.get_normalized_block" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> &#8211; Where to start the normalized block.</li>
+<li><strong>function</strong> &#8211; A function containing the block address.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A normalized basic block.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.bindiff.FunctionDiff.identical_blocks">
+<code class="descname">identical_blocks</code><a class="headerlink" href="#angr.analyses.bindiff.FunctionDiff.identical_blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>returns</em> &#8211; A list of block matches which appear to be identical</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.bindiff.FunctionDiff.probably_identical">
+<code class="descname">probably_identical</code><a class="headerlink" href="#angr.analyses.bindiff.FunctionDiff.probably_identical" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>returns</em> &#8211; Whether or not these two functions are identical.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="angr.analyses.bindiff.differing_constants">
+<code class="descclassname">angr.analyses.bindiff.</code><code class="descname">differing_constants</code><span class="sig-paren">(</span><em>block_a</em>, <em>block_b</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.bindiff.differing_constants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compares two basic blocks and finds all the constants that differ from the first block to the second.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>block_a</strong> &#8211; The first block to compare.</li>
+<li><strong>block_b</strong> &#8211; The second block to compare.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Returns a list of differing constants in the form of ConstantChange, which has the offset in the
+block and the respective constants.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.boyscout"></span><dl class="class">
+<dt id="angr.analyses.boyscout.BoyScout">
+<em class="property">class </em><code class="descclassname">angr.analyses.boyscout.</code><code class="descname">BoyScout</code><span class="sig-paren">(</span><em>cookiesize=1</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.boyscout.BoyScout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
+<p>Try to determine the architecture and endieness of a binary blob</p>
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.cdg"></span><dl class="class">
+<dt id="angr.analyses.cdg.CDG">
+<em class="property">class </em><code class="descclassname">angr.analyses.cdg.</code><code class="descname">CDG</code><span class="sig-paren">(</span><em>cfg</em>, <em>start=None</em>, <em>no_construct=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cdg.CDG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
+<p>Implements a control dependence graph.</p>
+<p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cfg</strong> &#8211; The control flow graph upon which this control dependence graph will build</li>
+<li><strong>start</strong> &#8211; The starting point to begin constructing the control dependence graph</li>
+<li><strong>no_construct</strong> &#8211; Skip the construction step. Only used in unit-testing.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.analyses.cdg.CDG.get_dependants">
+<code class="descname">get_dependants</code><span class="sig-paren">(</span><em>run</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cdg.CDG.get_dependants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of nodes that are control dependent on the given node in the control dependence graph</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cdg.CDG.get_guardians">
+<code class="descname">get_guardians</code><span class="sig-paren">(</span><em>run</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cdg.CDG.get_guardians" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of nodes on whom the specific node is control dependent in the control dependence graph</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cdg.CDG.get_post_dominators">
+<code class="descname">get_post_dominators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cdg.CDG.get_post_dominators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the post-dom tree</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.cdg.ContainerNode">
+<em class="property">class </em><code class="descclassname">angr.analyses.cdg.</code><code class="descname">ContainerNode</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cdg.ContainerNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A container node.</p>
+<p>Only used in post-dominator tree generation. We did this so we can set the index property without modifying the
+original object.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.cdg.TemporaryNode">
+<em class="property">class </em><code class="descclassname">angr.analyses.cdg.</code><code class="descname">TemporaryNode</code><span class="sig-paren">(</span><em>label</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cdg.TemporaryNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A temporary node.</p>
+<p>Used as the start node and end node in post-dominator tree generation. Also used in some test cases.</p>
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.cfg_accurate"></span><dl class="attribute">
+<dt id="angr.analyses.cfg_accurate.CFG">
+<code class="descclassname">angr.analyses.cfg_accurate.</code><code class="descname">CFG</code><a class="headerlink" href="#angr.analyses.cfg_accurate.CFG" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#angr.analyses.cfg_accurate.CFGAccurate" title="angr.analyses.cfg_accurate.CFGAccurate"><code class="xref py py-class docutils literal"><span class="pre">CFGAccurate</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate">
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_accurate.</code><code class="descname">CFGAccurate</code><span class="sig-paren">(</span><em>context_sensitivity_level=1</em>, <em>start=None</em>, <em>avoid_runs=None</em>, <em>enable_function_hints=False</em>, <em>call_depth=None</em>, <em>call_tracing_filter=None</em>, <em>initial_state=None</em>, <em>starts=None</em>, <em>keep_state=False</em>, <em>enable_advanced_backward_slicing=False</em>, <em>enable_symbolic_back_traversal=False</em>, <em>additional_edges=None</em>, <em>no_construct=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a>, <a class="reference internal" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.cfg_base.CFGBase" title="angr.analyses.cfg_base.CFGBase"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.cfg_base.CFGBase</span></code></a></p>
+<p>This class represents a control-flow graph.</p>
+<p>All parameters are optional.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>context_sensitivity_level</strong> &#8211; The level of context-sensitivity of this CFG.
+It ranges from 0 to infinity. Default 1.</li>
+<li><strong>avoid_runs</strong> &#8211; A list of runs to avoid.</li>
+<li><strong>enable_function_hints</strong> &#8211; Whether to use function hints or now.</li>
+<li><strong>call_depth</strong> &#8211; How deep in the call stack to trace.</li>
+<li><strong>call_tracing_filter</strong> &#8211; ??? what the hell is this.</li>
+<li><strong>initial_state</strong> &#8211; An initial state to use to begin analysis.</li>
+<li><strong>starts</strong> &#8211; A list of addresses at which to begin analysis</li>
+<li><strong>keep_state</strong> &#8211; Whether to keep the SimStates for each CFGNode.</li>
+<li><strong>enable_advanced_backward_slicing</strong> &#8211; </li>
+<li><strong>enable_symbolic_back_traversal</strong> &#8211; </li>
+<li><strong>additional_edges</strong> &#8211; A dict mapping addresses of basic blocks to addresses of
+successors to manually include and analyze forward from.</li>
+<li><strong>no_construct</strong> &#8211; Skip the construction procedure. Only used in unit-testing.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a copy of the CFG.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A copy of the CFG instance.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">angr.analyses.CFG</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.deadends">
+<code class="descname">deadends</code><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.deadends" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all CFGNodes that has an out-degree of 0</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of CFGNode instances</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.downsize">
+<code class="descname">downsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.downsize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove saved states from all CFGNodes to reduce memory usage.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.get_function_subgraph">
+<code class="descname">get_function_subgraph</code><span class="sig-paren">(</span><em>start</em>, <em>max_call_depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.get_function_subgraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a sub-graph of a certain function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>start</strong> &#8211; The function start. Currently it should be an integer.</li>
+<li><strong>max_call_depth</strong> &#8211; Call depth limit. None indicates no limit.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A CFG instance which is a sub-graph of self.graph</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.get_lbe_exits">
+<code class="descname">get_lbe_exits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.get_lbe_exits" title="Permalink to this definition">¶</a></dt>
+<dd><p>-&gt; Generator
+Returns a generator of exits of the loops
+based on the back egdes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.get_paths">
+<code class="descname">get_paths</code><span class="sig-paren">(</span><em>begin</em>, <em>end</em>, <em>nb_max=0</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.get_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the simple paths between &#64;begin and &#64;end.
+:param nb_max: Threshold for a maximum of paths to handle
+:return: a list of angr.Path instances.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.get_topological_order">
+<code class="descname">get_topological_order</code><span class="sig-paren">(</span><em>cfg_node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.get_topological_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the topological order of a CFG Node.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cfg_node</strong> &#8211; A CFGNode instance.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An integer representing its order, or None if the CFGNode does not exist in the graph.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.normalize">
+<code class="descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize the CFG, making sure there are no overlapping basic blocks.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.remove_fakerets">
+<code class="descname">remove_fakerets</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.remove_fakerets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get rid of fake returns (i.e., Ijk_FakeRet edges) from this CFG</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.unresolvables">
+<code class="descname">unresolvables</code><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.unresolvables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get those SimRuns that have non-resolvable exits.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A set of SimRuns</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.cfg_base"></span><dl class="class">
+<dt id="angr.analyses.cfg_base.CFGBase">
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_base.</code><code class="descname">CFGBase</code><span class="sig-paren">(</span><em>project</em>, <em>context_sensitivity_level</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>The base class for control flow graphs.</p>
+<dl class="method">
+<dt id="angr.analyses.cfg_base.CFGBase.get_all_irsbs">
+<code class="descname">get_all_irsbs</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_all_irsbs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all SimRuns of a certain address, without considering contexts.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_base.CFGBase.get_all_nodes">
+<code class="descname">get_all_nodes</code><span class="sig-paren">(</span><em>addr</em>, <em>is_syscall=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_all_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all CFGNodes whose address is the specified one,
+:param addr: Address of the node
+:param is_syscall: True returns the syscall node, False returns the normal CFGNode, None returns both
+:return: all CFGNodes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_base.CFGBase.get_all_predecessors">
+<code class="descname">get_all_predecessors</code><span class="sig-paren">(</span><em>cfgnode</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_all_predecessors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all predecessors of a specific node on the control flow graph.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cfgnode</strong> (<a class="reference internal" href="#angr.analyses.cfg_node.CFGNode" title="angr.analyses.cfg_node.CFGNode"><em>CFGNode</em></a>) &#8211; The CFGNode object</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of predecessors in the CFG</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_base.CFGBase.get_any_irsb">
+<code class="descname">get_any_irsb</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_any_irsb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a SimRun of a certain address. If there are many SimRuns with the same address in CFG,
+return an arbitrary one.
+You should never assume this method returns a specific one.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_base.CFGBase.get_any_node">
+<code class="descname">get_any_node</code><span class="sig-paren">(</span><em>addr</em>, <em>is_syscall=None</em>, <em>anyaddr=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_any_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an artitrary CFGNode (without considering their contexts) from our graph.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> &#8211; Address of the beginning of the basic block. Set anyaddr to True to support arbitrary address.</li>
+<li><strong>is_syscall</strong> &#8211; Whether you want to get the syscall node or any other node. This is due to the fact that
+syscall SimProcedures have the same address as the targer it returns to.
+None means get either, True means get a syscall node, False means get something that isn&#8217;t
+a syscall node.</li>
+<li><strong>anyaddr</strong> &#8211; If anyaddr is True, then addr doesn&#8217;t have to be the beginning address of a basic block.
+<cite>anyaddr=True</cite> makes more sense after the CFG is normalized.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A CFGNode if there is any that satisfies given conditions, or None otherwise</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_base.CFGBase.get_branching_nodes">
+<code class="descname">get_branching_nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_branching_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all nodes that has an out degree &gt;= 2</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_base.CFGBase.get_exit_stmt_idx">
+<code class="descname">get_exit_stmt_idx</code><span class="sig-paren">(</span><em>src_block</em>, <em>dst_block</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_exit_stmt_idx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the corresponding exit statement ID for control flow to reach destination block from source block. The exit
+statement ID was put on the edge when creating the CFG.
+Note that there must be a direct edge between the two blocks, otherwise an exception will be raised.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The exit statement ID</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_base.CFGBase.get_node">
+<code class="descname">get_node</code><span class="sig-paren">(</span><em>addr_tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a single node from node key.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr_tuple</strong> &#8211; The node key</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_base.CFGBase.get_predecessors">
+<code class="descname">get_predecessors</code><span class="sig-paren">(</span><em>cfgnode</em>, <em>excluding_fakeret=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_predecessors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get predecessors of a node on the control flow graph.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cfgnode</strong> (<a class="reference internal" href="#angr.analyses.cfg_node.CFGNode" title="angr.analyses.cfg_node.CFGNode"><em>CFGNode</em></a>) &#8211; The node</li>
+<li><strong>excluding_fakeret</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; True if you want to exclude all predecessors that is connected to the node with
+a fakeret edge.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list of predecessors</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_base.CFGBase.irsb_from_node">
+<code class="descname">irsb_from_node</code><span class="sig-paren">(</span><em>cfg_node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.irsb_from_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create SimRun from a CFGNode object.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.cfg_fast"></span><dl class="class">
+<dt id="angr.analyses.cfg_fast.CFGEntry">
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGEntry</code><span class="sig-paren">(</span><em>addr</em>, <em>func_addr</em>, <em>jumpkind</em>, <em>ret_target=None</em>, <em>last_addr=None</em>, <em>src_node=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGEntry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Defines an entry to resume the CFG recovery</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.cfg_fast.CFGFast">
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGFast</code><span class="sig-paren">(</span><em>binary=None</em>, <em>start=None</em>, <em>end=None</em>, <em>pickle_intermediate_results=False</em>, <em>symbols=True</em>, <em>function_prologues=True</em>, <em>resolve_indirect_jumps=True</em>, <em>force_segment=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGFast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
+<p>We find functions inside the given binary, and build a control-flow graph in very fast manners: instead of
+simulating program executions, keeping track of states, and performing expensive data-flow analysis, CFGFast will
+only perform light-weight analyses combined with some heuristics, and with some strong assumptions.</p>
+<p># TODO: Write about what analysis techniques and heuristics are used</p>
+<p>Due to the nature of those techniques that are used here, a base address is often not required to use this analysis
+routine. However, with a correct base address, CFG recovery will almost always yield a much better result. A custom
+analysis, called GirlScout, is specifically made to recover the base address of a binary blob. After the base
+address is determined, you may want to reload the binary with the new base address by creating a new Project object,
+and then re-recover the CFG.</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>binary</strong> &#8211; </li>
+<li><strong>start</strong> &#8211; </li>
+<li><strong>end</strong> &#8211; </li>
+<li><strong>pickle_intermediate_results</strong> &#8211; </li>
+<li><strong>symbols</strong> &#8211; Get function beginnings from symbols in the binary.</li>
+<li><strong>function_prologues</strong> &#8211; Scan the binary for function prologues, and use those positions as function
+beginnings</li>
+<li><strong>resolve_indirect_jumps</strong> &#8211; Try to resolve indirect jumps. This is necessary to resolve jump targets from jump
+tables, etc.</li>
+<li><strong>force_segment</strong> &#8211; Force CFGFast to rely on binary segments instead of sections.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.analyses.cfg_fast.CFGFast.generate_code_cover">
+<code class="descname">generate_code_cover</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGFast.generate_code_cover" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a list of all recovered basic blocks.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.cfg_fast.SegmentList">
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">SegmentList</code><a class="headerlink" href="#angr.analyses.cfg_fast.SegmentList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>SegmentList describes a series of segmented memory blocks. You may query whether an address belongs to any of the
+blocks or not, and obtain the exact block(segment) that the address belongs to.</p>
+<dl class="method">
+<dt id="angr.analyses.cfg_fast.SegmentList.has_blocks">
+<code class="descname">has_blocks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.SegmentList.has_blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns if this segment list has any block or not. !is_empty</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if it&#8217;s not empty, False otherwise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_fast.SegmentList.is_occupied">
+<code class="descname">is_occupied</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.SegmentList.is_occupied" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if an address belongs to any segment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>address</strong> &#8211; The address to check</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if this address belongs to a segment, False otherwise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_fast.SegmentList.next_free_pos">
+<code class="descname">next_free_pos</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.SegmentList.next_free_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the next free position with respect to an address, excluding that address itself</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>address</strong> &#8211; The address to begin the search with (excluding itself)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The next free position</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.cfg_fast.SegmentList.occupied_size">
+<code class="descname">occupied_size</code><a class="headerlink" href="#angr.analyses.cfg_fast.SegmentList.occupied_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The sum of sizes of all blocks</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An integer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_fast.SegmentList.occupy">
+<code class="descname">occupy</code><span class="sig-paren">(</span><em>address</em>, <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.SegmentList.occupy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Include a block, specified by (address, size), in this segment list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>address</strong> &#8211; The starting address of the block</li>
+<li><strong>size</strong> &#8211; Size of the block</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.cfg_node"></span><dl class="class">
+<dt id="angr.analyses.cfg_node.CFGNode">
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_node.</code><code class="descname">CFGNode</code><span class="sig-paren">(</span><em>addr</em>, <em>size</em>, <em>cfg</em>, <em>callstack_key=None</em>, <em>input_state=None</em>, <em>simprocedure_name=None</em>, <em>syscall_name=None</em>, <em>looping_times=0</em>, <em>no_ret=False</em>, <em>is_syscall=False</em>, <em>syscall=None</em>, <em>simrun=None</em>, <em>function_address=None</em>, <em>final_states=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_node.CFGNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class stands for each single node in CFG.</p>
+<p>Note: simprocedure_name is not used to recreate the SimProcedure object. It&#8217;s only there for better
+__repr__.</p>
+<dl class="method">
+<dt id="angr.analyses.cfg_node.CFGNode.downsize">
+<code class="descname">downsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_node.CFGNode.downsize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop saved states.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.code_location"></span><dl class="class">
+<dt id="angr.analyses.code_location.CodeLocation">
+<em class="property">class </em><code class="descclassname">angr.analyses.code_location.</code><code class="descname">CodeLocation</code><span class="sig-paren">(</span><em>simrun_addr</em>, <em>stmt_idx</em>, <em>sim_procedure=None</em>, <em>ins_addr=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.code_location.CodeLocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Stands for a specific program point by specifying basic block address and statement ID (for IRSBs), or SimProcedure
+name (for SimProcedures).</p>
+<p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>simrun_addr</strong> &#8211; Address of the SimRun</li>
+<li><strong>stmt_idx</strong> &#8211; Statement ID. None for SimProcedures</li>
+<li><strong>sim_procedure</strong> &#8211; The corresponding SimProcedure class.</li>
+<li><strong>ins_addr</strong> &#8211; The instruction address. Optional.</li>
+<li><strong>kwargs</strong> &#8211; Optional arguments, will be stored, but not used in __eq__ or __hash__.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.datagraph_meta"></span><span class="target" id="module-angr.analyses.ddg"></span><dl class="class">
+<dt id="angr.analyses.ddg.DDG">
+<em class="property">class </em><code class="descclassname">angr.analyses.ddg.</code><code class="descname">DDG</code><span class="sig-paren">(</span><em>cfg</em>, <em>start=None</em>, <em>keep_data=False</em>, <em>call_depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.ddg.DDG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
+<p>This is a fast data dependence graph directly gerenated from our CFG analysis result. The only reason for its
+existance is the speed. There is zero guarantee for being sound or accurate. You are supposed to use it only when
+you want to track the simplest data dependence, and you do not care about soundness or accuracy.</p>
+<p>For a better data dependence graph, please consider to perform a better static analysis first (like Value-set
+Analysis), and then construct a dependence graph on top of the analysis result (for example, the VFG in angr).</p>
+<p>Also note that since we are using states from CFG, any improvement in analysis performed on CFG (like a points-to
+analysis) will directly benefit the DDG.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>cfg</strong> &#8211; Control flow graph. Please make sure each node has an associated <cite>state</cite> with it. You may
+want to generate your CFG with <cite>keep_state=True</cite>.</li>
+<li><strong>start</strong> &#8211; An address, Specifies where we start the generation of this data dependence graph.</li>
+<li><strong>call_depth</strong> &#8211; None or integers. A non-negative integer specifies how deep we would like to track in the
+call tree. None disables call_depth limit.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.analyses.ddg.DDG.dbg_repr">
+<code class="descname">dbg_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.ddg.DDG.dbg_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Representation for debugging.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.ddg.DDG.function_dependency_graph">
+<code class="descname">function_dependency_graph</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.ddg.DDG.function_dependency_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a dependency graph for the function <cite>func</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> &#8211; The Function object in CFG.function_manager.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A networkx.DiGraph instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.ddg.DDG.get_predecessors">
+<code class="descname">get_predecessors</code><span class="sig-paren">(</span><em>code_location</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.ddg.DDG.get_predecessors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all predecessors of the code location.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>code_location</strong> &#8211; A CodeLocation instance.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of all predecessors.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.ddg.DDG.graph">
+<code class="descname">graph</code><a class="headerlink" href="#angr.analyses.ddg.DDG.graph" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>returns</em> &#8211; A networkx DiGraph instance representing the data dependence graph.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.ddg.DDG.pp">
+<code class="descname">pp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.ddg.DDG.pp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pretty printing.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.dfg"></span><span class="target" id="module-angr.analyses.forward_analysis"></span><dl class="class">
+<dt id="angr.analyses.forward_analysis.ForwardAnalysis">
+<em class="property">class </em><code class="descclassname">angr.analyses.forward_analysis.</code><code class="descname">ForwardAnalysis</code><a class="headerlink" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This is my very first attempt to build a static forward analysis framework that can serve as the base of multiple
+static analyses in angr, including CFG analysis, VFG analysis, DDG, etc.</p>
+<p>In short, ForwardAnalysis performs a forward data-flow analysis by traversing the CFG (or the binary if a CFG is
+not available) and generating a graph with nodes linked with each program point (usually per basic-block, or SimRun
+in angr terms). A node on the graph stores analysis-specific information. For more information about nodes, take a
+look at the implementation of CFGNode.</p>
+<p>Feel free to discuss with me (Fish) if you have any suggestion or complaint!</p>
+<p>Constructor
+:return: None</p>
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.ForwardAnalysis.abort">
+<code class="descname">abort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.ForwardAnalysis.abort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abort the analysis
+:return: None</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.forward_analysis.ForwardAnalysis.should_abort">
+<code class="descname">should_abort</code><a class="headerlink" href="#angr.analyses.forward_analysis.ForwardAnalysis.should_abort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should the analysis be terminated.
+:return: True/False</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.girlscout"></span><dl class="class">
+<dt id="angr.analyses.girlscout.GirlScout">
+<em class="property">class </em><code class="descclassname">angr.analyses.girlscout.</code><code class="descname">GirlScout</code><span class="sig-paren">(</span><em>binary=None</em>, <em>start=None</em>, <em>end=None</em>, <em>pickle_intermediate_results=False</em>, <em>perform_full_code_scan=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.girlscout.GirlScout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
+<p>We find functions inside the given binary, try to decide the base address if needed, and build a control-flow
+graph on top of that to see if there is an entry or not. Obviously if the binary is not loaded as a blob (not
+using Blob as its backend), GirlScout will not try to determine the base address.</p>
+<p>It&#8217;s also optional to perform a full code scan of the binary to show where all codes are. By default we don&#8217;t scan
+the entire binary since it&#8217;s time consuming.</p>
+<p>You probably need a BoyScout to determine the possible architecture and endianess of your binary blob.</p>
+<dl class="method">
+<dt id="angr.analyses.girlscout.GirlScout.genenare_callmap_sif">
+<code class="descname">genenare_callmap_sif</code><span class="sig-paren">(</span><em>filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.girlscout.GirlScout.genenare_callmap_sif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a sif file from the call map</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.girlscout.GirlScout.generate_code_cover">
+<code class="descname">generate_code_cover</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.girlscout.GirlScout.generate_code_cover" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a list of all recovered basic blocks.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.loopfinder"></span><dl class="class">
+<dt id="angr.analyses.loopfinder.LoopFinder">
+<em class="property">class </em><code class="descclassname">angr.analyses.loopfinder.</code><code class="descname">LoopFinder</code><span class="sig-paren">(</span><em>functions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.loopfinder.LoopFinder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
+<p>Extracts all the loops from all the functions in a binary.</p>
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.veritesting"></span><span class="target" id="module-angr.analyses.vfg"></span><dl class="class">
+<dt id="angr.analyses.vfg.VFG">
+<em class="property">class </em><code class="descclassname">angr.analyses.vfg.</code><code class="descname">VFG</code><span class="sig-paren">(</span><em>cfg=None</em>, <em>context_sensitivity_level=2</em>, <em>function_start=None</em>, <em>interfunction_level=0</em>, <em>initial_state=None</em>, <em>avoid_runs=None</em>, <em>remove_options=None</em>, <em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vfg.VFG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
+<p>This class represents a control-flow graph with static analysis result.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>project</strong> &#8211; The project object.</li>
+<li><strong>context_sensitivity_level</strong> &#8211; The level of context-sensitivity of this VFG.
+It ranges from 0 to infinity. Default 2.</li>
+<li><strong>function_start</strong> &#8211; The address of the function to analyze. N</li>
+<li><strong>interfunction_level</strong> &#8211; The level of interfunction-ness to be</li>
+<li><strong>initial_state</strong> &#8211; A state to use as the initial one</li>
+<li><strong>avoid_runs</strong> &#8211; A list of runs to avoid</li>
+<li><strong>remove_options</strong> &#8211; State options to remove from the initial state. It only works when <cite>initial_state</cite> is None</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.analyses.vfg.VFG.get_any_node">
+<code class="descname">get_any_node</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vfg.VFG.get_any_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get any VFG node corresponding to the basic block at &#64;addr.
+Note that depending on the context sensitivity level, there might be
+multiple nodes corresponding to different contexts. This function will
+return the first one it encounters, which might not be what you want.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.vfg.VFG.get_paths">
+<code class="descname">get_paths</code><span class="sig-paren">(</span><em>begin</em>, <em>end</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vfg.VFG.get_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all the simple paths between &#64;begin and &#64;end.
+Returns: a list of angr.Path instances.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.vfg.VFGNode">
+<em class="property">class </em><code class="descclassname">angr.analyses.vfg.</code><code class="descname">VFGNode</code><span class="sig-paren">(</span><em>addr</em>, <em>key</em>, <em>state=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vfg.VFGNode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A descriptor of nodes in a Value-Flow Graph</p>
+<dl class="method">
+<dt id="angr.analyses.vfg.VFGNode.append_state">
+<code class="descname">append_state</code><span class="sig-paren">(</span><em>s</em>, <em>is_widened_state=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vfg.VFGNode.append_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appended a new state to this VFGNode.
+:param s: The new state to append
+:param is_widened_state: Whether it is a widened state or not.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.vsa_ddg"></span><dl class="class">
+<dt id="angr.analyses.vsa_ddg.DefUseChain">
+<em class="property">class </em><code class="descclassname">angr.analyses.vsa_ddg.</code><code class="descname">DefUseChain</code><span class="sig-paren">(</span><em>def_loc</em>, <em>use_loc</em>, <em>variable</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vsa_ddg.DefUseChain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Stand for a def-use chain. it is generated by the DDG itself.</p>
+<p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>def_loc</strong> &#8211; </li>
+<li><strong>use_loc</strong> &#8211; </li>
+<li><strong>variable</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.vsa_ddg.VSA_DDG">
+<em class="property">class </em><code class="descclassname">angr.analyses.vsa_ddg.</code><code class="descname">VSA_DDG</code><span class="sig-paren">(</span><em>vfg=None</em>, <em>start_addr=None</em>, <em>interfunction_level=0</em>, <em>context_sensitivity_level=2</em>, <em>keep_data=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vsa_ddg.VSA_DDG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
+<p>A Data dependency graph based on VSA states.
+That means we don&#8217;t (and shouldn&#8217;t) expect any symbolic expressions.</p>
+<p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vfg</strong> &#8211; An already constructed VFG. If not specified, a new VFG will be created with other
+specified parameters. <cite>vfg</cite> and <cite>start_addr</cite> cannot both be unspecified.</li>
+<li><strong>start_addr</strong> &#8211; The address where to start the analysis (typically, a function&#8217;s entry point).</li>
+<li><strong>interfunction_level</strong> &#8211; See VFG analysis.</li>
+<li><strong>context_sensitivity_level</strong> &#8211; See VFG analysis.</li>
+<li><strong>keep_data</strong> &#8211; Whether we keep set of addresses as edges in the graph, or just the cardinality of
+the sets, which can be used as a &#8220;weight&#8221;.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.analyses.vsa_ddg.VSA_DDG.get_all_nodes">
+<code class="descname">get_all_nodes</code><span class="sig-paren">(</span><em>simrun_addr</em>, <em>stmt_idx</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vsa_ddg.VSA_DDG.get_all_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all DDG nodes matching the given basic block address and statement index.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.vsa_ddg.VSA_DDG.get_predecessors">
+<code class="descname">get_predecessors</code><span class="sig-paren">(</span><em>code_location</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vsa_ddg.VSA_DDG.get_predecessors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all predecessors of <cite>code_location</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>code_location</strong> &#8211; A CodeLocation instance.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of all predecessors.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="surveyors">
-<h2>Surveyors<a class="headerlink" href="#surveyors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-angr.surveyor">
+<span id="surveyors"></span><h2>Surveyors<a class="headerlink" href="#module-angr.surveyor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="angr.surveyor.Surveyor">
+<em class="property">class </em><code class="descclassname">angr.surveyor.</code><code class="descname">Surveyor</code><span class="sig-paren">(</span><em>project</em>, <em>start=None</em>, <em>max_active=None</em>, <em>max_concurrency=None</em>, <em>pickle_paths=None</em>, <em>save_deadends=None</em>, <em>enable_veritesting=False</em>, <em>veritesting_options=None</em>, <em>keep_pruned=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>The surveyor class eases the implementation of symbolic analyses. This
+provides a base upon which analyses can be implemented.</p>
+<p>Surveyors provide at least the following members:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>active</strong> &#8211; The paths that are still active in the analysis.</li>
+<li><strong>deadended</strong> &#8211; The paths that are still active in the analysis.</li>
+<li><strong>spilled</strong> &#8211; The paths that are still active in the analysis.</li>
+<li><strong>errored</strong> &#8211; The paths that have at least one error-state exit.</li>
+<li><strong>pruned</strong> &#8211; The paths that were pruned because their ancestors were unsat.</li>
+<li><strong>unconstrained</strong> &#8211; The paths that have a successor with an unconstrained instruction pointer.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>A Surveryor has the following overloadable properties:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference internal" href="#angr.surveyor.Surveyor.done" title="angr.surveyor.Surveyor.done"><strong>done</strong></a> &#8211; returns True if the analysis is done (by default, this is when self.active is empty).</li>
+<li><a class="reference internal" href="#angr.surveyor.Surveyor.run" title="angr.surveyor.Surveyor.run"><strong>run</strong></a> &#8211; runs a loop of tick()ing and spill()ing until self.done is True.</li>
+<li><a class="reference internal" href="#angr.surveyor.Surveyor.tick" title="angr.surveyor.Surveyor.tick"><strong>tick</strong></a> &#8211; ticks all paths forward. The default implementation calls tick_path() on every path.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>A Surveyor has the following overloadable functions :</p>
+<p><a class="reference internal" href="#angr.surveyor.Surveyor.tick_path" title="angr.surveyor.Surveyor.tick_path"><code class="xref py py-func docutils literal"><span class="pre">tick_path()</span></code></a> moves a provided path forward, returning a set of new paths.</p>
+<p><a class="reference internal" href="#angr.surveyor.Surveyor.spill" title="angr.surveyor.Surveyor.spill"><code class="xref py py-func docutils literal"><span class="pre">spill()</span></code></a> spills all paths, in-place. The default implementation first calls <code class="xref py py-func docutils literal"><span class="pre">spill_path()</span></code> on every
+path, then <a class="reference internal" href="#angr.surveyor.Surveyor.spill_paths" title="angr.surveyor.Surveyor.spill_paths"><code class="xref py py-func docutils literal"><span class="pre">spill_paths()</span></code></a> on the resulting sequence, then keeps the rest.</p>
+<p><code class="xref py py-func docutils literal"><span class="pre">spill_path()</span></code> returns a spilled sequence of paths from a provided sequence of paths.</p>
+<p>An analysis can overload either the specific sub-portions of surveyor
+(i.e, the tick_path and spill_path functions) or bigger and bigger pieces
+to implement more and more customizeable analyses.</p>
+<p>Creates the Surveyor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>project</strong> &#8211; the angr.Project to analyze.</li>
+<li><strong>start</strong> &#8211; a path (or set of paths) to start the analysis from</li>
+<li><strong>max_active</strong> &#8211; the maximum number of paths to explore at a time</li>
+<li><strong>max_concurrency</strong> &#8211; the maximum number of worker threads</li>
+<li><strong>pickle_paths</strong> &#8211; pickle spilled paths to save memory</li>
+<li><strong>save_deadends</strong> &#8211; save deadended paths</li>
+<li><strong>enable_veritesting</strong> &#8211; use static symbolic execution to speed up exploration</li>
+<li><strong>veritesting_options</strong> &#8211; special options to be passed to Veritesting</li>
+<li><strong>keep_pruned</strong> &#8211; keep pruned unsat states</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="angr.surveyor.Surveyor.done">
+<code class="descname">done</code><a class="headerlink" href="#angr.surveyor.Surveyor.done" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if the analysis is done.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.filter_path">
+<code class="descname">filter_path</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.filter_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the given path should be kept in the analysis, False
+otherwise.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.filter_paths">
+<code class="descname">filter_paths</code><span class="sig-paren">(</span><em>paths</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.filter_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of paths, returns filters them and returns the rest.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.path_comparator">
+<code class="descname">path_comparator</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.path_comparator" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function should compare paths a and b, to determine which should
+have a higher priority in the analysis. It&#8217;s used as the cmp argument
+to sort.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.post_tick">
+<code class="descname">post_tick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.post_tick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provided for analyses to use for pre-tick actions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.pre_tick">
+<code class="descname">pre_tick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.pre_tick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provided for analyses to use for pre-tick actions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.prioritize_paths">
+<code class="descname">prioritize_paths</code><span class="sig-paren">(</span><em>paths</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.prioritize_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is called to sort a list of paths, to prioritize
+the analysis of paths. Should return a list of paths, with higher-
+priority paths first.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.prune">
+<code class="descname">prune</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.prune" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prune unsat paths.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>n=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the analysis through completion (until done() returns True) or, if n is provided, n times.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> &#8211; the maximum number of ticks</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">itself for chaining</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.spill">
+<code class="descname">spill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.spill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spills/unspills paths, in-place.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.spill_paths">
+<code class="descname">spill_paths</code><span class="sig-paren">(</span><em>active</em>, <em>spilled</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.spill_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Called with the currently active and spilled paths to spill some
+paths. Should return the new active and spilled paths.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.step">
+<code class="descname">step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes one step in the analysis (called by run()).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.suspend_path">
+<code class="descname">suspend_path</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.suspend_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Suspends and returns a state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> &#8211; the path</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the path</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.tick">
+<code class="descname">tick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.tick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes one step in the analysis. Typically, this moves all active paths forward.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returnss:</th><td class="field-body">itself, for chaining</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyor.Surveyor.tick_path">
+<code class="descname">tick_path</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyor.Surveyor.tick_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ticks a single path forward. Returns a sequence of successor paths.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.surveyors"></span><span class="target" id="module-angr.surveyors.caller"></span><dl class="class">
+<dt id="angr.surveyors.caller.Callable">
+<em class="property">class </em><code class="descclassname">angr.surveyors.caller.</code><code class="descname">Callable</code><span class="sig-paren">(</span><em>project</em>, <em>addr</em>, <em>concrete_only=False</em>, <em>prototype=None</em>, <em>base_state=None</em>, <em>toc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyors.caller.Callable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Callable is a representation of a function in the binary that can be
+interacted with like a native python function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>project</strong> &#8211; The project to operate on</li>
+<li><strong>addr</strong> &#8211; The address of the function to use</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The following parameters are optional:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>concrete_only</strong> &#8211; Throw an exception if the execution splits into multiple paths</li>
+<li><strong>prototype</strong> &#8211; A SimTypeFunction instance describing the functions args and return type</li>
+<li><strong>base_state</strong> &#8211; The state from which to do these runs</li>
+<li><strong>toc</strong> &#8211; The address of the table of contents for ppc64</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.surveyors.caller.Callable.set_base_state">
+<code class="descname">set_base_state</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyors.caller.Callable.set_base_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Swap out the state you&#8217;d like to use to perform the call
+:param state: The state to use to perform the call</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.surveyors.caller.Caller">
+<em class="property">class </em><code class="descclassname">angr.surveyors.caller.</code><code class="descname">Caller</code><span class="sig-paren">(</span><em>project</em>, <em>addr</em>, <em>args=()</em>, <em>start=None</em>, <em>num_find=None</em>, <em>concrete_only=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyors.caller.Caller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.surveyors.explorer.Explorer" title="angr.surveyors.explorer.Explorer"><code class="xref py py-class docutils literal"><span class="pre">angr.surveyors.explorer.Explorer</span></code></a></p>
+<p>Caller is a surveyor that executes functions to see what they do.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>project</strong> &#8211; the project</li>
+<li><strong>addr</strong> &#8211; the address to start calling at</li>
+<li><strong>args</strong> &#8211; a tuple of arguments. Any members that are None will be replaced with symbolic expressions with a
+length of the architecture&#8217;s bitwidth.</li>
+<li><strong>start</strong> &#8211; a path (or set of paths) to start from</li>
+<li><strong>num_find</strong> &#8211; find at least this many returns from the function</li>
+<li><strong>concrete_only</strong> &#8211; Throw an exception if the execution splits into multiple paths</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.surveyors.caller.Caller.iter_returns">
+<code class="descname">iter_returns</code><span class="sig-paren">(</span><em>runs=None</em>, <em>solution=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyors.caller.Caller.iter_returns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields (return_value, path) for every return. This is a generator.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>runs</strong> &#8211; the maximum number of runs to execute</li>
+<li><strong>solutions</strong> &#8211; check only returns with this value as a possible solution</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyors.caller.Caller.map_func">
+<code class="descname">map_func</code><span class="sig-paren">(</span><em>func</em>, <em>runs=None</em>, <em>solution=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyors.caller.Caller.map_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls func(return_value, args_tuple, path) for each function return. This is a generator.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>func</strong> &#8211; the function to call</li>
+<li><strong>runs</strong> &#8211; the maximum number of runs to execute</li>
+<li><strong>solutions</strong> &#8211; check only returns with this value as a possible solution</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>yields the return values of func</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyors.caller.Caller.map_se">
+<code class="descname">map_se</code><span class="sig-paren">(</span><em>func</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyors.caller.Caller.map_se" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maps the state.se.&#8221;func&#8221; function for all the return address states. This is a generator.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>func</strong> &#8211; the function name, used as getattr(p.state.se, func). Normally any_n_int or any_n_str</li>
+<li><strong>runs</strong> &#8211; the maximum number of runs to execute</li>
+<li><strong>solutions</strong> &#8211; check only returns with this value as a possible solution</li>
+<li><strong>sort</strong> &#8211; sort the result before yielding it</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Other <em>args and **kwargs are passed to the called state.se.</em> function.</p>
+<p>yields (r, func_return) for each state.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.surveyors.escaper"></span><dl class="class">
+<dt id="angr.surveyors.escaper.Escaper">
+<em class="property">class </em><code class="descclassname">angr.surveyors.escaper.</code><code class="descname">Escaper</code><span class="sig-paren">(</span><em>project</em>, <em>loop_addresses</em>, <em>start=None</em>, <em>max_concurrency=None</em>, <em>max_active=None</em>, <em>pickle_paths=None</em>, <em>loop_iterations=0</em>, <em>iteration_depth=100</em>, <em>unconstrain_memory=True</em>, <em>unconstrain_registers=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyors.escaper.Escaper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.surveyor.Surveyor" title="angr.surveyor.Surveyor"><code class="xref py py-class docutils literal"><span class="pre">angr.surveyor.Surveyor</span></code></a></p>
+<p>Escaper implements loop escaping!</p>
+<p>normal - any found normal paths from the loop
+forced - forced paths from the loop, if a normal wasn&#8217;t found</p>
+<p>Creates an Escaper. Most options are for Surveyor (separate docs).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>loop_addresses</strong> &#8211; the addresses of all the basic blocks in the loop, to know the
+instructions to which the analysis should be restricted</li>
+<li><strong>loop_iterations</strong> &#8211; the number of times to run the loop before escaping</li>
+<li><strong>iteration_depth</strong> &#8211; the maximum depth (in SimRuns) of a path through the loop</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.surveyors.escaper.Escaper.tick">
+<code class="descname">tick</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyors.escaper.Escaper.tick" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes one run through the loop.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.surveyors.escaper.Escaper.unconstrain_loop">
+<code class="descname">unconstrain_loop</code><span class="sig-paren">(</span><em>constrained_entry</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyors.escaper.Escaper.unconstrain_loop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unconstrains an exit to the loop header by looping one more time
+and replacing all modified variables with unconstrained versions.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.surveyors.executor"></span><dl class="class">
+<dt id="angr.surveyors.executor.Executor">
+<em class="property">class </em><code class="descclassname">angr.surveyors.executor.</code><code class="descname">Executor</code><span class="sig-paren">(</span><em>project</em>, <em>start</em>, <em>final_addr=None</em>, <em>pickle_paths=None</em>, <em>max_run=50000</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyors.executor.Executor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.surveyor.Surveyor" title="angr.surveyor.Surveyor"><code class="xref py py-class docutils literal"><span class="pre">angr.surveyor.Surveyor</span></code></a></p>
+<p>This class handles pure concrete execution related issues.
+No state splitting is ever allowed.</p>
+</dd></dl>
+
+<span class="target" id="module-angr.surveyors.explorer"></span><dl class="class">
+<dt id="angr.surveyors.explorer.Explorer">
+<em class="property">class </em><code class="descclassname">angr.surveyors.explorer.</code><code class="descname">Explorer</code><span class="sig-paren">(</span><em>project</em>, <em>start=None</em>, <em>max_concurrency=None</em>, <em>max_active=None</em>, <em>pickle_paths=None</em>, <em>find=None</em>, <em>avoid=None</em>, <em>restrict=None</em>, <em>min_depth=0</em>, <em>max_depth=None</em>, <em>max_repeats=10000000</em>, <em>num_find=1</em>, <em>num_avoid=None</em>, <em>num_deviate=1</em>, <em>num_loop=None</em>, <em>cfg=None</em>, <em>enable_veritesting=None</em>, <em>veritesting_options=None</em>, <em>keep_pruned=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyors.explorer.Explorer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.surveyor.Surveyor" title="angr.surveyor.Surveyor"><code class="xref py py-class docutils literal"><span class="pre">angr.surveyor.Surveyor</span></code></a></p>
+<p>Explorer implements a symbolic exploration engine!</p>
+<p>found - paths where the target addresses have been found.
+avoided - paths where the to-avoid addresses have been found.
+deviating - paths that deviate from the restricted-to addresses.
+looping - paths that were detected as looping.</p>
+<p>Explores the path space until a block containing a specified address is found.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>project</strong> &#8211; </td>
+</tr>
+</tbody>
+</table>
+<p>The following parameters are optional :</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>start</strong> &#8211; </li>
+<li><strong>max_concurrency</strong> &#8211; </li>
+<li><strong>max_active</strong> &#8211; </li>
+<li><strong>pickle_paths</strong> &#8211; </li>
+<li><strong>find</strong> &#8211; A tuple containing the addresses to search for.</li>
+<li><strong>avoid</strong> &#8211; A tuple containing the addresses to avoid.</li>
+<li><strong>restrict</strong> &#8211; A tuple containing the addresses to restrict the analysis to (avoid all others).</li>
+<li><strong>min_depth</strong> &#8211; The minimum number of SimRuns in the resulting path.</li>
+<li><strong>max_depth</strong> &#8211; The maximum number of SimRuns in the resulting path.</li>
+<li><strong>num_find</strong> &#8211; The minimum number of paths to find. (default: 1)</li>
+<li><strong>num_avoid</strong> &#8211; The minimum number of paths to avoid. (default: infinite)</li>
+<li><strong>num_deviate</strong> &#8211; The minimum number of paths to deviate. (default: infinite)</li>
+<li><strong>num_loop</strong> &#8211; The minimum number of paths to loop (default: infinite)</li>
+<li><strong>cfg</strong> &#8211; A CFG to use to cut any paths that have no chance of going to the target.</li>
+<li><strong>enable_veritesting</strong> &#8211; Whether Veritesting should be enabled or not.</li>
+<li><strong>veritesting_options</strong> &#8211; Options that should be passed to Veritesting.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-angr.surveyors.slicecutor"></span><dl class="class">
+<dt id="angr.surveyors.slicecutor.Slicecutor">
+<em class="property">class </em><code class="descclassname">angr.surveyors.slicecutor.</code><code class="descname">Slicecutor</code><span class="sig-paren">(</span><em>project</em>, <em>annotated_cfg</em>, <em>start=None</em>, <em>targets=None</em>, <em>max_concurrency=None</em>, <em>max_active=None</em>, <em>max_loop_iterations=None</em>, <em>pickle_paths=None</em>, <em>merge_countdown=10</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyors.slicecutor.Slicecutor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.surveyor.Surveyor" title="angr.surveyor.Surveyor"><code class="xref py py-class docutils literal"><span class="pre">angr.surveyor.Surveyor</span></code></a></p>
+<p>The Slicecutor is a surveyor that executes provided code slices.</p>
+</dd></dl>
+
+<span class="target" id="module-angr.surveyors.sser"></span><dl class="class">
+<dt id="angr.surveyors.sser.Sser">
+<em class="property">class </em><code class="descclassname">angr.surveyors.sser.</code><code class="descname">Sser</code><span class="sig-paren">(</span><em>project</em>, <em>start=None</em>, <em>ends=None</em>, <em>max_repeats=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.surveyors.sser.Sser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.surveyor.Surveyor" title="angr.surveyor.Surveyor"><code class="xref py py-class docutils literal"><span class="pre">angr.surveyor.Surveyor</span></code></a></p>
+<p>Sser implements a _static_ symbolic execution engine!</p>
+</dd></dl>
+
 </div>
-<div class="section" id="lifter">
-<h2>Lifter<a class="headerlink" href="#lifter" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-angr.lifter">
+<span id="lifter"></span><h2>Lifter<a class="headerlink" href="#module-angr.lifter" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="simos">
-<h2>SimOS<a class="headerlink" href="#simos" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-angr.simos">
+<span id="simos"></span><h2>SimOS<a class="headerlink" href="#module-angr.simos" title="Permalink to this headline">¶</a></h2>
+<p>Manage OS-level configuration.</p>
+<dl class="class">
+<dt id="angr.simos.SimLinux">
+<em class="property">class </em><code class="descclassname">angr.simos.</code><code class="descname">SimLinux</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimLinux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.simos.SimOS" title="angr.simos.SimOS"><code class="xref py py-class docutils literal"><span class="pre">angr.simos.SimOS</span></code></a></p>
+<p>OS-specific configuration for *nix-y OSes.</p>
+<dl class="method">
+<dt id="angr.simos.SimLinux.prepare_function_symbol">
+<code class="descname">prepare_function_symbol</code><span class="sig-paren">(</span><em>symbol_name</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimLinux.prepare_function_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare the address space with the data necessary to perform relocations pointing to the given symbol.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.simos.SimOS">
+<em class="property">class </em><code class="descclassname">angr.simos.</code><code class="descname">SimOS</code><span class="sig-paren">(</span><em>project</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A class describing OS/arch-level configuration.</p>
+<dl class="method">
+<dt id="angr.simos.SimOS.configure_project">
+<code class="descname">configure_project</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS.configure_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the project to set up global settings (like SimProcedures).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.simos.SimOS.prepare_call_state">
+<code class="descname">prepare_call_state</code><span class="sig-paren">(</span><em>calling_state</em>, <em>initial_state=None</em>, <em>preserve_registers=()</em>, <em>preserve_memory=()</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS.prepare_call_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function prepares a state that is executing a call instruction.
+If given an initial_state, it copies over all of the critical registers to it from the
+calling_state. Otherwise, it prepares the calling_state for action.</p>
+<p>This is mostly used to create minimalistic for CFG generation. Some ABIs, such as MIPS PIE and
+x86 PIE, require certain information to be maintained in certain registers. For example, for
+PIE MIPS, this function transfer t9, gp, and ra to the new state.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.simos.SimOS.prepare_function_symbol">
+<code class="descname">prepare_function_symbol</code><span class="sig-paren">(</span><em>symbol_name</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS.prepare_function_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare the address space with the data necessary to perform relocations pointing to the given symbol</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.simos.SimOS.state_blank">
+<code class="descname">state_blank</code><span class="sig-paren">(</span><em>addr=None</em>, <em>initial_prefix=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS.state_blank" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a blank state.</p>
+<p>All parameters are optional.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> &#8211; The execution start address.</li>
+<li><strong>initial_prefix</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The initialized SimState.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">simuvex.SimState</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 
