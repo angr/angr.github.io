@@ -1479,10 +1479,33 @@ should be passed to the keyword argument &#8220;successor_func&#8221; of PathGro
 
 <span class="target" id="module-angr.blade"></span><dl class="class">
 <dt id="angr.blade.Blade">
-<em class="property">class </em><code class="descclassname">angr.blade.</code><code class="descname">Blade</code><span class="sig-paren">(</span><em>graph</em>, <em>dst_run</em>, <em>dst_stmt_idx</em>, <em>direction='backward'</em>, <em>project=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.blade.Blade" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.blade.</code><code class="descname">Blade</code><span class="sig-paren">(</span><em>graph</em>, <em>dst_run</em>, <em>dst_stmt_idx</em>, <em>direction='backward'</em>, <em>project=None</em>, <em>cfg=None</em>, <em>ignore_sp=False</em>, <em>ignore_bp=False</em>, <em>max_level=3</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.blade.Blade" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Blade is a light-weight program slicer that works with networkx DiGraph containing SimIRSBs.
 It is meant to be used in angr for small or on-the-fly analyses.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>graph</strong> (<em>networkx.DiGraph</em>) &#8211; A graph representing the control flow graph. Note that it does not take
+angr.analyses.CFGAccurate or angr.analyses.CFGFast.</li>
+<li><strong>dst_run</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; An address specifying the target SimRun.</li>
+<li><strong>dst_stmt_idx</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The target statement index. -1 means executing until the last statement.</li>
+<li><strong>direction</strong> (<em>str</em>) &#8211; &#8216;backward&#8217; or &#8216;forward&#8217; slicing. Forward slicing is not yet supported.</li>
+<li><strong>project</strong> (<em>angr.Project</em>) &#8211; The project instance.</li>
+<li><strong>cfg</strong> (<em>angr.analyses.CFGBase</em>) &#8211; the CFG instance. It will be made mandatory later.</li>
+<li><strong>ignore_sp</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether the stack pointer should be ignored in dependency tracking. Any
+dependency from/to stack pointers will be ignored if this options is True.</li>
+<li><strong>ignore_bp</strong> &#8211; Whether the base pointer should be ignored or not.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <span class="target" id="module-angr.analyses"></span><span class="target" id="module-angr.analyses.backward_slice"></span><dl class="class">
@@ -2213,15 +2236,15 @@ a fakeret edge.</li>
 
 <span class="target" id="module-angr.analyses.cfg_fast"></span><dl class="class">
 <dt id="angr.analyses.cfg_fast.CFGEntry">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGEntry</code><span class="sig-paren">(</span><em>addr</em>, <em>func_addr</em>, <em>jumpkind</em>, <em>ret_target=None</em>, <em>last_addr=None</em>, <em>src_node=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGEntry" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGEntry</code><span class="sig-paren">(</span><em>addr</em>, <em>func_addr</em>, <em>jumpkind</em>, <em>ret_target=None</em>, <em>last_addr=None</em>, <em>src_node=None</em>, <em>src_stmt_idx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGEntry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Defines an entry to resume the CFG recovery</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="angr.analyses.cfg_fast.CFGFast">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGFast</code><span class="sig-paren">(</span><em>binary=None</em>, <em>start=None</em>, <em>end=None</em>, <em>pickle_intermediate_results=False</em>, <em>symbols=True</em>, <em>function_prologues=True</em>, <em>resolve_indirect_jumps=True</em>, <em>force_segment=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGFast" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGFast</code><span class="sig-paren">(</span><em>binary=None</em>, <em>start=None</em>, <em>end=None</em>, <em>pickle_intermediate_results=False</em>, <em>symbols=True</em>, <em>function_prologues=True</em>, <em>resolve_indirect_jumps=True</em>, <em>force_segment=False</em>, <em>force_complete_scan=True</em>, <em>indirect_jump_target_limit=100000</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGFast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a>, <a class="reference internal" href="#angr.analyses.cfg_base.CFGBase" title="angr.analyses.cfg_base.CFGBase"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.cfg_base.CFGBase</span></code></a></p>
 <p>We find functions inside the given binary, and build a control-flow graph in very fast manners: instead of
 simulating program executions, keeping track of states, and performing expensive data-flow analysis, CFGFast will
 only perform light-weight analyses combined with some heuristics, and with some strong assumptions.</p>
@@ -2231,22 +2254,23 @@ routine. However, with a correct base address, CFG recovery will almost always y
 analysis, called GirlScout, is specifically made to recover the base address of a binary blob. After the base
 address is determined, you may want to reload the binary with the new base address by creating a new Project object,
 and then re-recover the CFG.</p>
-<p>Constructor</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>binary</strong> &#8211; </li>
-<li><strong>start</strong> &#8211; </li>
-<li><strong>end</strong> &#8211; </li>
-<li><strong>pickle_intermediate_results</strong> &#8211; </li>
-<li><strong>symbols</strong> &#8211; Get function beginnings from symbols in the binary.</li>
-<li><strong>function_prologues</strong> &#8211; Scan the binary for function prologues, and use those positions as function
+<li><strong>binary</strong> &#8211; The binary to recover CFG on. By default the main binary is used.</li>
+<li><strong>start</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The beginning address of CFG recovery.</li>
+<li><strong>end</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The end address of CFG recovery.</li>
+<li><strong>pickle_intermediate_results</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; If we want to store the intermediate results or not.</li>
+<li><strong>symbols</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Get function beginnings from symbols in the binary.</li>
+<li><strong>function_prologues</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Scan the binary for function prologues, and use those positions as function
 beginnings</li>
-<li><strong>resolve_indirect_jumps</strong> &#8211; Try to resolve indirect jumps. This is necessary to resolve jump targets from jump
-tables, etc.</li>
-<li><strong>force_segment</strong> &#8211; Force CFGFast to rely on binary segments instead of sections.</li>
+<li><strong>resolve_indirect_jumps</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Try to resolve indirect jumps. This is necessary to resolve jump targets
+from jump tables, etc.</li>
+<li><strong>force_segment</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Force CFGFast to rely on binary segments instead of sections.</li>
+<li><strong>force_complete_scan</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Perform a complete scan on the binary and maximize the number of identified code
+blocks.</li>
 </ul>
 </td>
 </tr>
@@ -2837,7 +2861,7 @@ paths. Should return the new active and spilled paths.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returnss:</th><td class="field-body">itself, for chaining</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">itself, for chaining</td>
 </tr>
 </tbody>
 </table>

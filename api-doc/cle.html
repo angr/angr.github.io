@@ -139,7 +139,7 @@
 <span id="cle-cle-loads-everything"></span><h1><a class="reference internal" href="#module-cle" title="cle"><code class="xref py py-mod docutils literal"><span class="pre">cle</span></code></a> &#8212; CLE Loads Everything<a class="headerlink" href="#module-cle" title="Permalink to this headline">¶</a></h1>
 <span class="target" id="module-cle.loader"></span><dl class="class">
 <dt id="cle.loader.Loader">
-<em class="property">class </em><code class="descclassname">cle.loader.</code><code class="descname">Loader</code><span class="sig-paren">(</span><em>main_binary</em>, <em>auto_load_libs=True</em>, <em>force_load_libs=None</em>, <em>skip_libs=None</em>, <em>main_opts=None</em>, <em>lib_opts=None</em>, <em>custom_ld_path=None</em>, <em>ignore_import_version_numbers=True</em>, <em>rebase_granularity=16777216</em>, <em>except_missing_libs=False</em>, <em>gdb_map=None</em>, <em>gdb_fix=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cle.loader.</code><code class="descname">Loader</code><span class="sig-paren">(</span><em>main_binary</em>, <em>auto_load_libs=True</em>, <em>force_load_libs=None</em>, <em>skip_libs=None</em>, <em>main_opts=None</em>, <em>lib_opts=None</em>, <em>custom_ld_path=None</em>, <em>ignore_import_version_numbers=True</em>, <em>rebase_granularity=16777216</em>, <em>except_missing_libs=False</em>, <em>gdb_map=None</em>, <em>gdb_fix=False</em>, <em>aslr=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>The loader loads all the objects and exports an abstraction of the memory of the process. What you see here is an
 address space with loaded and rebased binaries.</p>
@@ -148,7 +148,7 @@ address space with loaded and rebased binaries.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="#module-cle.memory" title="cle.memory"><strong>memory</strong></a> (<a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><em>cle.memory.Clemory</em></a>) &#8211; The loaded, rebased, and relocated memory of the program.</li>
+<li><a class="reference internal" href="simuvex.html#module-simuvex.storage.memory" title="simuvex.storage.memory"><strong>memory</strong></a> (<a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><em>cle.memory.Clemory</em></a>) &#8211; The loaded, rebased, and relocated memory of the program.</li>
 <li><strong>main_bin</strong> &#8211; The object representing the main binary (i.e., the executable).</li>
 <li><strong>shared_objects</strong> &#8211; A dictionary mapping loaded library names to the objects representing them.</li>
 <li><strong>all_objects</strong> &#8211; A list containing representations of all the different objects loaded.</li>
@@ -203,6 +203,7 @@ addresses of the .text sections. We need to fix them to get the real load addres
 </tr>
 </tbody>
 </table>
+<p>:param aslr                 Load libraries in symbolic address space.</p>
 <dl class="method">
 <dt id="cle.loader.Loader.add_object">
 <code class="descname">add_object</code><span class="sig-paren">(</span><em>obj</em>, <em>base_addr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.add_object" title="Permalink to this definition">¶</a></dt>
@@ -973,17 +974,7 @@ executable.</li>
 <dl class="method">
 <dt id="cle.backends.metaelf.MetaELF.get_call_stub_addr">
 <code class="descname">get_call_stub_addr</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.metaelf.MetaELF.get_call_stub_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Usually, the PLT stub is called when jumping to an external function.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> &#8211; The name of a function.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The address of the call stub.</td>
-</tr>
-</tbody>
-</table>
+<dd><p>Takes the name of an imported function and returns the address of the stub function that jumps to it.</p>
 </dd></dl>
 
 <dl class="attribute">
