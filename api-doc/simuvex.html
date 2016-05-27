@@ -192,49 +192,216 @@
 </dd></dl>
 
 <span class="target" id="module-simuvex.s_cc"></span><dl class="class">
-<dt id="simuvex.s_cc.SimCC">
-<em class="property">class </em><code class="descclassname">simuvex.s_cc.</code><code class="descname">SimCC</code><span class="sig-paren">(</span><em>arch</em>, <em>args=None</em>, <em>ret_vals=None</em>, <em>sp_delta=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC" title="Permalink to this definition">¶</a></dt>
+<dt id="simuvex.s_cc.ArgSession">
+<em class="property">class </em><code class="descclassname">simuvex.s_cc.</code><code class="descname">ArgSession</code><span class="sig-paren">(</span><em>cc</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.ArgSession" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>This is the base class for all calling conventions. You should not directly instantiate this class.</p>
+<p>A class to keep track of the state accumulated in laying parameters out into memory</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="simuvex.s_cc.SimCC">
+<em class="property">class </em><code class="descclassname">simuvex.s_cc.</code><code class="descname">SimCC</code><span class="sig-paren">(</span><em>arch</em>, <em>args=None</em>, <em>ret_val=None</em>, <em>sp_delta=None</em>, <em>func_ty=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This is the base class for all calling conventions.
+You should not directly instantiate this class.</p>
+<p>An instance of this class allows it to be tweaked to the way a specific function should be called.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>arch</strong> &#8211; The Archinfo arch for this binary</li>
+<li><strong>args</strong> &#8211; A list of SimFunctionArguments describing where the arguments go</li>
+<li><strong>ret_val</strong> &#8211; A SimFunctionArgument describing where the return value goes</li>
+<li><strong>sp_delta</strong> &#8211; The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="simuvex.s_cc.SimCC.ArgSession">
+<em class="property">class </em><code class="descname">ArgSession</code><span class="sig-paren">(</span><em>cc</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.ArgSession" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A class to keep track of the state accumulated in laying parameters out into memory</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="simuvex.s_cc.SimCC.arg">
-<code class="descname">arg</code><span class="sig-paren">(</span><em>state</em>, <em>index</em>, <em>stackarg_mem_base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.arg" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">SimCC.</code><code class="descname">arg</code><span class="sig-paren">(</span><em>state</em>, <em>index</em>, <em>stack_base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.arg" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a bitvector expression representing the nth argument of a function.</p>
+<p><cite>stack_base</cite> is an optional pointer to the top of the stack at the function start. If it is not
+specified, use the current stack pointer.</p>
+<p>WARNING: this assumes that none of the arguments are floating-point and they&#8217;re all single-word-sized, unless
+you&#8217;ve customized this CC.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="simuvex.s_cc.SimCC.arg_getter">
-<code class="descname">arg_getter</code><span class="sig-paren">(</span><em>state</em>, <em>reg_offsets</em>, <em>args_mem_base</em>, <em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.arg_getter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Helper function to get an argument, given a list of register locations it can be and stack information for
-overflows.</p>
+<dt id="simuvex.s_cc.SimCC.arg_locs">
+<code class="descclassname">SimCC.</code><code class="descname">arg_locs</code><span class="sig-paren">(</span><em>is_fp</em>, <em>sizes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.arg_locs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pass this a list of whether each parameter is floating-point or not, and get back a list of
+SimFunctionArguments. Optionally, pass a list of argument sizes (in bytes) as well.</p>
+<p>If you&#8217;ve customized this CC, this will sanity-check the provided locations with the given list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="simuvex.s_cc.SimCC.arg_session">
+<code class="descclassname">SimCC.</code><code class="descname">arg_session</code><a class="headerlink" href="#simuvex.s_cc.SimCC.arg_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an arg session.</p>
+<p>A session provides the control interface necessary to describe how integral and floating-point arguments are
+laid out into memory. The default behavior is that there are a finite list of int-only and fp-only argument
+slots, and an infinite number of generic slots, and when an argument of a given type is requested, the most
+slot available is used. If you need different behavior, subclass ArgSession.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="simuvex.s_cc.SimCC.both_args">
+<code class="descclassname">SimCC.</code><code class="descname">both_args</code><a class="headerlink" href="#simuvex.s_cc.SimCC.both_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate through all the possible arg positions that can be used to store any kind of argument
+Does not take into account customizations.</p>
+<p>Returns an iterator of SimFunctionArguments</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="simuvex.s_cc.SimCC.fp_args">
+<code class="descclassname">SimCC.</code><code class="descname">fp_args</code><a class="headerlink" href="#simuvex.s_cc.SimCC.fp_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate through all the possible arg positions that can only be used to store floating point values
+Does not take into account customizations.</p>
+<p>Returns an iterator of SimFunctionArguments</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="simuvex.s_cc.SimCC.set_args">
-<code class="descname">set_args</code><span class="sig-paren">(</span><em>state</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.set_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets the value <cite>expr</cite> as being the <cite>index-th</cite> argument of a function</p>
+<dt id="simuvex.s_cc.SimCC.get_args">
+<code class="descclassname">SimCC.</code><code class="descname">get_args</code><span class="sig-paren">(</span><em>state</em>, <em>is_fp=None</em>, <em>sizes=None</em>, <em>stack_base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.get_args" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>is_fp</cite> should be a list of booleans specifying whether each corresponding argument is floating-point -
+True for fp and False for int. For a shorthand to assume that all the parameters are int, pass the number of
+parameters as an int.</p>
+<p>If you&#8217;ve customized this CC, you may omit this parameter entirely. If it is provided, it is used for
+sanity-checking.</p>
+<p><cite>sizes</cite> is an optional list of argument sizes, in bytes. Be careful about using this if you&#8217;ve made explicit
+the arg locations, since it might decide to combine two locations into one if an arg is too big.</p>
+<p><cite>stack_base</cite> is an optional pointer to the top of the stack at the function start. If it is not
+specified, use the current stack pointer.</p>
+<p>Returns a list of bitvector expressions representing the arguments of a function.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="simuvex.s_cc.SimCC.set_return_expr">
-<code class="descname">set_return_expr</code><span class="sig-paren">(</span><em>state</em>, <em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.set_return_expr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets an expression as the return value and updates <cite>state</cite>.</p>
+<dt id="simuvex.s_cc.SimCC.get_return_val">
+<code class="descclassname">SimCC.</code><code class="descname">get_return_val</code><span class="sig-paren">(</span><em>state</em>, <em>is_fp=None</em>, <em>size=None</em>, <em>stack_base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.get_return_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the return value out of the given state</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="simuvex.s_cc.SimCC.int_args">
+<code class="descclassname">SimCC.</code><code class="descname">int_args</code><a class="headerlink" href="#simuvex.s_cc.SimCC.int_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate through all the possible arg positions that can only be used to store integer or pointer values
+Does not take into account customizations.</p>
+<p>Returns an iterator of SimFunctionArguments</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.s_cc.SimCC.is_fp_arg">
+<code class="descclassname">SimCC.</code><code class="descname">is_fp_arg</code><span class="sig-paren">(</span><em>arg</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.is_fp_arg" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should take a SimFunctionArgument instance and return whether or not that argument is a floating-point
+argument.</p>
+<dl class="docutils">
+<dt>Returns True for MUST be a floating point arg,</dt>
+<dd>False for MUST NOT be a floating point arg,
+None for when it can be either.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.s_cc.SimCC.set_return_val">
+<code class="descclassname">SimCC.</code><code class="descname">set_return_val</code><span class="sig-paren">(</span><em>state</em>, <em>val</em>, <em>is_fp=None</em>, <em>size=None</em>, <em>stack_base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.set_return_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the return value into the given state</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.s_cc.SimCC.setup_callsite">
+<code class="descclassname">SimCC.</code><code class="descname">setup_callsite</code><span class="sig-paren">(</span><em>state</em>, <em>ret_addr</em>, <em>args</em>, <em>stack_base=None</em>, <em>alloc_base=None</em>, <em>grow_like_stack=True</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.setup_callsite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Okay. this one is serious.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>state</strong> &#8211; The SimState to operate on</li>
+<li><strong>ret_addr</strong> &#8211; The address to return to when the called function finishes</li>
+<li><strong>args</strong> &#8211; The list of arguments that that the called function will see</li>
+<li><strong>stack_base</strong> &#8211; An optional pointer to use as the top of the stack, circa the function entry point</li>
+<li><strong>alloc_base</strong> &#8211; An optional pointer to use as the place to put excess argument data</li>
+<li><strong>grow_like_stack</strong> &#8211; When allocating data at alloc_base, whether to allocate at decreasing addresses</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The idea here is that you can provide almost any kind of python type in <cite>args</cite> and it&#8217;ll be translated to a
+binary format to be placed into simulated memory. Lists (representing arrays) must be entirely elements of the
+same type and size, while tuples (representing structs) can be elements of any type and size.
+If you&#8217;d like there to be a pointer to a given value, wrap the value in a <cite>PointerWrapper</cite>. Any value
+that can&#8217;t fit in a register will be automatically put in a
+PointerWrapper.</p>
+<p>If stack_base is not provided, the current stack pointer will be used, and it will be updated.
+If alloc_base is not provided, the current stack pointer will be used, and it will be updated.
+You might not like the results if you provide stack_base but not alloc_base.</p>
+<p>grow_like_stack controls the behavior of allocating data at alloc_base. When data from args needs to be wrapped
+in a pointer, the pointer needs to point somewhere, so that data is dumped into memory at alloc_base. If you
+set alloc_base to point to somewhere other than the stack, set grow_like_stack to False so that sequencial
+allocations happen at increasing addresses.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="simuvex.s_cc.SimCC.stack_space">
-<code class="descname">stack_space</code><span class="sig-paren">(</span><em>state</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.stack_space" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the number of bytes needed on the stack for the arguments passed,
-i.e. the number of bytes set_args allocates.</p>
+<code class="descclassname">SimCC.</code><code class="descname">stack_space</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.stack_space" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> &#8211; A list of SimFunctionArguments</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The number of bytes that should be allocated on the stack to store all these args,
+NOT INCLUDING the return address.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="simuvex.s_cc.SimCCUnknown">
-<em class="property">class </em><code class="descclassname">simuvex.s_cc.</code><code class="descname">SimCCUnknown</code><span class="sig-paren">(</span><em>arch</em>, <em>args=None</em>, <em>ret_vals=None</em>, <em>sp_delta=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCCUnknown" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simuvex.s_cc.</code><code class="descname">SimCCUnknown</code><span class="sig-paren">(</span><em>arch</em>, <em>args=None</em>, <em>ret_val=None</em>, <em>sp_delta=None</em>, <em>func_ty=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCCUnknown" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simuvex.s_cc.SimCC" title="simuvex.s_cc.SimCC"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_cc.SimCC</span></code></a></p>
 <p>Represent an unknown calling convention.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>arch</strong> &#8211; The Archinfo arch for this binary</li>
+<li><strong>args</strong> &#8211; A list of SimFunctionArguments describing where the arguments go</li>
+<li><strong>ret_val</strong> &#8211; A SimFunctionArgument describing where the return value goes</li>
+<li><strong>sp_delta</strong> &#8211; The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="simuvex.s_cc.SimLyingRegArg">
+<em class="property">class </em><code class="descclassname">simuvex.s_cc.</code><code class="descname">SimLyingRegArg</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimLyingRegArg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">simuvex.s_cc.SimRegArg</span></code></p>
+<p>A register that LIES about the types it holds</p>
 </dd></dl>
 
 <span class="target" id="module-simuvex.s_event"></span><span class="target" id="module-simuvex.s_format"></span><dl class="class">
@@ -384,6 +551,25 @@ raises a SimValueError.</p>
 </dd></dl>
 
 <span class="target" id="module-simuvex.s_type"></span><dl class="class">
+<dt id="simuvex.s_type.SimStructValue">
+<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimStructValue</code><span class="sig-paren">(</span><em>struct</em>, <em>values=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimStructValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A SimStruct type paired with some real values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>struct</strong> &#8211; A SimStruct instance describing the type of this struct</li>
+<li><strong>values</strong> &#8211; A mapping from struct fields to values</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
 <dt id="simuvex.s_type.SimType">
 <em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimType</code><span class="sig-paren">(</span><em>label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
@@ -450,6 +636,13 @@ this could be represented by an 8-bit int, but this is meant to be interpreted a
 </dd></dl>
 
 <dl class="class">
+<dt id="simuvex.s_type.SimTypeDouble">
+<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypeDouble</code><a class="headerlink" href="#simuvex.s_type.SimTypeDouble" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simuvex.s_type.SimTypeFloat" title="simuvex.s_type.SimTypeFloat"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_type.SimTypeFloat</span></code></a></p>
+<p>An IEEE754 double-precision floating point number</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="simuvex.s_type.SimTypeFd">
 <em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypeFd</code><span class="sig-paren">(</span><em>label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypeFd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simuvex.s_type.SimTypeReg" title="simuvex.s_type.SimTypeReg"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_type.SimTypeReg</span></code></a></p>
@@ -469,6 +662,13 @@ this could be represented by an 8-bit int, but this is meant to be interpreted a
 <em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypeFixedSizeArray</code><span class="sig-paren">(</span><em>elem_type</em>, <em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypeFixedSizeArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simuvex.s_type.SimType" title="simuvex.s_type.SimType"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_type.SimType</span></code></a></p>
 <p>SimTypeFixedSizeArray is a literal (i.e. not a pointer) fixed-size array.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="simuvex.s_type.SimTypeFloat">
+<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypeFloat</code><span class="sig-paren">(</span><em>size=32</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypeFloat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simuvex.s_type.SimTypeReg" title="simuvex.s_type.SimTypeReg"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_type.SimTypeReg</span></code></a></p>
+<p>An IEEE754 single-precision floating point number</p>
 </dd></dl>
 
 <dl class="class">
@@ -494,17 +694,16 @@ a certain return value.</p>
 
 <dl class="class">
 <dt id="simuvex.s_type.SimTypeInt">
-<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypeInt</code><span class="sig-paren">(</span><em>size</em>, <em>signed</em>, <em>label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypeInt" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypeInt</code><span class="sig-paren">(</span><em>signed=True</em>, <em>label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypeInt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simuvex.s_type.SimTypeReg" title="simuvex.s_type.SimTypeReg"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_type.SimTypeReg</span></code></a></p>
-<p>SimTypeInt is a type that specifies a signed or unsigned integer of some size.</p>
+<p>SimTypeInt is a type that specifies a signed or unsigned C integer.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>label</strong> &#8211; The type label</li>
-<li><strong>size</strong> &#8211; The size of the integer (e.g. 32bit, 8bit, etc.)</li>
 <li><strong>signed</strong> &#8211; True if signed, False if unsigned</li>
+<li><strong>label</strong> &#8211; The type label</li>
 </ul>
 </td>
 </tr>
@@ -514,14 +713,16 @@ a certain return value.</p>
 
 <dl class="class">
 <dt id="simuvex.s_type.SimTypeLength">
-<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypeLength</code><span class="sig-paren">(</span><em>arch</em>, <em>addr=None</em>, <em>length=None</em>, <em>label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypeLength" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#simuvex.s_type.SimTypeInt" title="simuvex.s_type.SimTypeInt"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_type.SimTypeInt</span></code></a></p>
+<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypeLength</code><span class="sig-paren">(</span><em>signed=False</em>, <em>addr=None</em>, <em>length=None</em>, <em>label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypeLength" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simuvex.s_type.SimTypeNum" title="simuvex.s_type.SimTypeNum"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_type.SimTypeNum</span></code></a></p>
 <p>SimTypeLength is a type that specifies the length of some buffer in memory.</p>
+<p>...I&#8217;m not really sure what the original design of this class was going for</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>signed</strong> &#8211; Whether the value is signed or not</li>
 <li><strong>label</strong> &#8211; The type label.</li>
 <li><strong>addr</strong> &#8211; The memory address (expression).</li>
 <li><strong>length</strong> &#8211; The length (expression).</li>
@@ -533,8 +734,28 @@ a certain return value.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="simuvex.s_type.SimTypeNum">
+<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypeNum</code><span class="sig-paren">(</span><em>size</em>, <em>signed=True</em>, <em>label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypeNum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simuvex.s_type.SimType" title="simuvex.s_type.SimType"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_type.SimType</span></code></a></p>
+<p>SimTypeNum is a numeric type of arbitrary length</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>size</strong> &#8211; The size of the integer, in bytes</li>
+<li><strong>signed</strong> &#8211; Whether the integer is signed or not</li>
+<li><strong>label</strong> &#8211; A label for the type</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
 <dt id="simuvex.s_type.SimTypePointer">
-<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypePointer</code><span class="sig-paren">(</span><em>arch</em>, <em>pts_to</em>, <em>label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypePointer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypePointer</code><span class="sig-paren">(</span><em>pts_to</em>, <em>label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypePointer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simuvex.s_type.SimTypeReg" title="simuvex.s_type.SimTypeReg"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_type.SimTypeReg</span></code></a></p>
 <p>SimTypePointer is a type that specifies a pointer to some other type.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1509,7 +1730,7 @@ SimSymbolicMemory class.</p>
 
 <span class="target" id="module-simuvex.storage.paged_memory"></span><dl class="class">
 <dt id="simuvex.storage.paged_memory.Page">
-<em class="property">class </em><code class="descclassname">simuvex.storage.paged_memory.</code><code class="descname">Page</code><span class="sig-paren">(</span><em>page_size</em>, <em>permissions=None</em>, <em>executable=False</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.paged_memory.Page" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simuvex.storage.paged_memory.</code><code class="descname">Page</code><span class="sig-paren">(</span><em>page_size</em>, <em>permissions=None</em>, <em>executable=False</em>, <em>storage=None</em>, <em>sinkhole=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.paged_memory.Page" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Page object, allowing for more flexibility than just a raw dict.</p>
 <p>Create a new page object. Carries permissions information. Permissions default to RW unless <cite>executable</cite> is True
@@ -1527,7 +1748,7 @@ executable stack.</td>
 
 <dl class="class">
 <dt id="simuvex.storage.paged_memory.SimPagedMemory">
-<em class="property">class </em><code class="descclassname">simuvex.storage.paged_memory.</code><code class="descname">SimPagedMemory</code><span class="sig-paren">(</span><em>memory_backer=None</em>, <em>permissions_backer=None</em>, <em>pages=None</em>, <em>sinkholes=None</em>, <em>initialized=None</em>, <em>name_mapping=None</em>, <em>hash_mapping=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.paged_memory.SimPagedMemory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simuvex.storage.paged_memory.</code><code class="descname">SimPagedMemory</code><span class="sig-paren">(</span><em>memory_backer=None</em>, <em>permissions_backer=None</em>, <em>pages=None</em>, <em>initialized=None</em>, <em>name_mapping=None</em>, <em>hash_mapping=None</em>, <em>page_size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.paged_memory.SimPagedMemory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents paged memory.</p>
 <dl class="method">
