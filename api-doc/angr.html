@@ -2363,7 +2363,7 @@ a fakeret edge.</li>
 
 <dl class="class">
 <dt id="angr.analyses.cfg_fast.CFGFast">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGFast</code><span class="sig-paren">(</span><em>binary=None</em>, <em>start=None</em>, <em>end=None</em>, <em>pickle_intermediate_results=False</em>, <em>symbols=True</em>, <em>function_prologues=True</em>, <em>resolve_indirect_jumps=True</em>, <em>force_segment=False</em>, <em>force_complete_scan=True</em>, <em>indirect_jump_target_limit=100000</em>, <em>progress_callback=None</em>, <em>show_progressbar=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGFast" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGFast</code><span class="sig-paren">(</span><em>binary=None</em>, <em>start=None</em>, <em>end=None</em>, <em>pickle_intermediate_results=False</em>, <em>symbols=True</em>, <em>function_prologues=True</em>, <em>resolve_indirect_jumps=False</em>, <em>force_segment=False</em>, <em>force_complete_scan=True</em>, <em>indirect_jump_target_limit=100000</em>, <em>collect_data_references=False</em>, <em>progress_callback=None</em>, <em>show_progressbar=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGFast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a>, <a class="reference internal" href="#angr.analyses.cfg_base.CFGBase" title="angr.analyses.cfg_base.CFGBase"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.cfg_base.CFGBase</span></code></a></p>
 <p>We find functions inside the given binary, and build a control-flow graph in very fast manners: instead of
 simulating program executions, keeping track of states, and performing expensive data-flow analysis, CFGFast will
@@ -2389,8 +2389,10 @@ beginnings</li>
 <li><strong>resolve_indirect_jumps</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Try to resolve indirect jumps. This is necessary to resolve jump targets
 from jump tables, etc.</li>
 <li><strong>force_segment</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Force CFGFast to rely on binary segments instead of sections.</li>
-<li><strong>force_complete_scan</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Perform a complete scan on the binary and maximize the number of identified code
-blocks.</li>
+<li><strong>force_complete_scan</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Perform a complete scan on the binary and maximize the number of identified
+code blocks.</li>
+<li><strong>collect_data_references</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; If CFGFast should collect data references from individual basic blocks or
+not.</li>
 <li><strong>progress_callback</strong> &#8211; Specify a callback function to get the progress during CFG recovery.</li>
 <li><strong>show_progressbar</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Should CFGFast show a progressbar during CFG recovery or not.</li>
 </ul>
@@ -2861,7 +2863,7 @@ provides a base upon which analyses can be implemented.</p>
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
 <li><a class="reference internal" href="#angr.surveyor.Surveyor.done" title="angr.surveyor.Surveyor.done"><strong>done</strong></a> &#8211; returns True if the analysis is done (by default, this is when self.active is empty).</li>
 <li><a class="reference internal" href="#angr.surveyor.Surveyor.run" title="angr.surveyor.Surveyor.run"><strong>run</strong></a> &#8211; runs a loop of tick()ing and spill()ing until self.done is True.</li>
-<li><a class="reference internal" href="#angr.surveyors.escaper.Escaper.tick" title="angr.surveyors.escaper.Escaper.tick"><strong>tick</strong></a> &#8211; ticks all paths forward. The default implementation calls tick_path() on every path.</li>
+<li><a class="reference internal" href="#angr.surveyor.Surveyor.tick" title="angr.surveyor.Surveyor.tick"><strong>tick</strong></a> &#8211; ticks all paths forward. The default implementation calls tick_path() on every path.</li>
 </ul>
 </td>
 </tr>
