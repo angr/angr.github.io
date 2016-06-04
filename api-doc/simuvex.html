@@ -406,7 +406,7 @@ NOT INCLUDING the return address.</td>
 
 <span class="target" id="module-simuvex.s_event"></span><span class="target" id="module-simuvex.s_format"></span><dl class="class">
 <dt id="simuvex.s_format.FormatParser">
-<em class="property">class </em><code class="descclassname">simuvex.s_format.</code><code class="descname">FormatParser</code><span class="sig-paren">(</span><em>state</em>, <em>ret_to=None</em>, <em>stmt_from=None</em>, <em>convention=None</em>, <em>arguments=None</em>, <em>sim_kwargs=None</em>, <em>run_func_name='run'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_format.FormatParser" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simuvex.s_format.</code><code class="descname">FormatParser</code><span class="sig-paren">(</span><em>state</em>, <em>ret_to=None</em>, <em>stmt_from=None</em>, <em>convention=None</em>, <em>arguments=None</em>, <em>sim_kwargs=None</em>, <em>run_func_name='run'</em>, <em>syscall_name=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_format.FormatParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">simuvex.s_procedure.SimProcedure</span></code></p>
 <p>For SimProcedures relying on format strings.</p>
 </dd></dl>
@@ -448,7 +448,7 @@ symbolic.</p>
 
 <span class="target" id="module-simuvex.s_state"></span><dl class="class">
 <dt id="simuvex.s_state.SimState">
-<em class="property">class </em><code class="descclassname">simuvex.s_state.</code><code class="descname">SimState</code><span class="sig-paren">(</span><em>arch='AMD64'</em>, <em>plugins=None</em>, <em>memory_backer=None</em>, <em>permissions_backer=None</em>, <em>mode=None</em>, <em>options=None</em>, <em>add_options=None</em>, <em>remove_options=None</em>, <em>special_memory_filler=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_state.SimState" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simuvex.s_state.</code><code class="descname">SimState</code><span class="sig-paren">(</span><em>arch='AMD64'</em>, <em>plugins=None</em>, <em>memory_backer=None</em>, <em>permissions_backer=None</em>, <em>mode=None</em>, <em>options=None</em>, <em>add_options=None</em>, <em>remove_options=None</em>, <em>special_memory_filler=None</em>, <em>os_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_state.SimState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">ana.storable.Storable</span></code></p>
 <p>The SimState represents the state of a program, including its memory, registers, and so forth.</p>
 <dl class="method">

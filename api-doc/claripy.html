@@ -227,15 +227,97 @@ another Reverse.</li>
 (basically, just undoing the Reverse op), and 2 means simplified through z3.</li>
 <li><strong>errored</strong> &#8211; A set of backends that are known to be unable to handle this AST.</li>
 <li><strong>eager_backends</strong> &#8211; A list of backends with which to attempt eager evaluation</li>
+<li><strong>annotations</strong> &#8211; A frozenset of annotations applied onto this AST.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="claripy.ast.base.Base.annotate">
+<code class="descname">annotate</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.annotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends annotations to this AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> &#8211; <p>the tuple of annotations to append</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations added</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.append_annotation">
+<code class="descname">append_annotation</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.append_annotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends an annotation to this AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the annotation to append</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotation added</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.append_annotations">
+<code class="descname">append_annotations</code><span class="sig-paren">(</span><em>new_tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.append_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends several annotations to this AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_tuple</strong> &#8211; the tuple of annotations to append</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations added</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="claripy.ast.base.Base.depth">
 <code class="descname">depth</code><a class="headerlink" href="#claripy.ast.base.Base.depth" title="Permalink to this definition">¶</a></dt>
 <dd><p>The depth of this AST. For example, an AST representing (a+(b+c)) would have a depth of 2.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.insert_annotation">
+<code class="descname">insert_annotation</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.insert_annotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts an annotation to this AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the annotation to insert</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotation added</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.insert_annotations">
+<code class="descname">insert_annotations</code><span class="sig-paren">(</span><em>new_tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.insert_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inserts several annotations to this AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_tuple</strong> &#8211; the tuple of annotations to insert</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations added</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -268,9 +350,57 @@ itself, and this will go away.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="claripy.ast.base.Base.remove_annotation">
+<code class="descname">remove_annotation</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.remove_annotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes an annotation from this AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the annotation to remove</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotation removed</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.remove_annotations">
+<code class="descname">remove_annotations</code><span class="sig-paren">(</span><em>remove_sequence</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.remove_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes several annotations from this AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>remove_sequence</strong> &#8211; a sequence/set of the annotations to remove</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations removed</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="claripy.ast.base.Base.replace">
 <code class="descname">replace</code><span class="sig-paren">(</span><em>old</em>, <em>new</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns an AST with all instances of the AST &#8216;old&#8217; replaced with AST &#8216;new&#8217;.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.replace_annotations">
+<code class="descname">replace_annotations</code><span class="sig-paren">(</span><em>new_tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces annotations on this AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_tuple</strong> &#8211; the tuple of annotations to replace the old annotations with</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations added</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -533,6 +663,27 @@ _convert() to see if the backend can handle that type of object.</p>
 <li><strong>c</strong> &#8211; A sequence of claripy.E objects.</li>
 <li><strong>s</strong> &#8211; A backend solver object.</li>
 </ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.apply_annotation">
+<code class="descname">apply_annotation</code><span class="sig-paren">(</span><em>o</em>, <em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.apply_annotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should apply the annotation on the backend object, and return a new backend object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>o</strong> &#8211; A backend object.</li>
+<li><strong>a</strong> &#8211; An Annotation object.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A backend object.</p>
 </td>
 </tr>
 </tbody>

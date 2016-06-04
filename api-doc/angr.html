@@ -758,7 +758,7 @@ or False. (default: drop all paths)</li>
 
 <dl class="method">
 <dt id="angr.path_group.PathGroup.explore">
-<code class="descname">explore</code><span class="sig-paren">(</span><em>stash=None</em>, <em>n=None</em>, <em>find=None</em>, <em>avoid=None</em>, <em>num_find=None</em>, <em>found_stash=None</em>, <em>avoid_stash=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.explore" title="Permalink to this definition">¶</a></dt>
+<code class="descname">explore</code><span class="sig-paren">(</span><em>stash=None</em>, <em>n=None</em>, <em>find=None</em>, <em>avoid=None</em>, <em>num_find=None</em>, <em>found_stash=None</em>, <em>avoid_stash=None</em>, <em>step_func=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.explore" title="Permalink to this definition">¶</a></dt>
 <dd><p>A replacement for the Explorer surveyor. Tick stash &#8220;stash&#8221; forward (up to n times or until num_find paths are
 found), looking for condition &#8220;find&#8221;, avoiding condition &#8220;avoid&#8221;. Stashes found paths into &#8220;found_stash&#8217; and
 avoided paths into &#8220;avoid_stash&#8221;.</p>
@@ -766,7 +766,7 @@ avoided paths into &#8220;avoid_stash&#8221;.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>stash</strong> &#8211; </li>
 <li><strong>n</strong> &#8211; </li>
 <li><strong>find</strong> &#8211; The addresses we want to reach.</li>
@@ -777,11 +777,20 @@ avoided paths into &#8220;avoid_stash&#8221;.</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The resulting PathGroup.</p>
-</td>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>:param step_func    If provided, should be a lambda that takes a PathGroup and returns a PathGroup. Will be</dt>
+<dd>called with the PathGroup at every step. TODO: This doesn&#8217;t work with Veritesting because
+Veritesting calls step() and we don&#8217;t pass this function to Veritesting yet.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The resulting PathGroup.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">PathGroup</a></p>
-</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#angr.path_group.PathGroup" title="angr.path_group.PathGroup">PathGroup</a></td>
 </tr>
 </tbody>
 </table>
@@ -1305,7 +1314,7 @@ memory at this address).</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>addr</strong> &#8211; The address of the function.</li>
 <li><strong>name</strong> &#8211; (Optional) The name of the function.</li>
-<li><strong>syscall</strong> &#8211; (Optional) Whether this function is a sycall or not.</li>
+<li><strong>syscall</strong> &#8211; (Optional) Whether this function is a syscall or not.</li>
 </ul>
 </td>
 </tr>
@@ -1448,7 +1457,7 @@ map to the associated <code class="xref py py-class docutils literal"><span clas
 results during CFG generation, and manages a function map of the binary.</p>
 <dl class="method">
 <dt id="angr.knowledge.function_manager.FunctionManager.function">
-<code class="descname">function</code><span class="sig-paren">(</span><em>addr=None</em>, <em>name=None</em>, <em>create=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function_manager.FunctionManager.function" title="Permalink to this definition">¶</a></dt>
+<code class="descname">function</code><span class="sig-paren">(</span><em>addr=None</em>, <em>name=None</em>, <em>create=False</em>, <em>syscall=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function_manager.FunctionManager.function" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a function object from the function manager.</p>
 <p>Pass either <cite>addr</cite> or <cite>name</cite> with the appropriate values.</p>
 </dd></dl>
@@ -2047,7 +2056,7 @@ original object.</p>
 <span class="target" id="module-angr.analyses.cfg_accurate"></span><dl class="class">
 <dt id="angr.analyses.cfg_accurate.CFGAccurate">
 <em class="property">class </em><code class="descclassname">angr.analyses.cfg_accurate.</code><code class="descname">CFGAccurate</code><span class="sig-paren">(</span><em>context_sensitivity_level=1</em>, <em>start=None</em>, <em>avoid_runs=None</em>, <em>enable_function_hints=False</em>, <em>call_depth=None</em>, <em>call_tracing_filter=None</em>, <em>initial_state=None</em>, <em>starts=None</em>, <em>keep_state=False</em>, <em>enable_advanced_backward_slicing=False</em>, <em>enable_symbolic_back_traversal=False</em>, <em>additional_edges=None</em>, <em>no_construct=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a>, <a class="reference internal" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.cfg_base.CFGBase" title="angr.analyses.cfg_base.CFGBase"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.cfg_base.CFGBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.cfg_base.CFGBase" title="angr.analyses.cfg_base.CFGBase"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.cfg_base.CFGBase</span></code></a></p>
 <p>This class represents a control-flow graph.</p>
 <p>All parameters are optional.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -2055,17 +2064,17 @@ original object.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>context_sensitivity_level</strong> &#8211; The level of context-sensitivity of this CFG.
+<li><strong>context_sensitivity_level</strong> &#8211; The level of context-sensitivity of this CFG (see documentation for further details)
 It ranges from 0 to infinity. Default 1.</li>
 <li><strong>avoid_runs</strong> &#8211; A list of runs to avoid.</li>
-<li><strong>enable_function_hints</strong> &#8211; Whether to use function hints or now.</li>
+<li><strong>enable_function_hints</strong> &#8211; Whether to use function hints (constants that might be used as exit targets) or not.</li>
 <li><strong>call_depth</strong> &#8211; How deep in the call stack to trace.</li>
-<li><strong>call_tracing_filter</strong> &#8211; ??? what the hell is this.</li>
+<li><strong>call_tracing_filter</strong> &#8211; Filter to apply on a given path and jumpkind to determine if it should be skipped when call_depth is reached</li>
 <li><strong>initial_state</strong> &#8211; An initial state to use to begin analysis.</li>
 <li><strong>starts</strong> &#8211; A list of addresses at which to begin analysis</li>
 <li><strong>keep_state</strong> &#8211; Whether to keep the SimStates for each CFGNode.</li>
-<li><strong>enable_advanced_backward_slicing</strong> &#8211; </li>
-<li><strong>enable_symbolic_back_traversal</strong> &#8211; </li>
+<li><strong>enable_advanced_backward_slicing</strong> &#8211; Whether to enable an intensive technique for resolving direct jumps</li>
+<li><strong>enable_symbolic_back_traversal</strong> &#8211; Whether to enable an intensive technique for resolving indirect jumps</li>
 <li><strong>additional_edges</strong> &#8211; A dict mapping addresses of basic blocks to addresses of
 successors to manually include and analyze forward from.</li>
 <li><strong>no_construct</strong> &#8211; Skip the construction procedure. Only used in unit-testing.</li>
@@ -2213,8 +2222,8 @@ based on the back egdes</p>
 
 <span class="target" id="module-angr.analyses.cfg_base"></span><dl class="class">
 <dt id="angr.analyses.cfg_base.CFGBase">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg_base.</code><code class="descname">CFGBase</code><span class="sig-paren">(</span><em>project</em>, <em>context_sensitivity_level</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_base.</code><code class="descname">CFGBase</code><span class="sig-paren">(</span><em>context_sensitivity_level</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
 <p>The base class for control flow graphs.</p>
 <dl class="method">
 <dt id="angr.analyses.cfg_base.CFGBase.get_all_irsbs">
@@ -2225,10 +2234,22 @@ based on the back egdes</p>
 <dl class="method">
 <dt id="angr.analyses.cfg_base.CFGBase.get_all_nodes">
 <code class="descname">get_all_nodes</code><span class="sig-paren">(</span><em>addr</em>, <em>is_syscall=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_all_nodes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get all CFGNodes whose address is the specified one,
-:param addr: Address of the node
-:param is_syscall: True returns the syscall node, False returns the normal CFGNode, None returns both
-:return: all CFGNodes</p>
+<dd><p>Get all CFGNodes whose address is the specified one.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> &#8211; Address of the node</li>
+<li><strong>is_syscall</strong> &#8211; True returns the syscall node, False returns the normal CFGNode, None returns both</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">all CFGNodes</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -2356,7 +2377,7 @@ a fakeret edge.</li>
 
 <span class="target" id="module-angr.analyses.cfg_fast"></span><dl class="class">
 <dt id="angr.analyses.cfg_fast.CFGEntry">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGEntry</code><span class="sig-paren">(</span><em>addr</em>, <em>func_addr</em>, <em>jumpkind</em>, <em>ret_target=None</em>, <em>last_addr=None</em>, <em>src_node=None</em>, <em>src_stmt_idx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGEntry" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGEntry</code><span class="sig-paren">(</span><em>addr</em>, <em>func_addr</em>, <em>jumpkind</em>, <em>ret_target=None</em>, <em>last_addr=None</em>, <em>src_node=None</em>, <em>src_stmt_idx=None</em>, <em>returning_source=None</em>, <em>syscall=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGEntry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Defines an entry to resume the CFG recovery</p>
 </dd></dl>
@@ -2364,11 +2385,28 @@ a fakeret edge.</li>
 <dl class="class">
 <dt id="angr.analyses.cfg_fast.CFGFast">
 <em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGFast</code><span class="sig-paren">(</span><em>binary=None</em>, <em>start=None</em>, <em>end=None</em>, <em>pickle_intermediate_results=False</em>, <em>symbols=True</em>, <em>function_prologues=True</em>, <em>resolve_indirect_jumps=False</em>, <em>force_segment=False</em>, <em>force_complete_scan=True</em>, <em>indirect_jump_target_limit=100000</em>, <em>collect_data_references=False</em>, <em>progress_callback=None</em>, <em>show_progressbar=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGFast" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a>, <a class="reference internal" href="#angr.analyses.cfg_base.CFGBase" title="angr.analyses.cfg_base.CFGBase"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.cfg_base.CFGBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.cfg_base.CFGBase" title="angr.analyses.cfg_base.CFGBase"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.cfg_base.CFGBase</span></code></a></p>
 <p>We find functions inside the given binary, and build a control-flow graph in very fast manners: instead of
 simulating program executions, keeping track of states, and performing expensive data-flow analysis, CFGFast will
 only perform light-weight analyses combined with some heuristics, and with some strong assumptions.</p>
-<p># TODO: Write about what analysis techniques and heuristics are used</p>
+<p>In order to identify as many functions as possible, and as accurate as possible, the following operation sequence
+is followed:</p>
+<p># Active scanning
+- If the binary has &#8220;function symbols&#8221; (TODO: this term is not accurate enough), they are starting points of</p>
+<blockquote>
+<div>the code scanning</div></blockquote>
+<ul>
+<li><dl class="first docutils">
+<dt>If the binary does not have any &#8220;function symbol&#8221;, we will first perform a function prologue scanning on the</dt>
+<dd><p class="first last">entire binary, and start from those places that look like function beginnings</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">Otherwise, the binary&#8217;s entry point will be the starting point for scanning</p>
+</li>
+</ul>
+<p># Passive scanning
+- After all active scans are done, we will go through the whole image and scan all code pieces</p>
 <p>Due to the nature of those techniques that are used here, a base address is often not required to use this analysis
 routine. However, with a correct base address, CFG recovery will almost always yield a much better result. A custom
 analysis, called GirlScout, is specifically made to recover the base address of a binary blob. After the base
@@ -3324,13 +3362,32 @@ been transplanted into the factory as <cite>project.factory.block</cite>.</p>
 
 <dl class="class">
 <dt id="angr.simos.SimOS">
-<em class="property">class </em><code class="descclassname">angr.simos.</code><code class="descname">SimOS</code><span class="sig-paren">(</span><em>project</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.simos.</code><code class="descname">SimOS</code><span class="sig-paren">(</span><em>project</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>A class describing OS/arch-level configuration.</p>
 <dl class="method">
 <dt id="angr.simos.SimOS.configure_project">
 <code class="descname">configure_project</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS.configure_project" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure the project to set up global settings (like SimProcedures).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.simos.SimOS.handle_syscall">
+<code class="descname">handle_syscall</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS.handle_syscall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle a state whose immediate preceding jumpkind is syscall by creating a new SimRun. Note that symbolic
+syscalls are not supported - the syscall number <em>must</em> have only one solution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> (<a class="reference internal" href="simuvex.html#simuvex.s_state.SimState" title="simuvex.s_state.SimState"><em>simuvex.s_state.SimState</em></a>) &#8211; the program state.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new SimRun instance.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">simuvex.s_procedure.SimProcedure</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -3370,6 +3427,25 @@ PIE MIPS, this function transfer t9, gp, and ra to the new state.</p>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">simuvex.SimState</p>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.simos.SimOS.syscall_info">
+<code class="descname">syscall_info</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS.syscall_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get information about the syscall that is about to be called. Note that symbolic syscalls are not supported -
+the syscall number <em>must</em> have only one solution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> (<a class="reference internal" href="simuvex.html#simuvex.s_state.SimState" title="simuvex.s_state.SimState"><em>simuvex.s_state.SimState</em></a>) &#8211; the program state.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A tuple of (cc, syscall_addr, syscall_name, syscall_class)</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
 </tr>
 </tbody>
 </table>
