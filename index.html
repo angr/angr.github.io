@@ -18,30 +18,63 @@
     </script>
   </head>
   <body>
-    <h1>angr</h1>
+    <div id="topbar">
+      <img id="logo" src="img/angry_face.png">
+      <div id="title">angr</div>
+      <ul id="nav">
+        <div id="prompt">&gt;&gt;&gt;</div>
+        <a href="index.html"><li>Home</li></a>
+        <a href="http://docs.angr.io/"><li>Docs</li></a>
+        <a href="http://api.angr.io/"><li>API</li></a>
+        <a href="install.html"><li>Install</li></a>
+        <a href="https://github.com/angr"><li>Code</li></a>
+        <a href="contribute.html"><li>Get Involved!</li></a>
+      </ul>
+    </div>
 
-    <pre>
+    <div id="bodycolumn">
+      <!-- content starts here -->
+
+    <h2>What is angr?</h2>
+    <p>angr is a python framework for <abbr title="Binary analysis is the art of understanding the behavior of compiled programs without source code">analyzing binaries</abbr>. It focuses on both static and dynamic symbolic ("concolic") analysis, making it applicable to a variety of tasks.</p>
+    <p>As an introduction to angr's capabilities, here is a brief code example that analyzes a fake backdoored firmware image to perform control-flow analysis and find the backdoor via symbolic execution:</p>
+
+      <pre>
 <span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">import angr</span>
-<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">proj = angr.Project('./fauxware-amd64')</span>
-<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">cfg = proj.analyses.CFG(); cfg.function_manager.functions</span>
-<span class="pyoutput">{4195600L: &lt;Function sub_400510 (0x400510)&gt;,
- 4195616L: &lt;Function sub_400520 (0x400520)&gt;,
- 4195632L: &lt;Function sub_400530 (0x400530)&gt;,
- 4195648L: &lt;Function sub_400540 (0x400540)&gt;,
- 4195664L: &lt;Function sub_400550 (0x400550)&gt;,
- 4195680L: &lt;Function sub_400560 (0x400560)&gt;,
- 4195696L: &lt;Function sub_400570 (0x400570)&gt;,
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">proj = angr.Project('<a href="https://github.com/angr/angr-doc/tree/master/examples/fauxware">./fauxware</a>')</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">cfg = proj.analyses.CFG()</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">dict(p.kb.functions)</span>
+<span class="pyoutput">{4195552L: &lt;Function _init (0x4004e0)&gt;,
+ 4195600L: &lt;Function plt.puts (0x400510)&gt;,
+ 4195616L: &lt;Function plt.printf (0x400520)&gt;,
+ 4195632L: &lt;Function plt.read (0x400530)&gt;,
+ 4195648L: &lt;Function plt.__libc_start_main (0x400540)&gt;,
+ 4195664L: &lt;Function plt.strcmp (0x400550)&gt;,
+ 4195680L: &lt;Function plt.open (0x400560)&gt;,
+ 4195696L: &lt;Function plt.exit (0x400570)&gt;,
  4195712L: &lt;Function _start (0x400580)&gt;,
+ 4195756L: &lt;Function call_gmon_start (0x4005ac)&gt;,
+ 4195904L: &lt;Function frame_dummy (0x400640)&gt;,
  4195940L: &lt;Function authenticate (0x400664)&gt;,
  4196077L: &lt;Function accepted (0x4006ed)&gt;,
  4196093L: &lt;Function rejected (0x4006fd)&gt;,
- 4196125L: &lt;Function main (0x40071d)&gt;}</span>
-<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">ex = proj.surveyors.Explorer(find=0x4006ed).run()</span>
-<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">ex.found[0].state.posix.dumps(0)</span>
+ 4196125L: &lt;Function main (0x40071d)&gt;,
+ 4196320L: &lt;Function __libc_csu_init (0x4007e0)&gt;,
+ 4196480L: &lt;Function __do_global_ctors_aux (0x400880)&gt;}</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">pg = proj.factory.path_group().explore(find=0x4006ed)</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">pg.found[0].state.posix.dumps(0)</span>
 <span class="pyoutput">'\x00\x00\x00\x00\x00\x00\x00\x00\x00<strong>SOSNEAKY</strong>\x00'</span>
 </pre>
-    <h2>What is angr?</h2>
-    <p>angr is a framework for analyzing binaries. It focuses on both static and dynamic symbolic ("concolic") analysis, making it applicable to a variety of tasks.</p>
+
+    <h2>How do I learn?</h2>
+    <p>There are a few resources you can use to help you get up to speed!</p>
+
+      <ul>
+        <li>Documentation and walk-throughs available in <a href="http://docs.angr.io">e-book form</a> and <a href="https://github.com/angr/angr-doc">repository form</a>, including ready-to-run <a href="https://github.com/angr/angr-doc/blob/master/docs/examples.md">examples</a>
+        <li>The <a href="api-doc">API reference</a>
+        <li>The presentations from angr's debut at <a href="https://docs.google.com/presentation/d/1t7KaCMc73z7WdV7EcL0z9TSHlT_kjdMdSrPHtpA6ezc/edit#slide=id.p">DEFCON 23</a> <a href="https://www.youtube.com/watch?v=oznsT-ptAbk">(video)</a> and <a href="https://docs.google.com/presentation/d/1kwObiKZsPSpxM0uZByzeRTaLC7RS1E2C7UR6HxD7Y1Y/edit#slide=id.p4">Blackhat 2015</a> <a href="https://www.youtube.com/watch?v=WZFO1fOVEoE&feature=share">(video)</a>
+        <li>Presentations discussing Shellphish's use of angr in the DARPA Cyber Grand Challenge at <a href="http://cs.ucsb.edu/~antoniob/files/hitcon_2015_public.pdf">HITCON ENT 2015</a>, <a href="https://docs.google.com/presentation/d/1ko1a28XL1nOm6LfqW5fCk6qjFmnhGIATyGDlAnxNcaA/edit#slide=id.p">HITCON CMT 2015</a>, and <a href="https://www.youtube.com/watch?v=l4kmWhYija0">32C3</a> <a href="https://www.youtube.com/watch?v=XGhg19_GXnM">(video)</a>
+    </ul>
 
     <h2>What's it made of?</h2>
 	<p>angr is made up of several subprojects, all of which are <a href="https://github.com/angr">open-source!</a></p>
@@ -57,7 +90,7 @@
 
     <h2>How has it been used academically?</h2>
 
-    <p>If you have used angr or its sub-components in research, please cite the paper that it was developed for:</p>
+    <p>If you have used angr or its sub-components in research, please cite the paper describing it:</p>
 
     <pre>@inproceedings{shoshitaishvili2016state,
   title={{SoK: (State of) The Art of War: Offensive Techniques in Binary Analysis}},
@@ -68,7 +101,15 @@
   year={2016}
 }</pre>
 
-    <p>Additionally, the angr authors have used angr in the following publications:</p>
+    <!-- code from http://dabblet.com/gist/3157489 -->
+    <div>
+      <input type="checkbox" id="showhide" class="expand-check">
+      <label for="showhide">
+        <div class="show-more">Show more papers</div>
+        <div class="show-less">Show fewer papers</div>
+      </label>
+      <div class="expandable">
+        <p>Additionally, the angr authors have used angr in the following publications:</p>
 
 <pre>
 @inproceedings{stephens2016driller,
@@ -119,13 +160,13 @@
   year={2014}
 }
 </pre>
+      </div>
+    </div>
+
 
     <h2>And non-academically?</h2>
 
-    <p>angr was one of the underpinnings of Shellphish's Cyber Reasoning System for the DARPA Cyber Grand Challenge, enabling them to qualify for the CGC finals! Shellphish has also used angr in many CTFs!</p>
-
-    <h2>Whom can I contact?</h2>
-    <p>If you have questions with a subcomponent of angr, please open an issue on github (or send us a pull request!). If you have questions or comments, drop us a line at the mailing list at <i>angr AT lists.cs.ucsb.edu</i> or hang out on the IRC channel (<b>#angr</b> on <a href="https://freenode.net/">freenode</a>).</p>
+    <p>angr was one of the underpinnings of Shellphish's Cyber Reasoning System for the DARPA Cyber Grand Challenge, enabling them to qualify for the CGC finals! Shellphish has also used angr in many CTFs.</p>
 
     <h2>Who works on angr?</h2>
     <p>angr is worked on by several researchers in the <a href="http://seclab.cs.ucsb.edu">Computer Security Lab at UC Santa Barbara</a>. Core developers (arbitrarily, 1000+ lines of code!) include:</p>
@@ -153,27 +194,13 @@
       <li>Sébastien Duquette</li>
     </ul>
 
+      <!-- content ends here -->
+    </div>
+
+  <div id="footer">
     <p>angr owes its existence to research sponsored by DARPA under agreement number <a href="http://www.darpa.mil/program/vetting-commodity-it-software-and-firmware">N66001-13-2-4039</a>!</p>
 
-    <h2>How do I learn?</h2>
-    <p>There are a few resources you can use to help you get up to speed!</p>
-
-      <ul>
-          <li>The <a href="https://github.com/angr/angr-doc">documentation repository</a> and <a href="http://docs.angr.io">HTML version</a>, including ready-to-run <a href="https://github.com/angr/angr-doc/blob/master/docs/examples.md">examples</a>.
-        <li>The <a href="api-doc">API reference</a>
-        <li>The presentations from angr's debut at <a href="https://docs.google.com/presentation/d/1t7KaCMc73z7WdV7EcL0z9TSHlT_kjdMdSrPHtpA6ezc/edit#slide=id.p">DEFCON 23</a> <a href="https://www.youtube.com/watch?v=oznsT-ptAbk">(video)</a> and <a href="https://docs.google.com/presentation/d/1kwObiKZsPSpxM0uZByzeRTaLC7RS1E2C7UR6HxD7Y1Y/edit#slide=id.p4">Blackhat 2015</a> <a href="https://www.youtube.com/watch?v=WZFO1fOVEoE&feature=share">(video)</a>.
-        <li>Presentations discussing Shellphish's use of angr in the DARPA Cyber Grand Challenge at <a href="http://cs.ucsb.edu/~antoniob/files/hitcon_2015_public.pdf">HITCON ENT 2015</a>, <a href="https://docs.google.com/presentation/d/1ko1a28XL1nOm6LfqW5fCk6qjFmnhGIATyGDlAnxNcaA/edit#slide=id.p">HITCON CMT 2015</a>, and <a href="https://www.youtube.com/watch?v=l4kmWhYija0">32C3</a> <a href="https://www.youtube.com/watch?v=XGhg19_GXnM">(video)</a>.
-    </ul>
-
-    <h2>How can I help?</h2>
-
-    <p>There are many ways to participate! Here are some ideas:</p>
-
-    <ul>
-      <li>Report bugs. We know they exist, but it's not always clear where they are!</li>
-      <li>Write documentation. An analysis system like angr can be a bit overwhelming. If you're using it, and could send a pull request for our <a href="https://github.com/angr/angr-doc">documentation repo</a>, we would be eternally grateful! This includes examples -- if you use angr for something cool, send us a pull request with an example!</li>
-      <li>Implement more environment support. We use the concept of "function summaries" in angr to model the environment of operating systems (i.e., the effects of their system calls) and library functions. Extending this would be greatly helpful in increasing angr's utility. These function summaries can be found <a href="https://github.com/angr/simuvex/tree/master/simuvex/procedures">here</a>.
-    </ul>
-
+    <p>For questions, contact the angr mailing list: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;%61%6e%67%72@%6c%69%73%74%73.%63%73.%75%63%73%62.%65%64%75">angr&nbsp;~at~&nbsp;lists.cs.ucsb.edu</a>
+  </div>
   </body>
 </html>
