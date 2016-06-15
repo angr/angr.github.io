@@ -85,7 +85,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; angr</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-angr.project">Project</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-angr.factory">Factory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-angr.path_group">Paths &amp; Path Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-angr.path">Paths &amp; Path Groups</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-angr.knowledge_base">Knowledge Base</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-angr.analysis">Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-angr.surveyor">Surveyors</a></li>
@@ -657,9 +657,221 @@ SimIRSB or a SimProcedure.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-angr.path_group">
-<span id="paths-path-groups"></span><h2>Paths &amp; Path Groups<a class="headerlink" href="#module-angr.path_group" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-angr.path">
+<span id="paths-path-groups"></span><h2>Paths &amp; Path Groups<a class="headerlink" href="#module-angr.path" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
+<dt id="angr.path.CallFrame">
+<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">CallFrame</code><span class="sig-paren">(</span><em>state=None</em>, <em>func_addr=None</em>, <em>stack_ptr=None</em>, <em>ret_addr=None</em>, <em>jumpkind=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.CallFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Stores the address of the function you&#8217;re in and the value of SP
+at the VERY BOTTOM of the stack, i.e. points to the return address.</p>
+<p>Initialize with either a state or the function address,
+stack pointer, and return address</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.path.CallStack">
+<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">CallStack</code><a class="headerlink" href="#angr.path.CallStack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Represents a call stack.</p>
+<dl class="method">
+<dt id="angr.path.CallStack.pop">
+<code class="descname">pop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.CallStack.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pops one <a class="reference internal" href="#angr.path.CallFrame" title="angr.path.CallFrame"><code class="xref py py-class docutils literal"><span class="pre">CallFrame</span></code></a> from the callstack.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A CallFrame.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path.CallStack.push">
+<code class="descname">push</code><span class="sig-paren">(</span><em>cf</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.CallStack.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Push the <a class="reference internal" href="#angr.path.CallFrame" title="angr.path.CallFrame"><code class="xref py py-class docutils literal"><span class="pre">CallFrame</span></code></a> <cite>cf</cite> on the callstack.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.path.CallStack.top">
+<code class="descname">top</code><a class="headerlink" href="#angr.path.CallStack.top" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the element at the top of the callstack without removing it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A CallFrame.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.path.ErroredPath">
+<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">ErroredPath</code><span class="sig-paren">(</span><em>error</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.ErroredPath" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.path.Path" title="angr.path.Path"><code class="xref py py-class docutils literal"><span class="pre">angr.path.Path</span></code></a></p>
+<p>ErroredPath is used for paths that have encountered and error in their symbolic execution. This kind of path cannot
+be stepped further.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>error</strong> &#8211; The error that was encountered.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.path.Path">
+<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">Path</code><span class="sig-paren">(</span><em>project</em>, <em>state</em>, <em>path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A Path represents a sequence of basic blocks for an execution of the program.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference internal" href="claripy.html#claripy.backend.Backend.name" title="claripy.backend.Backend.name"><strong>name</strong></a> &#8211; A string to identify the path.</li>
+<li><strong>state</strong> &#8211; The state of the program.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.path.Path.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function clear the execution status.</p>
+<p>After calling this if you call <a class="reference internal" href="#angr.path.Path.step" title="angr.path.Path.step"><code class="xref py py-func docutils literal"><span class="pre">step()</span></code></a>, successors will be recomputed. If you changed something into path
+state you probably want to call this method.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path.Path.detect_loops">
+<code class="descname">detect_loops</code><span class="sig-paren">(</span><em>n=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.detect_loops" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current loop iteration that a path is on.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> &#8211; The minimum number of iterations to check for.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The number of the loop iteration it&#8217;s in.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path.Path.divergence_addr">
+<code class="descname">divergence_addr</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.divergence_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the basic block at which the paths diverged.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> &#8211; The other Path.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The address of the basic block.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path.Path.filter_actions">
+<code class="descname">filter_actions</code><span class="sig-paren">(</span><em>block_addr=None</em>, <em>block_stmt=None</em>, <em>insn_addr=None</em>, <em>read_from=None</em>, <em>write_to=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.filter_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter self.actions based on some common parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>block_addr</strong> &#8211; Only return actions generated in blocks starting at this address.</li>
+<li><strong>block_stmt</strong> &#8211; Only return actions generated in the nth statement of each block.</li>
+<li><strong>insn_addr</strong> &#8211; Only return actions generated in the assembly instruction at this address.</li>
+<li><strong>read_from</strong> &#8211; Only return actions that perform a read from the specified location.</li>
+<li><strong>write_to</strong> &#8211; Only return actions that perform a write to the specified location.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Notes:
+If IR optimization is turned on, reads and writes may not occur in the instruction
+they originally came from. Most commonly, If a register is read from twice in the same
+block, the second read will not happen, instead reusing the temp the value is already
+stored in.</p>
+<p>Valid values for read_from and write_to are the string literals &#8216;reg&#8217; or &#8216;mem&#8217; (matching
+any read or write to registers or memory, respectively), any string (representing a read
+or write to the named register), and any integer (representing a read or write to the
+memory at this address).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path.Path.merge">
+<code class="descname">merge</code><span class="sig-paren">(</span><em>*others</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a merger of this path with <cite>*others</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path.Path.step">
+<code class="descname">step</code><span class="sig-paren">(</span><em>**run_args</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step a path forward. Optionally takes any argument applicable to project.factory.sim_run.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>jumpkind</strong> &#8211; the jumpkind of the previous exit.</li>
+<li><strong>an address</strong> (<em>addr</em>) &#8211; to execute at instead of the state&#8217;s ip.</li>
+<li><strong>stmt_whitelist</strong> &#8211; a list of stmt indexes to which to confine execution.</li>
+<li><strong>last_stmt</strong> &#8211; a statement index at which to stop execution.</li>
+<li><strong>thumb</strong> &#8211; whether the block should be lifted in ARM&#8217;s THUMB mode.</li>
+<li><strong>backup_state</strong> &#8211; a state to read bytes from instead of using project memory.</li>
+<li><strong>opt_level</strong> &#8211; the VEX optimization level to use.</li>
+<li><strong>insn_bytes</strong> &#8211; a string of bytes to use for the block instead of #the project.</li>
+<li><strong>max_size</strong> &#8211; the maximum size of the block, in bytes.</li>
+<li><strong>num_inst</strong> &#8211; the maximum number of instructions.</li>
+<li><strong>traceflags</strong> &#8211; traceflags to be passed to VEX. Default: 0</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An array of paths for the possible successors.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.path.Path.unmerge">
+<code class="descname">unmerge</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.unmerge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unmerges the state back into different possible states.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="angr.path.make_path">
+<code class="descclassname">angr.path.</code><code class="descname">make_path</code><span class="sig-paren">(</span><em>project</em>, <em>runs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.make_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helper function to generate a correct angr.Path from a list of runs corresponding to a program path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>runs</strong> &#8211; A list of SimRuns corresponding to a program path.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-angr.path_group"></span><dl class="class">
 <dt id="angr.path_group.PathGroup">
 <em class="property">class </em><code class="descclassname">angr.path_group.</code><code class="descname">PathGroup</code><span class="sig-paren">(</span><em>project</em>, <em>active_paths=None</em>, <em>stashes=None</em>, <em>hierarchy=None</em>, <em>veritesting=None</em>, <em>veritesting_options=None</em>, <em>immutable=None</em>, <em>resilience=None</em>, <em>save_unconstrained=None</em>, <em>save_unsat=None</em>, <em>threads=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">ana.storable.Storable</span></code></p>
@@ -1108,8 +1320,8 @@ True or False. (default: unstash all paths)</li>
 <dl class="method">
 <dt id="angr.path_group.PathGroup.use_technique">
 <code class="descname">use_technique</code><span class="sig-paren">(</span><em>tech</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.use_technique" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use an execution technique with this path group.
-Techniques can be found in <code class="xref py py-mod docutils literal"><span class="pre">angr.exploitation_techniques</span></code>.</p>
+<dd><p>Use an exploration technique with this path group.
+Techniques can be found in <a class="reference internal" href="#module-angr.exploration_techniques" title="angr.exploration_techniques"><code class="xref py py-mod docutils literal"><span class="pre">angr.exploration_techniques</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1122,216 +1334,105 @@ Techniques can be found in <code class="xref py py-mod docutils literal"><span c
 
 </dd></dl>
 
-<span class="target" id="module-angr.path"></span><dl class="class">
-<dt id="angr.path.CallFrame">
-<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">CallFrame</code><span class="sig-paren">(</span><em>state=None</em>, <em>func_addr=None</em>, <em>stack_ptr=None</em>, <em>ret_addr=None</em>, <em>jumpkind=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.CallFrame" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-angr.exploration_techniques"></span><dl class="class">
+<dt id="angr.exploration_techniques.ExplorationTechnique">
+<em class="property">class </em><code class="descclassname">angr.exploration_techniques.</code><code class="descname">ExplorationTechnique</code><a class="headerlink" href="#angr.exploration_techniques.ExplorationTechnique" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Stores the address of the function you&#8217;re in and the value of SP
-at the VERY BOTTOM of the stack, i.e. points to the return address.</p>
-<p>Initialize with either a state or the function address,
-stack pointer, and return address</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="angr.path.CallStack">
-<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">CallStack</code><a class="headerlink" href="#angr.path.CallStack" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Represents a call stack.</p>
+<p>An otiegnqwvk is a set of hooks for path groups that assists
+in the implementation of new techniques in symbolic exploration.</p>
+<p>TODO: choose actual name for the functionality (techniques? something?)</p>
+<p>Any number of these methods may be overridden by a subclass.
+To use an exploration technique, call <code class="docutils literal"><span class="pre">pg.use_technique</span></code>.</p>
 <dl class="method">
-<dt id="angr.path.CallStack.pop">
-<code class="descname">pop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.CallStack.pop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pops one <a class="reference internal" href="#angr.path.CallFrame" title="angr.path.CallFrame"><code class="xref py py-class docutils literal"><span class="pre">CallFrame</span></code></a> from the callstack.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A CallFrame.</td>
-</tr>
-</tbody>
-</table>
+<dt id="angr.exploration_techniques.ExplorationTechnique.complete">
+<code class="descname">complete</code><span class="sig-paren">(</span><em>pg</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.ExplorationTechnique.complete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether or not this path group has reached a &#8220;completed&#8221; state, i.e. <code class="docutils literal"><span class="pre">pathgroup.run()</span></code> should halt.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="angr.path.CallStack.push">
-<code class="descname">push</code><span class="sig-paren">(</span><em>cf</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.CallStack.push" title="Permalink to this definition">¶</a></dt>
-<dd><p>Push the <a class="reference internal" href="#angr.path.CallFrame" title="angr.path.CallFrame"><code class="xref py py-class docutils literal"><span class="pre">CallFrame</span></code></a> <cite>cf</cite> on the callstack.</p>
+<dt id="angr.exploration_techniques.ExplorationTechnique.filter">
+<code class="descname">filter</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.ExplorationTechnique.filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform filtering on a path.</p>
+<p>If the path should not be filtered, return None.
+If the path should be filtered, return the name of the stash to move the path to.
+If you want to modify the path before filtering it, return a tuple of the stash to move the path to and the
+modified path.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="angr.path.CallStack.top">
-<code class="descname">top</code><a class="headerlink" href="#angr.path.CallStack.top" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the element at the top of the callstack without removing it.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A CallFrame.</td>
-</tr>
-</tbody>
-</table>
+<dl class="method">
+<dt id="angr.exploration_techniques.ExplorationTechnique.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><em>pg</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.ExplorationTechnique.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform any initialization on this path group you might need to do.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.exploration_techniques.ExplorationTechnique.step">
+<code class="descname">step</code><span class="sig-paren">(</span><em>pg</em>, <em>stash</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.ExplorationTechnique.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Step this stash of this path group forward.</p>
+<p>Return the stepped path group.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.exploration_techniques.ExplorationTechnique.step_path">
+<code class="descname">step_path</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.ExplorationTechnique.step_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform the process of stepping a path forward.</p>
+<p>If the stepping fails, return None to fall back to a default stepping procedure.
+Otherwise, return a tuple of lists: successors, unconstrained, unsat, pruned, errored</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="angr.path.ErroredPath">
-<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">ErroredPath</code><span class="sig-paren">(</span><em>error</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.ErroredPath" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.path.Path" title="angr.path.Path"><code class="xref py py-class docutils literal"><span class="pre">angr.path.Path</span></code></a></p>
-<p>ErroredPath is used for paths that have encountered and error in their symbolic execution. This kind of path cannot
-be stepped further.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>error</strong> &#8211; The error that was encountered.</td>
-</tr>
-</tbody>
-</table>
+<span class="target" id="module-angr.exploration_techniques.dfs"></span><dl class="class">
+<dt id="angr.exploration_techniques.dfs.DFS">
+<em class="property">class </em><code class="descclassname">angr.exploration_techniques.dfs.</code><code class="descname">DFS</code><a class="headerlink" href="#angr.exploration_techniques.dfs.DFS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.ExplorationTechnique" title="angr.exploration_techniques.ExplorationTechnique"><code class="xref py py-class docutils literal"><span class="pre">angr.exploration_techniques.ExplorationTechnique</span></code></a></p>
+<p>Depth-first search.</p>
+<p>Will only keep one path active at a time, any others will be stashedin the &#8216;deferred&#8217; stash.
+When we run out of active paths to step, we take the longest one from deferred and continue.</p>
 </dd></dl>
 
-<dl class="class">
-<dt id="angr.path.Path">
-<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">Path</code><span class="sig-paren">(</span><em>project</em>, <em>state</em>, <em>path=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>A Path represents a sequence of basic blocks for an execution of the program.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="claripy.html#claripy.backend.Backend.name" title="claripy.backend.Backend.name"><strong>name</strong></a> &#8211; A string to identify the path.</li>
-<li><strong>state</strong> &#8211; The state of the program.</li>
+<span class="target" id="module-angr.exploration_techniques.explorer"></span><dl class="class">
+<dt id="angr.exploration_techniques.explorer.Explorer">
+<em class="property">class </em><code class="descclassname">angr.exploration_techniques.explorer.</code><code class="descname">Explorer</code><span class="sig-paren">(</span><em>find=None</em>, <em>avoid=None</em>, <em>find_stash='found'</em>, <em>avoid_stash='avoid'</em>, <em>cfg=None</em>, <em>num_find=1</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.explorer.Explorer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.ExplorationTechnique" title="angr.exploration_techniques.ExplorationTechnique"><code class="xref py py-class docutils literal"><span class="pre">angr.exploration_techniques.ExplorationTechnique</span></code></a></p>
+<p>Search for up to &#8220;num_find&#8221; paths that satisfy condition &#8220;find&#8221;, avoiding condition &#8220;avoid&#8221;. Stashes found paths into &#8220;find_stash&#8217; and avoided paths into &#8220;avoid_stash&#8221;.</p>
+<p>The &#8220;find&#8221; and &#8220;avoid&#8221; parameters may be any of:</p>
+<ul class="simple">
+<li>An address to find</li>
+<li>A set or list of addresses to find</li>
+<li>A function that takes a path and returns whether or not it matches.</li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="angr.path.Path.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function clear the execution status.</p>
-<p>After calling this if you call <a class="reference internal" href="#angr.path.Path.step" title="angr.path.Path.step"><code class="xref py py-func docutils literal"><span class="pre">step()</span></code></a>, successors will be recomputed. If you changed something into path
-state you probably want to call this method.</p>
+<p>If an angr CFG is passed in as the &#8220;cfg&#8221; parameter and &#8220;find&#8221; is either a number or a list or a set, then
+any paths which cannot possibly reach a success state without going through a failure state will be
+preemptively avoided.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="angr.path.Path.detect_loops">
-<code class="descname">detect_loops</code><span class="sig-paren">(</span><em>n=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.detect_loops" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the current loop iteration that a path is on.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>n</strong> &#8211; The minimum number of iterations to check for.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The number of the loop iteration it&#8217;s in.</td>
-</tr>
-</tbody>
-</table>
+<span class="target" id="module-angr.exploration_techniques.looplimiter"></span><dl class="class">
+<dt id="angr.exploration_techniques.looplimiter.LoopLimiter">
+<em class="property">class </em><code class="descclassname">angr.exploration_techniques.looplimiter.</code><code class="descname">LoopLimiter</code><span class="sig-paren">(</span><em>count=5</em>, <em>discard_stash='spinning'</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.looplimiter.LoopLimiter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.ExplorationTechnique" title="angr.exploration_techniques.ExplorationTechnique"><code class="xref py py-class docutils literal"><span class="pre">angr.exploration_techniques.ExplorationTechnique</span></code></a></p>
+<p>Limit the number of loops a path may go through.
+Paths that exceed the loop limit are moved to a discard stash.</p>
+<p>Note that this uses the default detect_loops method from Path, which approximates loop
+counts by counting the number of times each basic block is executed in a given stack frame.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="angr.path.Path.divergence_addr">
-<code class="descname">divergence_addr</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.divergence_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the basic block at which the paths diverged.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> &#8211; The other Path.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The address of the basic block.</td>
-</tr>
-</tbody>
-</table>
+<span class="target" id="module-angr.exploration_techniques.threading"></span><dl class="class">
+<dt id="angr.exploration_techniques.threading.Threading">
+<em class="property">class </em><code class="descclassname">angr.exploration_techniques.threading.</code><code class="descname">Threading</code><span class="sig-paren">(</span><em>threads=8</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.threading.Threading" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.ExplorationTechnique" title="angr.exploration_techniques.ExplorationTechnique"><code class="xref py py-class docutils literal"><span class="pre">angr.exploration_techniques.ExplorationTechnique</span></code></a></p>
+<p>Enable multithreading.</p>
+<p>This is only useful in paths where a lot of time is taken inside z3, doing constraint solving.
+This is because of python&#8217;s GIL, which says that only one thread at a time may be executing python code.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="angr.path.Path.filter_actions">
-<code class="descname">filter_actions</code><span class="sig-paren">(</span><em>block_addr=None</em>, <em>block_stmt=None</em>, <em>insn_addr=None</em>, <em>read_from=None</em>, <em>write_to=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.filter_actions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Filter self.actions based on some common parameters.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>block_addr</strong> &#8211; Only return actions generated in blocks starting at this address.</li>
-<li><strong>block_stmt</strong> &#8211; Only return actions generated in the nth statement of each block.</li>
-<li><strong>insn_addr</strong> &#8211; Only return actions generated in the assembly instruction at this address.</li>
-<li><strong>read_from</strong> &#8211; Only return actions that perform a read from the specified location.</li>
-<li><strong>write_to</strong> &#8211; Only return actions that perform a write to the specified location.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Notes:
-If IR optimization is turned on, reads and writes may not occur in the instruction
-they originally came from. Most commonly, If a register is read from twice in the same
-block, the second read will not happen, instead reusing the temp the value is already
-stored in.</p>
-<p>Valid values for read_from and write_to are the string literals &#8216;reg&#8217; or &#8216;mem&#8217; (matching
-any read or write to registers or memory, respectively), any string (representing a read
-or write to the named register), and any integer (representing a read or write to the
-memory at this address).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.path.Path.merge">
-<code class="descname">merge</code><span class="sig-paren">(</span><em>*others</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.merge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a merger of this path with <cite>*others</cite>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.path.Path.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>**run_args</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.step" title="Permalink to this definition">¶</a></dt>
-<dd><p>Step a path forward. Optionally takes any argument applicable to project.factory.sim_run.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>jumpkind</strong> &#8211; the jumpkind of the previous exit.</li>
-<li><strong>an address</strong> (<em>addr</em>) &#8211; to execute at instead of the state&#8217;s ip.</li>
-<li><strong>stmt_whitelist</strong> &#8211; a list of stmt indexes to which to confine execution.</li>
-<li><strong>last_stmt</strong> &#8211; a statement index at which to stop execution.</li>
-<li><strong>thumb</strong> &#8211; whether the block should be lifted in ARM&#8217;s THUMB mode.</li>
-<li><strong>backup_state</strong> &#8211; a state to read bytes from instead of using project memory.</li>
-<li><strong>opt_level</strong> &#8211; the VEX optimization level to use.</li>
-<li><strong>insn_bytes</strong> &#8211; a string of bytes to use for the block instead of #the project.</li>
-<li><strong>max_size</strong> &#8211; the maximum size of the block, in bytes.</li>
-<li><strong>num_inst</strong> &#8211; the maximum number of instructions.</li>
-<li><strong>traceflags</strong> &#8211; traceflags to be passed to VEX. Default: 0</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An array of paths for the possible successors.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.path.Path.unmerge">
-<code class="descname">unmerge</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.unmerge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unmerges the state back into different possible states.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="angr.path.make_path">
-<code class="descclassname">angr.path.</code><code class="descname">make_path</code><span class="sig-paren">(</span><em>project</em>, <em>runs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.make_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>A helper function to generate a correct angr.Path from a list of runs corresponding to a program path.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>runs</strong> &#8211; A list of SimRuns corresponding to a program path.</td>
-</tr>
-</tbody>
-</table>
+<span class="target" id="module-angr.exploration_techniques.veritesting"></span><dl class="class">
+<dt id="angr.exploration_techniques.veritesting.Veritesting">
+<em class="property">class </em><code class="descclassname">angr.exploration_techniques.veritesting.</code><code class="descname">Veritesting</code><span class="sig-paren">(</span><em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.veritesting.Veritesting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.ExplorationTechnique" title="angr.exploration_techniques.ExplorationTechnique"><code class="xref py py-class docutils literal"><span class="pre">angr.exploration_techniques.ExplorationTechnique</span></code></a></p>
+<p>Enable veritesting. This technique, described in a paper[1] from CMU, attempts to address the problem of state
+explosions in loops by performing smart merging.</p>
+<p>[1] <a class="reference external" href="https://users.ece.cmu.edu/~aavgerin/papers/veritesting-icse-2014.pdf">https://users.ece.cmu.edu/~aavgerin/papers/veritesting-icse-2014.pdf</a></p>
 </dd></dl>
 
 <span class="target" id="module-angr.path_hierarchy"></span><span class="target" id="module-angr.pathprioritizer"></span></div>
