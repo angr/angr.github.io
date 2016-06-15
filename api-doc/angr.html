@@ -744,6 +744,20 @@ be stepped further.</p>
 </tbody>
 </table>
 <dl class="method">
+<dt id="angr.path.Path.branch_causes">
+<code class="descname">branch_causes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.branch_causes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the variables that have caused this path to branch.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of tuples of (basic block address, jmp instruction address, set(variables))</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="angr.path.Path.clear">
 <code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function clear the execution status.</p>
