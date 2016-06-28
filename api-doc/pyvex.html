@@ -136,6 +136,13 @@
 <span id="pyvex-pyvex"></span><h1><a class="reference internal" href="#module-pyvex" title="pyvex"><code class="xref py py-mod docutils literal"><span class="pre">pyvex</span></code></a> &#8212; PyVex<a class="headerlink" href="#module-pyvex" title="Permalink to this headline">¶</a></h1>
 <p>Python bindings for Valgrind&#8217;s VEX IR.</p>
 <dl class="function">
+<dt id="pyvex.enable_debug">
+<code class="descclassname">pyvex.</code><code class="descname">enable_debug</code><span class="sig-paren">(</span><em>debug</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.enable_debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the debug flag to <cite>debug</cite>. Valid values are True. False, 0 and 1.</p>
+<p>False/0 disables debugging output, True/1 enables it.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyvex.set_iropt_level">
 <code class="descclassname">pyvex.</code><code class="descname">set_iropt_level</code><span class="sig-paren">(</span><em>lvl</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.set_iropt_level" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the VEX optimization level to <cite>lvl</cite>. Valid values are 0, 1 and 2.</p>

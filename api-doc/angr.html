@@ -158,7 +158,7 @@ them, and perform analyses on them.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first simple">
 <li><a class="reference internal" href="#module-angr.analyses" title="angr.analyses"><strong>analyses</strong></a> &#8211; The available analyses.</li>
-<li><strong>entry</strong> &#8211; The program entrypoint.</li>
+<li><a class="reference internal" href="#angr.analyses.forward_analysis.EntryInfo.entry" title="angr.analyses.forward_analysis.EntryInfo.entry"><strong>entry</strong></a> &#8211; The program entrypoint.</li>
 <li><a class="reference internal" href="#module-angr.factory" title="angr.factory"><strong>factory</strong></a> &#8211; Provides access to important analysis elements such as path groups and symbolic execution results.</li>
 <li><strong>filename</strong> &#8211; The filename of the executable.</li>
 <li><a class="reference internal" href="cle.html#module-cle.loader" title="cle.loader"><strong>loader</strong></a> &#8211; The program loader.</li>
@@ -835,7 +835,7 @@ memory at this address).</p>
 
 <dl class="method">
 <dt id="angr.path.Path.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>**run_args</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>throw=None</em>, <em>**run_args</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step a path forward. Optionally takes any argument applicable to project.factory.sim_run.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1233,7 +1233,7 @@ and categorize the successors appropriately.</p>
 path will be stepped. Otherwise, it will be kept as-is.</li>
 <li><strong>step_func</strong> &#8211; If provided, should be a function that takes a PathGroup and returns a PathGroup. Will
 be called with the PathGroup at every step. Note that this function should not actually
-perform any stepping - it is meant to be a maintnence function called after each step.</li>
+perform any stepping - it is meant to be a maintenance function called after each step.</li>
 <li><strong>successor_func</strong> &#8211; If provided, should be a function that takes a path and return its successors.
 Otherwise, Path.successors will be used.</li>
 <li><strong>until</strong> &#8211; If provided, should be a function that takes a PathGroup and returns True or False.
@@ -1401,7 +1401,7 @@ Otherwise, return a tuple of lists: successors, unconstrained, unsat, pruned, er
 <em class="property">class </em><code class="descclassname">angr.exploration_techniques.dfs.</code><code class="descname">DFS</code><a class="headerlink" href="#angr.exploration_techniques.dfs.DFS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.ExplorationTechnique" title="angr.exploration_techniques.ExplorationTechnique"><code class="xref py py-class docutils literal"><span class="pre">angr.exploration_techniques.ExplorationTechnique</span></code></a></p>
 <p>Depth-first search.</p>
-<p>Will only keep one path active at a time, any others will be stashedin the &#8216;deferred&#8217; stash.
+<p>Will only keep one path active at a time, any others will be stashed in the &#8216;deferred&#8217; stash.
 When we run out of active paths to step, we take the longest one from deferred and continue.</p>
 </dd></dl>
 
@@ -1653,11 +1653,7 @@ results during CFG generation, and manages a function map of the binary.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>p</strong> &#8211; A project</li>
-<li><strong>analysis_results</strong> &#8211; The result cache.</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>p</strong> &#8211; A project</td>
 </tr>
 </tbody>
 </table>
@@ -1672,7 +1668,17 @@ results during CFG generation, and manages a function map of the binary.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><a class="reference internal" href="#module-angr.project" title="angr.project"><strong>project</strong></a> &#8211; The project for this analysis.</td>
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference internal" href="#module-angr.project" title="angr.project"><strong>project</strong></a> &#8211; The project for this analysis.</li>
+<li><strong>kb</strong> (<a class="reference internal" href="#angr.knowledge_base.KnowledgeBase" title="angr.knowledge_base.KnowledgeBase"><em>KnowledgeBase</em></a>) &#8211; The knowledgebase object.</li>
+<li><strong>_progress_callback</strong> (<a class="reference internal" href="#angr.factory.AngrObjectFactory.callable" title="angr.factory.AngrObjectFactory.callable"><em>callable</em></a>) &#8211; A callback function for receiving the progress of this analysis. It only takes
+one argument, which is a float number from 0.0 to 100.0 indicating the current
+progress.</li>
+<li><strong>_show_progressbar</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; If a progressbar should be shown during the analysis. It&#8217;s independent from
+_progress_callback.</li>
+<li><strong>_progressbar</strong> (<em>progressbar.ProgressBar</em>) &#8211; The progress bar object.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -2392,7 +2398,7 @@ based on the back egdes</p>
 
 <span class="target" id="module-angr.analyses.cfg_base"></span><dl class="class">
 <dt id="angr.analyses.cfg_base.CFGBase">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg_base.</code><code class="descname">CFGBase</code><span class="sig-paren">(</span><em>context_sensitivity_level</em>, <em>normalize=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_base.</code><code class="descname">CFGBase</code><span class="sig-paren">(</span><em>context_sensitivity_level</em>, <em>normalize=False</em>, <em>binary=None</em>, <em>force_segment=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
 <p>The base class for control flow graphs.</p>
 <dl class="method">
@@ -2544,6 +2550,31 @@ a fakeret edge.</li>
 </dd></dl>
 
 <dl class="method">
+<dt id="angr.analyses.cfg_base.CFGBase.make_functions">
+<code class="descname">make_functions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.make_functions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Revisit the entire control flow graph, create Function instances accordingly, and correctly put blocks into
+each function.</p>
+<p>Although Function objects are crated during the CFG recovery, they are neither sound nor accurate. With a
+pre-constructed CFG, this method rebuilds all functions bearing the following rules:
+- A block may only belong to one function.
+- Small functions lying inside the startpoint and the endpoint of another function will be merged with the</p>
+<blockquote>
+<div>other function</div></blockquote>
+<ul class="simple">
+<li>Tail call optimizations are detected.</li>
+<li>PLT stubs are aligned by 16.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="angr.analyses.cfg_base.CFGBase.normalize">
 <code class="descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.normalize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Normalize the CFG, making sure that there are no overlapping basic blocks.</p>
@@ -2563,14 +2594,14 @@ normalize() on each Function object to normalize their transition graphs.</p>
 
 <span class="target" id="module-angr.analyses.cfg_fast"></span><dl class="class">
 <dt id="angr.analyses.cfg_fast.CFGEntry">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGEntry</code><span class="sig-paren">(</span><em>addr</em>, <em>func_addr</em>, <em>jumpkind</em>, <em>ret_target=None</em>, <em>last_addr=None</em>, <em>src_node=None</em>, <em>src_stmt_idx=None</em>, <em>returning_source=None</em>, <em>syscall=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGEntry" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGEntry</code><span class="sig-paren">(</span><em>addr</em>, <em>func_addr</em>, <em>jumpkind</em>, <em>ret_target=None</em>, <em>last_addr=None</em>, <em>src_node=None</em>, <em>src_ins_addr=None</em>, <em>src_stmt_idx=None</em>, <em>returning_source=None</em>, <em>syscall=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGEntry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Defines an entry to resume the CFG recovery</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="angr.analyses.cfg_fast.CFGFast">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGFast</code><span class="sig-paren">(</span><em>binary=None</em>, <em>start=None</em>, <em>end=None</em>, <em>pickle_intermediate_results=False</em>, <em>symbols=True</em>, <em>function_prologues=True</em>, <em>resolve_indirect_jumps=False</em>, <em>force_segment=False</em>, <em>force_complete_scan=True</em>, <em>indirect_jump_target_limit=100000</em>, <em>collect_data_references=False</em>, <em>progress_callback=None</em>, <em>show_progressbar=False</em>, <em>normalize=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGFast" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGFast</code><span class="sig-paren">(</span><em>binary=None</em>, <em>start=None</em>, <em>end=None</em>, <em>pickle_intermediate_results=False</em>, <em>symbols=True</em>, <em>function_prologues=True</em>, <em>resolve_indirect_jumps=True</em>, <em>force_segment=False</em>, <em>force_complete_scan=True</em>, <em>indirect_jump_target_limit=100000</em>, <em>collect_data_references=False</em>, <em>normalize=False</em>, <em>function_starts=None</em>, <em>arch_options=None</em>, <em>**extra_arch_options</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGFast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.cfg_base.CFGBase" title="angr.analyses.cfg_base.CFGBase"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.cfg_base.CFGBase</span></code></a></p>
 <p>We find functions inside the given binary, and build a control-flow graph in very fast manners: instead of
 simulating program executions, keeping track of states, and performing expensive data-flow analysis, CFGFast will
@@ -2602,7 +2633,7 @@ and then re-recover the CFG.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>binary</strong> &#8211; The binary to recover CFG on. By default the main binary is used.</li>
 <li><strong>start</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The beginning address of CFG recovery.</li>
 <li><strong>end</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The end address of CFG recovery.</li>
@@ -2617,6 +2648,23 @@ from jump tables, etc.</li>
 code blocks.</li>
 <li><strong>collect_data_references</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; If CFGFast should collect data references from individual basic blocks or
 not.</li>
+<li><strong>normalize</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Normalize the CFG as well as all function graphs after CFG recovery.</li>
+<li><strong>function_starts</strong> (<em>list</em>) &#8211; A list of extra function starting points. CFGFast will try to resume scanning
+from each address in the list.</li>
+<li><strong>arch_options</strong> (<em>CFGArchOptions</em>) &#8211; Architecture-specific options.</li>
+<li><strong>extra_arch_options</strong> (<em>dict</em>) &#8211; Any key-value pair in kwargs will be seen as an arch-specific option and will
+be used to set the option value in self._arch_options.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Extra parameters that angr.Analysis takes:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>progress_callback</strong> &#8211; Specify a callback function to get the progress during CFG recovery.</li>
 <li><strong>show_progressbar</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Should CFGFast show a progressbar during CFG recovery or not.</li>
 </ul>
@@ -2705,6 +2753,24 @@ blocks or not, and obtain the exact block(segment) that the address belongs to.<
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>address</strong> &#8211; The address to begin the search with (excluding itself)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The next free position</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_fast.SegmentList.occupied_by_sort">
+<code class="descname">occupied_by_sort</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.SegmentList.occupied_by_sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if an address belongs to any segment, and if yes, returns the sort of the segment</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>address</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address to check</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Sort of the segment that occupies this address</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
 </tr>
 </tbody>
 </table>
@@ -2866,8 +2932,38 @@ call tree. None disables call_depth limit.</li>
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.dfg"></span><span class="target" id="module-angr.analyses.forward_analysis"></span><dl class="class">
+<dt id="angr.analyses.forward_analysis.EntryInfo">
+<em class="property">class </em><code class="descclassname">angr.analyses.forward_analysis.</code><code class="descname">EntryInfo</code><span class="sig-paren">(</span><em>key</em>, <em>entry</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.EntryInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Stores information for each entry</p>
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.EntryInfo.add_entry">
+<code class="descname">add_entry</code><span class="sig-paren">(</span><em>entry</em>, <em>merged=False</em>, <em>widened=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.EntryInfo.add_entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appended a new entry to this EntryInfo node.
+:param entry: The new entry to append
+:param bool merged: Whether it is a merged entry or not.
+:param bool widened: Whether it is a widened entry or not.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.forward_analysis.EntryInfo.entry">
+<code class="descname">entry</code><a class="headerlink" href="#angr.analyses.forward_analysis.EntryInfo.entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the latest available entry.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The latest available entry.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="angr.analyses.forward_analysis.ForwardAnalysis">
-<em class="property">class </em><code class="descclassname">angr.analyses.forward_analysis.</code><code class="descname">ForwardAnalysis</code><a class="headerlink" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.forward_analysis.</code><code class="descname">ForwardAnalysis</code><span class="sig-paren">(</span><em>order_entries=False</em>, <em>allow_merging=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>This is my very first attempt to build a static forward analysis framework that can serve as the base of multiple
 static analyses in angr, including CFG analysis, VFG analysis, DDG, etc.</p>
@@ -2876,8 +2972,17 @@ not available) and generating a graph with nodes linked with each program point 
 in angr terms). A node on the graph stores analysis-specific information. For more information about nodes, take a
 look at the implementation of CFGNode.</p>
 <p>Feel free to discuss with me (Fish) if you have any suggestion or complaint!</p>
-<p>Constructor
-:return: None</p>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order_entries</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; If all entries should be ordered or not.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="angr.analyses.forward_analysis.ForwardAnalysis.abort">
 <code class="descname">abort</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.ForwardAnalysis.abort" title="Permalink to this definition">¶</a></dt>
@@ -2927,9 +3032,22 @@ the entire binary since it&#8217;s time consuming.</p>
 
 <span class="target" id="module-angr.analyses.veritesting"></span><span class="target" id="module-angr.analyses.vfg"></span><dl class="class">
 <dt id="angr.analyses.vfg.VFG">
-<em class="property">class </em><code class="descclassname">angr.analyses.vfg.</code><code class="descname">VFG</code><span class="sig-paren">(</span><em>cfg=None</em>, <em>context_sensitivity_level=2</em>, <em>function_start=None</em>, <em>interfunction_level=0</em>, <em>initial_state=None</em>, <em>avoid_runs=None</em>, <em>remove_options=None</em>, <em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vfg.VFG" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
+<em class="property">class </em><code class="descclassname">angr.analyses.vfg.</code><code class="descname">VFG</code><span class="sig-paren">(</span><em>cfg=None</em>, <em>context_sensitivity_level=2</em>, <em>function_start=None</em>, <em>interfunction_level=0</em>, <em>initial_state=None</em>, <em>avoid_runs=None</em>, <em>remove_options=None</em>, <em>timeout=None</em>, <em>start_at_function=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vfg.VFG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
 <p>This class represents a control-flow graph with static analysis result.</p>
+<p>Perform abstract interpretation analysis starting from the given function address. The output is an invariant at
+the beginning (or the end) of each basic block.</p>
+<p>Steps:
+# Generate a CFG first if CFG is not provided.
+# Identify all merge points (denote the set of merge points as Pw) in the CFG.
+# Cut those loop back edges (can be derived from Pw) so that we gain an acyclic CFG.
+# Identify all variables that are 1) from memory loading 2) from initial values, or 3) phi functions. Denote</p>
+<blockquote>
+<div>the set of those variables as S_{var}.</div></blockquote>
+<dl class="docutils">
+<dt># Start real AI analysis and try to compute a fix point of each merge point. Perform widening/narrowing only on</dt>
+<dd>variables in S_{var}.</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2942,7 +3060,10 @@ It ranges from 0 to infinity. Default 2.</li>
 <li><strong>interfunction_level</strong> &#8211; The level of interfunction-ness to be</li>
 <li><strong>initial_state</strong> &#8211; A state to use as the initial one</li>
 <li><strong>avoid_runs</strong> &#8211; A list of runs to avoid</li>
-<li><strong>remove_options</strong> &#8211; State options to remove from the initial state. It only works when <cite>initial_state</cite> is None</li>
+<li><strong>remove_options</strong> &#8211; State options to remove from the initial state. It only works when <cite>initial_state</cite> is
+None</li>
+<li><strong>timeout</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; </li>
+<li><strong>start_at_function</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; </li>
 </ul>
 </td>
 </tr>
@@ -2967,10 +3088,31 @@ Returns: a list of angr.Path instances.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="angr.analyses.vfg.VFGJob">
+<em class="property">class </em><code class="descclassname">angr.analyses.vfg.</code><code class="descname">VFGJob</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vfg.VFGJob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">angr.entry_wrapper.EntryWrapper</span></code></p>
+<p>An EntryWrapper that contains vfg local variables</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="angr.analyses.vfg.VFGNode">
 <em class="property">class </em><code class="descclassname">angr.analyses.vfg.</code><code class="descname">VFGNode</code><span class="sig-paren">(</span><em>addr</em>, <em>key</em>, <em>state=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vfg.VFGNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>A descriptor of nodes in a Value-Flow Graph</p>
+<p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; </li>
+<li><strong>key</strong> (<em>SimRunKey</em>) &#8211; </li>
+<li><strong>state</strong> (<em>simuvex.SimState</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="angr.analyses.vfg.VFGNode.append_state">
 <code class="descname">append_state</code><span class="sig-paren">(</span><em>s</em>, <em>is_widened_state=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vfg.VFGNode.append_state" title="Permalink to this definition">¶</a></dt>
