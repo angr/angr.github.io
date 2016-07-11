@@ -31,7 +31,7 @@
 <span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">import angr</span>
 <span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">proj = angr.Project('<a href="https://github.com/angr/angr-doc/tree/master/examples/fauxware">./fauxware</a>')</span>
 <span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">cfg = proj.analyses.CFG()</span>
-<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">dict(p.kb.functions)</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">dict(proj.kb.functions)</span>
 <span class="pyoutput">{4195552L: &lt;Function _init (0x4004e0)&gt;,
  4195600L: &lt;Function plt.puts (0x400510)&gt;,
  4195616L: &lt;Function plt.printf (0x400520)&gt;,
