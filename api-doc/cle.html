@@ -371,13 +371,13 @@ position. Use with <a class="reference internal" href="#cle.memory.Clemory.seek"
 
 <dl class="method">
 <dt id="cle.memory.Clemory.read_addr_at">
-<code class="descname">read_addr_at</code><span class="sig-paren">(</span><em>where</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read_addr_at" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read_addr_at</code><span class="sig-paren">(</span><em>where</em>, <em>orig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read_addr_at" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read addr stored in memory as a series of bytes starting at <cite>where</cite>.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="cle.memory.Clemory.read_bytes">
-<code class="descname">read_bytes</code><span class="sig-paren">(</span><em>addr</em>, <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read_bytes" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read_bytes</code><span class="sig-paren">(</span><em>addr</em>, <em>n</em>, <em>orig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read_bytes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read <cite>n</cite> bytes at address <cite>addr</cite> in memory and return an array of bytes.</p>
 </dd></dl>
 
@@ -470,56 +470,6 @@ object it came from.</p>
 
 </dd></dl>
 
-<span class="target" id="module-cle.tls"></span><dl class="class">
-<dt id="cle.tls.TLSArchInfo">
-<em class="property">class </em><code class="descclassname">cle.tls.</code><code class="descname">TLSArchInfo</code><span class="sig-paren">(</span><em>variant</em>, <em>tcbhead_size</em>, <em>head_offsets</em>, <em>dtv_offsets</em>, <em>pthread_offsets</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.tls.TLSArchInfo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tuple</span></code></p>
-<p>Create new instance of TLSArchInfo(variant, tcbhead_size, head_offsets, dtv_offsets, pthread_offsets)</p>
-<dl class="attribute">
-<dt id="cle.tls.TLSArchInfo.dtv_offsets">
-<code class="descname">dtv_offsets</code><a class="headerlink" href="#cle.tls.TLSArchInfo.dtv_offsets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 3</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.tls.TLSArchInfo.head_offsets">
-<code class="descname">head_offsets</code><a class="headerlink" href="#cle.tls.TLSArchInfo.head_offsets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 2</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.tls.TLSArchInfo.pthread_offsets">
-<code class="descname">pthread_offsets</code><a class="headerlink" href="#cle.tls.TLSArchInfo.pthread_offsets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 4</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.tls.TLSArchInfo.tcbhead_size">
-<code class="descname">tcbhead_size</code><a class="headerlink" href="#cle.tls.TLSArchInfo.tcbhead_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.tls.TLSArchInfo.variant">
-<code class="descname">variant</code><a class="headerlink" href="#cle.tls.TLSArchInfo.variant" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="cle.tls.TLSObj">
-<em class="property">class </em><code class="descclassname">cle.tls.</code><code class="descname">TLSObj</code><span class="sig-paren">(</span><em>modules</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.tls.TLSObj" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.Backend</span></code></a></p>
-<p>This class is used when parsing the Thread Local Storage of a binary.</p>
-<dl class="method">
-<dt id="cle.tls.TLSObj.get_addr">
-<code class="descname">get_addr</code><span class="sig-paren">(</span><em>module_id</em>, <em>offset</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.tls.TLSObj.get_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>basically <code class="docutils literal"><span class="pre">__tls_get_addr</span></code>.</p>
-</dd></dl>
-
-</dd></dl>
-
 <span class="target" id="module-cle.errors"></span><dl class="exception">
 <dt id="cle.errors.CLEError">
 <em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLEError</code><a class="headerlink" href="#cle.errors.CLEError" title="Permalink to this definition">¶</a></dt>
@@ -566,7 +516,7 @@ object it came from.</p>
 <span id="backends"></span><h2>Backends<a class="headerlink" href="#module-cle.backends" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cle.backends.Backend">
-<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Backend</code><span class="sig-paren">(</span><em>binary</em>, <em>is_main_bin=False</em>, <em>compatible_with=None</em>, <em>filetype='unknown'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Backend</code><span class="sig-paren">(</span><em>binary</em>, <em>is_main_bin=False</em>, <em>compatible_with=None</em>, <em>filetype='unknown'</em>, <em>filename=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Main base class for CLE binary objects.</p>
 <p>An alternate interface to this constructor exists as the static method <a class="reference internal" href="#cle.loader.Loader.load_object" title="cle.loader.Loader.load_object"><code class="xref py py-meth docutils literal"><span class="pre">cle.loader.Loader.load_object()</span></code></a></p>
@@ -597,7 +547,7 @@ address of where to write the result. The destination address is not rebased.</l
 <li><strong>deps</strong> &#8211; A list of names of shared libraries this binary depends on</li>
 <li><strong>linking</strong> &#8211; &#8216;dynamic&#8217; or &#8216;static&#8217;</li>
 <li><strong>requested_base</strong> &#8211; The base address this object requests to be loaded at, or None</li>
-<li><strong>pic</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether this object is position-independant</li>
+<li><strong>pic</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether this object is position-independent</li>
 <li><strong>execstack</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether this executable has an executable stack</li>
 <li><strong>provides</strong> (<em>str</em>) &#8211; The name of the shared library dependancy that this object resolves</li>
 </ul>
@@ -616,7 +566,7 @@ address of where to write the result. The destination address is not rebased.</l
 <dl class="method">
 <dt id="cle.backends.Backend.contains_addr">
 <code class="descname">contains_addr</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.contains_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Is <cite>vaddr</cite> in one of the binary&#8217;s segments we have loaded ? (i.e. is it mapped into memory ?)</p>
+<dd><p>Is <cite>addr</cite> in one of the binary&#8217;s segments/sections we have loaded? (i.e. is it mapped into memory ?)</p>
 </dd></dl>
 
 <dl class="method">
@@ -752,7 +702,7 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><p class="first"><a class="reference internal" href="claripy.html#claripy.backend.Backend.name" title="claripy.backend.Backend.name"><strong>name</strong></a> (<em>str</em>) &#8211; The name of the section</p>
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><p class="first"><a class="reference internal" href="claripy.html#claripy.backends.Backend.name" title="claripy.backends.Backend.name"><strong>name</strong></a> (<em>str</em>) &#8211; The name of the section</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
@@ -805,7 +755,7 @@ the <a class="reference internal" href="#cle.backends.Backend.get_symbol" title=
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first simple">
 <li><strong>owner_obj</strong> (<a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><em>cle.backends.Backend</em></a>) &#8211; The object that contains this symbol</li>
-<li><a class="reference internal" href="claripy.html#claripy.backend.Backend.name" title="claripy.backend.Backend.name"><strong>name</strong></a> (<em>str</em>) &#8211; The name of this symbol</li>
+<li><a class="reference internal" href="claripy.html#claripy.backends.Backend.name" title="claripy.backends.Backend.name"><strong>name</strong></a> (<em>str</em>) &#8211; The name of this symbol</li>
 <li><strong>addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address of this symbol</li>
 <li><strong>binding</strong> (<em>str</em>) &#8211; The binding of this symbol as an ELF enum string</li>
 <li><strong>type</strong> (<em>str</em>) &#8211; The type of this symbol as an ELF enum string</li>
@@ -918,7 +868,7 @@ executable.</li>
 
 <span class="target" id="module-cle.backends.cgc"></span><dl class="class">
 <dt id="cle.backends.cgc.CGC">
-<em class="property">class </em><code class="descclassname">cle.backends.cgc.</code><code class="descname">CGC</code><span class="sig-paren">(</span><em>path</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.cgc.CGC" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cle.backends.cgc.</code><code class="descname">CGC</code><span class="sig-paren">(</span><em>binary</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.cgc.CGC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.ELF" title="cle.backends.elf.ELF"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.elf.ELF</span></code></a></p>
 <p>Backend to support the CGC elf format used by the Cyber Grand Challenge competition.</p>
 <p>See : <a class="reference external" href="https://github.com/CyberGrandChallenge/libcgcef/blob/master/cgc_executable_format.md">https://github.com/CyberGrandChallenge/libcgcef/blob/master/cgc_executable_format.md</a></p>

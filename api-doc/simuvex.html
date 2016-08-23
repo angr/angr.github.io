@@ -184,6 +184,13 @@
 <p>An Exit action represents a (possibly conditional) jump.</p>
 </dd></dl>
 
+<dl class="class">
+<dt id="simuvex.s_action.SimActionOperation">
+<em class="property">class </em><code class="descclassname">simuvex.s_action.</code><code class="descname">SimActionOperation</code><span class="sig-paren">(</span><em>state</em>, <em>op</em>, <em>exprs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_action.SimActionOperation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simuvex.s_action.SimAction" title="simuvex.s_action.SimAction"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_action.SimAction</span></code></a></p>
+<p>An action representing an operation between variables and/or constants.</p>
+</dd></dl>
+
 <span class="target" id="module-simuvex.s_action_object"></span><dl class="class">
 <dt id="simuvex.s_action_object.SimActionObject">
 <em class="property">class </em><code class="descclassname">simuvex.s_action_object.</code><code class="descname">SimActionObject</code><span class="sig-paren">(</span><em>ast</em>, <em>reg_deps=None</em>, <em>tmp_deps=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_action_object.SimActionObject" title="Permalink to this definition">¶</a></dt>
@@ -406,7 +413,7 @@ NOT INCLUDING the return address.</td>
 
 <span class="target" id="module-simuvex.s_event"></span><span class="target" id="module-simuvex.s_format"></span><dl class="class">
 <dt id="simuvex.s_format.FormatParser">
-<em class="property">class </em><code class="descclassname">simuvex.s_format.</code><code class="descname">FormatParser</code><span class="sig-paren">(</span><em>state</em>, <em>ret_to=None</em>, <em>stmt_from=None</em>, <em>convention=None</em>, <em>arguments=None</em>, <em>sim_kwargs=None</em>, <em>run_func_name='run'</em>, <em>syscall_name=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_format.FormatParser" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simuvex.s_format.</code><code class="descname">FormatParser</code><span class="sig-paren">(</span><em>state</em>, <em>ret_to=None</em>, <em>stmt_from=None</em>, <em>convention=None</em>, <em>arguments=None</em>, <em>sim_kwargs=None</em>, <em>run_func_name='run'</em>, <em>syscall_name=None</em>, <em>force_bbl_addr=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_format.FormatParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">simuvex.s_procedure.SimProcedure</span></code></p>
 <p>For SimProcedures relying on format strings.</p>
 </dd></dl>
@@ -488,15 +495,20 @@ raises a SimValueError.</p>
 
 <dl class="method">
 <dt id="simuvex.s_state.SimState.merge">
-<code class="descname">merge</code><span class="sig-paren">(</span><em>*others</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_state.SimState.merge" title="Permalink to this definition">¶</a></dt>
+<code class="descname">merge</code><span class="sig-paren">(</span><em>*others</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_state.SimState.merge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Merges this state with the other states. Returns the merging result, merged state, and the merge flag.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>others</strong> &#8211; the other states to merge</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>states</strong> &#8211; the states to merge</li>
+<li><strong>merge_conditions</strong> &#8211; a tuple of the conditions under which each state holds</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(merged state, merge flag, a bool indicating if any merging occured)</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">(merged state, merge flag, a bool indicating if any merging occured)</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -684,7 +696,7 @@ a certain return value.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>label</strong> &#8211; The type label</li>
 <li><strong>args</strong> &#8211; A tuple of types representing the arguments to the function</li>
-<li><strong>returns</strong> &#8211; The return type of the function</li>
+<li><strong>returns</strong> &#8211; The return type of the function, or none for void</li>
 </ul>
 </td>
 </tr>
@@ -755,7 +767,7 @@ a certain return value.</p>
 
 <dl class="class">
 <dt id="simuvex.s_type.SimTypePointer">
-<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypePointer</code><span class="sig-paren">(</span><em>pts_to</em>, <em>label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypePointer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypePointer</code><span class="sig-paren">(</span><em>pts_to</em>, <em>label=None</em>, <em>offset=0</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypePointer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simuvex.s_type.SimTypeReg" title="simuvex.s_type.SimTypeReg"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_type.SimTypeReg</span></code></a></p>
 <p>SimTypePointer is a type that specifies a pointer to some other type.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -813,9 +825,24 @@ i.e. a NUL-terminated array of bytes.</p>
 
 <dl class="class">
 <dt id="simuvex.s_type.SimTypeTop">
-<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypeTop</code><span class="sig-paren">(</span><em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypeTop" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimTypeTop</code><span class="sig-paren">(</span><em>size=None</em>, <em>label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimTypeTop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simuvex.s_type.SimType" title="simuvex.s_type.SimType"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_type.SimType</span></code></a></p>
 <p>SimTypeTop represents any type (mostly used with a pointer for void*).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="simuvex.s_type.SimUnion">
+<em class="property">class </em><code class="descclassname">simuvex.s_type.</code><code class="descname">SimUnion</code><span class="sig-paren">(</span><em>members</em>, <em>label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_type.SimUnion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simuvex.s_type.SimType" title="simuvex.s_type.SimType"><code class="xref py py-class docutils literal"><span class="pre">simuvex.s_type.SimType</span></code></a></p>
+<p>why</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>members</strong> &#8211; The members of the struct, as a mapping name -&gt; type</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <span class="target" id="module-simuvex.s_variable"></span><dl class="class">
@@ -900,12 +927,8 @@ Currently this is only used for stack!</div></blockquote>
 
 <dl class="method">
 <dt id="simuvex.plugins.abstract_memory.SimAbstractMemory.merge">
-<code class="descname">merge</code><span class="sig-paren">(</span><em>others</em>, <em>merge_flag</em>, <em>flag_values</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.plugins.abstract_memory.SimAbstractMemory.merge" title="Permalink to this definition">¶</a></dt>
-<dd><p>Merge this guy with another SimAbstractMemory instance
-:param others:
-:param merge_flag:
-:param flag_values:
-:return:</p>
+<code class="descname">merge</code><span class="sig-paren">(</span><em>others</em>, <em>merge_conditions</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.plugins.abstract_memory.SimAbstractMemory.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge this guy with another SimAbstractMemory instance</p>
 </dd></dl>
 
 <dl class="method">
@@ -976,6 +999,24 @@ not supposed to call this function every time you want to map a function address
 <em class="property">class </em><code class="descclassname">simuvex.plugins.cgc.</code><code class="descname">SimStateCGC</code><a class="headerlink" href="#simuvex.plugins.cgc.SimStateCGC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">simuvex.plugins.plugin.SimStatePlugin</span></code></p>
 <p>This state plugin keeps track of CGC state.</p>
+<dl class="method">
+<dt id="simuvex.plugins.cgc.SimStateCGC.add_sinkhole">
+<code class="descname">add_sinkhole</code><span class="sig-paren">(</span><em>address</em>, <em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.plugins.cgc.SimStateCGC.add_sinkhole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a sinkhole.</p>
+<p>Allow the possibility for the program to reuse the memory represented by the
+address length pair.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.plugins.cgc.SimStateCGC.get_max_sinkhole">
+<code class="descname">get_max_sinkhole</code><span class="sig-paren">(</span><em>length</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.plugins.cgc.SimStateCGC.get_max_sinkhole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find a sinkhole which is large enough to support <cite>length</cite> bytes.</p>
+<p>This uses first-fit. The first sinkhole (ordered in descending order by their address)
+which can hold <cite>length</cite> bytes is chosen. If there are more than <cite>length</cite> bytes in the
+sinkhole, a new sinkhole is created representing the remaining bytes while the old
+sinkhole is removed.</p>
+</dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-simuvex.plugins.gdb"></span><dl class="class">
@@ -1152,12 +1193,12 @@ and fires the ones whose conditions match.</p>
 <code class="descname">downsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.plugins.inspect.SimInspector.downsize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove previously stored attributes from this plugin instance to save memory.
 This method is supposed to be called by breakpoint implementors. A typical workflow looks like the following :</p>
-<div class="highlight-default"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Add `attr0` and `attr1` to `self.state.inspect`</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Add `attr0` and `attr1` to `self.state.inspect`</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">inspect</span><span class="p">(</span><span class="n">xxxxxx</span><span class="p">,</span> <span class="n">attr0</span><span class="o">=</span><span class="n">yyyy</span><span class="p">,</span> <span class="n">attr1</span><span class="o">=</span><span class="n">zzzz</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># Get new attributes out of SimInspect in case they are modified by the user</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get new attributes out of SimInspect in case they are modified by the user</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">new_attr0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">_inspect</span><span class="o">.</span><span class="n">attr0</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">new_attr1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">_inspect</span><span class="o">.</span><span class="n">attr1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c"># Remove them from SimInspect</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Remove them from SimInspect</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">_inspect</span><span class="o">.</span><span class="n">downsize</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1429,7 +1470,7 @@ analysis.</li>
 <p>Represents a file.</p>
 <dl class="method">
 <dt id="simuvex.storage.file.SimFile.merge">
-<code class="descname">merge</code><span class="sig-paren">(</span><em>others</em>, <em>merge_flag</em>, <em>flag_values</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.file.SimFile.merge" title="Permalink to this definition">¶</a></dt>
+<code class="descname">merge</code><span class="sig-paren">(</span><em>others</em>, <em>merge_conditions</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.file.SimFile.merge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Merges the SimFile object with <cite>others</cite>.</p>
 </dd></dl>
 
@@ -1729,7 +1770,7 @@ returns the address in a single-element list.</p>
 
 <dl class="method">
 <dt id="simuvex.storage.memory.SimMemory.store">
-<code class="descname">store</code><span class="sig-paren">(</span><em>addr</em>, <em>data</em>, <em>size=None</em>, <em>condition=None</em>, <em>add_constraints=None</em>, <em>endness=None</em>, <em>action=None</em>, <em>inspect=True</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.memory.SimMemory.store" title="Permalink to this definition">¶</a></dt>
+<code class="descname">store</code><span class="sig-paren">(</span><em>addr</em>, <em>data</em>, <em>size=None</em>, <em>condition=None</em>, <em>add_constraints=None</em>, <em>endness=None</em>, <em>action=None</em>, <em>inspect=True</em>, <em>priv=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.memory.SimMemory.store" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stores content into memory.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1828,7 +1869,7 @@ executable stack.</td>
 
 <dl class="class">
 <dt id="simuvex.storage.paged_memory.SimPagedMemory">
-<em class="property">class </em><code class="descclassname">simuvex.storage.paged_memory.</code><code class="descname">SimPagedMemory</code><span class="sig-paren">(</span><em>memory_backer=None</em>, <em>permissions_backer=None</em>, <em>pages=None</em>, <em>initialized=None</em>, <em>name_mapping=None</em>, <em>hash_mapping=None</em>, <em>page_size=None</em>, <em>symbolic_addrs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.paged_memory.SimPagedMemory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simuvex.storage.paged_memory.</code><code class="descname">SimPagedMemory</code><span class="sig-paren">(</span><em>memory_backer=None</em>, <em>permissions_backer=None</em>, <em>pages=None</em>, <em>initialized=None</em>, <em>name_mapping=None</em>, <em>hash_mapping=None</em>, <em>page_size=None</em>, <em>symbolic_addrs=None</em>, <em>check_permissions=False</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.paged_memory.SimPagedMemory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents paged memory.</p>
 <dl class="method">
@@ -1844,14 +1885,18 @@ executable stack.</td>
 </dd></dl>
 
 <dl class="method">
-<dt id="simuvex.storage.paged_memory.SimPagedMemory.changed_bytes">
-<code class="descname">changed_bytes</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.paged_memory.SimPagedMemory.changed_bytes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the set of changed bytes between <cite>self</cite> and <cite>other</cite>.</p>
+<dt id="simuvex.storage.paged_memory.SimPagedMemory.contains_no_backer">
+<code class="descname">contains_no_backer</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.paged_memory.SimPagedMemory.contains_no_backer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests if the address is contained in any page of paged memory, without considering memory backers.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A set of differing bytes.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address to test.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if the address is included in one of the pages, False otherwise.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool">bool</a></td>
 </tr>
 </tbody>
 </table>
@@ -1906,11 +1951,14 @@ name index for speedup).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>old</strong> &#8211; A SimMemoryObject (i.e., one from <a class="reference internal" href="#simuvex.storage.paged_memory.SimPagedMemory.memory_objects_for_hash" title="simuvex.storage.paged_memory.SimPagedMemory.memory_objects_for_hash"><code class="xref py py-func docutils literal"><span class="pre">memory_objects_for_hash()</span></code></a> or :func:`
 memory_objects_for_name()`).</li>
 <li><strong>new_content</strong> &#8211; The content (claripy expression) for the new memory object.</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the new memory object</p>
 </td>
 </tr>
 </tbody>

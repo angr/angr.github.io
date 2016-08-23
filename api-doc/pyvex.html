@@ -176,16 +176,24 @@ block.</p>
 <li><strong>data</strong> (<em>str or bytes or cffi.FFI.CData</em>) &#8211; The bytes to lift. Can be either a string of bytes or a cffi buffer object.</li>
 <li><strong>mem_addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address to lift the data at.</li>
 <li><strong>arch</strong> (<code class="xref py py-class docutils literal"><span class="pre">archinfo.Arch</span></code>) &#8211; The architecture to lift the data as.</li>
+<li><strong>num_inst</strong> &#8211; The maximum number of instructions to lift. Max 99. (See note below)</li>
+<li><strong>num_bytes</strong> &#8211; The maximum number of bytes to use. Max 400.</li>
+<li><strong>bytes_offset</strong> &#8211; The offset into <cite>data</cite> to start lifting at.</li>
+<li><strong>traceflags</strong> &#8211; The libVEX traceflags, controlling VEX debug prints.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>The following are optional:
-:param num_inst:        The maximum number of instructions to lift. Max 99.
-:param num_bytes:       The maximum number of bytes to use. Max 400.
-:param bytes_offset:    The offset into <cite>data</cite> to start lifting at.
-:param traceflags:      The libVEX traceflags, controlling VEX debug prints.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Explicitly specifying the number of instructions to lift (<cite>num_inst</cite>) may not always work
+exactly as expected. For example, on MIPS, it is meaningless to lift a branch or jump
+instruction without its delay slot. VEX attempts to Do The Right Thing by possibly decoding
+fewer instructions than requested. Specifically, this means that lifting a branch or jump
+on MIPS as a single instruction (<cite>num_inst=1</cite>) will result in an empty IRSB, and subsequent
+attempts to run this block will raise <cite>SimIRSBError(&#8216;Empty IRSB passed to SimIRSB.&#8217;)</cite>.</p>
+</div>
 <dl class="attribute">
 <dt id="pyvex.block.IRSB.all_constants">
 <code class="descname">all_constants</code><a class="headerlink" href="#pyvex.block.IRSB.all_constants" title="Permalink to this definition">¶</a></dt>
@@ -196,6 +204,12 @@ block.</p>
 <dt id="pyvex.block.IRSB.constant_jump_targets">
 <code class="descname">constant_jump_targets</code><a class="headerlink" href="#pyvex.block.IRSB.constant_jump_targets" title="Permalink to this definition">¶</a></dt>
 <dd><p>A set of the static jump targets of the basic block.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvex.block.IRSB.constant_jump_targets_and_jumpkinds">
+<code class="descname">constant_jump_targets_and_jumpkinds</code><a class="headerlink" href="#pyvex.block.IRSB.constant_jump_targets_and_jumpkinds" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dict of the static jump targets of the basic block to their jumpkind.</p>
 </dd></dl>
 
 <dl class="attribute">
