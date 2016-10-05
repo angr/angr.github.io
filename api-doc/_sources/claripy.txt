@@ -61,6 +61,7 @@ Backends
 Frontends
 ---------
 
+..  automodule:: claripy.frontend
 ..  automodule:: claripy.frontends
 ..  automodule:: claripy.frontends.caching_frontend
 ..  automodule:: claripy.frontends.composite_frontend
