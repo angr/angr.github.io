@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="angr 4.6.3 documentation" href="index.html"/>
         <link rel="next" title="archinfo — Arch Info" href="archinfo.html"/>
         <link rel="prev" title="claripy — The Claripy Solver Engine" href="claripy.html"/> 
@@ -148,7 +151,7 @@ address space with loaded and rebased binaries.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="simuvex.html#module-simuvex.storage.memory" title="simuvex.storage.memory"><strong>memory</strong></a> (<a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><em>cle.memory.Clemory</em></a>) &#8211; The loaded, rebased, and relocated memory of the program.</li>
+<li><a class="reference internal" href="#module-cle.memory" title="cle.memory"><strong>memory</strong></a> (<a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><em>cle.memory.Clemory</em></a>) &#8211; The loaded, rebased, and relocated memory of the program.</li>
 <li><strong>main_bin</strong> &#8211; The object representing the main binary (i.e., the executable).</li>
 <li><strong>shared_objects</strong> &#8211; A dictionary mapping loaded library names to the objects representing them.</li>
 <li><strong>all_objects</strong> &#8211; A list containing representations of all the different objects loaded.</li>
@@ -470,6 +473,19 @@ object it came from.</p>
 
 </dd></dl>
 
+<span class="target" id="module-cle.tls"></span><dl class="class">
+<dt id="cle.tls.TLSObj">
+<em class="property">class </em><code class="descclassname">cle.tls.</code><code class="descname">TLSObj</code><span class="sig-paren">(</span><em>modules</em>, <em>filetype='unknown'</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.tls.TLSObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.Backend</span></code></a></p>
+<p>This class is used when parsing the Thread Local Storage of a binary.</p>
+<dl class="method">
+<dt id="cle.tls.TLSObj.finalize">
+<code class="descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.tls.TLSObj.finalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lay out the TLS initialization images into memory.</p>
+</dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-cle.errors"></span><dl class="exception">
 <dt id="cle.errors.CLEError">
 <em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLEError</code><a class="headerlink" href="#cle.errors.CLEError" title="Permalink to this definition">¶</a></dt>
@@ -543,7 +559,6 @@ address of where to write the result. The destination address is not rebased.</l
 <li><strong>os</strong> (<em>str</em>) &#8211; The operating system this binary is meant to run under</li>
 <li><strong>compatible_with</strong> &#8211; Another Backend object this object must be compatibile with, or None</li>
 <li><strong>rebase_addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The base address of this object in virtual memory</li>
-<li><strong>tls_module_id</strong> &#8211; The thread-local storage module ID assigned to this binary</li>
 <li><strong>deps</strong> &#8211; A list of names of shared libraries this binary depends on</li>
 <li><strong>linking</strong> &#8211; &#8216;dynamic&#8217; or &#8216;static&#8217;</li>
 <li><strong>requested_base</strong> &#8211; The base address this object requests to be loaded at, or None</li>

@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="angr 4.6.3 documentation" href="index.html"/>
         <link rel="next" title="cle — CLE Loads Everything" href="cle.html"/>
         <link rel="prev" title="pyvex — PyVex" href="pyvex.html"/> 
@@ -87,7 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; PyVex</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; The Claripy Solver Engine</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.ast">AST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#backends">Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-claripy.backend">Backends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.frontends">Frontends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.vsa">VSA</a></li>
 </ul>
@@ -187,7 +190,7 @@ Most of the time, you&#8217;ll be using claripy as a simple frontend to z3:</p>
 unknown terms on one side of an inequality.</p>
 </dd></dl>
 
-<span class="target" id="module-claripy.bv"></span><span class="target" id="module-claripy.errors"></span><span class="target" id="module-claripy.fp"></span><span class="target" id="module-claripy.frontend"></span><span class="target" id="module-claripy.operations"></span><span class="target" id="module-claripy.ops"></span><div class="section" id="module-claripy.ast">
+<span class="target" id="module-claripy.bv"></span><span class="target" id="module-claripy.errors"></span><span class="target" id="module-claripy.fp"></span><span class="target" id="module-claripy.frontend"></span><span class="target" id="module-claripy.operations"></span><span class="target" id="module-claripy.ops"></span><span class="target" id="module-claripy.result"></span><div class="section" id="module-claripy.ast">
 <span id="ast"></span><h2>AST<a class="headerlink" href="#module-claripy.ast" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-claripy.ast.base"></span><dl class="class">
 <dt id="claripy.ast.base.Base">
@@ -611,8 +614,469 @@ to False or None.</li>
 </dd></dl>
 
 <span class="target" id="module-claripy.ast.int"></span><span class="target" id="module-claripy.ast.vs"></span></div>
-<div class="section" id="backends">
-<h2>Backends<a class="headerlink" href="#backends" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-claripy.backend">
+<span id="backends"></span><h2>Backends<a class="headerlink" href="#module-claripy.backend" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="claripy.backend.Backend">
+<em class="property">class </em><code class="descclassname">claripy.backend.</code><code class="descname">Backend</code><span class="sig-paren">(</span><em>solver_required=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Backends are Claripy&#8217;s workhorses. Claripy exposes ASTs (claripy.ast.Base objects)
+to the world, but when actual computation has to be done, it pushes those
+ASTs into objects that can be handled by the backends themselves. This
+provides a unified interface to the outside world while allowing Claripy to
+support different types of computation. For example, BackendConcrete
+provides computation support for concrete bitvectors and booleans,
+BackendVSA introduces VSA constructs such as StridedIntervals (and details
+what happens when operations are performed on them), and BackendZ3 provides
+support for symbolic variables and constraint solving.</p>
+<p>There are a set of functions that a backend is expected to implement. For
+all of these functions, the &#8220;public&#8221; version is expected to be able to deal
+with claripy.ast.Base objects, while the &#8220;private&#8221; version should only deal with
+objects specific to the backend itself. This is distinguished with Python
+idioms: a public function will be named func() while a private function
+will be _func(). All functions should return objects that are usable by the
+backend in its private methods. If this can&#8217;t be done (i.e., some
+functionality is being attempted that the backend can&#8217;t handle), the
+backend should raise a BackendError. In this case, Claripy will move on to
+the next backend in its list.</p>
+<p>All backends must implement a convert() function. This function receives a
+claripy.A and should return an object that the backend can handle in its
+private methods. Backends should also implement a _convert() method, which
+will receive anything that is <em>not</em> a claripy.A object (i.e., an integer or
+an object from a different backend). If convert() or _convert() receives
+something that the backend can&#8217;t translate to a format that is usable
+internally, the backend should raise BackendError, and thus won&#8217;t be used
+for that object.</p>
+<p>Claripy contract with its backends is as follows: backends should be able
+to can handle, in their private functions, any object that they return from
+their private <em>or</em> public functions. Likewise, Claripy will never pass an
+object to any backend private function that did not originate as a return
+value from a private or public function of that backend. One exception to
+this is _convert(), as Claripy can try to stuff anything it feels like into
+_convert() to see if the backend can handle that type of object.</p>
+<dl class="method">
+<dt id="claripy.backend.Backend.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>s</em>, <em>c</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function adds constraints to the backend solver.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>c</strong> &#8211; A sequence of claripy.E objects.</li>
+<li><strong>s</strong> &#8211; A backend solver object.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.apply_annotation">
+<code class="descname">apply_annotation</code><span class="sig-paren">(</span><em>o</em>, <em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.apply_annotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should apply the annotation on the backend object, and return a new backend object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>o</strong> &#8211; A backend object.</li>
+<li><strong>a</strong> &#8211; An Annotation object.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A backend object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.batch_eval">
+<code class="descname">batch_eval</code><span class="sig-paren">(</span><em>exprs</em>, <em>n</em>, <em>result=None</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.batch_eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate one or multiple expressions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exprs</strong> &#8211; A list of expressions to evaluate.</li>
+<li><strong>n</strong> &#8211; Number of different solutions to return.</li>
+<li><strong>result</strong> &#8211; A cached Result from the last constraint solve.</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>solver</strong> &#8211; A solver object, native to the backend, to assist in the evaluation.</li>
+<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of up to n tuples, where each tuple is a solution for all expressions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.call">
+<code class="descname">call</code><span class="sig-paren">(</span><em>op</em>, <em>args</em>, <em>result=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls operation <cite>op</cite> on args <cite>args</cite> with this backend.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A backend object representing the result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.cardinality">
+<code class="descname">cardinality</code><span class="sig-paren">(</span><em>a</em>, <em>result=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.cardinality" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should return the maximum number of values that an expression can take on. This should be a strict <em>over</em>
+approximation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; A claripy A object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An integer.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.convert">
+<code class="descname">convert</code><span class="sig-paren">(</span><em>expr</em>, <em>result=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolves a claripy.Base into something usable by the backend.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> &#8211; The expression.</li>
+<li><strong>save</strong> &#8211; Save the result in the expression&#8217;s object cache</li>
+<li><strong>result</strong> &#8211; A Result object (for concrete-only symbolic evaluation).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A backend object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.downsize">
+<code class="descname">downsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.downsize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears all caches associated with this backend.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.eval">
+<code class="descname">eval</code><span class="sig-paren">(</span><em>expr</em>, <em>n</em>, <em>result=None</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns up to <cite>n</cite> possible solutions for expression <cite>expr</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> &#8211; expression (claripy.E object) to evaluate</li>
+<li><strong>n</strong> &#8211; number of results to return</li>
+<li><strong>result</strong> &#8211; a cached Result from the last constraint solve</li>
+<li><strong>solver</strong> &#8211; a solver object, native to the backend, to assist in
+the evaluation (for example, a z3.Solver)</li>
+<li><strong>extra_constraints</strong> &#8211; extra constraints (claripy.E objects) to add
+to the solver for this solve</li>
+<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A sequence of up to n results (backend objects)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.handles">
+<code class="descname">handles</code><span class="sig-paren">(</span><em>expr</em>, <em>result=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.handles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether this backend can handle the expression.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> &#8211; The expression.</li>
+<li><strong>result</strong> &#8211; A Result object (for concrete-only symbolic evaluation).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if the backend can handle this expression, False if not.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.has_false">
+<code class="descname">has_false</code><span class="sig-paren">(</span><em>e</em>, <em>extra_constraints=()</em>, <em>result=None</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.has_false" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should return False if <cite>e</cite> can possibly be False.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>e</strong> &#8211; The AST.</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>result</strong> &#8211; The result of the previous solve.</li>
+<li><strong>solver</strong> &#8211; A solver, for backends that require it.</li>
+<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A boolean.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.has_true">
+<code class="descname">has_true</code><span class="sig-paren">(</span><em>e</em>, <em>extra_constraints=()</em>, <em>result=None</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.has_true" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should return True if <cite>e</cite> can possible be True.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>e</strong> &#8211; The AST.</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>result</strong> &#8211; The result of the previous solve.</li>
+<li><strong>solver</strong> &#8211; A solver, for backends that require it.</li>
+<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A boolean</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.identical">
+<code class="descname">identical</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>result=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.identical" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should return whether <cite>a</cite> is identical to <cite>b</cite>. Of course, this isn&#8217;t always clear. True should mean that it
+is definitely identical. False eans that, conservatively, it might not be.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>a</strong> &#8211; a claripy A object</li>
+<li><strong>b</strong> &#8211; a claripy A object</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.is_false">
+<code class="descname">is_false</code><span class="sig-paren">(</span><em>e</em>, <em>extra_constraints=()</em>, <em>result=None</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.is_false" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should return True if e can be easily found to be False.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>e</strong> &#8211; The AST</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>result</strong> &#8211; The result of the previous solve</li>
+<li><strong>solver</strong> &#8211; A solver, for backends that require it</li>
+<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A boolean.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.is_true">
+<code class="descname">is_true</code><span class="sig-paren">(</span><em>e</em>, <em>extra_constraints=()</em>, <em>result=None</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.is_true" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should return True if <cite>e</cite> can be easily found to be True.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>e</strong> &#8211; The AST.</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>result</strong> &#8211; The result of the previous solve.</li>
+<li><strong>solver</strong> &#8211; A solver, for backends that require it.</li>
+<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A boolean.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.max">
+<code class="descname">max</code><span class="sig-paren">(</span><em>expr</em>, <em>result=None</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the maximum value of expr.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> &#8211; expression (claripy.E object) to evaluate</li>
+<li><strong>result</strong> &#8211; a cached Result from the last constraint solve</li>
+<li><strong>solver</strong> &#8211; a solver object, native to the backend, to assist in
+the evaluation (for example, a z3.Solver)</li>
+<li><strong>extra_constraints</strong> &#8211; extra constraints (claripy.E objects) to add
+to the solver for this solve</li>
+<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the maximum possible value of expr (backend object)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.min">
+<code class="descname">min</code><span class="sig-paren">(</span><em>expr</em>, <em>result=None</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the minimum value of <cite>expr</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> &#8211; expression (claripy.E object) to evaluate</li>
+<li><strong>result</strong> &#8211; a cached Result from the last constraint solve</li>
+<li><strong>solver</strong> &#8211; a solver object, native to the backend, to assist in
+the evaluation (for example, a z3.Solver)</li>
+<li><strong>extra_constraints</strong> &#8211; extra constraints (claripy.E objects) to add
+to the solver for this solve</li>
+<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the minimum possible value of expr (backend object)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.name">
+<code class="descname">name</code><span class="sig-paren">(</span><em>a</em>, <em>result=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should return the name of an expression.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the claripy A object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.satisfiable">
+<code class="descname">satisfiable</code><span class="sig-paren">(</span><em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.satisfiable" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function does a constraint check and checks if the solver is in a sat state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>solver</strong> &#8211; The backend solver object.</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to s for this solve</li>
+<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if sat, otherwise false</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.size">
+<code class="descname">size</code><span class="sig-paren">(</span><em>a</em>, <em>result=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should return the size of an expression.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the claripy A object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.solution">
+<code class="descname">solution</code><span class="sig-paren">(</span><em>expr</em>, <em>v</em>, <em>result=None</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.solution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if <cite>v</cite> is a solution of <cite>expr</cite> with the extra constraints, False otherwise.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> &#8211; An expression (claripy.E) to evaluate</li>
+<li><strong>v</strong> &#8211; The proposed solution (claripy.E)</li>
+<li><strong>result</strong> &#8211; A cached Result from the last constraint solve</li>
+<li><strong>solver</strong> &#8211; A solver object, native to the backend, to assist in the evaluation (for example,
+a z3.Solver).</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if <cite>v</cite> is a solution of <cite>expr</cite>, False otherwise</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backend.Backend.solver">
+<code class="descname">solver</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend.Backend.solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function should return an instance of whatever object handles
+solving for this backend. For example, in Z3, this would be z3.Solver().</p>
+</dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-claripy.backends"></span><dl class="class">
 <dt id="claripy.backends.Backend">
 <em class="property">class </em><code class="descclassname">claripy.backends.</code><code class="descname">Backend</code><span class="sig-paren">(</span><em>solver_required=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend" title="Permalink to this definition">¶</a></dt>
@@ -1062,7 +1526,7 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 <span class="target" id="module-claripy.backends.backend_concrete"></span><span class="target" id="module-claripy.backends.backend_z3"></span><span class="target" id="module-claripy.backends.backend_z3_parallel"></span><span class="target" id="module-claripy.backends.celeryconfig"></span></div>
 <div class="section" id="module-claripy.frontends">
 <span id="frontends"></span><h2>Frontends<a class="headerlink" href="#module-claripy.frontends" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-claripy.frontends.composite_frontend"></span><span class="target" id="module-claripy.frontends.constrained_frontend"></span><span class="target" id="module-claripy.frontends.full_frontend"></span><span class="target" id="module-claripy.frontends.hybrid_frontend"></span><span class="target" id="module-claripy.frontends.light_frontend"></span><span class="target" id="module-claripy.frontends.replacement_frontend"></span></div>
+<span class="target" id="module-claripy.frontends.caching_frontend"></span><span class="target" id="module-claripy.frontends.composite_frontend"></span><span class="target" id="module-claripy.frontends.constrained_frontend"></span><span class="target" id="module-claripy.frontends.full_frontend"></span><span class="target" id="module-claripy.frontends.hybrid_frontend"></span><span class="target" id="module-claripy.frontends.light_frontend"></span><span class="target" id="module-claripy.frontends.replacement_frontend"></span></div>
 <div class="section" id="module-claripy.vsa">
 <span id="vsa"></span><h2>VSA<a class="headerlink" href="#module-claripy.vsa" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-claripy.vsa.abstract_location"></span><span class="target" id="module-claripy.vsa.bool_result"></span><span class="target" id="module-claripy.vsa.discrete_strided_interval_set"></span><dl class="class">
@@ -1794,6 +2258,14 @@ StridedInterval object.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.vsa.strided_interval.StridedInterval.solution">
+<code class="descname">solution</code><span class="sig-paren">(</span><em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.solution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether an integer is solution of the current strided Interval
+:param b: integer to check
+:return: True if b belongs to the current Strided Interval, False otherwhise</p>
 </dd></dl>
 
 <dl class="method">
