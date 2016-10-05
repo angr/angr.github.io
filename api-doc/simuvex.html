@@ -873,7 +873,7 @@ i.e. a NUL-terminated array of bytes.</p>
 
 <div class="section" id="module-simuvex.plugins">
 <span id="plugins"></span><h2>Plugins<a class="headerlink" href="#module-simuvex.plugins" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-simuvex.plugins.abstract_memory"></span><dl class="class">
+<span class="target" id="module-simuvex.plugins.symbolic_memory"></span><span class="target" id="module-simuvex.plugins.abstract_memory"></span><dl class="class">
 <dt id="simuvex.plugins.abstract_memory.SimAbstractMemory">
 <em class="property">class </em><code class="descclassname">simuvex.plugins.abstract_memory.</code><code class="descname">SimAbstractMemory</code><span class="sig-paren">(</span><em>memory_backer=None</em>, <em>memory_id='mem'</em>, <em>endness=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.plugins.abstract_memory.SimAbstractMemory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#simuvex.storage.memory.SimMemory" title="simuvex.storage.memory.SimMemory"><code class="xref py py-class docutils literal"><span class="pre">simuvex.storage.memory.SimMemory</span></code></a></p>
@@ -2008,6 +2008,52 @@ one for each byte.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-simuvex.concretization_strategies"></span><dl class="class">
+<dt id="simuvex.concretization_strategies.SimConcretizationStrategy">
+<em class="property">class </em><code class="descclassname">simuvex.concretization_strategies.</code><code class="descname">SimConcretizationStrategy</code><span class="sig-paren">(</span><em>filter=None</em>, <em>exact=True</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.concretization_strategies.SimConcretizationStrategy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Concretization strategies control the resolution of symbolic memory indices
+in SimuVEX. By subclassing this class and setting it as a concretization strategy
+(on state.memory.read_strategies and state.memory.write_strategies), SimuVEX&#8217;s
+memory index concretization behavior can be modified.</p>
+<p>Initializes the base SimConcretizationStrategy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filter</strong> &#8211; A function, taking arguments of (SimMemory, claripy.AST) that determins
+if this strategy can handle resolving the provided AST.</li>
+<li><strong>exact</strong> &#8211; A flag (default: True) that determines if the convenience resolution
+functions provided by this class use exact or approximate resolution.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="simuvex.concretization_strategies.SimConcretizationStrategy.concretize">
+<code class="descname">concretize</code><span class="sig-paren">(</span><em>memory</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.concretization_strategies.SimConcretizationStrategy.concretize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concretizes the address into a list of values.
+If this strategy cannot handle this address, returns None.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.concretization_strategies.SimConcretizationStrategy.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.concretization_strategies.SimConcretizationStrategy.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the strategy, if there is data that should be kept separate between
+states. If not, returns self.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.concretization_strategies.SimConcretizationStrategy.merge">
+<code class="descname">merge</code><span class="sig-paren">(</span><em>others</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.concretization_strategies.SimConcretizationStrategy.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges this strategy with others (if there is data that should be kept separate between
+states. If not, is a no-op.</p>
 </dd></dl>
 
 </dd></dl>
