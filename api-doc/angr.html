@@ -92,7 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-angr.knowledge_base">Knowledge Base</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-angr.analysis">Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-angr.surveyor">Surveyors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-angr.lifter">Lifter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lifter">Lifter</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-angr.simos">SimOS</a></li>
 </ul>
 </li>
@@ -149,6 +149,105 @@
 <h1><code class="xref py py-mod docutils literal"><span class="pre">angr</span></code> &#8212; angr<a class="headerlink" href="#angr-angr" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-angr.project">
 <span id="project"></span><h2>Project<a class="headerlink" href="#module-angr.project" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="angr.project.Hook">
+<em class="property">class </em><code class="descclassname">angr.project.</code><code class="descname">Hook</code><span class="sig-paren">(</span><em>procedure</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>An object describing an action to be taken at a given address instead of executing binary code.
+An instance of this class may be passed to <cite>angr.Project.hook</cite> along with the address at which
+to hook.</p>
+<p>More specifically, a hook is a wrapper for a SimProcedure, a simuvex object that contains a lot
+of logic for how to mutate a state in common ways. The SimProcedure base class is subclassed
+to produce a SimProcedure that may be used for hooking. If the SimProcedure class is too heavy
+for your use case, there is a class method <cite>wrap</cite> on this class that can be used to wrap a
+simple function into a SimProcedure, and then further into a <cite>Hook</cite> directly.</p>
+<p>This class is a bit of a hack to deal with the fact that SimProcedures need to hold state but
+having them do so makes them not thread-safe.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>procedure</strong> &#8211; The class of the procedure to use</li>
+<li><strong>kwargs</strong> &#8211; Any additional keyword arguments will be eventually passed to the
+<cite>run</cite> method of the procedure on its execution, via the <cite>sim_kwargs</cite>
+SimProcedure constructor parameter.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.project.Hook.instantiate">
+<code class="descname">instantiate</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Hook.instantiate" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arch</strong> &#8211; The architecture to use for this procedure</td>
+</tr>
+</tbody>
+</table>
+<p>The following parameters are optional:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>symbolic_return</strong> &#8211; Whether the procedure&#8217;s return value should be stubbed into a
+single symbolic variable constratined to the real return value</li>
+<li><strong>returns</strong> &#8211; Whether the procedure should return to its caller afterwards</li>
+<li><strong>is_syscall</strong> &#8211; Whether this procedure is a syscall</li>
+<li><strong>num_args</strong> &#8211; The number of arguments this procedure should extract</li>
+<li><strong>display_name</strong> &#8211; The name to use when displaying this procedure</li>
+<li><strong>convention</strong> &#8211; The SimCC to use for this procedure</li>
+<li><strong>sim_kwargs</strong> &#8211; Additional keyword arguments to be passed to run()</li>
+<li><strong>is_function</strong> &#8211; Whether this procedure emulates a function</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="angr.project.Hook.wrap">
+<em class="property">classmethod </em><code class="descname">wrap</code><span class="sig-paren">(</span><em>length=0</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Hook.wrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call this function to return a decorator you can use to turn a function into a Hook. This
+specific kind of hook is called a &#8220;User Hook&#8221;.</p>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@Hook</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">set_rax</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">state</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">rax</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">project</span><span class="o">.</span><span class="n">hook</span><span class="p">(</span><span class="mh">0x1234</span><span class="p">,</span> <span class="n">set_rax</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The function may modify the state in any way it sees fit. In order to produce successors
+from a user hook, you have two options.</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p class="first">Return nothing. In this case, execution will resume at <cite>length</cite> bytes after the hook
+address.</p>
+</li>
+<li><p class="first">Return a list of successor states. Each of the states should have the following
+attributes set:</p>
+<blockquote>
+<div><ul class="simple">
+<li><cite>state.scratch.guard</cite>: a symbolic boolean describing the condition necessary for
+this successor to be taken. A shortcut to the symbolic <cite>True</cite> value is
+<cite>state.se.true</cite>.</li>
+<li><cite>state.scratch.jumpkind</cite>: The type of the jump to be taken, as a VEX enum string.
+This will usually be <cite>Ijk_Boring</cite>, which signifies an ordinary jump or branch.</li>
+</ul>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt id="angr.project.Project">
 <em class="property">class </em><code class="descclassname">angr.project.</code><code class="descname">Project</code><span class="sig-paren">(</span><em>thing</em>, <em>default_analysis_mode=None</em>, <em>ignore_functions=None</em>, <em>use_sim_procedures=True</em>, <em>exclude_sim_procedures_func=None</em>, <em>exclude_sim_procedures_list=()</em>, <em>arch=None</em>, <em>simos=None</em>, <em>load_options=None</em>, <em>translation_cache=True</em>, <em>support_selfmodifying_code=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Project" title="Permalink to this definition">¶</a></dt>
@@ -213,23 +312,24 @@ regions.</li>
 </div>
 <dl class="method">
 <dt id="angr.project.Project.hook">
-<code class="descname">hook</code><span class="sig-paren">(</span><em>addr</em>, <em>func</em>, <em>length=0</em>, <em>kwargs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Project.hook" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hook a section of code with a custom function.</p>
-<p>If <cite>func</cite> is a function, it takes a <code class="xref py py-class docutils literal"><span class="pre">SimState</span></code> and the given <cite>kwargs</cite>. It can return None, in which case
-it will generate a single exit to the instruction at <code class="docutils literal"><span class="pre">addr+length</span></code>, or it can return an array of successor
-states.</p>
-<p>If func is a <code class="xref py py-class docutils literal"><span class="pre">SimProcedure</span></code>, it will be run instead of a <code class="xref py py-class docutils literal"><span class="pre">SimBlock</span></code> at that address.</p>
-<p>If <cite>length</cite> is zero the block at the hooked address will be executed immediately after the hook function.</p>
+<code class="descname">hook</code><span class="sig-paren">(</span><em>addr</em>, <em>hook</em>, <em>length=0</em>, <em>kwargs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Project.hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook a section of code with a custom function. This is used internally to provide symbolic
+summaries of library functions, and can be used to instrument execution or to modify
+control flow.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>addr</strong> &#8211; The address to hook.</li>
-<li><strong>func</strong> &#8211; The function that will perform an action when execution reaches the hooked address.</li>
-<li><strong>length</strong> &#8211; How many bytes you&#8217;d like to skip over with your hook. Can be zero.</li>
-<li><strong>kwargs</strong> &#8211; Any additional keyword arguments will be passed to your function or your
-<code class="xref py py-class docutils literal"><span class="pre">SimProcedure</span></code>&#8216;s run function.</li>
+<li><strong>hook</strong> &#8211; A <a class="reference internal" href="#angr.project.Hook" title="angr.project.Hook"><code class="xref py py-class docutils literal"><span class="pre">angr.project.Hook</span></code></a> describing a procedure to run at the
+given address. You may also pass in a SimProcedure class or a function
+directly and it will be wrapped in a Hook object for you.</li>
+<li><strong>length</strong> &#8211; If you provide a function for the hook, this is the number of bytes
+that will be skipped by executing the hook by default.</li>
+<li><strong>kwargs</strong> &#8211; If you provide a SimProcedure for the hook, these are the keyword
+arguments that will be passed to the procedure&#8217;s <cite>run</cite> method
+eventually.</li>
 </ul>
 </td>
 </tr>
@@ -240,21 +340,26 @@ states.</p>
 <dl class="method">
 <dt id="angr.project.Project.hook_symbol">
 <code class="descname">hook_symbol</code><span class="sig-paren">(</span><em>symbol_name</em>, <em>obj</em>, <em>kwargs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Project.hook_symbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resolve a dependency in a binary. Uses the &#8220;externs object&#8221; (project._extern_obj) to provide addresses for
-hook functions.</p>
+<dd><p>Resolve a dependency in a binary. Uses the &#8220;externs object&#8221; (project._extern_obj) to
+allocate an address for a new symbol in the binary, and then tells the loader to reperform
+the relocation process, taking into account the new symbol.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>symbol_name</strong> &#8211; The name of the dependency to resolve.</li>
-<li><strong>obj</strong> &#8211; The thing with which to satisfy the dependency. May be a SimProcedure class or a python
-function (as an appropriate argument to hook()), or a python integer/long.</li>
-<li><strong>kwargs</strong> &#8211; Any additional keyword arguments will be passed to the SimProcedure&#8217;s run() method.</li>
+<li><strong>obj</strong> &#8211; The thing with which to satisfy the dependency. May be a python integer
+or anything that may be passed to <cite>project.hook()</cite>.</li>
+<li><strong>length</strong> &#8211; If you provide a function for the hook, this is the number of bytes
+that will be skipped by executing the hook by default.</li>
+<li><strong>kwargs</strong> &#8211; If you provide a SimProcedure for the hook, these are the keyword
+arguments that will be passed to the procedure&#8217;s <cite>run</cite> method
+eventually.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The pseudo address of this new symbol.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The address of the new symbol.</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int">int</a></p>
@@ -353,7 +458,7 @@ function (as an appropriate argument to hook()), or a python integer/long.</li>
 <span id="factory"></span><h2>Factory<a class="headerlink" href="#module-angr.factory" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="angr.factory.AngrObjectFactory">
-<em class="property">class </em><code class="descclassname">angr.factory.</code><code class="descname">AngrObjectFactory</code><span class="sig-paren">(</span><em>project</em>, <em>translation_cache=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.factory.</code><code class="descname">AngrObjectFactory</code><span class="sig-paren">(</span><em>project</em>, <em>default_engine</em>, <em>procedure_engine</em>, <em>engines</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>This factory provides access to important analysis elements.</p>
 <dl class="method">
@@ -573,7 +678,7 @@ mixed strings and bitvectors.</li>
 
 <dl class="method">
 <dt id="angr.factory.AngrObjectFactory.path">
-<code class="descname">path</code><span class="sig-paren">(</span><em>state=None</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.path" title="Permalink to this definition">¶</a></dt>
+<code class="descname">path</code><span class="sig-paren">(</span><em>state=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a new path.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -625,79 +730,37 @@ Path, and the whole list will be used to seed the path group.</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="angr.factory.AngrObjectFactory.sim_block">
-<code class="descname">sim_block</code><span class="sig-paren">(</span><em>state</em>, <em>stmt_whitelist=None</em>, <em>last_stmt=None</em>, <em>addr=None</em>, <em>opt_level=None</em>, <em>**block_opts</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.sim_block" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a SimIRSB object with execution based on state.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> &#8211; The state to tick forward with this block.</td>
-</tr>
-</tbody>
-</table>
-<p>The following parameters are optional:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>stmt_whitelist</strong> &#8211; A list of stmt indexes to which to confine execution.</li>
-<li><strong>last_stmt</strong> &#8211; A statement index at which to stop execution.</li>
-<li><strong>addr</strong> &#8211; The address at which to start the block.</li>
-<li><strong>thumb</strong> &#8211; Whether the block should be lifted in ARM&#8217;s THUMB mode.</li>
-<li><strong>backup_state</strong> &#8211; A state to read bytes from instead of using project memory.</li>
-<li><strong>opt_level</strong> &#8211; The VEX optimization level to use.</li>
-<li><strong>insn_bytes</strong> &#8211; A string of bytes to use for the block instead of the project.</li>
-<li><strong>max_size</strong> &#8211; The maximum size of the block, in bytes.</li>
-<li><strong>num_inst</strong> &#8211; The maximum number of instructions.</li>
-<li><strong>traceflags</strong> &#8211; traceflags to be passed to VEX. Default: 0</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.factory.AngrObjectFactory.sim_run">
-<code class="descname">sim_run</code><span class="sig-paren">(</span><em>state</em>, <em>addr=None</em>, <em>jumpkind=None</em>, <em>extra_stop_points=None</em>, <em>**block_opts</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.sim_run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a simuvex SimRun object (supporting refs() and exits()), automatically choosing whether to create a
-SimIRSB or a SimProcedure.</p>
+<dt id="angr.factory.AngrObjectFactory.successors">
+<code class="descname">successors</code><span class="sig-paren">(</span><em>state</em>, <em>addr=None</em>, <em>jumpkind=None</em>, <em>inline=False</em>, <em>default_engine=False</em>, <em>engines=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.successors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform execution using any applicable engine. Enumerate the current engines and use the
+first one that works. Return a SimSuccessors object classifying the results of the run.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>state</strong> &#8211; The state to analyze</li>
-<li><strong>jumpkind</strong> &#8211; optional, the jumpkind of the previous exit</li>
 <li><strong>addr</strong> &#8211; optional, an address to execute at instead of the state&#8217;s ip</li>
+<li><strong>jumpkind</strong> &#8211; optional, the jumpkind of the previous exit</li>
+<li><strong>inline</strong> &#8211; This is an inline execution. Do not bother copying the state.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Additional keyword arguments will be passed directly into factory.sim_block if appropriate.</p>
+<dl class="docutils">
+<dt>:param default_engine   Whether we should only attempt to use the default engine</dt>
+<dd>(usually VEX)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>stmt_whitelist</strong> &#8211; a list of stmt indexes to which to confine execution.</li>
-<li><strong>last_stmt</strong> &#8211; a statement index at which to stop execution.</li>
-<li><strong>thumb</strong> &#8211; whether the block should be lifted in ARM&#8217;s THUMB mode.</li>
-<li><strong>backup_state</strong> &#8211; a state to read bytes from instead of using project memory.</li>
-<li><strong>opt_level</strong> &#8211; the VEX optimization level to use.</li>
-<li><strong>insn_bytes</strong> &#8211; a string of bytes to use for the block instead of the project.</li>
-<li><strong>max_size</strong> &#8211; the maximum size of the block, in bytes.</li>
-<li><strong>num_inst</strong> &#8211; the maximum number of instructions.</li>
-<li><strong>extra_stop_points</strong> &#8211; addresses to stop at, other than hooked functions</li>
-<li><strong>traceflags</strong> &#8211; traceflags to be passed to VEX. Default: 0</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>engines</strong> &#8211; A list of engines to try to use, instead of the default.</td>
 </tr>
 </tbody>
 </table>
+<p>Additional keyword arguments will be passed directly into each engine&#8217;s process method.</p>
 </dd></dl>
 
 </dd></dl>
@@ -706,59 +769,8 @@ SimIRSB or a SimProcedure.</p>
 <div class="section" id="module-angr.path">
 <span id="paths-path-groups"></span><h2>Paths &amp; Path Groups<a class="headerlink" href="#module-angr.path" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="angr.path.CallFrame">
-<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">CallFrame</code><span class="sig-paren">(</span><em>state=None</em>, <em>func_addr=None</em>, <em>stack_ptr=None</em>, <em>ret_addr=None</em>, <em>jumpkind=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.CallFrame" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Stores the address of the function you&#8217;re in and the value of SP
-at the VERY BOTTOM of the stack, i.e. points to the return address.</p>
-<p>Initialize with either a state or the function address,
-stack pointer, and return address</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="angr.path.CallStack">
-<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">CallStack</code><a class="headerlink" href="#angr.path.CallStack" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Represents a call stack.</p>
-<dl class="method">
-<dt id="angr.path.CallStack.pop">
-<code class="descname">pop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.CallStack.pop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pops one <a class="reference internal" href="#angr.path.CallFrame" title="angr.path.CallFrame"><code class="xref py py-class docutils literal"><span class="pre">CallFrame</span></code></a> from the callstack.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A CallFrame.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.path.CallStack.push">
-<code class="descname">push</code><span class="sig-paren">(</span><em>cf</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.CallStack.push" title="Permalink to this definition">¶</a></dt>
-<dd><p>Push the <a class="reference internal" href="#angr.path.CallFrame" title="angr.path.CallFrame"><code class="xref py py-class docutils literal"><span class="pre">CallFrame</span></code></a> <cite>cf</cite> on the callstack.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="angr.path.CallStack.top">
-<code class="descname">top</code><a class="headerlink" href="#angr.path.CallStack.top" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the element at the top of the callstack without removing it.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A CallFrame.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
 <dt id="angr.path.ErroredPath">
-<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">ErroredPath</code><span class="sig-paren">(</span><em>error</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.ErroredPath" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.path.</code><code class="descname">ErroredPath</code><span class="sig-paren">(</span><em>error</em>, <em>traceback</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.ErroredPath" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.path.Path" title="angr.path.Path"><code class="xref py py-class docutils literal"><span class="pre">angr.path.Path</span></code></a></p>
 <p>ErroredPath is used for paths that have encountered and error in their symbolic execution. This kind of path cannot
 be stepped further.</p>
@@ -902,21 +914,21 @@ merging becomes more efficient, and actions and such are merged.</li>
 <dl class="method">
 <dt id="angr.path.Path.step">
 <code class="descname">step</code><span class="sig-paren">(</span><em>throw=None</em>, <em>**run_args</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.Path.step" title="Permalink to this definition">¶</a></dt>
-<dd><p>Step a path forward. Optionally takes any argument applicable to project.factory.sim_run.</p>
+<dd><p>Step a path forward. Optionally takes any argument applicable to project.factory.successors.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>jumpkind</strong> &#8211; the jumpkind of the previous exit.</li>
-<li><strong>an address</strong> (<em>addr</em>) &#8211; to execute at instead of the state&#8217;s ip.</li>
+<li><strong>address</strong> (<em>addr</em>) &#8211; to execute at instead of the state&#8217;s ip.</li>
 <li><strong>stmt_whitelist</strong> &#8211; a list of stmt indexes to which to confine execution.</li>
 <li><strong>last_stmt</strong> &#8211; a statement index at which to stop execution.</li>
 <li><strong>thumb</strong> &#8211; whether the block should be lifted in ARM&#8217;s THUMB mode.</li>
 <li><strong>backup_state</strong> &#8211; a state to read bytes from instead of using project memory.</li>
 <li><strong>opt_level</strong> &#8211; the VEX optimization level to use.</li>
 <li><strong>insn_bytes</strong> &#8211; a string of bytes to use for the block instead of #the project.</li>
-<li><strong>max_size</strong> &#8211; the maximum size of the block, in bytes.</li>
+<li><strong>size</strong> &#8211; the maximum size of the block, in bytes.</li>
 <li><strong>num_inst</strong> &#8211; the maximum number of instructions.</li>
 <li><strong>traceflags</strong> &#8211; traceflags to be passed to VEX. Default: 0</li>
 </ul>
@@ -929,20 +941,6 @@ merging becomes more efficient, and actions and such are merged.</li>
 </table>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="function">
-<dt id="angr.path.make_path">
-<code class="descclassname">angr.path.</code><code class="descname">make_path</code><span class="sig-paren">(</span><em>project</em>, <em>runs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path.make_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>A helper function to generate a correct angr.Path from a list of runs corresponding to a program path.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>runs</strong> &#8211; A list of SimRuns corresponding to a program path.</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <span class="target" id="module-angr.path_group"></span><dl class="class">
@@ -1045,7 +1043,7 @@ or False. (default: drop all paths)</li>
 <dt id="angr.path_group.PathGroup.explore">
 <code class="descname">explore</code><span class="sig-paren">(</span><em>stash=None</em>, <em>n=None</em>, <em>find=None</em>, <em>avoid=None</em>, <em>find_stash='found'</em>, <em>avoid_stash='avoid'</em>, <em>cfg=None</em>, <em>num_find=1</em>, <em>step_func=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.path_group.PathGroup.explore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tick stash &#8220;stash&#8221; forward (up to &#8220;n&#8221; times or until &#8220;num_find&#8221; paths are found), looking for condition &#8220;find&#8221;,
-avoiding condition &#8220;avoid&#8221;. Stashes found paths into &#8220;found_stash&#8217; and avoided paths into &#8220;avoid_stash&#8221;.</p>
+avoiding condition &#8220;avoid&#8221;. Stores found paths into &#8220;find_stash&#8217; and avoided paths into &#8220;avoid_stash&#8221;.</p>
 <p>The &#8220;find&#8221; and &#8220;avoid&#8221; parameters may be any of:</p>
 <ul class="simple">
 <li>An address to find</li>
@@ -1734,16 +1732,21 @@ values).</p>
 
 <dl class="method">
 <dt id="angr.knowledge.function.Function.string_references">
-<code class="descname">string_references</code><span class="sig-paren">(</span><em>minimum_length=2</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function.Function.string_references" title="Permalink to this definition">¶</a></dt>
+<code class="descname">string_references</code><span class="sig-paren">(</span><em>minimum_length=2</em>, <em>vex_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function.Function.string_references" title="Permalink to this definition">¶</a></dt>
 <dd><p>All of the constant string references used by this function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>minimum_length</strong> &#8211; The minimum length of strings to find (default is 1)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>minimum_length</strong> &#8211; The minimum length of strings to find (default is 1)</li>
+<li><strong>vex_only</strong> &#8211; Only analyze VEX IR, don&#8217;t interpret the entry state to detect additional constants.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of tuples of (address, string) where is address is the location of the string in
-memory.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of tuples of (address, string) where is address is the location of the string in
+memory.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1785,9 +1788,31 @@ map to the associated <code class="xref py py-class docutils literal"><span clas
 results during CFG generation, and manages a function map of the binary.</p>
 <dl class="method">
 <dt id="angr.knowledge.function_manager.FunctionManager.function">
-<code class="descname">function</code><span class="sig-paren">(</span><em>addr=None</em>, <em>name=None</em>, <em>create=False</em>, <em>syscall=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function_manager.FunctionManager.function" title="Permalink to this definition">¶</a></dt>
+<code class="descname">function</code><span class="sig-paren">(</span><em>addr=None</em>, <em>name=None</em>, <em>create=False</em>, <em>syscall=False</em>, <em>plt=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge.function_manager.FunctionManager.function" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a function object from the function manager.</p>
 <p>Pass either <cite>addr</cite> or <cite>name</cite> with the appropriate values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; Address of the function.</li>
+<li><strong>name</strong> (<em>str</em>) &#8211; Name of the function.</li>
+<li><strong>create</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether to create the function or not if the function does not exist.</li>
+<li><strong>syscall</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; True to create the function as a syscall, False otherwise.</li>
+<li><strong>or None plt</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; True to find the PLT stub, False to find a non-PLT stub, None to disable this
+restriction.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The Function instance, or None if the function is not found and create is False.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Function or None</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -1890,7 +1915,7 @@ it always starts with the first IRSB that we meet during the execution.</p>
 <code class="descname">from_digraph</code><span class="sig-paren">(</span><em>digraph</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG.from_digraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize this AnnotatedCFG object with a networkx.DiGraph consisting of the following
 form of nodes:</p>
-<p>Tuples like (SimRun address, statement ID)</p>
+<p>Tuples like (block address, statement ID)</p>
 <p>Those nodes are connected by edges indicating the execution flow.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1950,7 +1975,7 @@ should be passed to the keyword argument &#8220;successor_func&#8221; of PathGro
 <dt id="angr.blade.Blade">
 <em class="property">class </em><code class="descclassname">angr.blade.</code><code class="descname">Blade</code><span class="sig-paren">(</span><em>graph</em>, <em>dst_run</em>, <em>dst_stmt_idx</em>, <em>direction='backward'</em>, <em>project=None</em>, <em>cfg=None</em>, <em>ignore_sp=False</em>, <em>ignore_bp=False</em>, <em>ignored_regs=None</em>, <em>max_level=3</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.blade.Blade" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Blade is a light-weight program slicer that works with networkx DiGraph containing SimIRSBs.
+<p>Blade is a light-weight program slicer that works with networkx DiGraph containing CFGNodes.
 It is meant to be used in angr for small or on-the-fly analyses.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -2390,7 +2415,7 @@ original object.</p>
 
 <span class="target" id="module-angr.analyses.cfg_accurate"></span><dl class="class">
 <dt id="angr.analyses.cfg_accurate.CFGAccurate">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg_accurate.</code><code class="descname">CFGAccurate</code><span class="sig-paren">(</span><em>context_sensitivity_level=1</em>, <em>start=None</em>, <em>avoid_runs=None</em>, <em>enable_function_hints=False</em>, <em>call_depth=None</em>, <em>call_tracing_filter=None</em>, <em>initial_state=None</em>, <em>starts=None</em>, <em>keep_state=False</em>, <em>enable_advanced_backward_slicing=False</em>, <em>enable_symbolic_back_traversal=False</em>, <em>additional_edges=None</em>, <em>no_construct=False</em>, <em>normalize=False</em>, <em>max_iterations=1</em>, <em>address_whitelist=None</em>, <em>base_graph=None</em>, <em>iropt_level=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_accurate.</code><code class="descname">CFGAccurate</code><span class="sig-paren">(</span><em>context_sensitivity_level=1</em>, <em>start=None</em>, <em>avoid_runs=None</em>, <em>enable_function_hints=False</em>, <em>call_depth=None</em>, <em>call_tracing_filter=None</em>, <em>initial_state=None</em>, <em>starts=None</em>, <em>keep_state=False</em>, <em>enable_advanced_backward_slicing=False</em>, <em>enable_symbolic_back_traversal=False</em>, <em>additional_edges=None</em>, <em>no_construct=False</em>, <em>normalize=False</em>, <em>max_iterations=1</em>, <em>address_whitelist=None</em>, <em>base_graph=None</em>, <em>iropt_level=None</em>, <em>max_steps=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.cfg_base.CFGBase" title="angr.analyses.cfg_base.CFGBase"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.cfg_base.CFGBase</span></code></a></p>
 <p>This class represents a control-flow graph.</p>
 <p>All parameters are optional.</p>
@@ -2408,7 +2433,11 @@ targets) or not.</li>
 <li><strong>call_tracing_filter</strong> &#8211; Filter to apply on a given path and jumpkind to determine if it
 should be skipped when call_depth is reached.</li>
 <li><strong>initial_state</strong> &#8211; An initial state to use to begin analysis.</li>
-<li><strong>starts</strong> &#8211; A list of addresses at which to begin analysis</li>
+<li><strong>starts</strong> (<em>iterable</em>) &#8211; A collection of starting points to begin analysis. It can contain
+the following three different types of entries: an address specified
+as an integer, a 2-tuple that includes an integer address and a
+jumpkind, or a SimState instance. Unsupported entries in starts will
+lead to an AngrCFGError being raised.</li>
 <li><strong>keep_state</strong> &#8211; Whether to keep the SimStates for each CFGNode.</li>
 <li><strong>enable_advanced_backward_slicing</strong> &#8211; Whether to enable an intensive technique for resolving direct jumps</li>
 <li><strong>enable_symbolic_back_traversal</strong> &#8211; Whether to enable an intensive technique for resolving indirect jumps</li>
@@ -2431,6 +2460,8 @@ graph as the base graph, and CFGAccurate will traverse nodes and
 edges and extract useful information.</li>
 <li><strong>iropt_level</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The optimization level of VEX IR (0, 1, 2). The default level will
 be used if <cite>iropt_level</cite> is None.</li>
+<li><strong>max_steps</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The maximum number of basic blocks to recover forthe longest path
+from each start before pausing the recovery procedure.</li>
 </ul>
 </td>
 </tr>
@@ -2483,6 +2514,22 @@ be used if <cite>iropt_level</cite> is None.</li>
 </dd></dl>
 
 <dl class="method">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.force_unroll_loops">
+<code class="descname">force_unroll_loops</code><span class="sig-paren">(</span><em>max_loop_unrolling_times</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.force_unroll_loops" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unroll loops globally. The resulting CFG does not contain any loop, but this method is slow on large graphs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>max_loop_unrolling_times</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The maximum iterations of unrolling.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="angr.analyses.cfg_accurate.CFGAccurate.get_function_subgraph">
 <code class="descname">get_function_subgraph</code><span class="sig-paren">(</span><em>start</em>, <em>max_call_depth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.get_function_subgraph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a sub-graph of a certain function.</p>
@@ -2504,19 +2551,29 @@ be used if <cite>iropt_level</cite> is None.</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="angr.analyses.cfg_accurate.CFGAccurate.get_lbe_exits">
-<code class="descname">get_lbe_exits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.get_lbe_exits" title="Permalink to this definition">¶</a></dt>
-<dd><p>-&gt; Generator
-Returns a generator of exits of the loops
-based on the back egdes</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.cfg_accurate.CFGAccurate.get_paths">
-<code class="descname">get_paths</code><span class="sig-paren">(</span><em>begin</em>, <em>end</em>, <em>nb_max=0</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.get_paths" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get all the simple paths between &#64;begin and &#64;end.
-:param nb_max: Threshold for a maximum of paths to handle
-:return: a list of angr.Path instances.</p>
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.get_subgraph">
+<code class="descname">get_subgraph</code><span class="sig-paren">(</span><em>starting_node</em>, <em>block_addresses</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.get_subgraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a sub-graph out of a bunch of basic block addresses.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>starting_node</strong> (<a class="reference internal" href="#angr.analyses.cfg_node.CFGNode" title="angr.analyses.cfg_node.CFGNode"><em>CFGNode</em></a>) &#8211; The beginning of the subgraph</li>
+<li><strong>block_addresses</strong> (<em>iterable</em>) &#8211; A collection of block addresses that should be included in the subgraph if
+there is a path between <cite>starting_node</cite> and a CFGNode with the specified
+address, and all nodes on the path should also be included in the subgraph.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A new CFG that only contain the specific subgraph.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.analyses.cfg_accurate.CFGAccurate" title="angr.analyses.cfg_accurate.CFGAccurate">CFGAccurate</a></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -2549,6 +2606,29 @@ based on the back egdes</p>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.resume">
+<code class="descname">resume</code><span class="sig-paren">(</span><em>starts=None</em>, <em>max_steps=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.resume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resume a paused or terminated control flow graph recovery.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>starts</strong> (<em>iterable</em>) &#8211; A collection of new starts to resume from. If <cite>starts</cite> is None, we will resume CFG
+recovery from where it was paused before.</li>
+<li><strong>max_steps</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The maximum number of blocks on the longest path starting from each start before pausing
+the recovery.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="angr.analyses.cfg_accurate.CFGAccurate.unresolvables">
 <code class="descname">unresolvables</code><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.unresolvables" title="Permalink to this definition">¶</a></dt>
@@ -2560,6 +2640,22 @@ based on the back egdes</p>
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A set of SimRuns</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_accurate.CFGAccurate.unroll_loops">
+<code class="descname">unroll_loops</code><span class="sig-paren">(</span><em>max_loop_unrolling_times</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_accurate.CFGAccurate.unroll_loops" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unroll loops for each function. The resulting CFG may still contain loops due to recursion, function calls, etc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>max_loop_unrolling_times</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The maximum iterations of unrolling.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
 </tr>
 </tbody>
 </table>
@@ -2589,7 +2685,7 @@ based on the back egdes</p>
 <dl class="method">
 <dt id="angr.analyses.cfg_base.CFGBase.get_all_irsbs">
 <code class="descname">get_all_irsbs</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_all_irsbs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns all SimRuns of a certain address, without considering contexts.</p>
+<dd><p>Returns all IRSBs of a certain address, without considering contexts.</p>
 </dd></dl>
 
 <dl class="method">
@@ -2634,9 +2730,21 @@ based on the back egdes</p>
 <dl class="method">
 <dt id="angr.analyses.cfg_base.CFGBase.get_any_irsb">
 <code class="descname">get_any_irsb</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_any_irsb" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a SimRun of a certain address. If there are many SimRuns with the same address in CFG,
-return an arbitrary one.
-You should never assume this method returns a specific one.</p>
+<dd><p>Returns an IRSB of a certain address. If there are many IRSBs with the same address in CFG, return an arbitrary
+one.
+You should never assume this method returns a specific IRSB.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; Address of the IRSB to get.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An arbitrary IRSB located at <cite>addr</cite>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">simuvex.IRSB</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -2693,15 +2801,17 @@ Note that there must be a direct edge between the two blocks, otherwise an excep
 
 <dl class="method">
 <dt id="angr.analyses.cfg_base.CFGBase.get_node">
-<code class="descname">get_node</code><span class="sig-paren">(</span><em>addr_tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_node" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_node</code><span class="sig-paren">(</span><em>block_id</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.get_node" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a single node from node key.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr_tuple</strong> &#8211; The node key</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>block_id</strong> (<em>BlockID</em>) &#8211; Block ID of the node.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The CFGNode</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#angr.analyses.cfg_node.CFGNode" title="angr.analyses.cfg_node.CFGNode">CFGNode</a></td>
 </tr>
 </tbody>
 </table>
@@ -2764,7 +2874,23 @@ ignored if set to None.</li>
 <dl class="method">
 <dt id="angr.analyses.cfg_base.CFGBase.irsb_from_node">
 <code class="descname">irsb_from_node</code><span class="sig-paren">(</span><em>cfg_node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.irsb_from_node" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create SimRun from a CFGNode object.</p>
+<dd><p>Create an IRSB from a CFGNode object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_base.CFGBase.make_copy">
+<code class="descname">make_copy</code><span class="sig-paren">(</span><em>copy_to</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_base.CFGBase.make_copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy self attributes to the new object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>copy_to</strong> (<a class="reference internal" href="#angr.analyses.cfg_base.CFGBase" title="angr.analyses.cfg_base.CFGBase"><em>CFGBase</em></a>) &#8211; The target to copy to.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -2841,13 +2967,6 @@ normalize() on each Function object to normalize their transition graphs.</p>
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.cfg_fast"></span><dl class="class">
-<dt id="angr.analyses.cfg_fast.CFGEntry">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGEntry</code><span class="sig-paren">(</span><em>addr</em>, <em>func_addr</em>, <em>jumpkind</em>, <em>ret_target=None</em>, <em>last_addr=None</em>, <em>src_node=None</em>, <em>src_ins_addr=None</em>, <em>src_stmt_idx=None</em>, <em>returning_source=None</em>, <em>syscall=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGEntry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Defines an entry to resume the CFG recovery</p>
-</dd></dl>
-
-<dl class="class">
 <dt id="angr.analyses.cfg_fast.CFGFast">
 <em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGFast</code><span class="sig-paren">(</span><em>binary=None</em>, <em>start=None</em>, <em>end=None</em>, <em>pickle_intermediate_results=False</em>, <em>symbols=True</em>, <em>function_prologues=True</em>, <em>resolve_indirect_jumps=True</em>, <em>force_segment=False</em>, <em>force_complete_scan=True</em>, <em>indirect_jump_target_limit=100000</em>, <em>collect_data_references=False</em>, <em>extra_cross_references=False</em>, <em>normalize=False</em>, <em>function_starts=None</em>, <em>extra_memory_regions=None</em>, <em>data_type_guessing_handlers=None</em>, <em>arch_options=None</em>, <em>**extra_arch_options</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGFast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.cfg_base.CFGBase" title="angr.analyses.cfg_base.CFGBase"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.cfg_base.CFGBase</span></code></a></p>
@@ -2935,6 +3054,13 @@ be used to set the option value in self._arch_options.</li>
 <dd><p>Generate a list of all recovered basic blocks.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.cfg_fast.CFGJob">
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_fast.</code><code class="descname">CFGJob</code><span class="sig-paren">(</span><em>addr</em>, <em>func_addr</em>, <em>jumpkind</em>, <em>ret_target=None</em>, <em>last_addr=None</em>, <em>src_node=None</em>, <em>src_ins_addr=None</em>, <em>src_stmt_idx=None</em>, <em>returning_source=None</em>, <em>syscall=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_fast.CFGJob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Defines a job to work on during the CFG recovery</p>
 </dd></dl>
 
 <dl class="class">
@@ -3070,7 +3196,7 @@ blocks or not, and obtain the exact block(segment) that the address belongs to.<
 
 <span class="target" id="module-angr.analyses.cfg_node"></span><dl class="class">
 <dt id="angr.analyses.cfg_node.CFGNode">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg_node.</code><code class="descname">CFGNode</code><span class="sig-paren">(</span><em>addr</em>, <em>size</em>, <em>cfg</em>, <em>callstack_key=None</em>, <em>input_state=None</em>, <em>simprocedure_name=None</em>, <em>syscall_name=None</em>, <em>looping_times=0</em>, <em>no_ret=False</em>, <em>is_syscall=False</em>, <em>syscall=None</em>, <em>simrun=None</em>, <em>function_address=None</em>, <em>final_states=None</em>, <em>simrun_key=None</em>, <em>irsb=None</em>, <em>instruction_addrs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_node.CFGNode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg_node.</code><code class="descname">CFGNode</code><span class="sig-paren">(</span><em>addr</em>, <em>size</em>, <em>cfg</em>, <em>callstack=None</em>, <em>input_state=None</em>, <em>simprocedure_name=None</em>, <em>syscall_name=None</em>, <em>looping_times=0</em>, <em>no_ret=False</em>, <em>is_syscall=False</em>, <em>syscall=None</em>, <em>function_address=None</em>, <em>final_states=None</em>, <em>block_id=None</em>, <em>irsb=None</em>, <em>instruction_addrs=None</em>, <em>depth=None</em>, <em>callstack_key=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_node.CFGNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>This class stands for each single node in CFG.</p>
 <p>Note: simprocedure_name is not used to recreate the SimProcedure object. It&#8217;s only there for better
@@ -3085,7 +3211,7 @@ __repr__.</p>
 
 <span class="target" id="module-angr.analyses.code_location"></span><dl class="class">
 <dt id="angr.analyses.code_location.CodeLocation">
-<em class="property">class </em><code class="descclassname">angr.analyses.code_location.</code><code class="descname">CodeLocation</code><span class="sig-paren">(</span><em>simrun_addr</em>, <em>stmt_idx</em>, <em>sim_procedure=None</em>, <em>ins_addr=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.code_location.CodeLocation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.code_location.</code><code class="descname">CodeLocation</code><span class="sig-paren">(</span><em>block_addr</em>, <em>stmt_idx</em>, <em>sim_procedure=None</em>, <em>ins_addr=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.code_location.CodeLocation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Stands for a specific program point by specifying basic block address and statement ID (for IRSBs), or SimProcedure
 name (for SimProcedures).</p>
@@ -3095,10 +3221,10 @@ name (for SimProcedures).</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>simrun_addr</strong> &#8211; Address of the SimRun</li>
-<li><strong>stmt_idx</strong> &#8211; Statement ID. None for SimProcedures</li>
-<li><strong>sim_procedure</strong> &#8211; The corresponding SimProcedure class.</li>
-<li><strong>ins_addr</strong> &#8211; The instruction address. Optional.</li>
+<li><strong>block_addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; Address of the block</li>
+<li><strong>stmt_idx</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; Statement ID. None for SimProcedures</li>
+<li><strong>sim_procedure</strong> (<em>class</em>) &#8211; The corresponding SimProcedure class.</li>
+<li><strong>ins_addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The instruction address. Optional.</li>
 <li><strong>kwargs</strong> &#8211; Optional arguments, will be stored, but not used in __eq__ or __hash__.</li>
 </ul>
 </td>
@@ -3179,6 +3305,104 @@ call tree. None disables call_depth limit.</li>
 <dt id="angr.analyses.ddg.DDG.dbg_repr">
 <code class="descname">dbg_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.ddg.DDG.dbg_repr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Representation for debugging.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.ddg.DDG.find_consumers">
+<code class="descname">find_consumers</code><span class="sig-paren">(</span><em>var_def</em>, <em>simplified_graph=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.ddg.DDG.find_consumers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find all consumers to the specified variable definition.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>var_def</strong> (<a class="reference internal" href="#angr.analyses.ddg.ProgramVariable" title="angr.analyses.ddg.ProgramVariable"><em>ProgramVariable</em></a>) &#8211; The variable definition.</li>
+<li><strong>simplified_graph</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; True if we want to search in the simplified graph, False otherwise.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A collection of all consumers to the specified variable definition.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.ddg.DDG.find_definitions">
+<code class="descname">find_definitions</code><span class="sig-paren">(</span><em>variable</em>, <em>simplified_graph=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.ddg.DDG.find_definitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find all definitions of the given variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>variable</strong> (<em>SimVariable</em>) &#8211; </li>
+<li><strong>simplified_graph</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; True if you just want to search in the simplified graph instead of the normal
+graph. Usually the simplified graph suffices for finding definitions of register
+or memory variables.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A collection of all variable definitions to the specific variable.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.ddg.DDG.find_killers">
+<code class="descname">find_killers</code><span class="sig-paren">(</span><em>var_def</em>, <em>simplified_graph=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.ddg.DDG.find_killers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find all killers to the specified variable definition.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>var_def</strong> (<a class="reference internal" href="#angr.analyses.ddg.ProgramVariable" title="angr.analyses.ddg.ProgramVariable"><em>ProgramVariable</em></a>) &#8211; The variable definition.</li>
+<li><strong>simplified_graph</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; True if we want to search in the simplified graph, False otherwise.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A collection of all killers to the specified variable definition.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.ddg.DDG.find_sources">
+<code class="descname">find_sources</code><span class="sig-paren">(</span><em>var_def</em>, <em>simplified_graph=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.ddg.DDG.find_sources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find all sources to the specified variable definition.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>var_def</strong> (<a class="reference internal" href="#angr.analyses.ddg.ProgramVariable" title="angr.analyses.ddg.ProgramVariable"><em>ProgramVariable</em></a>) &#8211; The variable definition.</li>
+<li><strong>simplified_graph</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; True if we want to search in the simplified graph, False otherwise.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A collection of all sources to the specified variable definition.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -3454,7 +3678,7 @@ byte long, only the first <cite>size_threshold</cite> bytes are considered.</li>
 
 <dl class="class">
 <dt id="angr.analyses.forward_analysis.ForwardAnalysis">
-<em class="property">class </em><code class="descclassname">angr.analyses.forward_analysis.</code><code class="descname">ForwardAnalysis</code><span class="sig-paren">(</span><em>order_entries=False</em>, <em>allow_merging=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.forward_analysis.</code><code class="descname">ForwardAnalysis</code><span class="sig-paren">(</span><em>order_entries=False</em>, <em>allow_merging=False</em>, <em>allow_widening=False</em>, <em>status_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>This is my very first attempt to build a static forward analysis framework that can serve as the base of multiple
 static analyses in angr, including CFG analysis, VFG analysis, DDG, etc.</p>
@@ -3468,9 +3692,15 @@ look at the implementation of CFGNode.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>order_entries</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; If all entries should be ordered or not.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>order_entries</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; If all entries should be ordered or not.</li>
+<li><strong>allow_merging</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; If entry merging is allowed.</li>
+<li><strong>allow_widening</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; If entry widening is allowed.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -3516,7 +3746,7 @@ the entire binary since it&#8217;s time consuming.</p>
 
 <span class="target" id="module-angr.analyses.loopfinder"></span><dl class="class">
 <dt id="angr.analyses.loopfinder.LoopFinder">
-<em class="property">class </em><code class="descclassname">angr.analyses.loopfinder.</code><code class="descname">LoopFinder</code><span class="sig-paren">(</span><em>functions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.loopfinder.LoopFinder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.loopfinder.</code><code class="descname">LoopFinder</code><span class="sig-paren">(</span><em>functions=None</em>, <em>normalize=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.loopfinder.LoopFinder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
 <p>Extracts all the loops from all the functions in a binary.</p>
 </dd></dl>
@@ -3545,7 +3775,7 @@ those functions, and merge them into one state.</p>
 
 <dl class="class">
 <dt id="angr.analyses.vfg.VFG">
-<em class="property">class </em><code class="descclassname">angr.analyses.vfg.</code><code class="descname">VFG</code><span class="sig-paren">(</span><em>cfg=None</em>, <em>context_sensitivity_level=2</em>, <em>function_start=None</em>, <em>interfunction_level=0</em>, <em>initial_state=None</em>, <em>avoid_runs=None</em>, <em>remove_options=None</em>, <em>timeout=None</em>, <em>start_at_function=True</em>, <em>ara=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vfg.VFG" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.vfg.</code><code class="descname">VFG</code><span class="sig-paren">(</span><em>cfg=None</em>, <em>context_sensitivity_level=2</em>, <em>start=None</em>, <em>function_start=None</em>, <em>interfunction_level=0</em>, <em>initial_state=None</em>, <em>avoid_runs=None</em>, <em>remove_options=None</em>, <em>timeout=None</em>, <em>max_iterations_before_widening=8</em>, <em>max_iterations=40</em>, <em>widening_interval=3</em>, <em>final_state_callback=None</em>, <em>status_callback=None</em>, <em>record_function_final_states=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vfg.VFG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analyses.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analysis.Analysis" title="angr.analysis.Analysis"><code class="xref py py-class docutils literal"><span class="pre">angr.analysis.Analysis</span></code></a></p>
 <p>This class represents a control-flow graph with static analysis result.</p>
 <p>Perform abstract interpretation analysis starting from the given function address. The output is an invariant at
@@ -3576,7 +3806,6 @@ It ranges from 0 to infinity. Default 2.</li>
 <li><strong>remove_options</strong> &#8211; State options to remove from the initial state. It only works when <cite>initial_state</cite> is
 None</li>
 <li><strong>timeout</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; </li>
-<li><strong>start_at_function</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; </li>
 </ul>
 </td>
 </tr>
@@ -3603,7 +3832,7 @@ Returns: a list of angr.Path instances.</p>
 <dl class="class">
 <dt id="angr.analyses.vfg.VFGJob">
 <em class="property">class </em><code class="descclassname">angr.analyses.vfg.</code><code class="descname">VFGJob</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.vfg.VFGJob" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">angr.entry_wrapper.EntryWrapper</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">angr.entry_wrapper.EntryDesc</span></code></p>
 <p>An EntryWrapper that contains vfg local variables</p>
 </dd></dl>
 
@@ -3619,7 +3848,7 @@ Returns: a list of angr.Path instances.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; </li>
-<li><strong>key</strong> (<em>SimRunKey</em>) &#8211; </li>
+<li><strong>key</strong> (<em>BlockID</em>) &#8211; </li>
 <li><strong>state</strong> (<em>simuvex.SimState</em>) &#8211; </li>
 </ul>
 </td>
@@ -3742,7 +3971,7 @@ provides a base upon which analyses can be implemented.</p>
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
 <li><a class="reference internal" href="#angr.surveyor.Surveyor.done" title="angr.surveyor.Surveyor.done"><strong>done</strong></a> &#8211; returns True if the analysis is done (by default, this is when self.active is empty).</li>
 <li><a class="reference internal" href="#angr.surveyor.Surveyor.run" title="angr.surveyor.Surveyor.run"><strong>run</strong></a> &#8211; runs a loop of tick()ing and spill()ing until self.done is True.</li>
-<li><a class="reference internal" href="#angr.surveyor.Surveyor.tick" title="angr.surveyor.Surveyor.tick"><strong>tick</strong></a> &#8211; ticks all paths forward. The default implementation calls tick_path() on every path.</li>
+<li><a class="reference internal" href="#angr.surveyors.escaper.Escaper.tick" title="angr.surveyors.escaper.Escaper.tick"><strong>tick</strong></a> &#8211; ticks all paths forward. The default implementation calls tick_path() on every path.</li>
 </ul>
 </td>
 </tr>
@@ -4133,74 +4362,8 @@ looping - paths that were detected as looping.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-angr.lifter">
-<span id="lifter"></span><h2>Lifter<a class="headerlink" href="#module-angr.lifter" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="angr.lifter.Lifter">
-<em class="property">class </em><code class="descclassname">angr.lifter.</code><code class="descname">Lifter</code><span class="sig-paren">(</span><em>project=None</em>, <em>arch=None</em>, <em>cache=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.lifter.Lifter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>The lifter is the part of the factory that deals with the logic related to lifting blocks to IR.
-It is complicated enough that it gets its own class!</p>
-<p>Usually, the only way you&#8217;ll ever have to interact with this class is that its <cite>lift</cite> method has
-been transplanted into the factory as <cite>project.factory.block</cite>.</p>
-<dl class="method">
-<dt id="angr.lifter.Lifter.fresh_block">
-<code class="descname">fresh_block</code><span class="sig-paren">(</span><em>addr</em>, <em>size</em>, <em>arch=None</em>, <em>insn_bytes=None</em>, <em>thumb=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.lifter.Lifter.fresh_block" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a Block object with the specified size. No lifting will be performed.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; Address at which to start the block.</li>
-<li><strong>size</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; Size of the block.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A Block instance.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Block</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.lifter.Lifter.lift">
-<code class="descname">lift</code><span class="sig-paren">(</span><em>addr</em>, <em>arch=None</em>, <em>insn_bytes=None</em>, <em>max_size=None</em>, <em>num_inst=None</em>, <em>traceflags=0</em>, <em>thumb=False</em>, <em>backup_state=None</em>, <em>opt_level=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.lifter.Lifter.lift" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a pyvex block starting at address <cite>addr</cite>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> &#8211; The address at which to start the block.</td>
-</tr>
-</tbody>
-</table>
-<p>The following parameters are optional:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>thumb</strong> &#8211; Whether the block should be lifted in ARM&#8217;s THUMB mode.</li>
-<li><strong>backup_state</strong> &#8211; A state to read bytes from instead of using project memory.</li>
-<li><strong>opt_level</strong> &#8211; The VEX optimization level to use.</li>
-<li><strong>insn_bytes</strong> &#8211; A string of bytes to use for the block instead of the project.</li>
-<li><strong>max_size</strong> &#8211; The maximum size of the block, in bytes.</li>
-<li><strong>num_inst</strong> &#8211; The maximum number of instructions.</li>
-<li><strong>traceflags</strong> &#8211; traceflags to be passed to VEX. (default: 0)</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="lifter">
+<h2>Lifter<a class="headerlink" href="#lifter" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-angr.simos">
 <span id="simos"></span><h2>SimOS<a class="headerlink" href="#module-angr.simos" title="Permalink to this headline">¶</a></h2>
@@ -4240,7 +4403,7 @@ syscalls are not supported - the syscall number <em>must</em> have only one solu
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> (<a class="reference internal" href="simuvex.html#simuvex.s_state.SimState" title="simuvex.s_state.SimState"><em>simuvex.s_state.SimState</em></a>) &#8211; the program state.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new SimRun instance.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">an instanciated, but not executed SimProcedure for this syscall</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">simuvex.s_procedure.SimProcedure</td>
 </tr>
@@ -4349,7 +4512,7 @@ the syscall number <em>must</em> have only one solution.</p>
 
 <dl class="class">
 <dt id="angr.simos.SyscallTable">
-<em class="property">class </em><code class="descclassname">angr.simos.</code><code class="descname">SyscallTable</code><span class="sig-paren">(</span><em>max_syscall_number=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SyscallTable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.simos.</code><code class="descname">SyscallTable</code><span class="sig-paren">(</span><em>max_syscall_number=None</em>, <em>unknown_syscall_number=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SyscallTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents a syscall table.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -4369,10 +4532,46 @@ the syscall number <em>must</em> have only one solution.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>or None max_syscall_number</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The maximum syscall number of all supported syscalls in the platform.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>or None max_syscall_number</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The maximum syscall number of all supported syscalls in the platform.</li>
+<li><strong>unknown_syscall_number</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The syscall number to use for unknown/undefined syscalls.</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="angr.simos.SyscallTable.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SyscallTable.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all defined syscalls.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.simos.SyscallTable.get_by_addr">
+<code class="descname">get_by_addr</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SyscallTable.get_by_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a syscall by the pseudo address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The pseudo address assigned to the syscall.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The syscall instance if the pseudo address is assigned to a syscall, or None otherwise.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">SyscallEntry or None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="angr.simos.SyscallTable.max_syscall">
 <code class="descname">max_syscall</code><a class="headerlink" href="#angr.simos.SyscallTable.max_syscall" title="Permalink to this definition">¶</a></dt>

@@ -151,7 +151,7 @@ address space with loaded and rebased binaries.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="#module-cle.memory" title="cle.memory"><strong>memory</strong></a> (<a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><em>cle.memory.Clemory</em></a>) &#8211; The loaded, rebased, and relocated memory of the program.</li>
+<li><a class="reference internal" href="simuvex.html#module-simuvex.storage.memory" title="simuvex.storage.memory"><strong>memory</strong></a> (<a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><em>cle.memory.Clemory</em></a>) &#8211; The loaded, rebased, and relocated memory of the program.</li>
 <li><strong>main_bin</strong> &#8211; The object representing the main binary (i.e., the executable).</li>
 <li><strong>shared_objects</strong> &#8211; A dictionary mapping loaded library names to the objects representing them.</li>
 <li><strong>all_objects</strong> &#8211; A list containing representations of all the different objects loaded.</li>
@@ -210,7 +210,7 @@ addresses of the .text sections. We need to fix them to get the real load addres
 <dl class="method">
 <dt id="cle.loader.Loader.add_object">
 <code class="descname">add_object</code><span class="sig-paren">(</span><em>obj</em>, <em>base_addr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.add_object" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add object <cite>obj</cite> to the memory map, rebased at <cite>base_add</cite>. If <cite>base_addr</cite> is None CLE will pick a safe one.
+<dd><p>Add object <cite>obj</cite> to the memory map, rebased at <cite>base_addr</cite>. If <cite>base_addr</cite> is None CLE will pick a safe one.
 Registers all its dependencies.</p>
 </dd></dl>
 
@@ -360,16 +360,10 @@ GirlScout uses it. Use this property at your own risk!</p>
 <dl class="method">
 <dt id="cle.memory.Clemory.read">
 <code class="descname">read</code><span class="sig-paren">(</span><em>nbytes</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read" title="Permalink to this definition">¶</a></dt>
-<dd><p>The stream-like function that reads a number of bytes starting from the current position and updates the current
-position. Use with <a class="reference internal" href="#cle.memory.Clemory.seek" title="cle.memory.Clemory.seek"><code class="xref py py-func docutils literal"><span class="pre">seek()</span></code></a>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>nbytes</strong> &#8211; The number of bytes to read.</td>
-</tr>
-</tbody>
-</table>
+<dd><p>The stream-like function that reads up to a number of bytes starting from the current
+position and updates the current position. Use with <a class="reference internal" href="#cle.memory.Clemory.seek" title="cle.memory.Clemory.seek"><code class="xref py py-func docutils literal"><span class="pre">seek()</span></code></a>.</p>
+<p>Up to <cite>nbytes</cite> bytes will be read, halting at the beginning of the first unmapped region
+encountered.</p>
 </dd></dl>
 
 <dl class="method">
@@ -381,7 +375,9 @@ position. Use with <a class="reference internal" href="#cle.memory.Clemory.seek"
 <dl class="method">
 <dt id="cle.memory.Clemory.read_bytes">
 <code class="descname">read_bytes</code><span class="sig-paren">(</span><em>addr</em>, <em>n</em>, <em>orig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read_bytes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read <cite>n</cite> bytes at address <cite>addr</cite> in memory and return an array of bytes.</p>
+<dd><p>Read up to <cite>n</cite> bytes at address <cite>addr</cite> in memory and return an array of bytes.</p>
+<p>Reading will stop at the beginning of the first unallocated region found, or when
+<cite>n</cite> bytes have been read.</p>
 </dd></dl>
 
 <dl class="method">
@@ -428,47 +424,6 @@ position. Use with <a class="reference internal" href="#cle.memory.Clemory.seek"
 <code class="descname">write_bytes_to_backer</code><span class="sig-paren">(</span><em>addr</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.write_bytes_to_backer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Write bytes from <cite>data</cite> at address <cite>addr</cite> to backer instead of self._updates. This is only needed when writing a
 huge amount of data.</p>
-</dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-cle.relocations"></span><dl class="class">
-<dt id="cle.relocations.Relocation">
-<em class="property">class </em><code class="descclassname">cle.relocations.</code><code class="descname">Relocation</code><span class="sig-paren">(</span><em>owner</em>, <em>symbol</em>, <em>addr</em>, <em>addend=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.relocations.Relocation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>A representation of a relocation in a binary file. Smart enough to
-relocate itself.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>owner_obj</strong> &#8211; The binary this relocation was originaly found in, as a cle object</li>
-<li><strong>symbol</strong> &#8211; The Symbol object this relocation refers to</li>
-<li><strong>addr</strong> &#8211; The address in owner_obj this relocation would like to write to</li>
-<li><a class="reference internal" href="#cle.backends.Symbol.rebased_addr" title="cle.backends.Symbol.rebased_addr"><strong>rebased_addr</strong></a> &#8211; The address in the global memory space this relocation would like to write to</li>
-<li><strong>resolvedby</strong> &#8211; If the symbol this relocation refers to is an import symbol and that import has been resolved,
-this attribute holds the symbol from a different binary that was used to resolve the import.</li>
-<li><strong>resolved</strong> &#8211; Whether the application of this relocation was succesful</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="cle.relocations.Relocation.relocate">
-<code class="descname">relocate</code><span class="sig-paren">(</span><em>solist</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.relocations.Relocation.relocate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Applies this relocation. Will make changes to the memory object of the
-object it came from.</p>
-<p>This implementation is a generic version that can be overridden in subclasses.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>solist</strong> &#8211; A list of objects from which to resolve symbols.</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </dd></dl>
@@ -757,74 +712,6 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <p>Simple representation of an ELF file segment.</p>
 </dd></dl>
 
-<dl class="class">
-<dt id="cle.backends.Symbol">
-<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Symbol</code><span class="sig-paren">(</span><em>owner</em>, <em>name</em>, <em>addr</em>, <em>size</em>, <em>binding</em>, <em>sym_type</em>, <em>sh_info</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Symbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Representation of a symbol from a binary file. Smart enough to rebase itself.</p>
-<p>There should never be more than one Symbol instance representing a single symbol. To make sure of this, only use
-the <a class="reference internal" href="#cle.backends.Backend.get_symbol" title="cle.backends.Backend.get_symbol"><code class="xref py py-meth docutils literal"><span class="pre">cle.backends.Backend.get_symbol()</span></code></a> to create new symbols.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first simple">
-<li><strong>owner_obj</strong> (<a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><em>cle.backends.Backend</em></a>) &#8211; The object that contains this symbol</li>
-<li><a class="reference internal" href="claripy.html#claripy.backends.Backend.name" title="claripy.backends.Backend.name"><strong>name</strong></a> (<em>str</em>) &#8211; The name of this symbol</li>
-<li><strong>addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address of this symbol</li>
-<li><strong>binding</strong> (<em>str</em>) &#8211; The binding of this symbol as an ELF enum string</li>
-<li><strong>type</strong> (<em>str</em>) &#8211; The type of this symbol as an ELF enum string</li>
-<li><strong>sh_info</strong> &#8211; The info field of a symbol</li>
-<li><strong>resolved</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether this import symbol has been resolved to a real symbol</li>
-<li><strong>resolvedby</strong> (<em>None or cle.backends.Symbol</em>) &#8211; The real symbol this import symbol has been resolve to</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Iver int size:</th><td class="field-body"><p class="first last">The size of this symbol</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Not documenting this since if you try calling it, you&#8217;re wrong.</p>
-<dl class="attribute">
-<dt id="cle.backends.Symbol.demangled_name">
-<code class="descname">demangled_name</code><a class="headerlink" href="#cle.backends.Symbol.demangled_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The name of this symbol, run through a C++ demangler</p>
-<p>Warning: this calls out to the external program <cite>c++filt</cite> and will fail loudly if it&#8217;s not installed</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.Symbol.is_export">
-<code class="descname">is_export</code><a class="headerlink" href="#cle.backends.Symbol.is_export" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether this symbol is an export symbol</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.Symbol.is_function">
-<code class="descname">is_function</code><a class="headerlink" href="#cle.backends.Symbol.is_function" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether this symbol is a function</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.Symbol.is_import">
-<code class="descname">is_import</code><a class="headerlink" href="#cle.backends.Symbol.is_import" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether this symbol is an import symbol</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.Symbol.is_weak">
-<code class="descname">is_weak</code><a class="headerlink" href="#cle.backends.Symbol.is_weak" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether this symbol has weak binding, i.e. it can go unresolved and the world won&#8217;t end</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.Symbol.rebased_addr">
-<code class="descname">rebased_addr</code><a class="headerlink" href="#cle.backends.Symbol.rebased_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>The address of this symbol in the global memory space</p>
-</dd></dl>
-
-</dd></dl>
-
 <span class="target" id="module-cle.backends.backedcgc"></span><dl class="class">
 <dt id="cle.backends.backedcgc.BackedCGC">
 <em class="property">class </em><code class="descclassname">cle.backends.backedcgc.</code><code class="descname">BackedCGC</code><span class="sig-paren">(</span><em>path</em>, <em>memory_backer=None</em>, <em>register_backer=None</em>, <em>writes_backer=None</em>, <em>permissions_map=None</em>, <em>current_allocation_base=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.backedcgc.BackedCGC" title="Permalink to this definition">¶</a></dt>
@@ -892,8 +779,21 @@ executable.</li>
 <span class="target" id="module-cle.backends.elf"></span><dl class="class">
 <dt id="cle.backends.elf.ELFSymbol">
 <em class="property">class </em><code class="descclassname">cle.backends.elf.</code><code class="descname">ELFSymbol</code><span class="sig-paren">(</span><em>owner</em>, <em>symb</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.ELFSymbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.Symbol" title="cle.backends.Symbol"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.Symbol</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cle.backends.Symbol</span></code></p>
 <p>Represents a symbol for the ELF format.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>elftype</strong> (<em>str</em>) &#8211; The type of this symbol as an ELF enum string</li>
+<li><strong>binding</strong> (<em>str</em>) &#8211; The binding of this symbol as an ELF enum string</li>
+<li><strong>section</strong> &#8211; The section associated with this symbol, or None</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">

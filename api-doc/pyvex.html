@@ -176,7 +176,8 @@ block.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> (<em>str or bytes or cffi.FFI.CData</em>) &#8211; The bytes to lift. Can be either a string of bytes or a cffi buffer object.</li>
+<li><strong>data</strong> (<em>str or bytes or cffi.FFI.CData or None</em>) &#8211; The bytes to lift. Can be either a string of bytes or a cffi buffer object.
+You may also pass None to initialize an empty IRSB.</li>
 <li><strong>mem_addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address to lift the data at.</li>
 <li><strong>arch</strong> (<code class="xref py py-class docutils literal"><span class="pre">archinfo.Arch</span></code>) &#8211; The architecture to lift the data as.</li>
 <li><strong>num_inst</strong> &#8211; The maximum number of instructions to lift. Max 99. (See note below)</li>
@@ -255,7 +256,7 @@ attempts to run this block will raise <cite>SimIRSBError(&#8216;Empty IRSB passe
 
 <dl class="class">
 <dt id="pyvex.block.IRTypeEnv">
-<em class="property">class </em><code class="descclassname">pyvex.block.</code><code class="descname">IRTypeEnv</code><span class="sig-paren">(</span><em>tyenv</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRTypeEnv" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.block.</code><code class="descname">IRTypeEnv</code><span class="sig-paren">(</span><em>arch</em>, <em>types=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRTypeEnv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.enums.VEXObject" title="pyvex.enums.VEXObject"><code class="xref py py-class docutils literal"><span class="pre">pyvex.enums.VEXObject</span></code></a></p>
 <p>An IR type environment.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -267,18 +268,30 @@ attempts to run this block will raise <cite>SimIRSBError(&#8216;Empty IRSB passe
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="pyvex.block.IRTypeEnv.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>ty</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRTypeEnv.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a new tmp of type <cite>ty</cite> to the environment. Returns the number of the new tmp.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvex.block.IRTypeEnv.lookup">
+<code class="descname">lookup</code><span class="sig-paren">(</span><em>tmp</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRTypeEnv.lookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the type of temporary variable <cite>tmp</cite> as an enum string</p>
+</dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-pyvex.errors"></span><span class="target" id="module-pyvex.enums"></span><dl class="class">
 <dt id="pyvex.enums.IRCallee">
-<em class="property">class </em><code class="descclassname">pyvex.enums.</code><code class="descname">IRCallee</code><span class="sig-paren">(</span><em>callee</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.enums.IRCallee" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.enums.</code><code class="descname">IRCallee</code><span class="sig-paren">(</span><em>regparms</em>, <em>name</em>, <em>addr</em>, <em>mcx_mask</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.enums.IRCallee" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.enums.VEXObject" title="pyvex.enums.VEXObject"><code class="xref py py-class docutils literal"><span class="pre">pyvex.enums.VEXObject</span></code></a></p>
 <p>Describes a helper function to call.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.enums.IRRegArray">
-<em class="property">class </em><code class="descclassname">pyvex.enums.</code><code class="descname">IRRegArray</code><span class="sig-paren">(</span><em>arr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.enums.IRRegArray" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.enums.</code><code class="descname">IRRegArray</code><span class="sig-paren">(</span><em>base</em>, <em>elemTy</em>, <em>nElems</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.enums.IRRegArray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.enums.VEXObject" title="pyvex.enums.VEXObject"><code class="xref py py-class docutils literal"><span class="pre">pyvex.enums.VEXObject</span></code></a></p>
 <p>A section of the guest state that we want te be able to index at run time, so as to be able to describe indexed or
 rotating register files on the guest.</p>
@@ -306,28 +319,28 @@ rotating register files on the guest.</p>
 
 <span class="target" id="module-pyvex.stmt"></span><dl class="class">
 <dt id="pyvex.stmt.AbiHint">
-<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">AbiHint</code><span class="sig-paren">(</span><em>c_stmt</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.AbiHint" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">AbiHint</code><span class="sig-paren">(</span><em>base</em>, <em>length</em>, <em>nia</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.AbiHint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>An ABI hint, provides specific information about this platform&#8217;s ABI.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.stmt.CAS">
-<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">CAS</code><span class="sig-paren">(</span><em>c_stmt</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.CAS" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">CAS</code><span class="sig-paren">(</span><em>addr</em>, <em>dataLo</em>, <em>dataHi</em>, <em>expdLo</em>, <em>expdHi</em>, <em>oldLo</em>, <em>oldHi</em>, <em>end</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.CAS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>an atomic compare-and-swap operation.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.stmt.Exit">
-<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">Exit</code><span class="sig-paren">(</span><em>c_stmt</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.Exit" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">Exit</code><span class="sig-paren">(</span><em>guard</em>, <em>dst</em>, <em>jk</em>, <em>offsIP</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.Exit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>A conditional exit from the middle of an IRSB.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.stmt.IMark">
-<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">IMark</code><span class="sig-paren">(</span><em>c_stmt</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.IMark" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">IMark</code><span class="sig-paren">(</span><em>addr</em>, <em>length</em>, <em>delta</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.IMark" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>An instruction mark. It marks the start of the statements that represent a single machine instruction (the end of
 those statements is marked by the next IMark or the end of the IRSB).  Contains the address and length of the
@@ -336,14 +349,14 @@ instruction.</p>
 
 <dl class="class">
 <dt id="pyvex.stmt.IRStmt">
-<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">IRStmt</code><span class="sig-paren">(</span><em>c_stmt</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.IRStmt" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">IRStmt</code><a class="headerlink" href="#pyvex.stmt.IRStmt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.enums.VEXObject" title="pyvex.enums.VEXObject"><code class="xref py py-class docutils literal"><span class="pre">pyvex.enums.VEXObject</span></code></a></p>
 <p>IR statements in VEX represents operations with side-effects.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.stmt.LLSC">
-<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">LLSC</code><span class="sig-paren">(</span><em>c_stmt</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.LLSC" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">LLSC</code><span class="sig-paren">(</span><em>addr</em>, <em>storedata</em>, <em>result</em>, <em>end</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.LLSC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>Either Load-Linked or Store-Conditional, depending on STOREDATA. If STOREDATA is NULL then this is a Load-Linked,
 else it is a Store-Conditional.</p>
@@ -351,49 +364,49 @@ else it is a Store-Conditional.</p>
 
 <dl class="class">
 <dt id="pyvex.stmt.LoadG">
-<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">LoadG</code><span class="sig-paren">(</span><em>c_stmt</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.LoadG" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">LoadG</code><span class="sig-paren">(</span><em>end</em>, <em>cvt</em>, <em>dst</em>, <em>addr</em>, <em>alt</em>, <em>guard</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.LoadG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>A guarded load.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.stmt.NoOp">
-<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">NoOp</code><span class="sig-paren">(</span><em>c_stmt</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.NoOp" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">NoOp</code><a class="headerlink" href="#pyvex.stmt.NoOp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>A no-operation statement. It is usually the result of an IR optimization.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.stmt.Put">
-<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">Put</code><span class="sig-paren">(</span><em>c_stmt</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.Put" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">Put</code><span class="sig-paren">(</span><em>data</em>, <em>offset</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.Put" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>Write to a guest register, at a fixed offset in the guest state.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.stmt.PutI">
-<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">PutI</code><span class="sig-paren">(</span><em>c_stmt</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.PutI" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">PutI</code><span class="sig-paren">(</span><em>descr</em>, <em>ix</em>, <em>data</em>, <em>bias</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.PutI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>Write to a guest register, at a non-fixed offset in the guest state.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.stmt.Store">
-<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">Store</code><span class="sig-paren">(</span><em>c_stmt</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.Store" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">Store</code><span class="sig-paren">(</span><em>addr</em>, <em>data</em>, <em>end</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.Store" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>Write a value to memory..</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.stmt.StoreG">
-<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">StoreG</code><span class="sig-paren">(</span><em>c_stmt</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.StoreG" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">StoreG</code><span class="sig-paren">(</span><em>end</em>, <em>addr</em>, <em>data</em>, <em>guard</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.StoreG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>A guarded store.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.stmt.WrTmp">
-<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">WrTmp</code><span class="sig-paren">(</span><em>c_stmt</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.WrTmp" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">WrTmp</code><span class="sig-paren">(</span><em>tmp</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.WrTmp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>Assign a value to a temporary.  Note that SSA rules require each tmp is only assigned to once.  IR sanity checking
 will reject any block containing a temporary which is not assigned to exactly once.</p>
@@ -401,49 +414,49 @@ will reject any block containing a temporary which is not assigned to exactly on
 
 <span class="target" id="module-pyvex.expr"></span><dl class="class">
 <dt id="pyvex.expr.Binder">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Binder</code><span class="sig-paren">(</span><em>c_expr</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Binder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Binder</code><span class="sig-paren">(</span><em>binder</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Binder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>Used only in pattern matching within Vex. Should not be seen outside of Vex.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.expr.Binop">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Binop</code><span class="sig-paren">(</span><em>c_expr</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Binop" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Binop</code><span class="sig-paren">(</span><em>op</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Binop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>A binary operation (2 arguments).</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.expr.CCall">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">CCall</code><span class="sig-paren">(</span><em>c_expr</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.CCall" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">CCall</code><span class="sig-paren">(</span><em>retty</em>, <em>cee</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.CCall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>A call to a pure (no side-effects) helper C function.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.expr.Const">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Const</code><span class="sig-paren">(</span><em>c_expr</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Const" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Const</code><span class="sig-paren">(</span><em>con</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Const" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>A constant expression.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.expr.Get">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Get</code><span class="sig-paren">(</span><em>c_expr</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Get" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Get</code><span class="sig-paren">(</span><em>offset</em>, <em>ty</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>Read a guest register, at a fixed offset in the guest state.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.expr.GetI">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">GetI</code><span class="sig-paren">(</span><em>c_expr</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.GetI" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">GetI</code><span class="sig-paren">(</span><em>descr</em>, <em>ix</em>, <em>bias</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.GetI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>Read a guest register at a non-fixed offset in the guest state.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.expr.IRExpr">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">IRExpr</code><span class="sig-paren">(</span><em>c_expr</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.IRExpr" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">IRExpr</code><a class="headerlink" href="#pyvex.expr.IRExpr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.enums.VEXObject" title="pyvex.enums.VEXObject"><code class="xref py py-class docutils literal"><span class="pre">pyvex.enums.VEXObject</span></code></a></p>
 <p>IR expressions in VEX represent operations without side effects.</p>
 <dl class="attribute">
@@ -462,42 +475,42 @@ will reject any block containing a temporary which is not assigned to exactly on
 
 <dl class="class">
 <dt id="pyvex.expr.ITE">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">ITE</code><span class="sig-paren">(</span><em>c_expr</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.ITE" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">ITE</code><span class="sig-paren">(</span><em>cond</em>, <em>iffalse</em>, <em>iftrue</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.ITE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>An if-then-else expression.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.expr.Load">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Load</code><span class="sig-paren">(</span><em>c_expr</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Load" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Load</code><span class="sig-paren">(</span><em>end</em>, <em>ty</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>A load from memory.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.expr.Qop">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Qop</code><span class="sig-paren">(</span><em>c_expr</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Qop" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Qop</code><span class="sig-paren">(</span><em>op</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Qop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>A quaternary operation (4 arguments).</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.expr.RdTmp">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">RdTmp</code><span class="sig-paren">(</span><em>c_expr</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.RdTmp" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">RdTmp</code><span class="sig-paren">(</span><em>tmp</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.RdTmp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>Read the value held by a temporary.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.expr.Triop">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Triop</code><span class="sig-paren">(</span><em>c_expr</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Triop" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Triop</code><span class="sig-paren">(</span><em>op</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Triop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>A ternary operation (3 arguments)</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.expr.Unop">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Unop</code><span class="sig-paren">(</span><em>c_expr</em>, <em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Unop" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Unop</code><span class="sig-paren">(</span><em>op</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Unop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>A unary operation (1 argument).</p>
 </dd></dl>
