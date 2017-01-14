@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>angr — angr &mdash; angr 4.6.3 documentation</title>
+  <title>angr — angr &mdash; angr 6.7.1.13.post2 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 4.6.3 documentation" href="index.html"/>
+    <link rel="top" title="angr 6.7.1.13.post2 documentation" href="index.html"/>
         <link rel="next" title="simuvex — Simuvex" href="simuvex.html"/>
         <link rel="prev" title="angr API documentation" href="index.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                4.6.3
+                6.7.1.13.post2
               </div>
             
           
@@ -135,7 +135,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/angr.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/angr.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -397,7 +397,7 @@ eventually.</li>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Address of the symbol if it is hooked, None otherwise.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int or None</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int">int</a> or None</td>
 </tr>
 </tbody>
 </table>
@@ -1808,7 +1808,7 @@ restriction.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The Function instance, or None if the function is not found and create is False.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Function or None</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.knowledge.function.Function" title="angr.knowledge.function.Function">Function</a> or None</p>
 </td>
 </tr>
 </tbody>
@@ -2979,15 +2979,13 @@ is followed:</p>
 - If the binary has &#8220;function symbols&#8221; (TODO: this term is not accurate enough), they are starting points of</p>
 <blockquote>
 <div>the code scanning</div></blockquote>
-<ul>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt>If the binary does not have any &#8220;function symbol&#8221;, we will first perform a function prologue scanning on the</dt>
-<dd><p class="first last">entire binary, and start from those places that look like function beginnings</p>
-</dd>
+<dd>entire binary, and start from those places that look like function beginnings</dd>
 </dl>
 </li>
-<li><p class="first">Otherwise, the binary&#8217;s entry point will be the starting point for scanning</p>
-</li>
+<li>Otherwise, the binary&#8217;s entry point will be the starting point for scanning</li>
 </ul>
 <p># Passive scanning
 - After all active scans are done, we will go through the whole image and scan all code pieces</p>
@@ -3970,7 +3968,7 @@ provides a base upon which analyses can be implemented.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
 <li><a class="reference internal" href="#angr.surveyor.Surveyor.done" title="angr.surveyor.Surveyor.done"><strong>done</strong></a> &#8211; returns True if the analysis is done (by default, this is when self.active is empty).</li>
-<li><a class="reference internal" href="#angr.surveyor.Surveyor.run" title="angr.surveyor.Surveyor.run"><strong>run</strong></a> &#8211; runs a loop of tick()ing and spill()ing until self.done is True.</li>
+<li><a class="reference internal" href="#angr.path_group.PathGroup.run" title="angr.path_group.PathGroup.run"><strong>run</strong></a> &#8211; runs a loop of tick()ing and spill()ing until self.done is True.</li>
 <li><a class="reference internal" href="#angr.surveyor.Surveyor.tick" title="angr.surveyor.Surveyor.tick"><strong>tick</strong></a> &#8211; ticks all paths forward. The default implementation calls tick_path() on every path.</li>
 </ul>
 </td>
@@ -4566,7 +4564,7 @@ the syscall number <em>must</em> have only one solution.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The syscall instance if the pseudo address is assigned to a syscall, or None otherwise.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">SyscallEntry or None</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#angr.simos.SyscallEntry" title="angr.simos.SyscallEntry">SyscallEntry</a> or None</td>
 </tr>
 </tbody>
 </table>
@@ -4582,7 +4580,7 @@ the syscall number <em>must</em> have only one solution.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The syscall number.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int or None</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int">int</a> or None</td>
 </tr>
 </tbody>
 </table>
@@ -4668,7 +4666,7 @@ the syscall number <em>must</em> have only one solution.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'4.6.3',
+            VERSION:'6.7.1.13.post2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
