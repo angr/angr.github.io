@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; angr 6.7.1.13.post2 documentation</title>
+  <title>Index &mdash; angr 6.7.1.31 documentation</title>
   
 
   
@@ -34,7 +34,7 @@
         <link rel="index" title="Index"
               href="#"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 6.7.1.13.post2 documentation" href="index.html"/> 
+    <link rel="top" title="angr 6.7.1.31 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                6.7.1.13.post2
+                6.7.1.31
               </div>
             
           
@@ -195,6 +195,8 @@
       <li><a href="angr.html#angr.annocfg.AnnotatedCFG.add_loop">add_loop() (angr.annocfg.AnnotatedCFG method)</a>
 </li>
       <li><a href="cle.html#cle.loader.Loader.add_object">add_object() (cle.loader.Loader method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.cfg_fast.MemoryData.add_ref">add_ref() (angr.analyses.cfg_fast.MemoryData method)</a>
 </li>
       <li><a href="simuvex.html#simuvex.plugins.cgc.SimStateCGC.add_sinkhole">add_sinkhole() (simuvex.plugins.cgc.SimStateCGC method)</a>
 </li>
@@ -582,10 +584,10 @@
 </li>
       <li><a href="claripy.html#module-claripy.frontends.replacement_frontend">claripy.frontends.replacement_frontend (module)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#module-claripy.operations">claripy.operations (module)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#module-claripy.ops">claripy.ops (module)</a>
 </li>
       <li><a href="claripy.html#module-claripy.vsa">claripy.vsa (module)</a>
@@ -699,6 +701,12 @@
       <li><a href="angr.html#angr.analyses.cfg_accurate.CFGAccurate.copy">copy() (angr.analyses.cfg_accurate.CFGAccurate method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.cfg_fast.MemoryData.copy">(angr.analyses.cfg_fast.MemoryData method)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.cfg_fast.Segment.copy">(angr.analyses.cfg_fast.Segment method)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.cfg_fast.SegmentList.copy">(angr.analyses.cfg_fast.SegmentList method)</a>
+</li>
         <li><a href="angr.html#angr.analyses.ddg.LiveDefinitions.copy">(angr.analyses.ddg.LiveDefinitions method)</a>
 </li>
         <li><a href="claripy.html#claripy.vsa.valueset.ValueSet.copy">(claripy.vsa.valueset.ValueSet method)</a>
@@ -906,10 +914,10 @@
 </li>
       <li><a href="angr.html#angr.analyses.cfg_accurate.CFGAccurate.force_unroll_loops">force_unroll_loops() (angr.analyses.cfg_accurate.CFGAccurate method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simuvex.html#simuvex.s_format.FormatParser">FormatParser (class in simuvex.s_format)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simuvex.html#simuvex.s_format.FormatSpecifier">FormatSpecifier (class in simuvex.s_format)</a>
 </li>
       <li><a href="simuvex.html#simuvex.s_format.FormatString">FormatString (class in simuvex.s_format)</a>
@@ -945,6 +953,10 @@
       <li><a href="angr.html#angr.analyses.bindiff.FunctionDiff">FunctionDiff (class in angr.analyses.bindiff)</a>
 </li>
       <li><a href="angr.html#angr.knowledge.function_manager.FunctionManager">FunctionManager (class in angr.knowledge.function_manager)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.cfg_fast.FunctionReturn">FunctionReturn (class in angr.analyses.cfg_fast)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.cfg_fast.CFGFast.functions">functions (angr.analyses.cfg_fast.CFGFast attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.bindiff.BinDiff.functions_probably_identical">functions_probably_identical() (angr.analyses.bindiff.BinDiff method)</a>
 </li>
@@ -1328,9 +1340,11 @@
 </li>
       <li><a href="simuvex.html#simuvex.storage.paged_memory.SimPagedMemory.memory_objects_for_hash">memory_objects_for_hash() (simuvex.storage.paged_memory.SimPagedMemory method)</a>
 </li>
+      <li><a href="simuvex.html#simuvex.storage.paged_memory.SimPagedMemory.memory_objects_for_name">memory_objects_for_name() (simuvex.storage.paged_memory.SimPagedMemory method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="simuvex.html#simuvex.storage.paged_memory.SimPagedMemory.memory_objects_for_name">memory_objects_for_name() (simuvex.storage.paged_memory.SimPagedMemory method)</a>
+      <li><a href="angr.html#angr.analyses.cfg_fast.MemoryData">MemoryData (class in angr.analyses.cfg_fast)</a>
 </li>
       <li><a href="simuvex.html#simuvex.storage.memory.MemoryStoreRequest">MemoryStoreRequest (class in simuvex.storage.memory)</a>
 </li>
@@ -1776,10 +1790,10 @@
 </li>
       <li><a href="simuvex.html#module-simuvex.s_action">simuvex.s_action (module)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simuvex.html#module-simuvex.s_action_object">simuvex.s_action_object (module)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simuvex.html#module-simuvex.s_cc">simuvex.s_cc (module)</a>
 </li>
       <li><a href="simuvex.html#module-simuvex.s_event">simuvex.s_event (module)</a>
@@ -1812,8 +1826,12 @@
 </li>
       <li><a href="simuvex.html#simuvex.s_variable.SimVariableSet">SimVariableSet (class in simuvex.s_variable)</a>
 </li>
-      <li><a href="pyvex.html#pyvex.block.IRSB.size">size (pyvex.block.IRSB attribute)</a>
+      <li><a href="angr.html#angr.analyses.cfg_fast.Segment.size">size (angr.analyses.cfg_fast.Segment attribute)</a>
+
+      <ul>
+        <li><a href="pyvex.html#pyvex.block.IRSB.size">(pyvex.block.IRSB attribute)</a>
 </li>
+      </ul></li>
       <li><a href="claripy.html#claripy.backends.Backend.size">size() (claripy.backends.Backend method)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.SLE">SLE() (claripy.vsa.strided_interval.StridedInterval method)</a>
@@ -2134,7 +2152,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'6.7.1.13.post2',
+            VERSION:'6.7.1.31',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
