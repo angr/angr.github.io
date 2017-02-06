@@ -1035,6 +1035,78 @@ statement (for example, from a SimProcedure).</li>
 <dd><p>Returns size, in BYTES, of a type.</p>
 </dd></dl>
 
+<span class="target" id="module-simuvex.engines.vex.engine"></span><dl class="class">
+<dt id="simuvex.engines.vex.engine.SimEngineVEX">
+<em class="property">class </em><code class="descclassname">simuvex.engines.vex.engine.</code><code class="descname">SimEngineVEX</code><span class="sig-paren">(</span><em>stop_points=None</em>, <em>use_cache=True</em>, <em>cache_size=10000</em>, <em>default_opt_level=1</em>, <em>support_selfmodifying_code=False</em>, <em>single_step=False</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.vex.engine.SimEngineVEX" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simuvex.engines.engine.SimEngine" title="simuvex.engines.engine.SimEngine"><code class="xref py py-class docutils literal"><span class="pre">simuvex.engines.engine.SimEngine</span></code></a></p>
+<p>Execution engine based on VEX, Valgrind&#8217;s IR.</p>
+<dl class="method">
+<dt id="simuvex.engines.vex.engine.SimEngineVEX.lift">
+<code class="descname">lift</code><span class="sig-paren">(</span><em>state=None</em>, <em>clemory=None</em>, <em>insn_bytes=None</em>, <em>arch=None</em>, <em>addr=None</em>, <em>size=None</em>, <em>num_inst=None</em>, <em>traceflags=0</em>, <em>thumb=False</em>, <em>opt_level=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.vex.engine.SimEngineVEX.lift" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lift an IRSB.</p>
+<p>There are many possible valid sets of parameters. You at the very least must pass some
+source of data, some source of an architecture, and some source of an address.</p>
+<p>Sources of data in order of priority: insn_bytes, clemory, state</p>
+<p>Sources of an address, in order of priority: addr, state</p>
+<p>Sources of an architecture, in order of priority: arch, clemory, state</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>state</strong> &#8211; A state to use as a data source.</li>
+<li><strong>clemory</strong> &#8211; A cle.memory.Clemory object to use as a data source.</li>
+<li><strong>addr</strong> &#8211; The address at which to start the block.</li>
+<li><strong>thumb</strong> &#8211; Whether the block should be lifted in ARM&#8217;s THUMB mode.</li>
+<li><strong>opt_level</strong> &#8211; The VEX optimization level to use. The final IR optimization level is determined by
+(ordered by priority):
+- Argument opt_level
+- opt_level is set to 1 if OPTIMIZE_IR exists in state options
+- self._default_opt_level</li>
+<li><strong>insn_bytes</strong> &#8211; A string of bytes to use as a data source.</li>
+<li><strong>size</strong> &#8211; The maximum size of the block, in bytes.</li>
+<li><strong>num_inst</strong> &#8211; The maximum number of instructions.</li>
+<li><strong>traceflags</strong> &#8211; traceflags to be passed to VEX. (default: 0)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.engines.vex.engine.SimEngineVEX.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>state</em>, <em>irsb=None</em>, <em>skip_stmts=0</em>, <em>last_stmt=99999999</em>, <em>whitelist=None</em>, <em>inline=False</em>, <em>force_addr=None</em>, <em>insn_bytes=None</em>, <em>size=None</em>, <em>num_inst=None</em>, <em>traceflags=0</em>, <em>thumb=False</em>, <em>opt_level=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.vex.engine.SimEngineVEX.process" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state</strong> &#8211; The state with which to execute</li>
+<li><strong>irsb</strong> &#8211; The PyVEX IRSB object to use for execution. If not provided one will be lifted.</li>
+<li><strong>skip_stmts</strong> &#8211; The number of statements to skip in processing</li>
+<li><strong>last_stmt</strong> &#8211; Do not execute any statements after this statement</li>
+<li><strong>whitelist</strong> &#8211; Only execute statements in this set</li>
+<li><strong>inline</strong> &#8211; This is an inline execution. Do not bother copying the state.</li>
+<li><strong>force_addr</strong> &#8211; Force execution to pretend that we&#8217;re working at this concrete address</li>
+<li><strong>thumb</strong> &#8211; Whether the block should be lifted in ARM&#8217;s THUMB mode.</li>
+<li><strong>opt_level</strong> &#8211; The VEX optimization level to use.</li>
+<li><strong>insn_bytes</strong> &#8211; A string of bytes to use for the block instead of the project.</li>
+<li><strong>size</strong> &#8211; The maximum size of the block, in bytes.</li>
+<li><strong>num_inst</strong> &#8211; The maximum number of instructions.</li>
+<li><strong>traceflags</strong> &#8211; traceflags to be passed to VEX. (default: 0)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A SimSuccessors object categorizing the block&#8217;s successors</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-simuvex.engines.procedure"></span><dl class="class">
 <dt id="simuvex.engines.procedure.SimEngineProcedure">
 <em class="property">class </em><code class="descclassname">simuvex.engines.procedure.</code><code class="descname">SimEngineProcedure</code><a class="headerlink" href="#simuvex.engines.procedure.SimEngineProcedure" title="Permalink to this definition">¶</a></dt>
