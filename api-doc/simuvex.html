@@ -90,7 +90,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-simuvex.plugins">Plugins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-simuvex.procedures">Procedures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-simuvex.storage">Storage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vex">Vex</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; PyVex</a></li>
@@ -908,6 +907,190 @@ i.e. a NUL-terminated array of bytes.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>other</strong> &#8211; Another SimVariableSet instance.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The complement result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<p>Engines
+&#8212;</p>
+<span class="target" id="module-simuvex.engines"></span><span class="target" id="module-simuvex.engines.engine"></span><dl class="class">
+<dt id="simuvex.engines.engine.SimEngine">
+<em class="property">class </em><code class="descclassname">simuvex.engines.engine.</code><code class="descname">SimEngine</code><span class="sig-paren">(</span><em>check_failed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.engine.SimEngine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>How to actually execute stuff.
+Abstracts over VEX, Python (simprocedures), Unicorn, LLVM, and hopefully more in the future.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>check_failed</strong> (<a class="reference internal" href="angr.html#angr.factory.AngrObjectFactory.callable" title="angr.factory.AngrObjectFactory.callable"><em>callable</em></a>) &#8211; A callback that is called after _check() returns False.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="simuvex.engines.engine.SimEngine.check">
+<code class="descname">check</code><span class="sig-paren">(</span><em>state</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.engine.SimEngine.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if this engine can be used for execution on the current state. A callback <cite>check_failure</cite> is called upon
+failed checks. Note that the execution can still fail even if check() returns True.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state</strong> (<em>simuvex.SimState</em>) &#8211; The state with which to execute.</li>
+<li><strong>args</strong> &#8211; Positional arguments that will be passed to process().</li>
+<li><strong>kwargs</strong> &#8211; Keyword arguments that will be passed to process().</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if the state can be handled by the current engine, False otherwise.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.engines.engine.SimEngine.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>state</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.engine.SimEngine.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform execution with a state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state</strong> &#8211; The state with which to execute. This state will be copied before
+modification.</li>
+<li><strong>inline</strong> &#8211; This is an inline execution. Do not bother copying the state.</li>
+<li><strong>force_addr</strong> &#8211; Force execution to pretend that we&#8217;re working at this concrete address</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A SimSuccessors object categorizing the execution&#8217;s successor states</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-simuvex.engines.successors"></span><dl class="class">
+<dt id="simuvex.engines.successors.SimSuccessors">
+<em class="property">class </em><code class="descclassname">simuvex.engines.successors.</code><code class="descname">SimSuccessors</code><span class="sig-paren">(</span><em>addr</em>, <em>initial_state</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.successors.SimSuccessors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>This class serves as a categorization of all the kinds of result states that can come from a
+SimEngine run.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> &#8211; The source address that produced the successors. Cosmetic.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="simuvex.engines.successors.SimSuccessors.add_successor">
+<code class="descname">add_successor</code><span class="sig-paren">(</span><em>state</em>, <em>target</em>, <em>guard</em>, <em>jumpkind</em>, <em>add_guard=True</em>, <em>exit_stmt_idx=None</em>, <em>exit_ins_addr=None</em>, <em>source=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.successors.SimSuccessors.add_successor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a successor state of the SimRun.
+This procedure stores method parameters into state.scratch, does some housekeeping,
+and calls out to helper functions to prepare the state and categorize it into the appropriate
+successor lists.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>state</strong> (<a class="reference internal" href="#simuvex.s_state.SimState" title="simuvex.s_state.SimState"><em>SimState</em></a>) &#8211; The successor state.</li>
+<li><strong>target</strong> &#8211; The target (of the jump/call/ret).</li>
+<li><strong>guard</strong> &#8211; The guard expression.</li>
+<li><strong>jumpkind</strong> (<em>str</em>) &#8211; The jumpkind (call, ret, jump, or whatnot).</li>
+<li><strong>add_guard</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether to add the guard constraint (default: True).</li>
+<li><strong>exit_stmt_idx</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The ID of the exit statement, an integer by default. &#8216;default&#8217;
+stands for the default exit, and None means it&#8217;s not from a
+statement (for example, from a SimProcedure).</li>
+<li><strong>exit_ins_addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The instruction pointer of this exit, which is an integer by default.</li>
+<li><strong>source</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The source of the jump (i.e., the address of the basic block).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-simuvex.engines.vex"></span><dl class="function">
+<dt id="simuvex.engines.vex.size_bits">
+<code class="descclassname">simuvex.engines.vex.</code><code class="descname">size_bits</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.vex.size_bits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns size, in BITS, of a type.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="simuvex.engines.vex.size_bytes">
+<code class="descclassname">simuvex.engines.vex.</code><code class="descname">size_bytes</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.vex.size_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns size, in BYTES, of a type.</p>
+</dd></dl>
+
+<span class="target" id="module-simuvex.engines.procedure"></span><dl class="class">
+<dt id="simuvex.engines.procedure.SimEngineProcedure">
+<em class="property">class </em><code class="descclassname">simuvex.engines.procedure.</code><code class="descname">SimEngineProcedure</code><a class="headerlink" href="#simuvex.engines.procedure.SimEngineProcedure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simuvex.engines.engine.SimEngine" title="simuvex.engines.engine.SimEngine"><code class="xref py py-class docutils literal"><span class="pre">simuvex.engines.engine.SimEngine</span></code></a></p>
+<p>An engine for running SimProcedures</p>
+<dl class="method">
+<dt id="simuvex.engines.procedure.SimEngineProcedure.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>state</em>, <em>procedure</em>, <em>ret_to=None</em>, <em>inline=None</em>, <em>force_addr=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.procedure.SimEngineProcedure.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform execution with a state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state</strong> &#8211; The state with which to execute</li>
+<li><strong>procedure</strong> &#8211; An instance of a SimProcedure to run</li>
+<li><strong>ret_to</strong> &#8211; The address to return to when this procedure is finished</li>
+<li><strong>inline</strong> &#8211; This is an inline execution. Do not bother copying the state.</li>
+<li><strong>force_addr</strong> &#8211; Force execution to pretend that we&#8217;re working at this concrete address</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A SimSuccessors object categorizing the execution&#8217;s successor states</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-simuvex.engines.unicorn_engine"></span><dl class="class">
+<dt id="simuvex.engines.unicorn_engine.SimEngineUnicorn">
+<em class="property">class </em><code class="descclassname">simuvex.engines.unicorn_engine.</code><code class="descname">SimEngineUnicorn</code><span class="sig-paren">(</span><em>base_stop_points=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.unicorn_engine.SimEngineUnicorn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#simuvex.engines.engine.SimEngine" title="simuvex.engines.engine.SimEngine"><code class="xref py py-class docutils literal"><span class="pre">simuvex.engines.engine.SimEngine</span></code></a></p>
+<p>Concrete exection in the Unicorn Engine, a fork of qemu.</p>
+<dl class="method">
+<dt id="simuvex.engines.unicorn_engine.SimEngineUnicorn.process">
+<code class="descname">process</code><span class="sig-paren">(</span><em>state</em>, <em>step=None</em>, <em>extra_stop_points=None</em>, <em>inline=False</em>, <em>force_addr=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.unicorn_engine.SimEngineUnicorn.process" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>state</strong> &#8211; The state with which to execute</li>
+<li><strong>step</strong> &#8211; How many basic blocks we want to execute</li>
+<li><strong>extra_stop_points</strong> &#8211; A collection of addresses at which execution should halt</li>
+<li><strong>inline</strong> &#8211; This is an inline execution. Do not bother copying the state.</li>
+<li><strong>force_addr</strong> &#8211; Force execution to pretend that we&#8217;re working at this concrete
+address</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A SimSuccessors object categorizing the results of the run and
+whether it succeeded.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -2103,9 +2286,8 @@ they have been partially overwritten.</p>
 
 <dl class="method">
 <dt id="simuvex.storage.paged_memory.SimPagedMemory.permissions">
-<code class="descname">permissions</code><span class="sig-paren">(</span><em>addr</em>, <em>permissions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.paged_memory.SimPagedMemory.permissions" title="Permalink to this definition">¶</a></dt>
+<code class="descname">permissions</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.storage.paged_memory.SimPagedMemory.permissions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the permissions for a page at address <cite>addr</cite>.</p>
-<p>If optional arugment permissions is given, set page permissions to that prior to returning permissions.</p>
 </dd></dl>
 
 <dl class="method">
@@ -2212,9 +2394,6 @@ states. If not, is a no-op.</p>
 
 </dd></dl>
 
-</div>
-<div class="section" id="vex">
-<h2>Vex<a class="headerlink" href="#vex" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

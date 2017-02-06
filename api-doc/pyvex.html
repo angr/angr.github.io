@@ -138,23 +138,9 @@
   <div class="section" id="module-pyvex">
 <span id="pyvex-pyvex"></span><h1><a class="reference internal" href="#module-pyvex" title="pyvex"><code class="xref py py-mod docutils literal"><span class="pre">pyvex</span></code></a> &#8212; PyVex<a class="headerlink" href="#module-pyvex" title="Permalink to this headline">¶</a></h1>
 <p>Python bindings for Valgrind&#8217;s VEX IR.</p>
-<dl class="function">
-<dt id="pyvex.enable_debug">
-<code class="descclassname">pyvex.</code><code class="descname">enable_debug</code><span class="sig-paren">(</span><em>debug</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.enable_debug" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the debug flag to <cite>debug</cite>. Valid values are True. False, 0 and 1.</p>
-<p>False/0 disables debugging output, True/1 enables it.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyvex.set_iropt_level">
-<code class="descclassname">pyvex.</code><code class="descname">set_iropt_level</code><span class="sig-paren">(</span><em>lvl</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.set_iropt_level" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the VEX optimization level to <cite>lvl</cite>. Valid values are 0, 1 and 2.</p>
-<p>0 performs no optimization, 1 performs basic optimizations, and 2 performs loop unrolling, among other things.</p>
-</dd></dl>
-
 <span class="target" id="module-pyvex.block"></span><dl class="class">
 <dt id="pyvex.block.IRSB">
-<em class="property">class </em><code class="descclassname">pyvex.block.</code><code class="descname">IRSB</code><span class="sig-paren">(</span><em>data</em>, <em>mem_addr</em>, <em>arch</em>, <em>num_inst=None</em>, <em>num_bytes=None</em>, <em>bytes_offset=0</em>, <em>traceflags=0</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRSB" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.block.</code><code class="descname">IRSB</code><span class="sig-paren">(</span><em>data</em>, <em>mem_addr</em>, <em>arch</em>, <em>max_inst=None</em>, <em>max_bytes=None</em>, <em>bytes_offset=0</em>, <em>traceflags=0</em>, <em>opt_level=1</em>, <em>num_inst=None</em>, <em>num_bytes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRSB" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.enums.VEXObject" title="pyvex.enums.VEXObject"><code class="xref py py-class docutils literal"><span class="pre">pyvex.enums.VEXObject</span></code></a></p>
 <p>The IRSB is the primary interface to pyvex. Constructing one of these will make a call into LibVEX to perform a
 translation.</p>
@@ -180,10 +166,11 @@ block.</p>
 You may also pass None to initialize an empty IRSB.</li>
 <li><strong>mem_addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address to lift the data at.</li>
 <li><strong>arch</strong> (<code class="xref py py-class docutils literal"><span class="pre">archinfo.Arch</span></code>) &#8211; The architecture to lift the data as.</li>
-<li><strong>num_inst</strong> &#8211; The maximum number of instructions to lift. Max 99. (See note below)</li>
-<li><strong>num_bytes</strong> &#8211; The maximum number of bytes to use. Max 400.</li>
+<li><strong>max_inst</strong> &#8211; The maximum number of instructions to lift. Max 99. (See note below)</li>
+<li><strong>max_bytes</strong> &#8211; The maximum number of bytes to use. Max 400.</li>
 <li><strong>bytes_offset</strong> &#8211; The offset into <cite>data</cite> to start lifting at.</li>
 <li><strong>traceflags</strong> &#8211; The libVEX traceflags, controlling VEX debug prints.</li>
+<li><strong>opt_level</strong> &#8211; The level of optimization to apply to the IR, 0-2.</li>
 </ul>
 </td>
 </tr>
@@ -191,11 +178,11 @@ You may also pass None to initialize an empty IRSB.</li>
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Explicitly specifying the number of instructions to lift (<cite>num_inst</cite>) may not always work
+<p class="last">Explicitly specifying the number of instructions to lift (<cite>max_inst</cite>) may not always work
 exactly as expected. For example, on MIPS, it is meaningless to lift a branch or jump
 instruction without its delay slot. VEX attempts to Do The Right Thing by possibly decoding
 fewer instructions than requested. Specifically, this means that lifting a branch or jump
-on MIPS as a single instruction (<cite>num_inst=1</cite>) will result in an empty IRSB, and subsequent
+on MIPS as a single instruction (<cite>max_inst=1</cite>) will result in an empty IRSB, and subsequent
 attempts to run this block will raise <cite>SimIRSBError(&#8216;Empty IRSB passed to SimIRSB.&#8217;)</cite>.</p>
 </div>
 <dl class="attribute">
