@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cle — CLE Loads Everything &mdash; angr 6.7.1.31 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 6.7.1.31 documentation</title>
   
 
   
@@ -34,8 +34,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="angr 6.7.1.31 documentation" href="index.html"/>
-        <link rel="next" title="archinfo — Arch Info" href="archinfo.html"/>
-        <link rel="prev" title="claripy — The Claripy Solver Engine" href="claripy.html"/> 
+        <link rel="next" title="pyvex — Binary Translator" href="pyvex.html"/>
+        <link rel="prev" title="claripy — Solver Engine" href="claripy.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,15 +85,19 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; angr</a></li>
-<li class="toctree-l1"><a class="reference internal" href="simuvex.html"><code class="docutils literal"><span class="pre">simuvex</span></code> &#8212; Simuvex</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; PyVex</a></li>
-<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; The Claripy Solver Engine</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; CLE Loads Everything</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simuvex.html"><code class="docutils literal"><span class="pre">simuvex</span></code> &#8212; Program State and Emulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-cle.loader">Loading Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cle.backends">Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#relocations">Relocations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-cle.tls">Thread-local storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-cle.errors">Misc. Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Information Repository</a></li>
 </ul>
 
             
@@ -124,7 +128,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li><code class="docutils literal"><span class="pre">cle</span></code> &#8212; CLE Loads Everything</li>
+    <li><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -139,12 +143,16 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-cle">
-<span id="cle-cle-loads-everything"></span><h1><a class="reference internal" href="#module-cle" title="cle"><code class="xref py py-mod docutils literal"><span class="pre">cle</span></code></a> &#8212; CLE Loads Everything<a class="headerlink" href="#module-cle" title="Permalink to this headline">¶</a></h1>
-<span class="target" id="module-cle.loader"></span><dl class="class">
+<span id="cle-binary-loader"></span><h1><a class="reference internal" href="#module-cle" title="cle"><code class="xref py py-mod docutils literal"><span class="pre">cle</span></code></a> &#8212; Binary Loader<a class="headerlink" href="#module-cle" title="Permalink to this headline">¶</a></h1>
+<p>CLE is an extensible binary loader. Its main goal is to take an executable program and any libraries it depends on and
+produce an address space where that program is loaded and ready to run.</p>
+<p>The primary interface to CLE is the Loader class.</p>
+<div class="section" id="module-cle.loader">
+<span id="loading-interface"></span><h2>Loading Interface<a class="headerlink" href="#module-cle.loader" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
 <dt id="cle.loader.Loader">
 <em class="property">class </em><code class="descclassname">cle.loader.</code><code class="descname">Loader</code><span class="sig-paren">(</span><em>main_binary</em>, <em>auto_load_libs=True</em>, <em>force_load_libs=None</em>, <em>skip_libs=None</em>, <em>main_opts=None</em>, <em>lib_opts=None</em>, <em>custom_ld_path=None</em>, <em>ignore_import_version_numbers=True</em>, <em>rebase_granularity=16777216</em>, <em>except_missing_libs=False</em>, <em>gdb_map=None</em>, <em>gdb_fix=False</em>, <em>aslr=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>The loader loads all the objects and exports an abstraction of the memory of the process. What you see here is an
+<dd><p>The loader loads all the objects and exports an abstraction of the memory of the process. What you see here is an
 address space with loaded and rebased binaries.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -164,12 +172,14 @@ dependency by somebody.</li>
 </tbody>
 </table>
 <p>When reference is made to a dictionary of options, it requires a dictionary with zero or more of the following keys:</p>
-<ul class="simple">
-<li>backend :             &#8220;elf&#8221;, &#8220;pe&#8221;, &#8220;ida&#8221;, &#8220;blob&#8221;: which loader backend to use</li>
+<blockquote>
+<div><ul class="simple">
+<li>backend :             &#8220;elf&#8221;, &#8220;pe&#8221;, &#8220;ida&#8221;, &#8220;blob&#8221; : which loader backend to use</li>
 <li>custom_arch :         The archinfo.Arch object to use for the binary</li>
 <li>custom_base_addr :    The address to rebase the object at</li>
 <li>custom_entry_point :  The entry point to use for the object</li>
 </ul>
+</div></blockquote>
 <p>More keys are defined on a per-backend basis.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -197,62 +207,16 @@ loading them.</li>
 equivalent, for example libc.so.6 and libc.so.0</li>
 <li><strong>rebase_granularity</strong> &#8211; The alignment to use for rebasing shared objects</li>
 <li><strong>except_missing_libs</strong> &#8211; Throw an exception when a shared library can&#8217;t be found.</li>
-<li><strong>gdb_map</strong> &#8211; The output of <cite>info proc mappings</cite> or <cite>info sharedlibrary</cite> in gdb. This will be used
-to determine the base address of libraries.</li>
-<li><strong>gdb_fix</strong> &#8211; If <cite>info sharedlibrary</cite> was used, the addresses gdb gives us are in fact the
+<li><strong>gdb_map</strong> &#8211; The output of <code class="docutils literal"><span class="pre">info</span> <span class="pre">proc</span> <span class="pre">mappings</span></code> or <code class="docutils literal"><span class="pre">info</span> <span class="pre">sharedlibrary</span></code> in gdb. This will
+be used to determine the base address of libraries.</li>
+<li><strong>gdb_fix</strong> &#8211; If <code class="docutils literal"><span class="pre">info</span> <span class="pre">sharedlibrary</span></code> was used, the addresses gdb gives us are in fact the
 addresses of the .text sections. We need to fix them to get the real load addresses.</li>
+<li><strong>aslr</strong> &#8211; Load libraries in symbolic address space.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>:param aslr                 Load libraries in symbolic address space.</p>
-<dl class="method">
-<dt id="cle.loader.Loader.add_object">
-<code class="descname">add_object</code><span class="sig-paren">(</span><em>obj</em>, <em>base_addr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.add_object" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add object <cite>obj</cite> to the memory map, rebased at <cite>base_addr</cite>. If <cite>base_addr</cite> is None CLE will pick a safe one.
-Registers all its dependencies.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.loader.Loader.find_module_name">
-<code class="descname">find_module_name</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_module_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the name of the loaded module containing <cite>addr</cite>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.loader.Loader.find_plt_stub_name">
-<code class="descname">find_plt_stub_name</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_plt_stub_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the name of the PLT stub starting at <cite>addr</cite>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.loader.Loader.find_symbol_got_entry">
-<code class="descname">find_symbol_got_entry</code><span class="sig-paren">(</span><em>symbol</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_symbol_got_entry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Look for the address of a GOT entry for <cite>symbol</cite>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The address of the symbol if found, None otherwise.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.loader.Loader.find_symbol_name">
-<code class="descname">find_symbol_name</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_symbol_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the name of the function starting at <cite>addr</cite>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.loader.Loader.get_finalizers">
-<code class="descname">get_finalizers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.get_finalizers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list of all the finalizers that should be run before the program exits.
-I&#8217;m not sure what order they should be run in.</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="cle.loader.Loader.get_initializers">
 <code class="descname">get_initializers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.get_initializers" title="Permalink to this definition">¶</a></dt>
@@ -260,11 +224,11 @@ I&#8217;m not sure what order they should be run in.</p>
 they should be run.</p>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="cle.loader.Loader.identify_object">
-<em class="property">static </em><code class="descname">identify_object</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.identify_object" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the filetype of the file <cite>path</cite>. Will be one of the strings in {&#8216;elf&#8217;, &#8216;elfcore&#8217;, &#8216;pe&#8217;, &#8216;mach-o&#8217;,
-&#8216;unknown&#8217;}.</p>
+<dl class="method">
+<dt id="cle.loader.Loader.get_finalizers">
+<code class="descname">get_finalizers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.get_finalizers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of all the finalizers that should be run before the program exits.
+I&#8217;m not sure what order they should be run in.</p>
 </dd></dl>
 
 <dl class="staticmethod">
@@ -298,16 +262,19 @@ if the file at the given path is not compatibile with this parameter.</li>
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="cle.loader.Loader.max_addr">
-<code class="descname">max_addr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.max_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>The maximum address loaded as part of any loaded object (i.e., the whole address space).</p>
+<dl class="staticmethod">
+<dt id="cle.loader.Loader.identify_object">
+<em class="property">static </em><code class="descname">identify_object</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.identify_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the correct loader for the file at <cite>path</cite>.
+Returns None if it&#8217;s a blob or some unknown type.
+TODO: Implement some binwalk-like thing to carve up blobs aotmatically</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cle.loader.Loader.min_addr">
-<code class="descname">min_addr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.min_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>The minimum address loaded as part of any loaded object (i.e., the whole address space).</p>
+<dt id="cle.loader.Loader.add_object">
+<code class="descname">add_object</code><span class="sig-paren">(</span><em>obj</em>, <em>base_addr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.add_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add object <cite>obj</cite> to the memory map, rebased at <cite>base_addr</cite>. If <cite>base_addr</cite> is None CLE will pick a safe one.
+Registers all its dependencies.</p>
 </dd></dl>
 
 <dl class="method">
@@ -323,173 +290,177 @@ It is appropriate to call this repeatedly.</p>
 <dd><p>Tells you what&#8217;s at <cite>addr</cite> in terms of the offset in one of the loaded binary objects.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="cle.loader.Loader.max_addr">
+<code class="descname">max_addr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.max_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum address loaded as part of any loaded object (i.e., the whole address space).</p>
 </dd></dl>
 
-<span class="target" id="module-cle.memory"></span><dl class="class">
-<dt id="cle.memory.Clemory">
-<em class="property">class </em><code class="descclassname">cle.memory.</code><code class="descname">Clemory</code><span class="sig-paren">(</span><em>arch</em>, <em>root=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>An object representing a memory space. Uses &#8220;backers&#8221; and &#8220;updates&#8221; to separate the concepts of loaded and written
-memory and make lookups more efficient.</p>
-<p>Accesses can be made with [index] notation.</p>
 <dl class="method">
-<dt id="cle.memory.Clemory.add_backer">
-<code class="descname">add_backer</code><span class="sig-paren">(</span><em>start</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.add_backer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a backer to the memory.</p>
+<dt id="cle.loader.Loader.min_addr">
+<code class="descname">min_addr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.min_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>The minimum address loaded as part of any loaded object (i.e., the whole address space).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.loader.Loader.find_symbol_name">
+<code class="descname">find_symbol_name</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_symbol_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the function starting at <cite>addr</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.loader.Loader.find_plt_stub_name">
+<code class="descname">find_plt_stub_name</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_plt_stub_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the PLT stub starting at <cite>addr</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.loader.Loader.find_module_name">
+<code class="descname">find_module_name</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_module_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the name of the loaded module containing <cite>addr</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.loader.Loader.find_symbol_got_entry">
+<code class="descname">find_symbol_got_entry</code><span class="sig-paren">(</span><em>symbol</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_symbol_got_entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Look for the address of a GOT entry for <cite>symbol</cite>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>start</strong> &#8211; The address where the backer should be loaded.</li>
-<li><strong>data</strong> &#8211; The backer itself. Can be either a string or another <a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><code class="xref py py-class docutils literal"><span class="pre">Clemory</span></code></a>.</li>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The address of the symbol if found, None otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cle.backends">
+<span id="backends"></span><h2>Backends<a class="headerlink" href="#module-cle.backends" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cle.backends.Region">
+<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Region</code><span class="sig-paren">(</span><em>offset</em>, <em>vaddr</em>, <em>filesize</em>, <em>memsize</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Region" title="Permalink to this definition">¶</a></dt>
+<dd><p>A region of memory that is mapped in the object&#8217;s file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>offset</strong> &#8211; The offset into the file the region starts.</li>
+<li><strong>vaddr</strong> &#8211; The virtual address.</li>
+<li><strong>filesize</strong> &#8211; The size of the region in the file.</li>
+<li><strong>memsize</strong> &#8211; The size of the region when loaded into memory.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p>The prefix <cite>v-</cite> on a variable or parameter name indicates that it refers to the virtual, loaded memory space,
+while a corresponding variable without the <cite>v-</cite> refers to the flat zero-based memory of the file.</p>
+<p>When used next to each other, <cite>addr</cite> and <cite>offset</cite> refer to virtual memory address and file offset, respectively.</p>
+<dl class="method">
+<dt id="cle.backends.Region.contains_addr">
+<code class="descname">contains_addr</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Region.contains_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does this region contain this virtual address?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.Region.contains_offset">
+<code class="descname">contains_offset</code><span class="sig-paren">(</span><em>offset</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Region.contains_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does this region contain this offset into the file?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.Region.addr_to_offset">
+<code class="descname">addr_to_offset</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Region.addr_to_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a virtual memory address into a file offset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.Region.offset_to_addr">
+<code class="descname">offset_to_addr</code><span class="sig-paren">(</span><em>offset</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Region.offset_to_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a file offset into a virtual memory address</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="cle.memory.Clemory.cbackers">
-<code class="descname">cbackers</code><a class="headerlink" href="#cle.memory.Clemory.cbackers" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function directly returns a list of already-flattened cbackers. It&#8217;s designed for performance purpose.
-GirlScout uses it. Use this property at your own risk!</p>
+<dt id="cle.backends.Region.max_addr">
+<code class="descname">max_addr</code><a class="headerlink" href="#cle.backends.Region.max_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum virtual address of this region</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.Region.min_addr">
+<code class="descname">min_addr</code><a class="headerlink" href="#cle.backends.Region.min_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>The minimum virtual address of this region</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.Region.max_offset">
+<code class="descname">max_offset</code><a class="headerlink" href="#cle.backends.Region.max_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum file offset of this region</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cle.memory.Clemory.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>nbytes</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read" title="Permalink to this definition">¶</a></dt>
-<dd><p>The stream-like function that reads up to a number of bytes starting from the current
-position and updates the current position. Use with <a class="reference internal" href="#cle.memory.Clemory.seek" title="cle.memory.Clemory.seek"><code class="xref py py-func docutils literal"><span class="pre">seek()</span></code></a>.</p>
-<p>Up to <cite>nbytes</cite> bytes will be read, halting at the beginning of the first unmapped region
-encountered.</p>
+<dt id="cle.backends.Region.min_offset">
+<code class="descname">min_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Region.min_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>The minimum file offset of this region</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="cle.memory.Clemory.read_addr_at">
-<code class="descname">read_addr_at</code><span class="sig-paren">(</span><em>where</em>, <em>orig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read_addr_at" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read addr stored in memory as a series of bytes starting at <cite>where</cite>.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="cle.memory.Clemory.read_bytes">
-<code class="descname">read_bytes</code><span class="sig-paren">(</span><em>addr</em>, <em>n</em>, <em>orig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read_bytes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read up to <cite>n</cite> bytes at address <cite>addr</cite> in memory and return an array of bytes.</p>
-<p>Reading will stop at the beginning of the first unallocated region found, or when
-<cite>n</cite> bytes have been read.</p>
+<dl class="class">
+<dt id="cle.backends.Segment">
+<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Segment</code><span class="sig-paren">(</span><em>offset</em>, <em>vaddr</em>, <em>filesize</em>, <em>memsize</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Segment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple representation of an ELF file segment.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="cle.memory.Clemory.read_bytes_c">
-<code class="descname">read_bytes_c</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read_bytes_c" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read <cite>n</cite> bytes at address <cite>addr</cite> in cbacked memory, and returns a cffi buffer pointer.</p>
-<p>Note: We don&#8217;t support reading across segments for performance concerns.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.memory.Clemory.seek">
-<code class="descname">seek</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.seek" title="Permalink to this definition">¶</a></dt>
-<dd><p>The stream-like function that sets the &#8220;file&#8217;s&#8221; current position. Use with <a class="reference internal" href="#cle.memory.Clemory.read" title="cle.memory.Clemory.read"><code class="xref py py-func docutils literal"><span class="pre">read()</span></code></a>.</p>
+<dl class="class">
+<dt id="cle.backends.Section">
+<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Section</code><span class="sig-paren">(</span><em>name</em>, <em>offset</em>, <em>vaddr</em>, <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple representation of a loaded section.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; The position to seek to.</td>
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><p class="first"><a class="reference internal" href="claripy.html#claripy.backends.Backend.name" title="claripy.backends.Backend.name"><strong>name</strong></a> (<em>str</em>) &#8211; The name of the section</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<em>str</em>) &#8211; The name of the section</li>
+<li><strong>offset</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The offset into the binary file this section begins</li>
+<li><strong>vaddr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address in virtual memory this section begins</li>
+<li><strong>size</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; How large this section is</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
+<dl class="attribute">
+<dt id="cle.backends.Section.is_readable">
+<code class="descname">is_readable</code><a class="headerlink" href="#cle.backends.Section.is_readable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether this section has read permissions</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="cle.memory.Clemory.stride_repr">
-<code class="descname">stride_repr</code><a class="headerlink" href="#cle.memory.Clemory.stride_repr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a representation of memory in a list of (start, end, data) where data is a string.</p>
+<dt id="cle.backends.Section.is_writable">
+<code class="descname">is_writable</code><a class="headerlink" href="#cle.backends.Section.is_writable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether this section has write permissions</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="cle.memory.Clemory.write_addr_at">
-<code class="descname">write_addr_at</code><span class="sig-paren">(</span><em>where</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.write_addr_at" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes <cite>addr</cite> into a series of bytes in memory at <cite>where</cite>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.memory.Clemory.write_bytes">
-<code class="descname">write_bytes</code><span class="sig-paren">(</span><em>addr</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.write_bytes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write bytes from <cite>data</cite> at address <cite>addr</cite>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.memory.Clemory.write_bytes_to_backer">
-<code class="descname">write_bytes_to_backer</code><span class="sig-paren">(</span><em>addr</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.write_bytes_to_backer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write bytes from <cite>data</cite> at address <cite>addr</cite> to backer instead of self._updates. This is only needed when writing a
-huge amount of data.</p>
+<dl class="attribute">
+<dt id="cle.backends.Section.is_executable">
+<code class="descname">is_executable</code><a class="headerlink" href="#cle.backends.Section.is_executable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether this section has execute permissions</p>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-cle.tls"></span><dl class="class">
-<dt id="cle.tls.TLSObj">
-<em class="property">class </em><code class="descclassname">cle.tls.</code><code class="descname">TLSObj</code><span class="sig-paren">(</span><em>modules</em>, <em>filetype='unknown'</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.tls.TLSObj" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.Backend</span></code></a></p>
-<p>This class is used when parsing the Thread Local Storage of a binary.</p>
-<dl class="method">
-<dt id="cle.tls.TLSObj.finalize">
-<code class="descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.tls.TLSObj.finalize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lay out the TLS initialization images into memory.</p>
-</dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-cle.errors"></span><dl class="exception">
-<dt id="cle.errors.CLEError">
-<em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLEError</code><a class="headerlink" href="#cle.errors.CLEError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></code></p>
-<p>Base class for errors raised by CLE.</p>
-</dd></dl>
-
-<dl class="exception">
-<dt id="cle.errors.CLEUnknownFormatError">
-<em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLEUnknownFormatError</code><a class="headerlink" href="#cle.errors.CLEUnknownFormatError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.errors.CLEError" title="cle.errors.CLEError"><code class="xref py py-class docutils literal"><span class="pre">cle.errors.CLEError</span></code></a></p>
-<p>Error raised when CLE encounters an unknown executable file format.</p>
-</dd></dl>
-
-<dl class="exception">
-<dt id="cle.errors.CLEFileNotFoundError">
-<em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLEFileNotFoundError</code><a class="headerlink" href="#cle.errors.CLEFileNotFoundError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.errors.CLEError" title="cle.errors.CLEError"><code class="xref py py-class docutils literal"><span class="pre">cle.errors.CLEError</span></code></a></p>
-<p>Error raised when a file does not exist.</p>
-</dd></dl>
-
-<dl class="exception">
-<dt id="cle.errors.CLEInvalidBinaryError">
-<em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLEInvalidBinaryError</code><a class="headerlink" href="#cle.errors.CLEInvalidBinaryError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.errors.CLEError" title="cle.errors.CLEError"><code class="xref py py-class docutils literal"><span class="pre">cle.errors.CLEError</span></code></a></p>
-<p>Error raised when an executable file is invalid or corrupted.</p>
-</dd></dl>
-
-<dl class="exception">
-<dt id="cle.errors.CLEOperationError">
-<em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLEOperationError</code><a class="headerlink" href="#cle.errors.CLEOperationError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.errors.CLEError" title="cle.errors.CLEError"><code class="xref py py-class docutils literal"><span class="pre">cle.errors.CLEError</span></code></a></p>
-<p>Error raised when a problem is encountered in the process of loading an executable.</p>
-</dd></dl>
-
-<dl class="exception">
-<dt id="cle.errors.CLECompatibilityError">
-<em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLECompatibilityError</code><a class="headerlink" href="#cle.errors.CLECompatibilityError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.errors.CLEError" title="cle.errors.CLEError"><code class="xref py py-class docutils literal"><span class="pre">cle.errors.CLEError</span></code></a></p>
-<p>Error raised when loading an executable that is not currently supported by CLE.</p>
-</dd></dl>
-
-<div class="section" id="module-cle.backends">
-<span id="backends"></span><h2>Backends<a class="headerlink" href="#module-cle.backends" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cle.backends.Backend">
-<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Backend</code><span class="sig-paren">(</span><em>binary</em>, <em>is_main_bin=False</em>, <em>compatible_with=None</em>, <em>filetype='unknown'</em>, <em>filename=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Main base class for CLE binary objects.</p>
+<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Backend</code><span class="sig-paren">(</span><em>binary</em>, <em>is_main_bin=False</em>, <em>compatible_with=None</em>, <em>filename=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main base class for CLE binary objects.</p>
 <p>An alternate interface to this constructor exists as the static method <a class="reference internal" href="#cle.loader.Loader.load_object" title="cle.loader.Loader.load_object"><code class="xref py py-meth docutils literal"><span class="pre">cle.loader.Loader.load_object()</span></code></a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -510,7 +481,6 @@ first item in the tuple is the address of the resolver function, and the second 
 address of where to write the result. The destination address is not rebased.</li>
 <li><strong>jmprel</strong> &#8211; A mapping from symbol name to the address of its jump slot relocation, i.e. its GOT entry.</li>
 <li><a class="reference internal" href="archinfo.html#module-archinfo.arch" title="archinfo.arch"><strong>arch</strong></a> (<a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch"><em>archinfo.arch.Arch</em></a>) &#8211; The architecture of this binary</li>
-<li><strong>filetype</strong> (<em>str</em>) &#8211; The filetype of this object</li>
 <li><strong>os</strong> (<em>str</em>) &#8211; The operating system this binary is meant to run under</li>
 <li><strong>compatible_with</strong> &#8211; Another Backend object this object must be compatibile with, or None</li>
 <li><strong>rebase_addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The base address of this object in virtual memory</li>
@@ -527,7 +497,6 @@ address of where to write the result. The destination address is not rebased.</l
 <li><strong>binary</strong> &#8211; The path to the binary to load</li>
 <li><strong>is_main_bin</strong> &#8211; Whether this binary should be loaded as the main executable</li>
 <li><strong>compatible_with</strong> &#8211; An optional Backend object to force compatibility with</li>
-<li><strong>filetype</strong> &#8211; The format of the file to load</li>
 </ul>
 </td>
 </tr>
@@ -540,21 +509,34 @@ address of where to write the result. The destination address is not rebased.</l
 </dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.Backend.find_section_containing">
-<code class="descname">find_section_containing</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.find_section_containing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the section that contains <cite>addr</cite> or <code class="docutils literal"><span class="pre">None</span></code>.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="cle.backends.Backend.find_segment_containing">
 <code class="descname">find_segment_containing</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.find_segment_containing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the segment that contains <cite>addr</cite>, or <code class="docutils literal"><span class="pre">None</span></code>.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.Backend.get_finalizers">
-<code class="descname">get_finalizers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.get_finalizers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stub function. Like get_initializers, but with finalizers.</p>
+<dt id="cle.backends.Backend.find_section_containing">
+<code class="descname">find_section_containing</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.find_section_containing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the section that contains <cite>addr</cite> or <code class="docutils literal"><span class="pre">None</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.Backend.get_min_addr">
+<code class="descname">get_min_addr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.get_min_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns the lowest virtual address contained in any loaded segment of the binary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.Backend.get_max_addr">
+<code class="descname">get_max_addr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.get_max_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns the highest virtual address contained in any loaded segment of the binary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.Backend.set_got_entry">
+<code class="descname">set_got_entry</code><span class="sig-paren">(</span><em>symbol_name</em>, <em>newaddr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.set_got_entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>This overrides the address of the function defined by <em>symbol</em> with the new address <em>newaddr</em>. This is used to
+call simprocedures instead of actual code,</p>
 </dd></dl>
 
 <dl class="method">
@@ -565,15 +547,9 @@ before execution reaches the entry point. Addresses should be rebased.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.Backend.get_max_addr">
-<code class="descname">get_max_addr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.get_max_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>This returns the highest virtual address contained in any loaded segment of the binary.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.Backend.get_min_addr">
-<code class="descname">get_min_addr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.get_min_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>This returns the lowest virtual address contained in any loaded segment of the binary.</p>
+<dt id="cle.backends.Backend.get_finalizers">
+<code class="descname">get_finalizers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.get_finalizers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stub function. Like get_initializers, but with finalizers.</p>
 </dd></dl>
 
 <dl class="method">
@@ -582,166 +558,57 @@ before execution reaches the entry point. Addresses should be rebased.</p>
 <dd><p>Stub function. Implement to find the symbol with name <cite>name</cite>.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="cle.backends.Backend.set_got_entry">
-<code class="descname">set_got_entry</code><span class="sig-paren">(</span><em>symbol_name</em>, <em>newaddr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.set_got_entry" title="Permalink to this definition">¶</a></dt>
-<dd><p>This overrides the address of the function defined by <em>symbol</em> with the new address <em>newaddr</em>. This is used to
-call simprocedures instead of actual code,</p>
 </dd></dl>
 
-</dd></dl>
-
-<dl class="class">
-<dt id="cle.backends.Region">
-<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Region</code><span class="sig-paren">(</span><em>offset</em>, <em>vaddr</em>, <em>filesize</em>, <em>memsize</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Region" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>A region of memory that is mapped in the object&#8217;s file.</p>
+<span class="target" id="module-cle.backends.elf"></span><dl class="class">
+<dt id="cle.backends.elf.ELFSymbol">
+<em class="property">class </em><code class="descclassname">cle.backends.elf.</code><code class="descname">ELFSymbol</code><span class="sig-paren">(</span><em>owner</em>, <em>symb</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.ELFSymbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a symbol for the ELF format.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>offset</strong> &#8211; The offset into the file the region starts.</li>
-<li><strong>vaddr</strong> &#8211; The virtual address.</li>
-<li><strong>filesize</strong> &#8211; The size of the region in the file.</li>
-<li><strong>memsize</strong> &#8211; The size of the region when loaded into memory.</li>
+<li><strong>elftype</strong> (<em>str</em>) &#8211; The type of this symbol as an ELF enum string</li>
+<li><strong>binding</strong> (<em>str</em>) &#8211; The binding of this symbol as an ELF enum string</li>
+<li><strong>section</strong> &#8211; The section associated with this symbol, or None</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>The prefix <cite>v-</cite> on a variable or parameter name indicates that it refers to the virtual, loaded memory space,
-while a corresponding variable without the <cite>v-</cite> refers to the flat zero-based memory of the file.</p>
-<p>When used next to each other, <cite>addr</cite> and <cite>offset</cite> refer to virtual memory address and file offset, respectively.</p>
-<dl class="method">
-<dt id="cle.backends.Region.addr_to_offset">
-<code class="descname">addr_to_offset</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Region.addr_to_offset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert a virtual memory address into a file offset</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.Region.contains_addr">
-<code class="descname">contains_addr</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Region.contains_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Does this region contain this virtual address?</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.Region.contains_offset">
-<code class="descname">contains_offset</code><span class="sig-paren">(</span><em>offset</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Region.contains_offset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Does this region contain this offset into the file?</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.Region.max_addr">
-<code class="descname">max_addr</code><a class="headerlink" href="#cle.backends.Region.max_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>The maximum virtual address of this region</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.Region.max_offset">
-<code class="descname">max_offset</code><a class="headerlink" href="#cle.backends.Region.max_offset" title="Permalink to this definition">¶</a></dt>
-<dd><p>The maximum file offset of this region</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.Region.min_addr">
-<code class="descname">min_addr</code><a class="headerlink" href="#cle.backends.Region.min_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>The minimum virtual address of this region</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.Region.min_offset">
-<code class="descname">min_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Region.min_offset" title="Permalink to this definition">¶</a></dt>
-<dd><p>The minimum file offset of this region</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.Region.offset_to_addr">
-<code class="descname">offset_to_addr</code><span class="sig-paren">(</span><em>offset</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Region.offset_to_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert a file offset into a virtual memory address</p>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="class">
-<dt id="cle.backends.Section">
-<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Section</code><span class="sig-paren">(</span><em>name</em>, <em>offset</em>, <em>vaddr</em>, <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Section" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.Region" title="cle.backends.Region"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.Region</span></code></a></p>
-<p>Simple representation of a loaded section.</p>
+<dt id="cle.backends.elf.ELF">
+<em class="property">class </em><code class="descclassname">cle.backends.elf.</code><code class="descname">ELF</code><span class="sig-paren">(</span><em>binary</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.ELF" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main loader class for statically loading ELF executables. Uses the pyreadelf library where useful.</p>
+<dl class="method">
+<dt id="cle.backends.elf.ELF.get_symbol">
+<code class="descname">get_symbol</code><span class="sig-paren">(</span><em>symid</em>, <em>symbol_table=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.ELF.get_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a Symbol object for the specified symbol.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><p class="first"><a class="reference internal" href="claripy.html#claripy.backends.Backend.name" title="claripy.backends.Backend.name"><strong>name</strong></a> (<em>str</em>) &#8211; The name of the section</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<em>str</em>) &#8211; The name of the section</li>
-<li><strong>offset</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The offset into the binary file this section begins</li>
-<li><strong>vaddr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address in virtual memory this section begins</li>
-<li><strong>size</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; How large this section is</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>symid</strong> &#8211; Either an index into .dynsym or the name of a symbol.</td>
 </tr>
 </tbody>
 </table>
-<dl class="attribute">
-<dt id="cle.backends.Section.is_executable">
-<code class="descname">is_executable</code><a class="headerlink" href="#cle.backends.Section.is_executable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether this section has execute permissions</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.Section.is_readable">
-<code class="descname">is_readable</code><a class="headerlink" href="#cle.backends.Section.is_readable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether this section has read permissions</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.Section.is_writable">
-<code class="descname">is_writable</code><a class="headerlink" href="#cle.backends.Section.is_writable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether this section has write permissions</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="cle.backends.Segment">
-<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Segment</code><span class="sig-paren">(</span><em>offset</em>, <em>vaddr</em>, <em>filesize</em>, <em>memsize</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Segment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.Region" title="cle.backends.Region"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.Region</span></code></a></p>
-<p>Simple representation of an ELF file segment.</p>
-</dd></dl>
-
-<span class="target" id="module-cle.backends.backedcgc"></span><dl class="class">
-<dt id="cle.backends.backedcgc.BackedCGC">
-<em class="property">class </em><code class="descclassname">cle.backends.backedcgc.</code><code class="descname">BackedCGC</code><span class="sig-paren">(</span><em>path</em>, <em>memory_backer=None</em>, <em>register_backer=None</em>, <em>writes_backer=None</em>, <em>permissions_map=None</em>, <em>current_allocation_base=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.backedcgc.BackedCGC" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.cgc.CGC" title="cle.backends.cgc.CGC"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.cgc.CGC</span></code></a></p>
-<p>This is a backend for CGC executables that allows user provide a memory backer and a register backer as the
-initial state of the running binary.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>path</strong> &#8211; File path to CGC executable.</li>
-<li><strong>memory_backer</strong> &#8211; A dict of memory content, with beginning address of each segment as key and
-actual memory content as data.</li>
-<li><strong>register_backer</strong> &#8211; A dict of all register contents. EIP will be used as the entry point of this
-executable.</li>
-<li><strong>permissions_map</strong> &#8211; A dict of memory region to permission flags</li>
-<li><strong>current_allocation_base</strong> &#8211; An integer representing the current address of the top of the CGC heap.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<span class="target" id="module-cle.backends.pe"></span><dl class="class">
+<dt id="cle.backends.pe.PE">
+<em class="property">class </em><code class="descclassname">cle.backends.pe.</code><code class="descname">PE</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.pe.PE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Representation of a PE (i.e. Windows) binary.</p>
 </dd></dl>
 
 <span class="target" id="module-cle.backends.blob"></span><dl class="class">
 <dt id="cle.backends.blob.Blob">
 <em class="property">class </em><code class="descclassname">cle.backends.blob.</code><code class="descname">Blob</code><span class="sig-paren">(</span><em>path</em>, <em>custom_arch=None</em>, <em>custom_offset=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.blob.Blob" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.Backend</span></code></a></p>
-<p>Representation of a binary blob, i.e. an executable in an unknown file format.</p>
+<dd><p>Representation of a binary blob, i.e. an executable in an unknown file format.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -771,24 +638,27 @@ executable.</li>
 <span class="target" id="module-cle.backends.cgc"></span><dl class="class">
 <dt id="cle.backends.cgc.CGC">
 <em class="property">class </em><code class="descclassname">cle.backends.cgc.</code><code class="descname">CGC</code><span class="sig-paren">(</span><em>binary</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.cgc.CGC" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.ELF" title="cle.backends.elf.ELF"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.elf.ELF</span></code></a></p>
-<p>Backend to support the CGC elf format used by the Cyber Grand Challenge competition.</p>
+<dd><p>Backend to support the CGC elf format used by the Cyber Grand Challenge competition.</p>
 <p>See : <a class="reference external" href="https://github.com/CyberGrandChallenge/libcgcef/blob/master/cgc_executable_format.md">https://github.com/CyberGrandChallenge/libcgcef/blob/master/cgc_executable_format.md</a></p>
 </dd></dl>
 
-<span class="target" id="module-cle.backends.elf"></span><dl class="class">
-<dt id="cle.backends.elf.ELFSymbol">
-<em class="property">class </em><code class="descclassname">cle.backends.elf.</code><code class="descname">ELFSymbol</code><span class="sig-paren">(</span><em>owner</em>, <em>symb</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.ELFSymbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cle.backends.Symbol</span></code></p>
-<p>Represents a symbol for the ELF format.</p>
+<span class="target" id="module-cle.backends.backedcgc"></span><dl class="class">
+<dt id="cle.backends.backedcgc.BackedCGC">
+<em class="property">class </em><code class="descclassname">cle.backends.backedcgc.</code><code class="descname">BackedCGC</code><span class="sig-paren">(</span><em>path</em>, <em>memory_backer=None</em>, <em>register_backer=None</em>, <em>writes_backer=None</em>, <em>permissions_map=None</em>, <em>current_allocation_base=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.backedcgc.BackedCGC" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a backend for CGC executables that allows user provide a memory backer and a register backer as the
+initial state of the running binary.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>elftype</strong> (<em>str</em>) &#8211; The type of this symbol as an ELF enum string</li>
-<li><strong>binding</strong> (<em>str</em>) &#8211; The binding of this symbol as an ELF enum string</li>
-<li><strong>section</strong> &#8211; The section associated with this symbol, or None</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> &#8211; File path to CGC executable.</li>
+<li><strong>memory_backer</strong> &#8211; A dict of memory content, with beginning address of each segment as key and
+actual memory content as data.</li>
+<li><strong>register_backer</strong> &#8211; A dict of all register contents. EIP will be used as the entry point of this
+executable.</li>
+<li><strong>permissions_map</strong> &#8211; A dict of memory region to permission flags</li>
+<li><strong>current_allocation_base</strong> &#8211; An integer representing the current address of the top of the CGC heap.</li>
 </ul>
 </td>
 </tr>
@@ -796,46 +666,22 @@ executable.</li>
 </table>
 </dd></dl>
 
-<dl class="class">
-<dt id="cle.backends.elf.ELF">
-<em class="property">class </em><code class="descclassname">cle.backends.elf.</code><code class="descname">ELF</code><span class="sig-paren">(</span><em>binary</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.ELF" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.metaelf.MetaELF" title="cle.backends.metaelf.MetaELF"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.metaelf.MetaELF</span></code></a></p>
-<p>The main loader class for statically loading ELF executables. Uses the pyreadelf library where useful.</p>
-<dl class="method">
-<dt id="cle.backends.elf.ELF.get_symbol">
-<code class="descname">get_symbol</code><span class="sig-paren">(</span><em>symid</em>, <em>symbol_table=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.ELF.get_symbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets a Symbol object for the specified symbol.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>symid</strong> &#8211; Either an index into .dynsym or the name of a symbol.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-cle.backends.elfcore"></span><dl class="class">
-<dt id="cle.backends.elfcore.CoreNote">
-<em class="property">class </em><code class="descclassname">cle.backends.elfcore.</code><code class="descname">CoreNote</code><span class="sig-paren">(</span><em>n_type</em>, <em>name</em>, <em>desc</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elfcore.CoreNote" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>This class is used when parsing the NOTES section of a core file.</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="cle.backends.elfcore.ELFCore">
-<em class="property">class </em><code class="descclassname">cle.backends.elfcore.</code><code class="descname">ELFCore</code><span class="sig-paren">(</span><em>binary</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elfcore.ELFCore" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.ELF" title="cle.backends.elf.ELF"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.elf.ELF</span></code></a></p>
-<p>Loader class for ELF core files.</p>
-</dd></dl>
-
 <span class="target" id="module-cle.backends.metaelf"></span><dl class="class">
 <dt id="cle.backends.metaelf.MetaELF">
 <em class="property">class </em><code class="descclassname">cle.backends.metaelf.</code><code class="descname">MetaELF</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.metaelf.MetaELF" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.Backend</span></code></a></p>
-<p>A base class that implements functions used by all backends that can load an ELF.</p>
+<dd><p>A base class that implements functions used by all backends that can load an ELF.</p>
+<dl class="attribute">
+<dt id="cle.backends.metaelf.MetaELF.plt">
+<code class="descname">plt</code><a class="headerlink" href="#cle.backends.metaelf.MetaELF.plt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maps names to addresses.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.metaelf.MetaELF.reverse_plt">
+<code class="descname">reverse_plt</code><a class="headerlink" href="#cle.backends.metaelf.MetaELF.reverse_plt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maps addresses to names.</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="cle.backends.metaelf.MetaELF.get_call_stub_addr">
 <code class="descname">get_call_stub_addr</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.metaelf.MetaELF.get_call_stub_addr" title="Permalink to this definition">¶</a></dt>
@@ -856,55 +702,34 @@ executable.</li>
 </table>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="cle.backends.metaelf.MetaELF.plt">
-<code class="descname">plt</code><a class="headerlink" href="#cle.backends.metaelf.MetaELF.plt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Maps names to addresses.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="cle.backends.metaelf.MetaELF.reverse_plt">
-<code class="descname">reverse_plt</code><a class="headerlink" href="#cle.backends.metaelf.MetaELF.reverse_plt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Maps addresses to names.</p>
+<span class="target" id="module-cle.backends.elfcore"></span><dl class="class">
+<dt id="cle.backends.elfcore.CoreNote">
+<em class="property">class </em><code class="descclassname">cle.backends.elfcore.</code><code class="descname">CoreNote</code><span class="sig-paren">(</span><em>n_type</em>, <em>name</em>, <em>desc</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elfcore.CoreNote" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is used when parsing the NOTES section of a core file.</p>
 </dd></dl>
 
+<dl class="class">
+<dt id="cle.backends.elfcore.ELFCore">
+<em class="property">class </em><code class="descclassname">cle.backends.elfcore.</code><code class="descname">ELFCore</code><span class="sig-paren">(</span><em>binary</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elfcore.ELFCore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loader class for ELF core files.</p>
 </dd></dl>
 
 <span class="target" id="module-cle.backends.idabin"></span><dl class="class">
 <dt id="cle.backends.idabin.IDABin">
 <em class="property">class </em><code class="descclassname">cle.backends.idabin.</code><code class="descname">IDABin</code><span class="sig-paren">(</span><em>binary</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.Backend</span></code></a></p>
-<p>Get information from binaries using IDA.</p>
+<dd><p>Get information from binaries using IDA.</p>
+<dl class="method">
+<dt id="cle.backends.idabin.IDABin.in_which_segment">
+<code class="descname">in_which_segment</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.in_which_segment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the segment name at address <cite>addr</cite> (IDA).</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="cle.backends.idabin.IDABin.function_name">
 <code class="descname">function_name</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.function_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the function name at address <cite>addr</cite> (IDA).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.idabin.IDABin.get_max_addr">
-<code class="descname">get_max_addr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.get_max_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the max address of the binary (IDA).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.idabin.IDABin.get_min_addr">
-<code class="descname">get_min_addr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.get_min_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the min address of the binary (IDA).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.idabin.IDABin.get_strings">
-<code class="descname">get_strings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.get_strings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract strings from binary (IDA).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An array of strings.</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <dl class="method">
@@ -922,15 +747,15 @@ executable.</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.idabin.IDABin.in_which_segment">
-<code class="descname">in_which_segment</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.in_which_segment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the segment name at address <cite>addr</cite> (IDA).</p>
+<dt id="cle.backends.idabin.IDABin.get_min_addr">
+<code class="descname">get_min_addr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.get_min_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the min address of the binary (IDA).</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.idabin.IDABin.is_thumb">
-<code class="descname">is_thumb</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.is_thumb" title="Permalink to this definition">¶</a></dt>
-<dd><p>Is the address <cite>addr</cite> in thumb mode ? (ARM).</p>
+<dt id="cle.backends.idabin.IDABin.get_max_addr">
+<code class="descname">get_max_addr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.get_max_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the max address of the binary (IDA).</p>
 </dd></dl>
 
 <dl class="method">
@@ -947,13 +772,346 @@ the address <cite>new_val</cite> inline (instead of updating GOT slots). Don&#82
 <dd><p>Resolve import <cite>name</cite> with address <cite>newaddr</cite>. That is, update the GOT entry for <cite>name</cite> with <cite>newaddr</cite>.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="cle.backends.idabin.IDABin.is_thumb">
+<code class="descname">is_thumb</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.is_thumb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the address <cite>addr</cite> in thumb mode ? (ARM).</p>
 </dd></dl>
 
-<span class="target" id="module-cle.backends.pe"></span><dl class="class">
-<dt id="cle.backends.pe.PE">
-<em class="property">class </em><code class="descclassname">cle.backends.pe.</code><code class="descname">PE</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.pe.PE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal"><span class="pre">cle.backends.Backend</span></code></a></p>
-<p>Representation of a PE (i.e. Windows) binary.</p>
+<dl class="method">
+<dt id="cle.backends.idabin.IDABin.get_strings">
+<code class="descname">get_strings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.get_strings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract strings from binary (IDA).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An array of strings.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="relocations">
+<h2>Relocations<a class="headerlink" href="#relocations" title="Permalink to this headline">¶</a></h2>
+<p>CLE&#8217;s loader implements program relocation data on a plugin basis.
+If you would like to add more relocation implementations, do so by subclassing the <code class="docutils literal"><span class="pre">Relocation</span></code> class and overriding any relevant methods or properties.
+Put your subclasses in a module in the <code class="docutils literal"><span class="pre">relocations</span></code> package.
+The name of the subclass will be used to determine when to use it!
+Look at the existing versions for details.</p>
+<span class="target" id="module-cle.backends.relocations"></span><dl class="class">
+<dt id="cle.backends.relocations.Relocation">
+<em class="property">class </em><code class="descclassname">cle.backends.relocations.</code><code class="descname">Relocation</code><span class="sig-paren">(</span><em>owner</em>, <em>symbol</em>, <em>addr</em>, <em>addend=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.relocations.Relocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>A representation of a relocation in a binary file. Smart enough to
+relocate itself.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>owner_obj</strong> &#8211; The binary this relocation was originaly found in, as a cle object</li>
+<li><strong>symbol</strong> &#8211; The Symbol object this relocation refers to</li>
+<li><strong>addr</strong> &#8211; The address in owner_obj this relocation would like to write to</li>
+<li><strong>rebased_addr</strong> &#8211; The address in the global memory space this relocation would like to write to</li>
+<li><strong>resolvedby</strong> &#8211; If the symbol this relocation refers to is an import symbol and that import has been resolved,
+this attribute holds the symbol from a different binary that was used to resolve the import.</li>
+<li><strong>resolved</strong> &#8211; Whether the application of this relocation was succesful</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="cle.backends.relocations.Relocation.relocate">
+<code class="descname">relocate</code><span class="sig-paren">(</span><em>solist</em>, <em>bypass_compatibility=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.relocations.Relocation.relocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies this relocation. Will make changes to the memory object of the
+object it came from.</p>
+<p>This implementation is a generic version that can be overridden in subclasses.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>solist</strong> &#8211; A list of objects from which to resolve symbols.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cle.tls">
+<span id="thread-local-storage"></span><h2>Thread-local storage<a class="headerlink" href="#module-cle.tls" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cle.tls.TLSObj">
+<em class="property">class </em><code class="descclassname">cle.tls.</code><code class="descname">TLSObj</code><span class="sig-paren">(</span><em>modules</em>, <em>filetype='unknown'</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.tls.TLSObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>CLE implements thread-local storage by treating the TLS region as another object to be loaded. Because of the
+complex interactions between TLS and all the other objects that can be loaded into memory, each TLS object will
+perform some basic initialization when instanciated, and then once all other objects have been loaded,
+<code class="docutils literal"><span class="pre">finalize()</span></code> is called.</p>
+<dl class="method">
+<dt id="cle.tls.TLSObj.finalize">
+<code class="descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.tls.TLSObj.finalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lay out the TLS initialization images into memory.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cle.tls.elf_tls"></span><dl class="class">
+<dt id="cle.tls.elf_tls.ELFTLSObj">
+<em class="property">class </em><code class="descclassname">cle.tls.elf_tls.</code><code class="descname">ELFTLSObj</code><span class="sig-paren">(</span><em>modules</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.tls.elf_tls.ELFTLSObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is used when parsing the Thread Local Storage of an ELF binary. It heavily uses the TLSArchInfo
+namedtuple from archinfo.</p>
+<p>ELF TLS is implemented based on the following documents:</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="https://www.uclibc.org/docs/tls.pdf">https://www.uclibc.org/docs/tls.pdf</a></li>
+<li><a class="reference external" href="https://www.uclibc.org/docs/tls-ppc.txt">https://www.uclibc.org/docs/tls-ppc.txt</a></li>
+<li><a class="reference external" href="https://www.uclibc.org/docs/tls-ppc64.txt">https://www.uclibc.org/docs/tls-ppc64.txt</a></li>
+<li><a class="reference external" href="https://www.linux-mips.org/wiki/NPTL">https://www.linux-mips.org/wiki/NPTL</a></li>
+</ul>
+</div></blockquote>
+<dl class="attribute">
+<dt id="cle.tls.elf_tls.ELFTLSObj.thread_pointer">
+<code class="descname">thread_pointer</code><a class="headerlink" href="#cle.tls.elf_tls.ELFTLSObj.thread_pointer" title="Permalink to this definition">¶</a></dt>
+<dd><p>The thread pointer. This is a technical term that refers to a specific location in the TLS segment.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.tls.elf_tls.ELFTLSObj.user_thread_pointer">
+<code class="descname">user_thread_pointer</code><a class="headerlink" href="#cle.tls.elf_tls.ELFTLSObj.user_thread_pointer" title="Permalink to this definition">¶</a></dt>
+<dd><p>The thread pointer that is exported to the user</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.tls.elf_tls.ELFTLSObj.get_addr">
+<code class="descname">get_addr</code><span class="sig-paren">(</span><em>module_id</em>, <em>offset</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.tls.elf_tls.ELFTLSObj.get_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>basically <code class="docutils literal"><span class="pre">__tls_get_addr</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cle.tls.pe_tls"></span><dl class="class">
+<dt id="cle.tls.pe_tls.PETLSObj">
+<em class="property">class </em><code class="descclassname">cle.tls.pe_tls.</code><code class="descname">PETLSObj</code><span class="sig-paren">(</span><em>modules</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.tls.pe_tls.PETLSObj" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is used when parsing the Thread Local Storage of a PE binary. It
+represents both the TLS array and the TLS data area for a specific thread.</p>
+<p>In memory the <code class="docutils literal"><span class="pre">PETLSObj</span></code> is laid out as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----------------------+---------------------------------------+</span>
+<span class="o">|</span> <span class="n">TLS</span> <span class="n">array</span>            <span class="o">|</span> <span class="n">TLS</span> <span class="n">data</span> <span class="n">area</span>                         <span class="o">|</span>
+<span class="o">+----------------------+---------------------------------------+</span>
+</pre></div>
+</div>
+<p>A more detailed description of the TLS array and TLS data areas is given
+below.</p>
+<p><strong>TLS array</strong></p>
+<p>The TLS array is an array of addresses that points into the TLS data area.
+In memory it is laid out as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+-----------+-----------+-----+-----------+</span>
+<span class="o">|</span>  <span class="n">address</span>  <span class="o">|</span>  <span class="n">address</span>  <span class="o">|</span> <span class="o">...</span> <span class="o">|</span>  <span class="n">address</span>  <span class="o">|</span>
+<span class="o">+-----------+-----------+-----+-----------+</span>
+<span class="o">|</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">|</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">|</span>     <span class="o">|</span> <span class="n">index</span> <span class="o">=</span> <span class="n">n</span> <span class="o">|</span>
+<span class="o">+-----------+-----------+-----+-----------+</span>
+</pre></div>
+</div>
+<p>The size of each address is architecture independant (e.g. on X86 it is
+4 bytes). The number of addresses in the TLS array is equal to the number
+of modules that contain TLS data. At load time (i.e. in the <code class="docutils literal"><span class="pre">finalize</span></code>
+method), each module is assigned an index into the TLS array. The address
+of this module&#8217;s TLS data area is then stored at this location in the
+array.</p>
+<p><strong>TLS data area</strong></p>
+<p>The TLS data area directly follows the TLS array and contains the actual
+TLS data for each module. In memory it is laid out as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">+----------+-----------+----------+-----------+-----+</span>
+<span class="o">|</span> <span class="n">TLS</span> <span class="n">data</span> <span class="o">|</span> <span class="n">zero</span> <span class="n">fill</span> <span class="o">|</span> <span class="n">TLS</span> <span class="n">data</span> <span class="o">|</span> <span class="n">zero</span> <span class="n">fill</span> <span class="o">|</span> <span class="o">...</span> <span class="o">|</span>
+<span class="o">+----------+-----------+----------+-----------+-----+</span>
+<span class="o">|</span>       <span class="n">module</span> <span class="n">a</span>       <span class="o">|</span>       <span class="n">module</span> <span class="n">b</span>       <span class="o">|</span> <span class="o">...</span> <span class="o">|</span>
+<span class="o">+---------------------------------------------------+</span>
+</pre></div>
+</div>
+<p>The size of each module&#8217;s TLS data area is variable and can be found in the
+module&#8217;s <code class="docutils literal"><span class="pre">tls_data_size</span></code> property. The same applies to the zero fill. At
+load time (i.e in the <code class="docutils literal"><span class="pre">finalize</span></code> method), the initial TLS data values are
+copied into the TLS data area. Because a TLS index is also assigned to each
+module, we can access a module&#8217;s TLS data area using this index into the
+TLS array to get the start address of the TLS data.</p>
+<dl class="method">
+<dt id="cle.tls.pe_tls.PETLSObj.get_tls_data_addr">
+<code class="descname">get_tls_data_addr</code><span class="sig-paren">(</span><em>tls_idx</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.tls.pe_tls.PETLSObj.get_tls_data_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the start address of a module&#8217;s TLS data area via the module&#8217;s TLS
+index.</p>
+<p>From the PE/COFF spec:</p>
+<blockquote>
+<div>The code uses the TLS index and the TLS array location (multiplying
+the index by the word size and using it as an offset into the
+array) to get the address of the TLS data area for the given
+program and module.</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cle.errors">
+<span id="misc-utilities"></span><h2>Misc. Utilities<a class="headerlink" href="#module-cle.errors" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="cle.errors.CLEError">
+<em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLEError</code><a class="headerlink" href="#cle.errors.CLEError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for errors raised by CLE.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cle.errors.CLEUnknownFormatError">
+<em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLEUnknownFormatError</code><a class="headerlink" href="#cle.errors.CLEUnknownFormatError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error raised when CLE encounters an unknown executable file format.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cle.errors.CLEFileNotFoundError">
+<em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLEFileNotFoundError</code><a class="headerlink" href="#cle.errors.CLEFileNotFoundError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error raised when a file does not exist.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cle.errors.CLEInvalidBinaryError">
+<em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLEInvalidBinaryError</code><a class="headerlink" href="#cle.errors.CLEInvalidBinaryError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error raised when an executable file is invalid or corrupted.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cle.errors.CLEOperationError">
+<em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLEOperationError</code><a class="headerlink" href="#cle.errors.CLEOperationError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error raised when a problem is encountered in the process of loading an executable.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cle.errors.CLECompatibilityError">
+<em class="property">exception </em><code class="descclassname">cle.errors.</code><code class="descname">CLECompatibilityError</code><a class="headerlink" href="#cle.errors.CLECompatibilityError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error raised when loading an executable that is not currently supported by CLE.</p>
+</dd></dl>
+
+<span class="target" id="module-cle.memory"></span><dl class="class">
+<dt id="cle.memory.Clemory">
+<em class="property">class </em><code class="descclassname">cle.memory.</code><code class="descname">Clemory</code><span class="sig-paren">(</span><em>arch</em>, <em>root=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object representing a memory space. Uses &#8220;backers&#8221; and &#8220;updates&#8221; to separate the concepts of loaded and written
+memory and make lookups more efficient.</p>
+<p>Accesses can be made with [index] notation.</p>
+<dl class="method">
+<dt id="cle.memory.Clemory.add_backer">
+<code class="descname">add_backer</code><span class="sig-paren">(</span><em>start</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.add_backer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a backer to the memory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>start</strong> &#8211; The address where the backer should be loaded.</li>
+<li><strong>data</strong> &#8211; The backer itself. Can be either a string or another <a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><code class="xref py py-class docutils literal"><span class="pre">Clemory</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.memory.Clemory.read_bytes">
+<code class="descname">read_bytes</code><span class="sig-paren">(</span><em>addr</em>, <em>n</em>, <em>orig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read up to <cite>n</cite> bytes at address <cite>addr</cite> in memory and return an array of bytes.</p>
+<p>Reading will stop at the beginning of the first unallocated region found, or when
+<cite>n</cite> bytes have been read.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.memory.Clemory.write_bytes">
+<code class="descname">write_bytes</code><span class="sig-paren">(</span><em>addr</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.write_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write bytes from <cite>data</cite> at address <cite>addr</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.memory.Clemory.write_bytes_to_backer">
+<code class="descname">write_bytes_to_backer</code><span class="sig-paren">(</span><em>addr</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.write_bytes_to_backer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write bytes from <cite>data</cite> at address <cite>addr</cite> to backer instead of self._updates. This is only needed when writing a
+huge amount of data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.memory.Clemory.read_addr_at">
+<code class="descname">read_addr_at</code><span class="sig-paren">(</span><em>where</em>, <em>orig=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read_addr_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read addr stored in memory as a series of bytes starting at <cite>where</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.memory.Clemory.write_addr_at">
+<code class="descname">write_addr_at</code><span class="sig-paren">(</span><em>where</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.write_addr_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes <cite>addr</cite> into a series of bytes in memory at <cite>where</cite>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.memory.Clemory.stride_repr">
+<code class="descname">stride_repr</code><a class="headerlink" href="#cle.memory.Clemory.stride_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a representation of memory in a list of (start, end, data) where data is a string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.memory.Clemory.seek">
+<code class="descname">seek</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.seek" title="Permalink to this definition">¶</a></dt>
+<dd><p>The stream-like function that sets the &#8220;file&#8217;s&#8221; current position. Use with <a class="reference internal" href="#cle.memory.Clemory.read" title="cle.memory.Clemory.read"><code class="xref py py-func docutils literal"><span class="pre">read()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; The position to seek to.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.memory.Clemory.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>nbytes</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>The stream-like function that reads up to a number of bytes starting from the current
+position and updates the current position. Use with <a class="reference internal" href="#cle.memory.Clemory.seek" title="cle.memory.Clemory.seek"><code class="xref py py-func docutils literal"><span class="pre">seek()</span></code></a>.</p>
+<p>Up to <cite>nbytes</cite> bytes will be read, halting at the beginning of the first unmapped region
+encountered.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.memory.Clemory.cbackers">
+<code class="descname">cbackers</code><a class="headerlink" href="#cle.memory.Clemory.cbackers" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function directly returns a list of already-flattened cbackers. It&#8217;s designed for performance purpose.
+GirlScout uses it. Use this property at your own risk!</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.memory.Clemory.read_bytes_c">
+<code class="descname">read_bytes_c</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read_bytes_c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read <cite>n</cite> bytes at address <cite>addr</cite> in cbacked memory, and returns a cffi buffer pointer.</p>
+<p>Note: We don&#8217;t support reading across segments for performance concerns.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cle.patched_stream"></span><dl class="class">
+<dt id="cle.patched_stream.PatchedStream">
+<em class="property">class </em><code class="descclassname">cle.patched_stream.</code><code class="descname">PatchedStream</code><span class="sig-paren">(</span><em>stream</em>, <em>patches</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.patched_stream.PatchedStream" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object that wraps a readable stream, performing passthroughs on seek and read operations,
+except to make it seem like the data has actually been patched by the given patches.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>stream</strong> &#8211; The stream to patch</li>
+<li><strong>patches</strong> &#8211; A list of tuples of (addr, patch data)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -966,10 +1124,10 @@ the address <cite>new_val</cite> inline (instead of updating GOT slots). Don&#82
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="archinfo.html" class="btn btn-neutral float-right" title="archinfo — Arch Info" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pyvex.html" class="btn btn-neutral float-right" title="pyvex — Binary Translator" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="claripy.html" class="btn btn-neutral" title="claripy — The Claripy Solver Engine" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="claripy.html" class="btn btn-neutral" title="claripy — Solver Engine" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -978,7 +1136,7 @@ the address <cite>new_val</cite> inline (instead of updating GOT slots). Don&#82
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, The angr project.
+        &copy; Copyright 2017, The angr project.
 
     </p>
   </div>

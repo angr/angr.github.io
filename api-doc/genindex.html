@@ -84,12 +84,12 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; angr</a></li>
-<li class="toctree-l1"><a class="reference internal" href="simuvex.html"><code class="docutils literal"><span class="pre">simuvex</span></code> &#8212; Simuvex</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; PyVex</a></li>
-<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; The Claripy Solver Engine</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; CLE Loads Everything</a></li>
-<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simuvex.html"><code class="docutils literal"><span class="pre">simuvex</span></code> &#8212; Program State and Emulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Information Repository</a></li>
 </ul>
 
             
@@ -183,6 +183,8 @@
       <li><a href="cle.html#cle.memory.Clemory.add_backer">add_backer() (cle.memory.Clemory method)</a>
 </li>
       <li><a href="simuvex.html#simuvex.plugins.inspect.SimInspector.add_breakpoint">add_breakpoint() (simuvex.plugins.inspect.SimInspector method)</a>
+</li>
+      <li><a href="simuvex.html#simuvex.s_state.SimState.add_constraints">add_constraints() (simuvex.s_state.SimState method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.ddg.LiveDefinitions.add_def">add_def() (angr.analyses.ddg.LiveDefinitions method)</a>
 </li>
@@ -344,6 +346,8 @@
       </ul></li>
       <li><a href="archinfo.html#archinfo.arch.Arch">Arch (class in archinfo.arch)</a>
 </li>
+      <li><a href="archinfo.html#archinfo.arch.arch_from_id">arch_from_id() (in module archinfo.arch)</a>
+</li>
       <li><a href="archinfo.html#module-archinfo">archinfo (module)</a>
 </li>
       <li><a href="archinfo.html#module-archinfo.arch">archinfo.arch (module)</a>
@@ -474,6 +478,8 @@
 </li>
       <li><a href="angr.html#angr.surveyors.caller.Caller">Caller (class in angr.surveyors.caller)</a>
 </li>
+      <li><a href="archinfo.html#archinfo.arch.Arch.capstone">capstone (archinfo.arch.Arch attribute)</a>
+</li>
       <li><a href="claripy.html#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.cardinality">cardinality (claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet attribute)</a>
 </li>
       <li><a href="claripy.html#claripy.backends.Backend.cardinality">cardinality() (claripy.backends.Backend method)</a>
@@ -546,7 +552,7 @@
 </li>
       <li><a href="claripy.html#module-claripy.fp">claripy.fp (module)</a>
 </li>
-      <li><a href="claripy.html#module-claripy.frontend">claripy.frontend (module)</a>, <a href="claripy.html#module-claripy.frontend">[1]</a>
+      <li><a href="claripy.html#module-claripy.frontend">claripy.frontend (module)</a>
 </li>
       <li><a href="claripy.html#module-claripy.frontend_mixins">claripy.frontend_mixins (module)</a>
 </li>
@@ -592,12 +598,12 @@
 </li>
       <li><a href="claripy.html#module-claripy.operations">claripy.operations (module)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#module-claripy.ops">claripy.ops (module)</a>
 </li>
       <li><a href="claripy.html#module-claripy.vsa">claripy.vsa (module)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#module-claripy.vsa.abstract_location">claripy.vsa.abstract_location (module)</a>
 </li>
       <li><a href="claripy.html#module-claripy.vsa.bool_result">claripy.vsa.bool_result (module)</a>
@@ -630,13 +636,21 @@
 </li>
       <li><a href="cle.html#module-cle.backends.pe">cle.backends.pe (module)</a>
 </li>
+      <li><a href="cle.html#module-cle.backends.relocations">cle.backends.relocations (module)</a>
+</li>
       <li><a href="cle.html#module-cle.errors">cle.errors (module)</a>
 </li>
       <li><a href="cle.html#module-cle.loader">cle.loader (module)</a>
 </li>
       <li><a href="cle.html#module-cle.memory">cle.memory (module)</a>
 </li>
+      <li><a href="cle.html#module-cle.patched_stream">cle.patched_stream (module)</a>
+</li>
       <li><a href="cle.html#module-cle.tls">cle.tls (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.tls.elf_tls">cle.tls.elf_tls (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.tls.pe_tls">cle.tls.pe_tls (module)</a>
 </li>
       <li><a href="angr.html#angr.path.Path.clear">clear() (angr.path.Path method)</a>
 
@@ -715,6 +729,8 @@
 </li>
         <li><a href="angr.html#angr.analyses.ddg.LiveDefinitions.copy">(angr.analyses.ddg.LiveDefinitions method)</a>
 </li>
+        <li><a href="archinfo.html#archinfo.arch.Arch.copy">(archinfo.arch.Arch method)</a>
+</li>
         <li><a href="claripy.html#claripy.vsa.valueset.ValueSet.copy">(claripy.vsa.valueset.ValueSet method)</a>
 </li>
         <li><a href="simuvex.html#simuvex.concretization_strategies.SimConcretizationStrategy.copy">(simuvex.concretization_strategies.SimConcretizationStrategy method)</a>
@@ -770,10 +786,10 @@
 </li>
       <li><a href="angr.html#angr.path.Path.detect_loops">detect_loops() (angr.path.Path method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.exploration_techniques.dfs.DFS">DFS (class in angr.exploration_techniques.dfs)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.bindiff.BinDiff.differing_blocks">differing_blocks (angr.analyses.bindiff.BinDiff attribute)</a>
 
       <ul>
@@ -805,6 +821,8 @@
 </li>
         <li><a href="simuvex.html#simuvex.s_action.SimAction.downsize">(simuvex.s_action.SimAction method)</a>
 </li>
+        <li><a href="simuvex.html#simuvex.s_state.SimState.downsize">(simuvex.s_state.SimState method)</a>
+</li>
       </ul></li>
       <li><a href="angr.html#angr.path_group.PathGroup.drop">drop() (angr.path_group.PathGroup method)</a>
 </li>
@@ -820,7 +838,11 @@
 </li>
       <li><a href="cle.html#cle.backends.elf.ELFSymbol">ELFSymbol (class in cle.backends.elf)</a>
 </li>
+      <li><a href="cle.html#cle.tls.elf_tls.ELFTLSObj">ELFTLSObj (class in cle.tls.elf_tls)</a>
+</li>
       <li><a href="claripy.html#claripy.vsa.valueset.RegionAnnotation.eliminatable">eliminatable (claripy.vsa.valueset.RegionAnnotation attribute)</a>
+</li>
+      <li><a href="pyvex.html#pyvex.enable_debug">enable_debug() (in module pyvex)</a>
 </li>
       <li><a href="angr.html#angr.analyses.forward_analysis.EntryInfo.entry">entry (angr.analyses.forward_analysis.EntryInfo attribute)</a>
 </li>
@@ -986,6 +1008,8 @@
 </li>
       <li><a href="pyvex.html#pyvex.expr.Get">Get (class in pyvex.expr)</a>
 </li>
+      <li><a href="cle.html#cle.tls.elf_tls.ELFTLSObj.get_addr">get_addr() (cle.tls.elf_tls.ELFTLSObj method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg_base.CFGBase.get_all_irsbs">get_all_irsbs() (angr.analyses.cfg_base.CFGBase method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg_base.CFGBase.get_all_nodes">get_all_nodes() (angr.analyses.cfg_base.CFGBase method)</a>
@@ -1036,6 +1060,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="archinfo.html#archinfo.arch.get_host_arch">get_host_arch() (in module archinfo.arch)</a>
+</li>
       <li><a href="cle.html#cle.backends.Backend.get_initializers">get_initializers() (cle.backends.Backend method)</a>
 
       <ul>
@@ -1089,6 +1115,8 @@
 </li>
       </ul></li>
       <li><a href="cle.html#cle.backends.idabin.IDABin.get_symbol_addr">get_symbol_addr() (cle.backends.idabin.IDABin method)</a>
+</li>
+      <li><a href="cle.html#cle.tls.pe_tls.PETLSObj.get_tls_data_addr">get_tls_data_addr() (cle.tls.pe_tls.PETLSObj method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg_accurate.CFGAccurate.get_topological_order">get_topological_order() (angr.analyses.cfg_accurate.CFGAccurate method)</a>
 </li>
@@ -1270,6 +1298,8 @@
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.least_upper_bound">least_upper_bound() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
+      <li><a href="archinfo.html#archinfo.arch.Arch.library_search_path">library_search_path() (archinfo.arch.Arch method)</a>
+</li>
       <li><a href="simuvex.html#simuvex.engines.vex.engine.SimEngineVEX.lift">lift() (simuvex.engines.vex.engine.SimEngineVEX method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.ddg.LiveDefinitions">LiveDefinitions (class in angr.analyses.ddg)</a>
@@ -1282,10 +1312,10 @@
 </li>
       <li><a href="simuvex.html#simuvex.storage.paged_memory.SimPagedMemory.load_bytes">load_bytes() (simuvex.storage.paged_memory.SimPagedMemory method)</a>
 </li>
-      <li><a href="cle.html#cle.loader.Loader.load_object">load_object() (cle.loader.Loader static method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="cle.html#cle.loader.Loader.load_object">load_object() (cle.loader.Loader static method)</a>
+</li>
       <li><a href="cle.html#cle.loader.Loader">Loader (class in cle.loader)</a>
 </li>
       <li><a href="pyvex.html#pyvex.stmt.LoadG">LoadG (class in pyvex.stmt)</a>
@@ -1450,6 +1480,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="simuvex.html#simuvex.storage.paged_memory.Page">Page (class in simuvex.storage.paged_memory)</a>
 </li>
+      <li><a href="cle.html#cle.patched_stream.PatchedStream">PatchedStream (class in cle.patched_stream)</a>
+</li>
       <li><a href="angr.html#angr.path.Path">Path (class in angr.path)</a>
 </li>
       <li><a href="angr.html#angr.factory.AngrObjectFactory.path">path() (angr.factory.AngrObjectFactory method)</a>
@@ -1465,6 +1497,8 @@
       <li><a href="cle.html#cle.backends.pe.PE">PE (class in cle.backends.pe)</a>
 </li>
       <li><a href="simuvex.html#simuvex.storage.paged_memory.SimPagedMemory.permissions">permissions() (simuvex.storage.paged_memory.SimPagedMemory method)</a>
+</li>
+      <li><a href="cle.html#cle.tls.pe_tls.PETLSObj">PETLSObj (class in cle.tls.pe_tls)</a>
 </li>
       <li><a href="cle.html#cle.backends.metaelf.MetaELF.plt">plt (cle.backends.metaelf.MetaELF attribute)</a>
 </li>
@@ -1486,10 +1520,10 @@
         <li><a href="angr.html#angr.simos.SimOS.prepare_function_symbol">(angr.simos.SimOS method)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.surveyor.Surveyor.prioritize_paths">prioritize_paths() (angr.surveyor.Surveyor method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.surveyor.Surveyor.prioritize_paths">prioritize_paths() (angr.surveyor.Surveyor method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.bindiff.FunctionDiff.probably_identical">probably_identical (angr.analyses.bindiff.FunctionDiff attribute)</a>
 </li>
       <li><a href="simuvex.html#simuvex.engines.engine.SimEngine.process">process() (simuvex.engines.engine.SimEngine method)</a>
@@ -1572,6 +1606,8 @@
 </li>
       <li><a href="simuvex.html#simuvex.storage.memory.RegionMap">RegionMap (class in simuvex.storage.memory)</a>
 </li>
+      <li><a href="archinfo.html#archinfo.arch.register_arch">register_arch() (in module archinfo.arch)</a>
+</li>
       <li><a href="simuvex.html#simuvex.storage.memory.RegionMap.relativize">relativize() (simuvex.storage.memory.RegionMap method)</a>
 </li>
       <li><a href="simuvex.html#simuvex.plugins.solver.SimSolver.reload_solver">reload_solver() (simuvex.plugins.solver.SimSolver method)</a>
@@ -1581,13 +1617,17 @@
       <li><a href="claripy.html#claripy.vsa.valueset.RegionAnnotation.relocate">relocate() (claripy.vsa.valueset.RegionAnnotation method)</a>
 
       <ul>
+        <li><a href="cle.html#cle.backends.relocations.Relocation.relocate">(cle.backends.relocations.Relocation method)</a>
+</li>
         <li><a href="cle.html#cle.loader.Loader.relocate">(cle.loader.Loader method)</a>
 </li>
       </ul></li>
-      <li><a href="claripy.html#claripy.ast.base.Base.remove_annotation">remove_annotation() (claripy.ast.base.Base method)</a>
+      <li><a href="cle.html#cle.backends.relocations.Relocation">Relocation (class in cle.backends.relocations)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="claripy.html#claripy.ast.base.Base.remove_annotation">remove_annotation() (claripy.ast.base.Base method)</a>
+</li>
       <li><a href="claripy.html#claripy.ast.base.Base.remove_annotations">remove_annotations() (claripy.ast.base.Base method)</a>
 </li>
       <li><a href="simuvex.html#simuvex.plugins.inspect.SimInspector.remove_breakpoint">remove_breakpoint() (simuvex.plugins.inspect.SimInspector method)</a>
@@ -1637,7 +1677,11 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.backends.Backend.satisfiable">satisfiable() (claripy.backends.Backend method)</a>
+
+      <ul>
+        <li><a href="simuvex.html#simuvex.s_state.SimState.satisfiable">(simuvex.s_state.SimState method)</a>
 </li>
+      </ul></li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.sdiv">sdiv() (claripy.vsa.strided_interval.StridedInterval method)</a>
 </li>
       <li><a href="cle.html#cle.backends.Section">Section (class in cle.backends)</a>
@@ -1663,6 +1707,8 @@
 </li>
       </ul></li>
       <li><a href="simuvex.html#simuvex.plugins.gdb.GDB.set_heap">set_heap() (simuvex.plugins.gdb.GDB method)</a>
+</li>
+      <li><a href="pyvex.html#pyvex.set_iropt_level">set_iropt_level() (in module pyvex)</a>
 </li>
       <li><a href="simuvex.html#simuvex.plugins.gdb.GDB.set_regs">set_regs() (simuvex.plugins.gdb.GDB method)</a>
 </li>
@@ -1734,11 +1780,15 @@
 </li>
       <li><a href="simuvex.html#simuvex.storage.memory_object.SimMemoryObject">SimMemoryObject (class in simuvex.storage.memory_object)</a>
 </li>
+      <li><a href="simuvex.html#simuvex.plugins.view.SimMemView">SimMemView (class in simuvex.plugins.view)</a>
+</li>
       <li><a href="angr.html#angr.simos.SimOS">SimOS (class in angr.simos)</a>
 </li>
       <li><a href="simuvex.html#simuvex.storage.paged_memory.SimPagedMemory">SimPagedMemory (class in simuvex.storage.paged_memory)</a>
 </li>
       <li><a href="angr.html#angr.analyses.ddg.DDG.simplified_data_graph">simplified_data_graph (angr.analyses.ddg.DDG attribute)</a>
+</li>
+      <li><a href="simuvex.html#simuvex.s_state.SimState.simplify">simplify() (simuvex.s_state.SimState method)</a>
 </li>
       <li><a href="simuvex.html#simuvex.s_slicer.SimSlicer">SimSlicer (class in simuvex.s_slicer)</a>
 </li>
@@ -1818,13 +1868,15 @@
 </li>
       <li><a href="simuvex.html#module-simuvex.plugins.libc">simuvex.plugins.libc (module)</a>
 </li>
-      <li><a href="simuvex.html#module-simuvex.plugins.posix">simuvex.plugins.posix (module)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="simuvex.html#module-simuvex.plugins.posix">simuvex.plugins.posix (module)</a>
+</li>
       <li><a href="simuvex.html#module-simuvex.plugins.solver">simuvex.plugins.solver (module)</a>
 </li>
       <li><a href="simuvex.html#module-simuvex.plugins.symbolic_memory">simuvex.plugins.symbolic_memory (module)</a>
+</li>
+      <li><a href="simuvex.html#module-simuvex.plugins.view">simuvex.plugins.view (module)</a>
 </li>
       <li><a href="simuvex.html#module-simuvex.procedures">simuvex.procedures (module)</a>
 </li>
@@ -1986,6 +2038,8 @@
 </li>
       <li><a href="angr.html#angr.knowledge.function.Function.string_references">string_references() (angr.knowledge.function.Function method)</a>
 </li>
+      <li><a href="archinfo.html#archinfo.arch.Arch.struct_fmt">struct_fmt() (archinfo.arch.Arch method)</a>
+</li>
       <li><a href="claripy.html#claripy.ast.base.Base.structurally_match">structurally_match() (claripy.ast.base.Base method)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.sub">sub() (claripy.vsa.strided_interval.StridedInterval method)</a>
@@ -2018,6 +2072,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.cdg.TemporaryNode">TemporaryNode (class in angr.analyses.cdg)</a>
 </li>
+      <li><a href="cle.html#cle.tls.elf_tls.ELFTLSObj.thread_pointer">thread_pointer (cle.tls.elf_tls.ELFTLSObj attribute)</a>
+</li>
       <li><a href="angr.html#angr.exploration_techniques.threading.Threading">Threading (class in angr.exploration_techniques.threading)</a>
 </li>
       <li><a href="angr.html#angr.surveyor.Surveyor.tick">tick() (angr.surveyor.Surveyor method)</a>
@@ -2026,10 +2082,10 @@
         <li><a href="angr.html#angr.surveyors.escaper.Escaper.tick">(angr.surveyors.escaper.Escaper method)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.surveyor.Surveyor.tick_path">tick_path() (angr.surveyor.Surveyor method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.surveyor.Surveyor.tick_path">tick_path() (angr.surveyor.Surveyor method)</a>
+</li>
       <li><a href="cle.html#cle.tls.TLSObj">TLSObj (class in cle.tls)</a>
 </li>
       <li><a href="claripy.html#claripy.backend_object.BackendObject.to_claripy">to_claripy() (claripy.backend_object.BackendObject method)</a>
@@ -2061,6 +2117,8 @@
       <li><a href="angr.html#angr.surveyors.escaper.Escaper.unconstrain_loop">unconstrain_loop() (angr.surveyors.escaper.Escaper method)</a>
 </li>
       <li><a href="angr.html#angr.project.Project.unhook">unhook() (angr.project.Project method)</a>
+</li>
+      <li><a href="archinfo.html#archinfo.arch.Arch.unicorn">unicorn (archinfo.arch.Arch attribute)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.base.Base.uninitialized">uninitialized (claripy.ast.base.Base attribute)</a>
 </li>
@@ -2097,6 +2155,8 @@
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.upper">upper() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
       <li><a href="angr.html#angr.path_group.PathGroup.use_technique">use_technique() (angr.path_group.PathGroup method)</a>
+</li>
+      <li><a href="cle.html#cle.tls.elf_tls.ELFTLSObj.user_thread_pointer">user_thread_pointer (cle.tls.elf_tls.ELFTLSObj attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -2172,7 +2232,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, The angr project.
+        &copy; Copyright 2017, The angr project.
 
     </p>
   </div>

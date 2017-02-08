@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>claripy — The Claripy Solver Engine &mdash; angr 6.7.1.31 documentation</title>
+  <title>claripy — Solver Engine &mdash; angr 6.7.1.31 documentation</title>
   
 
   
@@ -34,8 +34,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="angr 6.7.1.31 documentation" href="index.html"/>
-        <link rel="next" title="cle — CLE Loads Everything" href="cle.html"/>
-        <link rel="prev" title="pyvex — PyVex" href="pyvex.html"/> 
+        <link rel="next" title="cle — Binary Loader" href="cle.html"/>
+        <link rel="prev" title="simuvex — Program State and Emulation" href="simuvex.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,19 +85,20 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; angr</a></li>
-<li class="toctree-l1"><a class="reference internal" href="simuvex.html"><code class="docutils literal"><span class="pre">simuvex</span></code> &#8212; Simuvex</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; PyVex</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; The Claripy Solver Engine</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simuvex.html"><code class="docutils literal"><span class="pre">simuvex</span></code> &#8212; Program State and Emulation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.ast">AST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#backends">Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-claripy.backends">Backends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.frontend">Frontends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.frontend_mixins">Frontend Mixins</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.vsa">VSA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-claripy">Misc. Things</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; CLE Loads Everything</a></li>
-<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Information Repository</a></li>
 </ul>
 
             
@@ -128,7 +129,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; The Claripy Solver Engine</li>
+    <li><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -142,8 +143,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="claripy-the-claripy-solver-engine">
-<h1><a class="reference internal" href="#module-claripy" title="claripy"><code class="xref py py-mod docutils literal"><span class="pre">claripy</span></code></a> &#8212; The Claripy Solver Engine<a class="headerlink" href="#claripy-the-claripy-solver-engine" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="claripy-solver-engine">
+<h1><a class="reference internal" href="#module-claripy" title="claripy"><code class="xref py py-mod docutils literal"><span class="pre">claripy</span></code></a> &#8212; Solver Engine<a class="headerlink" href="#claripy-solver-engine" title="Permalink to this headline">¶</a></h1>
 <p>Realistically, you should never have to work with in-depth claripy APIs unless you&#8217;re doing some hard-core analysis.
 Most of the time, you&#8217;ll be using claripy as a simple frontend to z3:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">claripy</span>
@@ -168,36 +169,12 @@ Most of the time, you&#8217;ll be using claripy as a simple frontend to z3:</p>
 <span class="nb">print</span> <span class="n">path_new</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">se</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">rax_start</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
-<span class="target" id="module-claripy"></span><span class="target" id="module-claripy.backend_manager"></span><span class="target" id="module-claripy.backend_object"></span><dl class="class">
-<dt id="claripy.backend_object.BackendObject">
-<em class="property">class </em><code class="descclassname">claripy.backend_object.</code><code class="descname">BackendObject</code><a class="headerlink" href="#claripy.backend_object.BackendObject" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>This is a base class for custom backend objects to implement.</p>
-<p>It lets Claripy know that how to deal with those objects, in case they&#8217;re directly used in operations.</p>
-<p>Backend objects that <em>don&#8217;t</em> derive from this class need to be wrapped in a type-I claripy.ast.Base.</p>
-<dl class="method">
-<dt id="claripy.backend_object.BackendObject.to_claripy">
-<code class="descname">to_claripy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend_object.BackendObject.to_claripy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Claripy calls this to retrieve something that it can directly reason about.</p>
-</dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-claripy.balancer"></span><dl class="class">
-<dt id="claripy.balancer.Balancer">
-<em class="property">class </em><code class="descclassname">claripy.balancer.</code><code class="descname">Balancer</code><span class="sig-paren">(</span><em>helper</em>, <em>c</em>, <em>validation_frontend=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.balancer.Balancer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>The Balancer is an equation redistributor. The idea is to take an AST and rebalance it to, for example, isolate
-unknown terms on one side of an inequality.</p>
-</dd></dl>
-
-<span class="target" id="module-claripy.bv"></span><span class="target" id="module-claripy.errors"></span><span class="target" id="module-claripy.fp"></span><span class="target" id="module-claripy.frontend"></span><span class="target" id="module-claripy.operations"></span><span class="target" id="module-claripy.ops"></span><div class="section" id="module-claripy.ast">
+<div class="section" id="module-claripy.ast">
 <span id="ast"></span><h2>AST<a class="headerlink" href="#module-claripy.ast" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-claripy.ast.base"></span><dl class="class">
 <dt id="claripy.ast.base.Base">
 <em class="property">class </em><code class="descclassname">claripy.ast.base.</code><code class="descname">Base</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">ana.storable.Storable</span></code></p>
-<p>An AST tracks a tree of operations on arguments. It has the following methods:</p>
+<dd><p>An AST tracks a tree of operations on arguments. It has the following methods:</p>
 <blockquote>
 <div>op: the operation that is being done on the arguments
 args: the arguments that are being used
@@ -238,17 +215,15 @@ another Reverse.</li>
 </tbody>
 </table>
 <dl class="method">
-<dt id="claripy.ast.base.Base.annotate">
-<code class="descname">annotate</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.annotate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Appends annotations to this AST.</p>
+<dt id="claripy.ast.base.Base.make_uuid">
+<code class="descname">make_uuid</code><span class="sig-paren">(</span><em>uuid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.make_uuid" title="Permalink to this definition">¶</a></dt>
+<dd><p>This overrides the default ANA uuid with the hash of the AST. UUID is slow, and we&#8217;ll soon replace it from ANA
+itself, and this will go away.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> &#8211; <p>the tuple of annotations to append</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations added</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a string representation of the AST hash.</td>
 </tr>
 </tbody>
 </table>
@@ -286,10 +261,20 @@ another Reverse.</li>
 </table>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="claripy.ast.base.Base.depth">
-<code class="descname">depth</code><a class="headerlink" href="#claripy.ast.base.Base.depth" title="Permalink to this definition">¶</a></dt>
-<dd><p>The depth of this AST. For example, an AST representing (a+(b+c)) would have a depth of 2.</p>
+<dl class="method">
+<dt id="claripy.ast.base.Base.annotate">
+<code class="descname">annotate</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.annotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends annotations to this AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> &#8211; the tuple of annotations to append (variadic positional args)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations added</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -324,30 +309,17 @@ another Reverse.</li>
 </table>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="claripy.ast.base.Base.ite_burrowed">
-<code class="descname">ite_burrowed</code><a class="headerlink" href="#claripy.ast.base.Base.ite_burrowed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an equivalent AST that &#8220;burrows&#8221; the ITE expressions as deep as possible into the ast, for simpler
-printing.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.base.Base.ite_excavated">
-<code class="descname">ite_excavated</code><a class="headerlink" href="#claripy.ast.base.Base.ite_excavated" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an equivalent AST that &#8220;excavates&#8221; the ITE expressions out as far as possible toward the root of the
-AST, for processing in static analyses.</p>
-</dd></dl>
-
 <dl class="method">
-<dt id="claripy.ast.base.Base.make_uuid">
-<code class="descname">make_uuid</code><span class="sig-paren">(</span><em>uuid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.make_uuid" title="Permalink to this definition">¶</a></dt>
-<dd><p>This overrides the default ANA uuid with the hash of the AST. UUID is slow, and we&#8217;ll soon replace it from ANA
-itself, and this will go away.</p>
+<dt id="claripy.ast.base.Base.replace_annotations">
+<code class="descname">replace_annotations</code><span class="sig-paren">(</span><em>new_tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace_annotations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces annotations on this AST.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a string representation of the AST hash.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_tuple</strong> &#8211; the tuple of annotations to replace the old annotations with</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations added</td>
 </tr>
 </tbody>
 </table>
@@ -385,41 +357,16 @@ itself, and this will go away.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="claripy.ast.base.Base.replace">
-<code class="descname">replace</code><span class="sig-paren">(</span><em>old</em>, <em>new</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an AST with all instances of the AST &#8216;old&#8217; replaced with AST &#8216;new&#8217;.</p>
+<dl class="attribute">
+<dt id="claripy.ast.base.Base.depth">
+<code class="descname">depth</code><a class="headerlink" href="#claripy.ast.base.Base.depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>The depth of this AST. For example, an AST representing (a+(b+c)) would have a depth of 2.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.ast.base.Base.replace_annotations">
-<code class="descname">replace_annotations</code><span class="sig-paren">(</span><em>new_tuple</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace_annotations" title="Permalink to this definition">¶</a></dt>
-<dd><p>Replaces annotations on this AST.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_tuple</strong> &#8211; the tuple of annotations to replace the old annotations with</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations added</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.ast.base.Base.replace_dict">
-<code class="descname">replace_dict</code><span class="sig-paren">(</span><em>replacements</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace_dict" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>replacements</strong> &#8211; A dictionary of asts to replace and their replacements.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An AST with all instances of ast&#8217;s in replacements.</td>
-</tr>
-</tbody>
-</table>
+<dt id="claripy.ast.base.Base.swap_args">
+<code class="descname">swap_args</code><span class="sig-paren">(</span><em>new_args</em>, <em>new_length=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.swap_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>This returns the same AST, with the arguments swapped out for new_args.</p>
 </dd></dl>
 
 <dl class="method">
@@ -447,23 +394,38 @@ just the AST.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.ast.base.Base.swap_args">
-<code class="descname">swap_args</code><span class="sig-paren">(</span><em>new_args</em>, <em>new_length=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.swap_args" title="Permalink to this definition">¶</a></dt>
-<dd><p>This returns the same AST, with the arguments swapped out for new_args.</p>
+<dt id="claripy.ast.base.Base.replace">
+<code class="descname">replace</code><span class="sig-paren">(</span><em>old</em>, <em>new</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an AST with all instances of the AST &#8216;old&#8217; replaced with AST &#8216;new&#8217;.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="claripy.ast.base.Base.uc_alloc_depth">
-<code class="descname">uc_alloc_depth</code><a class="headerlink" href="#claripy.ast.base.Base.uc_alloc_depth" title="Permalink to this definition">¶</a></dt>
-<dd><p>The depth of allocation by lazy-initialization. It&#8217;s only used in under-constrained symbolic execution mode.</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dl class="method">
+<dt id="claripy.ast.base.Base.replace_dict">
+<code class="descname">replace_dict</code><span class="sig-paren">(</span><em>replacements</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace_dict" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An integer indicating the allocation depth, or None if it&#8217;s not from lazy-initialization.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>replacements</strong> &#8211; A dictionary of asts to replace and their replacements.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An AST with all instances of ast&#8217;s in replacements.</td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.ast.base.Base.ite_burrowed">
+<code class="descname">ite_burrowed</code><a class="headerlink" href="#claripy.ast.base.Base.ite_burrowed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an equivalent AST that &#8220;burrows&#8221; the ITE expressions as deep as possible into the ast, for simpler
+printing.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.ast.base.Base.ite_excavated">
+<code class="descname">ite_excavated</code><a class="headerlink" href="#claripy.ast.base.Base.ite_excavated" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an equivalent AST that &#8220;excavates&#8221; the ITE expressions out as far as possible toward the root of the
+AST, for processing in static analyses.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -476,6 +438,20 @@ execution mode.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True/False/None (unspecified).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.ast.base.Base.uc_alloc_depth">
+<code class="descname">uc_alloc_depth</code><a class="headerlink" href="#claripy.ast.base.Base.uc_alloc_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>The depth of allocation by lazy-initialization. It&#8217;s only used in under-constrained symbolic execution mode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An integer indicating the allocation depth, or None if it&#8217;s not from lazy-initialization.</td>
 </tr>
 </tbody>
 </table>
@@ -615,13 +591,12 @@ to False or None.</li>
 </dd></dl>
 
 <span class="target" id="module-claripy.ast.int"></span><span class="target" id="module-claripy.ast.vs"></span></div>
-<div class="section" id="backends">
-<h2>Backends<a class="headerlink" href="#backends" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-claripy.backends"></span><dl class="class">
+<div class="section" id="module-claripy.backends">
+<span id="backends"></span><h2>Backends<a class="headerlink" href="#module-claripy.backends" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
 <dt id="claripy.backends.Backend">
 <em class="property">class </em><code class="descclassname">claripy.backends.</code><code class="descname">Backend</code><span class="sig-paren">(</span><em>solver_required=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Backends are Claripy&#8217;s workhorses. Claripy exposes ASTs (claripy.ast.Base objects)
+<dd><p>Backends are Claripy&#8217;s workhorses. Claripy exposes ASTs (claripy.ast.Base objects)
 to the world, but when actual computation has to be done, it pushes those
 ASTs into objects that can be handled by the backends themselves. This
 provides a unified interface to the outside world while allowing Claripy to
@@ -656,95 +631,22 @@ value from a private or public function of that backend. One exception to
 this is _convert(), as Claripy can try to stuff anything it feels like into
 _convert() to see if the backend can handle that type of object.</p>
 <dl class="method">
-<dt id="claripy.backends.Backend.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>s</em>, <em>c</em>, <em>track=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function adds constraints to the backend solver.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>c</strong> &#8211; A sequence of claripy.E objects.</li>
-<li><strong>s</strong> &#8211; A backend solver object.</li>
-<li><strong>track</strong> (<a class="reference internal" href="#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; True to enable constraint tracking, which is used in unsat_core().</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<dt id="claripy.backends.Backend.downsize">
+<code class="descname">downsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.downsize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears all caches associated with this backend.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.backends.Backend.apply_annotation">
-<code class="descname">apply_annotation</code><span class="sig-paren">(</span><em>o</em>, <em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.apply_annotation" title="Permalink to this definition">¶</a></dt>
-<dd><p>This should apply the annotation on the backend object, and return a new backend object.</p>
+<dt id="claripy.backends.Backend.handles">
+<code class="descname">handles</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.handles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether this backend can handle the expression.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>o</strong> &#8211; A backend object.</li>
-<li><strong>a</strong> &#8211; An Annotation object.</li>
-</ul>
-</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>expr</strong> &#8211; The expression.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A backend object.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.backends.Backend.batch_eval">
-<code class="descname">batch_eval</code><span class="sig-paren">(</span><em>exprs</em>, <em>n</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.batch_eval" title="Permalink to this definition">¶</a></dt>
-<dd><p>Evaluate one or multiple expressions.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>exprs</strong> &#8211; A list of expressions to evaluate.</li>
-<li><strong>n</strong> &#8211; Number of different solutions to return.</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
-<li><strong>solver</strong> &#8211; A solver object, native to the backend, to assist in the evaluation.</li>
-<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of up to n tuples, where each tuple is a solution for all expressions.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.backends.Backend.call">
-<code class="descname">call</code><span class="sig-paren">(</span><em>op</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.call" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calls operation <cite>op</cite> on args <cite>args</cite> with this backend.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A backend object representing the result.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.backends.Backend.cardinality">
-<code class="descname">cardinality</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.cardinality" title="Permalink to this definition">¶</a></dt>
-<dd><p>This should return the maximum number of values that an expression can take on. This should be a strict <em>over</em>
-approximation.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; A claripy A object.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An integer.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if the backend can handle this expression, False if not.</td>
 </tr>
 </tbody>
 </table>
@@ -772,57 +674,23 @@ approximation.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.backends.Backend.downsize">
-<code class="descname">downsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.downsize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Clears all caches associated with this backend.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.backends.Backend.eval">
-<code class="descname">eval</code><span class="sig-paren">(</span><em>expr</em>, <em>n</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.eval" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function returns up to <cite>n</cite> possible solutions for expression <cite>expr</cite>.</p>
+<dt id="claripy.backends.Backend.call">
+<code class="descname">call</code><span class="sig-paren">(</span><em>op</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls operation <cite>op</cite> on args <cite>args</cite> with this backend.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>expr</strong> &#8211; expression (claripy.E object) to evaluate</li>
-<li><strong>n</strong> &#8211; number of results to return</li>
-<li><strong>solver</strong> &#8211; a solver object, native to the backend, to assist in
-the evaluation (for example, a z3.Solver)</li>
-<li><strong>extra_constraints</strong> &#8211; extra constraints (claripy.E objects) to add
-to the solver for this solve</li>
-<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A sequence of up to n results (backend objects)</p>
-</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A backend object representing the result.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.backends.Backend.handles">
-<code class="descname">handles</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.handles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks whether this backend can handle the expression.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>expr</strong> &#8211; The expression.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if the backend can handle this expression, False if not.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.backends.Backend.has_false">
-<code class="descname">has_false</code><span class="sig-paren">(</span><em>e</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.has_false" title="Permalink to this definition">¶</a></dt>
-<dd><p>Should return False if <cite>e</cite> can possibly be False.</p>
+<dt id="claripy.backends.Backend.is_true">
+<code class="descname">is_true</code><span class="sig-paren">(</span><em>e</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.is_true" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should return True if <cite>e</cite> can be easily found to be True.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -831,6 +699,29 @@ to the solver for this solve</li>
 <li><strong>e</strong> &#8211; The AST.</li>
 <li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
 <li><strong>solver</strong> &#8211; A solver, for backends that require it.</li>
+<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A boolean.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.Backend.is_false">
+<code class="descname">is_false</code><span class="sig-paren">(</span><em>e</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.is_false" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should return True if e can be easily found to be False.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>e</strong> &#8211; The AST</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>solver</strong> &#8211; A solver, for backends that require it</li>
 <li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
@@ -866,51 +757,9 @@ to the solver for this solve</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.backends.Backend.identical">
-<code class="descname">identical</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.identical" title="Permalink to this definition">¶</a></dt>
-<dd><p>This should return whether <cite>a</cite> is identical to <cite>b</cite>. Of course, this isn&#8217;t always clear. True should mean that it
-is definitely identical. False eans that, conservatively, it might not be.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>a</strong> &#8211; a claripy A object</li>
-<li><strong>b</strong> &#8211; a claripy A object</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.backends.Backend.is_false">
-<code class="descname">is_false</code><span class="sig-paren">(</span><em>e</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.is_false" title="Permalink to this definition">¶</a></dt>
-<dd><p>Should return True if e can be easily found to be False.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>e</strong> &#8211; The AST</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
-<li><strong>solver</strong> &#8211; A solver, for backends that require it</li>
-<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A boolean.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.backends.Backend.is_true">
-<code class="descname">is_true</code><span class="sig-paren">(</span><em>e</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.is_true" title="Permalink to this definition">¶</a></dt>
-<dd><p>Should return True if <cite>e</cite> can be easily found to be True.</p>
+<dt id="claripy.backends.Backend.has_false">
+<code class="descname">has_false</code><span class="sig-paren">(</span><em>e</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.has_false" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should return False if <cite>e</cite> can possibly be False.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -931,15 +780,58 @@ is definitely identical. False eans that, conservatively, it might not be.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.backends.Backend.max">
-<code class="descname">max</code><span class="sig-paren">(</span><em>expr</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.max" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the maximum value of expr.</p>
+<dt id="claripy.backends.Backend.solver">
+<code class="descname">solver</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function should return an instance of whatever object handles
+solving for this backend. For example, in Z3, this would be z3.Solver().</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.Backend.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>s</em>, <em>c</em>, <em>track=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function adds constraints to the backend solver.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>c</strong> &#8211; A sequence of claripy.E objects.</li>
+<li><strong>s</strong> &#8211; A backend solver object.</li>
+<li><strong>track</strong> (<a class="reference internal" href="#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; True to enable constraint tracking, which is used in unsat_core().</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.Backend.unsat_core">
+<code class="descname">unsat_core</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.unsat_core" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns the unsat core from the backend solver.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> &#8211; A backend solver object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The unsat core.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.Backend.eval">
+<code class="descname">eval</code><span class="sig-paren">(</span><em>expr</em>, <em>n</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns up to <cite>n</cite> possible solutions for expression <cite>expr</cite>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>expr</strong> &#8211; expression (claripy.E object) to evaluate</li>
+<li><strong>n</strong> &#8211; number of results to return</li>
 <li><strong>solver</strong> &#8211; a solver object, native to the backend, to assist in
 the evaluation (for example, a z3.Solver)</li>
 <li><strong>extra_constraints</strong> &#8211; extra constraints (claripy.E objects) to add
@@ -948,7 +840,31 @@ to the solver for this solve</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the maximum possible value of expr (backend object)</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A sequence of up to n results (backend objects)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.Backend.batch_eval">
+<code class="descname">batch_eval</code><span class="sig-paren">(</span><em>exprs</em>, <em>n</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.batch_eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate one or multiple expressions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>exprs</strong> &#8211; A list of expressions to evaluate.</li>
+<li><strong>n</strong> &#8211; Number of different solutions to return.</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>solver</strong> &#8211; A solver object, native to the backend, to assist in the evaluation.</li>
+<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of up to n tuples, where each tuple is a solution for all expressions.</p>
 </td>
 </tr>
 </tbody>
@@ -981,14 +897,25 @@ to the solver for this solve</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.backends.Backend.name">
-<code class="descname">name</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>This should return the name of an expression.</p>
+<dt id="claripy.backends.Backend.max">
+<code class="descname">max</code><span class="sig-paren">(</span><em>expr</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the maximum value of expr.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the claripy A object</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> &#8211; expression (claripy.E object) to evaluate</li>
+<li><strong>solver</strong> &#8211; a solver object, native to the backend, to assist in
+the evaluation (for example, a z3.Solver)</li>
+<li><strong>extra_constraints</strong> &#8211; extra constraints (claripy.E objects) to add
+to the solver for this solve</li>
+<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the maximum possible value of expr (backend object)</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1011,20 +938,6 @@ to the solver for this solve</li>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if sat, otherwise false</p>
 </td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.backends.Backend.size">
-<code class="descname">size</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>This should return the size of an expression.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the claripy A object</td>
 </tr>
 </tbody>
 </table>
@@ -1056,26 +969,102 @@ a z3.Solver).</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.backends.Backend.solver">
-<code class="descname">solver</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.solver" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function should return an instance of whatever object handles
-solving for this backend. For example, in Z3, this would be z3.Solver().</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.backends.Backend.unsat_core">
-<code class="descname">unsat_core</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.unsat_core" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function returns the unsat core from the backend solver.</p>
+<dt id="claripy.backends.Backend.size">
+<code class="descname">size</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should return the size of an expression.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> &#8211; A backend solver object.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The unsat core.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the claripy A object</td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.Backend.name">
+<code class="descname">name</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should return the name of an expression.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the claripy A object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.Backend.identical">
+<code class="descname">identical</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.identical" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should return whether <cite>a</cite> is identical to <cite>b</cite>. Of course, this isn&#8217;t always clear. True should mean that it
+is definitely identical. False eans that, conservatively, it might not be.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>a</strong> &#8211; a claripy A object</li>
+<li><strong>b</strong> &#8211; a claripy A object</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.Backend.cardinality">
+<code class="descname">cardinality</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.cardinality" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should return the maximum number of values that an expression can take on. This should be a strict <em>over</em>
+approximation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; A claripy A object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An integer.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.Backend.apply_annotation">
+<code class="descname">apply_annotation</code><span class="sig-paren">(</span><em>o</em>, <em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.apply_annotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should apply the annotation on the backend object, and return a new backend object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>o</strong> &#8211; A backend object.</li>
+<li><strong>a</strong> &#8211; An Annotation object.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A backend object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-claripy.backend_manager"></span><span class="target" id="module-claripy.backend_object"></span><dl class="class">
+<dt id="claripy.backend_object.BackendObject">
+<em class="property">class </em><code class="descclassname">claripy.backend_object.</code><code class="descname">BackendObject</code><a class="headerlink" href="#claripy.backend_object.BackendObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a base class for custom backend objects to implement.</p>
+<p>It lets Claripy know that how to deal with those objects, in case they&#8217;re directly used in operations.</p>
+<p>Backend objects that <em>don&#8217;t</em> derive from this class need to be wrapped in a type-I claripy.ast.Base.</p>
+<dl class="method">
+<dt id="claripy.backend_object.BackendObject.to_claripy">
+<code class="descname">to_claripy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend_object.BackendObject.to_claripy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Claripy calls this to retrieve something that it can directly reason about.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1092,8 +1081,7 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 <span class="target" id="module-claripy.vsa.abstract_location"></span><span class="target" id="module-claripy.vsa.bool_result"></span><span class="target" id="module-claripy.vsa.discrete_strided_interval_set"></span><dl class="class">
 <dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet">
 <em class="property">class </em><code class="descclassname">claripy.vsa.discrete_strided_interval_set.</code><code class="descname">DiscreteStridedIntervalSet</code><span class="sig-paren">(</span><em>name=None</em>, <em>bits=0</em>, <em>si_set=None</em>, <em>max_cardinality=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#claripy.vsa.strided_interval.StridedInterval" title="claripy.vsa.strided_interval.StridedInterval"><code class="xref py py-class docutils literal"><span class="pre">claripy.vsa.strided_interval.StridedInterval</span></code></a></p>
-<p>A DiscreteStridedIntervalSet represents one or more discrete StridedInterval instances.</p>
+<dd><p>A DiscreteStridedIntervalSet represents one or more discrete StridedInterval instances.</p>
 <dl class="attribute">
 <dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.cardinality">
 <code class="descname">cardinality</code><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.cardinality" title="Permalink to this definition">¶</a></dt>
@@ -1123,6 +1111,20 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.normalize">
+<code class="descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the collapsed object if <code class="docutils literal"><span class="pre">should_collapse()</span></code> is True, otherwise return self.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A DiscreteStridedIntervalSet object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.concat">
 <code class="descname">concat</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.concat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Operation concat</p>
@@ -1133,26 +1135,6 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand to concatenate with.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The concatenated value.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.eval">
-<code class="descname">eval</code><span class="sig-paren">(</span><em>n</em>, <em>signed=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.eval" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>n</strong> &#8211; </li>
-<li><strong>signed</strong> &#8211; </li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
-</td>
 </tr>
 </tbody>
 </table>
@@ -1180,14 +1162,20 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.normalize">
-<code class="descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.normalize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the collapsed object if <code class="docutils literal"><span class="pre">should_collapse()</span></code> is True, otherwise return self.</p>
-<table class="docutils field-list" frame="void" rules="none">
+<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.eval">
+<code class="descname">eval</code><span class="sig-paren">(</span><em>n</em>, <em>signed=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.eval" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A DiscreteStridedIntervalSet object.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>n</strong> &#8211; </li>
+<li><strong>signed</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -1210,22 +1198,6 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.widen">
-<code class="descname">widen</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.widen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Widening operator.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The widened result.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
 <dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.zero_extend">
 <code class="descname">zero_extend</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.zero_extend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Operation ZeroExt</p>
@@ -1241,39 +1213,179 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.widen">
+<code class="descname">widen</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.widen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Widening operator.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The widened result.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<span class="target" id="module-claripy.vsa.errors"></span><span class="target" id="module-claripy.vsa.strided_interval"></span><dl class="function">
-<dt id="claripy.vsa.strided_interval.CreateStridedInterval">
-<code class="descclassname">claripy.vsa.strided_interval.</code><code class="descname">CreateStridedInterval</code><span class="sig-paren">(</span><em>name=None</em>, <em>bits=0</em>, <em>stride=None</em>, <em>lower_bound=None</em>, <em>upper_bound=None</em>, <em>uninitialized=False</em>, <em>to_conv=None</em>, <em>discrete_set=False</em>, <em>discrete_set_max_cardinality=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.CreateStridedInterval" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+</dd></dl>
+
+<span class="target" id="module-claripy.vsa.errors"></span><span class="target" id="module-claripy.vsa.strided_interval"></span><dl class="class">
+<dt id="claripy.vsa.strided_interval.WarrenMethods">
+<em class="property">class </em><code class="descclassname">claripy.vsa.strided_interval.</code><code class="descname">WarrenMethods</code><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Methods as suggested in book.
+Hackers Delight.</p>
+<dl class="staticmethod">
+<dt id="claripy.vsa.strided_interval.WarrenMethods.min_or">
+<em class="property">static </em><code class="descname">min_or</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.min_or" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lower bound of result of ORing 2-intervals.</p>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; </li>
-<li><strong>bits</strong> &#8211; </li>
-<li><strong>stride</strong> &#8211; </li>
-<li><strong>lower_bound</strong> &#8211; </li>
-<li><strong>upper_bound</strong> &#8211; </li>
-<li><strong>to_conv</strong> &#8211; </li>
-<li><strong>discrete_set</strong> (<a class="reference internal" href="#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; </li>
-<li><strong>discrete_set_max_cardinality</strong> (<a class="reference internal" href="#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; </li>
+<li><strong>a</strong> &#8211; Lower bound of first interval</li>
+<li><strong>b</strong> &#8211; Upper bound of first interval</li>
+<li><strong>c</strong> &#8211; Lower bound of second interval</li>
+<li><strong>d</strong> &#8211; Upper bound of second interval</li>
+<li><strong>w</strong> &#8211; bit width</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Lower bound of ORing 2-intervals</p>
 </td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="claripy.vsa.strided_interval.WarrenMethods.max_or">
+<em class="property">static </em><code class="descname">max_or</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.max_or" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upper bound of result of ORing 2-intervals.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> &#8211; Lower bound of first interval</li>
+<li><strong>b</strong> &#8211; Upper bound of first interval</li>
+<li><strong>c</strong> &#8211; Lower bound of second interval</li>
+<li><strong>d</strong> &#8211; Upper bound of second interval</li>
+<li><strong>w</strong> &#8211; bit width</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Upper bound of ORing 2-intervals</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.vsa.strided_interval.WarrenMethods.min_and">
+<em class="property">static </em><code class="descname">min_and</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.min_and" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lower bound of result of ANDing 2-intervals.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> &#8211; Lower bound of first interval</li>
+<li><strong>b</strong> &#8211; Upper bound of first interval</li>
+<li><strong>c</strong> &#8211; Lower bound of second interval</li>
+<li><strong>d</strong> &#8211; Upper bound of second interval</li>
+<li><strong>w</strong> &#8211; bit width</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Lower bound of ANDing 2-intervals</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.vsa.strided_interval.WarrenMethods.max_and">
+<em class="property">static </em><code class="descname">max_and</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.max_and" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upper bound of result of ANDing 2-intervals.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> &#8211; Lower bound of first interval</li>
+<li><strong>b</strong> &#8211; Upper bound of first interval</li>
+<li><strong>c</strong> &#8211; Lower bound of second interval</li>
+<li><strong>d</strong> &#8211; Upper bound of second interval</li>
+<li><strong>w</strong> &#8211; bit width</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Upper bound of ANDing 2-intervals</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.vsa.strided_interval.WarrenMethods.min_xor">
+<em class="property">static </em><code class="descname">min_xor</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.min_xor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lower bound of result of XORing 2-intervals.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> &#8211; Lower bound of first interval</li>
+<li><strong>b</strong> &#8211; Upper bound of first interval</li>
+<li><strong>c</strong> &#8211; Lower bound of second interval</li>
+<li><strong>d</strong> &#8211; Upper bound of second interval</li>
+<li><strong>w</strong> &#8211; bit width</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Lower bound of XORing 2-intervals</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.vsa.strided_interval.WarrenMethods.max_xor">
+<em class="property">static </em><code class="descname">max_xor</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.max_xor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upper bound of result of XORing 2-intervals.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> &#8211; Lower bound of first interval</li>
+<li><strong>b</strong> &#8211; Upper bound of first interval</li>
+<li><strong>c</strong> &#8211; Lower bound of second interval</li>
+<li><strong>d</strong> &#8211; Upper bound of second interval</li>
+<li><strong>w</strong> &#8211; bit width</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Upper bound of XORing 2-intervals</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt id="claripy.vsa.strided_interval.StridedInterval">
 <em class="property">class </em><code class="descclassname">claripy.vsa.strided_interval.</code><code class="descname">StridedInterval</code><span class="sig-paren">(</span><em>name=None</em>, <em>bits=0</em>, <em>stride=None</em>, <em>lower_bound=None</em>, <em>upper_bound=None</em>, <em>uninitialized=False</em>, <em>bottom=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#claripy.backend_object.BackendObject" title="claripy.backend_object.BackendObject"><code class="xref py py-class docutils literal"><span class="pre">claripy.backend_object.BackendObject</span></code></a></p>
-<p>A Strided Interval is represented in the following form:</p>
+<dd><p>A Strided Interval is represented in the following form:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">bits</span><span class="o">&gt;</span> <span class="n">stride</span><span class="p">[</span><span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -1285,34 +1397,54 @@ Note that this implementation only takes hint from [1]. Such a work has been imp
 DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 <p>Thanks all corresponding authors for their outstanding works.</p>
 <dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.LShR">
-<code class="descname">LShR</code><span class="sig-paren">(</span><em>shift_amount</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.LShR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logical shift right.
-:param StridedInterval shift_amount: The amount of shifting
-:return: The shifted StridedInterval object
-:rtype: StridedInterval</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.SGE">
-<code class="descname">SGE</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.SGE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Signed greater than or equal to.</p>
+<dt id="claripy.vsa.strided_interval.StridedInterval.eval">
+<code class="descname">eval</code><span class="sig-paren">(</span><em>n</em>, <em>signed=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate this StridedInterval to obtain a list of concrete integers.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>n</strong> &#8211; Upper bound for the number of concrete integers</li>
+<li><strong>signed</strong> &#8211; Treat this StridedInterval as signed or unsigned</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of at most <cite>n</cite> concrete integers</p>
+</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.SGT">
-<code class="descname">SGT</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.SGT" title="Permalink to this definition">¶</a></dt>
-<dd><p>Signed greater than.</p>
+<dt id="claripy.vsa.strided_interval.StridedInterval.solution">
+<code class="descname">solution</code><span class="sig-paren">(</span><em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.solution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether an integer is solution of the current strided Interval
+:param b: integer to check
+:return: True if b belongs to the current Strided Interval, False otherwhise</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.vsa.strided_interval.StridedInterval.identical">
+<code class="descname">identical</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.identical" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used to make exact comparisons between two StridedIntervals. Usually it is only used in test cases.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other StridedInterval to compare with.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if they are exactly same, False otherwise.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.vsa.strided_interval.StridedInterval.SLT">
+<code class="descname">SLT</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.SLT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signed less than</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1342,40 +1474,8 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.SLT">
-<code class="descname">SLT</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.SLT" title="Permalink to this definition">¶</a></dt>
-<dd><p>Signed less than</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.UGE">
-<code class="descname">UGE</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.UGE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unsigned greater than or equal to.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.UGT">
-<code class="descname">UGT</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.UGT" title="Permalink to this definition">¶</a></dt>
+<dt id="claripy.vsa.strided_interval.StridedInterval.SGT">
+<code class="descname">SGT</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.SGT" title="Permalink to this definition">¶</a></dt>
 <dd><p>Signed greater than.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1390,9 +1490,9 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.ULE">
-<code class="descname">ULE</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.ULE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unsigned less than or equal to.</p>
+<dt id="claripy.vsa.strided_interval.StridedInterval.SGE">
+<code class="descname">SGE</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.SGE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signed greater than or equal to.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1422,101 +1522,48 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Binary operation: add</p>
+<dt id="claripy.vsa.strided_interval.StridedInterval.ULE">
+<code class="descname">ULE</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.ULE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unsigned less than or equal to.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">self + b</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.bitwise_and">
-<code class="descname">bitwise_and</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.bitwise_and" title="Permalink to this definition">¶</a></dt>
-<dd><p>Binary operation: logical and</p>
+<dt id="claripy.vsa.strided_interval.StridedInterval.UGT">
+<code class="descname">UGT</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.UGT" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signed greater than.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.bitwise_or">
-<code class="descname">bitwise_or</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.bitwise_or" title="Permalink to this definition">¶</a></dt>
-<dd><p>Binary operation: logical or</p>
+<dt id="claripy.vsa.strided_interval.StridedInterval.UGE">
+<code class="descname">UGE</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.UGE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unsigned greater than or equal to.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">self | b</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.bitwise_xor">
-<code class="descname">bitwise_xor</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.bitwise_xor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Operation xor</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> &#8211; The other operand.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.vsa.strided_interval.StridedInterval.complement">
-<code class="descname">complement</code><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.complement" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the complement of the interval
-Refer section 3.1 augmented for managing strides</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="claripy.vsa.strided_interval.StridedInterval.diop_natural_solution_linear">
-<em class="property">static </em><code class="descname">diop_natural_solution_linear</code><span class="sig-paren">(</span><em>c</em>, <em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.diop_natural_solution_linear" title="Permalink to this definition">¶</a></dt>
-<dd><p>It finds the fist natural solution of the diophantine equation
-a*x + b*y = c. Some lines of this code are taken from the project
-sympy.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>c</strong> &#8211; constant</li>
-<li><strong>a</strong> &#8211; quotient of x</li>
-<li><strong>b</strong> &#8211; quotient of y</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the first natural solution of the diophatine equation</p>
-</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
 </tr>
 </tbody>
 </table>
@@ -1539,101 +1586,45 @@ sympy.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.eval">
-<code class="descname">eval</code><span class="sig-paren">(</span><em>n</em>, <em>signed=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.eval" title="Permalink to this definition">¶</a></dt>
-<dd><p>Evaluate this StridedInterval to obtain a list of concrete integers.</p>
+<dt id="claripy.vsa.strided_interval.StridedInterval.LShR">
+<code class="descname">LShR</code><span class="sig-paren">(</span><em>shift_amount</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.LShR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logical shift right.
+:param StridedInterval shift_amount: The amount of shifting
+:return: The shifted StridedInterval object
+:rtype: StridedInterval</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.vsa.strided_interval.StridedInterval.complement">
+<code class="descname">complement</code><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.complement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the complement of the interval
+Refer section 3.1 augmented for managing strides</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>n</strong> &#8211; Upper bound for the number of concrete integers</li>
-<li><strong>signed</strong> &#8211; Treat this StridedInterval as signed or unsigned</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of at most <cite>n</cite> concrete integers</p>
-</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-<dl class="staticmethod">
-<dt id="claripy.vsa.strided_interval.StridedInterval.extended_euclid">
-<em class="property">static </em><code class="descname">extended_euclid</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.extended_euclid" title="Permalink to this definition">¶</a></dt>
-<dd><p>It calculates the GCD of a and b, and two values x and y such that:
-a*x + b*y = GCD(a,b).
-This code has been taken from the project sympy.</p>
+<dl class="attribute">
+<dt id="claripy.vsa.strided_interval.StridedInterval.is_empty">
+<code class="descname">is_empty</code><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>The same as is_bottom
+:return: True/False</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.vsa.strided_interval.StridedInterval.is_top">
+<code class="descname">is_top</code><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.is_top" title="Permalink to this definition">¶</a></dt>
+<dd><p>If this is a TOP value.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; first integer</li>
-<li><strong>b</strong> &#8211; second integer</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">x,y and the GCD of a and b</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="claripy.vsa.strided_interval.StridedInterval.gcd">
-<em class="property">static </em><code class="descname">gcd</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.gcd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the greatest common divisor.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; The first operand (integer)</li>
-<li><strong>b</strong> &#8211; The second operand (integer)</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Their GCD</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.identical">
-<code class="descname">identical</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.identical" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used to make exact comparisons between two StridedIntervals. Usually it is only used in test cases.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other StridedInterval to compare with.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if they are exactly same, False otherwise.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="claripy.vsa.strided_interval.StridedInterval.igcd">
-<em class="property">static </em><code class="descname">igcd</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.igcd" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; First integer</li>
-<li><strong>b</strong> &#8211; Second integer</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the integer GCD between a and b</p>
-</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if this is a TOP</td>
 </tr>
 </tbody>
 </table>
@@ -1654,13 +1645,6 @@ This code has been taken from the project sympy.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="claripy.vsa.strided_interval.StridedInterval.is_empty">
-<code class="descname">is_empty</code><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.is_empty" title="Permalink to this definition">¶</a></dt>
-<dd><p>The same as is_bottom
-:return: True/False</p>
-</dd></dl>
-
-<dl class="attribute">
 <dt id="claripy.vsa.strided_interval.StridedInterval.is_integer">
 <code class="descname">is_integer</code><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.is_integer" title="Permalink to this definition">¶</a></dt>
 <dd><p>If this is an integer, i.e. self.lower_bound == self.upper_bound.</p>
@@ -1669,20 +1653,6 @@ This code has been taken from the project sympy.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if this is an integer, False otherwise</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.vsa.strided_interval.StridedInterval.is_top">
-<code class="descname">is_top</code><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.is_top" title="Permalink to this definition">¶</a></dt>
-<dd><p>If this is a TOP value.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if this is a TOP</td>
 </tr>
 </tbody>
 </table>
@@ -1710,24 +1680,37 @@ This code has been taken from the project sympy.</p>
 </dd></dl>
 
 <dl class="staticmethod">
-<dt id="claripy.vsa.strided_interval.StridedInterval.least_upper_bound">
-<em class="property">static </em><code class="descname">least_upper_bound</code><span class="sig-paren">(</span><em>*intervals_to_join</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.least_upper_bound" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pseudo least upper bound.
-Join the given set of intervals into a big interval. The resulting strided interval is the one which in
-all the possible joins of the presented SI, presented the least number of values.</p>
-<p>The number of joins to compute is linear with the number of intervals to join.</p>
-<p>Draft of proof:
-Considering  three generic SI (a,b, and c) ordered from their lower bounds, such that
-a.lower_bund &lt;= b.lower_bound &lt;= c.lower_bound, where &lt;= is the lexicographic less or equal.
-The only joins which have sense to compute are:
-* a U b U c
-* b U c U a
-* c U a U b</p>
-<p>All the other combinations fall in either one of these cases. For example: b U a U c does not make make sense
-to be calculated. In fact, if one draws this union, the result is exactly either (b U c U a) or (a U b U c) or
-(c U a U b).
-:param intervals_to_join: Intervals to join
-:return: Interval that contains all intervals</p>
+<dt id="claripy.vsa.strided_interval.StridedInterval.gcd">
+<em class="property">static </em><code class="descname">gcd</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.gcd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the greatest common divisor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> &#8211; The first operand (integer)</li>
+<li><strong>b</strong> &#8211; The second operand (integer)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Their GCD</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.vsa.strided_interval.StridedInterval.upper">
+<em class="property">static </em><code class="descname">upper</code><span class="sig-paren">(</span><em>bits</em>, <em>i</em>, <em>stride</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.upper" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="staticmethod">
@@ -1738,6 +1721,52 @@ to be calculated. In fact, if one draws this union, the result is exactly either
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.vsa.strided_interval.StridedInterval.top">
+<em class="property">static </em><code class="descname">top</code><span class="sig-paren">(</span><em>bits</em>, <em>name=None</em>, <em>uninitialized=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.top" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a TOP StridedInterval.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.vsa.strided_interval.StridedInterval.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binary operation: add</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">self + b</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.vsa.strided_interval.StridedInterval.sub">
+<code class="descname">sub</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.sub" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binary operation: sub</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">self - b</td>
 </tr>
 </tbody>
 </table>
@@ -1757,6 +1786,121 @@ to be calculated. In fact, if one draws this union, the result is exactly either
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.vsa.strided_interval.StridedInterval.sdiv">
+<code class="descname">sdiv</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.sdiv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binary operation: signed division</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The divisor</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(self / o) in signed arithmetic</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.vsa.strided_interval.StridedInterval.udiv">
+<code class="descname">udiv</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.udiv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binary operation: unsigned division</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The divisor</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(self / o) in unsigned arithmetic</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.vsa.strided_interval.StridedInterval.bitwise_or">
+<code class="descname">bitwise_or</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.bitwise_or" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binary operation: logical or</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">self | b</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.vsa.strided_interval.StridedInterval.bitwise_and">
+<code class="descname">bitwise_and</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.bitwise_and" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binary operation: logical and</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.vsa.strided_interval.StridedInterval.bitwise_xor">
+<code class="descname">bitwise_xor</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.bitwise_xor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Operation xor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> &#8211; The other operand.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.vsa.strided_interval.StridedInterval.union">
+<code class="descname">union</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.union" title="Permalink to this definition">¶</a></dt>
+<dd><p>The union operation. It might return a DiscreteStridedIntervalSet to allow for better precision in analysis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; Operand</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A new DiscreteStridedIntervalSet, or a new StridedInterval.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.vsa.strided_interval.StridedInterval.least_upper_bound">
+<em class="property">static </em><code class="descname">least_upper_bound</code><span class="sig-paren">(</span><em>*intervals_to_join</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.least_upper_bound" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pseudo least upper bound.
+Join the given set of intervals into a big interval. The resulting strided interval is the one which in
+all the possible joins of the presented SI, presented the least number of values.</p>
+<p>The number of joins to compute is linear with the number of intervals to join.</p>
+<p>Draft of proof:
+Considering  three generic SI (a,b, and c) ordered from their lower bounds, such that
+a.lower_bund &lt;= b.lower_bound &lt;= c.lower_bound, where &lt;= is the lexicographic less or equal.
+The only joins which have sense to compute are:
+* a U b U c
+* b U c U a
+* c U a U b</p>
+<p>All the other combinations fall in either one of these cases. For example: b U a U c does not make make sense
+to be calculated. In fact, if one draws this union, the result is exactly either (b U c U a) or (a U b U c) or
+(c U a U b).
+:param intervals_to_join: Intervals to join
+:return: Interval that contains all intervals</p>
 </dd></dl>
 
 <dl class="staticmethod">
@@ -1789,6 +1933,73 @@ function will join the two SI according on the order they are passed to the func
 </table>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="claripy.vsa.strided_interval.StridedInterval.extended_euclid">
+<em class="property">static </em><code class="descname">extended_euclid</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.extended_euclid" title="Permalink to this definition">¶</a></dt>
+<dd><p>It calculates the GCD of a and b, and two values x and y such that:
+a*x + b*y = GCD(a,b).
+This code has been taken from the project sympy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> &#8211; first integer</li>
+<li><strong>b</strong> &#8211; second integer</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">x,y and the GCD of a and b</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.vsa.strided_interval.StridedInterval.igcd">
+<em class="property">static </em><code class="descname">igcd</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.igcd" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>a</strong> &#8211; First integer</li>
+<li><strong>b</strong> &#8211; Second integer</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the integer GCD between a and b</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.vsa.strided_interval.StridedInterval.diop_natural_solution_linear">
+<em class="property">static </em><code class="descname">diop_natural_solution_linear</code><span class="sig-paren">(</span><em>c</em>, <em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.diop_natural_solution_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>It finds the fist natural solution of the diophantine equation
+a*x + b*y = c. Some lines of this code are taken from the project
+sympy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>c</strong> &#8211; constant</li>
+<li><strong>a</strong> &#8211; quotient of x</li>
+<li><strong>b</strong> &#8211; quotient of y</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the first natural solution of the diophatine equation</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="claripy.vsa.strided_interval.StridedInterval.reverse">
 <code class="descname">reverse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.reverse" title="Permalink to this definition">¶</a></dt>
@@ -1804,264 +2015,38 @@ StridedInterval object.</p>
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.sdiv">
-<code class="descname">sdiv</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.sdiv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Binary operation: signed division</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The divisor</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(self / o) in signed arithmetic</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.solution">
-<code class="descname">solution</code><span class="sig-paren">(</span><em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.solution" title="Permalink to this definition">¶</a></dt>
-<dd><p>Checks whether an integer is solution of the current strided Interval
-:param b: integer to check
-:return: True if b belongs to the current Strided Interval, False otherwhise</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.sub">
-<code class="descname">sub</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.sub" title="Permalink to this definition">¶</a></dt>
-<dd><p>Binary operation: sub</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">self - b</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="claripy.vsa.strided_interval.StridedInterval.top">
-<em class="property">static </em><code class="descname">top</code><span class="sig-paren">(</span><em>bits</em>, <em>name=None</em>, <em>uninitialized=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.top" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a TOP StridedInterval.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.udiv">
-<code class="descname">udiv</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.udiv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Binary operation: unsigned division</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The divisor</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(self / o) in unsigned arithmetic</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.strided_interval.StridedInterval.union">
-<code class="descname">union</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.union" title="Permalink to this definition">¶</a></dt>
-<dd><p>The union operation. It might return a DiscreteStridedIntervalSet to allow for better precision in analysis.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; Operand</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A new DiscreteStridedIntervalSet, or a new StridedInterval.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="claripy.vsa.strided_interval.StridedInterval.upper">
-<em class="property">static </em><code class="descname">upper</code><span class="sig-paren">(</span><em>bits</em>, <em>i</em>, <em>stride</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.upper" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="claripy.vsa.strided_interval.CreateStridedInterval">
+<code class="descclassname">claripy.vsa.strided_interval.</code><code class="descname">CreateStridedInterval</code><span class="sig-paren">(</span><em>name=None</em>, <em>bits=0</em>, <em>stride=None</em>, <em>lower_bound=None</em>, <em>upper_bound=None</em>, <em>uninitialized=False</em>, <em>to_conv=None</em>, <em>discrete_set=False</em>, <em>discrete_set_max_cardinality=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.CreateStridedInterval" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="claripy.vsa.strided_interval.WarrenMethods">
-<em class="property">class </em><code class="descclassname">claripy.vsa.strided_interval.</code><code class="descname">WarrenMethods</code><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Methods as suggested in book.
-Hackers Delight.</p>
-<dl class="staticmethod">
-<dt id="claripy.vsa.strided_interval.WarrenMethods.max_and">
-<em class="property">static </em><code class="descname">max_and</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.max_and" title="Permalink to this definition">¶</a></dt>
-<dd><p>Upper bound of result of ANDing 2-intervals.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; Lower bound of first interval</li>
-<li><strong>b</strong> &#8211; Upper bound of first interval</li>
-<li><strong>c</strong> &#8211; Lower bound of second interval</li>
-<li><strong>d</strong> &#8211; Upper bound of second interval</li>
-<li><strong>w</strong> &#8211; bit width</li>
+<li><strong>name</strong> &#8211; </li>
+<li><strong>bits</strong> &#8211; </li>
+<li><strong>stride</strong> &#8211; </li>
+<li><strong>lower_bound</strong> &#8211; </li>
+<li><strong>upper_bound</strong> &#8211; </li>
+<li><strong>to_conv</strong> &#8211; </li>
+<li><strong>discrete_set</strong> (<a class="reference internal" href="#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; </li>
+<li><strong>discrete_set_max_cardinality</strong> (<a class="reference internal" href="#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; </li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Upper bound of ANDing 2-intervals</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
 </td>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="claripy.vsa.strided_interval.WarrenMethods.max_or">
-<em class="property">static </em><code class="descname">max_or</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.max_or" title="Permalink to this definition">¶</a></dt>
-<dd><p>Upper bound of result of ORing 2-intervals.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; Lower bound of first interval</li>
-<li><strong>b</strong> &#8211; Upper bound of first interval</li>
-<li><strong>c</strong> &#8211; Lower bound of second interval</li>
-<li><strong>d</strong> &#8211; Upper bound of second interval</li>
-<li><strong>w</strong> &#8211; bit width</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Upper bound of ORing 2-intervals</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="claripy.vsa.strided_interval.WarrenMethods.max_xor">
-<em class="property">static </em><code class="descname">max_xor</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.max_xor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Upper bound of result of XORing 2-intervals.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; Lower bound of first interval</li>
-<li><strong>b</strong> &#8211; Upper bound of first interval</li>
-<li><strong>c</strong> &#8211; Lower bound of second interval</li>
-<li><strong>d</strong> &#8211; Upper bound of second interval</li>
-<li><strong>w</strong> &#8211; bit width</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Upper bound of XORing 2-intervals</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="claripy.vsa.strided_interval.WarrenMethods.min_and">
-<em class="property">static </em><code class="descname">min_and</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.min_and" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lower bound of result of ANDing 2-intervals.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; Lower bound of first interval</li>
-<li><strong>b</strong> &#8211; Upper bound of first interval</li>
-<li><strong>c</strong> &#8211; Lower bound of second interval</li>
-<li><strong>d</strong> &#8211; Upper bound of second interval</li>
-<li><strong>w</strong> &#8211; bit width</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Lower bound of ANDing 2-intervals</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="claripy.vsa.strided_interval.WarrenMethods.min_or">
-<em class="property">static </em><code class="descname">min_or</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.min_or" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lower bound of result of ORing 2-intervals.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; Lower bound of first interval</li>
-<li><strong>b</strong> &#8211; Upper bound of first interval</li>
-<li><strong>c</strong> &#8211; Lower bound of second interval</li>
-<li><strong>d</strong> &#8211; Upper bound of second interval</li>
-<li><strong>w</strong> &#8211; bit width</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Lower bound of ORing 2-intervals</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="claripy.vsa.strided_interval.WarrenMethods.min_xor">
-<em class="property">static </em><code class="descname">min_xor</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.min_xor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lower bound of result of XORing 2-intervals.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; Lower bound of first interval</li>
-<li><strong>b</strong> &#8211; Upper bound of first interval</li>
-<li><strong>c</strong> &#8211; Lower bound of second interval</li>
-<li><strong>d</strong> &#8211; Upper bound of second interval</li>
-<li><strong>w</strong> &#8211; bit width</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Lower bound of XORing 2-intervals</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </dd></dl>
 
 <span class="target" id="module-claripy.vsa.valueset"></span><dl class="class">
 <dt id="claripy.vsa.valueset.RegionAnnotation">
 <em class="property">class </em><code class="descclassname">claripy.vsa.valueset.</code><code class="descname">RegionAnnotation</code><span class="sig-paren">(</span><em>region_id</em>, <em>region_base_addr</em>, <em>offset</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.valueset.RegionAnnotation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">claripy.annotation.Annotation</span></code></p>
-<p>Use RegionAnnotation to annotate ASTs. Normally, an AST annotated by RegionAnnotations is treated as a ValueSet.</p>
+<dd><p>Use RegionAnnotation to annotate ASTs. Normally, an AST annotated by RegionAnnotations is treated as a ValueSet.</p>
 <p>Note that Annotation objects are immutable. Do not change properties of an Annotation object without creating a new
 one.</p>
 <dl class="attribute">
@@ -2122,8 +2107,7 @@ one.</p>
 <dl class="class">
 <dt id="claripy.vsa.valueset.ValueSet">
 <em class="property">class </em><code class="descclassname">claripy.vsa.valueset.</code><code class="descname">ValueSet</code><span class="sig-paren">(</span><em>name=None</em>, <em>region=None</em>, <em>region_base_addr=None</em>, <em>bits=None</em>, <em>val=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.valueset.ValueSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#claripy.backend_object.BackendObject" title="claripy.backend_object.BackendObject"><code class="xref py py-class docutils literal"><span class="pre">claripy.backend_object.BackendObject</span></code></a></p>
-<p>ValueSet is a mapping between memory regions and corresponding offsets.</p>
+<dd><p>ValueSet is a mapping between memory regions and corresponding offsets.</p>
 <p>Constructor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -2141,6 +2125,22 @@ one.</p>
 </tbody>
 </table>
 <dl class="method">
+<dt id="claripy.vsa.valueset.ValueSet.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.valueset.ValueSet.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a copy of self and return.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A new ValueSet object.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet" title="claripy.vsa.valueset.ValueSet">ValueSet</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="claripy.vsa.valueset.ValueSet.apply_annotation">
 <code class="descname">apply_annotation</code><span class="sig-paren">(</span><em>annotation</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.valueset.ValueSet.apply_annotation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply a new annotation onto self, and return a new ValueSet object.</p>
@@ -2153,22 +2153,6 @@ one.</p>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A new ValueSet object</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet" title="claripy.vsa.valueset.ValueSet">ValueSet</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="claripy.vsa.valueset.ValueSet.copy">
-<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.valueset.ValueSet.copy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Make a copy of self and return.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A new ValueSet object.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#claripy.vsa.valueset.ValueSet" title="claripy.vsa.valueset.ValueSet">ValueSet</a></td>
 </tr>
 </tbody>
 </table>
@@ -2221,6 +2205,16 @@ one.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-claripy">
+<span id="misc-things"></span><h2>Misc. Things<a class="headerlink" href="#module-claripy" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-claripy.balancer"></span><dl class="class">
+<dt id="claripy.balancer.Balancer">
+<em class="property">class </em><code class="descclassname">claripy.balancer.</code><code class="descname">Balancer</code><span class="sig-paren">(</span><em>helper</em>, <em>c</em>, <em>validation_frontend=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.balancer.Balancer" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Balancer is an equation redistributor. The idea is to take an AST and rebalance it to, for example, isolate
+unknown terms on one side of an inequality.</p>
+</dd></dl>
+
+<span class="target" id="module-claripy.bv"></span><span class="target" id="module-claripy.errors"></span><span class="target" id="module-claripy.fp"></span><span class="target" id="module-claripy.operations"></span><span class="target" id="module-claripy.ops"></span></div>
 </div>
 
 
@@ -2230,10 +2224,10 @@ one.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cle.html" class="btn btn-neutral float-right" title="cle — CLE Loads Everything" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cle.html" class="btn btn-neutral float-right" title="cle — Binary Loader" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pyvex.html" class="btn btn-neutral" title="pyvex — PyVex" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="simuvex.html" class="btn btn-neutral" title="simuvex — Program State and Emulation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -2242,7 +2236,7 @@ one.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, The angr project.
+        &copy; Copyright 2017, The angr project.
 
     </p>
   </div>
