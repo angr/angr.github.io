@@ -332,7 +332,7 @@ this may be overridden with the <cite>stack_base</cite> parameter to each indivi
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>arch</strong> &#8211; The Archinfo arch for this binary</li>
+<li><strong>arch</strong> &#8211; The Archinfo arch for this CC</li>
 <li><strong>args</strong> &#8211; A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> &#8211; A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> &#8211; The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
@@ -344,6 +344,32 @@ this may be overridden with the <cite>stack_base</cite> parameter to each indivi
 </tr>
 </tbody>
 </table>
+<dl class="classmethod">
+<dt id="simuvex.s_cc.SimCC.from_arg_kinds">
+<em class="property">classmethod </em><code class="descname">from_arg_kinds</code><span class="sig-paren">(</span><em>arch</em>, <em>fp_args</em>, <em>ret_fp=False</em>, <em>sizes=None</em>, <em>sp_delta=None</em>, <em>func_ty=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_cc.SimCC.from_arg_kinds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an instance of the class that will extract floating-point/integral args correctly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>arch</strong> &#8211; The Archinfo arch for this CC</li>
+<li><strong>fp_args</strong> &#8211; A list, with one entry for each argument the function can take. True if the argument is fp,
+false if it is integral.</li>
+<li><strong>ret_fp</strong> &#8211; True if the return value for the function is fp.</li>
+<li><strong>sizes</strong> &#8211; Optional: A list, with one entry for each argument the function can take. Each entry is the
+size of the corresponding argument in bytes.</li>
+<li><strong>sp_delta</strong> &#8211; The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="simuvex.s_cc.SimCC.int_args">
 <code class="descname">int_args</code><a class="headerlink" href="#simuvex.s_cc.SimCC.int_args" title="Permalink to this definition">¶</a></dt>
@@ -521,7 +547,7 @@ allocations happen at increasing addresses.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>arch</strong> &#8211; The Archinfo arch for this binary</li>
+<li><strong>arch</strong> &#8211; The Archinfo arch for this CC</li>
 <li><strong>args</strong> &#8211; A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> &#8211; A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> &#8211; The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
