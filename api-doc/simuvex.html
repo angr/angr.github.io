@@ -1329,7 +1329,167 @@ analysis.</li>
 </div>
 <div class="section" id="module-simuvex.procedures">
 <span id="procedures"></span><h2>Procedures<a class="headerlink" href="#module-simuvex.procedures" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-simuvex.s_procedure"></span><span class="target" id="module-simuvex.s_format"></span><dl class="class">
+<span class="target" id="module-simuvex.s_procedure"></span><dl class="class">
+<dt id="simuvex.s_procedure.SimProcedure">
+<em class="property">class </em><code class="descclassname">simuvex.s_procedure.</code><code class="descname">SimProcedure</code><span class="sig-paren">(</span><em>addr</em>, <em>arch</em>, <em>symbolic_return=None</em>, <em>returns=None</em>, <em>is_syscall=None</em>, <em>num_args=None</em>, <em>display_name=None</em>, <em>convention=None</em>, <em>sim_kwargs=None</em>, <em>is_function=None</em>, <em>is_continuation=False</em>, <em>continuation_addr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_procedure.SimProcedure" title="Permalink to this definition">¶</a></dt>
+<dd><p>A SimProcedure is a wonderful object which describes a procedure to run on a state.</p>
+<p>You may subclass SimProcedure and override <code class="docutils literal"><span class="pre">run()</span></code>, replacing it with mutating <code class="docutils literal"><span class="pre">self.state</span></code> however you like,
+and then either returning a value or jumping away somehow.</p>
+<p>A detailed discussion of programming SimProcedures may be found at <a class="reference external" href="https://docs.angr.io/docs/simprocedures.md">https://docs.angr.io/docs/simprocedures.md</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>arch</strong> &#8211; The architecture to use for this procedure</td>
+</tr>
+</tbody>
+</table>
+<p>The following parameters are optional:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>symbolic_return</strong> &#8211; Whether the procedure&#8217;s return value should be stubbed into a
+single symbolic variable constratined to the real return value</li>
+<li><strong>returns</strong> &#8211; Whether the procedure should return to its caller afterwards</li>
+<li><strong>is_syscall</strong> &#8211; Whether this procedure is a syscall</li>
+<li><strong>num_args</strong> &#8211; The number of arguments this procedure should extract</li>
+<li><strong>display_name</strong> &#8211; The name to use when displaying this procedure</li>
+<li><strong>convention</strong> &#8211; The SimCC to use for this procedure</li>
+<li><strong>sim_kwargs</strong> &#8211; Additional keyword arguments to be passed to run()</li>
+<li><strong>is_function</strong> &#8211; Whether this procedure emulates a function</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="simuvex.s_procedure.SimProcedure.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>state</em>, <em>successors=None</em>, <em>arguments=None</em>, <em>ret_to=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_procedure.SimProcedure.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call this method with a SimState and a SimSuccessors to execute the procedure.</p>
+<p>Alternately, successors may be none if this is an inline call. In that case, you should
+provide arguments to the function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.s_procedure.SimProcedure.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_procedure.SimProcedure.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement the actual procedure here!</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.s_procedure.SimProcedure.static_exits">
+<code class="descname">static_exits</code><span class="sig-paren">(</span><em>blocks</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_procedure.SimProcedure.static_exits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get new exits by performing static analysis and heuristics. This is a fast and best-effort approach to get new
+exits for scenarios where states are not available (e.g. when building a fast CFG).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>blocks</strong> (<em>list</em>) &#8211; Blocks that are executed before reaching this SimProcedure.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of tuples. Each tuple is (address, jumpkind).</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.s_procedure.SimProcedure.arg">
+<code class="descname">arg</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_procedure.SimProcedure.arg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the ith argument. Raise a SimProcedureArgumentError if we don&#8217;t have such an argument available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>i</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The index of the argument to get</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The argument</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.s_procedure.SimProcedure.set_return_expr">
+<code class="descname">set_return_expr</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_procedure.SimProcedure.set_return_expr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set this expression as the return value for the function.
+If this is not an inline call, this will write the expression to the state via the
+calling convention.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.s_procedure.SimProcedure.inline_call">
+<code class="descname">inline_call</code><span class="sig-paren">(</span><em>procedure</em>, <em>*arguments</em>, <em>**sim_kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_procedure.SimProcedure.inline_call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call another SimProcedure in-line to retrieve its return value.
+Returns an instance of the procedure with the ret_expr property set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>procedure</strong> &#8211; The class of the procedure to execute</li>
+<li><strong>arguments</strong> &#8211; Any additional positional args will be used as arguments to the
+procedure call</li>
+<li><strong>sim_kwargs</strong> &#8211; Any additional keyword args will be passed as sim_kwargs to the
+procedure construtor</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.s_procedure.SimProcedure.ret">
+<code class="descname">ret</code><span class="sig-paren">(</span><em>expr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_procedure.SimProcedure.ret" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an exit representing a return from this function.
+If this is not an inline call, grab a return address from the state and jump to it.
+If this is not an inline call, set a return expression with the calling convention.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.s_procedure.SimProcedure.call">
+<code class="descname">call</code><span class="sig-paren">(</span><em>addr</em>, <em>args</em>, <em>continue_at</em>, <em>cc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_procedure.SimProcedure.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an exit representing calling another function via pointer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>addr</strong> &#8211; The address of the function to call</li>
+<li><strong>args</strong> &#8211; The list of arguments to call the function with</li>
+<li><strong>continue_at</strong> &#8211; Later, when the called function returns, execution of the current
+procedure will continue in the named method.</li>
+<li><strong>cc</strong> &#8211; Optional: use this calling convention for calling the new function.
+Default is to use the current convention.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.s_procedure.SimProcedure.jump">
+<code class="descname">jump</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_procedure.SimProcedure.jump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an exit representing jumping to an address.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="simuvex.s_procedure.SimProcedure.exit">
+<code class="descname">exit</code><span class="sig-paren">(</span><em>exit_code</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_procedure.SimProcedure.exit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add an exit representing terminating the program.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-simuvex.s_format"></span><dl class="class">
 <dt id="simuvex.s_format.FormatString">
 <em class="property">class </em><code class="descclassname">simuvex.s_format.</code><code class="descname">FormatString</code><span class="sig-paren">(</span><em>parser</em>, <em>components</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.s_format.FormatString" title="Permalink to this definition">¶</a></dt>
 <dd><p>Describes a format string.</p>
