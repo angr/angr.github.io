@@ -763,6 +763,32 @@ this <cite>cc</cite> object.</p>
 <p>For stack arguments, offsets are relative to the stack pointer on function entry.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="angr.factory.AngrObjectFactory.cc_from_arg_kinds">
+<code class="descname">cc_from_arg_kinds</code><span class="sig-paren">(</span><em>fp_args</em>, <em>ret_fp=None</em>, <em>sizes=None</em>, <em>sp_delta=None</em>, <em>func_ty=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.cc_from_arg_kinds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a SimCC (calling convention) that will extract floating-point/integral args correctly.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>arch</strong> &#8211; The Archinfo arch for this CC</li>
+<li><strong>fp_args</strong> &#8211; A list, with one entry for each argument the function can take. True if the argument is fp,
+false if it is integral.</li>
+<li><strong>ret_fp</strong> &#8211; True if the return value for the function is fp.</li>
+<li><strong>sizes</strong> &#8211; Optional: A list, with one entry for each argument the function can take. Each entry is the
+size of the corresponding argument in bytes.</li>
+<li><strong>sp_delta</strong> &#8211; The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
