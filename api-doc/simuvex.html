@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>simuvex — Program State and Emulation &mdash; angr 6.7.1.31 documentation</title>
+  <title>simuvex — Program State and Emulation &mdash; angr 6.7.3.26 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 6.7.1.31 documentation" href="index.html"/>
+    <link rel="top" title="angr 6.7.3.26 documentation" href="index.html"/>
         <link rel="next" title="claripy — Solver Engine" href="claripy.html"/>
         <link rel="prev" title="angr — Analysis and Coordination" href="angr.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                6.7.1.31
+                6.7.3.26
               </div>
             
           
@@ -135,7 +135,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/simuvex.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/simuvex.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -162,7 +162,7 @@
 <li><strong>regs</strong> &#8211; A convenient view of the state&#8217;s registers, where each register is a property</li>
 <li><strong>mem</strong> &#8211; A convenient view of the state&#8217;s memory, a <a class="reference internal" href="#simuvex.plugins.view.SimMemView" title="simuvex.plugins.view.SimMemView"><code class="xref py py-class docutils literal"><span class="pre">simuvex.plugins.view.SimMemView</span></code></a></li>
 <li><strong>registers</strong> &#8211; The state&#8217;s register file as a flat memory region</li>
-<li><a class="reference internal" href="cle.html#module-cle.memory" title="cle.memory"><strong>memory</strong></a> &#8211; The state&#8217;s memory as a flat memory region</li>
+<li><a class="reference internal" href="#module-simuvex.storage.memory" title="simuvex.storage.memory"><strong>memory</strong></a> &#8211; The state&#8217;s memory as a flat memory region</li>
 <li><strong>se</strong> &#8211; The solver engine for this state</li>
 <li><a class="reference internal" href="#module-simuvex.plugins.inspect" title="simuvex.plugins.inspect"><strong>inspect</strong></a> &#8211; The breakpoint manager, a <a class="reference internal" href="#simuvex.plugins.inspect.SimInspector" title="simuvex.plugins.inspect.SimInspector"><code class="xref py py-class docutils literal"><span class="pre">simuvex.plugins.inspect.SimInspector</span></code></a></li>
 <li><strong>log</strong> &#8211; Information about the state&#8217;s history</li>
@@ -566,7 +566,7 @@ allocations happen at increasing addresses.</p>
 <span id="engines"></span><h2>Engines<a class="headerlink" href="#module-simuvex.engines" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-simuvex.engines.engine"></span><dl class="class">
 <dt id="simuvex.engines.engine.SimEngine">
-<em class="property">class </em><code class="descclassname">simuvex.engines.engine.</code><code class="descname">SimEngine</code><span class="sig-paren">(</span><em>check_failed=None</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.engine.SimEngine" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">simuvex.engines.engine.</code><code class="descname">SimEngine</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#simuvex.engines.engine.SimEngine" title="Permalink to this definition">¶</a></dt>
 <dd><p>A SimEngine is a class which understands how to perform execution on a state. This is a base class.</p>
 <dl class="method">
 <dt id="simuvex.engines.engine.SimEngine.process">
@@ -2766,7 +2766,7 @@ a certain return value.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'6.7.1.31',
+            VERSION:'6.7.3.26',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyvex — Binary Translator &mdash; angr 6.7.1.31 documentation</title>
+  <title>pyvex — Binary Translator &mdash; angr 6.7.3.26 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 6.7.1.31 documentation" href="index.html"/>
+    <link rel="top" title="angr 6.7.3.26 documentation" href="index.html"/>
         <link rel="next" title="archinfo — Arch Information Repository" href="archinfo.html"/>
         <link rel="prev" title="cle — Binary Loader" href="cle.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                6.7.1.31
+                6.7.3.26
               </div>
             
           
@@ -130,7 +130,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/pyvex.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/pyvex.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -144,25 +144,11 @@
 <span id="pyvex-binary-translator"></span><h1><a class="reference internal" href="#module-pyvex" title="pyvex"><code class="xref py py-mod docutils literal"><span class="pre">pyvex</span></code></a> &#8212; Binary Translator<a class="headerlink" href="#module-pyvex" title="Permalink to this headline">¶</a></h1>
 <p>PyVEX provides an interface that translates binary code into the VEX intermediate represenation (IR).
 For an introduction to VEX, take a look here: <a class="reference external" href="https://docs.angr.io/docs/ir.html">https://docs.angr.io/docs/ir.html</a></p>
-<dl class="function">
-<dt id="pyvex.set_iropt_level">
-<code class="descclassname">pyvex.</code><code class="descname">set_iropt_level</code><span class="sig-paren">(</span><em>lvl</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.set_iropt_level" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the VEX optimization level to <cite>lvl</cite>. Valid values are 0, 1 and 2.</p>
-<p>0 performs no optimization, 1 performs basic optimizations, and 2 performs loop unrolling, among other things.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyvex.enable_debug">
-<code class="descclassname">pyvex.</code><code class="descname">enable_debug</code><span class="sig-paren">(</span><em>debug</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.enable_debug" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set the debug flag to <cite>debug</cite>. Valid values are True. False, 0 and 1.</p>
-<p>False/0 disables debugging output, True/1 enables it.</p>
-</dd></dl>
-
 <div class="section" id="module-pyvex.block">
 <span id="translation-interface"></span><h2>Translation Interface<a class="headerlink" href="#module-pyvex.block" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyvex.block.IRSB">
-<em class="property">class </em><code class="descclassname">pyvex.block.</code><code class="descname">IRSB</code><span class="sig-paren">(</span><em>data</em>, <em>mem_addr</em>, <em>arch</em>, <em>num_inst=None</em>, <em>num_bytes=None</em>, <em>bytes_offset=0</em>, <em>traceflags=0</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRSB" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.block.</code><code class="descname">IRSB</code><span class="sig-paren">(</span><em>data</em>, <em>mem_addr</em>, <em>arch</em>, <em>max_inst=None</em>, <em>max_bytes=None</em>, <em>bytes_offset=0</em>, <em>traceflags=0</em>, <em>opt_level=1</em>, <em>num_inst=None</em>, <em>num_bytes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRSB" title="Permalink to this definition">¶</a></dt>
 <dd><p>The IRSB is the primary interface to pyvex. Constructing one of these will make a call into LibVEX to perform a
 translation.</p>
 <p>IRSB stands for <em>Intermediate Representation Super-Block</em>. An IRSB in VEX is a single-entry, multiple-exit code
@@ -183,14 +169,15 @@ block.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> (<em>str</em><em> or </em><a class="reference internal" href="archinfo.html#archinfo.arch.Arch.bytes" title="archinfo.arch.Arch.bytes"><em>bytes</em></a><em> or </em><em>cffi.FFI.CData</em><em> or </em><em>None</em>) &#8211; The bytes to lift. Can be either a string of bytes or a cffi buffer object.
+<li><strong>data</strong> (<em>str or bytes or cffi.FFI.CData or None</em>) &#8211; The bytes to lift. Can be either a string of bytes or a cffi buffer object.
 You may also pass None to initialize an empty IRSB.</li>
 <li><strong>mem_addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address to lift the data at.</li>
 <li><strong>arch</strong> (<code class="xref py py-class docutils literal"><span class="pre">archinfo.Arch</span></code>) &#8211; The architecture to lift the data as.</li>
-<li><strong>num_inst</strong> &#8211; The maximum number of instructions to lift. Max 99. (See note below)</li>
-<li><strong>num_bytes</strong> &#8211; The maximum number of bytes to use. Max 400.</li>
+<li><strong>max_inst</strong> &#8211; The maximum number of instructions to lift. Max 99. (See note below)</li>
+<li><strong>max_bytes</strong> &#8211; The maximum number of bytes to use. Max 5000.</li>
 <li><strong>bytes_offset</strong> &#8211; The offset into <cite>data</cite> to start lifting at.</li>
 <li><strong>traceflags</strong> &#8211; The libVEX traceflags, controlling VEX debug prints.</li>
+<li><strong>opt_level</strong> &#8211; The level of optimization to apply to the IR, 0-2.</li>
 </ul>
 </td>
 </tr>
@@ -198,11 +185,11 @@ You may also pass None to initialize an empty IRSB.</li>
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Explicitly specifying the number of instructions to lift (<cite>num_inst</cite>) may not always work
+<p class="last">Explicitly specifying the number of instructions to lift (<cite>max_inst</cite>) may not always work
 exactly as expected. For example, on MIPS, it is meaningless to lift a branch or jump
 instruction without its delay slot. VEX attempts to Do The Right Thing by possibly decoding
 fewer instructions than requested. Specifically, this means that lifting a branch or jump
-on MIPS as a single instruction (<cite>num_inst=1</cite>) will result in an empty IRSB, and subsequent
+on MIPS as a single instruction (<cite>max_inst=1</cite>) will result in an empty IRSB, and subsequent
 attempts to run this block will raise <cite>SimIRSBError(&#8216;Empty IRSB passed to SimIRSB.&#8217;)</cite>.</p>
 </div>
 <dl class="method">
@@ -542,7 +529,7 @@ rotating register files on the guest.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'6.7.1.31',
+            VERSION:'6.7.3.26',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cle — Binary Loader &mdash; angr 6.7.1.31 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 6.7.3.26 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 6.7.1.31 documentation" href="index.html"/>
+    <link rel="top" title="angr 6.7.3.26 documentation" href="index.html"/>
         <link rel="next" title="pyvex — Binary Translator" href="pyvex.html"/>
         <link rel="prev" title="claripy — Solver Engine" href="claripy.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                6.7.1.31
+                6.7.3.26
               </div>
             
           
@@ -132,7 +132,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/cle.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/cle.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -159,7 +159,7 @@ address space with loaded and rebased binaries.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="#module-cle.memory" title="cle.memory"><strong>memory</strong></a> (<a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><em>cle.memory.Clemory</em></a>) &#8211; The loaded, rebased, and relocated memory of the program.</li>
+<li><a class="reference internal" href="simuvex.html#module-simuvex.storage.memory" title="simuvex.storage.memory"><strong>memory</strong></a> (<a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><em>cle.memory.Clemory</em></a>) &#8211; The loaded, rebased, and relocated memory of the program.</li>
 <li><strong>main_bin</strong> &#8211; The object representing the main binary (i.e., the executable).</li>
 <li><strong>shared_objects</strong> &#8211; A dictionary mapping loaded library names to the objects representing them.</li>
 <li><strong>all_objects</strong> &#8211; A list containing representations of all the different objects loaded.</li>
@@ -467,7 +467,7 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first simple">
-<li><strong>binary</strong> &#8211; The path to the file this object is loaded from</li>
+<li><a class="reference internal" href="angr.html#angr.knowledge.function.Function.binary" title="angr.knowledge.function.Function.binary"><strong>binary</strong></a> &#8211; The path to the file this object is loaded from</li>
 <li><strong>is_main_bin</strong> &#8211; Whether this binary is loaded as the main executable</li>
 <li><strong>segments</strong> &#8211; A listing of all the loaded segments in this file</li>
 <li><strong>sections</strong> &#8211; A listing of all the demarked sections in the file</li>
@@ -1158,7 +1158,7 @@ except to make it seem like the data has actually been patched by the given patc
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'6.7.1.31',
+            VERSION:'6.7.3.26',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
