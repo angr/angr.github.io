@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cle — Binary Loader &mdash; angr 6.7.3.26 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 6.7.4.12 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 6.7.3.26 documentation" href="index.html"/>
+    <link rel="top" title="angr 6.7.4.12 documentation" href="index.html"/>
         <link rel="next" title="pyvex — Binary Translator" href="pyvex.html"/>
         <link rel="prev" title="claripy — Solver Engine" href="claripy.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                6.7.3.26
+                6.7.4.12
               </div>
             
           
@@ -132,7 +132,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/cle.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/cle.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -159,7 +159,7 @@ address space with loaded and rebased binaries.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="simuvex.html#module-simuvex.storage.memory" title="simuvex.storage.memory"><strong>memory</strong></a> (<a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><em>cle.memory.Clemory</em></a>) &#8211; The loaded, rebased, and relocated memory of the program.</li>
+<li><a class="reference internal" href="#module-cle.memory" title="cle.memory"><strong>memory</strong></a> (<a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><em>cle.memory.Clemory</em></a>) &#8211; The loaded, rebased, and relocated memory of the program.</li>
 <li><strong>main_bin</strong> &#8211; The object representing the main binary (i.e., the executable).</li>
 <li><strong>shared_objects</strong> &#8211; A dictionary mapping loaded library names to the objects representing them.</li>
 <li><strong>all_objects</strong> &#8211; A list containing representations of all the different objects loaded.</li>
@@ -453,6 +453,80 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <dt id="cle.backends.Section.is_executable">
 <code class="descname">is_executable</code><a class="headerlink" href="#cle.backends.Section.is_executable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether this section has execute permissions</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.Regions">
+<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Regions</code><span class="sig-paren">(</span><em>lst=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Regions" title="Permalink to this definition">¶</a></dt>
+<dd><p>A container class acting as a list of regions (sections or segments). Additionally, it keeps an sorted list of
+those regions to allow fast lookups.</p>
+<p>We assume none of the regions overlap with others.</p>
+<dl class="attribute">
+<dt id="cle.backends.Regions.raw_list">
+<code class="descname">raw_list</code><a class="headerlink" href="#cle.backends.Regions.raw_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the internal list. Any change to it is not tracked, and therefore _sorted_list will not be updated.
+Therefore you probably does not want to modify the list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The internal list container.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.Regions.max_addr">
+<code class="descname">max_addr</code><a class="headerlink" href="#cle.backends.Regions.max_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the highest address of all regions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The highest address of all regions, or None if there is no region available.</td>
+</tr>
+</tbody>
+</table>
+<p>rtype:   int or None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.Regions.append">
+<code class="descname">append</code><span class="sig-paren">(</span><em>region</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Regions.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append a new Region instance into the list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region</strong> (<a class="reference internal" href="#cle.backends.Region" title="cle.backends.Region"><em>Region</em></a>) &#8211; The region to append.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.Regions.find_region_containing">
+<code class="descname">find_region_containing</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Regions.find_region_containing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the region that contains a specific address. Returns None if none of the regions covers the address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The region that covers the specific address, or None if no such region is found.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cle.backends.Region" title="cle.backends.Region">Region</a> or None</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -1158,7 +1232,7 @@ except to make it seem like the data has actually been patched by the given patc
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'6.7.3.26',
+            VERSION:'6.7.4.12',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
