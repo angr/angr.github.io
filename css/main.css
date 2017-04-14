@@ -147,9 +147,11 @@ ul {
 .expandable { overflow: hidden; height: 0px; }
 .expand-check { display: none; }
 .show-less { display: none; }
+.show-more { display: inline; }
 .expand-check:checked ~ .expandable { height: auto; }
 .expand-check:checked + label .show-more { display: none; }
-.expand-check:checked + label .show-less { display: block; }
+.expand-check:checked + label .show-less { display: inline; }
+.block { display: block; }
 
 #announce {
     font-style: italic;
