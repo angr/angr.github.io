@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>angr API documentation &mdash; angr 6.7.7.27 documentation</title>
+  <title>angr API documentation &mdash; angr 6.7.7.31 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 6.7.7.27 documentation" href="#"/>
+    <link rel="top" title="angr 6.7.7.31 documentation" href="#"/>
         <link rel="next" title="angr — Analysis and Coordination" href="angr.html"/> 
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                6.7.7.27
+                6.7.7.31
               </div>
             
           
@@ -145,24 +145,24 @@ The type should refer to the python primitive type.</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="angr.html#project">Project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="angr.html#factory">Factory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="angr.html#paths-path-groups">Paths &amp; Path Groups</a></li>
-<li class="toctree-l2"><a class="reference internal" href="angr.html#knowledge-base">Knowledge Base</a></li>
-<li class="toctree-l2"><a class="reference internal" href="angr.html#analysis">Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="angr.html#simos">SimOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.project">Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.factory">Factory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.path">Paths &amp; Path Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.knowledge_base">Knowledge Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.analysis">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.simos">SimOS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#surveyors">Surveyors</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="simuvex.html"><code class="docutils literal"><span class="pre">simuvex</span></code> &#8212; Program State and Emulation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#program-state">Program State</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#calling-conventions">Calling Conventions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#engines">Engines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#plugins">Plugins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#procedures">Procedures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#storage">Storage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#useful-for-analysis-i-guess">Useful for Analysis, I Guess?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#logging-data">Logging Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.s_state">Program State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.s_cc">Calling Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.engines">Engines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.plugins">Plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.procedures">Procedures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.storage">Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.s_slicer">Useful for Analysis, I Guess?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.s_action">Logging Data</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a><ul>
@@ -175,17 +175,17 @@ The type should refer to the python primitive type.</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cle.html#loading-interface">Loading Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cle.html#backends">Backends</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cle.html#module-cle.loader">Loading Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cle.html#module-cle.backends">Backends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cle.html#relocations">Relocations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cle.html#thread-local-storage">Thread-local storage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cle.html#misc-utilities">Misc. Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cle.html#module-cle.tls">Thread-local storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cle.html#module-cle.errors">Misc. Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pyvex.html#translation-interface">Translation Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyvex.html#ir-components">IR Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyvex.html#misc-things">Misc. Things</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.block">Translation Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.stmt">IR Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.enums">Misc. Things</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Information Repository</a></li>
@@ -240,7 +240,7 @@ The type should refer to the python primitive type.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'6.7.7.27',
+            VERSION:'6.7.7.31',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
