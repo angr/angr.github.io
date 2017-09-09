@@ -4470,6 +4470,511 @@ definitions and one for type definitions.</p>
 <p>Contains things like a CFG, data references, etc.</p>
 </dd></dl>
 
+<span class="target" id="module-angr.knowledge_plugins"></span><span class="target" id="module-angr.knowledge_plugins.plugin"></span><span class="target" id="module-angr.knowledge_plugins.comments"></span><span class="target" id="module-angr.knowledge_plugins.data"></span><span class="target" id="module-angr.knowledge_plugins.indirect_jumps"></span><span class="target" id="module-angr.knowledge_plugins.labels"></span><span class="target" id="module-angr.knowledge_plugins.functions"></span><span class="target" id="module-angr.knowledge_plugins.functions.function_manager"></span><dl class="class">
+<dt id="angr.knowledge_plugins.functions.function_manager.FunctionDict">
+<em class="property">class </em><code class="descclassname">angr.knowledge_plugins.functions.function_manager.</code><code class="descname">FunctionDict</code><span class="sig-paren">(</span><em>backref</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function_manager.FunctionDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>FunctionDict is a dict where the keys are function starting addresses and
+map to the associated <code class="xref py py-class docutils literal"><span class="pre">Function</span></code>.</p>
+<dl class="attribute">
+<dt id="angr.knowledge_plugins.functions.function_manager.FunctionDict.l">
+<code class="descname">l</code><em class="property"> = None</em><a class="headerlink" href="#angr.knowledge_plugins.functions.function_manager.FunctionDict.l" title="Permalink to this definition">¶</a></dt>
+<dd><p>FunctionDict is a dict where the keys are function starting addresses and
+map to the associated <code class="xref py py-class docutils literal"><span class="pre">Function</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.knowledge_plugins.functions.function_manager.FunctionManager">
+<em class="property">class </em><code class="descclassname">angr.knowledge_plugins.functions.function_manager.</code><code class="descname">FunctionManager</code><span class="sig-paren">(</span><em>kb</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function_manager.FunctionManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a function boundaries management tool. It takes in intermediate
+results during CFG generation, and manages a function map of the binary.</p>
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function_manager.FunctionManager.contains_addr">
+<code class="descname">contains_addr</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function_manager.FunctionManager.contains_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decide if an address is handled by the function manager.</p>
+<p>Note: this function is non-conformant with python programming idioms, but its needed for performance reasons.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> (<em>int</em>) – Address of the function.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function_manager.FunctionManager.ceiling_func">
+<code class="descname">ceiling_func</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function_manager.FunctionManager.ceiling_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the function who has the least address that is greater than or equal to <cite>addr</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> (<em>int</em>) – The address to query.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A Function instance, or None if there is no other function after <cite>addr</cite>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#angr.knowledge_plugins.functions.function.Function" title="angr.knowledge_plugins.functions.function.Function">Function</a> or None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function_manager.FunctionManager.floor_func">
+<code class="descname">floor_func</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function_manager.FunctionManager.floor_func" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the function who has the greatest address that is less than or equal to <cite>addr</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> (<em>int</em>) – The address to query.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A Function instance, or None if there is no other function before <cite>addr</cite>.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#angr.knowledge_plugins.functions.function.Function" title="angr.knowledge_plugins.functions.function.Function">Function</a> or None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function_manager.FunctionManager.function">
+<code class="descname">function</code><span class="sig-paren">(</span><em>addr=None</em>, <em>name=None</em>, <em>create=False</em>, <em>syscall=False</em>, <em>plt=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function_manager.FunctionManager.function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a function object from the function manager.</p>
+<p>Pass either <cite>addr</cite> or <cite>name</cite> with the appropriate values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> (<em>int</em>) – Address of the function.</li>
+<li><strong>name</strong> (<em>str</em>) – Name of the function.</li>
+<li><strong>create</strong> (<em>bool</em>) – Whether to create the function or not if the function does not exist.</li>
+<li><strong>syscall</strong> (<em>bool</em>) – True to create the function as a syscall, False otherwise.</li>
+<li><strong>or None plt</strong> (<em>bool</em>) – True to find the PLT stub, False to find a non-PLT stub, None to disable this
+restriction.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The Function instance, or None if the function is not found and create is False.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.knowledge_plugins.functions.function.Function" title="angr.knowledge_plugins.functions.function.Function">Function</a> or None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.knowledge_plugins.functions.function"></span><dl class="class">
+<dt id="angr.knowledge_plugins.functions.function.Function">
+<em class="property">class </em><code class="descclassname">angr.knowledge_plugins.functions.function.</code><code class="descname">Function</code><span class="sig-paren">(</span><em>function_manager</em>, <em>addr</em>, <em>name=None</em>, <em>syscall=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function" title="Permalink to this definition">¶</a></dt>
+<dd><p>A representation of a function and various information about it.</p>
+<p>Function constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>addr</strong> – The address of the function.</li>
+<li><strong>name</strong> – (Optional) The name of the function.</li>
+<li><strong>syscall</strong> – (Optional) Whether this function is a syscall or not.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="angr.knowledge_plugins.functions.function.Function.l">
+<code class="descname">l</code><em class="property"> = None</em><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.l" title="Permalink to this definition">¶</a></dt>
+<dd><p>A representation of a function and various information about it.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge_plugins.functions.function.Function.blocks">
+<code class="descname">blocks</code><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.blocks" title="Permalink to this definition">¶</a></dt>
+<dd><p>An iterator of all local blocks in the current function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">angr.lifter.Block instances.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge_plugins.functions.function.Function.block_addrs">
+<code class="descname">block_addrs</code><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.block_addrs" title="Permalink to this definition">¶</a></dt>
+<dd><p>An iterator of all local block addresses in the current function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">block addresses.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge_plugins.functions.function.Function.block_addrs_set">
+<code class="descname">block_addrs_set</code><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.block_addrs_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a set of block addresses for a better performance of inclusion tests.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A set of block addresses.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge_plugins.functions.function.Function.operations">
+<code class="descname">operations</code><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.operations" title="Permalink to this definition">¶</a></dt>
+<dd><p>All of the operations that are done by this functions.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge_plugins.functions.function.Function.code_constants">
+<code class="descname">code_constants</code><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.code_constants" title="Permalink to this definition">¶</a></dt>
+<dd><p>All of the constants that are used by this functions’s code.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function.Function.string_references">
+<code class="descname">string_references</code><span class="sig-paren">(</span><em>minimum_length=2</em>, <em>vex_only=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.string_references" title="Permalink to this definition">¶</a></dt>
+<dd><p>All of the constant string references used by this function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>minimum_length</strong> – The minimum length of strings to find (default is 1)</li>
+<li><strong>vex_only</strong> – Only analyze VEX IR, don’t interpret the entry state to detect additional constants.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of tuples of (address, string) where is address is the location of the string in
+memory.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge_plugins.functions.function.Function.local_runtime_values">
+<code class="descname">local_runtime_values</code><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.local_runtime_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tries to find all runtime values of this function which do not come from inputs.
+These values are generated by starting from a blank state and reanalyzing the basic blocks once each.
+Function calls are skipped, and back edges are never taken so these values are often unreliable,
+This function is good at finding simple constant addresses which the function will use or calculate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a set of constants</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge_plugins.functions.function.Function.runtime_values">
+<code class="descname">runtime_values</code><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.runtime_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>All of the concrete values used by this function at runtime (i.e., including passed-in arguments and global
+values).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge_plugins.functions.function.Function.binary">
+<code class="descname">binary</code><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the object this function belongs to.
+:return: The object this function belongs to.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function.Function.add_jumpout_site">
+<code class="descname">add_jumpout_site</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.add_jumpout_site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a custom jumpout site.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> – The address of the basic block that control flow leaves during this transition.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function.Function.add_retout_site">
+<code class="descname">add_retout_site</code><span class="sig-paren">(</span><em>node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.add_retout_site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a custom retout site.</p>
+<p>Retout (returning to outside of the function) sites are very rare. It mostly occurs during CFG recovery when we
+incorrectly identify the beginning of a function in the first iteration, and then correctly identify that
+function later in the same iteration (function alignments can lead to this bizarre case). We will mark all edges
+going out of the header of that function as a outside edge, because all successors now belong to the
+incorrectly-identified function. This identification error will be fixed in the second iteration of CFG
+recovery. However, we still want to keep track of jumpouts/retouts during the first iteration so other logic in
+CFG recovery still work.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>node</strong> – The address of the basic block that control flow leaves the current function after a call.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function.Function.mark_nonreturning_calls_endpoints">
+<code class="descname">mark_nonreturning_calls_endpoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.mark_nonreturning_calls_endpoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate through all call edges in transition graph. For each call a non-returning function, mark the source
+basic block as an endpoint.</p>
+<p>This method should only be executed once all functions are recovered and analyzed by CFG recovery, so we know
+whether each function returns or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function.Function.get_call_sites">
+<code class="descname">get_call_sites</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.get_call_sites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a list of all the basic blocks that end in calls.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of the addresses of the blocks that end in calls.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function.Function.get_call_target">
+<code class="descname">get_call_target</code><span class="sig-paren">(</span><em>callsite_addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.get_call_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the target of a call.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>callsite_addr</strong> – The address of a basic block that ends in a call.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The target of said call, or None if callsite_addr is not a
+callsite.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function.Function.get_call_return">
+<code class="descname">get_call_return</code><span class="sig-paren">(</span><em>callsite_addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.get_call_return" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the hypothetical return address of a call.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>callsite_addr</strong> – The address of the basic block that ends in a call.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The likely return target of said call, or None if callsite_addr
+is not a callsite.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge_plugins.functions.function.Function.graph">
+<code class="descname">graph</code><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a local transition graph that only contain nodes in current function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function.Function.subgraph">
+<code class="descname">subgraph</code><span class="sig-paren">(</span><em>ins_addrs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.subgraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a sub control flow graph of instruction addresses based on self.graph</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ins_addrs</strong> (<em>iterable</em>) – A collection of instruction addresses that should be included in the subgraph.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A subgraph.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">networkx.DiGraph</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function.Function.instruction_size">
+<code class="descname">instruction_size</code><span class="sig-paren">(</span><em>insn_addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.instruction_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the size of the instruction specified by <cite>insn_addr</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>insn_addr</strong> (<em>int</em>) – Address of the instruction</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Size of the instruction in bytes, or None if the instruction is not found.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function.Function.dbg_print">
+<code class="descname">dbg_print</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.dbg_print" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a representation of the list of basic blocks in this function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function.Function.dbg_draw">
+<code class="descname">dbg_draw</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.dbg_draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw the graph and save it to a PNG file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function.Function.normalize">
+<code class="descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make sure all basic blocks in the transition graph of this function do not overlap. You will end up with a CFG
+that IDA Pro generates.</p>
+<p>This method does not touch the CFG result. You may call CFG{Accurate, Fast}.normalize() for that matter.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.knowledge_plugins.variables"></span><span class="target" id="module-angr.knowledge_plugins.variables.variable_access"></span><span class="target" id="module-angr.knowledge_plugins.variables.variable_manager"></span><dl class="class">
+<dt id="angr.knowledge_plugins.variables.variable_manager.LiveVariables">
+<em class="property">class </em><code class="descclassname">angr.knowledge_plugins.variables.variable_manager.</code><code class="descname">LiveVariables</code><span class="sig-paren">(</span><em>register_region</em>, <em>stack_region</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.LiveVariables" title="Permalink to this definition">¶</a></dt>
+<dd><p>A collection of live variables at a program point.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal">
+<em class="property">class </em><code class="descclassname">angr.knowledge_plugins.variables.variable_manager.</code><code class="descname">VariableManagerInternal</code><span class="sig-paren">(</span><em>manager</em>, <em>func_addr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manage variables for a function. It is meant to be used internally by VariableManager.</p>
+<dl class="method">
+<dt id="angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.get_variables">
+<code class="descname">get_variables</code><span class="sig-paren">(</span><em>sort=None</em>, <em>collapse_same_ident=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.get_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of variables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>or None sort</strong> (<em>str</em>) – Sort of the variable to get.</li>
+<li><strong>collapse_same_ident</strong> – Whether variables of the same identifier should be collapsed or not.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list of variables.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.input_variables">
+<code class="descname">input_variables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.input_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all variables that have never been written to.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of variables that are never written to.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.assign_variable_names">
+<code class="descname">assign_variable_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.assign_variable_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assign default names to all variables.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.knowledge_plugins.variables.variable_manager.VariableManager">
+<em class="property">class </em><code class="descclassname">angr.knowledge_plugins.variables.variable_manager.</code><code class="descname">VariableManager</code><span class="sig-paren">(</span><em>kb</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.VariableManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Manage variables.</p>
+<dl class="method">
+<dt id="angr.knowledge_plugins.variables.variable_manager.VariableManager.get_variable_accesses">
+<code class="descname">get_variable_accesses</code><span class="sig-paren">(</span><em>variable</em>, <em>same_name=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.VariableManager.get_variable_accesses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all references to the given variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>variable</strong> (<em>SimVariable</em>) – The variable.</li>
+<li><strong>same_name</strong> (<em>bool</em>) – Whether to include all variables with the same variable name, or just
+based on the variable identifier.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">All references to the variable.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-angr.analyses">
 <span id="analysis"></span><h2>Analysis<a class="headerlink" href="#module-angr.analyses" title="Permalink to this headline">¶</a></h2>
@@ -7191,11 +7696,14 @@ This procedure will have .syscall_number, .display_name, and .addr set.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> – The state to get the syscall number from</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>state</strong> – The state to get the syscall number from</li>
+<li><strong>allow_unsupported</strong> – Whether to return a “dummy” sycall instead of raising an unsupported exception</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
-<p>:param allow_unsupported    Whether to return a “dummy” sycall instead of raising an unsupported exception</p>
 </dd></dl>
 
 <dl class="method">
