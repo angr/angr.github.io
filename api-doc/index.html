@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>angr API documentation &mdash; angr 6.7.7.31 documentation</title>
+  <title>angr API documentation &mdash; angr 7.7.9.8 documentation</title>
   
 
+  
+  
   
   
 
@@ -33,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 6.7.7.31 documentation" href="#"/>
+    <link rel="top" title="angr 7.7.9.8 documentation" href="#"/>
         <link rel="next" title="angr — Analysis and Coordination" href="angr.html"/> 
 
   
@@ -43,6 +45,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -62,7 +65,7 @@
             
             
               <div class="version">
-                6.7.7.31
+                7.7.9.8
               </div>
             
           
@@ -83,13 +86,15 @@
           
             
             
-                <ul>
-<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
-<li class="toctree-l1"><a class="reference internal" href="simuvex.html"><code class="docutils literal"><span class="pre">simuvex</span></code> &#8212; Program State and Emulation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Information Repository</a></li>
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> — Analysis and Coordination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> — Solver Engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> — Binary Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> — Binary Translator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> — Arch Information Repository</a></li>
 </ul>
 
             
@@ -102,8 +107,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">angr</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">angr</a>
+        
       </nav>
 
 
@@ -112,23 +119,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="#">Docs</a> &raquo;</li>
-      
-    <li>angr API documentation</li>
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>angr API documentation</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -138,34 +162,23 @@
 <h1>angr API documentation<a class="headerlink" href="#angr-api-documentation" title="Permalink to this headline">¶</a></h1>
 <p>angr is a multi-architecture binary analysis platform, with the capability to perform dynamic symbolic execution (like
 Mayhem, KLEE, etc) and various static analyses on binaries.</p>
-<p><strong>Important note for reading these docs on the web</strong>: Autodoc has helpfully decided to link variable names to whatever it possibly can.
-If you see a variable whose name is a link to something, the link is probably totally unhelpful.
-Additionaly, if you see a type named lowercase <code class="docutils literal"><span class="pre">int</span></code> or <code class="docutils literal"><span class="pre">bool</span></code>, and it is linked to the claripy types <code class="xref py py-class docutils literal"><span class="pre">Int</span></code> or <code class="xref py py-class docutils literal"><span class="pre">Bool</span></code>, this is an error.
-The type should refer to the python primitive type.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> — Analysis and Coordination</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.project">Project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.factory">Factory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.path">Paths &amp; Path Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.sim_state">Program State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.storage">Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.manager">Simulation Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.engines">Simulation Engines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.state_plugins.sim_action">Simulation Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.sim_procedure">Procedures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.calling_conventions">Calling Conventions and Types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.knowledge_base">Knowledge Base</a></li>
-<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.analysis">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.analyses">Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.simos">SimOS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="angr.html#surveyors">Surveyors</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="simuvex.html"><code class="docutils literal"><span class="pre">simuvex</span></code> &#8212; Program State and Emulation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.s_state">Program State</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.s_cc">Calling Conventions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.engines">Engines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.plugins">Plugins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.procedures">Procedures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.storage">Storage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.s_slicer">Useful for Analysis, I Guess?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="simuvex.html#module-simuvex.s_action">Logging Data</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> — Solver Engine</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="claripy.html#module-claripy.ast">AST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="claripy.html#module-claripy.backends">Backends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="claripy.html#module-claripy.frontend">Frontends</a></li>
@@ -174,21 +187,22 @@ The type should refer to the python primitive type.</p>
 <li class="toctree-l2"><a class="reference internal" href="claripy.html#module-claripy">Misc. Things</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> — Binary Loader</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cle.html#module-cle.loader">Loading Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cle.html#module-cle.backends">Backends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cle.html#relocations">Relocations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cle.html#module-cle.tls">Thread-local storage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cle.html#module-cle.errors">Misc. Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cle.html#module-cle.backends.tls">Thread-local storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cle.html#module-cle.gdb">Misc. Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cle.html#module-cle.errors">Errors</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> — Binary Translator</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.block">Translation Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.stmt">IR Components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.enums">Misc. Things</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Information Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> — Arch Information Repository</a></li>
 </ul>
 </div>
 </div>
@@ -203,12 +217,15 @@ The type should refer to the python primitive type.</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="angr.html" class="btn btn-neutral float-right" title="angr — Analysis and Coordination" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="angr.html" class="btn btn-neutral float-right" title="angr — Analysis and Coordination" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -240,10 +257,11 @@ The type should refer to the python primitive type.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'6.7.7.31',
+            VERSION:'7.7.9.8',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
