@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cle — Binary Loader &mdash; angr 7.7.9.14 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 7.7.9.21 documentation</title>
   
 
-  
-  
   
   
 
@@ -35,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 7.7.9.14 documentation" href="index.html"/>
+    <link rel="top" title="angr 7.7.9.21 documentation" href="index.html"/>
         <link rel="next" title="pyvex — Binary Translator" href="pyvex.html"/>
         <link rel="prev" title="claripy — Solver Engine" href="claripy.html"/> 
 
@@ -46,7 +44,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +63,7 @@
             
             
               <div class="version">
-                7.7.9.14
+                7.7.9.21
               </div>
             
           
@@ -87,13 +84,10 @@
           
             
             
-              
-            
-            
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> — Analysis and Coordination</a></li>
-<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> — Solver Engine</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">cle</span></code> — Binary Loader</a><ul>
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-cle.loader">Loading Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-cle.backends">Backends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#relocations">Relocations</a></li>
@@ -102,8 +96,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-cle.errors">Errors</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> — Binary Translator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> — Arch Information Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Information Repository</a></li>
 </ul>
 
             
@@ -116,10 +110,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">angr</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">angr</a>
       </nav>
 
 
@@ -128,47 +120,30 @@
         <div class="rst-content">
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li><code class="docutils literal"><span class="pre">cle</span></code> — Binary Loader</li>
-    
-    
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/cle.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <div class="section" id="module-cle">
-<span id="cle-binary-loader"></span><h1><a class="reference internal" href="#module-cle" title="cle"><code class="xref py py-mod docutils literal"><span class="pre">cle</span></code></a> — Binary Loader<a class="headerlink" href="#module-cle" title="Permalink to this headline">¶</a></h1>
+<span id="cle-binary-loader"></span><h1><a class="reference internal" href="#module-cle" title="cle"><code class="xref py py-mod docutils literal"><span class="pre">cle</span></code></a> &#8212; Binary Loader<a class="headerlink" href="#module-cle" title="Permalink to this headline">¶</a></h1>
 <p>CLE is an extensible binary loader. Its main goal is to take an executable program and any libraries it depends on and
 produce an address space where that program is loaded and ready to run.</p>
 <p>The primary interface to CLE is the Loader class.</p>
@@ -183,7 +158,7 @@ address space with loaded and rebased binaries.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>main_binary</strong> – The path to the main binary you’re loading, or a file-like object with the binary
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>main_binary</strong> &#8211; The path to the main binary you&#8217;re loading, or a file-like object with the binary
 in it.</td>
 </tr>
 </tbody>
@@ -194,34 +169,34 @@ in it.</td>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>auto_load_libs</strong> – Whether to automatically load shared libraries that loaded objects depend on.</li>
-<li><strong>force_load_libs</strong> – A list of libraries to load regardless of if they’re required by a loaded object.</li>
-<li><strong>skip_libs</strong> – A list of libraries to never load, even if they’re required by a loaded object.</li>
-<li><strong>main_opts</strong> – A dictionary of options to be used loading the main binary.</li>
-<li><strong>lib_opts</strong> – A dictionary mapping library names to the dictionaries of options to be used when
+<li><strong>auto_load_libs</strong> &#8211; Whether to automatically load shared libraries that loaded objects depend on.</li>
+<li><strong>force_load_libs</strong> &#8211; A list of libraries to load regardless of if they&#8217;re required by a loaded object.</li>
+<li><strong>skip_libs</strong> &#8211; A list of libraries to never load, even if they&#8217;re required by a loaded object.</li>
+<li><strong>main_opts</strong> &#8211; A dictionary of options to be used loading the main binary.</li>
+<li><strong>lib_opts</strong> &#8211; A dictionary mapping library names to the dictionaries of options to be used when
 loading them.</li>
-<li><strong>custom_ld_path</strong> – A list of paths in which we can search for shared libraries.</li>
-<li><strong>use_system_libs</strong> – Whether or not to search the system load path for requested libraries. Default True.</li>
-<li><strong>ignore_import_version_numbers</strong> – Whether libraries with different version numbers in the filename will be considered
+<li><strong>custom_ld_path</strong> &#8211; A list of paths in which we can search for shared libraries.</li>
+<li><strong>use_system_libs</strong> &#8211; Whether or not to search the system load path for requested libraries. Default True.</li>
+<li><strong>ignore_import_version_numbers</strong> &#8211; Whether libraries with different version numbers in the filename will be considered
 equivalent, for example libc.so.6 and libc.so.0</li>
-<li><strong>case_insensitive</strong> – If this is set to True, filesystem loads will be done case-insensitively regardless of
+<li><strong>case_insensitive</strong> &#8211; If this is set to True, filesystem loads will be done case-insensitively regardless of
 the case-sensitivity of the underlying filesystem.</li>
-<li><strong>rebase_granularity</strong> – The alignment to use for rebasing shared objects</li>
-<li><strong>except_missing_libs</strong> – Throw an exception when a shared library can’t be found.</li>
-<li><strong>aslr</strong> – Load libraries in symbolic address space. Do not use this option.</li>
-<li><strong>page_size</strong> – The granularity with which data is mapped into memory. Set to 1 if you are working
+<li><strong>rebase_granularity</strong> &#8211; The alignment to use for rebasing shared objects</li>
+<li><strong>except_missing_libs</strong> &#8211; Throw an exception when a shared library can&#8217;t be found.</li>
+<li><strong>aslr</strong> &#8211; Load libraries in symbolic address space. Do not use this option.</li>
+<li><strong>page_size</strong> &#8211; The granularity with which data is mapped into memory. Set to 1 if you are working
 in a non-paged environment.</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="angr.html#module-angr.storage.memory" title="angr.storage.memory"><strong>memory</strong></a> (<a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><em>cle.memory.Clemory</em></a>) – The loaded, rebased, and relocated memory of the program.</li>
-<li><strong>main_object</strong> – The object representing the main binary (i.e., the executable).</li>
-<li><strong>shared_objects</strong> – A dictionary mapping loaded library names to the objects representing them.</li>
-<li><strong>all_objects</strong> – A list containing representations of all the different objects loaded.</li>
-<li><strong>requested_names</strong> – A set containing the names of all the different shared libraries that were marked as a
+<li><a class="reference internal" href="angr.html#module-angr.storage.memory" title="angr.storage.memory"><strong>memory</strong></a> (<a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><em>cle.memory.Clemory</em></a>) &#8211; The loaded, rebased, and relocated memory of the program.</li>
+<li><strong>main_object</strong> &#8211; The object representing the main binary (i.e., the executable).</li>
+<li><strong>shared_objects</strong> &#8211; A dictionary mapping loaded library names to the objects representing them.</li>
+<li><strong>all_objects</strong> &#8211; A list containing representations of all the different objects loaded.</li>
+<li><strong>requested_names</strong> &#8211; A set containing the names of all the different shared libraries that were marked as a
 dependency by somebody.</li>
-<li><strong>initial_load_objects</strong> – A list of all the objects that were loaded as a result of the initial load request.</li>
+<li><strong>initial_load_objects</strong> &#8211; A list of all the objects that were loaded as a result of the initial load request.</li>
 </ul>
 </td>
 </tr>
@@ -229,7 +204,7 @@ dependency by somebody.</li>
 </table>
 <p>When reference is made to a dictionary of options, it requires a dictionary with zero or more of the following keys:</p>
 <ul class="simple">
-<li>backend :             “elf”, “pe”, “mach-o”, “ida”, “blob” : which loader backend to use</li>
+<li>backend :             &#8220;elf&#8221;, &#8220;pe&#8221;, &#8220;mach-o&#8221;, &#8220;ida&#8221;, &#8220;blob&#8221; : which loader backend to use</li>
 <li>custom_arch :         The archinfo.Arch object to use for the binary</li>
 <li>custom_base_addr :    The address to rebase the object at</li>
 <li>custom_entry_point :  The entry point to use for the object</li>
@@ -264,7 +239,7 @@ they should be run.</p>
 <dt id="cle.loader.Loader.finalizers">
 <code class="descname">finalizers</code><a class="headerlink" href="#cle.loader.Loader.finalizers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of all the finalizers that should be run before the program exits.
-I’m not sure what order they should be run in.</p>
+I&#8217;m not sure what order they should be run in.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -315,7 +290,7 @@ I’m not sure what order they should be run in.</p>
 <dl class="method">
 <dt id="cle.loader.Loader.describe_addr">
 <code class="descname">describe_addr</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.describe_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a textual description of what’s in memory at the provided address</p>
+<dd><p>Returns a textual description of what&#8217;s in memory at the provided address</p>
 </dd></dl>
 
 <dl class="method">
@@ -338,7 +313,7 @@ I’m not sure what order they should be run in.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> – Either the name or address of a symbol to look up</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> &#8211; Either the name or address of a symbol to look up</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A <code class="xref py py-class docutils literal"><span class="pre">cle.backends.Symbol</span></code> object if found, None otherwise.</td>
 </tr>
@@ -355,10 +330,10 @@ I’m not sure what order they should be run in.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> – The name to search for</li>
-<li><strong>exclude_imports</strong> – Whether to exclude import symbols. Default True.</li>
-<li><strong>exclude_externs</strong> – Whether to exclude symbols in the extern object. Default False.</li>
-<li><strong>exclude_forwards</strong> – Whether to exclude forward symbols. Default True.</li>
+<li><strong>name</strong> &#8211; The name to search for</li>
+<li><strong>exclude_imports</strong> &#8211; Whether to exclude import symbols. Default True.</li>
+<li><strong>exclude_externs</strong> &#8211; Whether to exclude symbols in the extern object. Default False.</li>
+<li><strong>exclude_forwards</strong> &#8211; Whether to exclude forward symbols. Default True.</li>
 </ul>
 </td>
 </tr>
@@ -383,12 +358,12 @@ I’m not sure what order they should be run in.</p>
 <code class="descname">perform_irelative_relocs</code><span class="sig-paren">(</span><em>resolver_func</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.perform_irelative_relocs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use this method to satisfy <code class="docutils literal"><span class="pre">IRelative</span></code> relocations in the binary that require execution of loaded code.</p>
 <p>Note that this does NOT handle <code class="docutils literal"><span class="pre">IFunc</span></code> symbols, which must be handled separately. (this could be changed, but
-at the moment it’s desirable to support lazy IFunc resolution, since emulation is usually slow)</p>
+at the moment it&#8217;s desirable to support lazy IFunc resolution, since emulation is usually slow)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>resolver_func</strong> – A callback function that takes an address, runs the code at that address, and returns
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>resolver_func</strong> &#8211; A callback function that takes an address, runs the code at that address, and returns
 the return value from the emulated function.</td>
 </tr>
 </tbody>
@@ -404,7 +379,7 @@ apply at all times.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>spec</strong> – The path to the file to load. May be an absolute path, a relative path, or a name to search in
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>spec</strong> &#8211; The path to the file to load. May be an absolute path, a relative path, or a name to search in
 the load path.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of all the objects successfully loaded, which may be empty if this object was previously
@@ -436,86 +411,48 @@ not being found, return None.</td>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first simple">
-<li><a class="reference internal" href="angr.html#angr.knowledge_plugins.functions.function.Function.binary" title="angr.knowledge_plugins.functions.function.Function.binary"><strong>binary</strong></a> – The path to the file this object is loaded from</li>
-<li><strong>is_main_bin</strong> – Whether this binary is loaded as the main executable</li>
-<li><strong>segments</strong> – A listing of all the loaded segments in this file</li>
-<li><strong>sections</strong> – A listing of all the demarked sections in the file</li>
-<li><strong>sections_map</strong> – A dict mapping from section name to section</li>
-<li><strong>imports</strong> – A mapping from symbol name to import symbol</li>
-<li><strong>resolved_imports</strong> – A list of all the import symbols that are successfully resolved</li>
-<li><strong>relocs</strong> – A list of all the relocations in this binary</li>
-<li><strong>irelatives</strong> – A list of tuples representing all the irelative relocations that need to be performed. The
+<li><a class="reference internal" href="angr.html#angr.knowledge_plugins.functions.function.Function.binary" title="angr.knowledge_plugins.functions.function.Function.binary"><strong>binary</strong></a> &#8211; The path to the file this object is loaded from</li>
+<li><strong>is_main_bin</strong> &#8211; Whether this binary is loaded as the main executable</li>
+<li><strong>segments</strong> &#8211; A listing of all the loaded segments in this file</li>
+<li><strong>sections</strong> &#8211; A listing of all the demarked sections in the file</li>
+<li><strong>sections_map</strong> &#8211; A dict mapping from section name to section</li>
+<li><strong>imports</strong> &#8211; A mapping from symbol name to import symbol</li>
+<li><strong>resolved_imports</strong> &#8211; A list of all the import symbols that are successfully resolved</li>
+<li><strong>relocs</strong> &#8211; A list of all the relocations in this binary</li>
+<li><strong>irelatives</strong> &#8211; A list of tuples representing all the irelative relocations that need to be performed. The
 first item in the tuple is the address of the resolver function, and the second item is the
 address of where to write the result. The destination address is an RVA.</li>
-<li><strong>jmprel</strong> – A mapping from symbol name to the address of its jump slot relocation, i.e. its GOT entry.</li>
-<li><a class="reference internal" href="archinfo.html#module-archinfo.arch" title="archinfo.arch"><strong>arch</strong></a> (<a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch"><em>archinfo.arch.Arch</em></a>) – The architecture of this binary</li>
-<li><strong>os</strong> (<em>str</em>) – The operating system this binary is meant to run under</li>
-<li><strong>mapped_base</strong> (<em>int</em>) – The base address of this object in virtual memory</li>
-<li><strong>deps</strong> – A list of names of shared libraries this binary depends on</li>
-<li><strong>linking</strong> – ‘dynamic’ or ‘static’</li>
-<li><strong>linked_base</strong> – The base address this object requests to be loaded at</li>
-<li><strong>pic</strong> (<em>bool</em>) – Whether this object is position-independent</li>
-<li><strong>execstack</strong> (<em>bool</em>) – Whether this executable has an executable stack</li>
-<li><strong>provides</strong> (<em>str</em>) – The name of the shared library dependancy that this object resolves</li>
+<li><strong>jmprel</strong> &#8211; A mapping from symbol name to the address of its jump slot relocation, i.e. its GOT entry.</li>
+<li><a class="reference internal" href="archinfo.html#module-archinfo.arch" title="archinfo.arch"><strong>arch</strong></a> (<a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch"><em>archinfo.arch.Arch</em></a>) &#8211; The architecture of this binary</li>
+<li><strong>os</strong> (<em>str</em>) &#8211; The operating system this binary is meant to run under</li>
+<li><strong>mapped_base</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The base address of this object in virtual memory</li>
+<li><strong>deps</strong> &#8211; A list of names of shared libraries this binary depends on</li>
+<li><strong>linking</strong> &#8211; &#8216;dynamic&#8217; or &#8216;static&#8217;</li>
+<li><strong>linked_base</strong> &#8211; The base address this object requests to be loaded at</li>
+<li><strong>pic</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether this object is position-independent</li>
+<li><strong>execstack</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether this executable has an executable stack</li>
+<li><strong>provides</strong> (<em>str</em>) &#8211; The name of the shared library dependancy that this object resolves</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>binary</strong> – The path to the binary to load</li>
-<li><strong>is_main_bin</strong> – Whether this binary should be loaded as the main executable</li>
+<li><strong>binary</strong> &#8211; The path to the binary to load</li>
+<li><strong>is_main_bin</strong> &#8211; Whether this binary should be loaded as the main executable</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<dl class="attribute">
-<dt id="cle.backends.Backend.l">
-<code class="descname">l</code><em class="property"> = None</em><a class="headerlink" href="#cle.backends.Backend.l" title="Permalink to this definition">¶</a></dt>
-<dd><p>Main base class for CLE binary objects.</p>
-<p>An alternate interface to this constructor exists as the static method <code class="xref py py-meth docutils literal"><span class="pre">cle.loader.Loader.load_object()</span></code></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="angr.html#angr.knowledge_plugins.functions.function.Function.binary" title="angr.knowledge_plugins.functions.function.Function.binary"><strong>binary</strong></a> – The path to the file this object is loaded from</li>
-<li><strong>is_main_bin</strong> – Whether this binary is loaded as the main executable</li>
-<li><strong>segments</strong> – A listing of all the loaded segments in this file</li>
-<li><strong>sections</strong> – A listing of all the demarked sections in the file</li>
-<li><strong>sections_map</strong> – A dict mapping from section name to section</li>
-<li><strong>imports</strong> – A mapping from symbol name to import symbol</li>
-<li><strong>resolved_imports</strong> – A list of all the import symbols that are successfully resolved</li>
-<li><strong>relocs</strong> – A list of all the relocations in this binary</li>
-<li><strong>irelatives</strong> – A list of tuples representing all the irelative relocations that need to be performed. The
-first item in the tuple is the address of the resolver function, and the second item is the
-address of where to write the result. The destination address is an RVA.</li>
-<li><strong>jmprel</strong> – A mapping from symbol name to the address of its jump slot relocation, i.e. its GOT entry.</li>
-<li><a class="reference internal" href="archinfo.html#module-archinfo.arch" title="archinfo.arch"><strong>arch</strong></a> (<a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch"><em>archinfo.arch.Arch</em></a>) – The architecture of this binary</li>
-<li><strong>os</strong> (<em>str</em>) – The operating system this binary is meant to run under</li>
-<li><strong>mapped_base</strong> (<em>int</em>) – The base address of this object in virtual memory</li>
-<li><strong>deps</strong> – A list of names of shared libraries this binary depends on</li>
-<li><strong>linking</strong> – ‘dynamic’ or ‘static’</li>
-<li><strong>linked_base</strong> – The base address this object requests to be loaded at</li>
-<li><strong>pic</strong> (<em>bool</em>) – Whether this object is position-independent</li>
-<li><strong>execstack</strong> (<em>bool</em>) – Whether this executable has an executable stack</li>
-<li><strong>provides</strong> (<em>str</em>) – The name of the shared library dependancy that this object resolves</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 <dl class="method">
 <dt id="cle.backends.Backend.rebase">
 <code class="descname">rebase</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.rebase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rebase backend’s regions to the new base where they were mapped by the loader</p>
+<dd><p>Rebase backend&#8217;s regions to the new base where they were mapped by the loader</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="cle.backends.Backend.contains_addr">
 <code class="descname">contains_addr</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.contains_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Is <cite>addr</cite> in one of the binary’s segments/sections we have loaded? (i.e. is it mapped into memory ?)</p>
+<dd><p>Is <cite>addr</cite> in one of the binary&#8217;s segments/sections we have loaded? (i.e. is it mapped into memory ?)</p>
 </dd></dl>
 
 <dl class="method">
@@ -563,14 +500,14 @@ before execution reaches the entry point. Addresses should be rebased.</p>
 
 <dl class="staticmethod">
 <dt id="cle.backends.Backend.extract_soname">
-<em class="property">static </em><code class="descname">extract_soname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.extract_soname" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">extract_soname</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.extract_soname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts the shared object identifier from the path, or returns None if it cannot.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="cle.backends.Backend.check_compatibility">
 <em class="property">classmethod </em><code class="descname">check_compatibility</code><span class="sig-paren">(</span><em>spec</em>, <em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.check_compatibility" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs a minimal static load of <code class="docutils literal"><span class="pre">spec</span></code> and returns whether it’s compatible with other_obj</p>
+<dd><p>Performs a minimal static load of <code class="docutils literal"><span class="pre">spec</span></code> and returns whether it&#8217;s compatible with other_obj</p>
 </dd></dl>
 
 </dd></dl>
@@ -586,13 +523,13 @@ the <a class="reference internal" href="#cle.backends.Backend.get_symbol" title=
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first simple">
-<li><strong>owner_obj</strong> (<a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><em>cle.backends.Backend</em></a>) – The object that contains this symbol</li>
-<li><a class="reference internal" href="claripy.html#claripy.backends.Backend.name" title="claripy.backends.Backend.name"><strong>name</strong></a> (<em>str</em>) – The name of this symbol</li>
-<li><a class="reference internal" href="angr.html#angr.sim_state.SimState.addr" title="angr.sim_state.SimState.addr"><strong>addr</strong></a> (<em>int</em>) – The un-based address of this symbol, an RVA</li>
-<li><strong>type</strong> (<em>int</em>) – The type of this symbol as one of SYMBOL.TYPE_*</li>
-<li><strong>resolved</strong> (<em>bool</em>) – Whether this import symbol has been resolved to a real symbol</li>
-<li><strong>resolvedby</strong> (<em>None</em><em> or </em><em>cle.backends.Symbol</em>) – The real symbol this import symbol has been resolve to</li>
-<li><strong>resolvewith</strong> (<em>str</em>) – The name of the library we must use to resolve this symbol, or None if none is required.</li>
+<li><strong>owner_obj</strong> (<a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><em>cle.backends.Backend</em></a>) &#8211; The object that contains this symbol</li>
+<li><a class="reference internal" href="claripy.html#claripy.backends.Backend.name" title="claripy.backends.Backend.name"><strong>name</strong></a> (<em>str</em>) &#8211; The name of this symbol</li>
+<li><a class="reference internal" href="angr.html#angr.sim_state.SimState.addr" title="angr.sim_state.SimState.addr"><strong>addr</strong></a> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The un-based address of this symbol, an RVA</li>
+<li><strong>type</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The type of this symbol as one of SYMBOL.TYPE_*</li>
+<li><strong>resolved</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether this import symbol has been resolved to a real symbol</li>
+<li><strong>resolvedby</strong> (<em>None</em><em> or </em><em>cle.backends.Symbol</em>) &#8211; The real symbol this import symbol has been resolve to</li>
+<li><strong>resolvewith</strong> (<em>str</em>) &#8211; The name of the library we must use to resolve this symbol, or None if none is required.</li>
 </ul>
 </td>
 </tr>
@@ -601,7 +538,7 @@ the <a class="reference internal" href="#cle.backends.Backend.get_symbol" title=
 </tr>
 </tbody>
 </table>
-<p>Not documenting this since if you try calling it, you’re wrong.</p>
+<p>Not documenting this since if you try calling it, you&#8217;re wrong.</p>
 <dl class="attribute">
 <dt id="cle.backends.symbol.Symbol.rebased_addr">
 <code class="descname">rebased_addr</code><a class="headerlink" href="#cle.backends.symbol.Symbol.rebased_addr" title="Permalink to this definition">¶</a></dt>
@@ -618,7 +555,7 @@ the <a class="reference internal" href="#cle.backends.Backend.get_symbol" title=
 <dt id="cle.backends.symbol.Symbol.demangled_name">
 <code class="descname">demangled_name</code><a class="headerlink" href="#cle.backends.symbol.Symbol.demangled_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The name of this symbol, run through a C++ demangler</p>
-<p>Warning: this calls out to the external program <cite>c++filt</cite> and will fail loudly if it’s not installed</p>
+<p>Warning: this calls out to the external program <cite>c++filt</cite> and will fail loudly if it&#8217;s not installed</p>
 </dd></dl>
 
 <dl class="method">
@@ -675,7 +612,7 @@ Therefore you probably does not want to modify the list.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region</strong> (<em>Region</em>) – The region to append.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region</strong> (<em>Region</em>) &#8211; The region to append.</td>
 </tr>
 </tbody>
 </table>
@@ -689,7 +626,7 @@ Therefore you probably does not want to modify the list.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> (<em>int</em>) – The address.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The region that covers the specific address, or None if no such region is found.</td>
 </tr>
@@ -713,7 +650,7 @@ Therefore you probably does not want to modify the list.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>symid</strong> – Either an index into .dynsym or the name of a symbol.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>symid</strong> &#8211; Either an index into .dynsym or the name of a symbol.</td>
 </tr>
 </tbody>
 </table>
@@ -730,9 +667,9 @@ Therefore you probably does not want to modify the list.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>elftype</strong> (<em>str</em>) – The type of this symbol as an ELF enum string</li>
-<li><a class="reference internal" href="#module-cle.backends.macho.binding" title="cle.backends.macho.binding"><strong>binding</strong></a> (<em>str</em>) – The binding of this symbol as an ELF enum string</li>
-<li><a class="reference internal" href="#module-cle.backends.macho.section" title="cle.backends.macho.section"><strong>section</strong></a> – The section associated with this symbol, or None</li>
+<li><strong>elftype</strong> (<em>str</em>) &#8211; The type of this symbol as an ELF enum string</li>
+<li><a class="reference internal" href="#module-cle.backends.macho.binding" title="cle.backends.macho.binding"><strong>binding</strong></a> (<em>str</em>) &#8211; The binding of this symbol as an ELF enum string</li>
+<li><a class="reference internal" href="#module-cle.backends.macho.section" title="cle.backends.macho.section"><strong>section</strong></a> &#8211; The section associated with this symbol, or None</li>
 </ul>
 </td>
 </tr>
@@ -744,12 +681,6 @@ Therefore you probably does not want to modify the list.</p>
 <dt id="cle.backends.elf.elfcore.CoreNote">
 <em class="property">class </em><code class="descclassname">cle.backends.elf.elfcore.</code><code class="descname">CoreNote</code><span class="sig-paren">(</span><em>n_type</em>, <em>name</em>, <em>desc</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.elfcore.CoreNote" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is used when parsing the NOTES section of a core file.</p>
-<dl class="attribute">
-<dt id="cle.backends.elf.elfcore.CoreNote.l">
-<code class="descname">l</code><em class="property"> = None</em><a class="headerlink" href="#cle.backends.elf.elfcore.CoreNote.l" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class is used when parsing the NOTES section of a core file.</p>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="class">
@@ -790,7 +721,7 @@ Therefore you probably does not want to modify the list.</p>
 
 <dl class="staticmethod">
 <dt id="cle.backends.elf.metaelf.MetaELF.get_text_offset">
-<em class="property">static </em><code class="descname">get_text_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.metaelf.MetaELF.get_text_offset" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">get_text_offset</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.metaelf.MetaELF.get_text_offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Offset of .text in the binary.</p>
 </dd></dl>
 
@@ -805,9 +736,9 @@ Therefore you probably does not want to modify the list.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>elftype</strong> (<em>str</em>) – The type of this symbol as an ELF enum string</li>
-<li><a class="reference internal" href="#module-cle.backends.macho.binding" title="cle.backends.macho.binding"><strong>binding</strong></a> (<em>str</em>) – The binding of this symbol as an ELF enum string</li>
-<li><a class="reference internal" href="#module-cle.backends.macho.section" title="cle.backends.macho.section"><strong>section</strong></a> – The section associated with this symbol, or None</li>
+<li><strong>elftype</strong> (<em>str</em>) &#8211; The type of this symbol as an ELF enum string</li>
+<li><a class="reference internal" href="#module-cle.backends.macho.binding" title="cle.backends.macho.binding"><strong>binding</strong></a> (<em>str</em>) &#8211; The binding of this symbol as an ELF enum string</li>
+<li><a class="reference internal" href="#module-cle.backends.macho.section" title="cle.backends.macho.section"><strong>section</strong></a> &#8211; The section associated with this symbol, or None</li>
 </ul>
 </td>
 </tr>
@@ -831,10 +762,10 @@ Therefore you probably does not want to modify the list.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>symtab</strong> – The symbol table to perform lookups from (as a pyelftools SymbolTableSection).</li>
-<li><strong>stream</strong> – A file-like object to read from the ELF’s memory.</li>
-<li><strong>offset</strong> – The offset in the object where the table starts.</li>
-<li><strong>arch</strong> – The ArchInfo object for the ELF file.</li>
+<li><strong>symtab</strong> &#8211; The symbol table to perform lookups from (as a pyelftools SymbolTableSection).</li>
+<li><strong>stream</strong> &#8211; A file-like object to read from the ELF&#8217;s memory.</li>
+<li><strong>offset</strong> &#8211; The offset in the object where the table starts.</li>
+<li><strong>arch</strong> &#8211; The ArchInfo object for the ELF file.</li>
 </ul>
 </td>
 </tr>
@@ -848,7 +779,7 @@ Therefore you probably does not want to modify the list.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>k</strong> – The string to look up.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>k</strong> &#8211; The string to look up.</td>
 </tr>
 </tbody>
 </table>
@@ -866,10 +797,10 @@ Therefore you probably does not want to modify the list.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>symtab</strong> – The symbol table to perform lookups from (as a pyelftools SymbolTableSection).</li>
-<li><strong>stream</strong> – A file-like object to read from the ELF’s memory.</li>
-<li><strong>offset</strong> – The offset in the object where the table starts.</li>
-<li><strong>arch</strong> – The ArchInfo object for the ELF file.</li>
+<li><strong>symtab</strong> &#8211; The symbol table to perform lookups from (as a pyelftools SymbolTableSection).</li>
+<li><strong>stream</strong> &#8211; A file-like object to read from the ELF&#8217;s memory.</li>
+<li><strong>offset</strong> &#8211; The offset in the object where the table starts.</li>
+<li><strong>arch</strong> &#8211; The ArchInfo object for the ELF file.</li>
 </ul>
 </td>
 </tr>
@@ -883,7 +814,7 @@ Therefore you probably does not want to modify the list.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>k</strong> – The string to look up</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>k</strong> &#8211; The string to look up</td>
 </tr>
 </tbody>
 </table>
@@ -895,12 +826,6 @@ Therefore you probably does not want to modify the list.</p>
 <dt id="cle.backends.pe.pe.PE">
 <em class="property">class </em><code class="descclassname">cle.backends.pe.pe.</code><code class="descname">PE</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.pe.pe.PE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Representation of a PE (i.e. Windows) binary.</p>
-<dl class="attribute">
-<dt id="cle.backends.pe.pe.PE.l">
-<code class="descname">l</code><em class="property"> = None</em><a class="headerlink" href="#cle.backends.pe.pe.PE.l" title="Permalink to this definition">¶</a></dt>
-<dd><p>Representation of a PE (i.e. Windows) binary.</p>
-</dd></dl>
-
 <dl class="method">
 <dt id="cle.backends.pe.pe.PE.get_symbol">
 <code class="descname">get_symbol</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.pe.pe.PE.get_symbol" title="Permalink to this definition">¶</a></dt>
@@ -913,12 +838,6 @@ Therefore you probably does not want to modify the list.</p>
 <dt id="cle.backends.pe.symbol.WinSymbol">
 <em class="property">class </em><code class="descclassname">cle.backends.pe.symbol.</code><code class="descname">WinSymbol</code><span class="sig-paren">(</span><em>owner</em>, <em>name</em>, <em>addr</em>, <em>is_import</em>, <em>is_export</em>, <em>ordinal_number</em>, <em>forwarder</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.pe.symbol.WinSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Represents a symbol for the PE format.</p>
-<dl class="attribute">
-<dt id="cle.backends.pe.symbol.WinSymbol.l">
-<code class="descname">l</code><em class="property"> = None</em><a class="headerlink" href="#cle.backends.pe.symbol.WinSymbol.l" title="Permalink to this definition">¶</a></dt>
-<dd><p>Represents a symbol for the PE format.</p>
-</dd></dl>
-
 </dd></dl>
 
 <span class="target" id="module-cle.backends.pe.regions"></span><dl class="class">
@@ -936,19 +855,7 @@ Therefore you probably does not want to modify the list.</p>
 *   Symbols cannot be categorized like in ELF
 *   Symbol resolution must be handled by the binary
 *   Rebasing cannot be done statically (i.e. self.mapped_base is ignored for now)
-*   …</p>
-<dl class="attribute">
-<dt id="cle.backends.macho.macho.MachO.l">
-<code class="descname">l</code><em class="property"> = None</em><a class="headerlink" href="#cle.backends.macho.macho.MachO.l" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mach-O binaries for CLE</p>
-<p>The Mach-O format is notably different from other formats, as such:
-*   Sections are always part of a segment, self.sections will thus be empty
-*   Symbols cannot be categorized like in ELF
-*   Symbol resolution must be handled by the binary
-*   Rebasing cannot be done statically (i.e. self.mapped_base is ignored for now)
-*   …</p>
-</dd></dl>
-
+*   ...</p>
 <dl class="method">
 <dt id="cle.backends.macho.macho.MachO.is_thumb_interworking">
 <code class="descname">is_thumb_interworking</code><span class="sig-paren">(</span><em>address</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.macho.MachO.is_thumb_interworking" title="Permalink to this definition">¶</a></dt>
@@ -991,8 +898,8 @@ name, therefore this method always returns an array.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>include_stab</strong> – Include debugging symbols NOT RECOMMENDED</li>
-<li><strong>fuzzy</strong> – Replace exact match with “contains”-style match</li>
+<li><strong>include_stab</strong> &#8211; Include debugging symbols NOT RECOMMENDED</li>
+<li><strong>fuzzy</strong> &#8211; Replace exact match with &#8220;contains&#8221;-style match</li>
 </ul>
 </td>
 </tr>
@@ -1018,16 +925,6 @@ Note that ELF-specific fields from backends.Symbol are not used and semantics of
 many cases. As a result most stock functionality from Angr and related libraries WILL NOT WORK PROPERLY on
 MachOSymbol.</p>
 <p>Much of the code below is based on heuristics as official documentation is sparse, consider yourself warned!</p>
-<dl class="attribute">
-<dt id="cle.backends.macho.symbol.MachOSymbol.LIBRARY_ORDINAL_EXECUTABLE">
-<code class="descname">LIBRARY_ORDINAL_EXECUTABLE</code><em class="property"> = None</em><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.LIBRARY_ORDINAL_EXECUTABLE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for Mach-O symbols. Made to be (somewhat) compatible with backends.Symbol.
-Note that ELF-specific fields from backends.Symbol are not used and semantics of the remaining fields differs in
-many cases. As a result most stock functionality from Angr and related libraries WILL NOT WORK PROPERLY on
-MachOSymbol.</p>
-<p>Much of the code below is based on heuristics as official documentation is sparse, consider yourself warned!</p>
-</dd></dl>
-
 </dd></dl>
 
 <span class="target" id="module-cle.backends.macho.section"></span><dl class="class">
@@ -1040,34 +937,15 @@ MachOSymbol.</p>
 <li>vaddr (or just addr) is the virtual address</li>
 <li>filesize (or just size) is the size of the region in the file</li>
 <li>memsize (or vsize) is the size of the region when loaded into memory</li>
-<li>segname is the corresponding segment’s name without padding</li>
-<li>sectname is the section’s name without padding</li>
+<li>segname is the corresponding segment&#8217;s name without padding</li>
+<li>sectname is the section&#8217;s name without padding</li>
 <li>align is the sections alignment as a power of 2</li>
-<li>reloff is the file offset to the section’s relocation entries</li>
+<li>reloff is the file offset to the section&#8217;s relocation entries</li>
 <li>nreloc is the number of relocation entries for this section</li>
 <li>flags is a bit vector containing per-section flags</li>
 <li>r1 and r2 are values for the reserved1 and reserved2 fields respectively</li>
 </ul>
 </div></blockquote>
-<dl class="attribute">
-<dt id="cle.backends.macho.section.MachOSection.ATTRIBUTES_MASK">
-<code class="descname">ATTRIBUTES_MASK</code><em class="property"> = None</em><a class="headerlink" href="#cle.backends.macho.section.MachOSection.ATTRIBUTES_MASK" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mach-O Section, only defined within the context of a Mach-O Segment.</p>
-<ul class="simple">
-<li>offset is the offset into the file the region starts</li>
-<li>vaddr (or just addr) is the virtual address</li>
-<li>filesize (or just size) is the size of the region in the file</li>
-<li>memsize (or vsize) is the size of the region when loaded into memory</li>
-<li>segname is the corresponding segment’s name without padding</li>
-<li>sectname is the section’s name without padding</li>
-<li>align is the sections alignment as a power of 2</li>
-<li>reloff is the file offset to the section’s relocation entries</li>
-<li>nreloc is the number of relocation entries for this section</li>
-<li>flags is a bit vector containing per-section flags</li>
-<li>r1 and r2 are values for the reserved1 and reserved2 fields respectively</li>
-</ul>
-</dd></dl>
-
 </dd></dl>
 
 <span class="target" id="module-cle.backends.macho.segment"></span><dl class="class">
@@ -1080,7 +958,7 @@ MachOSymbol.</p>
 <li>vaddr (or just addr) is the virtual address</li>
 <li>filesize (or just size) is the size of the region in the file</li>
 <li>memsize (or vsize) is the size of the region when loaded into memory</li>
-<li>segname is the segment’s name without padding</li>
+<li>segname is the segment&#8217;s name without padding</li>
 <li>nsect is the number of sections contained in this segment</li>
 <li>sections is an array of MachOSections</li>
 <li>flags is a bit vector containing per-segment flags</li>
@@ -1153,13 +1031,6 @@ Intended to work in close conjunction with MachO not for standalone use</p>
 <em class="property">class </em><code class="descclassname">cle.backends.cgc.cgc.</code><code class="descname">CGC</code><span class="sig-paren">(</span><em>binary</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.cgc.cgc.CGC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Backend to support the CGC elf format used by the Cyber Grand Challenge competition.</p>
 <p>See : <a class="reference external" href="https://github.com/CyberGrandChallenge/libcgcef/blob/master/cgc_executable_format.md">https://github.com/CyberGrandChallenge/libcgcef/blob/master/cgc_executable_format.md</a></p>
-<dl class="attribute">
-<dt id="cle.backends.cgc.cgc.CGC.CGC_HEADER">
-<code class="descname">CGC_HEADER</code><em class="property"> = None</em><a class="headerlink" href="#cle.backends.cgc.cgc.CGC.CGC_HEADER" title="Permalink to this definition">¶</a></dt>
-<dd><p>Backend to support the CGC elf format used by the Cyber Grand Challenge competition.</p>
-<p>See : <a class="reference external" href="https://github.com/CyberGrandChallenge/libcgcef/blob/master/cgc_executable_format.md">https://github.com/CyberGrandChallenge/libcgcef/blob/master/cgc_executable_format.md</a></p>
-</dd></dl>
-
 </dd></dl>
 
 <span class="target" id="module-cle.backends.cgc.backedcgc"></span><dl class="class">
@@ -1172,13 +1043,13 @@ initial state of the running binary.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>path</strong> – File path to CGC executable.</li>
-<li><strong>memory_backer</strong> – A dict of memory content, with beginning address of each segment as key and
+<li><strong>path</strong> &#8211; File path to CGC executable.</li>
+<li><strong>memory_backer</strong> &#8211; A dict of memory content, with beginning address of each segment as key and
 actual memory content as data.</li>
-<li><strong>register_backer</strong> – A dict of all register contents. EIP will be used as the entry point of this
+<li><strong>register_backer</strong> &#8211; A dict of all register contents. EIP will be used as the entry point of this
 executable.</li>
-<li><strong>permissions_map</strong> – A dict of memory region to permission flags</li>
-<li><strong>current_allocation_base</strong> – An integer representing the current address of the top of the CGC heap.</li>
+<li><strong>permissions_map</strong> &#8211; A dict of memory region to permission flags</li>
+<li><strong>current_allocation_base</strong> &#8211; An integer representing the current address of the top of the CGC heap.</li>
 </ul>
 </td>
 </tr>
@@ -1191,13 +1062,6 @@ executable.</li>
 <em class="property">class </em><code class="descclassname">cle.backends.ihex.</code><code class="descname">Hex</code><span class="sig-paren">(</span><em>path</em>, <em>custom_arch=None</em>, <em>custom_entry_point=0</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.ihex.Hex" title="Permalink to this definition">¶</a></dt>
 <dd><p>A loader for Intel Hex Objects
 See <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_HEX">https://en.wikipedia.org/wiki/Intel_HEX</a></p>
-<dl class="attribute">
-<dt id="cle.backends.ihex.Hex.HEX_TYPE_STARTLINEARADDR">
-<code class="descname">HEX_TYPE_STARTLINEARADDR</code><em class="property"> = None</em><a class="headerlink" href="#cle.backends.ihex.Hex.HEX_TYPE_STARTLINEARADDR" title="Permalink to this definition">¶</a></dt>
-<dd><p>A loader for Intel Hex Objects
-See <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_HEX">https://en.wikipedia.org/wiki/Intel_HEX</a></p>
-</dd></dl>
-
 </dd></dl>
 
 <span class="target" id="module-cle.backends.blob"></span><dl class="class">
@@ -1209,26 +1073,26 @@ See <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_HEX"
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>custom_arch</strong> – (required) an <code class="xref py py-class docutils literal"><span class="pre">archinfo.Arch</span></code> for the binary blob.</li>
-<li><strong>custom_offset</strong> – Skip this many bytes from the beginning of the file.</li>
-<li><strong>segments</strong> – List of tuples describing how to map data into memory. Tuples
+<li><strong>custom_arch</strong> &#8211; (required) an <code class="xref py py-class docutils literal"><span class="pre">archinfo.Arch</span></code> for the binary blob.</li>
+<li><strong>custom_offset</strong> &#8211; Skip this many bytes from the beginning of the file.</li>
+<li><strong>segments</strong> &#8211; List of tuples describing how to map data into memory. Tuples
 are of <code class="docutils literal"><span class="pre">(file_offset,</span> <span class="pre">mem_addr,</span> <span class="pre">size)</span></code>.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>You can’t specify both <code class="docutils literal"><span class="pre">custom_offset</span></code> and <code class="docutils literal"><span class="pre">segments</span></code>.</p>
+<p>You can&#8217;t specify both <code class="docutils literal"><span class="pre">custom_offset</span></code> and <code class="docutils literal"><span class="pre">segments</span></code>.</p>
 <dl class="method">
 <dt id="cle.backends.blob.Blob.function_name">
 <code class="descname">function_name</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.blob.Blob.function_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Blobs don’t support function names.</p>
+<dd><p>Blobs don&#8217;t support function names.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="cle.backends.blob.Blob.in_which_segment">
 <code class="descname">in_which_segment</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.blob.Blob.in_which_segment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Blobs don’t support segments.</p>
+<dd><p>Blobs don&#8217;t support segments.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1279,7 +1143,7 @@ are of <code class="docutils literal"><span class="pre">(file_offset,</span> <sp
 <dt id="cle.backends.idabin.IDABin.resolve_import_dirty">
 <code class="descname">resolve_import_dirty</code><span class="sig-paren">(</span><em>sym</em>, <em>new_val</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.resolve_import_dirty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve import for symbol <cite>sym</cite> the dirty way, i.e. find all references to it in the code and replace it with
-the address <cite>new_val</cite> inline (instead of updating GOT slots). Don’t use this unless you really have to, use
+the address <cite>new_val</cite> inline (instead of updating GOT slots). Don&#8217;t use this unless you really have to, use
 <code class="xref py py-func docutils literal"><span class="pre">resolve_import_with()</span></code> instead.</p>
 </dd></dl>
 
@@ -1314,7 +1178,7 @@ the address <cite>new_val</cite> inline (instead of updating GOT slots). Don’t
 </div>
 <div class="section" id="relocations">
 <h2>Relocations<a class="headerlink" href="#relocations" title="Permalink to this headline">¶</a></h2>
-<p>CLE’s loader implements program relocation data on a plugin basis.
+<p>CLE&#8217;s loader implements program relocation data on a plugin basis.
 If you would like to add more relocation implementations, do so by subclassing the <code class="docutils literal"><span class="pre">Relocation</span></code> class and overriding any relevant methods or properties.
 Put your subclasses in a module in the <code class="docutils literal"><span class="pre">relocations</span></code> subpackage of the appropraite backend package.
 The name of the subclass will be used to determine when to use it!
@@ -1329,42 +1193,18 @@ relocate itself.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>owner_obj</strong> – The binary this relocation was originaly found in, as a cle object</li>
-<li><a class="reference internal" href="#module-cle.backends.symbol" title="cle.backends.symbol"><strong>symbol</strong></a> – The Symbol object this relocation refers to</li>
-<li><strong>relative_addr</strong> – The address in owner_obj this relocation would like to write to</li>
-<li><a class="reference internal" href="#cle.backends.symbol.Symbol.rebased_addr" title="cle.backends.symbol.Symbol.rebased_addr"><strong>rebased_addr</strong></a> – The address in the global memory space this relocation would like to write to</li>
-<li><strong>resolvedby</strong> – If the symbol this relocation refers to is an import symbol and that import has been resolved,
+<li><strong>owner_obj</strong> &#8211; The binary this relocation was originaly found in, as a cle object</li>
+<li><a class="reference internal" href="#module-cle.backends.symbol" title="cle.backends.symbol"><strong>symbol</strong></a> &#8211; The Symbol object this relocation refers to</li>
+<li><strong>relative_addr</strong> &#8211; The address in owner_obj this relocation would like to write to</li>
+<li><a class="reference internal" href="#cle.backends.symbol.Symbol.rebased_addr" title="cle.backends.symbol.Symbol.rebased_addr"><strong>rebased_addr</strong></a> &#8211; The address in the global memory space this relocation would like to write to</li>
+<li><strong>resolvedby</strong> &#8211; If the symbol this relocation refers to is an import symbol and that import has been resolved,
 this attribute holds the symbol from a different binary that was used to resolve the import.</li>
-<li><strong>resolved</strong> – Whether the application of this relocation was succesful</li>
+<li><strong>resolved</strong> &#8211; Whether the application of this relocation was succesful</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<dl class="attribute">
-<dt id="cle.backends.relocation.Relocation.l">
-<code class="descname">l</code><em class="property"> = None</em><a class="headerlink" href="#cle.backends.relocation.Relocation.l" title="Permalink to this definition">¶</a></dt>
-<dd><p>A representation of a relocation in a binary file. Smart enough to
-relocate itself.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>owner_obj</strong> – The binary this relocation was originaly found in, as a cle object</li>
-<li><a class="reference internal" href="#module-cle.backends.symbol" title="cle.backends.symbol"><strong>symbol</strong></a> – The Symbol object this relocation refers to</li>
-<li><strong>relative_addr</strong> – The address in owner_obj this relocation would like to write to</li>
-<li><a class="reference internal" href="#cle.backends.symbol.Symbol.rebased_addr" title="cle.backends.symbol.Symbol.rebased_addr"><strong>rebased_addr</strong></a> – The address in the global memory space this relocation would like to write to</li>
-<li><strong>resolvedby</strong> – If the symbol this relocation refers to is an import symbol and that import has been resolved,
-this attribute holds the symbol from a different binary that was used to resolve the import.</li>
-<li><strong>resolved</strong> – Whether the application of this relocation was succesful</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 <dl class="method">
 <dt id="cle.backends.relocation.Relocation.relocate">
 <code class="descname">relocate</code><span class="sig-paren">(</span><em>solist</em>, <em>bypass_compatibility=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.relocation.Relocation.relocate" title="Permalink to this definition">¶</a></dt>
@@ -1375,7 +1215,7 @@ object it came from.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>solist</strong> – A list of objects from which to resolve symbols.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>solist</strong> &#8211; A list of objects from which to resolve symbols.</td>
 </tr>
 </tbody>
 </table>
@@ -1462,7 +1302,7 @@ In memory it is laid out as follows:</p>
 4 bytes). The number of addresses in the TLS array is equal to the number
 of modules that contain TLS data. At load time (i.e. in the <code class="docutils literal"><span class="pre">finalize</span></code>
 method), each module is assigned an index into the TLS array. The address
-of this module’s TLS data area is then stored at this location in the
+of this module&#8217;s TLS data area is then stored at this location in the
 array.</p>
 <p><strong>TLS data area</strong></p>
 <p>The TLS data area directly follows the TLS array and contains the actual
@@ -1474,16 +1314,16 @@ TLS data for each module. In memory it is laid out as follows:</p>
 <span class="o">+---------------------------------------------------+</span>
 </pre></div>
 </div>
-<p>The size of each module’s TLS data area is variable and can be found in the
-module’s <code class="docutils literal"><span class="pre">tls_data_size</span></code> property. The same applies to the zero fill. At
+<p>The size of each module&#8217;s TLS data area is variable and can be found in the
+module&#8217;s <code class="docutils literal"><span class="pre">tls_data_size</span></code> property. The same applies to the zero fill. At
 load time (i.e in the <code class="docutils literal"><span class="pre">finalize</span></code> method), the initial TLS data values are
 copied into the TLS data area. Because a TLS index is also assigned to each
-module, we can access a module’s TLS data area using this index into the
+module, we can access a module&#8217;s TLS data area using this index into the
 TLS array to get the start address of the TLS data.</p>
 <dl class="method">
 <dt id="cle.backends.tls.pe_tls.PETLSObject.get_tls_data_addr">
 <code class="descname">get_tls_data_addr</code><span class="sig-paren">(</span><em>tls_idx</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.tls.pe_tls.PETLSObject.get_tls_data_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the start address of a module’s TLS data area via the module’s TLS
+<dd><p>Get the start address of a module&#8217;s TLS data area via the module&#8217;s TLS
 index.</p>
 <p>From the PE/COFF spec:</p>
 <blockquote>
@@ -1501,13 +1341,13 @@ program and module.</div></blockquote>
 <dl class="function">
 <dt id="cle.gdb.convert_info_sharedlibrary">
 <code class="descclassname">cle.gdb.</code><code class="descname">convert_info_sharedlibrary</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.gdb.convert_info_sharedlibrary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert a dump from gdb’s <code class="docutils literal"><span class="pre">info</span> <span class="pre">sharedlibrary</span></code> command to a set of options that can be passed to CLE to replicate
+<dd><p>Convert a dump from gdb&#8217;s <code class="docutils literal"><span class="pre">info</span> <span class="pre">sharedlibrary</span></code> command to a set of options that can be passed to CLE to replicate
 the address space from the gdb session</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fname</strong> – The name of a file containing the dump</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fname</strong> &#8211; The name of a file containing the dump</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dict appropriate to be passed as <code class="docutils literal"><span class="pre">**kwargs</span></code> for <code class="docutils literal"><span class="pre">angr.Project</span></code> or <code class="docutils literal"><span class="pre">cle.Loader</span></code></td>
 </tr>
@@ -1518,13 +1358,13 @@ the address space from the gdb session</p>
 <dl class="function">
 <dt id="cle.gdb.convert_info_proc_maps">
 <code class="descclassname">cle.gdb.</code><code class="descname">convert_info_proc_maps</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.gdb.convert_info_proc_maps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert a dump from gdb’s <code class="docutils literal"><span class="pre">info</span> <span class="pre">proc</span> <span class="pre">maps</span></code> command to a set of options that can be passed to CLE to replicate
+<dd><p>Convert a dump from gdb&#8217;s <code class="docutils literal"><span class="pre">info</span> <span class="pre">proc</span> <span class="pre">maps</span></code> command to a set of options that can be passed to CLE to replicate
 the address space from the gdb session</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fname</strong> – The name of a file containing the dump</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fname</strong> &#8211; The name of a file containing the dump</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dict appropriate to be passed as <code class="docutils literal"><span class="pre">**kwargs</span></code> for <code class="docutils literal"><span class="pre">angr.Project</span></code> or <code class="docutils literal"><span class="pre">cle.Loader</span></code></td>
 </tr>
@@ -1535,7 +1375,7 @@ the address space from the gdb session</p>
 <span class="target" id="module-cle.memory"></span><dl class="class">
 <dt id="cle.memory.Clemory">
 <em class="property">class </em><code class="descclassname">cle.memory.</code><code class="descname">Clemory</code><span class="sig-paren">(</span><em>arch</em>, <em>root=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory" title="Permalink to this definition">¶</a></dt>
-<dd><p>An object representing a memory space. Uses “backers” and “updates” to separate the concepts of loaded and written
+<dd><p>An object representing a memory space. Uses &#8220;backers&#8221; and &#8220;updates&#8221; to separate the concepts of loaded and written
 memory and make lookups more efficient.</p>
 <p>Accesses can be made with [index] notation.</p>
 <dl class="method">
@@ -1547,8 +1387,8 @@ memory and make lookups more efficient.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>start</strong> – The address where the backer should be loaded.</li>
-<li><strong>data</strong> – The backer itself. Can be either a string or another <a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><code class="xref py py-class docutils literal"><span class="pre">Clemory</span></code></a>.</li>
+<li><strong>start</strong> &#8211; The address where the backer should be loaded.</li>
+<li><strong>data</strong> &#8211; The backer itself. Can be either a string or another <a class="reference internal" href="#cle.memory.Clemory" title="cle.memory.Clemory"><code class="xref py py-class docutils literal"><span class="pre">Clemory</span></code></a>.</li>
 </ul>
 </td>
 </tr>
@@ -1598,12 +1438,12 @@ huge amount of data.</p>
 <dl class="method">
 <dt id="cle.memory.Clemory.seek">
 <code class="descname">seek</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.seek" title="Permalink to this definition">¶</a></dt>
-<dd><p>The stream-like function that sets the “file’s” current position. Use with <a class="reference internal" href="#cle.memory.Clemory.read" title="cle.memory.Clemory.read"><code class="xref py py-func docutils literal"><span class="pre">read()</span></code></a>.</p>
+<dd><p>The stream-like function that sets the &#8220;file&#8217;s&#8221; current position. Use with <a class="reference internal" href="#cle.memory.Clemory.read" title="cle.memory.Clemory.read"><code class="xref py py-func docutils literal"><span class="pre">read()</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> – The position to seek to.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> &#8211; The position to seek to.</td>
 </tr>
 </tbody>
 </table>
@@ -1621,7 +1461,7 @@ encountered.</p>
 <dl class="attribute">
 <dt id="cle.memory.Clemory.cbackers">
 <code class="descname">cbackers</code><a class="headerlink" href="#cle.memory.Clemory.cbackers" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function directly returns a list of already-flattened cbackers. It’s designed for performance purpose.
+<dd><p>This function directly returns a list of already-flattened cbackers. It&#8217;s designed for performance purpose.
 GirlScout uses it. Use this property at your own risk!</p>
 </dd></dl>
 
@@ -1629,7 +1469,7 @@ GirlScout uses it. Use this property at your own risk!</p>
 <dt id="cle.memory.Clemory.read_bytes_c">
 <code class="descname">read_bytes_c</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read_bytes_c" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read <cite>n</cite> bytes at address <cite>addr</cite> in cbacked memory, and returns a cffi buffer pointer.</p>
-<p>Note: We don’t support reading across segments for performance concerns.</p>
+<p>Note: We don&#8217;t support reading across segments for performance concerns.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1644,8 +1484,8 @@ except to make it seem like the data has actually been patched by the given patc
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>stream</strong> – The stream to patch</li>
-<li><strong>patches</strong> – A list of tuples of (addr, patch data)</li>
+<li><strong>stream</strong> &#8211; The stream to patch</li>
+<li><strong>patches</strong> &#8211; A list of tuples of (addr, patch data)</li>
 </ul>
 </td>
 </tr>
@@ -1676,8 +1516,8 @@ MVA - mapped VA (loader)
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>rva</strong> (<em>int</em>) – virtual address relative to owner’s object image base</li>
-<li><strong>owner</strong> (<em>cle.Backend</em>) – The object owner address relates to</li>
+<li><strong>rva</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; virtual address relative to owner&#8217;s object image base</li>
+<li><strong>owner</strong> (<em>cle.Backend</em>) &#8211; The object owner address relates to</li>
 </ul>
 </td>
 </tr>
@@ -1839,18 +1679,15 @@ MVA - mapped VA (loader)
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pyvex.html" class="btn btn-neutral float-right" title="pyvex — Binary Translator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pyvex.html" class="btn btn-neutral float-right" title="pyvex — Binary Translator" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="claripy.html" class="btn btn-neutral" title="claripy — Solver Engine" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="claripy.html" class="btn btn-neutral" title="claripy — Solver Engine" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1881,11 +1718,10 @@ MVA - mapped VA (loader)
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.7.9.14',
+            VERSION:'7.7.9.21',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

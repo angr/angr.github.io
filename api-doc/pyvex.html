@@ -8,11 +8,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyvex — Binary Translator &mdash; angr 7.7.9.14 documentation</title>
+  <title>pyvex — Binary Translator &mdash; angr 7.7.9.21 documentation</title>
   
 
-  
-  
   
   
 
@@ -35,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 7.7.9.14 documentation" href="index.html"/>
+    <link rel="top" title="angr 7.7.9.21 documentation" href="index.html"/>
         <link rel="next" title="archinfo — Arch Information Repository" href="archinfo.html"/>
         <link rel="prev" title="cle — Binary Loader" href="cle.html"/> 
 
@@ -46,7 +44,6 @@
 
 <body class="wy-body-for-nav" role="document">
 
-   
   <div class="wy-grid-for-nav">
 
     
@@ -66,7 +63,7 @@
             
             
               <div class="version">
-                7.7.9.14
+                7.7.9.21
               </div>
             
           
@@ -87,20 +84,17 @@
           
             
             
-              
-            
-            
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> — Analysis and Coordination</a></li>
-<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> — Solver Engine</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> — Binary Loader</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pyvex</span></code> — Binary Translator</a><ul>
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-pyvex.block">Translation Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pyvex.stmt">IR Components</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pyvex.enums">Misc. Things</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> — Arch Information Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Information Repository</a></li>
 </ul>
 
             
@@ -113,10 +107,8 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">angr</a>
-        
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">angr</a>
       </nav>
 
 
@@ -125,47 +117,30 @@
         <div class="rst-content">
           
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
-
   <ul class="wy-breadcrumbs">
-    
-      <li><a href="index.html">Docs</a> &raquo;</li>
-        
-      <li><code class="docutils literal"><span class="pre">pyvex</span></code> — Binary Translator</li>
-    
-    
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</li>
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/pyvex.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
   <div class="section" id="module-pyvex">
-<span id="pyvex-binary-translator"></span><h1><a class="reference internal" href="#module-pyvex" title="pyvex"><code class="xref py py-mod docutils literal"><span class="pre">pyvex</span></code></a> — Binary Translator<a class="headerlink" href="#module-pyvex" title="Permalink to this headline">¶</a></h1>
+<span id="pyvex-binary-translator"></span><h1><a class="reference internal" href="#module-pyvex" title="pyvex"><code class="xref py py-mod docutils literal"><span class="pre">pyvex</span></code></a> &#8212; Binary Translator<a class="headerlink" href="#module-pyvex" title="Permalink to this headline">¶</a></h1>
 <p>PyVEX provides an interface that translates binary code into the VEX intermediate represenation (IR).
 For an introduction to VEX, take a look here: <a class="reference external" href="https://docs.angr.io/docs/ir.html">https://docs.angr.io/docs/ir.html</a></p>
 <div class="section" id="module-pyvex.block">
@@ -182,28 +157,28 @@ block.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first simple">
-<li><a class="reference internal" href="archinfo.html#module-archinfo.arch" title="archinfo.arch"><strong>arch</strong></a> (<code class="xref py py-class docutils literal"><span class="pre">archinfo.Arch</span></code>) – The architecture this block is lifted under</li>
-<li><strong>statements</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">IRStmt</span></code>) – The statements in this block</li>
-<li><strong>next</strong> (<code class="xref py py-class docutils literal"><span class="pre">IRExpr</span></code>) – The expression for the default exit target of this block</li>
-<li><strong>offsIP</strong> (<em>int</em>) – The offset of the instruction pointer in the VEX guest state</li>
-<li><strong>stmts_used</strong> (<em>int</em>) – The number of statements in this IRSB</li>
-<li><strong>jumpkind</strong> (<em>str</em>) – The type of this block’s default jump (call, boring, syscall, etc) as a VEX enum string</li>
-<li><strong>direct_next</strong> (<em>bool</em>) – Whether this block ends with a direct (not indirect) jump or branch</li>
-<li><a class="reference internal" href="angr.html#angr.analyses.cfg.cfg_fast.Segment.size" title="angr.analyses.cfg.cfg_fast.Segment.size"><strong>size</strong></a> (<em>int</em>) – The size of this block in bytes</li>
-<li><a class="reference internal" href="angr.html#angr.sim_state.SimState.addr" title="angr.sim_state.SimState.addr"><strong>addr</strong></a> (<em>int</em>) – The address of this basic block, i.e. the address in the first IMark</li>
+<li><a class="reference internal" href="archinfo.html#module-archinfo.arch" title="archinfo.arch"><strong>arch</strong></a> (<code class="xref py py-class docutils literal"><span class="pre">archinfo.Arch</span></code>) &#8211; The architecture this block is lifted under</li>
+<li><strong>statements</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">IRStmt</span></code>) &#8211; The statements in this block</li>
+<li><strong>next</strong> (<code class="xref py py-class docutils literal"><span class="pre">IRExpr</span></code>) &#8211; The expression for the default exit target of this block</li>
+<li><strong>offsIP</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The offset of the instruction pointer in the VEX guest state</li>
+<li><strong>stmts_used</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The number of statements in this IRSB</li>
+<li><strong>jumpkind</strong> (<em>str</em>) &#8211; The type of this block&#8217;s default jump (call, boring, syscall, etc) as a VEX enum string</li>
+<li><strong>direct_next</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether this block ends with a direct (not indirect) jump or branch</li>
+<li><a class="reference internal" href="angr.html#angr.analyses.cfg.cfg_fast.Segment.size" title="angr.analyses.cfg.cfg_fast.Segment.size"><strong>size</strong></a> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The size of this block in bytes</li>
+<li><a class="reference internal" href="angr.html#angr.sim_state.SimState.addr" title="angr.sim_state.SimState.addr"><strong>addr</strong></a> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address of this basic block, i.e. the address in the first IMark</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> (<em>str</em><em> or </em><em>bytes</em><em> or </em><em>cffi.FFI.CData</em><em> or </em><em>None</em>) – The bytes to lift. Can be either a string of bytes or a cffi buffer object.
+<li><strong>data</strong> (<em>str</em><em> or </em><a class="reference internal" href="archinfo.html#archinfo.arch.Arch.bytes" title="archinfo.arch.Arch.bytes"><em>bytes</em></a><em> or </em><em>cffi.FFI.CData</em><em> or </em><em>None</em>) &#8211; The bytes to lift. Can be either a string of bytes or a cffi buffer object.
 You may also pass None to initialize an empty IRSB.</li>
-<li><strong>mem_addr</strong> (<em>int</em>) – The address to lift the data at.</li>
-<li><strong>arch</strong> (<code class="xref py py-class docutils literal"><span class="pre">archinfo.Arch</span></code>) – The architecture to lift the data as.</li>
-<li><strong>max_inst</strong> – The maximum number of instructions to lift. Max 99. (See note below)</li>
-<li><strong>max_bytes</strong> – The maximum number of bytes to use. Max 5000.</li>
-<li><strong>bytes_offset</strong> – The offset into <cite>data</cite> to start lifting at.</li>
-<li><strong>traceflags</strong> – The libVEX traceflags, controlling VEX debug prints.</li>
-<li><strong>opt_level</strong> – The level of optimization to apply to the IR, 0-2.</li>
+<li><strong>mem_addr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address to lift the data at.</li>
+<li><strong>arch</strong> (<code class="xref py py-class docutils literal"><span class="pre">archinfo.Arch</span></code>) &#8211; The architecture to lift the data as.</li>
+<li><strong>max_inst</strong> &#8211; The maximum number of instructions to lift. Max 99. (See note below)</li>
+<li><strong>max_bytes</strong> &#8211; The maximum number of bytes to use. Max 5000.</li>
+<li><strong>bytes_offset</strong> &#8211; The offset into <cite>data</cite> to start lifting at.</li>
+<li><strong>traceflags</strong> &#8211; The libVEX traceflags, controlling VEX debug prints.</li>
+<li><strong>opt_level</strong> &#8211; The level of optimization to apply to the IR, 0-2.</li>
 </ul>
 </td>
 </tr>
@@ -216,36 +191,8 @@ exactly as expected. For example, on MIPS, it is meaningless to lift a branch or
 instruction without its delay slot. VEX attempts to Do The Right Thing by possibly decoding
 fewer instructions than requested. Specifically, this means that lifting a branch or jump
 on MIPS as a single instruction (<cite>max_inst=1</cite>) will result in an empty IRSB, and subsequent
-attempts to run this block will raise <cite>SimIRSBError(‘Empty IRSB passed to SimIRSB.’)</cite>.</p>
+attempts to run this block will raise <cite>SimIRSBError(&#8216;Empty IRSB passed to SimIRSB.&#8217;)</cite>.</p>
 </div>
-<dl class="attribute">
-<dt id="pyvex.block.IRSB.l">
-<code class="descname">l</code><em class="property"> = None</em><a class="headerlink" href="#pyvex.block.IRSB.l" title="Permalink to this definition">¶</a></dt>
-<dd><p>The IRSB is the primary interface to pyvex. Constructing one of these will make a call into LibVEX to perform a
-translation.</p>
-<p>IRSB stands for <em>Intermediate Representation Super-Block</em>. An IRSB in VEX is a single-entry, multiple-exit code
-block.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="archinfo.html#module-archinfo.arch" title="archinfo.arch"><strong>arch</strong></a> (<code class="xref py py-class docutils literal"><span class="pre">archinfo.Arch</span></code>) – The architecture this block is lifted under</li>
-<li><strong>statements</strong> (list of <code class="xref py py-class docutils literal"><span class="pre">IRStmt</span></code>) – The statements in this block</li>
-<li><strong>next</strong> (<code class="xref py py-class docutils literal"><span class="pre">IRExpr</span></code>) – The expression for the default exit target of this block</li>
-<li><strong>offsIP</strong> (<em>int</em>) – The offset of the instruction pointer in the VEX guest state</li>
-<li><strong>stmts_used</strong> (<em>int</em>) – The number of statements in this IRSB</li>
-<li><strong>jumpkind</strong> (<em>str</em>) – The type of this block’s default jump (call, boring, syscall, etc) as a VEX enum string</li>
-<li><strong>direct_next</strong> (<em>bool</em>) – Whether this block ends with a direct (not indirect) jump or branch</li>
-<li><a class="reference internal" href="angr.html#angr.analyses.cfg.cfg_fast.Segment.size" title="angr.analyses.cfg.cfg_fast.Segment.size"><strong>size</strong></a> (<em>int</em>) – The size of this block in bytes</li>
-<li><a class="reference internal" href="angr.html#angr.sim_state.SimState.addr" title="angr.sim_state.SimState.addr"><strong>addr</strong></a> (<em>int</em>) – The address of this basic block, i.e. the address in the first IMark</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 <dl class="method">
 <dt id="pyvex.block.IRSB.pp">
 <code class="descname">pp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRSB.pp" title="Permalink to this definition">¶</a></dt>
@@ -310,7 +257,7 @@ block.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>types</strong> (<em>list of str</em>) – A list of the types of all the temporaries in this block as VEX enum strings.
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>types</strong> (<em>list of str</em>) &#8211; A list of the types of all the temporaries in this block as VEX enum strings.
 <cite>types[3]</cite> is the type of t3.</td>
 </tr>
 </tbody>
@@ -336,12 +283,6 @@ block.</p>
 <dt id="pyvex.stmt.IRStmt">
 <em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">IRStmt</code><a class="headerlink" href="#pyvex.stmt.IRStmt" title="Permalink to this definition">¶</a></dt>
 <dd><p>IR statements in VEX represents operations with side-effects.</p>
-<dl class="attribute">
-<dt id="pyvex.stmt.IRStmt.l">
-<code class="descname">l</code><em class="property"> = None</em><a class="headerlink" href="#pyvex.stmt.IRStmt.l" title="Permalink to this definition">¶</a></dt>
-<dd><p>IR statements in VEX represents operations with side-effects.</p>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="class">
@@ -361,7 +302,7 @@ instruction.</p>
 <dl class="class">
 <dt id="pyvex.stmt.AbiHint">
 <em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">AbiHint</code><span class="sig-paren">(</span><em>base</em>, <em>length</em>, <em>nia</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.AbiHint" title="Permalink to this definition">¶</a></dt>
-<dd><p>An ABI hint, provides specific information about this platform’s ABI.</p>
+<dd><p>An ABI hint, provides specific information about this platform&#8217;s ABI.</p>
 </dd></dl>
 
 <dl class="class">
@@ -424,12 +365,6 @@ else it is a Store-Conditional.</p>
 <dt id="pyvex.expr.IRExpr">
 <em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">IRExpr</code><a class="headerlink" href="#pyvex.expr.IRExpr" title="Permalink to this definition">¶</a></dt>
 <dd><p>IR expressions in VEX represent operations without side effects.</p>
-<dl class="attribute">
-<dt id="pyvex.expr.IRExpr.l">
-<code class="descname">l</code><em class="property"> = None</em><a class="headerlink" href="#pyvex.expr.IRExpr.l" title="Permalink to this definition">¶</a></dt>
-<dd><p>IR expressions in VEX represent operations without side effects.</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="pyvex.expr.IRExpr.child_expressions">
 <code class="descname">child_expressions</code><a class="headerlink" href="#pyvex.expr.IRExpr.child_expressions" title="Permalink to this definition">¶</a></dt>
@@ -541,9 +476,9 @@ rotating register files on the guest.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="claripy.html#module-claripy.ast.base" title="claripy.ast.base"><strong>base</strong></a> (<em>int</em>) – The offset into the state that this array starts</li>
-<li><strong>elemTy</strong> (<em>str</em>) – The types of the elements in this array, as VEX enum strings</li>
-<li><strong>nElems</strong> (<em>int</em>) – The number of elements in this array</li>
+<li><a class="reference internal" href="claripy.html#module-claripy.ast.base" title="claripy.ast.base"><strong>base</strong></a> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The offset into the state that this array starts</li>
+<li><strong>elemTy</strong> (<em>str</em>) &#8211; The types of the elements in this array, as VEX enum strings</li>
+<li><strong>nElems</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The number of elements in this array</li>
 </ul>
 </td>
 </tr>
@@ -556,18 +491,15 @@ rotating register files on the guest.</p>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="archinfo.html" class="btn btn-neutral float-right" title="archinfo — Arch Information Repository" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="archinfo.html" class="btn btn-neutral float-right" title="archinfo — Arch Information Repository" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cle.html" class="btn btn-neutral" title="cle — Binary Loader" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cle.html" class="btn btn-neutral" title="cle — Binary Loader" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -598,11 +530,10 @@ rotating register files on the guest.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.7.9.14',
+            VERSION:'7.7.9.21',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
+            HAS_SOURCE:  true
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
