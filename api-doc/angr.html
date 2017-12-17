@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>angr — Analysis and Coordination &mdash; angr 7.7.9.21 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 7.7.12.16 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 7.7.9.21 documentation" href="index.html"/>
+    <link rel="top" title="angr 7.7.12.16 documentation" href="index.html"/>
         <link rel="next" title="claripy — Solver Engine" href="claripy.html"/>
         <link rel="prev" title="angr API documentation" href="index.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                7.7.9.21
+                7.7.12.16
               </div>
             
           
@@ -628,6 +628,20 @@ allocations happen at increasing addresses.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="angr.factory.AngrObjectFactory.tracer_state">
+<code class="descname">tracer_state</code><span class="sig-paren">(</span><em>input_content=None</em>, <em>magic_content=None</em>, <em>preconstrain_input=True</em>, <em>preconstrain_flag=True</em>, <em>constrained_addrs=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.tracer_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new SimState object correctly configured for tracing.</p>
+<p>:param input_content     : Concrete input to feed to binary.
+:param magic_content     : CGC magic flag page.
+:param preconstrain_input: Should the path be preconstrained to the provided input?
+:param preconstrain_flag : Should the path have the CGC flag page preconstrained?
+:param constrained_addrs : Addresses which have had constraints applied to them and should not be removed.
+:param kwargs            : Any additional keyword arguments that will be passed to the SimState constructor.</p>
+<p>:returns : The new SimState for tracing.
+:rtype   : angr.sim_state.SimState</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="angr.factory.AngrObjectFactory.simulation_manager">
 <code class="descname">simulation_manager</code><span class="sig-paren">(</span><em>thing=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.factory.AngrObjectFactory.simulation_manager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Constructs a new simulation manager.</p>
@@ -755,7 +769,7 @@ size of the corresponding argument in bytes.</li>
 <li><strong>mem</strong> &#8211; A convenient view of the state&#8217;s memory, a <a class="reference internal" href="#angr.state_plugins.view.SimMemView" title="angr.state_plugins.view.SimMemView"><code class="xref py py-class docutils literal"><span class="pre">angr.state_plugins.view.SimMemView</span></code></a></li>
 <li><strong>registers</strong> &#8211; The state&#8217;s register file as a flat memory region</li>
 <li><a class="reference internal" href="#module-angr.storage.memory" title="angr.storage.memory"><strong>memory</strong></a> &#8211; The state&#8217;s memory as a flat memory region</li>
-<li><strong>se</strong> &#8211; The solver engine for this state</li>
+<li><a class="reference internal" href="#module-angr.state_plugins.solver" title="angr.state_plugins.solver"><strong>solver</strong></a> &#8211; The symbolic solver and variable manager for this state</li>
 <li><a class="reference internal" href="#module-angr.state_plugins.inspect" title="angr.state_plugins.inspect"><strong>inspect</strong></a> &#8211; The breakpoint manager, a <a class="reference internal" href="#angr.state_plugins.inspect.SimInspector" title="angr.state_plugins.inspect.SimInspector"><code class="xref py py-class docutils literal"><span class="pre">angr.state_plugins.inspect.SimInspector</span></code></a></li>
 <li><strong>log</strong> &#8211; Information about the state&#8217;s history</li>
 <li><strong>scratch</strong> &#8211; Information about the current execution step</li>
@@ -1199,8 +1213,10 @@ This method is supposed to be called by breakpoint implementors. A typical workf
 
 <span class="target" id="module-angr.state_plugins.solver"></span><dl class="class">
 <dt id="angr.state_plugins.solver.SimSolver">
-<em class="property">class </em><code class="descclassname">angr.state_plugins.solver.</code><code class="descname">SimSolver</code><span class="sig-paren">(</span><em>solver=None</em>, <em>all_variables=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.solver.SimSolver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Symbolic solver.</p>
+<em class="property">class </em><code class="descclassname">angr.state_plugins.solver.</code><code class="descname">SimSolver</code><span class="sig-paren">(</span><em>solver=None</em>, <em>all_variables=None</em>, <em>temporal_tracked_variables=None</em>, <em>eternal_tracked_variables=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.solver.SimSolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the plugin you&#8217;ll use to interact with symbolic variables, creating them and evaluating them.
+It should be available on a state as <code class="docutils literal"><span class="pre">state.solver</span></code>.</p>
+<p>Any top-level variable of the claripy module can be accessed as a property of this object.</p>
 <dl class="method">
 <dt id="angr.state_plugins.solver.SimSolver.reload_solver">
 <code class="descname">reload_solver</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.solver.SimSolver.reload_solver" title="Permalink to this definition">¶</a></dt>
@@ -1208,8 +1224,59 @@ This method is supposed to be called by breakpoint implementors. A typical workf
 </dd></dl>
 
 <dl class="method">
+<dt id="angr.state_plugins.solver.SimSolver.get_variables">
+<code class="descname">get_variables</code><span class="sig-paren">(</span><em>*keys</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.solver.SimSolver.get_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterate over all variables for which their tracking key is a prefix of the values provided.</p>
+<p>Elements are a tuple, the first element is the full tracking key, the second is the symbol.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">get_variables</span><span class="p">(</span><span class="s1">&#39;mem&#39;</span><span class="p">))</span>
+<span class="go">[((&#39;mem&#39;, 0x1000), &lt;BV64 mem_1000_4_64&gt;), ((&#39;mem&#39;, 0x1008), &lt;BV64 mem_1008_5_64&gt;)]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">get_variables</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">))</span>
+<span class="go">[((&#39;file&#39;, 1, 0), &lt;BV8 file_1_0_6_8&gt;), ((&#39;file&#39;, 1, 1), &lt;BV8 file_1_1_7_8&gt;), ((&#39;file&#39;, 2, 0), &lt;BV8 file_2_0_8_8&gt;)]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">get_variables</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="go">[((&#39;file&#39;, 2, 0), &lt;BV8 file_2_0_8_8&gt;)]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">get_variables</span><span class="p">())</span>
+<span class="go">[((&#39;mem&#39;, 0x1000), &lt;BV64 mem_1000_4_64&gt;), ((&#39;mem&#39;, 0x1008), &lt;BV64 mem_1008_5_64&gt;), ((&#39;file&#39;, 1, 0), &lt;BV8 file_1_0_6_8&gt;), ((&#39;file&#39;, 1, 1), &lt;BV8 file_1_1_7_8&gt;), ((&#39;file&#39;, 2, 0), &lt;BV8 file_2_0_8_8&gt;)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.state_plugins.solver.SimSolver.register_variable">
+<code class="descname">register_variable</code><span class="sig-paren">(</span><em>v</em>, <em>key</em>, <em>eternal=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.solver.SimSolver.register_variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a value with the variable tracking system</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>v</strong> &#8211; The BVS to register</li>
+<li><strong>key</strong> &#8211; A tuple to register the variable under</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parma eternal:</th><td class="field-body"><p class="first last">Whether this is an eternal variable, default True. If False, an incrementing counter will be
+appended to the key.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.state_plugins.solver.SimSolver.describe_variables">
+<code class="descname">describe_variables</code><span class="sig-paren">(</span><em>v</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.solver.SimSolver.describe_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given an AST, iterate over all the keys of all the BVS leaves in the tree which are registered.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="angr.state_plugins.solver.SimSolver.BVS">
-<code class="descname">BVS</code><span class="sig-paren">(</span><em>name</em>, <em>size</em>, <em>min=None</em>, <em>max=None</em>, <em>stride=None</em>, <em>uninitialized=False</em>, <em>explicit_name=None</em>, <em>inspect=True</em>, <em>events=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.solver.SimSolver.BVS" title="Permalink to this definition">¶</a></dt>
+<code class="descname">BVS</code><span class="sig-paren">(</span><em>name</em>, <em>size</em>, <em>min=None</em>, <em>max=None</em>, <em>stride=None</em>, <em>uninitialized=False</em>, <em>explicit_name=None</em>, <em>key=None</em>, <em>eternal=False</em>, <em>inspect=True</em>, <em>events=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.solver.SimSolver.BVS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a bit-vector symbol (i.e., a variable). Other keyword parameters are passed directly on to the
 constructor of claripy.ast.BV.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1224,7 +1291,15 @@ constructor of claripy.ast.BV.</p>
 <li><strong>stride</strong> &#8211; The stride of the symbol.</li>
 <li><strong>uninitialized</strong> &#8211; Whether this value should be counted as an &#8220;uninitialized&#8221; value in the course of an
 analysis.</li>
-<li><strong>explicit_name</strong> &#8211; If False, an identifier is appended to the name to ensure uniqueness.</li>
+<li><strong>explicit_name</strong> &#8211; Set to True to prevent an identifier from appended to the name to ensure uniqueness.</li>
+<li><strong>key</strong> &#8211; Set this to a tuple of increasingly specific identifiers (for example,
+<code class="docutils literal"><span class="pre">('mem',</span> <span class="pre">0xffbeff00)</span></code> or <code class="docutils literal"><span class="pre">('file',</span> <span class="pre">4,</span> <span class="pre">0x20)</span></code> to cause it to be tracked, i.e.
+accessable through <code class="docutils literal"><span class="pre">solver.get_variables</span></code>.</li>
+<li><strong>eternal</strong> &#8211; Set to True in conjunction with setting a key to cause all states with the same
+ancestry to retrieve the same symbol when trying to create the value. If False, a
+counter will be appended to the key.</li>
+<li><strong>inspect</strong> &#8211; Set to False to avoid firing SimInspect breakpoints</li>
+<li><strong>events</strong> &#8211; Set to False to avoid generating a SimEvent for the occasion</li>
 </ul>
 </td>
 </tr>
@@ -1263,7 +1338,7 @@ analysis.</li>
 
 <dl class="method">
 <dt id="angr.state_plugins.solver.SimSolver.eval_upto">
-<code class="descname">eval_upto</code><span class="sig-paren">(</span><em>e</em>, <em>n</em>, <em>cast_to=&lt;type 'int'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.solver.SimSolver.eval_upto" title="Permalink to this definition">¶</a></dt>
+<code class="descname">eval_upto</code><span class="sig-paren">(</span><em>e</em>, <em>n</em>, <em>cast_to=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.solver.SimSolver.eval_upto" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate an expression, using the solver if necessary. Returns primitives as specified by the <cite>cast_to</cite>
 parameter. Only certain primitives are supported, check the implementation of <cite>_cast_to</cite> to see which ones.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -2074,7 +2149,8 @@ False otherwise</li>
 <dd><p>Map a number of pages at address <cite>addr</cite> with permissions <cite>permissions</cite>.
 :param addr: address to map the pages at
 :param length: length in bytes of region to map, will be rounded upwards to the page size
-:param permissions: AST of permissions to map, will be a bitvalue representing flags</p>
+:param permissions: AST of permissions to map, will be a bitvalue representing flags
+:param init_zero: Initialize page with zeros</p>
 </dd></dl>
 
 <dl class="method">
@@ -2095,7 +2171,7 @@ False otherwise</li>
 
 <span class="target" id="module-angr.storage.memory_object"></span><dl class="class">
 <dt id="angr.storage.memory_object.SimMemoryObject">
-<em class="property">class </em><code class="descclassname">angr.storage.memory_object.</code><code class="descname">SimMemoryObject</code><span class="sig-paren">(</span><em>object</em>, <em>base</em>, <em>length=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_object.SimMemoryObject" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.storage.memory_object.</code><code class="descname">SimMemoryObject</code><span class="sig-paren">(</span><em>object</em>, <em>base</em>, <em>length=None</em>, <em>byte_width=8</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_object.SimMemoryObject" title="Permalink to this definition">¶</a></dt>
 <dd><p>A MemoryObjectRef instance is a reference to a byte or several bytes in
 a specific object in SimSymbolicMemory. It is only used inside
 SimSymbolicMemory class.</p>
@@ -2465,7 +2541,7 @@ states. If not, is a no-op.</p>
 <span id="simulation-manager"></span><h2>Simulation Manager<a class="headerlink" href="#module-angr.manager" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="angr.manager.SimulationManager">
-<em class="property">class </em><code class="descclassname">angr.manager.</code><code class="descname">SimulationManager</code><span class="sig-paren">(</span><em>project</em>, <em>active_states=None</em>, <em>stashes=None</em>, <em>hierarchy=None</em>, <em>veritesting=None</em>, <em>veritesting_options=None</em>, <em>immutable=None</em>, <em>resilience=None</em>, <em>save_unconstrained=None</em>, <em>save_unsat=None</em>, <em>threads=None</em>, <em>errored=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.manager.SimulationManager" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.manager.</code><code class="descname">SimulationManager</code><span class="sig-paren">(</span><em>project</em>, <em>active_states=None</em>, <em>stashes=None</em>, <em>hierarchy=None</em>, <em>veritesting=None</em>, <em>veritesting_options=None</em>, <em>immutable=None</em>, <em>resilience=None</em>, <em>save_unconstrained=None</em>, <em>save_unsat=None</em>, <em>threads=None</em>, <em>errored=None</em>, <em>completion_mode=&lt;built-in function any&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.manager.SimulationManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Simulation Manager is the future future.</p>
 <p>Simulation managers allow you to wrangle multiple states in a slick way. States are organized into &#8220;stashes&#8221;, which
 you can step forward, filter, merge, and move around as you wish. This allows you to, for example, step two
@@ -2512,6 +2588,8 @@ multithread due to its GIL, but z3, written in C, can.</p>
 the state and some information about the error are placed in this list. You can adjust the
 list of caught exceptions with the <cite>resilience</cite> parameter.</li>
 <li><strong>stashes</strong> &#8211; All the stashes on this instance, as a dictionary.</li>
+<li><strong>completion_mode</strong> &#8211; A function describing how multiple exploration techniques with the <code class="docutils literal"><span class="pre">complete</span></code> hook set will
+interact. By default, the builtin function <code class="docutils literal"><span class="pre">any</span></code>.</li>
 </ul>
 </td>
 </tr>
@@ -3193,19 +3271,7 @@ statement (for example, from a SimProcedure).</li>
 
 </dd></dl>
 
-<span class="target" id="module-angr.engines.vex"></span><dl class="function">
-<dt id="angr.engines.vex.size_bits">
-<code class="descclassname">angr.engines.vex.</code><code class="descname">size_bits</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.engines.vex.size_bits" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns size, in BITS, of a type.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="angr.engines.vex.size_bytes">
-<code class="descclassname">angr.engines.vex.</code><code class="descname">size_bytes</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.engines.vex.size_bytes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns size, in BYTES, of a type.</p>
-</dd></dl>
-
-<span class="target" id="module-angr.engines.vex.engine"></span><dl class="class">
+<span class="target" id="module-angr.engines.vex"></span><span class="target" id="module-angr.engines.vex.engine"></span><dl class="class">
 <dt id="angr.engines.vex.engine.SimEngineVEX">
 <em class="property">class </em><code class="descclassname">angr.engines.vex.engine.</code><code class="descname">SimEngineVEX</code><span class="sig-paren">(</span><em>stop_points=None</em>, <em>use_cache=True</em>, <em>cache_size=10000</em>, <em>default_opt_level=1</em>, <em>support_selfmodifying_code=False</em>, <em>single_step=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.engines.vex.engine.SimEngineVEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execution engine based on VEX, Valgrind&#8217;s IR.</p>
@@ -3969,7 +4035,7 @@ Maybe it could make sense by saying that you pass it in as something like the &#
 <dt id="angr.sim_type.SimTypeChar">
 <em class="property">class </em><code class="descclassname">angr.sim_type.</code><code class="descname">SimTypeChar</code><span class="sig-paren">(</span><em>label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeChar" title="Permalink to this definition">¶</a></dt>
 <dd><p>SimTypeChar is a type that specifies a character;
-this could be represented by an 8-bit int, but this is meant to be interpreted as a character.</p>
+this could be represented by a byte, but this is meant to be interpreted as a character.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5671,8 +5737,8 @@ You should never assume this method returns a specific IRSB.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="angr.analyses.cfg.cfg_base.CFGBase.nodes_iter">
-<code class="descname">nodes_iter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_base.CFGBase.nodes_iter" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.analyses.cfg.cfg_base.CFGBase.nodes">
+<code class="descname">nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_base.CFGBase.nodes" title="Permalink to this definition">¶</a></dt>
 <dd><p>An iterator of all nodes in the graph.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -6008,7 +6074,7 @@ address (when not from previous instruction).</p>
 
 <dl class="class">
 <dt id="angr.analyses.cfg.cfg_fast.CFGFast">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg.cfg_fast.</code><code class="descname">CFGFast</code><span class="sig-paren">(</span><em>binary=None</em>, <em>regions=None</em>, <em>pickle_intermediate_results=False</em>, <em>symbols=True</em>, <em>function_prologues=True</em>, <em>resolve_indirect_jumps=True</em>, <em>force_segment=False</em>, <em>force_complete_scan=True</em>, <em>indirect_jump_target_limit=100000</em>, <em>collect_data_references=False</em>, <em>extra_cross_references=False</em>, <em>normalize=False</em>, <em>start_at_entry=True</em>, <em>function_starts=None</em>, <em>extra_memory_regions=None</em>, <em>data_type_guessing_handlers=None</em>, <em>arch_options=None</em>, <em>indirect_jump_resolvers=None</em>, <em>base_state=None</em>, <em>exclude_sparse_regions=True</em>, <em>skip_specific_regions=True</em>, <em>start=None</em>, <em>end=None</em>, <em>**extra_arch_options</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_fast.CFGFast" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg.cfg_fast.</code><code class="descname">CFGFast</code><span class="sig-paren">(</span><em>binary=None</em>, <em>regions=None</em>, <em>pickle_intermediate_results=False</em>, <em>symbols=True</em>, <em>function_prologues=True</em>, <em>resolve_indirect_jumps=True</em>, <em>force_segment=False</em>, <em>force_complete_scan=True</em>, <em>indirect_jump_target_limit=100000</em>, <em>collect_data_references=False</em>, <em>extra_cross_references=False</em>, <em>normalize=False</em>, <em>start_at_entry=True</em>, <em>function_starts=None</em>, <em>extra_memory_regions=None</em>, <em>data_type_guessing_handlers=None</em>, <em>arch_options=None</em>, <em>indirect_jump_resolvers=None</em>, <em>base_state=None</em>, <em>exclude_sparse_regions=True</em>, <em>skip_specific_regions=True</em>, <em>heuristic_plt_resolving=None</em>, <em>start=None</em>, <em>end=None</em>, <em>**extra_arch_options</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_fast.CFGFast" title="Permalink to this definition">¶</a></dt>
 <dd><p>We find functions inside the given binary, and build a control-flow graph in very fast manners: instead of
 simulating program executions, keeping track of states, and performing expensive data-flow analysis, CFGFast will
 only perform light-weight analyses combined with some heuristics, and with some strong assumptions.</p>
@@ -6652,8 +6718,8 @@ returns successors of a CFGNode each time. This is the base class of all graph v
 </dd></dl>
 
 <dl class="method">
-<dt id="angr.analyses.forward_analysis.GraphVisitor.nodes_iter">
-<code class="descname">nodes_iter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor.nodes_iter" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.analyses.forward_analysis.GraphVisitor.nodes">
+<code class="descname">nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor.nodes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return an iterator of nodes following an optimal traversal order.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -7184,7 +7250,7 @@ form of nodes:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>digraph</strong> &#8211; A networkx.DiGraph object</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>digraph</strong> (<em>networkx.DiGraph</em>) &#8211; A networkx.DiGraph object</td>
 </tr>
 </tbody>
 </table>
@@ -7267,172 +7333,6 @@ should be passed to the keyword argument &#8220;successor_func&#8221; of PathGro
 <div class="section" id="module-angr.simos">
 <span id="simos"></span><h2>SimOS<a class="headerlink" href="#module-angr.simos" title="Permalink to this headline">¶</a></h2>
 <p>Manage OS-level configuration.</p>
-<dl class="class">
-<dt id="angr.simos.IRange">
-<em class="property">class </em><code class="descclassname">angr.simos.</code><code class="descname">IRange</code><span class="sig-paren">(</span><em>start</em>, <em>end</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.IRange" title="Permalink to this definition">¶</a></dt>
-<dd><p>A simple range object for testing inclusion. Like xrange but works for huge numbers.</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="angr.simos.SimOS">
-<em class="property">class </em><code class="descclassname">angr.simos.</code><code class="descname">SimOS</code><span class="sig-paren">(</span><em>project</em>, <em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS" title="Permalink to this definition">¶</a></dt>
-<dd><p>A class describing OS/arch-level configuration.</p>
-<dl class="method">
-<dt id="angr.simos.SimOS.configure_project">
-<code class="descname">configure_project</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS.configure_project" title="Permalink to this definition">¶</a></dt>
-<dd><p>Configure the project to set up global settings (like SimProcedures).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.simos.SimOS.state_blank">
-<code class="descname">state_blank</code><span class="sig-paren">(</span><em>addr=None</em>, <em>initial_prefix=None</em>, <em>stack_size=8388608</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS.state_blank" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize a blank state.</p>
-<p>All parameters are optional.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>addr</strong> &#8211; The execution start address.</li>
-<li><strong>initial_prefix</strong> &#8211; </li>
-<li><strong>stack_size</strong> &#8211; The number of bytes to allocate for stack space</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The initialized SimState.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Any additional arguments will be passed to the SimState constructor</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.simos.SimOS.prepare_call_state">
-<code class="descname">prepare_call_state</code><span class="sig-paren">(</span><em>calling_state</em>, <em>initial_state=None</em>, <em>preserve_registers=()</em>, <em>preserve_memory=()</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS.prepare_call_state" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function prepares a state that is executing a call instruction.
-If given an initial_state, it copies over all of the critical registers to it from the
-calling_state. Otherwise, it prepares the calling_state for action.</p>
-<p>This is mostly used to create minimalistic for CFG generation. Some ABIs, such as MIPS PIE and
-x86 PIE, require certain information to be maintained in certain registers. For example, for
-PIE MIPS, this function transfer t9, gp, and ra to the new state.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.simos.SimOS.prepare_function_symbol">
-<code class="descname">prepare_function_symbol</code><span class="sig-paren">(</span><em>symbol_name</em>, <em>basic_addr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS.prepare_function_symbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prepare the address space with the data necessary to perform relocations pointing to the given symbol</p>
-<p>Returns a 2-tuple. The first item is the address of the function code, the second is the address of the
-relocation target.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.simos.SimOS.handle_exception">
-<code class="descname">handle_exception</code><span class="sig-paren">(</span><em>successors</em>, <em>engine</em>, <em>exc_type</em>, <em>exc_value</em>, <em>exc_traceback</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimOS.handle_exception" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform exception handling. This method will be called when, during execution, a SimException is thrown.
-Currently, this can only indicate a segfault, but in the future it could indicate any unexpected exceptional
-behavior that can&#8217;t be handled by ordinary control flow.</p>
-<p>The method may mutate the provided SimSuccessors object in any way it likes, or re-raise the exception.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>successors</strong> &#8211; The SimSuccessors object currently being executed on</li>
-<li><strong>engine</strong> &#8211; The engine that was processing this step</li>
-<li><strong>exc_type</strong> &#8211; The value of sys.exc_info()[0] from the error, the type of the exception that was raised</li>
-<li><strong>exc_value</strong> &#8211; The value of sys.exc_info()[1] from the error, the actual exception object</li>
-<li><strong>exc_traceback</strong> &#8211; The value of sys.exc_info()[2] from the error, the traceback from the exception</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="angr.simos.SimUserland">
-<em class="property">class </em><code class="descclassname">angr.simos.</code><code class="descname">SimUserland</code><span class="sig-paren">(</span><em>project</em>, <em>syscall_library=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimUserland" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a base class for any SimOS that wants to support syscalls.</p>
-<p>It uses the CLE kernel object to provide addresses for syscalls. Syscalls will be emulated as a jump to one of these
-addresses, where a SimProcedure from the syscall library provided at construction time will be executed.</p>
-<dl class="method">
-<dt id="angr.simos.SimUserland.syscall">
-<code class="descname">syscall</code><span class="sig-paren">(</span><em>state</em>, <em>allow_unsupported=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimUserland.syscall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a state, return the procedure corresponding to the current syscall.
-This procedure will have .syscall_number, .display_name, and .addr set.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>state</strong> &#8211; The state to get the syscall number from</li>
-<li><strong>allow_unsupported</strong> &#8211; Whether to return a &#8220;dummy&#8221; sycall instead of raising an unsupported exception</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.simos.SimUserland.is_syscall_addr">
-<code class="descname">is_syscall_addr</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimUserland.is_syscall_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return whether or not the given address corresponds to a syscall.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.simos.SimUserland.syscall_from_addr">
-<code class="descname">syscall_from_addr</code><span class="sig-paren">(</span><em>addr</em>, <em>allow_unsupported=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimUserland.syscall_from_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a syscall SimProcedure from an address.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>addr</strong> &#8211; The address to convert to a syscall SimProcedure</li>
-<li><strong>allow_unsupported</strong> &#8211; Whether to return a dummy procedure for an unsupported syscall instead of raising an
-exception.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The SimProcedure for the syscall, or None if the address is not a syscall address.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="angr.simos.SimLinux">
-<em class="property">class </em><code class="descclassname">angr.simos.</code><code class="descname">SimLinux</code><span class="sig-paren">(</span><em>project</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimLinux" title="Permalink to this definition">¶</a></dt>
-<dd><p>OS-specific configuration for *nix-y OSes.</p>
-<dl class="method">
-<dt id="angr.simos.SimLinux.prepare_function_symbol">
-<code class="descname">prepare_function_symbol</code><span class="sig-paren">(</span><em>symbol_name</em>, <em>basic_addr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimLinux.prepare_function_symbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prepare the address space with the data necessary to perform relocations pointing to the given symbol.</p>
-<p>Returns a 2-tuple. The first item is the address of the function code, the second is the address of the
-relocation target.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="angr.simos.SimCGC">
-<em class="property">class </em><code class="descclassname">angr.simos.</code><code class="descname">SimCGC</code><span class="sig-paren">(</span><em>project</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimCGC" title="Permalink to this definition">¶</a></dt>
-<dd><p>Environment configuration for the CGC DECREE platform</p>
-</dd></dl>
-
-<dl class="class">
-<dt id="angr.simos.SimWindows">
-<em class="property">class </em><code class="descclassname">angr.simos.</code><code class="descname">SimWindows</code><span class="sig-paren">(</span><em>project</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.SimWindows" title="Permalink to this definition">¶</a></dt>
-<dd><p>Environemnt for the Windows Win32 subsystem. Does not support syscalls currently.</p>
-</dd></dl>
-
 </div>
 </div>
 
@@ -7477,7 +7377,7 @@ relocation target.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.7.9.21',
+            VERSION:'7.7.12.16',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

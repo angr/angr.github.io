@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyvex — Binary Translator &mdash; angr 7.7.9.21 documentation</title>
+  <title>pyvex — Binary Translator &mdash; angr 7.7.12.16 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 7.7.9.21 documentation" href="index.html"/>
+    <link rel="top" title="angr 7.7.12.16 documentation" href="index.html"/>
         <link rel="next" title="archinfo — Arch Information Repository" href="archinfo.html"/>
         <link rel="prev" title="cle — Binary Loader" href="cle.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                7.7.9.21
+                7.7.12.16
               </div>
             
           
@@ -451,7 +451,36 @@ else it is a Store-Conditional.</p>
 <dd><p>A call to a pure (no side-effects) helper C function.</p>
 </dd></dl>
 
-<span class="target" id="module-pyvex.const"></span></div>
+<span class="target" id="module-pyvex.const"></span><dl class="function">
+<dt id="pyvex.const.get_type_size">
+<code class="descclassname">pyvex.const.</code><code class="descname">get_type_size</code><span class="sig-paren">(</span><em>ty</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.const.get_type_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the size, in BITS, of a VEX type specifier
+e.g., Ity_I16 -&gt; 16</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ty</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyvex.const.get_type_spec_size">
+<code class="descclassname">pyvex.const.</code><code class="descname">get_type_spec_size</code><span class="sig-paren">(</span><em>ty</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.const.get_type_spec_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the width of a &#8220;type specifier&#8221;
+like I16U
+or F16
+or just 16
+(Yes, this really just takes the int out.  If we must special-case, do it here.
+:param tyspec:
+:return:</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-pyvex.enums">
 <span id="misc-things"></span><h2>Misc. Things<a class="headerlink" href="#module-pyvex.enums" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -530,7 +559,7 @@ rotating register files on the guest.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.7.9.21',
+            VERSION:'7.7.12.16',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

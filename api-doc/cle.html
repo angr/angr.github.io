@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cle — Binary Loader &mdash; angr 7.7.9.21 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 7.7.12.16 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 7.7.9.21 documentation" href="index.html"/>
+    <link rel="top" title="angr 7.7.12.16 documentation" href="index.html"/>
         <link rel="next" title="pyvex — Binary Translator" href="pyvex.html"/>
         <link rel="prev" title="claripy — Solver Engine" href="claripy.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                7.7.9.21
+                7.7.12.16
               </div>
             
           
@@ -917,14 +917,69 @@ name, therefore this method always returns an array.</p>
 
 </dd></dl>
 
+<dl class="class">
+<dt id="cle.backends.macho.macho.MachOSection">
+<em class="property">class </em><code class="descclassname">cle.backends.macho.macho.</code><code class="descname">MachOSection</code><span class="sig-paren">(</span><em>offset</em>, <em>vaddr</em>, <em>size</em>, <em>vsize</em>, <em>segname</em>, <em>sectname</em>, <em>align</em>, <em>reloff</em>, <em>nreloc</em>, <em>flags</em>, <em>r1</em>, <em>r2</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.macho.MachOSection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mach-O Section, only defined within the context of a Mach-O Segment.</p>
+<blockquote>
+<div><ul class="simple">
+<li>offset is the offset into the file the region starts</li>
+<li>vaddr (or just addr) is the virtual address</li>
+<li>filesize (or just size) is the size of the region in the file</li>
+<li>memsize (or vsize) is the size of the region when loaded into memory</li>
+<li>segname is the corresponding segment&#8217;s name without padding</li>
+<li>sectname is the section&#8217;s name without padding</li>
+<li>align is the sections alignment as a power of 2</li>
+<li>reloff is the file offset to the section&#8217;s relocation entries</li>
+<li>nreloc is the number of relocation entries for this section</li>
+<li>flags is a bit vector containing per-section flags</li>
+<li>r1 and r2 are values for the reserved1 and reserved2 fields respectively</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.macho.macho.MachOSegment">
+<em class="property">class </em><code class="descclassname">cle.backends.macho.macho.</code><code class="descname">MachOSegment</code><span class="sig-paren">(</span><em>offset</em>, <em>vaddr</em>, <em>size</em>, <em>vsize</em>, <em>segname</em>, <em>nsect</em>, <em>sections</em>, <em>flags</em>, <em>initprot</em>, <em>maxprot</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.macho.MachOSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mach-O Segment</p>
+<blockquote>
+<div><ul class="simple">
+<li>offset is the offset into the file the region starts</li>
+<li>vaddr (or just addr) is the virtual address</li>
+<li>filesize (or just size) is the size of the region in the file</li>
+<li>memsize (or vsize) is the size of the region when loaded into memory</li>
+<li>segname is the segment&#8217;s name without padding</li>
+<li>nsect is the number of sections contained in this segment</li>
+<li>sections is an array of MachOSections</li>
+<li>flags is a bit vector containing per-segment flags</li>
+<li>initprot and maxprot are initial and maximum permissions respectively</li>
+</ul>
+</div></blockquote>
+<dl class="method">
+<dt id="cle.backends.macho.macho.MachOSegment.get_section_by_name">
+<code class="descname">get_section_by_name</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.macho.MachOSegment.get_section_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches for a section by name within this segment
+:param name: Name of the section
+:return: MachOSection or None</p>
+</dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-cle.backends.macho.symbol"></span><dl class="class">
 <dt id="cle.backends.macho.symbol.MachOSymbol">
-<em class="property">class </em><code class="descclassname">cle.backends.macho.symbol.</code><code class="descname">MachOSymbol</code><span class="sig-paren">(</span><em>owner</em>, <em>name</em>, <em>addr</em>, <em>symtab_offset</em>, <em>macho_type</em>, <em>section_number</em>, <em>description</em>, <em>value</em>, <em>library_name=None</em>, <em>segment_name=None</em>, <em>section_name=None</em>, <em>is_export=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cle.backends.macho.symbol.</code><code class="descname">MachOSymbol</code><span class="sig-paren">(</span><em>owner</em>, <em>symtab_offset</em>, <em>n_strx</em>, <em>n_type</em>, <em>n_sect</em>, <em>n_desc</em>, <em>n_value</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for Mach-O symbols. Made to be (somewhat) compatible with backends.Symbol.
-Note that ELF-specific fields from backends.Symbol are not used and semantics of the remaining fields differs in
+Note that ELF-specific fields from backends.Symbol are not used and semantics of the remaining fields differ in
 many cases. As a result most stock functionality from Angr and related libraries WILL NOT WORK PROPERLY on
 MachOSymbol.</p>
 <p>Much of the code below is based on heuristics as official documentation is sparse, consider yourself warned!</p>
+<dl class="attribute">
+<dt id="cle.backends.macho.symbol.MachOSymbol.referenced_symbol_index">
+<code class="descname">referenced_symbol_index</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.referenced_symbol_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>For indirect symbols n_value contains an index into the string table indicating the referenced
+symbol&#8217;s name</p>
+</dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-cle.backends.macho.section"></span><dl class="class">
@@ -1718,7 +1773,7 @@ MVA - mapped VA (loader)
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.7.9.21',
+            VERSION:'7.7.12.16',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
