@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>claripy — Solver Engine &mdash; angr 7.7.12.16 documentation</title>
+  <title>claripy — Solver Engine &mdash; angr 7.8.2.21 documentation</title>
   
 
   
@@ -33,9 +33,9 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 7.7.12.16 documentation" href="index.html"/>
+    <link rel="top" title="angr 7.8.2.21 documentation" href="index.html"/>
         <link rel="next" title="cle — Binary Loader" href="cle.html"/>
-        <link rel="prev" title="angr — Analysis and Coordination" href="angr.html"/> 
+        <link rel="prev" title="t angr — Analysis and Coordination" href="angr.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                7.7.12.16
+                7.8.2.21
               </div>
             
           
@@ -85,7 +85,7 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="angr.html">t <code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.ast">AST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.backends">Backends</a></li>
@@ -759,8 +759,8 @@ The inverse of this function is raw_to_bv.</p>
 <dt id="claripy.ast.bv.BVS">
 <code class="descclassname">claripy.ast.bv.</code><code class="descname">BVS</code><span class="sig-paren">(</span><em>name</em>, <em>size</em>, <em>min=None</em>, <em>max=None</em>, <em>stride=None</em>, <em>uninitialized=False</em>, <em>explicit_name=None</em>, <em>discrete_set=False</em>, <em>discrete_set_max_card=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bv.BVS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a bit-vector symbol (i.e., a variable).</p>
-<p>If you want to specify the maximum value of a normal symbol that is not part of value-set analysis, you should
-manually add constraints to that effect.</p>
+<p>If you want to specify the maximum or minimum value of a normal symbol that is not part of value-set analysis, you
+should manually add constraints to that effect. <strong>Do not use ``min`` and ``max`` for symbolic execution.</strong></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -796,8 +796,9 @@ to False or None.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>value</strong> &#8211; The value.</li>
-<li><strong>size</strong> &#8211; The size (in bits) of the bit-vector.</li>
+<li><strong>value</strong> &#8211; The value. Either an integer or a string. If it&#8217;s a string, it will be interpreted as the bytes of
+a big-endian constant.</li>
+<li><strong>size</strong> &#8211; The size (in bits) of the bit-vector. Optional if you provide a string, required for an integer.</li>
 </ul>
 </td>
 </tr>
@@ -988,9 +989,9 @@ functionality is being attempted that the backend can&#8217;t handle), the
 backend should raise a BackendError. In this case, Claripy will move on to
 the next backend in its list.</p>
 <p>All backends must implement a convert() function. This function receives a
-claripy.A and should return an object that the backend can handle in its
+claripy.ast.Base and should return an object that the backend can handle in its
 private methods. Backends should also implement a _convert() method, which
-will receive anything that is <em>not</em> a claripy.A object (i.e., an integer or
+will receive anything that is <em>not</em> a claripy.ast.Base object (i.e., an integer or
 an object from a different backend). If convert() or _convert() receives
 something that the backend can&#8217;t translate to a format that is usable
 internally, the backend should raise BackendError, and thus won&#8217;t be used
@@ -1027,7 +1028,7 @@ _convert() to see if the backend can handle that type of object.</p>
 <dl class="method">
 <dt id="claripy.backends.Backend.convert">
 <code class="descname">convert</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.convert" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resolves a claripy.Base into something usable by the backend.</p>
+<dd><p>Resolves a claripy.ast.Base into something usable by the backend.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1069,7 +1070,7 @@ _convert() to see if the backend can handle that type of object.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>e</strong> &#8211; The AST.</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to the solver for this solve.</li>
 <li><strong>solver</strong> &#8211; A solver, for backends that require it.</li>
 <li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
 </ul>
@@ -1092,7 +1093,7 @@ _convert() to see if the backend can handle that type of object.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>e</strong> &#8211; The AST</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to the solver for this solve.</li>
 <li><strong>solver</strong> &#8211; A solver, for backends that require it</li>
 <li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
 </ul>
@@ -1115,7 +1116,7 @@ _convert() to see if the backend can handle that type of object.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>e</strong> &#8211; The AST.</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to the solver for this solve.</li>
 <li><strong>solver</strong> &#8211; A solver, for backends that require it.</li>
 <li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
 </ul>
@@ -1138,7 +1139,7 @@ _convert() to see if the backend can handle that type of object.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>e</strong> &#8211; The AST.</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to the solver for this solve.</li>
 <li><strong>solver</strong> &#8211; A solver, for backends that require it.</li>
 <li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
 </ul>
@@ -1167,9 +1168,9 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>c</strong> &#8211; A sequence of claripy.E objects.</li>
-<li><strong>s</strong> &#8211; A backend solver object.</li>
-<li><strong>track</strong> (<a class="reference internal" href="#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; True to enable constraint tracking, which is used in unsat_core().</li>
+<li><strong>c</strong> &#8211; A sequence of ASTs</li>
+<li><strong>s</strong> &#8211; A backend solver object</li>
+<li><strong>track</strong> (<a class="reference internal" href="#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; True to enable constraint tracking, which is used in unsat_core()</li>
 </ul>
 </td>
 </tr>
@@ -1202,12 +1203,11 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>expr</strong> &#8211; expression (claripy.E object) to evaluate</li>
+<li><strong>expr</strong> &#8211; expression (an AST) to evaluate</li>
 <li><strong>n</strong> &#8211; number of results to return</li>
 <li><strong>solver</strong> &#8211; a solver object, native to the backend, to assist in
 the evaluation (for example, a z3.Solver)</li>
-<li><strong>extra_constraints</strong> &#8211; extra constraints (claripy.E objects) to add
-to the solver for this solve</li>
+<li><strong>extra_constraints</strong> &#8211; extra constraints (as ASTs) to add to the solver for this solve</li>
 <li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
@@ -1230,7 +1230,7 @@ to the solver for this solve</li>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>exprs</strong> &#8211; A list of expressions to evaluate.</li>
 <li><strong>n</strong> &#8211; Number of different solutions to return.</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to the solver for this solve.</li>
 <li><strong>solver</strong> &#8211; A solver object, native to the backend, to assist in the evaluation.</li>
 <li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
 </ul>
@@ -1252,11 +1252,10 @@ to the solver for this solve</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>expr</strong> &#8211; expression (claripy.E object) to evaluate</li>
+<li><strong>expr</strong> &#8211; expression (an AST) to evaluate</li>
 <li><strong>solver</strong> &#8211; a solver object, native to the backend, to assist in
 the evaluation (for example, a z3.Solver)</li>
-<li><strong>extra_constraints</strong> &#8211; extra constraints (claripy.E objects) to add
-to the solver for this solve</li>
+<li><strong>extra_constraints</strong> &#8211; extra constraints (as ASTs) to add to the solver for this solve</li>
 <li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
@@ -1277,11 +1276,10 @@ to the solver for this solve</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>expr</strong> &#8211; expression (claripy.E object) to evaluate</li>
+<li><strong>expr</strong> &#8211; expression (an AST) to evaluate</li>
 <li><strong>solver</strong> &#8211; a solver object, native to the backend, to assist in
 the evaluation (for example, a z3.Solver)</li>
-<li><strong>extra_constraints</strong> &#8211; extra constraints (claripy.E objects) to add
-to the solver for this solve</li>
+<li><strong>extra_constraints</strong> &#8211; extra constraints (as ASTs) to add to the solver for this solve</li>
 <li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
@@ -1303,7 +1301,7 @@ to the solver for this solve</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>solver</strong> &#8211; The backend solver object.</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to s for this solve</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to s for this solve</li>
 <li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
@@ -1324,11 +1322,11 @@ to the solver for this solve</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>expr</strong> &#8211; An expression (claripy.E) to evaluate</li>
-<li><strong>v</strong> &#8211; The proposed solution (claripy.E)</li>
+<li><strong>expr</strong> &#8211; An expression (an AST) to evaluate</li>
+<li><strong>v</strong> &#8211; The proposed solution (an AST)</li>
 <li><strong>solver</strong> &#8211; A solver object, native to the backend, to assist in the evaluation (for example,
 a z3.Solver).</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (claripy.E objects) to add to the solver for this solve.</li>
+<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to the solver for this solve.</li>
 <li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
@@ -1348,7 +1346,7 @@ a z3.Solver).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the claripy A object</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the AST to evaluate</td>
 </tr>
 </tbody>
 </table>
@@ -1362,7 +1360,7 @@ a z3.Solver).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the claripy A object</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the AST to evaluate</td>
 </tr>
 </tbody>
 </table>
@@ -1378,8 +1376,8 @@ is definitely identical. False eans that, conservatively, it might not be.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>a</strong> &#8211; a claripy A object</li>
-<li><strong>b</strong> &#8211; a claripy A object</li>
+<li><strong>a</strong> &#8211; an AST</li>
+<li><strong>b</strong> &#8211; another AST</li>
 </ul>
 </td>
 </tr>
@@ -1396,9 +1394,9 @@ approximation.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; A claripy A object.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; The AST to evaluate</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An integer.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An integer</td>
 </tr>
 </tbody>
 </table>
@@ -1441,10 +1439,10 @@ approximation.</p>
 
 </dd></dl>
 
-<span class="target" id="module-claripy.backends.backend_concrete"></span><span class="target" id="module-claripy.backends.backend_z3"></span></div>
+<span class="target" id="module-claripy.backends.backend_concrete"></span><span class="target" id="module-claripy.backends.backend_z3"></span><span class="target" id="module-claripy.backends.backend_z3_parallel"></span><span class="target" id="module-claripy.backends.celeryconfig"></span><span class="target" id="module-claripy.backends.backend_vsa"></span></div>
 <div class="section" id="module-claripy.frontend">
 <span id="frontends"></span><h2>Frontends<a class="headerlink" href="#module-claripy.frontend" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-claripy.frontends"></span><span class="target" id="module-claripy.frontends.composite_frontend"></span><span class="target" id="module-claripy.frontends.constrained_frontend"></span><span class="target" id="module-claripy.frontends.full_frontend"></span><span class="target" id="module-claripy.frontends.hybrid_frontend"></span><span class="target" id="module-claripy.frontends.light_frontend"></span><span class="target" id="module-claripy.frontends.replacement_frontend"></span></div>
+<span class="target" id="module-claripy.frontends"></span><span class="target" id="module-claripy.frontends.composite_frontend"></span><span class="target" id="module-claripy.frontends.constrained_frontend"></span><span class="target" id="module-claripy.frontends.full_frontend"></span><span class="target" id="module-claripy.frontends.hybrid_frontend"></span><span class="target" id="module-claripy.frontends.light_frontend"></span><span class="target" id="module-claripy.frontends.replacement_frontend"></span><span class="target" id="module-claripy.solvers"></span></div>
 <div class="section" id="module-claripy.frontend_mixins">
 <span id="frontend-mixins"></span><h2>Frontend Mixins<a class="headerlink" href="#module-claripy.frontend_mixins" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-claripy.frontend_mixins.composited_cache_mixin"></span><span class="target" id="module-claripy.frontend_mixins.concrete_handler_mixin"></span><span class="target" id="module-claripy.frontend_mixins.constraint_deduplicator_mixin"></span><span class="target" id="module-claripy.frontend_mixins.constraint_expansion_mixin"></span><span class="target" id="module-claripy.frontend_mixins.constraint_filter_mixin"></span><span class="target" id="module-claripy.frontend_mixins.constraint_fixer_mixin"></span><span class="target" id="module-claripy.frontend_mixins.debug_mixin"></span><span class="target" id="module-claripy.frontend_mixins.eager_resolution_mixin"></span><span class="target" id="module-claripy.frontend_mixins.model_cache_mixin"></span><span class="target" id="module-claripy.frontend_mixins.sat_cache_mixin"></span><span class="target" id="module-claripy.frontend_mixins.simplify_helper_mixin"></span><span class="target" id="module-claripy.frontend_mixins.simplify_skipper_mixin"></span><span class="target" id="module-claripy.frontend_mixins.solve_block_mixin"></span></div>
@@ -2607,6 +2605,38 @@ one.</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="claripy.vsa.valueset.ValueSet.min">
+<code class="descname">min</code><a class="headerlink" href="#claripy.vsa.valueset.ValueSet.min" title="Permalink to this definition">¶</a></dt>
+<dd><p>The minimum integer value of a value-set. It is only defined when there is exactly one region.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A integer that represents the minimum integer value of this value-set.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-claripy.ast.int" title="claripy.ast.int">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.vsa.valueset.ValueSet.max">
+<code class="descname">max</code><a class="headerlink" href="#claripy.vsa.valueset.ValueSet.max" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum integer value of a value-set. It is only defined when there is exactly one region.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A integer that represents the maximum integer value of this value-set.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-claripy.ast.int" title="claripy.ast.int">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <dl class="method">
 <dt id="claripy.vsa.valueset.ValueSet.extract">
 <code class="descname">extract</code><span class="sig-paren">(</span><em>high_bit</em>, <em>low_bit</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.valueset.ValueSet.extract" title="Permalink to this definition">¶</a></dt>
@@ -2676,7 +2706,7 @@ unknown terms on one side of an inequality.</p>
         <a href="cle.html" class="btn btn-neutral float-right" title="cle — Binary Loader" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="angr.html" class="btn btn-neutral" title="angr — Analysis and Coordination" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="angr.html" class="btn btn-neutral" title="t angr — Analysis and Coordination" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -2707,7 +2737,7 @@ unknown terms on one side of an inequality.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.7.12.16',
+            VERSION:'7.8.2.21',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

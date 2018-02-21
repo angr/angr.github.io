@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; angr 7.7.12.16 documentation</title>
+  <title>Index &mdash; angr 7.8.2.21 documentation</title>
   
 
   
@@ -34,7 +34,7 @@
         <link rel="index" title="Index"
               href="#"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 7.7.12.16 documentation" href="index.html"/> 
+    <link rel="top" title="angr 7.8.2.21 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                7.7.12.16
+                7.8.2.21
               </div>
             
           
@@ -84,7 +84,7 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="angr.html">t <code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
 <li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</a></li>
@@ -158,6 +158,7 @@
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
+ | <a href="#X"><strong>X</strong></a>
  | <a href="#Z"><strong>Z</strong></a>
  
 </div>
@@ -194,19 +195,31 @@
 </li>
       <li><a href="angr.html#angr.storage.file.SimDialogue.add_dialogue_entry">add_dialogue_entry() (angr.storage.file.SimDialogue method)</a>
 </li>
+      <li><a href="angr.html#angr.exploration_techniques.director.Director.add_goal">add_goal() (angr.exploration_techniques.director.Director method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.forward_analysis.JobInfo.add_job">add_job() (angr.analyses.forward_analysis.JobInfo method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.add_jumpout_site">add_jumpout_site() (angr.knowledge_plugins.functions.function.Function method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.add_label">add_label() (angr.analyses.reassembler.Reassembler method)</a>
+</li>
       <li><a href="angr.html#angr.annocfg.AnnotatedCFG.add_loop">add_loop() (angr.annocfg.AnnotatedCFG method)</a>
+</li>
+      <li><a href="cle.html#cle.loader.Loader.add_object">add_object() (cle.loader.Loader method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.MemoryData.add_ref">add_ref() (angr.analyses.cfg.cfg_fast.MemoryData method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.add_retout_site">add_retout_site() (angr.knowledge_plugins.functions.function.Function method)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.add_sinkhole">add_sinkhole() (angr.state_plugins.cgc.SimStateCGC method)</a>
+</li>
       <li><a href="angr.html#angr.engines.successors.SimSuccessors.add_successor">add_successor() (angr.engines.successors.SimSuccessors method)</a>
 </li>
+      <li><a href="angr.html#angr.keyed_region.KeyedRegion.add_variable">add_variable() (angr.keyed_region.KeyedRegion method)</a>
+</li>
       <li><a href="angr.html#angr.sim_state.SimState.addr">addr (angr.sim_state.SimState attribute)</a>
+</li>
+      <li><a href="cle.html#cle.backends.region.Region.addr_to_offset">addr_to_offset() (cle.backends.region.Region method)</a>
 </li>
       <li><a href="cle.html#cle.address_translator.AddressTranslator">AddressTranslator (class in cle.address_translator)</a>
 </li>
@@ -230,27 +243,59 @@
 </li>
       <li><a href="angr.html#angr.analyses.vfg.AnalysisTask">AnalysisTask (class in angr.analyses.vfg)</a>
 </li>
+      <li><a href="angr.html#module-angr">angr (module)</a>
+</li>
       <li><a href="angr.html#module-angr.analyses">angr.analyses (module)</a>
 </li>
       <li><a href="angr.html#module-angr.analyses.analysis">angr.analyses.analysis (module)</a>
 </li>
       <li><a href="angr.html#module-angr.analyses.backward_slice">angr.analyses.backward_slice (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.analyses.binary_optimizer">angr.analyses.binary_optimizer (module)</a>
+</li>
       <li><a href="angr.html#module-angr.analyses.bindiff">angr.analyses.bindiff (module)</a>
 </li>
       <li><a href="angr.html#module-angr.analyses.boyscout">angr.analyses.boyscout (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.analyses.callee_cleanup_finder">angr.analyses.callee_cleanup_finder (module)</a>
+</li>
       <li><a href="angr.html#module-angr.analyses.cdg">angr.analyses.cdg (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.analyses.cfg">angr.analyses.cfg (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.cfg.cfg">angr.analyses.cfg.cfg (module)</a>
+</li>
       <li><a href="angr.html#module-angr.analyses.cfg.cfg_accurate">angr.analyses.cfg.cfg_accurate (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.cfg.cfg_arch_options">angr.analyses.cfg.cfg_arch_options (module)</a>
 </li>
       <li><a href="angr.html#module-angr.analyses.cfg.cfg_base">angr.analyses.cfg.cfg_base (module)</a>
 </li>
       <li><a href="angr.html#module-angr.analyses.cfg.cfg_fast">angr.analyses.cfg.cfg_fast (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.analyses.cfg.cfg_job_base">angr.analyses.cfg.cfg_job_base (module)</a>
+</li>
       <li><a href="angr.html#module-angr.analyses.cfg.cfg_node">angr.analyses.cfg.cfg_node (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.analyses.cfg.cfg_utils">angr.analyses.cfg.cfg_utils (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.cfg.indirect_jump_resolvers">angr.analyses.cfg.indirect_jump_resolvers (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.cfg.indirect_jump_resolvers.default_resolvers">angr.analyses.cfg.indirect_jump_resolvers.default_resolvers (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.cfg.indirect_jump_resolvers.jumptable">angr.analyses.cfg.indirect_jump_resolvers.jumptable (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast">angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.cfg.indirect_jump_resolvers.resolver">angr.analyses.cfg.indirect_jump_resolvers.resolver (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt">angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.cfg.indirect_jump_resolvers.x86_pe_iat">angr.analyses.cfg.indirect_jump_resolvers.x86_pe_iat (module)</a>
+</li>
       <li><a href="angr.html#module-angr.analyses.code_location">angr.analyses.code_location (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.congruency_check">angr.analyses.congruency_check (module)</a>
 </li>
       <li><a href="angr.html#module-angr.analyses.datagraph_meta">angr.analyses.datagraph_meta (module)</a>
 </li>
@@ -258,11 +303,29 @@
 </li>
       <li><a href="angr.html#module-angr.analyses.dfg">angr.analyses.dfg (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.analyses.disassembly">angr.analyses.disassembly (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.disassembly_utils">angr.analyses.disassembly_utils (module)</a>
+</li>
       <li><a href="angr.html#module-angr.analyses.forward_analysis">angr.analyses.forward_analysis (module)</a>
 </li>
       <li><a href="angr.html#module-angr.analyses.girlscout">angr.analyses.girlscout (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.analyses.identifier.identify">angr.analyses.identifier.identify (module)</a>
+</li>
       <li><a href="angr.html#module-angr.analyses.loopfinder">angr.analyses.loopfinder (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.reassembler">angr.analyses.reassembler (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.static_hooker">angr.analyses.static_hooker (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.variable_recovery">angr.analyses.variable_recovery (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.variable_recovery.annotations">angr.analyses.variable_recovery.annotations (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.variable_recovery.variable_recovery">angr.analyses.variable_recovery.variable_recovery (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.variable_recovery.variable_recovery_fast">angr.analyses.variable_recovery.variable_recovery_fast (module)</a>
 </li>
       <li><a href="angr.html#module-angr.analyses.veritesting">angr.analyses.veritesting (module)</a>
 </li>
@@ -274,9 +337,37 @@
 </li>
       <li><a href="angr.html#module-angr.blade">angr.blade (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.block">angr.block (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.callable">angr.callable (module)</a>
+</li>
       <li><a href="angr.html#module-angr.calling_conventions">angr.calling_conventions (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.codenode">angr.codenode (module)</a>
+</li>
       <li><a href="angr.html#module-angr.concretization_strategies">angr.concretization_strategies (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.concretization_strategies.any">angr.concretization_strategies.any (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.concretization_strategies.controlled_data">angr.concretization_strategies.controlled_data (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.concretization_strategies.eval">angr.concretization_strategies.eval (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.concretization_strategies.max">angr.concretization_strategies.max (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.concretization_strategies.nonzero">angr.concretization_strategies.nonzero (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.concretization_strategies.nonzero_range">angr.concretization_strategies.nonzero_range (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.concretization_strategies.norepeats">angr.concretization_strategies.norepeats (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.concretization_strategies.norepeats_range">angr.concretization_strategies.norepeats_range (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.concretization_strategies.range">angr.concretization_strategies.range (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.concretization_strategies.single">angr.concretization_strategies.single (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.concretization_strategies.solutions">angr.concretization_strategies.solutions (module)</a>
 </li>
       <li><a href="angr.html#module-angr.engines">angr.engines (module)</a>
 </li>
@@ -298,24 +389,50 @@
 </li>
       <li><a href="angr.html#module-angr.engines.vex.engine">angr.engines.vex.engine (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.errors">angr.errors (module)</a>
+</li>
       <li><a href="angr.html#module-angr.exploration_techniques">angr.exploration_techniques (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.exploration_techniques.cacher">angr.exploration_techniques.cacher (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.exploration_techniques.crash_monitor">angr.exploration_techniques.crash_monitor (module)</a>
 </li>
       <li><a href="angr.html#module-angr.exploration_techniques.dfs">angr.exploration_techniques.dfs (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.exploration_techniques.director">angr.exploration_techniques.director (module)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#module-angr.exploration_techniques.driller_core">angr.exploration_techniques.driller_core (module)</a>
+</li>
       <li><a href="angr.html#module-angr.exploration_techniques.explorer">angr.exploration_techniques.explorer (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.exploration_techniques.lengthlimiter">angr.exploration_techniques.lengthlimiter (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.exploration_techniques.loop_seer">angr.exploration_techniques.loop_seer (module)</a>
 </li>
       <li><a href="angr.html#module-angr.exploration_techniques.looplimiter">angr.exploration_techniques.looplimiter (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.exploration_techniques.manual_mergepoint">angr.exploration_techniques.manual_mergepoint (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.exploration_techniques.oppologist">angr.exploration_techniques.oppologist (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.exploration_techniques.spiller">angr.exploration_techniques.spiller (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.exploration_techniques.tech_builder">angr.exploration_techniques.tech_builder (module)</a>
+</li>
       <li><a href="angr.html#module-angr.exploration_techniques.threading">angr.exploration_techniques.threading (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.exploration_techniques.tracer">angr.exploration_techniques.tracer (module)</a>
 </li>
       <li><a href="angr.html#module-angr.exploration_techniques.veritesting">angr.exploration_techniques.veritesting (module)</a>
 </li>
       <li><a href="angr.html#module-angr.factory">angr.factory (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.keyed_region">angr.keyed_region (module)</a>
+</li>
       <li><a href="angr.html#module-angr.knowledge_base">angr.knowledge_base (module)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#module-angr.knowledge_plugins">angr.knowledge_plugins (module)</a>
 </li>
       <li><a href="angr.html#module-angr.knowledge_plugins.comments">angr.knowledge_plugins.comments (module)</a>
@@ -342,8 +459,6 @@
 </li>
       <li><a href="angr.html#module-angr.manager">angr.manager (module)</a>
 </li>
-      <li><a href="angr.html#module-angr.pathprioritizer">angr.pathprioritizer (module)</a>
-</li>
       <li><a href="angr.html#module-angr.procedures">angr.procedures (module)</a>
 </li>
       <li><a href="angr.html#module-angr.procedures.stubs.format_parser">angr.procedures.stubs.format_parser (module)</a>
@@ -362,6 +477,16 @@
 </li>
       <li><a href="angr.html#module-angr.simos">angr.simos (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.simos.cgc">angr.simos.cgc (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.simos.linux">angr.simos.linux (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.simos.simos">angr.simos.simos (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.simos.userland">angr.simos.userland (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.simos.windows">angr.simos.windows (module)</a>
+</li>
       <li><a href="angr.html#module-angr.slicer">angr.slicer (module)</a>
 </li>
       <li><a href="angr.html#module-angr.state_hierarchy">angr.state_hierarchy (module)</a>
@@ -370,11 +495,33 @@
 </li>
       <li><a href="angr.html#module-angr.state_plugins.abstract_memory">angr.state_plugins.abstract_memory (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.state_plugins.callstack">angr.state_plugins.callstack (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.state_plugins.cgc">angr.state_plugins.cgc (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.state_plugins.fast_memory">angr.state_plugins.fast_memory (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.state_plugins.gdb">angr.state_plugins.gdb (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.state_plugins.globals">angr.state_plugins.globals (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.state_plugins.history">angr.state_plugins.history (module)</a>
+</li>
       <li><a href="angr.html#module-angr.state_plugins.inspect">angr.state_plugins.inspect (module)</a>
 </li>
       <li><a href="angr.html#module-angr.state_plugins.libc">angr.state_plugins.libc (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.state_plugins.log">angr.state_plugins.log (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.state_plugins.loop_data">angr.state_plugins.loop_data (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.state_plugins.plugin">angr.state_plugins.plugin (module)</a>
+</li>
       <li><a href="angr.html#module-angr.state_plugins.posix">angr.state_plugins.posix (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.state_plugins.preconstrainer">angr.state_plugins.preconstrainer (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.state_plugins.scratch">angr.state_plugins.scratch (module)</a>
 </li>
       <li><a href="angr.html#module-angr.state_plugins.sim_action">angr.state_plugins.sim_action (module)</a>
 </li>
@@ -385,6 +532,12 @@
       <li><a href="angr.html#module-angr.state_plugins.solver">angr.state_plugins.solver (module)</a>
 </li>
       <li><a href="angr.html#module-angr.state_plugins.symbolic_memory">angr.state_plugins.symbolic_memory (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.state_plugins.trace_additions">angr.state_plugins.trace_additions (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.state_plugins.uc_manager">angr.state_plugins.uc_manager (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.state_plugins.unicorn_engine">angr.state_plugins.unicorn_engine (module)</a>
 </li>
       <li><a href="angr.html#module-angr.state_plugins.view">angr.state_plugins.view (module)</a>
 </li>
@@ -397,6 +550,8 @@
       <li><a href="angr.html#module-angr.storage.memory_object">angr.storage.memory_object (module)</a>
 </li>
       <li><a href="angr.html#module-angr.storage.paged_memory">angr.storage.paged_memory (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.storage.pcap">angr.storage.pcap (module)</a>
 </li>
       <li><a href="angr.html#module-angr.type_backend">angr.type_backend (module)</a>
 </li>
@@ -415,6 +570,10 @@
       <li><a href="claripy.html#claripy.ast.base.Base.append_annotation">append_annotation() (claripy.ast.base.Base method)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.base.Base.append_annotations">append_annotations() (claripy.ast.base.Base method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.append_data">append_data() (angr.analyses.reassembler.Reassembler method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.append_procedure">append_procedure() (angr.analyses.reassembler.Reassembler method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.vfg.VFGNode.append_state">append_state() (angr.analyses.vfg.VFGNode method)</a>
 </li>
@@ -440,6 +599,8 @@
 </li>
       <li><a href="archinfo.html#module-archinfo.arch_arm">archinfo.arch_arm (module)</a>
 </li>
+      <li><a href="archinfo.html#module-archinfo.arch_avr">archinfo.arch_avr (module)</a>
+</li>
       <li><a href="archinfo.html#module-archinfo.arch_mips32">archinfo.arch_mips32 (module)</a>
 </li>
       <li><a href="archinfo.html#module-archinfo.arch_mips64">archinfo.arch_mips64 (module)</a>
@@ -448,7 +609,15 @@
 </li>
       <li><a href="archinfo.html#module-archinfo.arch_ppc64">archinfo.arch_ppc64 (module)</a>
 </li>
+      <li><a href="archinfo.html#module-archinfo.arch_soot">archinfo.arch_soot (module)</a>
+</li>
       <li><a href="archinfo.html#module-archinfo.arch_x86">archinfo.arch_x86 (module)</a>
+</li>
+      <li><a href="archinfo.html#module-archinfo.archerror">archinfo.archerror (module)</a>
+</li>
+      <li><a href="archinfo.html#module-archinfo.defines">archinfo.defines (module)</a>
+</li>
+      <li><a href="archinfo.html#module-archinfo.tls">archinfo.tls (module)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.arg">arg() (angr.calling_conventions.SimCC method)</a>
 
@@ -462,6 +631,12 @@
 </li>
       <li><a href="angr.html#angr.calling_conventions.ArgSession">ArgSession (class in angr.calling_conventions)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.reassembler.Instruction.assembly">assembly() (angr.analyses.reassembler.Instruction method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.analyses.reassembler.Procedure.assembly">(angr.analyses.reassembler.Procedure method)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.assign_variable_names">assign_variable_names() (angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.ddg.AST">AST (class in angr.analyses.ddg)</a>
@@ -494,9 +669,13 @@
 </li>
       <li><a href="angr.html#angr.storage.paged_memory.BasePage">BasePage (class in angr.storage.paged_memory)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.reassembler.BasicBlock">BasicBlock (class in angr.analyses.reassembler)</a>
+</li>
       <li><a href="claripy.html#claripy.backends.Backend.batch_eval">batch_eval() (claripy.backends.Backend method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.binary">binary (angr.knowledge_plugins.functions.function.Function attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.binary_optimizer.BinaryOptimizer">BinaryOptimizer (class in angr.analyses.binary_optimizer)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.Binder">Binder (class in pyvex.expr)</a>
 </li>
@@ -531,6 +710,8 @@
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.block_addrs_set">block_addrs_set (angr.knowledge_plugins.functions.function.Function attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.bindiff.FunctionDiff.block_similarity">block_similarity() (angr.analyses.bindiff.FunctionDiff method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_job_base.BlockID">BlockID (class in angr.analyses.cfg.cfg_job_base)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.blocks">blocks (angr.knowledge_plugins.functions.function.Function attribute)</a>
 </li>
@@ -572,21 +753,37 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.ast.base.Base.cache_key">cache_key (claripy.ast.base.Base attribute)</a>
 </li>
+      <li><a href="angr.html#angr.exploration_techniques.cacher.Cacher">Cacher (class in angr.exploration_techniques.cacher)</a>
+</li>
       <li><a href="angr.html#angr.sim_procedure.SimProcedure.call">call() (angr.sim_procedure.SimProcedure method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.state_plugins.callstack.CallStack.call">(angr.state_plugins.callstack.CallStack method)</a>
+</li>
         <li><a href="claripy.html#claripy.backends.Backend.call">(claripy.backends.Backend method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.factory.AngrObjectFactory.call_state">call_state() (angr.factory.AngrObjectFactory method)</a>
 </li>
+      <li><a href="angr.html#angr.callable.Callable">Callable (class in angr.callable)</a>
+</li>
       <li><a href="angr.html#angr.factory.AngrObjectFactory.callable">callable() (angr.factory.AngrObjectFactory method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.vfg.CallAnalysis">CallAnalysis (class in angr.analyses.vfg)</a>
 </li>
+      <li><a href="angr.html#angr.exploration_techniques.director.CallFunctionGoal">CallFunctionGoal (class in angr.exploration_techniques.director)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.callstack.CallStack">CallStack (class in angr.state_plugins.callstack)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.callstack.CallStackAction">CallStackAction (class in angr.state_plugins.callstack)</a>
+</li>
       <li><a href="angr.html#angr.analyses.veritesting.CallTracingFilter">CallTracingFilter (class in angr.analyses.veritesting)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch.Arch.capstone">capstone (archinfo.arch.Arch attribute)</a>
+</li>
+      <li><a href="archinfo.html#archinfo.arch.Arch.capstone_support">capstone_support (archinfo.arch.Arch attribute)</a>
+</li>
+      <li><a href="angr.html#angr.block.CapstoneBlock">CapstoneBlock (class in angr.block)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.cardinality">cardinality (claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet attribute)</a>
 </li>
@@ -604,11 +801,17 @@
 </li>
       <li><a href="pyvex.html#pyvex.expr.CCall">CCall (class in pyvex.expr)</a>
 </li>
+      <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.ccall">ccall() (pyvex.lift.util.instr_helper.Instruction method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cdg.CDG">CDG (class in angr.analyses.cdg)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function_manager.FunctionManager.ceiling_func">ceiling_func() (angr.knowledge_plugins.functions.function_manager.FunctionManager method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg.CFG">CFG (class in angr.analyses.cfg.cfg)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_accurate.CFGAccurate">CFGAccurate (class in angr.analyses.cfg.cfg_accurate)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_arch_options.CFGArchOptions">CFGArchOptions (class in angr.analyses.cfg.cfg_arch_options)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase">CFGBase (class in angr.analyses.cfg.cfg_base)</a>
 </li>
@@ -616,20 +819,36 @@
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJob">CFGJob (class in angr.analyses.cfg.cfg_fast)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_job_base.CFGJobBase">CFGJobBase (class in angr.analyses.cfg.cfg_job_base)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_node.CFGNode">CFGNode (class in angr.analyses.cfg.cfg_node)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_node.CFGNodeCreationFailure">CFGNodeCreationFailure (class in angr.analyses.cfg.cfg_node)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_utils.CFGUtils">CFGUtils (class in angr.analyses.cfg.cfg_utils)</a>
+</li>
       <li><a href="cle.html#cle.backends.cgc.cgc.CGC">CGC (class in cle.backends.cgc.cgc)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.trace_additions.ChallRespInfo">ChallRespInfo (class in angr.state_plugins.trace_additions)</a>
 </li>
       <li><a href="angr.html#angr.engines.engine.SimEngine.check">check() (angr.engines.engine.SimEngine method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.exploration_techniques.director.CallFunctionGoal.check">(angr.exploration_techniques.director.CallFunctionGoal method)</a>
+</li>
+        <li><a href="angr.html#angr.exploration_techniques.director.ExecuteAddressGoal.check">(angr.exploration_techniques.director.ExecuteAddressGoal method)</a>
+</li>
         <li><a href="angr.html#angr.state_plugins.inspect.BP.check">(angr.state_plugins.inspect.BP method)</a>
 </li>
       </ul></li>
       <li><a href="cle.html#cle.backends.Backend.check_compatibility">check_compatibility() (cle.backends.Backend class method)</a>
 </li>
+      <li><a href="angr.html#angr.exploration_techniques.director.CallFunctionGoal.check_state">check_state() (angr.exploration_techniques.director.CallFunctionGoal method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.exploration_techniques.director.ExecuteAddressGoal.check_state">(angr.exploration_techniques.director.ExecuteAddressGoal method)</a>
+</li>
+      </ul></li>
       <li><a href="pyvex.html#pyvex.expr.IRExpr.child_expressions">child_expressions (pyvex.expr.IRExpr attribute)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.bv.BV.chop">chop() (claripy.ast.bv.BV method)</a>
@@ -662,7 +881,13 @@
 </li>
       <li><a href="claripy.html#module-claripy.backends.backend_concrete">claripy.backends.backend_concrete (module)</a>
 </li>
+      <li><a href="claripy.html#module-claripy.backends.backend_vsa">claripy.backends.backend_vsa (module)</a>
+</li>
       <li><a href="claripy.html#module-claripy.backends.backend_z3">claripy.backends.backend_z3 (module)</a>
+</li>
+      <li><a href="claripy.html#module-claripy.backends.backend_z3_parallel">claripy.backends.backend_z3_parallel (module)</a>
+</li>
+      <li><a href="claripy.html#module-claripy.backends.celeryconfig">claripy.backends.celeryconfig (module)</a>
 </li>
       <li><a href="claripy.html#module-claripy.balancer">claripy.balancer (module)</a>
 </li>
@@ -720,6 +945,8 @@
 </li>
       <li><a href="claripy.html#module-claripy.ops">claripy.ops (module)</a>
 </li>
+      <li><a href="claripy.html#module-claripy.solvers">claripy.solvers (module)</a>
+</li>
       <li><a href="claripy.html#module-claripy.vsa">claripy.vsa (module)</a>
 </li>
       <li><a href="claripy.html#module-claripy.vsa.abstract_location">claripy.vsa.abstract_location (module)</a>
@@ -738,20 +965,24 @@
 </li>
       <li><a href="cle.html#module-cle.address_translator">cle.address_translator (module)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cle.html#module-cle.backends">cle.backends (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.blob">cle.backends.blob (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.cgc">cle.backends.cgc (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.cgc.backedcgc">cle.backends.cgc.backedcgc (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.cgc.cgc">cle.backends.cgc.cgc (module)</a>
 </li>
+      <li><a href="cle.html#module-cle.backends.elf">cle.backends.elf (module)</a>
+</li>
       <li><a href="cle.html#module-cle.backends.elf.elf">cle.backends.elf.elf (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.elf.elfcore">cle.backends.elf.elfcore (module)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cle.html#module-cle.backends.elf.hashtable">cle.backends.elf.hashtable (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.elf.metaelf">cle.backends.elf.metaelf (module)</a>
@@ -760,7 +991,29 @@
 </li>
       <li><a href="cle.html#module-cle.backends.elf.relocation">cle.backends.elf.relocation (module)</a>
 </li>
+      <li><a href="cle.html#module-cle.backends.elf.relocation.amd64">cle.backends.elf.relocation.amd64 (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.elf.relocation.arm">cle.backends.elf.relocation.arm (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.elf.relocation.arm64">cle.backends.elf.relocation.arm64 (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.elf.relocation.armel">cle.backends.elf.relocation.armel (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.elf.relocation.armhf">cle.backends.elf.relocation.armhf (module)</a>
+</li>
       <li><a href="cle.html#module-cle.backends.elf.relocation.elfreloc">cle.backends.elf.relocation.elfreloc (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.elf.relocation.generic">cle.backends.elf.relocation.generic (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.elf.relocation.i386">cle.backends.elf.relocation.i386 (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.elf.relocation.mips">cle.backends.elf.relocation.mips (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.elf.relocation.mips64">cle.backends.elf.relocation.mips64 (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.elf.relocation.pcc64">cle.backends.elf.relocation.pcc64 (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.elf.relocation.ppc">cle.backends.elf.relocation.ppc (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.elf.symbol">cle.backends.elf.symbol (module)</a>
 </li>
@@ -769,6 +1022,8 @@
       <li><a href="cle.html#module-cle.backends.idabin">cle.backends.idabin (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.ihex">cle.backends.ihex (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.macho">cle.backends.macho (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.macho.binding">cle.backends.macho.binding (module)</a>
 </li>
@@ -780,19 +1035,37 @@
 </li>
       <li><a href="cle.html#module-cle.backends.macho.symbol">cle.backends.macho.symbol (module)</a>
 </li>
+      <li><a href="cle.html#module-cle.backends.pe">cle.backends.pe (module)</a>
+</li>
       <li><a href="cle.html#module-cle.backends.pe.pe">cle.backends.pe.pe (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.pe.regions">cle.backends.pe.regions (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.pe.relocation">cle.backends.pe.relocation (module)</a>
 </li>
+      <li><a href="cle.html#module-cle.backends.pe.relocation.amd64">cle.backends.pe.relocation.amd64 (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.pe.relocation.arm">cle.backends.pe.relocation.arm (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.pe.relocation.generic">cle.backends.pe.relocation.generic (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.pe.relocation.i386">cle.backends.pe.relocation.i386 (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.pe.relocation.mips">cle.backends.pe.relocation.mips (module)</a>
+</li>
       <li><a href="cle.html#module-cle.backends.pe.relocation.pereloc">cle.backends.pe.relocation.pereloc (module)</a>
 </li>
+      <li><a href="cle.html#module-cle.backends.pe.relocation.riscv">cle.backends.pe.relocation.riscv (module)</a>
+</li>
       <li><a href="cle.html#module-cle.backends.pe.symbol">cle.backends.pe.symbol (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.region">cle.backends.region (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.regions">cle.backends.regions (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.relocation">cle.backends.relocation (module)</a>
+</li>
+      <li><a href="cle.html#module-cle.backends.soot">cle.backends.soot (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.symbol">cle.backends.symbol (module)</a>
 </li>
@@ -830,17 +1103,27 @@
 </li>
       <li><a href="cle.html#cle.loader.Loader.close">close() (cle.loader.Loader method)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.closest_common_ancestor">closest_common_ancestor() (angr.state_plugins.history.SimStateHistory method)</a>
+</li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.code_constants">code_constants (angr.knowledge_plugins.functions.function.Function attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.code_location.CodeLocation">CodeLocation (class in angr.analyses.code_location)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.collapse">collapse() (claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet method)</a>
 </li>
+      <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.commit_result">commit_result() (pyvex.lift.util.instr_helper.Instruction method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.congruency_check.CongruencyCheck.compare_states">compare_states() (angr.analyses.congruency_check.CongruencyCheck method)</a>
+</li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.complement">complement (claripy.vsa.strided_interval.StridedInterval attribute)</a>
 </li>
       <li><a href="angr.html#angr.sim_variable.SimVariableSet.complement">complement() (angr.sim_variable.SimVariableSet method)</a>
 </li>
       <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.complete">complete() (angr.exploration_techniques.ExplorationTechnique method)</a>
+</li>
+      <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.compute_flags">compute_flags() (pyvex.lift.util.instr_helper.Instruction method)</a>
+</li>
+      <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.compute_result">compute_result() (pyvex.lift.util.instr_helper.Instruction method)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.bv.BV.concat">concat() (claripy.ast.bv.BV method)</a>
 
@@ -854,7 +1137,13 @@
         <li><a href="angr.html#angr.storage.file.SimFile.concretize">(angr.storage.file.SimFile method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.simos.simos.SimOS.configure_project">configure_project() (angr.simos.simos.SimOS method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.congruency_check.CongruencyCheck">CongruencyCheck (class in angr.analyses.congruency_check)</a>
+</li>
       <li><a href="pyvex.html#pyvex.expr.Const">Const (class in pyvex.expr)</a>
+</li>
+      <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.constant">constant() (pyvex.lift.util.instr_helper.Instruction method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.block.IRSB.constant_jump_targets">constant_jump_targets (pyvex.block.IRSB attribute)</a>
 </li>
@@ -868,6 +1157,8 @@
       </ul></li>
       <li><a href="claripy.html#claripy.ast.bool.constraint_to_si">constraint_to_si() (in module claripy.ast.bool)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.constraints_since">constraints_since() (angr.state_plugins.history.SimStateHistory method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cdg.ContainerNode">ContainerNode (class in angr.analyses.cdg)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function_manager.FunctionManager.contains_addr">contains_addr() (angr.knowledge_plugins.functions.function_manager.FunctionManager method)</a>
@@ -875,8 +1166,12 @@
       <ul>
         <li><a href="cle.html#cle.backends.Backend.contains_addr">(cle.backends.Backend method)</a>
 </li>
+        <li><a href="cle.html#cle.backends.region.Region.contains_addr">(cle.backends.region.Region method)</a>
+</li>
       </ul></li>
       <li><a href="angr.html#angr.storage.paged_memory.SimPagedMemory.contains_no_backer">contains_no_backer() (angr.storage.paged_memory.SimPagedMemory method)</a>
+</li>
+      <li><a href="cle.html#cle.backends.region.Region.contains_offset">contains_offset() (cle.backends.region.Region method)</a>
 </li>
       <li><a href="claripy.html#claripy.backends.Backend.convert">convert() (claripy.backends.Backend method)</a>
 </li>
@@ -910,9 +1205,17 @@
 </li>
       <li><a href="cle.html#cle.backends.elf.elfcore.CoreNote">CoreNote (class in cle.backends.elf.elfcore)</a>
 </li>
+      <li><a href="angr.html#angr.exploration_techniques.crash_monitor.CrashMonitor">CrashMonitor (class in angr.exploration_techniques.crash_monitor)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.abstract_memory.SimAbstractMemory.create_region">create_region() (angr.state_plugins.abstract_memory.SimAbstractMemory method)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.CreateStridedInterval">CreateStridedInterval() (in module claripy.vsa.strided_interval)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.callstack.CallStack.current_function_address">current_function_address (angr.state_plugins.callstack.CallStack attribute)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.callstack.CallStack.current_return_target">current_return_target (angr.state_plugins.callstack.CallStack attribute)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.callstack.CallStack.current_stack_pointer">current_stack_pointer (angr.state_plugins.callstack.CallStack attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -941,6 +1244,10 @@
       <ul>
         <li><a href="angr.html#angr.analyses.ddg.DDG.dbg_repr">(angr.analyses.ddg.DDG method)</a>
 </li>
+        <li><a href="angr.html#angr.keyed_region.KeyedRegion.dbg_repr">(angr.keyed_region.KeyedRegion method)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.callstack.CallStack.dbg_repr">(angr.state_plugins.callstack.CallStack method)</a>
+</li>
         <li><a href="claripy.html#claripy.ast.base.Base.dbg_repr">(claripy.ast.base.Base method)</a>
 </li>
       </ul></li>
@@ -964,12 +1271,14 @@
 </li>
       <li><a href="cle.html#cle.backends.symbol.Symbol.demangled_name">demangled_name (cle.backends.symbol.Symbol attribute)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.demote">demote() (angr.state_plugins.history.SimStateHistory method)</a>
+</li>
       <li><a href="claripy.html#claripy.ast.base.Base.depth">depth (claripy.ast.base.Base attribute)</a>
+</li>
+      <li><a href="cle.html#cle.loader.Loader.describe_addr">describe_addr() (cle.loader.Loader method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="cle.html#cle.loader.Loader.describe_addr">describe_addr() (cle.loader.Loader method)</a>
-</li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.describe_variables">describe_variables() (angr.state_plugins.solver.SimSolver method)</a>
 </li>
       <li><a href="angr.html#angr.exploration_techniques.dfs.DFS">DFS (class in angr.exploration_techniques.dfs)</a>
@@ -988,7 +1297,13 @@
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.diop_natural_solution_linear">diop_natural_solution_linear() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
+      <li><a href="angr.html#angr.exploration_techniques.director.Director">Director (class in angr.exploration_techniques.director)</a>
+</li>
+      <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.disassemble">disassemble() (pyvex.lift.util.instr_helper.Instruction method)</a>
+</li>
       <li><a href="claripy.html#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet">DiscreteStridedIntervalSet (class in claripy.vsa.discrete_strided_interval_set)</a>
+</li>
+      <li><a href="cle.html#cle.backends.pe.relocation.generic.DllImport">DllImport (class in cle.backends.pe.relocation.generic)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.binding.BindingHelper.do_lazy_bind">do_lazy_bind() (cle.backends.macho.binding.BindingHelper method)</a>
 </li>
@@ -1010,7 +1325,13 @@
         <li><a href="claripy.html#claripy.backends.Backend.downsize">(claripy.backends.Backend method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.exploration_techniques.driller_core.DrillerCore">DrillerCore (class in angr.exploration_techniques.driller_core)</a>
+</li>
       <li><a href="angr.html#angr.manager.SimulationManager.drop">drop() (angr.manager.SimulationManager method)</a>
+</li>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.dtv_entry_offset">dtv_entry_offset (archinfo.tls.TLSArchInfo attribute)</a>
+</li>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.dtv_offsets">dtv_offsets (archinfo.tls.TLSArchInfo attribute)</a>
 </li>
       <li><a href="cle.html#cle.loader.Loader.dynamic_load">dynamic_load() (cle.loader.Loader method)</a>
 </li>
@@ -1062,10 +1383,10 @@
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.eval_atleast">eval_atleast() (angr.state_plugins.solver.SimSolver method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.eval_atmost">eval_atmost() (angr.state_plugins.solver.SimSolver method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.eval_exact">eval_exact() (angr.state_plugins.solver.SimSolver method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.eval_one">eval_one() (angr.state_plugins.solver.SimSolver method)</a>
@@ -1080,6 +1401,8 @@
         <li><a href="angr.html#angr.sim_procedure.SimProcedure.execute">(angr.sim_procedure.SimProcedure method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.exploration_techniques.director.ExecuteAddressGoal">ExecuteAddressGoal (class in angr.exploration_techniques.director)</a>
+</li>
       <li><a href="pyvex.html#pyvex.stmt.Exit">Exit (class in pyvex.stmt)</a>
 </li>
       <li><a href="angr.html#angr.sim_procedure.SimProcedure.exit">exit() (angr.sim_procedure.SimProcedure method)</a>
@@ -1091,6 +1414,8 @@
       <li><a href="angr.html#angr.exploration_techniques.explorer.Explorer">Explorer (class in angr.exploration_techniques.explorer)</a>
 </li>
       <li><a href="pyvex.html#pyvex.block.IRSB.expressions">expressions (pyvex.block.IRSB attribute)</a>
+</li>
+      <li><a href="pyvex.html#pyvex.block.IRSB.extend">extend() (pyvex.block.IRSB method)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.extended_euclid">extended_euclid() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
@@ -1110,12 +1435,16 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.fetch_operands">fetch_operands() (pyvex.lift.util.instr_helper.Instruction method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.veritesting.CallTracingFilter.filter">filter() (angr.analyses.veritesting.CallTracingFilter method)</a>
 
       <ul>
         <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.filter">(angr.exploration_techniques.ExplorationTechnique method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.filter_actions">filter_actions() (angr.state_plugins.history.SimStateHistory method)</a>
+</li>
       <li><a href="angr.html#angr.annocfg.AnnotatedCFG.filter_path">filter_path() (angr.annocfg.AnnotatedCFG method)</a>
 </li>
       <li><a href="cle.html#cle.backends.Backend.finalizers">finalizers (cle.backends.Backend attribute)</a>
@@ -1133,6 +1462,8 @@
       <li><a href="angr.html#angr.analyses.ddg.DDG.find_definitions">find_definitions() (angr.analyses.ddg.DDG method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.ddg.DDG.find_killers">find_killers() (angr.analyses.ddg.DDG method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_utils.CFGUtils.find_merge_points">find_merge_points() (angr.analyses.cfg.cfg_utils.CFGUtils static method)</a>
 </li>
       <li><a href="cle.html#cle.loader.Loader.find_object">find_object() (cle.loader.Loader method)</a>
 </li>
@@ -1152,6 +1483,8 @@
 </li>
       <li><a href="cle.html#cle.loader.Loader.find_symbol">find_symbol() (cle.loader.Loader method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_utils.CFGUtils.find_widening_points">find_widening_points() (angr.analyses.cfg.cfg_utils.CFGUtils static method)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.inspect.BP.fire">fire() (angr.state_plugins.inspect.BP method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function_manager.FunctionManager.floor_func">floor_func() (angr.knowledge_plugins.functions.function_manager.FunctionManager method)</a>
@@ -1164,10 +1497,10 @@
 </li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatString">FormatString (class in angr.procedures.stubs.format_parser)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.ForwardAnalysis">ForwardAnalysis (class in angr.analyses.forward_analysis)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.analyses.forward_analysis.ForwardAnalysis">ForwardAnalysis (class in angr.analyses.forward_analysis)</a>
+</li>
       <li><a href="claripy.html#claripy.ast.fp.FP">FP (class in claripy.ast.fp)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.fp_args">fp_args (angr.calling_conventions.SimCC attribute)</a>
@@ -1216,6 +1549,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.bindiff.FunctionDiff">FunctionDiff (class in angr.analyses.bindiff)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_job_base.FunctionKey">FunctionKey (class in angr.analyses.cfg.cfg_job_base)</a>
+</li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function_manager.FunctionManager">FunctionManager (class in angr.knowledge_plugins.functions.function_manager)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionReturn">FunctionReturn (class in angr.analyses.cfg.cfg_fast)</a>
@@ -1231,6 +1566,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.gcd">gcd() (claripy.vsa.strided_interval.StridedInterval static method)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.gdb.GDB">GDB (class in angr.state_plugins.gdb)</a>
 </li>
       <li><a href="angr.html#angr.analyses.girlscout.GirlScout.genenare_callmap_sif">genenare_callmap_sif() (angr.analyses.girlscout.GirlScout method)</a>
 </li>
@@ -1248,6 +1585,8 @@
 
       <ul>
         <li><a href="cle.html#cle.backends.elf.hashtable.GNUHashTable.get">(cle.backends.elf.hashtable.GNUHashTable method)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.get">(pyvex.lift.util.instr_helper.Instruction method)</a>
 </li>
       </ul></li>
       <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.get_addr">get_addr() (cle.backends.tls.elf_tls.ELFTLSObject method)</a>
@@ -1272,6 +1611,8 @@
       </ul></li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.get_args">get_args() (angr.calling_conventions.SimCC method)</a>
 </li>
+      <li><a href="angr.html#angr.keyed_region.KeyedRegion.get_base_addr">get_base_addr() (angr.keyed_region.KeyedRegion method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.get_branching_nodes">get_branching_nodes() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.bv.BV.get_byte">get_byte() (claripy.ast.bv.BV method)</a>
@@ -1283,6 +1624,8 @@
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.get_call_sites">get_call_sites() (angr.knowledge_plugins.functions.function.Function method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.get_call_target">get_call_target() (angr.knowledge_plugins.functions.function.Function method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery.VariableRecoveryState.get_concrete_state">get_concrete_state() (angr.analyses.variable_recovery.variable_recovery.VariableRecoveryState method)</a>
 </li>
       <li><a href="angr.html#angr.project.get_default_engine">get_default_engine() (in module angr.project)</a>
 </li>
@@ -1300,14 +1643,16 @@
 </li>
       <li><a href="cle.html#cle.loader.Loader.get_loader_symbolic_constraints">get_loader_symbolic_constraints() (cle.loader.Loader method)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.get_max_sinkhole">get_max_sinkhole() (angr.state_plugins.cgc.SimStateCGC method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.get_node">get_node() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.bindiff.FunctionDiff.get_normalized_block">get_normalized_block() (angr.analyses.bindiff.FunctionDiff static method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.vfg.VFG.get_paths">get_paths() (angr.analyses.vfg.VFG method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.analyses.vfg.VFG.get_paths">get_paths() (angr.analyses.vfg.VFG method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cdg.CDG.get_post_dominators">get_post_dominators() (angr.analyses.cdg.CDG method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.get_predecessors">get_predecessors() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
@@ -1318,6 +1663,8 @@
         <li><a href="angr.html#angr.analyses.vsa_ddg.VSA_DDG.get_predecessors">(angr.analyses.vsa_ddg.VSA_DDG method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn.get_regs">get_regs() (angr.state_plugins.unicorn_engine.Unicorn method)</a>
+</li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.get_return_val">get_return_val() (angr.calling_conventions.SimCC method)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.macho.MachOSegment.get_section_by_name">get_section_by_name() (cle.backends.macho.macho.MachOSegment method)</a>
@@ -1370,6 +1717,8 @@
         <li><a href="angr.html#angr.state_plugins.solver.SimSolver.get_variables">(angr.state_plugins.solver.SimSolver method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.keyed_region.KeyedRegion.get_variables_by_offset">get_variables_by_offset() (angr.keyed_region.KeyedRegion method)</a>
+</li>
       <li><a href="angr.html#angr.annocfg.AnnotatedCFG.get_whitelisted_statements">get_whitelisted_statements() (angr.annocfg.AnnotatedCFG method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.GetI">GetI (class in pyvex.expr)</a>
@@ -1386,12 +1735,16 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor">GraphVisitor (class in angr.analyses.forward_analysis)</a>
 </li>
+      <li><a href="pyvex.html#pyvex.lift.util.lifter_helper.GymratLifter">GymratLifter (class in pyvex.lift.util.lifter_helper)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.simos.simos.SimOS.handle_exception">handle_exception() (angr.simos.simos.SimOS method)</a>
+</li>
       <li><a href="claripy.html#claripy.backends.Backend.handles">handles() (claripy.backends.Backend method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.SegmentList.has_blocks">has_blocks (angr.analyses.cfg.cfg_fast.SegmentList attribute)</a>
@@ -1402,6 +1755,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.head_offsets">head_offsets (archinfo.tls.TLSArchInfo attribute)</a>
+</li>
       <li><a href="cle.html#cle.backends.ihex.Hex">Hex (class in cle.backends.ihex)</a>
 </li>
       <li><a href="angr.html#angr.project.Project.hook">hook() (angr.project.Project method)</a>
@@ -1462,10 +1817,24 @@
 </li>
       <li><a href="claripy.html#claripy.ast.base.Base.insert_annotations">insert_annotations() (claripy.ast.base.Base method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.insert_asm">insert_asm() (angr.analyses.reassembler.Reassembler method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.Instruction">Instruction (class in angr.analyses.reassembler)</a>
+
+      <ul>
+        <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction">(class in pyvex.lift.util.instr_helper)</a>
+</li>
+      </ul></li>
+      <li><a href="angr.html#angr.analyses.reassembler.Procedure.instruction_addresses">instruction_addresses() (angr.analyses.reassembler.Procedure method)</a>
+</li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.instruction_size">instruction_size() (angr.knowledge_plugins.functions.function.Function method)</a>
 </li>
-      <li><a href="pyvex.html#pyvex.block.IRSB.instructions">instructions (pyvex.block.IRSB attribute)</a>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.instructions">instructions (angr.analyses.reassembler.Reassembler attribute)</a>
+
+      <ul>
+        <li><a href="pyvex.html#pyvex.block.IRSB.instructions">(pyvex.block.IRSB attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.int_args">int_args (angr.calling_conventions.SimCC attribute)</a>
 </li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatString.interpret">interpret() (angr.procedures.stubs.format_parser.FormatString method)</a>
@@ -1484,6 +1853,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.irsb_from_node">irsb_from_node() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
 </li>
+      <li><a href="pyvex.html#pyvex.lift.util.irsb_postprocess.irsb_postproc_flatten">irsb_postproc_flatten() (in module pyvex.lift.util.irsb_postprocess)</a>
+</li>
       <li><a href="pyvex.html#pyvex.stmt.IRStmt">IRStmt (class in pyvex.stmt)</a>
 </li>
       <li><a href="pyvex.html#pyvex.block.IRTypeEnv">IRTypeEnv (class in pyvex.block)</a>
@@ -1491,6 +1862,8 @@
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.is_bottom">is_bottom (claripy.vsa.strided_interval.StridedInterval attribute)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.is_empty">is_empty (claripy.vsa.strided_interval.StridedInterval attribute)</a>
+</li>
+      <li><a href="cle.html#cle.backends.region.Section.is_executable">is_executable (cle.backends.region.Section attribute)</a>
 </li>
       <li><a href="claripy.html#claripy.backends.Backend.is_false">is_false() (claripy.backends.Backend method)</a>
 </li>
@@ -1508,9 +1881,15 @@
 </li>
       <li><a href="angr.html#angr.analyses.veritesting.Veritesting.is_overbound">is_overbound() (angr.analyses.veritesting.Veritesting method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.reassembler.Procedure.is_plt">is_plt (angr.analyses.reassembler.Procedure attribute)</a>
+</li>
       <li><a href="cle.html#cle.backends.elf.metaelf.MetaELF.is_ppc64_abiv1">is_ppc64_abiv1 (cle.backends.elf.metaelf.MetaELF attribute)</a>
 </li>
+      <li><a href="cle.html#cle.backends.region.Section.is_readable">is_readable (cle.backends.region.Section attribute)</a>
+</li>
       <li><a href="angr.html#angr.project.Project.is_symbol_hooked">is_symbol_hooked() (angr.project.Project method)</a>
+</li>
+      <li><a href="angr.html#angr.simos.userland.SimUserland.is_syscall_addr">is_syscall_addr() (angr.simos.userland.SimUserland method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.backward_slice.BackwardSlice.is_taint_impacting_stack_pointers">is_taint_impacting_stack_pointers() (angr.analyses.backward_slice.BackwardSlice method)</a>
 </li>
@@ -1523,6 +1902,8 @@
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.is_top">is_top (claripy.vsa.strided_interval.StridedInterval attribute)</a>
 </li>
       <li><a href="claripy.html#claripy.backends.Backend.is_true">is_true() (claripy.backends.Backend method)</a>
+</li>
+      <li><a href="cle.html#cle.backends.region.Section.is_writable">is_writable (cle.backends.region.Section attribute)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.ITE">ITE (class in pyvex.expr)</a>
 </li>
@@ -1542,11 +1923,17 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.forward_analysis.JobInfo.job">job (angr.analyses.forward_analysis.JobInfo attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.forward_analysis.JobInfo">JobInfo (class in angr.analyses.forward_analysis)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.sim_procedure.SimProcedure.jump">jump() (angr.sim_procedure.SimProcedure method)</a>
+
+      <ul>
+        <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.jump">(pyvex.lift.util.instr_helper.Instruction method)</a>
+</li>
+      </ul></li>
+      <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.JumpTableResolver">JumpTableResolver (class in angr.analyses.cfg.indirect_jump_resolvers.jumptable)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1560,6 +1947,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.keyed_region.KeyedRegion">KeyedRegion (class in angr.keyed_region)</a>
+</li>
       <li><a href="angr.html#angr.analyses.ddg.LiveDefinitions.kill_def">kill_def() (angr.analyses.ddg.LiveDefinitions method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_base.KnowledgeBase">KnowledgeBase (class in angr.knowledge_base)</a>
@@ -1570,13 +1959,29 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.state_plugins.trace_additions.l">l (in module angr.state_plugins.trace_additions)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.SymbolManager.label_got">label_got() (angr.analyses.reassembler.SymbolManager method)</a>
+</li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.lcm">lcm() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.least_upper_bound">least_upper_bound() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
+      <li><a href="angr.html#angr.exploration_techniques.lengthlimiter.LengthLimiter">LengthLimiter (class in angr.exploration_techniques.lengthlimiter)</a>
+</li>
       <li><a href="archinfo.html#archinfo.arch.Arch.library_search_path">library_search_path() (archinfo.arch.Arch method)</a>
 </li>
       <li><a href="angr.html#angr.engines.vex.engine.SimEngineVEX.lift">lift() (angr.engines.vex.engine.SimEngineVEX method)</a>
+
+      <ul>
+        <li><a href="pyvex.html#pyvex.lift.lift">(in module pyvex.lift)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lift.Lifter.lift">(pyvex.lift.Lifter method)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.lift">(pyvex.lift.util.instr_helper.Instruction method)</a>
+</li>
+      </ul></li>
+      <li><a href="pyvex.html#pyvex.lift.Lifter">Lifter (class in pyvex.lift)</a>
 </li>
       <li><a href="cle.html#cle.loader.Loader.linux_loader_object">linux_loader_object (cle.loader.Loader attribute)</a>
 </li>
@@ -1591,7 +1996,13 @@
       <li><a href="pyvex.html#pyvex.expr.Load">Load (class in pyvex.expr)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory.SimMemory.load">load() (angr.storage.memory.SimMemory method)</a>
+
+      <ul>
+        <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.load">(pyvex.lift.util.instr_helper.Instruction method)</a>
 </li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.storage.paged_memory.BasePage.load_mo">load_mo() (angr.storage.paged_memory.BasePage method)</a>
 
       <ul>
@@ -1600,8 +2011,6 @@
         <li><a href="angr.html#angr.storage.paged_memory.TreePage.load_mo">(angr.storage.paged_memory.TreePage method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.storage.paged_memory.SimPagedMemory.load_objects">load_objects() (angr.storage.paged_memory.SimPagedMemory method)</a>
 </li>
       <li><a href="angr.html#angr.project.load_shellcode">load_shellcode() (in module angr.project)</a>
@@ -1627,6 +2036,8 @@
       <li><a href="angr.html#angr.analyses.loopfinder.LoopFinder">LoopFinder (class in angr.analyses.loopfinder)</a>
 </li>
       <li><a href="angr.html#angr.exploration_techniques.looplimiter.LoopLimiter">LoopLimiter (class in angr.exploration_techniques.looplimiter)</a>
+</li>
+      <li><a href="angr.html#angr.exploration_techniques.loop_seer.LoopSeer">LoopSeer (class in angr.exploration_techniques.loop_seer)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.lower">lower() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
@@ -1654,9 +2065,23 @@
       </ul></li>
       <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol">MachOSymbol (class in cle.backends.macho.symbol)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.main_executable_region_limbos_contain">main_executable_region_limbos_contain() (angr.analyses.reassembler.Reassembler method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.main_executable_regions">main_executable_regions (angr.analyses.reassembler.Reassembler attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.main_executable_regions_contain">main_executable_regions_contain() (angr.analyses.reassembler.Reassembler method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.main_nonexecutable_region_limbos_contain">main_nonexecutable_region_limbos_contain() (angr.analyses.reassembler.Reassembler method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.main_nonexecutable_regions">main_nonexecutable_regions (angr.analyses.reassembler.Reassembler attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.main_nonexecutable_regions_contain">main_nonexecutable_regions_contain() (angr.analyses.reassembler.Reassembler method)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.inspect.SimInspector.make_breakpoint">make_breakpoint() (angr.state_plugins.inspect.SimInspector method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.make_copy">make_copy() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
+</li>
+      <li><a href="pyvex.html#pyvex.lift.util.vex_helper.make_format_op_generator">make_format_op_generator() (in module pyvex.lift.util.vex_helper)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.make_functions">make_functions() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
 </li>
@@ -1668,12 +2093,18 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.mark_nonreturning_calls_endpoints">mark_nonreturning_calls_endpoints() (angr.knowledge_plugins.functions.function.Function method)</a>
 </li>
+      <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.match_instruction">match_instruction() (pyvex.lift.util.instr_helper.Instruction method)</a>
+</li>
+      <li><a href="claripy.html#claripy.vsa.valueset.ValueSet.max">max (claripy.vsa.valueset.ValueSet attribute)</a>
+</li>
       <li><a href="claripy.html#claripy.backends.Backend.max">max() (claripy.backends.Backend method)</a>
 </li>
       <li><a href="cle.html#cle.backends.Backend.max_addr">max_addr (cle.backends.Backend attribute)</a>
 
       <ul>
         <li><a href="cle.html#cle.backends.idabin.IDABin.max_addr">(cle.backends.idabin.IDABin attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.region.Region.max_addr">(cle.backends.region.Region attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.regions.Regions.max_addr">(cle.backends.regions.Regions attribute)</a>
 </li>
@@ -1682,12 +2113,14 @@
       </ul></li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.WarrenMethods.max_and">max_and() (claripy.vsa.strided_interval.WarrenMethods static method)</a>
 </li>
+      <li><a href="cle.html#cle.backends.region.Region.max_offset">max_offset (cle.backends.region.Region attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.vsa.strided_interval.WarrenMethods.max_or">max_or() (claripy.vsa.strided_interval.WarrenMethods static method)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.WarrenMethods.max_xor">max_xor() (claripy.vsa.strided_interval.WarrenMethods static method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.sim_state.SimState.mem_concrete">mem_concrete() (angr.sim_state.SimState method)</a>
 </li>
       <li><a href="angr.html#angr.storage.paged_memory.SimPagedMemory.memory_objects_for_hash">memory_objects_for_hash() (angr.storage.paged_memory.SimPagedMemory method)</a>
@@ -1698,19 +2131,29 @@
 </li>
       <li><a href="angr.html#angr.storage.memory.MemoryStoreRequest">MemoryStoreRequest (class in angr.storage.memory)</a>
 </li>
-      <li><a href="angr.html#angr.concretization_strategies.SimConcretizationStrategy.merge">merge() (angr.concretization_strategies.SimConcretizationStrategy method)</a>
+      <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery.VariableRecoveryState.merge">merge() (angr.analyses.variable_recovery.variable_recovery.VariableRecoveryState method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery_fast.VariableRecoveryFastState.merge">(angr.analyses.variable_recovery.variable_recovery_fast.VariableRecoveryFastState method)</a>
+</li>
+        <li><a href="angr.html#angr.concretization_strategies.SimConcretizationStrategy.merge">(angr.concretization_strategies.SimConcretizationStrategy method)</a>
+</li>
+        <li><a href="angr.html#angr.keyed_region.KeyedRegion.merge">(angr.keyed_region.KeyedRegion method)</a>
+</li>
         <li><a href="angr.html#angr.manager.SimulationManager.merge">(angr.manager.SimulationManager method)</a>
 </li>
         <li><a href="angr.html#angr.sim_state.SimState.merge">(angr.sim_state.SimState method)</a>
 </li>
         <li><a href="angr.html#angr.state_plugins.abstract_memory.SimAbstractMemory.merge">(angr.state_plugins.abstract_memory.SimAbstractMemory method)</a>
 </li>
+        <li><a href="angr.html#angr.state_plugins.plugin.SimStatePlugin.merge">(angr.state_plugins.plugin.SimStatePlugin method)</a>
+</li>
         <li><a href="angr.html#angr.storage.file.SimFile.merge">(angr.storage.file.SimFile method)</a>
 </li>
       </ul></li>
       <li><a href="cle.html#cle.backends.elf.metaelf.MetaELF">MetaELF (class in cle.backends.elf.metaelf)</a>
+</li>
+      <li><a href="claripy.html#claripy.vsa.valueset.ValueSet.min">min (claripy.vsa.valueset.ValueSet attribute)</a>
 </li>
       <li><a href="claripy.html#claripy.backends.Backend.min">min() (claripy.backends.Backend method)</a>
 </li>
@@ -1719,10 +2162,14 @@
       <ul>
         <li><a href="cle.html#cle.backends.idabin.IDABin.min_addr">(cle.backends.idabin.IDABin attribute)</a>
 </li>
+        <li><a href="cle.html#cle.backends.region.Region.min_addr">(cle.backends.region.Region attribute)</a>
+</li>
         <li><a href="cle.html#cle.loader.Loader.min_addr">(cle.loader.Loader attribute)</a>
 </li>
       </ul></li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.WarrenMethods.min_and">min_and() (claripy.vsa.strided_interval.WarrenMethods static method)</a>
+</li>
+      <li><a href="cle.html#cle.backends.region.Region.min_offset">min_offset() (cle.backends.region.Region method)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.WarrenMethods.min_or">min_or() (claripy.vsa.strided_interval.WarrenMethods static method)</a>
 </li>
@@ -1742,6 +2189,8 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.analyses.reassembler.Procedure.name">name (angr.analyses.reassembler.Procedure attribute)</a>
+</li>
       <li><a href="claripy.html#claripy.backends.Backend.name">name() (claripy.backends.Backend method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.SegmentList.next_free_pos">next_free_pos() (angr.analyses.cfg.cfg_fast.SegmentList method)</a>
@@ -1782,9 +2231,11 @@
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.SegmentList.occupied_size">occupied_size (angr.analyses.cfg.cfg_fast.SegmentList attribute)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.SegmentList.occupy">occupy() (angr.analyses.cfg.cfg_fast.SegmentList method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.SegmentList.occupy">occupy() (angr.analyses.cfg.cfg_fast.SegmentList method)</a>
+      <li><a href="cle.html#cle.backends.region.Region.offset_to_addr">offset_to_addr() (cle.backends.region.Region method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.operations">operations (angr.knowledge_plugins.functions.function.Function attribute)</a>
 
@@ -1792,6 +2243,8 @@
         <li><a href="pyvex.html#pyvex.block.IRSB.operations">(pyvex.block.IRSB attribute)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.exploration_techniques.oppologist.Oppologist">Oppologist (class in angr.exploration_techniques.oppologist)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -1826,17 +2279,33 @@
 </li>
       <li><a href="cle.html#cle.backends.elf.metaelf.MetaELF.plt">plt (cle.backends.elf.metaelf.MetaELF attribute)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.callstack.CallStack.pop">pop() (angr.state_plugins.callstack.CallStack method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.ddg.DDG.pp">pp() (angr.analyses.ddg.DDG method)</a>
 
       <ul>
         <li><a href="pyvex.html#pyvex.block.IRSB.pp">(pyvex.block.IRSB method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.state_plugins.preconstrainer.SimStatePreconstrainer.preconstrain_flag_page">preconstrain_flag_page() (angr.state_plugins.preconstrainer.SimStatePreconstrainer method)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.preconstrainer.SimStatePreconstrainer.preconstrain_state">preconstrain_state() (angr.state_plugins.preconstrainer.SimStatePreconstrainer method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.predecessors">predecessors() (angr.analyses.forward_analysis.GraphVisitor method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.simos.simos.SimOS.prepare_call_state">prepare_call_state() (angr.simos.simos.SimOS method)</a>
+</li>
+      <li><a href="angr.html#angr.simos.linux.SimLinux.prepare_function_symbol">prepare_function_symbol() (angr.simos.linux.SimLinux method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.simos.simos.SimOS.prepare_function_symbol">(angr.simos.simos.SimOS method)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.bindiff.FunctionDiff.probably_identical">probably_identical (angr.analyses.bindiff.FunctionDiff attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.Procedure">Procedure (class in angr.analyses.reassembler)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.ProcedureChunk">ProcedureChunk (class in angr.analyses.reassembler)</a>
 </li>
       <li><a href="angr.html#angr.engines.engine.SimEngine.process">process() (angr.engines.engine.SimEngine method)</a>
 
@@ -1848,6 +2317,8 @@
         <li><a href="angr.html#angr.engines.vex.engine.SimEngineVEX.process">(angr.engines.vex.engine.SimEngineVEX method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.ddg.ProgramVariable">ProgramVariable (class in angr.analyses.ddg)</a>
 </li>
       <li><a href="angr.html#angr.project.Project">Project (class in angr.project)</a>
@@ -1856,7 +2327,13 @@
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.pseudo_join">pseudo_join() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.pthread_offsets">pthread_offsets (archinfo.tls.TLSArchInfo attribute)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.callstack.CallStack.push">push() (angr.state_plugins.callstack.CallStack method)</a>
+</li>
       <li><a href="pyvex.html#pyvex.stmt.Put">Put (class in pyvex.stmt)</a>
+</li>
+      <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.put">put() (pyvex.lift.util.instr_helper.Instruction method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.stmt.PutI">PutI (class in pyvex.stmt)</a>
 </li>
@@ -1872,6 +2349,24 @@
 </li>
       <li><a href="pyvex.html#module-pyvex.expr">pyvex.expr (module)</a>
 </li>
+      <li><a href="pyvex.html#module-pyvex.lift">pyvex.lift (module)</a>
+</li>
+      <li><a href="pyvex.html#module-pyvex.lift.fixes">pyvex.lift.fixes (module)</a>
+</li>
+      <li><a href="pyvex.html#module-pyvex.lift.libvex">pyvex.lift.libvex (module)</a>
+</li>
+      <li><a href="pyvex.html#module-pyvex.lift.util">pyvex.lift.util (module)</a>
+</li>
+      <li><a href="pyvex.html#module-pyvex.lift.util.instr_helper">pyvex.lift.util.instr_helper (module)</a>
+</li>
+      <li><a href="pyvex.html#module-pyvex.lift.util.irsb_postprocess">pyvex.lift.util.irsb_postprocess (module)</a>
+</li>
+      <li><a href="pyvex.html#module-pyvex.lift.util.lifter_helper">pyvex.lift.util.lifter_helper (module)</a>
+</li>
+      <li><a href="pyvex.html#module-pyvex.lift.util.syntax_wrapper">pyvex.lift.util.syntax_wrapper (module)</a>
+</li>
+      <li><a href="pyvex.html#module-pyvex.lift.util.vex_helper">pyvex.lift.util.vex_helper (module)</a>
+</li>
       <li><a href="pyvex.html#module-pyvex.stmt">pyvex.stmt (module)</a>
 </li>
   </ul></td>
@@ -1883,11 +2378,25 @@
       <li><a href="pyvex.html#pyvex.expr.Qop">Qop (class in pyvex.expr)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_utils.CFGUtils.quasi_topological_sort_nodes">quasi_topological_sort_nodes() (angr.analyses.cfg.cfg_utils.CFGUtils static method)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_ABS32">R_ARM_ABS32 (class in cle.backends.elf.relocation.arm)</a>
+</li>
+      <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_CALL">R_ARM_CALL (class in cle.backends.elf.relocation.arm)</a>
+</li>
+      <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_PREL31">R_ARM_PREL31 (class in cle.backends.elf.relocation.arm)</a>
+</li>
+      <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_REL32">R_ARM_REL32 (class in cle.backends.elf.relocation.arm)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.randomize_procedures">randomize_procedures() (angr.analyses.reassembler.Reassembler method)</a>
+</li>
       <li><a href="cle.html#cle.backends.regions.Regions.raw_list">raw_list (cle.backends.regions.Regions attribute)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.bits.Bits.raw_to_bv">raw_to_bv() (claripy.ast.bits.Bits method)</a>
@@ -1928,13 +2437,19 @@
 </li>
       <li><a href="cle.html#cle.backends.macho.binding.read_uleb">read_uleb() (in module cle.backends.macho.binding)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler">Reassembler (class in angr.analyses.reassembler)</a>
+</li>
       <li><a href="cle.html#cle.backends.Backend.rebase">rebase() (cle.backends.Backend method)</a>
 </li>
       <li><a href="cle.html#cle.backends.symbol.Symbol.rebased_addr">rebased_addr (cle.backends.symbol.Symbol attribute)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.preconstrainer.SimStatePreconstrainer.reconstrain">reconstrain() (angr.state_plugins.preconstrainer.SimStatePreconstrainer method)</a>
+</li>
       <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.referenced_symbol_index">referenced_symbol_index (cle.backends.macho.symbol.MachOSymbol attribute)</a>
 </li>
       <li><a href="angr.html#angr.sim_state.SimState.reg_concrete">reg_concrete() (angr.sim_state.SimState method)</a>
+</li>
+      <li><a href="cle.html#cle.backends.region.Region">Region (class in cle.backends.region)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.valueset.RegionAnnotation">RegionAnnotation (class in claripy.vsa.valueset)</a>
 </li>
@@ -1942,9 +2457,15 @@
 </li>
       <li><a href="angr.html#angr.storage.memory.RegionMap">RegionMap (class in angr.storage.memory)</a>
 </li>
+      <li><a href="angr.html#angr.keyed_region.RegionObject">RegionObject (class in angr.keyed_region)</a>
+</li>
       <li><a href="cle.html#cle.backends.regions.Regions">Regions (class in cle.backends.regions)</a>
 </li>
+      <li><a href="pyvex.html#pyvex.lift.register">register() (in module pyvex.lift)</a>
+</li>
       <li><a href="archinfo.html#archinfo.arch.register_arch">register_arch() (in module archinfo.arch)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery.VariableRecoveryState.register_callbacks">register_callbacks() (angr.analyses.variable_recovery.variable_recovery.VariableRecoveryState method)</a>
 </li>
       <li><a href="angr.html#angr.project.register_default_engine">register_default_engine() (in module angr.project)</a>
 </li>
@@ -1954,10 +2475,10 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.register_variable">register_variable() (angr.state_plugins.solver.SimSolver method)</a>
 </li>
-      <li><a href="angr.html#angr.storage.memory.RegionMap.relativize">relativize() (angr.storage.memory.RegionMap method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.storage.memory.RegionMap.relativize">relativize() (angr.storage.memory.RegionMap method)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.reload_solver">reload_solver() (angr.state_plugins.solver.SimSolver method)</a>
 </li>
       <li><a href="claripy.html#claripy.annotation.Annotation.relocatable">relocatable (claripy.annotation.Annotation attribute)</a>
@@ -1976,17 +2497,25 @@
       </ul></li>
       <li><a href="cle.html#cle.backends.relocation.Relocation">Relocation (class in cle.backends.relocation)</a>
 </li>
+      <li><a href="cle.html#cle.backends.elf.relocation.generic.RelocTruncate32Mixin">RelocTruncate32Mixin (class in cle.backends.elf.relocation.generic)</a>
+</li>
       <li><a href="claripy.html#claripy.ast.base.Base.remove_annotation">remove_annotation() (claripy.ast.base.Base method)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.base.Base.remove_annotations">remove_annotations() (claripy.ast.base.Base method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.inspect.SimInspector.remove_breakpoint">remove_breakpoint() (angr.state_plugins.inspect.SimInspector method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.remove_cgc_attachments">remove_cgc_attachments() (angr.analyses.reassembler.Reassembler method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_accurate.CFGAccurate.remove_cycles">remove_cycles() (angr.analyses.cfg.cfg_accurate.CFGAccurate method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_accurate.CFGAccurate.remove_fakerets">remove_fakerets() (angr.analyses.cfg.cfg_accurate.CFGAccurate method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.remove_function_alignments">remove_function_alignments() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.remove_instruction">remove_instruction() (angr.analyses.reassembler.Reassembler method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.remove_unnecessary_stuff">remove_unnecessary_stuff() (angr.analyses.reassembler.Reassembler method)</a>
 </li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatString.replace">replace() (angr.procedures.stubs.format_parser.FormatString method)</a>
 
@@ -2004,6 +2533,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.reset">reset() (angr.analyses.forward_analysis.GraphVisitor method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.JumpTableResolver.resolve">resolve() (angr.analyses.cfg.indirect_jump_resolvers.jumptable.JumpTableResolver method)</a>
+</li>
       <li><a href="cle.html#cle.backends.symbol.Symbol.resolve_forwarder">resolve_forwarder() (cle.backends.symbol.Symbol method)</a>
 </li>
       <li><a href="cle.html#cle.backends.idabin.IDABin.resolve_import_dirty">resolve_import_dirty() (cle.backends.idabin.IDABin method)</a>
@@ -2011,7 +2542,11 @@
       <li><a href="angr.html#angr.analyses.cfg.cfg_accurate.CFGAccurate.resume">resume() (angr.analyses.cfg.cfg_accurate.CFGAccurate method)</a>
 </li>
       <li><a href="angr.html#angr.sim_procedure.SimProcedure.ret">ret() (angr.sim_procedure.SimProcedure method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.callstack.CallStack.ret">(angr.state_plugins.callstack.CallStack method)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.return_addr">return_addr (angr.calling_conventions.SimCC attribute)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.return_val">return_val (angr.calling_conventions.SimCC attribute)</a>
@@ -2020,11 +2555,15 @@
 </li>
       <li><a href="cle.html#cle.backends.elf.metaelf.MetaELF.reverse_plt">reverse_plt (cle.backends.elf.metaelf.MetaELF attribute)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_utils.CFGUtils.reverse_post_order_sort_nodes">reverse_post_order_sort_nodes() (angr.analyses.cfg.cfg_utils.CFGUtils static method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.revisit">revisit() (angr.analyses.forward_analysis.GraphVisitor method)</a>
 </li>
-      <li><a href="angr.html#angr.manager.SimulationManager.run">run() (angr.manager.SimulationManager method)</a>
+      <li><a href="angr.html#angr.analyses.congruency_check.CongruencyCheck.run">run() (angr.analyses.congruency_check.CongruencyCheck method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.manager.SimulationManager.run">(angr.manager.SimulationManager method)</a>
+</li>
         <li><a href="angr.html#angr.sim_procedure.SimProcedure.run">(angr.sim_procedure.SimProcedure method)</a>
 </li>
       </ul></li>
@@ -2044,15 +2583,33 @@
       </ul></li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.sdiv">sdiv() (claripy.vsa.strided_interval.StridedInterval method)</a>
 </li>
+      <li><a href="cle.html#cle.backends.region.Section">Section (class in cle.backends.region)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reassembler.Reassembler.section_alignment">section_alignment() (angr.analyses.reassembler.Reassembler method)</a>
+</li>
       <li><a href="cle.html#cle.memory.Clemory.seek">seek() (cle.memory.Clemory method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.Segment">Segment (class in angr.analyses.cfg.cfg_fast)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.SegmentList">SegmentList (class in angr.analyses.cfg.cfg_fast)</a>
 </li>
+      <li><a href="angr.html#angr.callable.Callable.set_base_state">set_base_state() (angr.callable.Callable method)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.gdb.GDB.set_data">set_data() (angr.state_plugins.gdb.GDB method)</a>
+</li>
       <li><a href="cle.html#cle.backends.idabin.IDABin.set_got_entry">set_got_entry() (cle.backends.idabin.IDABin method)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.gdb.GDB.set_heap">set_heap() (angr.state_plugins.gdb.GDB method)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.gdb.GDB.set_regs">set_regs() (angr.state_plugins.gdb.GDB method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn.set_regs">(angr.state_plugins.unicorn_engine.Unicorn method)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.set_return_val">set_return_val() (angr.calling_conventions.SimCC method)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.gdb.GDB.set_stack">set_stack() (angr.state_plugins.gdb.GDB method)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory.SimMemory.set_stack_address_mapping">set_stack_address_mapping() (angr.storage.memory.SimMemory method)</a>
 </li>
@@ -2062,6 +2619,12 @@
         <li><a href="angr.html#angr.storage.memory.SimMemory.set_state">(angr.storage.memory.SimMemory method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.congruency_check.CongruencyCheck.set_state_options">set_state_options() (angr.analyses.congruency_check.CongruencyCheck method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.congruency_check.CongruencyCheck.set_states">set_states() (angr.analyses.congruency_check.CongruencyCheck method)</a>
+</li>
+      <li><a href="angr.html#angr.keyed_region.KeyedRegion.set_variable">set_variable() (angr.keyed_region.KeyedRegion method)</a>
+</li>
       <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.setup">setup() (angr.exploration_techniques.ExplorationTechnique method)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.setup_callsite">setup_callsite() (angr.calling_conventions.SimCC method)</a>
@@ -2100,7 +2663,31 @@
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCCUnknown">SimCCUnknown (class in angr.calling_conventions)</a>
 </li>
+      <li><a href="angr.html#angr.simos.cgc.SimCGC">SimCGC (class in angr.simos.cgc)</a>
+</li>
       <li><a href="angr.html#angr.concretization_strategies.SimConcretizationStrategy">SimConcretizationStrategy (class in angr.concretization_strategies)</a>
+</li>
+      <li><a href="angr.html#angr.concretization_strategies.any.SimConcretizationStrategyAny">SimConcretizationStrategyAny (class in angr.concretization_strategies.any)</a>
+</li>
+      <li><a href="angr.html#angr.concretization_strategies.controlled_data.SimConcretizationStrategyControlledData">SimConcretizationStrategyControlledData (class in angr.concretization_strategies.controlled_data)</a>
+</li>
+      <li><a href="angr.html#angr.concretization_strategies.eval.SimConcretizationStrategyEval">SimConcretizationStrategyEval (class in angr.concretization_strategies.eval)</a>
+</li>
+      <li><a href="angr.html#angr.concretization_strategies.max.SimConcretizationStrategyMax">SimConcretizationStrategyMax (class in angr.concretization_strategies.max)</a>
+</li>
+      <li><a href="angr.html#angr.concretization_strategies.nonzero.SimConcretizationStrategyNonzero">SimConcretizationStrategyNonzero (class in angr.concretization_strategies.nonzero)</a>
+</li>
+      <li><a href="angr.html#angr.concretization_strategies.nonzero_range.SimConcretizationStrategyNonzeroRange">SimConcretizationStrategyNonzeroRange (class in angr.concretization_strategies.nonzero_range)</a>
+</li>
+      <li><a href="angr.html#angr.concretization_strategies.norepeats.SimConcretizationStrategyNorepeats">SimConcretizationStrategyNorepeats (class in angr.concretization_strategies.norepeats)</a>
+</li>
+      <li><a href="angr.html#angr.concretization_strategies.norepeats_range.SimConcretizationStrategyNorepeatsRange">SimConcretizationStrategyNorepeatsRange (class in angr.concretization_strategies.norepeats_range)</a>
+</li>
+      <li><a href="angr.html#angr.concretization_strategies.range.SimConcretizationStrategyRange">SimConcretizationStrategyRange (class in angr.concretization_strategies.range)</a>
+</li>
+      <li><a href="angr.html#angr.concretization_strategies.single.SimConcretizationStrategySingle">SimConcretizationStrategySingle (class in angr.concretization_strategies.single)</a>
+</li>
+      <li><a href="angr.html#angr.concretization_strategies.solutions.SimConcretizationStrategySolutions">SimConcretizationStrategySolutions (class in angr.concretization_strategies.solutions)</a>
 </li>
       <li><a href="angr.html#angr.storage.file.SimDialogue">SimDialogue (class in angr.storage.file)</a>
 </li>
@@ -2116,6 +2703,8 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.inspect.SimInspector">SimInspector (class in angr.state_plugins.inspect)</a>
 </li>
+      <li><a href="angr.html#angr.simos.linux.SimLinux">SimLinux (class in angr.simos.linux)</a>
+</li>
       <li><a href="angr.html#angr.calling_conventions.SimLyingRegArg">SimLyingRegArg (class in angr.calling_conventions)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory.SimMemory">SimMemory (class in angr.storage.memory)</a>
@@ -2123,6 +2712,8 @@
       <li><a href="angr.html#angr.storage.memory_object.SimMemoryObject">SimMemoryObject (class in angr.storage.memory_object)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.view.SimMemView">SimMemView (class in angr.state_plugins.view)</a>
+</li>
+      <li><a href="angr.html#angr.simos.simos.SimOS">SimOS (class in angr.simos.simos)</a>
 </li>
       <li><a href="angr.html#angr.storage.paged_memory.SimPagedMemory">SimPagedMemory (class in angr.storage.paged_memory)</a>
 </li>
@@ -2138,7 +2729,17 @@
 </li>
       <li><a href="angr.html#angr.sim_state.SimState">SimState (class in angr.sim_state)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC">SimStateCGC (class in angr.state_plugins.cgc)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.history.SimStateHistory">SimStateHistory (class in angr.state_plugins.history)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.libc.SimStateLibc">SimStateLibc (class in angr.state_plugins.libc)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.loop_data.SimStateLoopData">SimStateLoopData (class in angr.state_plugins.loop_data)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.plugin.SimStatePlugin">SimStatePlugin (class in angr.state_plugins.plugin)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.preconstrainer.SimStatePreconstrainer">SimStatePreconstrainer (class in angr.state_plugins.preconstrainer)</a>
 </li>
       <li><a href="angr.html#angr.sim_type.SimStructValue">SimStructValue (class in angr.sim_type)</a>
 </li>
@@ -2160,6 +2761,8 @@
 </li>
       <li><a href="angr.html#angr.sim_type.SimTypeFloat">SimTypeFloat (class in angr.sim_type)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.sim_type.SimTypeFunction">SimTypeFunction (class in angr.sim_type)</a>
 </li>
       <li><a href="angr.html#angr.sim_type.SimTypeInt">SimTypeInt (class in angr.sim_type)</a>
@@ -2176,8 +2779,6 @@
 </li>
       <li><a href="angr.html#angr.sim_type.SimTypeTop">SimTypeTop (class in angr.sim_type)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.sim_type.SimTypeWString">SimTypeWString (class in angr.sim_type)</a>
 </li>
       <li><a href="angr.html#angr.factory.AngrObjectFactory.simulation_manager">simulation_manager() (angr.factory.AngrObjectFactory method)</a>
@@ -2186,7 +2787,11 @@
 </li>
       <li><a href="angr.html#angr.sim_type.SimUnion">SimUnion (class in angr.sim_type)</a>
 </li>
+      <li><a href="angr.html#angr.simos.userland.SimUserland">SimUserland (class in angr.simos.userland)</a>
+</li>
       <li><a href="angr.html#angr.sim_variable.SimVariableSet">SimVariableSet (class in angr.sim_variable)</a>
+</li>
+      <li><a href="angr.html#angr.simos.windows.SimWindows">SimWindows (class in angr.simos.windows)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.Segment.size">size (angr.analyses.cfg.cfg_fast.Segment attribute)</a>
 
@@ -2209,6 +2814,8 @@
       <li><a href="claripy.html#claripy.backends.Backend.solver">solver() (claripy.backends.Backend method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.sort_nodes">sort_nodes() (angr.analyses.forward_analysis.GraphVisitor method)</a>
+</li>
+      <li><a href="angr.html#angr.exploration_techniques.spiller.Spiller">Spiller (class in angr.exploration_techniques.spiller)</a>
 </li>
       <li><a href="angr.html#angr.manager.SimulationManager.split">split() (angr.manager.SimulationManager method)</a>
 
@@ -2258,6 +2865,10 @@
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.stack_space">stack_space() (angr.calling_conventions.SimCC method)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.callstack.CallStack.stack_suffix">stack_suffix() (angr.state_plugins.callstack.CallStack method)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.callstack.CallStack.stack_suffix_to_string">stack_suffix_to_string() (angr.state_plugins.callstack.CallStack static method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.startpoints">startpoints() (angr.analyses.forward_analysis.GraphVisitor method)</a>
 </li>
       <li><a href="angr.html#angr.manager.SimulationManager.stash">stash() (angr.manager.SimulationManager method)</a>
@@ -2274,11 +2885,17 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.posix.Stat">Stat (class in angr.state_plugins.posix)</a>
 </li>
+      <li><a href="angr.html#angr.simos.simos.SimOS.state_blank">state_blank() (angr.simos.simos.SimOS method)</a>
+</li>
       <li><a href="angr.html#angr.sim_procedure.SimProcedure.static_exits">static_exits() (angr.sim_procedure.SimProcedure method)</a>
 </li>
-      <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.step">step() (angr.exploration_techniques.ExplorationTechnique method)</a>
+      <li><a href="angr.html#angr.analyses.static_hooker.StaticHooker">StaticHooker (class in angr.analyses.static_hooker)</a>
+</li>
+      <li><a href="angr.html#angr.exploration_techniques.director.Director.step">step() (angr.exploration_techniques.director.Director method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.step">(angr.exploration_techniques.ExplorationTechnique method)</a>
+</li>
         <li><a href="angr.html#angr.manager.SimulationManager.step">(angr.manager.SimulationManager method)</a>
 </li>
         <li><a href="angr.html#angr.sim_state.SimState.step">(angr.sim_state.SimState method)</a>
@@ -2289,7 +2906,11 @@
       <li><a href="pyvex.html#pyvex.stmt.Store">Store (class in pyvex.stmt)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory.SimMemory.store">store() (angr.storage.memory.SimMemory method)</a>
+
+      <ul>
+        <li><a href="pyvex.html#pyvex.lift.util.instr_helper.Instruction.store">(pyvex.lift.util.instr_helper.Instruction method)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.storage.memory.SimMemory.store_cases">store_cases() (angr.storage.memory.SimMemory method)</a>
 </li>
       <li><a href="angr.html#angr.storage.paged_memory.SimPagedMemory.store_memory_object">store_memory_object() (angr.storage.paged_memory.SimPagedMemory method)</a>
@@ -2324,13 +2945,27 @@
 </li>
       <li><a href="cle.html#cle.backends.symbol.Symbol">Symbol (class in cle.backends.symbol)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.reassembler.SymbolManager">SymbolManager (class in angr.analyses.reassembler)</a>
+</li>
+      <li><a href="angr.html#angr.simos.userland.SimUserland.syscall">syscall() (angr.simos.userland.SimUserland method)</a>
+</li>
+      <li><a href="angr.html#angr.simos.userland.SimUserland.syscall_abi">syscall_abi() (angr.simos.userland.SimUserland method)</a>
+</li>
+      <li><a href="angr.html#angr.simos.userland.SimUserland.syscall_from_addr">syscall_from_addr() (angr.simos.userland.SimUserland method)</a>
+</li>
+      <li><a href="angr.html#angr.simos.userland.SimUserland.syscall_from_number">syscall_from_number() (angr.simos.userland.SimUserland method)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.tcbhead_size">tcbhead_size (archinfo.tls.TLSArchInfo attribute)</a>
+</li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.teardown_callsite">teardown_callsite() (angr.calling_conventions.SimCC method)</a>
+</li>
+      <li><a href="angr.html#angr.exploration_techniques.tech_builder.TechniqueBuilder">TechniqueBuilder (class in angr.exploration_techniques.tech_builder)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cdg.TemporaryNode">TemporaryNode (class in angr.analyses.cdg)</a>
 </li>
@@ -2341,6 +2976,8 @@
       <li><a href="angr.html#angr.exploration_techniques.threading.Threading">Threading (class in angr.exploration_techniques.threading)</a>
 </li>
       <li><a href="cle.html#cle.loader.Loader.tls_object">tls_object (cle.loader.Loader attribute)</a>
+</li>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo">TLSArchInfo (class in archinfo.tls)</a>
 </li>
       <li><a href="cle.html#cle.backends.tls.TLSObject">TLSObject (class in cle.backends.tls)</a>
 </li>
@@ -2368,11 +3005,19 @@
 </li>
       <li><a href="angr.html#angr.storage.memory.AddressWrapper.to_valueset">to_valueset() (angr.storage.memory.AddressWrapper method)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.callstack.CallStack.top">top (angr.state_plugins.callstack.CallStack attribute)</a>
+</li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.top">top() (claripy.vsa.strided_interval.StridedInterval static method)</a>
+</li>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.tp_offset">tp_offset (archinfo.tls.TLSArchInfo attribute)</a>
+</li>
+      <li><a href="angr.html#angr.exploration_techniques.tracer.Tracer">Tracer (class in angr.exploration_techniques.tracer)</a>
 </li>
       <li><a href="angr.html#angr.factory.AngrObjectFactory.tracer_state">tracer_state() (angr.factory.AngrObjectFactory method)</a>
 </li>
       <li><a href="angr.html#angr.storage.paged_memory.TreePage">TreePage (class in angr.storage.paged_memory)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.trim">trim() (angr.state_plugins.history.SimStateHistory method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.Triop">Triop (class in pyvex.expr)</a>
 </li>
@@ -2400,16 +3045,20 @@
 </li>
       <li><a href="archinfo.html#archinfo.arch.Arch.unicorn">unicorn (archinfo.arch.Arch attribute)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn">Unicorn (class in angr.state_plugins.unicorn_engine)</a>
+</li>
+      <li><a href="archinfo.html#archinfo.arch.Arch.unicorn_support">unicorn_support (archinfo.arch.Arch attribute)</a>
+</li>
       <li><a href="claripy.html#claripy.ast.base.Base.uninitialized">uninitialized (claripy.ast.base.Base attribute)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.union">union() (claripy.vsa.strided_interval.StridedInterval method)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory.RegionMap.unmap_by_address">unmap_by_address() (angr.storage.memory.RegionMap method)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.abstract_memory.SimAbstractMemory.unmap_region">unmap_region() (angr.state_plugins.abstract_memory.SimAbstractMemory method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.state_plugins.abstract_memory.SimAbstractMemory.unmap_region">unmap_region() (angr.state_plugins.abstract_memory.SimAbstractMemory method)</a>
+</li>
       <li><a href="pyvex.html#pyvex.expr.Unop">Unop (class in pyvex.expr)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_accurate.CFGAccurate.unresolvables">unresolvables (angr.analyses.cfg.cfg_accurate.CFGAccurate attribute)</a>
@@ -2454,16 +3103,28 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal">VariableManagerInternal (class in angr.knowledge_plugins.variables.variable_manager)</a>
 </li>
-      <li><a href="angr.html#angr.storage.file.SimFile.variables">variables() (angr.storage.file.SimFile method)</a>
+      <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery.VariableRecovery">VariableRecovery (class in angr.analyses.variable_recovery.variable_recovery)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery_fast.VariableRecoveryFast">VariableRecoveryFast (class in angr.analyses.variable_recovery.variable_recovery_fast)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery_fast.VariableRecoveryFastState">VariableRecoveryFastState (class in angr.analyses.variable_recovery.variable_recovery_fast)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery.VariableRecoveryState">VariableRecoveryState (class in angr.analyses.variable_recovery.variable_recovery)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.storage.file.SimFile.variables">variables() (angr.storage.file.SimFile method)</a>
+</li>
+      <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.variant">variant (archinfo.tls.TLSArchInfo attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.veritesting.Veritesting">Veritesting (class in angr.analyses.veritesting)</a>
 
       <ul>
         <li><a href="angr.html#angr.exploration_techniques.veritesting.Veritesting">(class in angr.exploration_techniques.veritesting)</a>
 </li>
       </ul></li>
+      <li><a href="archinfo.html#archinfo.arch.Arch.vex_support">vex_support (archinfo.arch.Arch attribute)</a>
+</li>
       <li><a href="pyvex.html#pyvex.enums.VEXObject">VEXObject (class in pyvex.enums)</a>
 </li>
       <li><a href="angr.html#angr.analyses.vfg.VFG">VFG (class in angr.analyses.vfg)</a>
@@ -2485,13 +3146,15 @@
       <li><a href="angr.html#angr.sim_state.SimState.widen">widen() (angr.sim_state.SimState method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.state_plugins.plugin.SimStatePlugin.widen">(angr.state_plugins.plugin.SimStatePlugin method)</a>
+</li>
         <li><a href="claripy.html#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.widen">(claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet method)</a>
 </li>
       </ul></li>
-      <li><a href="cle.html#cle.backends.pe.symbol.WinSymbol">WinSymbol (class in cle.backends.pe.symbol)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="cle.html#cle.backends.pe.symbol.WinSymbol">WinSymbol (class in cle.backends.pe.symbol)</a>
+</li>
       <li><a href="cle.html#cle.memory.Clemory.write_addr_at">write_addr_at() (cle.memory.Clemory method)</a>
 </li>
       <li><a href="cle.html#cle.memory.Clemory.write_bytes">write_bytes() (cle.memory.Clemory method)</a>
@@ -2499,6 +3162,14 @@
       <li><a href="cle.html#cle.memory.Clemory.write_bytes_to_backer">write_bytes_to_backer() (cle.memory.Clemory method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.stmt.WrTmp">WrTmp (class in pyvex.stmt)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="X">X</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt.X86ElfPicPltResolver">X86ElfPicPltResolver (class in angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -2548,7 +3219,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.7.12.16',
+            VERSION:'7.8.2.21',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

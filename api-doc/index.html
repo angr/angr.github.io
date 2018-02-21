@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>angr API documentation &mdash; angr 7.7.12.16 documentation</title>
+  <title>angr API documentation &mdash; angr 7.8.2.21 documentation</title>
   
 
   
@@ -33,8 +33,8 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 7.7.12.16 documentation" href="#"/>
-        <link rel="next" title="angr — Analysis and Coordination" href="angr.html"/> 
+    <link rel="top" title="angr 7.8.2.21 documentation" href="#"/>
+        <link rel="next" title="t angr — Analysis and Coordination" href="angr.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                7.7.12.16
+                7.8.2.21
               </div>
             
           
@@ -84,7 +84,7 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="angr.html">t <code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
 <li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</a></li>
@@ -139,11 +139,13 @@
 Mayhem, KLEE, etc) and various static analyses on binaries.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="angr.html">t <code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.project">Project</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.sim_state">Program State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.storage">Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.concretization_strategies.single">Concretization Strategies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.manager">Simulation Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.exploration_techniques">Exploration Techniques</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.engines">Simulation Engines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.state_plugins.sim_action">Simulation Logging</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.sim_procedure">Procedures</a></li>
@@ -151,6 +153,7 @@ Mayhem, KLEE, etc) and various static analyses on binaries.</p>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.knowledge_base">Knowledge Base</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.analyses">Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.simos">SimOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.errors">Errors</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a><ul>
@@ -175,10 +178,16 @@ Mayhem, KLEE, etc) and various static analyses on binaries.</p>
 <li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.block">Translation Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.stmt">IR Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.enums">Misc. Things</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.lift">Lifting System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.errors">Errors</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Information Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Information Repository</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="archinfo.html#module-archinfo.arch">Architectures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="archinfo.html#module-archinfo.tls">Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="archinfo.html#module-archinfo.archerror">Errors</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -198,7 +207,7 @@ Mayhem, KLEE, etc) and various static analyses on binaries.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="angr.html" class="btn btn-neutral float-right" title="angr — Analysis and Coordination" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="angr.html" class="btn btn-neutral float-right" title="t angr — Analysis and Coordination" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -230,7 +239,7 @@ Mayhem, KLEE, etc) and various static analyses on binaries.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.7.12.16',
+            VERSION:'7.8.2.21',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

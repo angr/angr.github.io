@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cle — Binary Loader &mdash; angr 7.7.12.16 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 7.8.2.21 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 7.7.12.16 documentation" href="index.html"/>
+    <link rel="top" title="angr 7.8.2.21 documentation" href="index.html"/>
         <link rel="next" title="pyvex — Binary Translator" href="pyvex.html"/>
         <link rel="prev" title="claripy — Solver Engine" href="claripy.html"/> 
 
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                7.7.12.16
+                7.8.2.21
               </div>
             
           
@@ -85,7 +85,7 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="angr.html">t <code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
 <li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-cle.loader">Loading Interface</a></li>
@@ -307,13 +307,13 @@ I&#8217;m not sure what order they should be run in.</p>
 
 <dl class="method">
 <dt id="cle.loader.Loader.find_symbol">
-<code class="descname">find_symbol</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_symbol" title="Permalink to this definition">¶</a></dt>
+<code class="descname">find_symbol</code><span class="sig-paren">(</span><em>thing</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_symbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search for the symbol with the given name or address.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> &#8211; Either the name or address of a symbol to look up</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>thing</strong> &#8211; Either the name or address of a symbol to look up</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A <code class="xref py py-class docutils literal"><span class="pre">cle.backends.Symbol</span></code> object if found, None otherwise.</td>
 </tr>
@@ -391,6 +391,12 @@ not being found, return None.</td>
 </dd></dl>
 
 <dl class="method">
+<dt id="cle.loader.Loader.add_object">
+<code class="descname">add_object</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.add_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>If you&#8217;ve constructed your own Backend-subclass object and want to add it directly to the loader, use this.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="cle.loader.Loader.get_loader_symbolic_constraints">
 <code class="descname">get_loader_symbolic_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.get_loader_symbolic_constraints" title="Permalink to this definition">¶</a></dt>
 <dd><p>Do not use this method.</p>
@@ -403,7 +409,7 @@ not being found, return None.</td>
 <span id="backends"></span><h2>Backends<a class="headerlink" href="#module-cle.backends" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cle.backends.Backend">
-<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Backend</code><span class="sig-paren">(</span><em>binary</em>, <em>loader=None</em>, <em>is_main_bin=False</em>, <em>filename=None</em>, <em>custom_entry_point=None</em>, <em>custom_arch=None</em>, <em>custom_base_addr=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cle.backends.</code><code class="descname">Backend</code><span class="sig-paren">(</span><em>binary</em>, <em>loader=None</em>, <em>is_main_bin=False</em>, <em>filename=None</em>, <em>custom_entry_point=None</em>, <em>custom_arch=None</em>, <em>custom_base_addr=None</em>, <em>has_memory=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main base class for CLE binary objects.</p>
 <p>An alternate interface to this constructor exists as the static method <code class="xref py py-meth docutils literal"><span class="pre">cle.loader.Loader.load_object()</span></code></p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -524,7 +530,7 @@ the <a class="reference internal" href="#cle.backends.Backend.get_symbol" title=
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first simple">
 <li><strong>owner_obj</strong> (<a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><em>cle.backends.Backend</em></a>) &#8211; The object that contains this symbol</li>
-<li><a class="reference internal" href="claripy.html#claripy.backends.Backend.name" title="claripy.backends.Backend.name"><strong>name</strong></a> (<em>str</em>) &#8211; The name of this symbol</li>
+<li><a class="reference internal" href="angr.html#angr.analyses.reassembler.Procedure.name" title="angr.analyses.reassembler.Procedure.name"><strong>name</strong></a> (<em>str</em>) &#8211; The name of this symbol</li>
 <li><a class="reference internal" href="angr.html#angr.sim_state.SimState.addr" title="angr.sim_state.SimState.addr"><strong>addr</strong></a> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The un-based address of this symbol, an RVA</li>
 <li><strong>type</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The type of this symbol as one of SYMBOL.TYPE_*</li>
 <li><strong>resolved</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether this import symbol has been resolved to a real symbol</li>
@@ -612,7 +618,7 @@ Therefore you probably does not want to modify the list.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region</strong> (<em>Region</em>) &#8211; The region to append.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>region</strong> (<a class="reference internal" href="#cle.backends.region.Region" title="cle.backends.region.Region"><em>Region</em></a>) &#8211; The region to append.</td>
 </tr>
 </tbody>
 </table>
@@ -630,7 +636,7 @@ Therefore you probably does not want to modify the list.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The region that covers the specific address, or None if no such region is found.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Region or None</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cle.backends.region.Region" title="cle.backends.region.Region">Region</a> or None</td>
 </tr>
 </tbody>
 </table>
@@ -638,7 +644,119 @@ Therefore you probably does not want to modify the list.</p>
 
 </dd></dl>
 
-<span class="target" id="module-cle.backends.elf.elf"></span><dl class="class">
+<span class="target" id="module-cle.backends.region"></span><dl class="class">
+<dt id="cle.backends.region.Region">
+<em class="property">class </em><code class="descclassname">cle.backends.region.</code><code class="descname">Region</code><span class="sig-paren">(</span><em>offset</em>, <em>vaddr</em>, <em>filesize</em>, <em>memsize</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.region.Region" title="Permalink to this definition">¶</a></dt>
+<dd><p>A region of memory that is mapped in the object&#8217;s file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>offset</strong> &#8211; The offset into the file the region starts.</li>
+<li><strong>vaddr</strong> &#8211; The virtual address.</li>
+<li><strong>filesize</strong> &#8211; The size of the region in the file.</li>
+<li><strong>memsize</strong> &#8211; The size of the region when loaded into memory.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The prefix <cite>v-</cite> on a variable or parameter name indicates that it refers to the virtual, loaded memory space,
+while a corresponding variable without the <cite>v-</cite> refers to the flat zero-based memory of the file.</p>
+<p>When used next to each other, <cite>addr</cite> and <cite>offset</cite> refer to virtual memory address and file offset, respectively.</p>
+<dl class="method">
+<dt id="cle.backends.region.Region.contains_addr">
+<code class="descname">contains_addr</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.region.Region.contains_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does this region contain this virtual address?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.region.Region.contains_offset">
+<code class="descname">contains_offset</code><span class="sig-paren">(</span><em>offset</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.region.Region.contains_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does this region contain this offset into the file?</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.region.Region.addr_to_offset">
+<code class="descname">addr_to_offset</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.region.Region.addr_to_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a virtual memory address into a file offset</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.region.Region.offset_to_addr">
+<code class="descname">offset_to_addr</code><span class="sig-paren">(</span><em>offset</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.region.Region.offset_to_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a file offset into a virtual memory address</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.region.Region.max_addr">
+<code class="descname">max_addr</code><a class="headerlink" href="#cle.backends.region.Region.max_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum virtual address of this region</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.region.Region.min_addr">
+<code class="descname">min_addr</code><a class="headerlink" href="#cle.backends.region.Region.min_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>The minimum virtual address of this region</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.region.Region.max_offset">
+<code class="descname">max_offset</code><a class="headerlink" href="#cle.backends.region.Region.max_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>The maximum file offset of this region</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.region.Region.min_offset">
+<code class="descname">min_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.region.Region.min_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>The minimum file offset of this region</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.region.Section">
+<em class="property">class </em><code class="descclassname">cle.backends.region.</code><code class="descname">Section</code><span class="sig-paren">(</span><em>name</em>, <em>offset</em>, <em>vaddr</em>, <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.region.Section" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple representation of a loaded section.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><p class="first"><a class="reference internal" href="angr.html#angr.analyses.reassembler.Procedure.name" title="angr.analyses.reassembler.Procedure.name"><strong>name</strong></a> (<em>str</em>) &#8211; The name of the section</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<em>str</em>) &#8211; The name of the section</li>
+<li><strong>offset</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The offset into the binary file this section begins</li>
+<li><strong>vaddr</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The address in virtual memory this section begins</li>
+<li><strong>size</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; How large this section is</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="cle.backends.region.Section.is_readable">
+<code class="descname">is_readable</code><a class="headerlink" href="#cle.backends.region.Section.is_readable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether this section has read permissions</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.region.Section.is_writable">
+<code class="descname">is_writable</code><a class="headerlink" href="#cle.backends.region.Section.is_writable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether this section has write permissions</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.region.Section.is_executable">
+<code class="descname">is_executable</code><a class="headerlink" href="#cle.backends.region.Section.is_executable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether this section has execute permissions</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cle.backends.elf"></span><span class="target" id="module-cle.backends.elf.elf"></span><dl class="class">
 <dt id="cle.backends.elf.elf.ELF">
 <em class="property">class </em><code class="descclassname">cle.backends.elf.elf.</code><code class="descname">ELF</code><span class="sig-paren">(</span><em>binary</em>, <em>addend=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.elf.ELF" title="Permalink to this definition">¶</a></dt>
 <dd><p>The main loader class for statically loading ELF executables. Uses the pyreadelf library where useful.</p>
@@ -822,7 +940,7 @@ Therefore you probably does not want to modify the list.</p>
 
 </dd></dl>
 
-<span class="target" id="module-cle.backends.pe.pe"></span><dl class="class">
+<span class="target" id="module-cle.backends.pe"></span><span class="target" id="module-cle.backends.pe.pe"></span><dl class="class">
 <dt id="cle.backends.pe.pe.PE">
 <em class="property">class </em><code class="descclassname">cle.backends.pe.pe.</code><code class="descname">PE</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.pe.pe.PE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Representation of a PE (i.e. Windows) binary.</p>
@@ -846,7 +964,7 @@ Therefore you probably does not want to modify the list.</p>
 <dd><p>Represents a section for the PE format.</p>
 </dd></dl>
 
-<span class="target" id="module-cle.backends.macho.macho"></span><dl class="class">
+<span class="target" id="module-cle.backends.macho"></span><span class="target" id="module-cle.backends.macho.macho"></span><dl class="class">
 <dt id="cle.backends.macho.macho.MachO">
 <em class="property">class </em><code class="descclassname">cle.backends.macho.macho.</code><code class="descname">MachO</code><span class="sig-paren">(</span><em>binary</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.macho.MachO" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mach-O binaries for CLE</p>
@@ -1081,7 +1199,7 @@ Intended to work in close conjunction with MachO not for standalone use</p>
 <dd><p>Binds location to the symbol with the given name and library ordinal</p>
 </dd></dl>
 
-<span class="target" id="module-cle.backends.cgc.cgc"></span><dl class="class">
+<span class="target" id="module-cle.backends.cgc"></span><span class="target" id="module-cle.backends.cgc.cgc"></span><dl class="class">
 <dt id="cle.backends.cgc.cgc.CGC">
 <em class="property">class </em><code class="descclassname">cle.backends.cgc.cgc.</code><code class="descname">CGC</code><span class="sig-paren">(</span><em>binary</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.cgc.cgc.CGC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Backend to support the CGC elf format used by the Cyber Grand Challenge competition.</p>
@@ -1110,13 +1228,6 @@ executable.</li>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<span class="target" id="module-cle.backends.ihex"></span><dl class="class">
-<dt id="cle.backends.ihex.Hex">
-<em class="property">class </em><code class="descclassname">cle.backends.ihex.</code><code class="descname">Hex</code><span class="sig-paren">(</span><em>path</em>, <em>custom_arch=None</em>, <em>custom_entry_point=0</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.ihex.Hex" title="Permalink to this definition">¶</a></dt>
-<dd><p>A loader for Intel Hex Objects
-See <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_HEX">https://en.wikipedia.org/wiki/Intel_HEX</a></p>
 </dd></dl>
 
 <span class="target" id="module-cle.backends.blob"></span><dl class="class">
@@ -1150,6 +1261,13 @@ are of <code class="docutils literal"><span class="pre">(file_offset,</span> <sp
 <dd><p>Blobs don&#8217;t support segments.</p>
 </dd></dl>
 
+</dd></dl>
+
+<span class="target" id="module-cle.backends.ihex"></span><dl class="class">
+<dt id="cle.backends.ihex.Hex">
+<em class="property">class </em><code class="descclassname">cle.backends.ihex.</code><code class="descname">Hex</code><span class="sig-paren">(</span><em>path</em>, <em>custom_arch=None</em>, <em>custom_entry_point=0</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.ihex.Hex" title="Permalink to this definition">¶</a></dt>
+<dd><p>A loader for Intel Hex Objects
+See <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_HEX">https://en.wikipedia.org/wiki/Intel_HEX</a></p>
 </dd></dl>
 
 <span class="target" id="module-cle.backends.idabin"></span><dl class="class">
@@ -1230,7 +1348,7 @@ the address <cite>new_val</cite> inline (instead of updating GOT slots). Don&#82
 
 </dd></dl>
 
-</div>
+<span class="target" id="module-cle.backends.soot"></span></div>
 <div class="section" id="relocations">
 <h2>Relocations<a class="headerlink" href="#relocations" title="Permalink to this headline">¶</a></h2>
 <p>CLE&#8217;s loader implements program relocation data on a plugin basis.
@@ -1278,7 +1396,102 @@ object it came from.</p>
 
 </dd></dl>
 
-<span class="target" id="module-cle.backends.elf.relocation"></span><span class="target" id="module-cle.backends.elf.relocation.elfreloc"></span><span class="target" id="module-cle.backends.pe.relocation"></span><span class="target" id="module-cle.backends.pe.relocation.pereloc"></span></div>
+<span class="target" id="module-cle.backends.elf.relocation"></span><span class="target" id="module-cle.backends.elf.relocation.elfreloc"></span><span class="target" id="module-cle.backends.elf.relocation.mips64"></span><span class="target" id="module-cle.backends.elf.relocation.generic"></span><dl class="class">
+<dt id="cle.backends.elf.relocation.generic.RelocTruncate32Mixin">
+<em class="property">class </em><code class="descclassname">cle.backends.elf.relocation.generic.</code><code class="descname">RelocTruncate32Mixin</code><a class="headerlink" href="#cle.backends.elf.relocation.generic.RelocTruncate32Mixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>A mix-in class for relocations that cover a 32-bit field regardless of the architecture&#8217;s address word length.</p>
+</dd></dl>
+
+<span class="target" id="module-cle.backends.elf.relocation.armel"></span><span class="target" id="module-cle.backends.elf.relocation.ppc"></span><span class="target" id="module-cle.backends.elf.relocation.armhf"></span><span class="target" id="module-cle.backends.elf.relocation.pcc64"></span><span class="target" id="module-cle.backends.elf.relocation.i386"></span><span class="target" id="module-cle.backends.elf.relocation.amd64"></span><span class="target" id="module-cle.backends.elf.relocation.mips"></span><span class="target" id="module-cle.backends.elf.relocation.arm"></span><dl class="class">
+<dt id="cle.backends.elf.relocation.arm.R_ARM_CALL">
+<em class="property">class </em><code class="descclassname">cle.backends.elf.relocation.arm.</code><code class="descname">R_ARM_CALL</code><span class="sig-paren">(</span><em>owner</em>, <em>symbol</em>, <em>relative_addr</em>, <em>addend=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_CALL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relocate R_ARM_CALL symbols via instruction modification. It additionally
+handles R_ARM_PC24 and R_ARM_JUMP24. The former is deprecated and is now
+just the same as R_ARM_CALL.</p>
+<p>R_ARM_JUMP24 doesn&#8217;t need the Thumb check. Technically, if the Thumb check
+succeeds on R_ARM_JUMP24, it&#8217;s a bad call that shouldn&#8217;t have been generated
+by the linker, so we may as well as just treat it like R_ARM_CALL.</p>
+<p>Class: Static
+Type: ARM (R_ARM_CALL, R_ARM_JUMP24); Deprecated (R_ARM_PC24)
+Code: 1 (R_ARM_PC24), 28 (R_ARM_CALL), 29 (R_ARM_JUMP24)
+Operation: ((S + A) | T) - P</p>
+<blockquote>
+<div><ul class="simple">
+<li>S is the address of the symbol</li>
+<li>A is the addend</li>
+<li>P is the target location (place being relocated)</li>
+<li>T is 1 if the symbol is of type STT_FUNC and addresses a Thumb instruction</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.elf.relocation.arm.R_ARM_PREL31">
+<em class="property">class </em><code class="descclassname">cle.backends.elf.relocation.arm.</code><code class="descname">R_ARM_PREL31</code><span class="sig-paren">(</span><em>owner</em>, <em>symbol</em>, <em>relative_addr</em>, <em>addend=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_PREL31" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relocate R_ARM_PREL31 symbols via instruction modification. The difference
+between this and R_ARM_CALL/R_ARM_PC24/R_ARM_JUMP24 is that it&#8217;s a data
+relocation</p>
+<p>Class: Static
+Type: Data
+Code: 42
+Operation: ((S + A) | T) - P</p>
+<blockquote>
+<div><ul class="simple">
+<li>S is the address of the symbol</li>
+<li>A is the addend</li>
+<li>P is the target location (place being relocated)</li>
+<li>T is 1 if the symbol is of type STT_FUNC and addresses a Thumb instruction</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.elf.relocation.arm.R_ARM_REL32">
+<em class="property">class </em><code class="descclassname">cle.backends.elf.relocation.arm.</code><code class="descname">R_ARM_REL32</code><span class="sig-paren">(</span><em>owner</em>, <em>symbol</em>, <em>relative_addr</em>, <em>addend=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_REL32" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relocate R_ARM_REL32 symbols. This is essentially the same as
+generic.GenericPCRelativeAddendReloc with the addition of a check
+for whether or not the target is Thumb.</p>
+<p>Class: Static
+Type: Data
+Code: 3
+Operation: ((S + A) | T) - P</p>
+<blockquote>
+<div><ul class="simple">
+<li>S is the address of the symbol</li>
+<li>A is the addend</li>
+<li>P is the target location (place being relocated)</li>
+<li>T is 1 if the symbol is of type STT_FUNC and addresses a Thumb instruction</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.elf.relocation.arm.R_ARM_ABS32">
+<em class="property">class </em><code class="descclassname">cle.backends.elf.relocation.arm.</code><code class="descname">R_ARM_ABS32</code><span class="sig-paren">(</span><em>owner</em>, <em>symbol</em>, <em>relative_addr</em>, <em>addend=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.arm.R_ARM_ABS32" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relocate R_ARM_ABS32 symbols. This is essentially the same as
+generic.GenericAbsoluteAddendReloc with the addition of a check
+for whether or not the target is Thumb.</p>
+<p>Class: Static
+Type: Data
+Code: 3
+Operation: (S + A) | T</p>
+<blockquote>
+<div><ul class="simple">
+<li>S is the address of the symbol</li>
+<li>A is the addend</li>
+<li>T is 1 if the symbol is of type STT_FUNC and addresses a Thumb instruction</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<span class="target" id="module-cle.backends.elf.relocation.arm64"></span><span class="target" id="module-cle.backends.pe.relocation"></span><span class="target" id="module-cle.backends.pe.relocation.pereloc"></span><span class="target" id="module-cle.backends.pe.relocation.generic"></span><dl class="class">
+<dt id="cle.backends.pe.relocation.generic.DllImport">
+<em class="property">class </em><code class="descclassname">cle.backends.pe.relocation.generic.</code><code class="descname">DllImport</code><span class="sig-paren">(</span><em>owner</em>, <em>symbol</em>, <em>addr</em>, <em>resolvewith=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.pe.relocation.generic.DllImport" title="Permalink to this definition">¶</a></dt>
+<dd><p>There&#8217;s nothing special to be done for DLL imports but this class
+provides a unique name to the relocation type.</p>
+</dd></dl>
+
+<span class="target" id="module-cle.backends.pe.relocation.i386"></span><span class="target" id="module-cle.backends.pe.relocation.amd64"></span><span class="target" id="module-cle.backends.pe.relocation.mips"></span><span class="target" id="module-cle.backends.pe.relocation.arm"></span><span class="target" id="module-cle.backends.pe.relocation.riscv"></span></div>
 <div class="section" id="module-cle.backends.tls">
 <span id="thread-local-storage"></span><h2>Thread-local storage<a class="headerlink" href="#module-cle.backends.tls" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -1523,8 +1736,19 @@ GirlScout uses it. Use this property at your own risk!</p>
 <dl class="method">
 <dt id="cle.memory.Clemory.read_bytes_c">
 <code class="descname">read_bytes_c</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.read_bytes_c" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read <cite>n</cite> bytes at address <cite>addr</cite> in cbacked memory, and returns a cffi buffer pointer.</p>
+<dd><p>Read <cite>n</cite> bytes at address <cite>addr</cite> in cbacked memory, and returns a tuple of a cffi buffer pointer and the
+size of the continuous block bytes starting at <cite>addr</cite>.</p>
 <p>Note: We don&#8217;t support reading across segments for performance concerns.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A tuple of a cffi buffer pointer and the maximum size of bytes starting from <cite>addr</cite>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -1773,7 +1997,7 @@ MVA - mapped VA (loader)
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.7.12.16',
+            VERSION:'7.8.2.21',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
