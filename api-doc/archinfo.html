@@ -84,11 +84,11 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="angr.html">t <code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
-<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Information Repository</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal notranslate"><span class="pre">angr</span></code> — Analysis and Coordination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal notranslate"><span class="pre">claripy</span></code> — Solver Engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal notranslate"><span class="pre">cle</span></code> — Binary Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal notranslate"><span class="pre">pyvex</span></code> — Binary Translator</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">archinfo</span></code> — Arch Information Repository</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-archinfo.arch">Architectures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-archinfo.tls">Utilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-archinfo.archerror">Errors</a></li>
@@ -124,7 +124,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Information Repository</li>
+    <li><code class="docutils literal notranslate"><span class="pre">archinfo</span></code> — Arch Information Repository</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -139,7 +139,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-archinfo">
-<span id="archinfo-arch-information-repository"></span><h1><a class="reference internal" href="#module-archinfo" title="archinfo"><code class="xref py py-mod docutils literal"><span class="pre">archinfo</span></code></a> &#8212; Arch Information Repository<a class="headerlink" href="#module-archinfo" title="Permalink to this headline">¶</a></h1>
+<span id="archinfo-arch-information-repository"></span><h1><a class="reference internal" href="#module-archinfo" title="archinfo"><code class="xref py py-mod docutils literal notranslate"><span class="pre">archinfo</span></code></a> — Arch Information Repository<a class="headerlink" href="#module-archinfo" title="Permalink to this headline">¶</a></h1>
 <p>archinfo is a collection of classes that contain architecture-specific information.
 It is useful for cross-architecture tools (such as pyvex).</p>
 <div class="section" id="module-archinfo.arch">
@@ -153,9 +153,9 @@ It is useful for cross-architecture tools (such as pyvex).</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>LE</strong> &#8211; little endian, least significant byte is stored at lowest address</li>
-<li><strong>BE</strong> &#8211; big endian, most significant byte is stored at lowest address</li>
-<li><strong>ME</strong> &#8211; Middle-endian. Yep.</li>
+<li><strong>LE</strong> – little endian, least significant byte is stored at lowest address</li>
+<li><strong>BE</strong> – big endian, most significant byte is stored at lowest address</li>
+<li><strong>ME</strong> – Middle-endian. Yep.</li>
 </ul>
 </td>
 </tr>
@@ -167,7 +167,7 @@ It is useful for cross-architecture tools (such as pyvex).</p>
 <dt id="archinfo.arch.Arch">
 <em class="property">class </em><code class="descclassname">archinfo.arch.</code><code class="descname">Arch</code><span class="sig-paren">(</span><em>endness</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Arch" title="Permalink to this definition">¶</a></dt>
 <dd><p>A collection of information about a given architecture. This class should be subclasses for each different
-architecture, and then that subclass should be registered with the <code class="docutils literal"><span class="pre">register_arch</span></code> method.</p>
+architecture, and then that subclass should be registered with the <code class="docutils literal notranslate"><span class="pre">register_arch</span></code> method.</p>
 <p>A good number of assumptions are made that code is being processed under the VEX IR - for instance, it is expected
 the register file offsets are expected to match code generated by PyVEX.</p>
 <p>Arches maybe compared with == and !=.</p>
@@ -176,54 +176,54 @@ the register file offsets are expected to match code generated by PyVEX.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="angr.html#angr.analyses.reassembler.Procedure.name" title="angr.analyses.reassembler.Procedure.name"><strong>name</strong></a> (<em>str</em>) &#8211; The name of the arch</li>
-<li><a class="reference internal" href="claripy.html#module-claripy.ast.bits" title="claripy.ast.bits"><strong>bits</strong></a> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The number of bits in a word</li>
-<li><strong>vex_arch</strong> (<em>str</em>) &#8211; The VEX enum name used to identify this arch</li>
-<li><strong>qemu_name</strong> (<em>str</em>) &#8211; The name used by QEMU to identify this arch</li>
-<li><strong>ida_processor</strong> (<em>str</em>) &#8211; The processor string used by IDA to identify this arch</li>
-<li><strong>triplet</strong> (<em>str</em>) &#8211; The triplet used to identify a linux system on this arch</li>
-<li><strong>max_inst_bytes</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The maximum number of bytes in a single instruction</li>
-<li><strong>ip_offset</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The offset of the instruction pointer in the register file</li>
-<li><strong>sp_offset</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The offset of the stack pointer in the register file</li>
-<li><strong>bp_offset</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The offset of the base pointer in the register file</li>
-<li><strong>lr_offset</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The offset of the link register (return address) in the register file</li>
-<li><strong>ret_offset</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The offset of the return value register in the register file</li>
-<li><strong>vex_conditional_helpers</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether libVEX will generate code to process the conditional flags for this
+<li><strong>name</strong> (<em>str</em>) – The name of the arch</li>
+<li><strong>bits</strong> (<em>int</em>) – The number of bits in a word</li>
+<li><strong>vex_arch</strong> (<em>str</em>) – The VEX enum name used to identify this arch</li>
+<li><strong>qemu_name</strong> (<em>str</em>) – The name used by QEMU to identify this arch</li>
+<li><strong>ida_processor</strong> (<em>str</em>) – The processor string used by IDA to identify this arch</li>
+<li><strong>triplet</strong> (<em>str</em>) – The triplet used to identify a linux system on this arch</li>
+<li><strong>max_inst_bytes</strong> (<em>int</em>) – The maximum number of bytes in a single instruction</li>
+<li><strong>ip_offset</strong> (<em>int</em>) – The offset of the instruction pointer in the register file</li>
+<li><strong>sp_offset</strong> (<em>int</em>) – The offset of the stack pointer in the register file</li>
+<li><strong>bp_offset</strong> (<em>int</em>) – The offset of the base pointer in the register file</li>
+<li><strong>lr_offset</strong> (<em>int</em>) – The offset of the link register (return address) in the register file</li>
+<li><strong>ret_offset</strong> (<em>int</em>) – The offset of the return value register in the register file</li>
+<li><strong>vex_conditional_helpers</strong> (<em>bool</em>) – Whether libVEX will generate code to process the conditional flags for this
 arch using ccalls</li>
-<li><strong>syscall_num_offset</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The offset in the register file where the syscall number is stored</li>
-<li><strong>call_pushes_ret</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; Whether this arch&#8217;s call instruction causes a stack push</li>
-<li><strong>stack_change</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The change to the stack pointer caused by a push instruction</li>
-<li><strong>memory_endness</strong> (<em>str</em>) &#8211; The endness of memory, as a VEX enum</li>
-<li><strong>register_endness</strong> (<em>str</em>) &#8211; The endness of registers, as a VEX enum. Should usually be same as above</li>
-<li><strong>instruction_endness</strong> (<em>str</em>) &#8211; The endness of instructions stored in memory.
+<li><strong>syscall_num_offset</strong> (<em>int</em>) – The offset in the register file where the syscall number is stored</li>
+<li><strong>call_pushes_ret</strong> (<em>bool</em>) – Whether this arch’s call instruction causes a stack push</li>
+<li><strong>stack_change</strong> (<em>int</em>) – The change to the stack pointer caused by a push instruction</li>
+<li><strong>memory_endness</strong> (<em>str</em>) – The endness of memory, as a VEX enum</li>
+<li><strong>register_endness</strong> (<em>str</em>) – The endness of registers, as a VEX enum. Should usually be same as above</li>
+<li><strong>instruction_endness</strong> (<em>str</em>) – The endness of instructions stored in memory.
 In other words, this controls whether instructions are stored endian-flipped compared to their description
-in the ISA manual, and should be flipped when lifted. Iend_BE means &#8220;don&#8217;t flip&#8221;
+in the ISA manual, and should be flipped when lifted. Iend_BE means “don’t flip”
 NOTE: Only used for non-libVEX lifters.</li>
-<li><strong>sizeof</strong> (<em>dict</em>) &#8211; A mapping from C type to variable size in bits</li>
-<li><strong>cs_arch</strong> &#8211; The capstone arch value for this arch</li>
-<li><strong>cs_mode</strong> &#8211; The capstone mode value for this arch</li>
-<li><strong>uc_arch</strong> &#8211; The unicorn engine arch value for this arch</li>
-<li><strong>uc_mode</strong> &#8211; The unicorn engine mode value for this arch</li>
-<li><strong>uc_const</strong> &#8211; The unicorn engine constants module for this arch</li>
-<li><strong>uc_prefix</strong> &#8211; The prefix used for variables in the unicorn engine constants module</li>
-<li><strong>function_prologs</strong> (<em>list</em>) &#8211; A list of regular expressions matching the bytes for common function prologues</li>
-<li><strong>function_epilogs</strong> (<em>list</em>) &#8211; A list of regular expressions matching the bytes for common function epilogues</li>
-<li><strong>ret_instruction</strong> (<em>str</em>) &#8211; The bytes for a return instruction</li>
-<li><strong>nop_instruction</strong> (<em>str</em>) &#8211; The bytes for a nop instruction</li>
-<li><strong>instruction_alignment</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The instruction alignment requirement</li>
-<li><strong>default_register_values</strong> (<em>list</em>) &#8211; A weird listing describing how registers should be initialized for purposes of
+<li><strong>sizeof</strong> (<em>dict</em>) – A mapping from C type to variable size in bits</li>
+<li><strong>cs_arch</strong> – The capstone arch value for this arch</li>
+<li><strong>cs_mode</strong> – The capstone mode value for this arch</li>
+<li><strong>uc_arch</strong> – The unicorn engine arch value for this arch</li>
+<li><strong>uc_mode</strong> – The unicorn engine mode value for this arch</li>
+<li><strong>uc_const</strong> – The unicorn engine constants module for this arch</li>
+<li><strong>uc_prefix</strong> – The prefix used for variables in the unicorn engine constants module</li>
+<li><strong>function_prologs</strong> (<em>list</em>) – A list of regular expressions matching the bytes for common function prologues</li>
+<li><strong>function_epilogs</strong> (<em>list</em>) – A list of regular expressions matching the bytes for common function epilogues</li>
+<li><strong>ret_instruction</strong> (<em>str</em>) – The bytes for a return instruction</li>
+<li><strong>nop_instruction</strong> (<em>str</em>) – The bytes for a nop instruction</li>
+<li><strong>instruction_alignment</strong> (<em>int</em>) – The instruction alignment requirement</li>
+<li><strong>default_register_values</strong> (<em>list</em>) – A weird listing describing how registers should be initialized for purposes of
 sanity</li>
-<li><strong>entry_register_values</strong> (<em>dict</em>) &#8211; A mapping from register name to a description of the value that should be in it
+<li><strong>entry_register_values</strong> (<em>dict</em>) – A mapping from register name to a description of the value that should be in it
 at program entry on linux</li>
-<li><strong>default_symbolic_register</strong> (<em>list</em>) &#8211; Honestly, who knows what this is supposed to do. Fill it with the names of
+<li><strong>default_symbolic_register</strong> (<em>list</em>) – Honestly, who knows what this is supposed to do. Fill it with the names of
 the general purpose registers.</li>
-<li><strong>register_names</strong> (<em>dict</em>) &#8211; A mapping from register file offset to register name</li>
-<li><strong>registers</strong> (<em>dict</em>) &#8211; A mapping from register name to a tuple of (register file offset, size in bytes)</li>
-<li><strong>lib_paths</strong> (<em>list</em>) &#8211; A listing of common locations where shared libraries for this architecture may be found</li>
-<li><strong>got_section_name</strong> (<em>str</em>) &#8211; The name of the GOT section in ELFs</li>
-<li><strong>ld_linux_name</strong> (<em>str</em>) &#8211; The name of the linux dynamic loader program</li>
-<li><strong>byte_width</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; the number of bits in a byte.</li>
-<li><a class="reference internal" href="cle.html#module-cle.backends.tls.elf_tls" title="cle.backends.tls.elf_tls"><strong>elf_tls</strong></a> (<a class="reference internal" href="#archinfo.tls.TLSArchInfo" title="archinfo.tls.TLSArchInfo"><em>TLSArchInfo</em></a>) &#8211; A description of how thread-local storage works</li>
+<li><strong>register_names</strong> (<em>dict</em>) – A mapping from register file offset to register name</li>
+<li><strong>registers</strong> (<em>dict</em>) – A mapping from register name to a tuple of (register file offset, size in bytes)</li>
+<li><strong>lib_paths</strong> (<em>list</em>) – A listing of common locations where shared libraries for this architecture may be found</li>
+<li><strong>got_section_name</strong> (<em>str</em>) – The name of the GOT section in ELFs</li>
+<li><strong>ld_linux_name</strong> (<em>str</em>) – The name of the linux dynamic loader program</li>
+<li><strong>byte_width</strong> (<em>int</em>) – the number of bits in a byte.</li>
+<li><strong>elf_tls</strong> (<a class="reference internal" href="#archinfo.tls.TLSArchInfo" title="archinfo.tls.TLSArchInfo"><em>TLSArchInfo</em></a>) – A description of how thread-local storage works</li>
 </ul>
 </td>
 </tr>
@@ -238,14 +238,14 @@ the general purpose registers.</li>
 <dl class="method">
 <dt id="archinfo.arch.Arch.struct_fmt">
 <code class="descname">struct_fmt</code><span class="sig-paren">(</span><em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Arch.struct_fmt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Produce a format string for use in python&#8217;s <code class="docutils literal"><span class="pre">struct</span></code> module.</p>
-<p>Optionally, the <code class="docutils literal"><span class="pre">size</span></code> parameter can specify the width of the int to store.</p>
+<dd><p>Produce a format string for use in python’s <code class="docutils literal notranslate"><span class="pre">struct</span></code> module.</p>
+<p>Optionally, the <code class="docutils literal notranslate"><span class="pre">size</span></code> parameter can specify the width of the int to store.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="archinfo.arch.Arch.bytes">
 <code class="descname">bytes</code><a class="headerlink" href="#archinfo.arch.Arch.bytes" title="Permalink to this definition">¶</a></dt>
-<dd><p>The standard word size in bytes, calculated from the <code class="docutils literal"><span class="pre">bits</span></code> field</p>
+<dd><p>The standard word size in bytes, calculated from the <code class="docutils literal notranslate"><span class="pre">bits</span></code> field</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -276,7 +276,7 @@ the general purpose registers.</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if this Arch is supported by VEX, False otherwise.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
 </tr>
 </tbody>
 </table>
@@ -292,7 +292,7 @@ the general purpose registers.</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if this Arch is supported by the Unicorn engine, False otherwise.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
 </tr>
 </tbody>
 </table>
@@ -308,7 +308,7 @@ the general purpose registers.</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if this Arch is supported by the Capstone engine, False Otherwise.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="claripy.html#module-claripy.ast.bool" title="claripy.ast.bool">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
 </tr>
 </tbody>
 </table>
@@ -320,7 +320,7 @@ the general purpose registers.</li>
 <dt id="archinfo.arch.register_arch">
 <code class="descclassname">archinfo.arch.</code><code class="descname">register_arch</code><span class="sig-paren">(</span><em>regexes</em>, <em>bits</em>, <em>endness</em>, <em>my_arch</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.register_arch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register a new architecture.
-Architectures are loaded by their string name using <code class="docutils literal"><span class="pre">arch_from_id()</span></code>, and
+Architectures are loaded by their string name using <code class="docutils literal notranslate"><span class="pre">arch_from_id()</span></code>, and
 this defines the mapping it uses to figure it out.
 Takes a list of regular expressions, and an Arch class as input.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -328,11 +328,11 @@ Takes a list of regular expressions, and an Arch class as input.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>regexes</strong> (<em>list</em>) &#8211; List of regular expressions (str or SRE_Pattern)</li>
-<li><strong>bits</strong> (<a class="reference internal" href="claripy.html#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The canonical &#8220;bits&#8221; of this architecture, ex. 32 or 64</li>
-<li><strong>endness</strong> (<em>str</em><em> or </em><em>None</em>) &#8211; The &#8220;endness&#8221; of this architecture.  Use Endness.LE, Endness.BE, Endness.ME, &#8220;any&#8221;, or None if the
+<li><strong>regexes</strong> (<em>list</em>) – List of regular expressions (str or SRE_Pattern)</li>
+<li><strong>bits</strong> (<em>int</em>) – The canonical “bits” of this architecture, ex. 32 or 64</li>
+<li><strong>endness</strong> (<em>str</em><em> or </em><em>None</em>) – The “endness” of this architecture.  Use Endness.LE, Endness.BE, Endness.ME, “any”, or None if the
 architecture has no intrinsic endianness.</li>
-<li><strong>my_arch</strong> (<em>class</em>) &#8211; </li>
+<li><strong>my_arch</strong> (<em>class</em>) – </li>
 </ul>
 </td>
 </tr>
@@ -347,7 +347,7 @@ architecture has no intrinsic endianness.</li>
 <dt id="archinfo.arch.arch_from_id">
 <code class="descclassname">archinfo.arch.</code><code class="descname">arch_from_id</code><span class="sig-paren">(</span><em>ident</em>, <em>endness='any'</em>, <em>bits=''</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.arch_from_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Take our best guess at the arch referred to by the given identifier, and return an instance of its class.</p>
-<p>You may optionally provide the <code class="docutils literal"><span class="pre">endness</span></code> and <code class="docutils literal"><span class="pre">bits</span></code> parameters (strings) to help this function out.</p>
+<p>You may optionally provide the <code class="docutils literal notranslate"><span class="pre">endness</span></code> and <code class="docutils literal notranslate"><span class="pre">bits</span></code> parameters (strings) to help this function out.</p>
 </dd></dl>
 
 <dl class="function">
@@ -356,7 +356,99 @@ architecture has no intrinsic endianness.</li>
 <dd><p>Return the arch of the machine we are currently running on.</p>
 </dd></dl>
 
-<span class="target" id="module-archinfo.arch_aarch64"></span><span class="target" id="module-archinfo.arch_amd64"></span><span class="target" id="module-archinfo.arch_arm"></span><span class="target" id="module-archinfo.arch_mips32"></span><span class="target" id="module-archinfo.arch_mips64"></span><span class="target" id="module-archinfo.arch_ppc32"></span><span class="target" id="module-archinfo.arch_ppc64"></span><span class="target" id="module-archinfo.arch_x86"></span><span class="target" id="module-archinfo.arch_avr"></span><span class="target" id="module-archinfo.arch_soot"></span></div>
+<span class="target" id="module-archinfo.arch_aarch64"></span><dl class="class">
+<dt id="archinfo.arch_aarch64.ArchAArch64">
+<em class="property">class </em><code class="descclassname">archinfo.arch_aarch64.</code><code class="descname">ArchAArch64</code><span class="sig-paren">(</span><em>endness='Iend_LE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_aarch64.ArchAArch64" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-archinfo.arch_amd64"></span><dl class="class">
+<dt id="archinfo.arch_amd64.ArchAMD64">
+<em class="property">class </em><code class="descclassname">archinfo.arch_amd64.</code><code class="descname">ArchAMD64</code><span class="sig-paren">(</span><em>endness='Iend_LE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_amd64.ArchAMD64" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="archinfo.arch_amd64.ArchAMD64.capstone_x86_syntax">
+<code class="descname">capstone_x86_syntax</code><a class="headerlink" href="#archinfo.arch_amd64.ArchAMD64.capstone_x86_syntax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current syntax capstone uses for x86. It can be ‘intel’ or ‘at&amp;t’</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Capstone’s current x86 syntax</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-archinfo.arch_arm"></span><dl class="class">
+<dt id="archinfo.arch_arm.ArchARM">
+<em class="property">class </em><code class="descclassname">archinfo.arch_arm.</code><code class="descname">ArchARM</code><span class="sig-paren">(</span><em>endness='Iend_LE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_arm.ArchARM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="archinfo.arch_arm.ArchARMHF">
+<em class="property">class </em><code class="descclassname">archinfo.arch_arm.</code><code class="descname">ArchARMHF</code><span class="sig-paren">(</span><em>endness='Iend_LE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_arm.ArchARMHF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="archinfo.arch_arm.ArchARMEL">
+<em class="property">class </em><code class="descclassname">archinfo.arch_arm.</code><code class="descname">ArchARMEL</code><span class="sig-paren">(</span><em>endness='Iend_LE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_arm.ArchARMEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-archinfo.arch_mips32"></span><dl class="class">
+<dt id="archinfo.arch_mips32.ArchMIPS32">
+<em class="property">class </em><code class="descclassname">archinfo.arch_mips32.</code><code class="descname">ArchMIPS32</code><span class="sig-paren">(</span><em>endness='Iend_BE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_mips32.ArchMIPS32" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-archinfo.arch_mips64"></span><dl class="class">
+<dt id="archinfo.arch_mips64.ArchMIPS64">
+<em class="property">class </em><code class="descclassname">archinfo.arch_mips64.</code><code class="descname">ArchMIPS64</code><span class="sig-paren">(</span><em>endness='Iend_BE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_mips64.ArchMIPS64" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-archinfo.arch_ppc32"></span><dl class="class">
+<dt id="archinfo.arch_ppc32.ArchPPC32">
+<em class="property">class </em><code class="descclassname">archinfo.arch_ppc32.</code><code class="descname">ArchPPC32</code><span class="sig-paren">(</span><em>endness='Iend_LE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_ppc32.ArchPPC32" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-archinfo.arch_ppc64"></span><dl class="class">
+<dt id="archinfo.arch_ppc64.ArchPPC64">
+<em class="property">class </em><code class="descclassname">archinfo.arch_ppc64.</code><code class="descname">ArchPPC64</code><span class="sig-paren">(</span><em>endness='Iend_LE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_ppc64.ArchPPC64" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-archinfo.arch_x86"></span><dl class="class">
+<dt id="archinfo.arch_x86.ArchX86">
+<em class="property">class </em><code class="descclassname">archinfo.arch_x86.</code><code class="descname">ArchX86</code><span class="sig-paren">(</span><em>endness='Iend_LE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_x86.ArchX86" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="archinfo.arch_x86.ArchX86.capstone_x86_syntax">
+<code class="descname">capstone_x86_syntax</code><a class="headerlink" href="#archinfo.arch_x86.ArchX86.capstone_x86_syntax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current syntax capstone uses for x86. It can be ‘intel’ or ‘at&amp;t’</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Capstone’s current x86 syntax</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-archinfo.arch_avr"></span><dl class="class">
+<dt id="archinfo.arch_avr.ArchAVR">
+<em class="property">class </em><code class="descclassname">archinfo.arch_avr.</code><code class="descname">ArchAVR</code><span class="sig-paren">(</span><em>endness='Iend_LE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_avr.ArchAVR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-archinfo.arch_soot"></span><dl class="class">
+<dt id="archinfo.arch_soot.ArchSoot">
+<em class="property">class </em><code class="descclassname">archinfo.arch_soot.</code><code class="descname">ArchSoot</code><span class="sig-paren">(</span><em>endness='Iend_BE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_soot.ArchSoot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
 <div class="section" id="module-archinfo.tls">
 <span id="utilities"></span><h2>Utilities<a class="headerlink" href="#module-archinfo.tls" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -410,6 +502,11 @@ architecture has no intrinsic endianness.</li>
 <span class="target" id="module-archinfo.defines"></span></div>
 <div class="section" id="module-archinfo.archerror">
 <span id="errors"></span><h2>Errors<a class="headerlink" href="#module-archinfo.archerror" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="archinfo.archerror.ArchError">
+<em class="property">exception </em><code class="descclassname">archinfo.archerror.</code><code class="descname">ArchError</code><a class="headerlink" href="#archinfo.archerror.ArchError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 
@@ -430,7 +527,7 @@ architecture has no intrinsic endianness.</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, The angr project.
+        &copy; Copyright 2018, The angr project.
 
     </p>
   </div>

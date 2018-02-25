@@ -35,7 +35,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="angr 7.8.2.21 documentation" href="index.html"/>
         <link rel="next" title="cle — Binary Loader" href="cle.html"/>
-        <link rel="prev" title="t angr — Analysis and Coordination" href="angr.html"/> 
+        <link rel="prev" title="angr — Analysis and Coordination" href="angr.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,8 +85,8 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="angr.html">t <code class="docutils literal"><span class="pre">angr</span></code> &#8212; Analysis and Coordination</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal notranslate"><span class="pre">angr</span></code> — Analysis and Coordination</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">claripy</span></code> — Solver Engine</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.ast">AST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.backends">Backends</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy.frontend">Frontends</a></li>
@@ -96,9 +96,9 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-claripy">Misc. Things</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal"><span class="pre">cle</span></code> &#8212; Binary Loader</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal"><span class="pre">pyvex</span></code> &#8212; Binary Translator</a></li>
-<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal"><span class="pre">archinfo</span></code> &#8212; Arch Information Repository</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal notranslate"><span class="pre">cle</span></code> — Binary Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal notranslate"><span class="pre">pyvex</span></code> — Binary Translator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="archinfo.html"><code class="docutils literal notranslate"><span class="pre">archinfo</span></code> — Arch Information Repository</a></li>
 </ul>
 
             
@@ -129,7 +129,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li><code class="docutils literal"><span class="pre">claripy</span></code> &#8212; Solver Engine</li>
+    <li><code class="docutils literal notranslate"><span class="pre">claripy</span></code> — Solver Engine</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -144,10 +144,10 @@
            <div itemprop="articleBody">
             
   <div class="section" id="claripy-solver-engine">
-<h1><a class="reference internal" href="#module-claripy" title="claripy"><code class="xref py py-mod docutils literal"><span class="pre">claripy</span></code></a> &#8212; Solver Engine<a class="headerlink" href="#claripy-solver-engine" title="Permalink to this headline">¶</a></h1>
-<p>Realistically, you should never have to work with in-depth claripy APIs unless you&#8217;re doing some hard-core analysis.
-Most of the time, you&#8217;ll be using claripy as a simple frontend to z3:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">claripy</span>
+<h1><a class="reference internal" href="#module-claripy" title="claripy"><code class="xref py py-mod docutils literal notranslate"><span class="pre">claripy</span></code></a> — Solver Engine<a class="headerlink" href="#claripy-solver-engine" title="Permalink to this headline">¶</a></h1>
+<p>Realistically, you should never have to work with in-depth claripy APIs unless you’re doing some hard-core analysis.
+Most of the time, you’ll be using claripy as a simple frontend to z3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">claripy</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">claripy</span><span class="o">.</span><span class="n">BVS</span><span class="p">(</span><span class="s2">&quot;sym_val&quot;</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">claripy</span><span class="o">.</span><span class="n">RotateLeft</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">4</span>
@@ -158,7 +158,7 @@ Most of the time, you&#8217;ll be using claripy as a simple frontend to z3:</p>
 </pre></div>
 </div>
 <p>Or using its components in angr:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">angr</span><span class="o">,</span> <span class="nn">claripy</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">angr</span><span class="o">,</span> <span class="nn">claripy</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="s1">&#39;/bin/true&#39;</span><span class="p">)</span>
 <span class="n">path</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">path</span><span class="p">()</span>
 <span class="n">rax_start</span> <span class="o">=</span> <span class="n">claripy</span><span class="o">.</span><span class="n">BVS</span><span class="p">(</span><span class="s1">&#39;rax_start&#39;</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
@@ -176,10 +176,10 @@ Most of the time, you&#8217;ll be using claripy as a simple frontend to z3:</p>
 <em class="property">class </em><code class="descclassname">claripy.ast.base.</code><code class="descname">Base</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is the base class of all claripy ASTs. An AST tracks a tree of operations on arguments.</p>
 <p>This class should not be instanciated directly - instead, use one of the constructor functions (BVS, BVV, FPS,
-FPV...) to construct a leaf node and then build more complicated expressions using operations.</p>
+FPV…) to construct a leaf node and then build more complicated expressions using operations.</p>
 <p>AST objects have <em>hash identity</em>. This means that an AST that has the same hash as another AST will be the <em>same</em>
 object. This is critical for efficient memory usage. As an example, the following is true:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">two</span> <span class="n">different</span> <span class="n">ASTs</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">two</span> <span class="n">different</span> <span class="n">ASTs</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="n">a</span>
 <span class="n">d</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="n">a</span>
 <span class="k">assert</span> <span class="n">c</span> <span class="ow">is</span> <span class="n">d</span>
@@ -190,8 +190,8 @@ object. This is critical for efficient memory usage. As an example, the followin
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>op</strong> &#8211; The operation that is being done on the arguments</li>
-<li><strong>args</strong> &#8211; The arguments that are being used</li>
+<li><strong>op</strong> – The operation that is being done on the arguments</li>
+<li><strong>args</strong> – The arguments that are being used</li>
 </ul>
 </td>
 </tr>
@@ -206,19 +206,19 @@ it creates, initializes, and returns the AST.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>op</strong> &#8211; The AST operation (&#8216;__add__&#8217;, &#8216;Or&#8217;, etc)</li>
-<li><strong>args</strong> &#8211; The arguments to the AST operation (i.e., the objects to add)</li>
-<li><strong>variables</strong> &#8211; The symbolic variables present in the AST (default: empty set)</li>
-<li><strong>symbolic</strong> &#8211; A flag saying whether or not the AST is symbolic (default: False)</li>
-<li><strong>length</strong> &#8211; An integer specifying the length of this AST (default: None)</li>
-<li><strong>collapsible</strong> &#8211; A flag of whether or not Claripy can feel free to collapse this AST. This is mostly used
+<li><strong>op</strong> – The AST operation (‘__add__’, ‘Or’, etc)</li>
+<li><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</li>
+<li><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</li>
+<li><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</li>
+<li><strong>length</strong> – An integer specifying the length of this AST (default: None)</li>
+<li><strong>collapsible</strong> – A flag of whether or not Claripy can feel free to collapse this AST. This is mostly used
 to keep Claripy from collapsing Reverse operations, so that they can be undone with
 another Reverse.</li>
-<li><strong>simplified</strong> &#8211; A measure of how simplified this AST is. 0 means unsimplified, 1 means fast-simplified
+<li><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified, 1 means fast-simplified
 (basically, just undoing the Reverse op), and 2 means simplified through z3.</li>
-<li><strong>errored</strong> &#8211; A set of backends that are known to be unable to handle this AST.</li>
-<li><strong>eager_backends</strong> &#8211; A list of backends with which to attempt eager evaluation</li>
-<li><strong>annotations</strong> &#8211; A frozenset of annotations applied onto this AST.</li>
+<li><strong>errored</strong> – A set of backends that are known to be unable to handle this AST.</li>
+<li><strong>eager_backends</strong> – A list of backends with which to attempt eager evaluation</li>
+<li><strong>annotations</strong> – A frozenset of annotations applied onto this AST.</li>
 </ul>
 </td>
 </tr>
@@ -227,7 +227,7 @@ another Reverse.</li>
 <dl class="method">
 <dt id="claripy.ast.base.Base.make_uuid">
 <code class="descname">make_uuid</code><span class="sig-paren">(</span><em>uuid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.make_uuid" title="Permalink to this definition">¶</a></dt>
-<dd><p>This overrides the default ANA uuid with the hash of the AST. UUID is slow, and we&#8217;ll soon replace it from ANA
+<dd><p>This overrides the default ANA uuid with the hash of the AST. UUID is slow, and we’ll soon replace it from ANA
 itself, and this will go away.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -253,7 +253,7 @@ itself, and this will go away.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the annotation to append</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> – the annotation to append</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotation added</td>
 </tr>
@@ -269,7 +269,7 @@ itself, and this will go away.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_tuple</strong> &#8211; the tuple of annotations to append</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_tuple</strong> – the tuple of annotations to append</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations added</td>
 </tr>
@@ -285,7 +285,7 @@ itself, and this will go away.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> &#8211; the tuple of annotations to append (variadic positional args)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> – the tuple of annotations to append (variadic positional args)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations added</td>
 </tr>
@@ -301,7 +301,7 @@ itself, and this will go away.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the annotation to insert</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> – the annotation to insert</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotation added</td>
 </tr>
@@ -317,7 +317,7 @@ itself, and this will go away.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_tuple</strong> &#8211; the tuple of annotations to insert</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_tuple</strong> – the tuple of annotations to insert</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations added</td>
 </tr>
@@ -333,7 +333,7 @@ itself, and this will go away.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_tuple</strong> &#8211; the tuple of annotations to replace the old annotations with</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_tuple</strong> – the tuple of annotations to replace the old annotations with</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations added</td>
 </tr>
@@ -349,7 +349,7 @@ itself, and this will go away.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the annotation to remove</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> – the annotation to remove</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotation removed</td>
 </tr>
@@ -365,7 +365,7 @@ itself, and this will go away.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>remove_sequence</strong> &#8211; a sequence/set of the annotations to remove</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>remove_sequence</strong> – a sequence/set of the annotations to remove</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a new AST, with the annotations removed</td>
 </tr>
@@ -387,7 +387,7 @@ itself, and this will go away.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>max_depth</strong> &#8211; The maximum depth to print</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>max_depth</strong> – The maximum depth to print</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A string representing the AST</td>
 </tr>
@@ -423,7 +423,7 @@ just the AST.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; the other claripy A object</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – the other claripy A object</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True/False</td>
 </tr>
@@ -434,7 +434,7 @@ just the AST.</p>
 <dl class="method">
 <dt id="claripy.ast.base.Base.replace">
 <code class="descname">replace</code><span class="sig-paren">(</span><em>old</em>, <em>new</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns this AST but with the AST &#8216;old&#8217; replaced with AST &#8216;new&#8217; in its subexpressions.</p>
+<dd><p>Returns this AST but with the AST ‘old’ replaced with AST ‘new’ in its subexpressions.</p>
 </dd></dl>
 
 <dl class="method">
@@ -444,9 +444,9 @@ just the AST.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>replacements</strong> &#8211; A dictionary of asts to replace and their replacements.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>replacements</strong> – A dictionary of asts to replace and their replacements.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An AST with all instances of ast&#8217;s in replacements.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An AST with all instances of ast’s in replacements.</td>
 </tr>
 </tbody>
 </table>
@@ -455,21 +455,21 @@ just the AST.</p>
 <dl class="attribute">
 <dt id="claripy.ast.base.Base.ite_burrowed">
 <code class="descname">ite_burrowed</code><a class="headerlink" href="#claripy.ast.base.Base.ite_burrowed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an equivalent AST that &#8220;burrows&#8221; the ITE expressions as deep as possible into the ast, for simpler
+<dd><p>Returns an equivalent AST that “burrows” the ITE expressions as deep as possible into the ast, for simpler
 printing.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="claripy.ast.base.Base.ite_excavated">
 <code class="descname">ite_excavated</code><a class="headerlink" href="#claripy.ast.base.Base.ite_excavated" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an equivalent AST that &#8220;excavates&#8221; the ITE expressions out as far as possible toward the root of the
+<dd><p>Returns an equivalent AST that “excavates” the ITE expressions out as far as possible toward the root of the
 AST, for processing in static analyses.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="claripy.ast.base.Base.uninitialized">
 <code class="descname">uninitialized</code><a class="headerlink" href="#claripy.ast.base.Base.uninitialized" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether this AST comes from an uninitialized dereference or not. It&#8217;s only used in under-constrained symbolic
+<dd><p>Whether this AST comes from an uninitialized dereference or not. It’s only used in under-constrained symbolic
 execution mode.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -484,12 +484,12 @@ execution mode.</p>
 <dl class="attribute">
 <dt id="claripy.ast.base.Base.uc_alloc_depth">
 <code class="descname">uc_alloc_depth</code><a class="headerlink" href="#claripy.ast.base.Base.uc_alloc_depth" title="Permalink to this definition">¶</a></dt>
-<dd><p>The depth of allocation by lazy-initialization. It&#8217;s only used in under-constrained symbolic execution mode.</p>
+<dd><p>The depth of allocation by lazy-initialization. It’s only used in under-constrained symbolic execution mode.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An integer indicating the allocation depth, or None if it&#8217;s not from lazy-initialization.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An integer indicating the allocation depth, or None if it’s not from lazy-initialization.</td>
 </tr>
 </tbody>
 </table>
@@ -505,7 +505,7 @@ execution mode.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>length</strong> &#8211; The length of this value in bits.</td>
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><strong>length</strong> – The length of this value in bits.</td>
 </tr>
 </tbody>
 </table>
@@ -518,19 +518,19 @@ it creates, initializes, and returns the AST.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>op</strong> &#8211; The AST operation (&#8216;__add__&#8217;, &#8216;Or&#8217;, etc)</li>
-<li><strong>args</strong> &#8211; The arguments to the AST operation (i.e., the objects to add)</li>
-<li><strong>variables</strong> &#8211; The symbolic variables present in the AST (default: empty set)</li>
-<li><strong>symbolic</strong> &#8211; A flag saying whether or not the AST is symbolic (default: False)</li>
-<li><strong>length</strong> &#8211; An integer specifying the length of this AST (default: None)</li>
-<li><strong>collapsible</strong> &#8211; A flag of whether or not Claripy can feel free to collapse this AST. This is mostly used
+<li><strong>op</strong> – The AST operation (‘__add__’, ‘Or’, etc)</li>
+<li><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</li>
+<li><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</li>
+<li><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</li>
+<li><strong>length</strong> – An integer specifying the length of this AST (default: None)</li>
+<li><strong>collapsible</strong> – A flag of whether or not Claripy can feel free to collapse this AST. This is mostly used
 to keep Claripy from collapsing Reverse operations, so that they can be undone with
 another Reverse.</li>
-<li><strong>simplified</strong> &#8211; A measure of how simplified this AST is. 0 means unsimplified, 1 means fast-simplified
+<li><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified, 1 means fast-simplified
 (basically, just undoing the Reverse op), and 2 means simplified through z3.</li>
-<li><strong>errored</strong> &#8211; A set of backends that are known to be unable to handle this AST.</li>
-<li><strong>eager_backends</strong> &#8211; A list of backends with which to attempt eager evaluation</li>
-<li><strong>annotations</strong> &#8211; A frozenset of annotations applied onto this AST.</li>
+<li><strong>errored</strong> – A set of backends that are known to be unable to handle this AST.</li>
+<li><strong>eager_backends</strong> – A list of backends with which to attempt eager evaluation</li>
+<li><strong>annotations</strong> – A frozenset of annotations applied onto this AST.</li>
 </ul>
 </td>
 </tr>
@@ -539,18 +539,64 @@ another Reverse.</li>
 <dl class="method">
 <dt id="claripy.ast.bits.Bits.raw_to_bv">
 <code class="descname">raw_to_bv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bits.Bits.raw_to_bv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts this data&#8217;s bit-pattern to a bitvector.</p>
+<dd><p>Converts this data’s bit-pattern to a bitvector.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="claripy.ast.bits.Bits.raw_to_fp">
 <code class="descname">raw_to_fp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bits.Bits.raw_to_fp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts this data&#8217;s bit-pattern to an IEEE float.</p>
+<dd><p>Converts this data’s bit-pattern to an IEEE float.</p>
 </dd></dl>
 
 </dd></dl>
 
-<span class="target" id="module-claripy.ast.bool"></span><dl class="function">
+<span class="target" id="module-claripy.ast.bool"></span><dl class="class">
+<dt id="claripy.ast.bool.Bool">
+<em class="property">class </em><code class="descclassname">claripy.ast.bool.</code><code class="descname">Bool</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bool.Bool" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is called when you create a new Base object, whether directly or through an operation.
+It finalizes the arguments (see the _finalize function, above) and then computes
+a hash. If an AST of this hash already exists, it returns that AST. Otherwise,
+it creates, initializes, and returns the AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>op</strong> – The AST operation (‘__add__’, ‘Or’, etc)</li>
+<li><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</li>
+<li><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</li>
+<li><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</li>
+<li><strong>length</strong> – An integer specifying the length of this AST (default: None)</li>
+<li><strong>collapsible</strong> – A flag of whether or not Claripy can feel free to collapse this AST. This is mostly used
+to keep Claripy from collapsing Reverse operations, so that they can be undone with
+another Reverse.</li>
+<li><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified, 1 means fast-simplified
+(basically, just undoing the Reverse op), and 2 means simplified through z3.</li>
+<li><strong>errored</strong> – A set of backends that are known to be unable to handle this AST.</li>
+<li><strong>eager_backends</strong> – A list of backends with which to attempt eager evaluation</li>
+<li><strong>annotations</strong> – A frozenset of annotations applied onto this AST.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="claripy.ast.bool.Bool.is_true">
+<code class="descname">is_true</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bool.Bool.is_true" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if ‘self’ can be easily determined to be True. Otherwise, return False. Note that the AST <em>might</em>
+still be True (i.e., if it were simplified via Z3), but it’s hard to quickly tell that.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.bool.Bool.is_false">
+<code class="descname">is_false</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bool.Bool.is_false" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if ‘self’ can be easily determined to be False. Otherwise, return False. Note that the AST <em>might</em>
+still be False (i.e., if it were simplified via Z3), but it’s hard to quickly tell that.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
 <dt id="claripy.ast.bool.BoolS">
 <code class="descclassname">claripy.ast.bool.</code><code class="descname">BoolS</code><span class="sig-paren">(</span><em>name</em>, <em>explicit_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bool.BoolS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a boolean symbol (i.e., a variable).</p>
@@ -559,8 +605,8 @@ another Reverse.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; The name of the symbol</li>
-<li><strong>explicit_name</strong> &#8211; If False, an identifier is appended to the name to ensure uniqueness.</li>
+<li><strong>name</strong> – The name of the symbol</li>
+<li><strong>explicit_name</strong> – If False, an identifier is appended to the name to ensure uniqueness.</li>
 </ul>
 </td>
 </tr>
@@ -579,7 +625,7 @@ another Reverse.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>expr</strong> &#8211; </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>expr</strong> – </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
 </tr>
@@ -596,16 +642,16 @@ operations to construct more complicated expressions.</p>
 <p>Individual sub-bits and bit-ranges can be extracted from a bitvector using index and slice notation.
 Bits are indexed weirdly. For a 32-bit AST:</p>
 <blockquote>
-<div><p>a[31] is the <em>LEFT</em> most bit, so it&#8217;d be the 0 in</p>
+<div><p>a[31] is the <em>LEFT</em> most bit, so it’d be the 0 in</p>
 <blockquote>
 <div>01111111111111111111111111111111</div></blockquote>
-<p>a[0] is the <em>RIGHT</em> most bit, so it&#8217;d be the 0 in</p>
+<p>a[0] is the <em>RIGHT</em> most bit, so it’d be the 0 in</p>
 <blockquote>
 <div>11111111111111111111111111111110</div></blockquote>
-<p>a[31:30] are the two leftmost bits, so they&#8217;d be the 0s in:</p>
+<p>a[31:30] are the two leftmost bits, so they’d be the 0s in:</p>
 <blockquote>
 <div>00111111111111111111111111111111</div></blockquote>
-<p>a[1:0] are the two rightmost bits, so they&#8217;d be the 0s in:</p>
+<p>a[1:0] are the two rightmost bits, so they’d be the 0s in:</p>
 <blockquote>
 <div>11111111111111111111111111111100</div></blockquote>
 </div></blockquote>
@@ -618,19 +664,19 @@ it creates, initializes, and returns the AST.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>op</strong> &#8211; The AST operation (&#8216;__add__&#8217;, &#8216;Or&#8217;, etc)</li>
-<li><strong>args</strong> &#8211; The arguments to the AST operation (i.e., the objects to add)</li>
-<li><strong>variables</strong> &#8211; The symbolic variables present in the AST (default: empty set)</li>
-<li><strong>symbolic</strong> &#8211; A flag saying whether or not the AST is symbolic (default: False)</li>
-<li><strong>length</strong> &#8211; An integer specifying the length of this AST (default: None)</li>
-<li><strong>collapsible</strong> &#8211; A flag of whether or not Claripy can feel free to collapse this AST. This is mostly used
+<li><strong>op</strong> – The AST operation (‘__add__’, ‘Or’, etc)</li>
+<li><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</li>
+<li><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</li>
+<li><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</li>
+<li><strong>length</strong> – An integer specifying the length of this AST (default: None)</li>
+<li><strong>collapsible</strong> – A flag of whether or not Claripy can feel free to collapse this AST. This is mostly used
 to keep Claripy from collapsing Reverse operations, so that they can be undone with
 another Reverse.</li>
-<li><strong>simplified</strong> &#8211; A measure of how simplified this AST is. 0 means unsimplified, 1 means fast-simplified
+<li><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified, 1 means fast-simplified
 (basically, just undoing the Reverse op), and 2 means simplified through z3.</li>
-<li><strong>errored</strong> &#8211; A set of backends that are known to be unable to handle this AST.</li>
-<li><strong>eager_backends</strong> &#8211; A list of backends with which to attempt eager evaluation</li>
-<li><strong>annotations</strong> &#8211; A frozenset of annotations applied onto this AST.</li>
+<li><strong>errored</strong> – A set of backends that are known to be unable to handle this AST.</li>
+<li><strong>eager_backends</strong> – A list of backends with which to attempt eager evaluation</li>
+<li><strong>annotations</strong> – A frozenset of annotations applied onto this AST.</li>
 </ul>
 </td>
 </tr>
@@ -644,7 +690,7 @@ another Reverse.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of smaller bitvectors, each <code class="docutils literal"><span class="pre">bits</span></code> in length. The first one will be the left-most (i.e.
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A list of smaller bitvectors, each <code class="docutils literal notranslate"><span class="pre">bits</span></code> in length. The first one will be the left-most (i.e.
 most significant) bits.</td>
 </tr>
 </tbody>
@@ -659,7 +705,7 @@ most significant) bits.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> &#8211; the byte to extract</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – the byte to extract</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An 8-bit BV</td>
 </tr>
@@ -675,9 +721,9 @@ most significant) bits.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> &#8211; the byte to extract</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>index</strong> – the byte to extract</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A BV of size <code class="docutils literal"><span class="pre">size</span> <span class="pre">*</span> <span class="pre">8</span></code></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A BV of size <code class="docutils literal notranslate"><span class="pre">size</span> <span class="pre">*</span> <span class="pre">8</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -719,9 +765,9 @@ This bitvector will be on the far-left, i.e. the most significant bits.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>sort</strong> &#8211; The sort of floating point value to return</li>
-<li><strong>signed</strong> &#8211; Optional: whether this value is a signed integer</li>
-<li><strong>rm</strong> &#8211; Optional: the rounding mode to use</li>
+<li><strong>sort</strong> – The sort of floating point value to return</li>
+<li><strong>signed</strong> – Optional: whether this value is a signed integer</li>
+<li><strong>rm</strong> – Optional: the rounding mode to use</li>
 </ul>
 </td>
 </tr>
@@ -766,16 +812,16 @@ should manually add constraints to that effect. <strong>Do not use ``min`` and `
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; The name of the symbol.</li>
-<li><strong>size</strong> &#8211; The size (in bits) of the bit-vector.</li>
-<li><strong>min</strong> &#8211; The minimum value of the symbol, used only for value-set analysis</li>
-<li><strong>max</strong> &#8211; The maximum value of the symbol, used only for value-set analysis</li>
-<li><strong>stride</strong> &#8211; The stride of the symbol, used only for value-set analysis</li>
-<li><strong>uninitialized</strong> &#8211; Whether this value should be counted as an &#8220;uninitialized&#8221; value in the course of an
+<li><strong>name</strong> – The name of the symbol.</li>
+<li><strong>size</strong> – The size (in bits) of the bit-vector.</li>
+<li><strong>min</strong> – The minimum value of the symbol, used only for value-set analysis</li>
+<li><strong>max</strong> – The maximum value of the symbol, used only for value-set analysis</li>
+<li><strong>stride</strong> – The stride of the symbol, used only for value-set analysis</li>
+<li><strong>uninitialized</strong> – Whether this value should be counted as an “uninitialized” value in the course of an
 analysis.</li>
-<li><strong>explicit_name</strong> (<a class="reference internal" href="#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; If False, an identifier is appended to the name to ensure uniqueness.</li>
-<li><strong>discrete_set</strong> (<a class="reference internal" href="#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; If True, a DiscreteStridedIntervalSet will be used instead of a normal StridedInterval.</li>
-<li><strong>discrete_set_max_card</strong> (<a class="reference internal" href="#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; The maximum cardinality of the discrete set. It is ignored if discrete_set is set
+<li><strong>explicit_name</strong> (<em>bool</em>) – If False, an identifier is appended to the name to ensure uniqueness.</li>
+<li><strong>discrete_set</strong> (<em>bool</em>) – If True, a DiscreteStridedIntervalSet will be used instead of a normal StridedInterval.</li>
+<li><strong>discrete_set_max_card</strong> (<em>int</em>) – The maximum cardinality of the discrete set. It is ignored if discrete_set is set
 to False or None.</li>
 </ul>
 </td>
@@ -796,9 +842,9 @@ to False or None.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>value</strong> &#8211; The value. Either an integer or a string. If it&#8217;s a string, it will be interpreted as the bytes of
+<li><strong>value</strong> – The value. Either an integer or a string. If it’s a string, it will be interpreted as the bytes of
 a big-endian constant.</li>
-<li><strong>size</strong> &#8211; The size (in bits) of the bit-vector. Optional if you provide a string, required for an integer.</li>
+<li><strong>size</strong> – The size (in bits) of the bit-vector. Optional if you provide a string, required for an integer.</li>
 </ul>
 </td>
 </tr>
@@ -820,8 +866,8 @@ operations to construct more complicated expressions.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>length</strong> &#8211; The length of this value</li>
-<li><strong>sort</strong> &#8211; The sort of this value, usually either FSORT_FLOAT or FSORT_DOUBLE</li>
+<li><strong>length</strong> – The length of this value</li>
+<li><strong>sort</strong> – The sort of this value, usually either FSORT_FLOAT or FSORT_DOUBLE</li>
 </ul>
 </td>
 </tr>
@@ -836,19 +882,19 @@ it creates, initializes, and returns the AST.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>op</strong> &#8211; The AST operation (&#8216;__add__&#8217;, &#8216;Or&#8217;, etc)</li>
-<li><strong>args</strong> &#8211; The arguments to the AST operation (i.e., the objects to add)</li>
-<li><strong>variables</strong> &#8211; The symbolic variables present in the AST (default: empty set)</li>
-<li><strong>symbolic</strong> &#8211; A flag saying whether or not the AST is symbolic (default: False)</li>
-<li><strong>length</strong> &#8211; An integer specifying the length of this AST (default: None)</li>
-<li><strong>collapsible</strong> &#8211; A flag of whether or not Claripy can feel free to collapse this AST. This is mostly used
+<li><strong>op</strong> – The AST operation (‘__add__’, ‘Or’, etc)</li>
+<li><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</li>
+<li><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</li>
+<li><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</li>
+<li><strong>length</strong> – An integer specifying the length of this AST (default: None)</li>
+<li><strong>collapsible</strong> – A flag of whether or not Claripy can feel free to collapse this AST. This is mostly used
 to keep Claripy from collapsing Reverse operations, so that they can be undone with
 another Reverse.</li>
-<li><strong>simplified</strong> &#8211; A measure of how simplified this AST is. 0 means unsimplified, 1 means fast-simplified
+<li><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified, 1 means fast-simplified
 (basically, just undoing the Reverse op), and 2 means simplified through z3.</li>
-<li><strong>errored</strong> &#8211; A set of backends that are known to be unable to handle this AST.</li>
-<li><strong>eager_backends</strong> &#8211; A list of backends with which to attempt eager evaluation</li>
-<li><strong>annotations</strong> &#8211; A frozenset of annotations applied onto this AST.</li>
+<li><strong>errored</strong> – A set of backends that are known to be unable to handle this AST.</li>
+<li><strong>eager_backends</strong> – A list of backends with which to attempt eager evaluation</li>
+<li><strong>annotations</strong> – A frozenset of annotations applied onto this AST.</li>
 </ul>
 </td>
 </tr>
@@ -863,8 +909,8 @@ another Reverse.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>sort</strong> &#8211; The sort to convert to</li>
-<li><strong>rm</strong> &#8211; Optional: The rounding mode to use</li>
+<li><strong>sort</strong> – The sort to convert to</li>
+<li><strong>rm</strong> – Optional: The rounding mode to use</li>
 </ul>
 </td>
 </tr>
@@ -905,13 +951,13 @@ The inverse of this function is to_bv.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>size</strong> &#8211; The size of the bitvector to return</li>
-<li><strong>signed</strong> &#8211; Optional: Whether the target integer is signed</li>
-<li><strong>rm</strong> &#8211; Optional: The rounding mode to use</li>
+<li><strong>size</strong> – The size of the bitvector to return</li>
+<li><strong>signed</strong> – Optional: Whether the target integer is signed</li>
+<li><strong>rm</strong> – Optional: The rounding mode to use</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A bitvector whose value is the rounded version of this FP&#8217;s value</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A bitvector whose value is the rounded version of this FP’s value</p>
 </td>
 </tr>
 </tbody>
@@ -929,9 +975,9 @@ The inverse of this function is to_bv.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; The name of the symbol</li>
-<li><strong>sort</strong> &#8211; The sort of the floating point</li>
-<li><strong>explicit_name</strong> &#8211; If False, an identifier is appended to the name to ensure uniqueness.</li>
+<li><strong>name</strong> – The name of the symbol</li>
+<li><strong>sort</strong> – The sort of the floating point</li>
+<li><strong>explicit_name</strong> – If False, an identifier is appended to the name to ensure uniqueness.</li>
 </ul>
 </td>
 </tr>
@@ -951,8 +997,8 @@ The inverse of this function is to_bv.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>value</strong> &#8211; The value of the floating point.</li>
-<li><strong>sort</strong> &#8211; The sort of the floating point.</li>
+<li><strong>value</strong> – The value of the floating point.</li>
+<li><strong>sort</strong> – The sort of the floating point.</li>
 </ul>
 </td>
 </tr>
@@ -963,13 +1009,77 @@ The inverse of this function is to_bv.</p>
 </table>
 </dd></dl>
 
-<span class="target" id="module-claripy.ast.int"></span><span class="target" id="module-claripy.ast.vs"></span></div>
+<span class="target" id="module-claripy.ast.int"></span><dl class="class">
+<dt id="claripy.ast.int.Int">
+<em class="property">class </em><code class="descclassname">claripy.ast.int.</code><code class="descname">Int</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.int.Int" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is called when you create a new Base object, whether directly or through an operation.
+It finalizes the arguments (see the _finalize function, above) and then computes
+a hash. If an AST of this hash already exists, it returns that AST. Otherwise,
+it creates, initializes, and returns the AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>op</strong> – The AST operation (‘__add__’, ‘Or’, etc)</li>
+<li><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</li>
+<li><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</li>
+<li><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</li>
+<li><strong>length</strong> – An integer specifying the length of this AST (default: None)</li>
+<li><strong>collapsible</strong> – A flag of whether or not Claripy can feel free to collapse this AST. This is mostly used
+to keep Claripy from collapsing Reverse operations, so that they can be undone with
+another Reverse.</li>
+<li><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified, 1 means fast-simplified
+(basically, just undoing the Reverse op), and 2 means simplified through z3.</li>
+<li><strong>errored</strong> – A set of backends that are known to be unable to handle this AST.</li>
+<li><strong>eager_backends</strong> – A list of backends with which to attempt eager evaluation</li>
+<li><strong>annotations</strong> – A frozenset of annotations applied onto this AST.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-claripy.ast.vs"></span><dl class="class">
+<dt id="claripy.ast.vs.VS">
+<em class="property">class </em><code class="descclassname">claripy.ast.vs.</code><code class="descname">VS</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.vs.VS" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is called when you create a new Base object, whether directly or through an operation.
+It finalizes the arguments (see the _finalize function, above) and then computes
+a hash. If an AST of this hash already exists, it returns that AST. Otherwise,
+it creates, initializes, and returns the AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>op</strong> – The AST operation (‘__add__’, ‘Or’, etc)</li>
+<li><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</li>
+<li><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</li>
+<li><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</li>
+<li><strong>length</strong> – An integer specifying the length of this AST (default: None)</li>
+<li><strong>collapsible</strong> – A flag of whether or not Claripy can feel free to collapse this AST. This is mostly used
+to keep Claripy from collapsing Reverse operations, so that they can be undone with
+another Reverse.</li>
+<li><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified, 1 means fast-simplified
+(basically, just undoing the Reverse op), and 2 means simplified through z3.</li>
+<li><strong>errored</strong> – A set of backends that are known to be unable to handle this AST.</li>
+<li><strong>eager_backends</strong> – A list of backends with which to attempt eager evaluation</li>
+<li><strong>annotations</strong> – A frozenset of annotations applied onto this AST.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 <div class="section" id="module-claripy.backends">
 <span id="backends"></span><h2>Backends<a class="headerlink" href="#module-claripy.backends" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="claripy.backends.Backend">
 <em class="property">class </em><code class="descclassname">claripy.backends.</code><code class="descname">Backend</code><span class="sig-paren">(</span><em>solver_required=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend" title="Permalink to this definition">¶</a></dt>
-<dd><p>Backends are Claripy&#8217;s workhorses. Claripy exposes ASTs (claripy.ast.Base objects)
+<dd><p>Backends are Claripy’s workhorses. Claripy exposes ASTs (claripy.ast.Base objects)
 to the world, but when actual computation has to be done, it pushes those
 ASTs into objects that can be handled by the backends themselves. This
 provides a unified interface to the outside world while allowing Claripy to
@@ -979,13 +1089,13 @@ BackendVSA introduces VSA constructs such as StridedIntervals (and details
 what happens when operations are performed on them), and BackendZ3 provides
 support for symbolic variables and constraint solving.</p>
 <p>There are a set of functions that a backend is expected to implement. For
-all of these functions, the &#8220;public&#8221; version is expected to be able to deal
-with claripy.ast.Base objects, while the &#8220;private&#8221; version should only deal with
+all of these functions, the “public” version is expected to be able to deal
+with claripy.ast.Base objects, while the “private” version should only deal with
 objects specific to the backend itself. This is distinguished with Python
 idioms: a public function will be named func() while a private function
 will be _func(). All functions should return objects that are usable by the
-backend in its private methods. If this can&#8217;t be done (i.e., some
-functionality is being attempted that the backend can&#8217;t handle), the
+backend in its private methods. If this can’t be done (i.e., some
+functionality is being attempted that the backend can’t handle), the
 backend should raise a BackendError. In this case, Claripy will move on to
 the next backend in its list.</p>
 <p>All backends must implement a convert() function. This function receives a
@@ -993,8 +1103,8 @@ claripy.ast.Base and should return an object that the backend can handle in its
 private methods. Backends should also implement a _convert() method, which
 will receive anything that is <em>not</em> a claripy.ast.Base object (i.e., an integer or
 an object from a different backend). If convert() or _convert() receives
-something that the backend can&#8217;t translate to a format that is usable
-internally, the backend should raise BackendError, and thus won&#8217;t be used
+something that the backend can’t translate to a format that is usable
+internally, the backend should raise BackendError, and thus won’t be used
 for that object.</p>
 <p>Claripy contract with its backends is as follows: backends should be able
 to can handle, in their private functions, any object that they return from
@@ -1017,7 +1127,7 @@ _convert() to see if the backend can handle that type of object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>expr</strong> &#8211; The expression.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>expr</strong> – The expression.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if the backend can handle this expression, False if not.</td>
 </tr>
@@ -1034,8 +1144,8 @@ _convert() to see if the backend can handle that type of object.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>expr</strong> &#8211; The expression.</li>
-<li><strong>save</strong> &#8211; Save the result in the expression&#8217;s object cache</li>
+<li><strong>expr</strong> – The expression.</li>
+<li><strong>save</strong> – Save the result in the expression’s object cache</li>
 </ul>
 </td>
 </tr>
@@ -1069,10 +1179,10 @@ _convert() to see if the backend can handle that type of object.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>e</strong> &#8211; The AST.</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to the solver for this solve.</li>
-<li><strong>solver</strong> &#8211; A solver, for backends that require it.</li>
-<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+<li><strong>e</strong> – The AST.</li>
+<li><strong>extra_constraints</strong> – Extra constraints (as ASTs) to add to the solver for this solve.</li>
+<li><strong>solver</strong> – A solver, for backends that require it.</li>
+<li><strong>model_callback</strong> – a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
 </tr>
@@ -1092,10 +1202,10 @@ _convert() to see if the backend can handle that type of object.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>e</strong> &#8211; The AST</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to the solver for this solve.</li>
-<li><strong>solver</strong> &#8211; A solver, for backends that require it</li>
-<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+<li><strong>e</strong> – The AST</li>
+<li><strong>extra_constraints</strong> – Extra constraints (as ASTs) to add to the solver for this solve.</li>
+<li><strong>solver</strong> – A solver, for backends that require it</li>
+<li><strong>model_callback</strong> – a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
 </tr>
@@ -1115,10 +1225,10 @@ _convert() to see if the backend can handle that type of object.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>e</strong> &#8211; The AST.</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to the solver for this solve.</li>
-<li><strong>solver</strong> &#8211; A solver, for backends that require it.</li>
-<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+<li><strong>e</strong> – The AST.</li>
+<li><strong>extra_constraints</strong> – Extra constraints (as ASTs) to add to the solver for this solve.</li>
+<li><strong>solver</strong> – A solver, for backends that require it.</li>
+<li><strong>model_callback</strong> – a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
 </tr>
@@ -1138,10 +1248,10 @@ _convert() to see if the backend can handle that type of object.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>e</strong> &#8211; The AST.</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to the solver for this solve.</li>
-<li><strong>solver</strong> &#8211; A solver, for backends that require it.</li>
-<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+<li><strong>e</strong> – The AST.</li>
+<li><strong>extra_constraints</strong> – Extra constraints (as ASTs) to add to the solver for this solve.</li>
+<li><strong>solver</strong> – A solver, for backends that require it.</li>
+<li><strong>model_callback</strong> – a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
 </tr>
@@ -1168,9 +1278,9 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>c</strong> &#8211; A sequence of ASTs</li>
-<li><strong>s</strong> &#8211; A backend solver object</li>
-<li><strong>track</strong> (<a class="reference internal" href="#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; True to enable constraint tracking, which is used in unsat_core()</li>
+<li><strong>c</strong> – A sequence of ASTs</li>
+<li><strong>s</strong> – A backend solver object</li>
+<li><strong>track</strong> (<em>bool</em>) – True to enable constraint tracking, which is used in unsat_core()</li>
 </ul>
 </td>
 </tr>
@@ -1186,7 +1296,7 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> &#8211; A backend solver object.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> – A backend solver object.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The unsat core.</td>
 </tr>
@@ -1203,12 +1313,12 @@ solving for this backend. For example, in Z3, this would be z3.Solver().</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>expr</strong> &#8211; expression (an AST) to evaluate</li>
-<li><strong>n</strong> &#8211; number of results to return</li>
-<li><strong>solver</strong> &#8211; a solver object, native to the backend, to assist in
+<li><strong>expr</strong> – expression (an AST) to evaluate</li>
+<li><strong>n</strong> – number of results to return</li>
+<li><strong>solver</strong> – a solver object, native to the backend, to assist in
 the evaluation (for example, a z3.Solver)</li>
-<li><strong>extra_constraints</strong> &#8211; extra constraints (as ASTs) to add to the solver for this solve</li>
-<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+<li><strong>extra_constraints</strong> – extra constraints (as ASTs) to add to the solver for this solve</li>
+<li><strong>model_callback</strong> – a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
 </tr>
@@ -1228,11 +1338,11 @@ the evaluation (for example, a z3.Solver)</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>exprs</strong> &#8211; A list of expressions to evaluate.</li>
-<li><strong>n</strong> &#8211; Number of different solutions to return.</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to the solver for this solve.</li>
-<li><strong>solver</strong> &#8211; A solver object, native to the backend, to assist in the evaluation.</li>
-<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+<li><strong>exprs</strong> – A list of expressions to evaluate.</li>
+<li><strong>n</strong> – Number of different solutions to return.</li>
+<li><strong>extra_constraints</strong> – Extra constraints (as ASTs) to add to the solver for this solve.</li>
+<li><strong>solver</strong> – A solver object, native to the backend, to assist in the evaluation.</li>
+<li><strong>model_callback</strong> – a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
 </tr>
@@ -1252,11 +1362,11 @@ the evaluation (for example, a z3.Solver)</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>expr</strong> &#8211; expression (an AST) to evaluate</li>
-<li><strong>solver</strong> &#8211; a solver object, native to the backend, to assist in
+<li><strong>expr</strong> – expression (an AST) to evaluate</li>
+<li><strong>solver</strong> – a solver object, native to the backend, to assist in
 the evaluation (for example, a z3.Solver)</li>
-<li><strong>extra_constraints</strong> &#8211; extra constraints (as ASTs) to add to the solver for this solve</li>
-<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+<li><strong>extra_constraints</strong> – extra constraints (as ASTs) to add to the solver for this solve</li>
+<li><strong>model_callback</strong> – a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
 </tr>
@@ -1276,11 +1386,11 @@ the evaluation (for example, a z3.Solver)</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>expr</strong> &#8211; expression (an AST) to evaluate</li>
-<li><strong>solver</strong> &#8211; a solver object, native to the backend, to assist in
+<li><strong>expr</strong> – expression (an AST) to evaluate</li>
+<li><strong>solver</strong> – a solver object, native to the backend, to assist in
 the evaluation (for example, a z3.Solver)</li>
-<li><strong>extra_constraints</strong> &#8211; extra constraints (as ASTs) to add to the solver for this solve</li>
-<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+<li><strong>extra_constraints</strong> – extra constraints (as ASTs) to add to the solver for this solve</li>
+<li><strong>model_callback</strong> – a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
 </tr>
@@ -1300,9 +1410,9 @@ the evaluation (for example, a z3.Solver)</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>solver</strong> &#8211; The backend solver object.</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to s for this solve</li>
-<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+<li><strong>solver</strong> – The backend solver object.</li>
+<li><strong>extra_constraints</strong> – Extra constraints (as ASTs) to add to s for this solve</li>
+<li><strong>model_callback</strong> – a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
 </tr>
@@ -1322,12 +1432,12 @@ the evaluation (for example, a z3.Solver)</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>expr</strong> &#8211; An expression (an AST) to evaluate</li>
-<li><strong>v</strong> &#8211; The proposed solution (an AST)</li>
-<li><strong>solver</strong> &#8211; A solver object, native to the backend, to assist in the evaluation (for example,
+<li><strong>expr</strong> – An expression (an AST) to evaluate</li>
+<li><strong>v</strong> – The proposed solution (an AST)</li>
+<li><strong>solver</strong> – A solver object, native to the backend, to assist in the evaluation (for example,
 a z3.Solver).</li>
-<li><strong>extra_constraints</strong> &#8211; Extra constraints (as ASTs) to add to the solver for this solve.</li>
-<li><strong>model_callback</strong> &#8211; a function that will be executed with recovered models (if any)</li>
+<li><strong>extra_constraints</strong> – Extra constraints (as ASTs) to add to the solver for this solve.</li>
+<li><strong>model_callback</strong> – a function that will be executed with recovered models (if any)</li>
 </ul>
 </td>
 </tr>
@@ -1346,7 +1456,7 @@ a z3.Solver).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the AST to evaluate</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> – the AST to evaluate</td>
 </tr>
 </tbody>
 </table>
@@ -1360,7 +1470,7 @@ a z3.Solver).</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; the AST to evaluate</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> – the AST to evaluate</td>
 </tr>
 </tbody>
 </table>
@@ -1369,15 +1479,15 @@ a z3.Solver).</li>
 <dl class="method">
 <dt id="claripy.backends.Backend.identical">
 <code class="descname">identical</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.identical" title="Permalink to this definition">¶</a></dt>
-<dd><p>This should return whether <cite>a</cite> is identical to <cite>b</cite>. Of course, this isn&#8217;t always clear. True should mean that it
+<dd><p>This should return whether <cite>a</cite> is identical to <cite>b</cite>. Of course, this isn’t always clear. True should mean that it
 is definitely identical. False eans that, conservatively, it might not be.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>a</strong> &#8211; an AST</li>
-<li><strong>b</strong> &#8211; another AST</li>
+<li><strong>a</strong> – an AST</li>
+<li><strong>b</strong> – another AST</li>
 </ul>
 </td>
 </tr>
@@ -1394,7 +1504,7 @@ approximation.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> &#8211; The AST to evaluate</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> – The AST to evaluate</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An integer</td>
 </tr>
@@ -1411,8 +1521,8 @@ approximation.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>o</strong> &#8211; A backend object.</li>
-<li><strong>a</strong> &#8211; An Annotation object.</li>
+<li><strong>o</strong> – A backend object.</li>
+<li><strong>a</strong> – An Annotation object.</li>
 </ul>
 </td>
 </tr>
@@ -1429,8 +1539,8 @@ approximation.</p>
 <dt id="claripy.backend_object.BackendObject">
 <em class="property">class </em><code class="descclassname">claripy.backend_object.</code><code class="descname">BackendObject</code><a class="headerlink" href="#claripy.backend_object.BackendObject" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a base class for custom backend objects to implement.</p>
-<p>It lets Claripy know that how to deal with those objects, in case they&#8217;re directly used in operations.</p>
-<p>Backend objects that <em>don&#8217;t</em> derive from this class need to be wrapped in a type-I claripy.ast.Base.</p>
+<p>It lets Claripy know that how to deal with those objects, in case they’re directly used in operations.</p>
+<p>Backend objects that <em>don’t</em> derive from this class need to be wrapped in a type-I claripy.ast.Base.</p>
 <dl class="method">
 <dt id="claripy.backend_object.BackendObject.to_claripy">
 <code class="descname">to_claripy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backend_object.BackendObject.to_claripy" title="Permalink to this definition">¶</a></dt>
@@ -1439,7 +1549,208 @@ approximation.</p>
 
 </dd></dl>
 
-<span class="target" id="module-claripy.backends.backend_concrete"></span><span class="target" id="module-claripy.backends.backend_z3"></span><span class="target" id="module-claripy.backends.backend_z3_parallel"></span><span class="target" id="module-claripy.backends.celeryconfig"></span><span class="target" id="module-claripy.backends.backend_vsa"></span></div>
+<span class="target" id="module-claripy.backends.backend_concrete"></span><dl class="class">
+<dt id="claripy.backends.backend_concrete.BackendConcrete">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_concrete.</code><code class="descname">BackendConcrete</code><a class="headerlink" href="#claripy.backends.backend_concrete.BackendConcrete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-claripy.backends.backend_z3"></span><dl class="class">
+<dt id="claripy.backends.backend_z3.BackendZ3">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_z3.</code><code class="descname">BackendZ3</code><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="claripy.backends.backend_z3.BackendZ3.downsize">
+<code class="descname">downsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.downsize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears all caches associated with this backend.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3.BackendZ3.BVS">
+<code class="descname">BVS</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.BVS" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Z3 condom intercepts Z3Exceptions and throws a ClaripyZ3Error instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3.BackendZ3.BVV">
+<code class="descname">BVV</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.BVV" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Z3 condom intercepts Z3Exceptions and throws a ClaripyZ3Error instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3.BackendZ3.FPS">
+<code class="descname">FPS</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.FPS" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Z3 condom intercepts Z3Exceptions and throws a ClaripyZ3Error instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3.BackendZ3.FPV">
+<code class="descname">FPV</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.FPV" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Z3 condom intercepts Z3Exceptions and throws a ClaripyZ3Error instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3.BackendZ3.BoolS">
+<code class="descname">BoolS</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.BoolS" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Z3 condom intercepts Z3Exceptions and throws a ClaripyZ3Error instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3.BackendZ3.BoolV">
+<code class="descname">BoolV</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.BoolV" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Z3 condom intercepts Z3Exceptions and throws a ClaripyZ3Error instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3.BackendZ3.call">
+<code class="descname">call</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls operation <cite>op</cite> on args <cite>args</cite> with this backend.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A backend object representing the result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3.BackendZ3.solver">
+<code class="descname">solver</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function should return an instance of whatever object handles
+solving for this backend. For example, in Z3, this would be z3.Solver().</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3.BackendZ3.simplify">
+<code class="descname">simplify</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.simplify" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Z3 condom intercepts Z3Exceptions and throws a ClaripyZ3Error instead.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-claripy.backends.backend_z3_parallel"></span><dl class="class">
+<dt id="claripy.backends.backend_z3_parallel.BackendZ3Parallel">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_z3_parallel.</code><code class="descname">BackendZ3Parallel</code><a class="headerlink" href="#claripy.backends.backend_z3_parallel.BackendZ3Parallel" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="claripy.backends.backend_z3_parallel.BackendZ3Parallel.solver">
+<code class="descname">solver</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3_parallel.BackendZ3Parallel.solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function should return an instance of whatever object handles
+solving for this backend. For example, in Z3, this would be z3.Solver().</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3_parallel.BackendZ3Parallel.call">
+<code class="descname">call</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3_parallel.BackendZ3Parallel.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls operation <cite>op</cite> on args <cite>args</cite> with this backend.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A backend object representing the result.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3_parallel.BackendZ3Parallel.simplify">
+<code class="descname">simplify</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3_parallel.BackendZ3Parallel.simplify" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Z3 condom intercepts Z3Exceptions and throws a ClaripyZ3Error instead.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-claripy.backends.celeryconfig"></span><span class="target" id="module-claripy.backends.backend_vsa"></span><dl class="class">
+<dt id="claripy.backends.backend_vsa.BackendVSA">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_vsa.</code><code class="descname">BackendVSA</code><a class="headerlink" href="#claripy.backends.backend_vsa.BackendVSA" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="claripy.backends.backend_vsa.BackendVSA.convert">
+<code class="descname">convert</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_vsa.BackendVSA.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolves a claripy.ast.Base into something usable by the backend.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> – The expression.</li>
+<li><strong>save</strong> – Save the result in the expression’s object cache</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A backend object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_vsa.BackendVSA.name">
+<code class="descname">name</code><span class="sig-paren">(</span><em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_vsa.BackendVSA.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should return the name of an expression.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>a</strong> – the AST to evaluate</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_vsa.BackendVSA.apply_annotation">
+<code class="descname">apply_annotation</code><span class="sig-paren">(</span><em>bo</em>, <em>annotation</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_vsa.BackendVSA.apply_annotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply an annotation on the backend object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bo</strong> (<a class="reference internal" href="#claripy.backend_object.BackendObject" title="claripy.backend_object.BackendObject"><em>BackendObject</em></a>) – The backend object.</li>
+<li><strong>annotation</strong> (<a class="reference internal" href="#claripy.annotation.Annotation" title="claripy.annotation.Annotation"><em>Annotation</em></a>) – The annotation to be applied</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A new BackendObject</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#claripy.backend_object.BackendObject" title="claripy.backend_object.BackendObject">BackendObject</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.backends.backend_vsa.BackendVSA.CreateStridedInterval">
+<em class="property">static </em><code class="descname">CreateStridedInterval</code><span class="sig-paren">(</span><em>bits=0</em>, <em>stride=None</em>, <em>lower_bound=None</em>, <em>upper_bound=None</em>, <em>uninitialized=False</em>, <em>to_conv=None</em>, <em>discrete_set=False</em>, <em>discrete_set_max_cardinality=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_vsa.BackendVSA.CreateStridedInterval" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> – </li>
+<li><strong>bits</strong> – </li>
+<li><strong>stride</strong> – </li>
+<li><strong>lower_bound</strong> – </li>
+<li><strong>upper_bound</strong> – </li>
+<li><strong>to_conv</strong> – </li>
+<li><strong>discrete_set</strong> (<em>bool</em>) – </li>
+<li><strong>discrete_set_max_cardinality</strong> (<em>int</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-claripy.frontend">
 <span id="frontends"></span><h2>Frontends<a class="headerlink" href="#module-claripy.frontend" title="Permalink to this headline">¶</a></h2>
 <span class="target" id="module-claripy.frontends"></span><span class="target" id="module-claripy.frontends.composite_frontend"></span><span class="target" id="module-claripy.frontends.constrained_frontend"></span><span class="target" id="module-claripy.frontends.full_frontend"></span><span class="target" id="module-claripy.frontends.hybrid_frontend"></span><span class="target" id="module-claripy.frontends.light_frontend"></span><span class="target" id="module-claripy.frontends.replacement_frontend"></span><span class="target" id="module-claripy.solvers"></span></div>
@@ -1451,7 +1762,7 @@ approximation.</p>
 <dl class="class">
 <dt id="claripy.annotation.Annotation">
 <em class="property">class </em><code class="descclassname">claripy.annotation.</code><code class="descname">Annotation</code><a class="headerlink" href="#claripy.annotation.Annotation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Annotations are used to achieve claripy&#8217;s goal of being an arithmetic instrumentation engine.
+<dd><p>Annotations are used to achieve claripy’s goal of being an arithmetic instrumentation engine.
 They provide a means to pass extra information to the claripy backends.</p>
 <dl class="attribute">
 <dt id="claripy.annotation.Annotation.eliminatable">
@@ -1487,7 +1798,7 @@ They provide a means to pass extra information to the claripy backends.</p>
 <dd><p>This is called when an annotation has to be relocated because of simplifications.</p>
 <p>Consider the following case:</p>
 <blockquote>
-<div>x = claripy.BVS(&#8216;x&#8217;, 32)
+<div>x = claripy.BVS(‘x’, 32)
 zero = claripy.BVV(0, 32).add_annotation(your_annotation)
 y = x + zero</div></blockquote>
 <p>Here, one of three things can happen:</p>
@@ -1508,8 +1819,8 @@ away from the AST that is about to be eliminated.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>src</strong> &#8211; the old AST that was eliminated in the simplification</li>
-<li><strong>dst</strong> &#8211; the new AST (the result of a simplification)</li>
+<li><strong>src</strong> – the old AST that was eliminated in the simplification</li>
+<li><strong>dst</strong> – the new AST (the result of a simplification)</li>
 </ul>
 </td>
 </tr>
@@ -1522,10 +1833,40 @@ away from the AST that is about to be eliminated.</li>
 
 </dd></dl>
 
+<dl class="class">
+<dt id="claripy.annotation.SimplificationAvoidanceAnnotation">
+<em class="property">class </em><code class="descclassname">claripy.annotation.</code><code class="descname">SimplificationAvoidanceAnnotation</code><a class="headerlink" href="#claripy.annotation.SimplificationAvoidanceAnnotation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-claripy.vsa">
 <span id="vsa"></span><h2>VSA<a class="headerlink" href="#module-claripy.vsa" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-claripy.vsa.abstract_location"></span><span class="target" id="module-claripy.vsa.bool_result"></span><span class="target" id="module-claripy.vsa.discrete_strided_interval_set"></span><dl class="class">
+<span class="target" id="module-claripy.vsa.abstract_location"></span><dl class="class">
+<dt id="claripy.vsa.abstract_location.AbstractLocation">
+<em class="property">class </em><code class="descclassname">claripy.vsa.abstract_location.</code><code class="descname">AbstractLocation</code><span class="sig-paren">(</span><em>bbl_key</em>, <em>stmt_id</em>, <em>region_id</em>, <em>segment_list=None</em>, <em>region_offset=None</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.abstract_location.AbstractLocation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-claripy.vsa.bool_result"></span><dl class="class">
+<dt id="claripy.vsa.bool_result.BoolResult">
+<em class="property">class </em><code class="descclassname">claripy.vsa.bool_result.</code><code class="descname">BoolResult</code><span class="sig-paren">(</span><em>op=None</em>, <em>args=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.bool_result.BoolResult" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="claripy.vsa.bool_result.TrueResult">
+<em class="property">class </em><code class="descclassname">claripy.vsa.bool_result.</code><code class="descname">TrueResult</code><span class="sig-paren">(</span><em>op=None</em>, <em>args=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.bool_result.TrueResult" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="claripy.vsa.bool_result.FalseResult">
+<em class="property">class </em><code class="descclassname">claripy.vsa.bool_result.</code><code class="descname">FalseResult</code><span class="sig-paren">(</span><em>op=None</em>, <em>args=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.bool_result.FalseResult" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="claripy.vsa.bool_result.MaybeResult">
+<em class="property">class </em><code class="descclassname">claripy.vsa.bool_result.</code><code class="descname">MaybeResult</code><span class="sig-paren">(</span><em>op=None</em>, <em>args=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.bool_result.MaybeResult" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-claripy.vsa.discrete_strided_interval_set"></span><dl class="class">
 <dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet">
 <em class="property">class </em><code class="descclassname">claripy.vsa.discrete_strided_interval_set.</code><code class="descname">DiscreteStridedIntervalSet</code><span class="sig-paren">(</span><em>name=None</em>, <em>bits=0</em>, <em>si_set=None</em>, <em>max_cardinality=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>A DiscreteStridedIntervalSet represents one or more discrete StridedInterval instances.</p>
@@ -1560,7 +1901,7 @@ away from the AST that is about to be eliminated.</li>
 <dl class="method">
 <dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.normalize">
 <code class="descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.normalize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the collapsed object if <code class="docutils literal"><span class="pre">should_collapse()</span></code> is True, otherwise return self.</p>
+<dd><p>Return the collapsed object if <code class="docutils literal notranslate"><span class="pre">should_collapse()</span></code> is True, otherwise return self.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1579,7 +1920,7 @@ away from the AST that is about to be eliminated.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand to concatenate with.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> – The other operand to concatenate with.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The concatenated value.</td>
 </tr>
@@ -1596,8 +1937,8 @@ away from the AST that is about to be eliminated.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>high_bit</strong> &#8211; The highest bit to begin extraction.</li>
-<li><strong>low_bit</strong> &#8211; The lowest bit to end extraction.</li>
+<li><strong>high_bit</strong> – The highest bit to begin extraction.</li>
+<li><strong>low_bit</strong> – The lowest bit to end extraction.</li>
 </ul>
 </td>
 </tr>
@@ -1616,13 +1957,29 @@ away from the AST that is about to be eliminated.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>n</strong> &#8211; </li>
-<li><strong>signed</strong> &#8211; </li>
+<li><strong>n</strong> – </li>
+<li><strong>signed</strong> – </li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.union">
+<code class="descname">union</code><span class="sig-paren">(</span><em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.union" title="Permalink to this definition">¶</a></dt>
+<dd><p>The union operation. It might return a DiscreteStridedIntervalSet to allow for better precision in analysis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> – Operand</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A new DiscreteStridedIntervalSet, or a new StridedInterval.</td>
 </tr>
 </tbody>
 </table>
@@ -1636,7 +1993,7 @@ away from the AST that is about to be eliminated.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_length</strong> &#8211; The length to extend to.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_length</strong> – The length to extend to.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">SignExtended value.</td>
 </tr>
@@ -1652,7 +2009,7 @@ away from the AST that is about to be eliminated.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_length</strong> &#8211; The length to extend to.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>new_length</strong> – The length to extend to.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">ZeroExtended value.</td>
 </tr>
@@ -1668,7 +2025,7 @@ away from the AST that is about to be eliminated.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> – The other operand.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The widened result.</td>
 </tr>
@@ -1678,25 +2035,35 @@ away from the AST that is about to be eliminated.</li>
 
 </dd></dl>
 
-<span class="target" id="module-claripy.vsa.errors"></span><span class="target" id="module-claripy.vsa.strided_interval"></span><dl class="class">
+<span class="target" id="module-claripy.vsa.errors"></span><dl class="exception">
+<dt id="claripy.vsa.errors.ClaripyVSAError">
+<em class="property">exception </em><code class="descclassname">claripy.vsa.errors.</code><code class="descname">ClaripyVSAError</code><a class="headerlink" href="#claripy.vsa.errors.ClaripyVSAError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.vsa.errors.ClaripyVSAOperationError">
+<em class="property">exception </em><code class="descclassname">claripy.vsa.errors.</code><code class="descname">ClaripyVSAOperationError</code><a class="headerlink" href="#claripy.vsa.errors.ClaripyVSAOperationError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-claripy.vsa.strided_interval"></span><dl class="class">
 <dt id="claripy.vsa.strided_interval.WarrenMethods">
 <em class="property">class </em><code class="descclassname">claripy.vsa.strided_interval.</code><code class="descname">WarrenMethods</code><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods" title="Permalink to this definition">¶</a></dt>
 <dd><p>Methods as suggested in book.
 Hackers Delight.</p>
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.WarrenMethods.min_or">
-<em class="property">static </em><code class="descname">min_or</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.min_or" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">min_or</code><span class="sig-paren">(</span><em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.min_or" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lower bound of result of ORing 2-intervals.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; Lower bound of first interval</li>
-<li><strong>b</strong> &#8211; Upper bound of first interval</li>
-<li><strong>c</strong> &#8211; Lower bound of second interval</li>
-<li><strong>d</strong> &#8211; Upper bound of second interval</li>
-<li><strong>w</strong> &#8211; bit width</li>
+<li><strong>a</strong> – Lower bound of first interval</li>
+<li><strong>b</strong> – Upper bound of first interval</li>
+<li><strong>c</strong> – Lower bound of second interval</li>
+<li><strong>d</strong> – Upper bound of second interval</li>
+<li><strong>w</strong> – bit width</li>
 </ul>
 </td>
 </tr>
@@ -1709,18 +2076,18 @@ Hackers Delight.</p>
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.WarrenMethods.max_or">
-<em class="property">static </em><code class="descname">max_or</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.max_or" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">max_or</code><span class="sig-paren">(</span><em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.max_or" title="Permalink to this definition">¶</a></dt>
 <dd><p>Upper bound of result of ORing 2-intervals.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; Lower bound of first interval</li>
-<li><strong>b</strong> &#8211; Upper bound of first interval</li>
-<li><strong>c</strong> &#8211; Lower bound of second interval</li>
-<li><strong>d</strong> &#8211; Upper bound of second interval</li>
-<li><strong>w</strong> &#8211; bit width</li>
+<li><strong>a</strong> – Lower bound of first interval</li>
+<li><strong>b</strong> – Upper bound of first interval</li>
+<li><strong>c</strong> – Lower bound of second interval</li>
+<li><strong>d</strong> – Upper bound of second interval</li>
+<li><strong>w</strong> – bit width</li>
 </ul>
 </td>
 </tr>
@@ -1733,18 +2100,18 @@ Hackers Delight.</p>
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.WarrenMethods.min_and">
-<em class="property">static </em><code class="descname">min_and</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.min_and" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">min_and</code><span class="sig-paren">(</span><em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.min_and" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lower bound of result of ANDing 2-intervals.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; Lower bound of first interval</li>
-<li><strong>b</strong> &#8211; Upper bound of first interval</li>
-<li><strong>c</strong> &#8211; Lower bound of second interval</li>
-<li><strong>d</strong> &#8211; Upper bound of second interval</li>
-<li><strong>w</strong> &#8211; bit width</li>
+<li><strong>a</strong> – Lower bound of first interval</li>
+<li><strong>b</strong> – Upper bound of first interval</li>
+<li><strong>c</strong> – Lower bound of second interval</li>
+<li><strong>d</strong> – Upper bound of second interval</li>
+<li><strong>w</strong> – bit width</li>
 </ul>
 </td>
 </tr>
@@ -1757,18 +2124,18 @@ Hackers Delight.</p>
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.WarrenMethods.max_and">
-<em class="property">static </em><code class="descname">max_and</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.max_and" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">max_and</code><span class="sig-paren">(</span><em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.max_and" title="Permalink to this definition">¶</a></dt>
 <dd><p>Upper bound of result of ANDing 2-intervals.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; Lower bound of first interval</li>
-<li><strong>b</strong> &#8211; Upper bound of first interval</li>
-<li><strong>c</strong> &#8211; Lower bound of second interval</li>
-<li><strong>d</strong> &#8211; Upper bound of second interval</li>
-<li><strong>w</strong> &#8211; bit width</li>
+<li><strong>a</strong> – Lower bound of first interval</li>
+<li><strong>b</strong> – Upper bound of first interval</li>
+<li><strong>c</strong> – Lower bound of second interval</li>
+<li><strong>d</strong> – Upper bound of second interval</li>
+<li><strong>w</strong> – bit width</li>
 </ul>
 </td>
 </tr>
@@ -1781,18 +2148,18 @@ Hackers Delight.</p>
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.WarrenMethods.min_xor">
-<em class="property">static </em><code class="descname">min_xor</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.min_xor" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">min_xor</code><span class="sig-paren">(</span><em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.min_xor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lower bound of result of XORing 2-intervals.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; Lower bound of first interval</li>
-<li><strong>b</strong> &#8211; Upper bound of first interval</li>
-<li><strong>c</strong> &#8211; Lower bound of second interval</li>
-<li><strong>d</strong> &#8211; Upper bound of second interval</li>
-<li><strong>w</strong> &#8211; bit width</li>
+<li><strong>a</strong> – Lower bound of first interval</li>
+<li><strong>b</strong> – Upper bound of first interval</li>
+<li><strong>c</strong> – Lower bound of second interval</li>
+<li><strong>d</strong> – Upper bound of second interval</li>
+<li><strong>w</strong> – bit width</li>
 </ul>
 </td>
 </tr>
@@ -1805,18 +2172,18 @@ Hackers Delight.</p>
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.WarrenMethods.max_xor">
-<em class="property">static </em><code class="descname">max_xor</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.max_xor" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">max_xor</code><span class="sig-paren">(</span><em>b</em>, <em>c</em>, <em>d</em>, <em>w</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.WarrenMethods.max_xor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Upper bound of result of XORing 2-intervals.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; Lower bound of first interval</li>
-<li><strong>b</strong> &#8211; Upper bound of first interval</li>
-<li><strong>c</strong> &#8211; Lower bound of second interval</li>
-<li><strong>d</strong> &#8211; Upper bound of second interval</li>
-<li><strong>w</strong> &#8211; bit width</li>
+<li><strong>a</strong> – Lower bound of first interval</li>
+<li><strong>b</strong> – Upper bound of first interval</li>
+<li><strong>c</strong> – Lower bound of second interval</li>
+<li><strong>d</strong> – Upper bound of second interval</li>
+<li><strong>w</strong> – bit width</li>
 </ul>
 </td>
 </tr>
@@ -1833,7 +2200,7 @@ Hackers Delight.</p>
 <dt id="claripy.vsa.strided_interval.StridedInterval">
 <em class="property">class </em><code class="descclassname">claripy.vsa.strided_interval.</code><code class="descname">StridedInterval</code><span class="sig-paren">(</span><em>name=None</em>, <em>bits=0</em>, <em>stride=None</em>, <em>lower_bound=None</em>, <em>upper_bound=None</em>, <em>uninitialized=False</em>, <em>bottom=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Strided Interval is represented in the following form:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">bits</span><span class="o">&gt;</span> <span class="n">stride</span><span class="p">[</span><span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">bits</span><span class="o">&gt;</span> <span class="n">stride</span><span class="p">[</span><span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>For more details, please refer to relevant papers like TIE and WYSINWYE.</p>
@@ -1852,8 +2219,8 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>n</strong> &#8211; Upper bound for the number of concrete integers</li>
-<li><strong>signed</strong> &#8211; Treat this StridedInterval as signed or unsigned</li>
+<li><strong>n</strong> – Upper bound for the number of concrete integers</li>
+<li><strong>signed</strong> – Treat this StridedInterval as signed or unsigned</li>
 </ul>
 </td>
 </tr>
@@ -1880,7 +2247,7 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other StridedInterval to compare with.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The other StridedInterval to compare with.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if they are exactly same, False otherwise.</td>
 </tr>
@@ -1896,7 +2263,7 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The other operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
 </tr>
@@ -1912,7 +2279,7 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The other operand.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
 </tr>
@@ -1928,7 +2295,7 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The other operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
 </tr>
@@ -1944,7 +2311,7 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The other operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
 </tr>
@@ -1960,7 +2327,7 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The other operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
 </tr>
@@ -1976,7 +2343,7 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The other operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
 </tr>
@@ -1992,7 +2359,7 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The other operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
 </tr>
@@ -2008,7 +2375,7 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The other operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
 </tr>
@@ -2024,7 +2391,7 @@ DO NOT expect to see a 1-to-1 reproduction of [1].</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The ohter operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The ohter operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">TrueResult(), FalseResult(), or MaybeResult()</td>
 </tr>
@@ -2107,15 +2474,15 @@ Refer section 3.1 augmented for managing strides</p>
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.StridedInterval.lcm">
-<em class="property">static </em><code class="descname">lcm</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.lcm" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">lcm</code><span class="sig-paren">(</span><em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.lcm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the least common multiple.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; The first operand (integer)</li>
-<li><strong>b</strong> &#8211; The second operand (integer)</li>
+<li><strong>a</strong> – The first operand (integer)</li>
+<li><strong>b</strong> – The second operand (integer)</li>
 </ul>
 </td>
 </tr>
@@ -2128,15 +2495,15 @@ Refer section 3.1 augmented for managing strides</p>
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.StridedInterval.gcd">
-<em class="property">static </em><code class="descname">gcd</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.gcd" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">gcd</code><span class="sig-paren">(</span><em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.gcd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the greatest common divisor.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; The first operand (integer)</li>
-<li><strong>b</strong> &#8211; The second operand (integer)</li>
+<li><strong>a</strong> – The first operand (integer)</li>
+<li><strong>b</strong> – The second operand (integer)</li>
 </ul>
 </td>
 </tr>
@@ -2149,7 +2516,7 @@ Refer section 3.1 augmented for managing strides</p>
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.StridedInterval.upper">
-<em class="property">static </em><code class="descname">upper</code><span class="sig-paren">(</span><em>bits</em>, <em>i</em>, <em>stride</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.upper" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">upper</code><span class="sig-paren">(</span><em>i</em>, <em>stride</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.upper" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2162,7 +2529,7 @@ Refer section 3.1 augmented for managing strides</p>
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.StridedInterval.lower">
-<em class="property">static </em><code class="descname">lower</code><span class="sig-paren">(</span><em>bits</em>, <em>i</em>, <em>stride</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.lower" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">lower</code><span class="sig-paren">(</span><em>i</em>, <em>stride</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.lower" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2175,7 +2542,7 @@ Refer section 3.1 augmented for managing strides</p>
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.StridedInterval.top">
-<em class="property">static </em><code class="descname">top</code><span class="sig-paren">(</span><em>bits</em>, <em>name=None</em>, <em>uninitialized=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.top" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">top</code><span class="sig-paren">(</span><em>name=None</em>, <em>uninitialized=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.top" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a TOP StridedInterval.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -2195,7 +2562,7 @@ Refer section 3.1 augmented for managing strides</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> – The other operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">self + b</td>
 </tr>
@@ -2211,7 +2578,7 @@ Refer section 3.1 augmented for managing strides</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> – The other operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">self - b</td>
 </tr>
@@ -2227,7 +2594,7 @@ Refer section 3.1 augmented for managing strides</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The other operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">self * o</td>
 </tr>
@@ -2243,7 +2610,7 @@ Refer section 3.1 augmented for managing strides</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The divisor</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The divisor</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(self / o) in signed arithmetic</td>
 </tr>
@@ -2259,7 +2626,7 @@ Refer section 3.1 augmented for managing strides</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The divisor</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The divisor</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">(self / o) in unsigned arithmetic</td>
 </tr>
@@ -2275,7 +2642,7 @@ Refer section 3.1 augmented for managing strides</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> – The other operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">self | b</td>
 </tr>
@@ -2291,7 +2658,7 @@ Refer section 3.1 augmented for managing strides</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; The other operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> – The other operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
 </tr>
@@ -2307,7 +2674,7 @@ Refer section 3.1 augmented for managing strides</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> &#8211; The other operand.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>t</strong> – The other operand.</td>
 </tr>
 </tbody>
 </table>
@@ -2321,7 +2688,7 @@ Refer section 3.1 augmented for managing strides</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> &#8211; Operand</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>b</strong> – Operand</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A new DiscreteStridedIntervalSet, or a new StridedInterval.</td>
 </tr>
@@ -2331,7 +2698,7 @@ Refer section 3.1 augmented for managing strides</p>
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.StridedInterval.least_upper_bound">
-<em class="property">static </em><code class="descname">least_upper_bound</code><span class="sig-paren">(</span><em>*intervals_to_join</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.least_upper_bound" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">least_upper_bound</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.least_upper_bound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pseudo least upper bound.
 Join the given set of intervals into a big interval. The resulting strided interval is the one which in
 all the possible joins of the presented SI, presented the least number of values.</p>
@@ -2352,12 +2719,12 @@ to be calculated. In fact, if one draws this union, the result is exactly either
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.StridedInterval.pseudo_join">
-<em class="property">static </em><code class="descname">pseudo_join</code><span class="sig-paren">(</span><em>s</em>, <em>b</em>, <em>smart_join=True</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.pseudo_join" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">pseudo_join</code><span class="sig-paren">(</span><em>b</em>, <em>smart_join=True</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.pseudo_join" title="Permalink to this definition">¶</a></dt>
 <dd><p>It two intervals in a way that the resulting SI is the one that has the least
 SI cardinality (i.e., which represents the least number of elements) possible if the smart_join flag is enabled,
 otherwise it just joins the SI according the order they are passed to the function.</p>
 <p>The pseudo-join operation is not associative in wrapping intervals (please refer to section 3.1 paper
-&#8216;Signedness-Agnostic Program Analysis: Precise Integer Bounds for Low-Level Code&#8217;), Therefore the join of three
+‘Signedness-Agnostic Program Analysis: Precise Integer Bounds for Low-Level Code’), Therefore the join of three
 WI may  give us different results according on the order we join them. All of the results will be sound, though.</p>
 <p>Please use the function least_upper_bound as a stub.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -2365,9 +2732,9 @@ WI may  give us different results according on the order we join them. All of th
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>s</strong> &#8211; The first SI</li>
-<li><strong>b</strong> &#8211; The other SI.</li>
-<li><strong>smart_join</strong> &#8211; Enable the smart join behavior. If this flag is set, this function joins the two SI in a way
+<li><strong>s</strong> – The first SI</li>
+<li><strong>b</strong> – The other SI.</li>
+<li><strong>smart_join</strong> – Enable the smart join behavior. If this flag is set, this function joins the two SI in a way
 that the resulting Si has least number of elements (more precise). If it is unset, this
 function will join the two SI according on the order they are passed to the function.</li>
 </ul>
@@ -2382,7 +2749,7 @@ function will join the two SI according on the order they are passed to the func
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.StridedInterval.extended_euclid">
-<em class="property">static </em><code class="descname">extended_euclid</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.extended_euclid" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">extended_euclid</code><span class="sig-paren">(</span><em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.extended_euclid" title="Permalink to this definition">¶</a></dt>
 <dd><p>It calculates the GCD of a and b, and two values x and y such that:
 a*x + b*y = GCD(a,b).
 This code has been taken from the project sympy.</p>
@@ -2391,8 +2758,8 @@ This code has been taken from the project sympy.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; first integer</li>
-<li><strong>b</strong> &#8211; second integer</li>
+<li><strong>a</strong> – first integer</li>
+<li><strong>b</strong> – second integer</li>
 </ul>
 </td>
 </tr>
@@ -2405,14 +2772,14 @@ This code has been taken from the project sympy.</p>
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.StridedInterval.igcd">
-<em class="property">static </em><code class="descname">igcd</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.igcd" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">igcd</code><span class="sig-paren">(</span><em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.igcd" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>a</strong> &#8211; First integer</li>
-<li><strong>b</strong> &#8211; Second integer</li>
+<li><strong>a</strong> – First integer</li>
+<li><strong>b</strong> – Second integer</li>
 </ul>
 </td>
 </tr>
@@ -2425,7 +2792,7 @@ This code has been taken from the project sympy.</p>
 
 <dl class="staticmethod">
 <dt id="claripy.vsa.strided_interval.StridedInterval.diop_natural_solution_linear">
-<em class="property">static </em><code class="descname">diop_natural_solution_linear</code><span class="sig-paren">(</span><em>c</em>, <em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.diop_natural_solution_linear" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">diop_natural_solution_linear</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.vsa.strided_interval.StridedInterval.diop_natural_solution_linear" title="Permalink to this definition">¶</a></dt>
 <dd><p>It finds the fist natural solution of the diophantine equation
 a*x + b*y = c. Some lines of this code are taken from the project
 sympy.</p>
@@ -2434,9 +2801,9 @@ sympy.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>c</strong> &#8211; constant</li>
-<li><strong>a</strong> &#8211; quotient of x</li>
-<li><strong>b</strong> &#8211; quotient of y</li>
+<li><strong>c</strong> – constant</li>
+<li><strong>a</strong> – quotient of x</li>
+<li><strong>b</strong> – quotient of y</li>
 </ul>
 </td>
 </tr>
@@ -2472,14 +2839,14 @@ StridedInterval object.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> &#8211; </li>
-<li><strong>bits</strong> &#8211; </li>
-<li><strong>stride</strong> &#8211; </li>
-<li><strong>lower_bound</strong> &#8211; </li>
-<li><strong>upper_bound</strong> &#8211; </li>
-<li><strong>to_conv</strong> &#8211; </li>
-<li><strong>discrete_set</strong> (<a class="reference internal" href="#module-claripy.ast.bool" title="claripy.ast.bool"><em>bool</em></a>) &#8211; </li>
-<li><strong>discrete_set_max_cardinality</strong> (<a class="reference internal" href="#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; </li>
+<li><strong>name</strong> – </li>
+<li><strong>bits</strong> – </li>
+<li><strong>stride</strong> – </li>
+<li><strong>lower_bound</strong> – </li>
+<li><strong>upper_bound</strong> – </li>
+<li><strong>to_conv</strong> – </li>
+<li><strong>discrete_set</strong> (<em>bool</em>) – </li>
+<li><strong>discrete_set_max_cardinality</strong> (<em>int</em>) – </li>
 </ul>
 </td>
 </tr>
@@ -2506,7 +2873,7 @@ one.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">False</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-claripy.ast.bool" title="claripy.ast.bool">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
 </tr>
 </tbody>
 </table>
@@ -2522,7 +2889,7 @@ one.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">False</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-claripy.ast.bool" title="claripy.ast.bool">bool</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
 </tr>
 </tbody>
 </table>
@@ -2537,8 +2904,8 @@ one.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>src</strong> &#8211; The old AST</li>
-<li><strong>dst</strong> &#8211; The new AST, as the result of a simplification</li>
+<li><strong>src</strong> – The old AST</li>
+<li><strong>dst</strong> – The new AST, as the result of a simplification</li>
 </ul>
 </td>
 </tr>
@@ -2561,11 +2928,11 @@ one.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<em>str</em>) &#8211; Name of this ValueSet object. Only for debugging purposes.</li>
-<li><strong>region</strong> (<em>str</em>) &#8211; Region ID.</li>
-<li><strong>region_base_addr</strong> (<a class="reference internal" href="#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; Base address of the region.</li>
-<li><strong>bits</strong> (<a class="reference internal" href="#module-claripy.ast.int" title="claripy.ast.int"><em>int</em></a>) &#8211; Size of the ValueSet.</li>
-<li><strong>val</strong> &#8211; an initial offset</li>
+<li><strong>name</strong> (<em>str</em>) – Name of this ValueSet object. Only for debugging purposes.</li>
+<li><strong>region</strong> (<em>str</em>) – Region ID.</li>
+<li><strong>region_base_addr</strong> (<em>int</em>) – Base address of the region.</li>
+<li><strong>bits</strong> (<em>int</em>) – Size of the ValueSet.</li>
+<li><strong>val</strong> – an initial offset</li>
 </ul>
 </td>
 </tr>
@@ -2595,7 +2962,7 @@ one.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>annotation</strong> (<a class="reference internal" href="#claripy.vsa.valueset.RegionAnnotation" title="claripy.vsa.valueset.RegionAnnotation"><em>RegionAnnotation</em></a>) &#8211; The annotation to apply.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>annotation</strong> (<a class="reference internal" href="#claripy.vsa.valueset.RegionAnnotation" title="claripy.vsa.valueset.RegionAnnotation"><em>RegionAnnotation</em></a>) – The annotation to apply.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A new ValueSet object</td>
 </tr>
@@ -2615,7 +2982,7 @@ one.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A integer that represents the minimum integer value of this value-set.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-claripy.ast.int" title="claripy.ast.int">int</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
 </tr>
 </tbody>
 </table>
@@ -2631,7 +2998,7 @@ one.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A integer that represents the maximum integer value of this value-set.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#module-claripy.ast.int" title="claripy.ast.int">int</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
 </tr>
 </tbody>
 </table>
@@ -2653,8 +3020,8 @@ one.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>high_bit</strong> &#8211; </li>
-<li><strong>low_bit</strong> &#8211; </li>
+<li><strong>high_bit</strong> – </li>
+<li><strong>low_bit</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -2673,7 +3040,7 @@ one.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> &#8211; The other ValueSet to compare with.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>o</strong> – The other ValueSet to compare with.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if they are exactly same, False otherwise.</td>
 </tr>
@@ -2693,7 +3060,112 @@ one.</p>
 unknown terms on one side of an inequality.</p>
 </dd></dl>
 
-<span class="target" id="module-claripy.bv"></span><span class="target" id="module-claripy.errors"></span><span class="target" id="module-claripy.fp"></span><span class="target" id="module-claripy.operations"></span><span class="target" id="module-claripy.ops"></span></div>
+<span class="target" id="module-claripy.bv"></span><dl class="class">
+<dt id="claripy.bv.BVV">
+<em class="property">class </em><code class="descclassname">claripy.bv.</code><code class="descname">BVV</code><span class="sig-paren">(</span><em>value</em>, <em>bits</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.bv.BVV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-claripy.errors"></span><dl class="exception">
+<dt id="claripy.errors.ClaripyError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyError</code><a class="headerlink" href="#claripy.errors.ClaripyError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.UnsatError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">UnsatError</code><a class="headerlink" href="#claripy.errors.UnsatError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripyFrontendError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyFrontendError</code><a class="headerlink" href="#claripy.errors.ClaripyFrontendError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripySerializationError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripySerializationError</code><a class="headerlink" href="#claripy.errors.ClaripySerializationError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.BackendError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">BackendError</code><a class="headerlink" href="#claripy.errors.BackendError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.BackendUnsupportedError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">BackendUnsupportedError</code><a class="headerlink" href="#claripy.errors.BackendUnsupportedError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripyZ3Error">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyZ3Error</code><a class="headerlink" href="#claripy.errors.ClaripyZ3Error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripyBackendVSAError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyBackendVSAError</code><a class="headerlink" href="#claripy.errors.ClaripyBackendVSAError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripyASTError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyASTError</code><a class="headerlink" href="#claripy.errors.ClaripyASTError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripyBalancerError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyBalancerError</code><a class="headerlink" href="#claripy.errors.ClaripyBalancerError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripyBalancerUnsatError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyBalancerUnsatError</code><a class="headerlink" href="#claripy.errors.ClaripyBalancerUnsatError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripyTypeError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyTypeError</code><a class="headerlink" href="#claripy.errors.ClaripyTypeError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripyValueError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyValueError</code><a class="headerlink" href="#claripy.errors.ClaripyValueError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripySizeError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripySizeError</code><a class="headerlink" href="#claripy.errors.ClaripySizeError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripyOperationError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyOperationError</code><a class="headerlink" href="#claripy.errors.ClaripyOperationError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripyReplacementError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyReplacementError</code><a class="headerlink" href="#claripy.errors.ClaripyReplacementError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripyRecursionError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyRecursionError</code><a class="headerlink" href="#claripy.errors.ClaripyRecursionError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="claripy.errors.ClaripyZeroDivisionError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyZeroDivisionError</code><a class="headerlink" href="#claripy.errors.ClaripyZeroDivisionError" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-claripy.fp"></span><dl class="class">
+<dt id="claripy.fp.RM">
+<em class="property">class </em><code class="descclassname">claripy.fp.</code><code class="descname">RM</code><a class="headerlink" href="#claripy.fp.RM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="claripy.fp.FPV">
+<em class="property">class </em><code class="descclassname">claripy.fp.</code><code class="descname">FPV</code><span class="sig-paren">(</span><em>value</em>, <em>sort</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.fp.FPV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-claripy.operations"></span><span class="target" id="module-claripy.ops"></span></div>
 </div>
 
 
@@ -2706,7 +3178,7 @@ unknown terms on one side of an inequality.</p>
         <a href="cle.html" class="btn btn-neutral float-right" title="cle — Binary Loader" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="angr.html" class="btn btn-neutral" title="t angr — Analysis and Coordination" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="angr.html" class="btn btn-neutral" title="angr — Analysis and Coordination" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -2715,7 +3187,7 @@ unknown terms on one side of an inequality.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, The angr project.
+        &copy; Copyright 2018, The angr project.
 
     </p>
   </div>
