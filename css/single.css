@@ -1,0 +1,31 @@
+.post-content h1 {
+    font-size: 25px;
+    color: black;
+}
+
+.post-content h2 {
+    font-size: 22px;
+    color: black;
+}
+
+.post-content h3 {
+    font-size: 20px;
+    color: black;
+}
+
+.post-content h4 {
+    font-size: 17px;
+    color: black;
+}
+
+.post-content h5 {
+    font-size: 15px;
+    color: black;
+}
+
+.post-content code {
+    background-color: #DDD;
+    font-size: 14px;
+    padding: 1px 3px 1px 3px;
+    border-radius: 3px;
+}

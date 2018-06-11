@@ -1,0 +1,181 @@
+<!DOCTYPE rowhtm>
+<html>
+<head>
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/main.css">
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/pure-min.css">
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/single.css">
+  <style type="text/css">
+    .hidden { display: none; }
+  </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/no_foac.js"></script>
+  <script type="text/javascript" src="/js/clicky.js"></script>
+</head>
+<body>
+<header id="header">
+  <div id="topbar">
+    <div id="title">
+      <a href="https://nilocunger.github.io/" class="nohighlight">
+        angr
+        <img id="logo" src="https://nilocunger.github.io/img/angry_face.png">
+      </a>
+    </div>
+    <ul id="nav">
+      <div id="prompt">&gt;&gt;&gt;</div>
+      
+        <a href="/"><li>home</li></a>
+      
+        <a href="/blog"><li>blog</li></a>
+      
+        <a href="http://docs.angr.io/"><li>docs</li></a>
+      
+        <a href="https://github.com/angr"><li>code</li></a>
+      
+        <a href="/#contact"><li>get involved!</li></a>
+      
+    </ul>
+  </div>
+</header>
+<div id="bodycolumn">
+
+<h1>throwing a tantrum, part 3: loaders</h1>
+
+<div class="subtext">
+  
+  
+    Posted in
+    
+      <a href="https://nilocunger.github.io//tags/tutorial" class="tag">
+	<img src="https://nilocunger.github.io/img/tag.png" height="8px" width="8px">
+        tutorial
+      </a>
+    
+      <a href="https://nilocunger.github.io//tags/extending_angr" class="tag">
+	<img src="https://nilocunger.github.io/img/tag.png" height="8px" width="8px">
+        extending angr
+      </a>
+    
+      <a href="https://nilocunger.github.io//tags/loader" class="tag">
+	<img src="https://nilocunger.github.io/img/tag.png" height="8px" width="8px">
+        loader
+      </a>
+    
+      <a href="https://nilocunger.github.io//tags/cle" class="tag">
+	<img src="https://nilocunger.github.io/img/tag.png" height="8px" width="8px">
+        cle
+      </a>
+    
+      <a href="https://nilocunger.github.io//tags/throwing_a_tantrum" class="tag">
+	<img src="https://nilocunger.github.io/img/tag.png" height="8px" width="8px">
+        throwing a tantrum
+      </a>
+    
+  
+  
+    &nbsp;by
+    
+      <a href="https://nilocunger.github.io//authors/subwire" class="tag">
+	<img src="https://nilocunger.github.io/img/author.png" height="8px" width="8px">
+	subwire
+      </a>
+    
+      <a href="https://nilocunger.github.io//authors/lockshaw" class="tag">
+	<img src="https://nilocunger.github.io/img/author.png" height="8px" width="8px">
+	lockshaw
+      </a>
+    
+  
+</div>
+
+
+<section class="post-content">
+
+
+<p>Now we&rsquo;re going to focus on the first actual step in the process of analyzing a program: Figuring out what it even is, and loading it into our system&rsquo;s memory somehow.</p>
+
+<h2 id="cle-cle-loads-everything">CLE: CLE Loads Everything</h2>
+
+<p>The angr suite uses <code>CLE</code> to load binaries.
+It serves as a logical implementation of the Linux loader first and foremost, but supports other OSes and formats through a series of &ldquo;backends&rdquo;.</p>
+
+<p>CLE is given, by angr, a path to the &ldquo;main binary&rdquo;.  This is the argument to angr.Project().
+It&rsquo;s CLE&rsquo;s job to open it, figure out what it is, figure out what architecture it is (unless the user overrides), figure out where in memory it&rsquo;s supposed to go, and load any dependencies, such as shared libraries, that it may depend on.</p>
+
+<h2 id="shortcut-what-if-my-architecture-uses-elf-files">Shortcut: What if my architecture uses ELF files?</h2>
+
+<p>You don&rsquo;t need to do anything; CLE will load your binary just fine.  However, you will need to tell angr which sorts of ELF files map to the correct SimOS environment model, described in section 6.  These are tracked by the content of their EI_OSABI field.</p>
+
+<p>If you have pyelftools installed, you can identify this simply like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-none" data-lang="none">% readelf.py -h switchLeds.elf
+ELF Header:
+  Magic:   7f 45 4c 46 01 01 01 ff 00 00 00 00 00 00 00 00
+  Class:                             ELF32
+  Data:                              2&#39;s complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            Standalone App
+  ABI Version:                       0</code></pre></div>
+<p>To register this with our MSP430 environment model, we would simply do:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">angr.simos</span> <span class="kn">import</span> <span class="n">register_simos</span>
+<span class="n">register_simos</span><span class="p">(</span><span class="s1">&#39;Standalone App&#39;</span><span class="p">,</span> <span class="n">SimMSP430</span><span class="p">)</span></code></pre></div>
+<p>Were your binaries made by orcs instead? Read on.</p>
+
+<h2 id="defining-the-bf-backend">Defining the BF backend</h2>
+
+<p>For BrainFuck, we really just need to read the program in, and put it in memory, rather straight-up, at address 0.
+You could get away with using the <code>Blob</code> loader backend directly to do this, but we&rsquo;re going to make it a little more explicit and demonstrative and define our own based on it.</p>
+
+<p>First, the boring stuff:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">cle.backends</span> <span class="kn">import</span> <span class="n">Blob</span><span class="p">,</span> <span class="n">register_backend</span>
+<span class="kn">from</span> <span class="nn">archinfo</span> <span class="kn">import</span> <span class="n">arch_from_id</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&#34;cle.bf&#34;</span><span class="p">)</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;BF&#39;</span><span class="p">,)</span>
+
+<span class="k">class</span> <span class="nc">BF</span><span class="p">(</span><span class="n">Blob</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">custom_offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">(</span><span class="n">BF</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+                <span class="n">custom_arch</span><span class="o">=</span><span class="n">arch_from_id</span><span class="p">(</span><span class="s2">&#34;bf&#34;</span><span class="p">),</span>
+                <span class="n">custom_offset</span><span class="o">=</span><span class="n">custom_offset</span><span class="p">,</span>
+                <span class="n">custom_entry_point</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></code></pre></div>
+<p>Normally, to use the Blob loader, you must specify an entry point and arch <em>manually</em>.
+We want to be able to just use angr.Project() on a BF program and have it work, so we subclass the Blob loader, and give it this information.</p>
+
+<p>Next, we need to tell CLE when this loader will work on the given file, so that it can pick the right backend.
+Technically, by many definitions of BF, you can have other non-instruction characters in a file and still have it be valid.  For the ease of demonstration, let&rsquo;s keep it simple and support the &ldquo;non-compatible&rdquo; BF syntax of only the instructions and newlines.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">is_compatible</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+        <span class="n">bf_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="s1">&#39;[+\-&lt;&gt;.,\[\]</span><span class="se">\n</span><span class="s1">]+&#39;</span><span class="p">)</span>
+        <span class="n">stream</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">stuff</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mh">0x1000</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">bf_re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">stuff</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span></code></pre></div>
+<p>Don&rsquo;t forget to seek the stream to 0!! Some other <code>is_compatible</code>, or the rest of CLE, is going to use it later.  As they used to say when I was a kid, &ldquo;Be kind, rewind&rdquo; :)</p>
+
+<p>Last but not least, we need to tell CLE about our backend.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">register_backend</span><span class="p">(</span><span class="s2">&#34;bf&#34;</span><span class="p">,</span> <span class="n">BF</span><span class="p">)</span></code></pre></div>
+<p>That&rsquo;s it?? That&rsquo;s it.</p>
+
+<p>If you want to see a more complex, but not too-complex example on something a bit less contrived, check out CLE&rsquo;s CGC backend.  CGC binaries are deliberately simplified ELF-like files, that were designed to make analysis easy, so they make a nice template for crazier formats.</p>
+
+<p>Next time, we get to talk about lifters! Get that protein powder ready.</p>
+
+</section>
+
+<br>
+</div>
+<div id="footer">
+  <p>angr owes its existence to research sponsored by DARPA under agreement number
+  <a href="http://www.darpa.mil/program/vetting-commodity-it-software-and-firmware">N66001-13-2-4039</a>!</p>
+  <p>Site icons provided by <a href="https://www.flaticon.com/authors/icomoon">Icomoon</a> and <a href="http://www.freepik.com">Freepik</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</a></p>
+  <p>For questions, hop on <a href="http://angr.slack.com">our slack</a> (get an invite <a href="/invite">here</a>)
+  or contact the angr mailing list:
+  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;%61%6e%67%72@%6c%69%73%74%73.%63%73.%75%63%73%62.%65%64%75">angr&nbsp;~at~&nbsp;lists.cs.ucsb.edu</a>
+  </div>
+</body>
+</html>
+

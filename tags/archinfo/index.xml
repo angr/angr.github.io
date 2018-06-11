@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Archinfo on angr</title>
+    <link>https://nilocunger.github.io/tags/archinfo/</link>
+    <description>Recent content in Archinfo on angr</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 18 Jan 2018 19:40:58 -0800</lastBuildDate>
+    
+	<atom:link href="https://nilocunger.github.io/tags/archinfo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>throwing a tantrum, part 2: architectures</title>
+      <link>https://nilocunger.github.io/blog/throwing_a_tantrum_part_2/</link>
+      <pubDate>Thu, 18 Jan 2018 19:40:58 -0800</pubDate>
+      
+      <guid>https://nilocunger.github.io/blog/throwing_a_tantrum_part_2/</guid>
+      <description>Since this is a tutorial about extending the core parts of angr, we should start by focusing on how to extend the core-est of core parts: the architecture support! Pretty much every piece of angr&amp;rsquo;s suite involves, in some way, specific information about the architecture of the program you&amp;rsquo;re analyzing. Dealing with all this low-level architecture stuff is part of what makes binaries a pain in the rear to analyze, but angr abstracts most of it away for you in the archinfo class, which is used by everything else to make the code flexible and platform-independent!</description>
+    </item>
+    
+  </channel>
+</rss>

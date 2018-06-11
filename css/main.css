@@ -1,0 +1,281 @@
+html {
+    height: 100%;
+    background-color: #EEE;
+}
+
+body {
+    background-color: #FFF;
+}
+
+h2 {
+    margin-top: 1.5em;
+    margin-bottom: -0.3em;
+}
+
+pre, p {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+ul {
+    padding-left: 3em;
+}
+
+a:link {
+    color: #FF2D00;
+}
+
+a:visited {
+    color: #871800;
+}
+
+.tech {
+    font-family: monospace;
+}
+
+.codesample {
+    line-height: 1.4;
+}
+
+.pyprompt {
+    color: #aaa;
+}
+
+.pyinput {
+    font-weight: bold;
+}
+
+.pyoutput {
+    color: #333;
+}
+
+#topbar {
+    width: 100%;
+    margin: 0;
+    background-color: #EEE;
+    border-bottom: 1px solid #CCC;
+    min-height: 100px;
+}
+
+#logo {
+    position: absolute;
+    left: 130px;
+    top: -20px;
+    width: 150px;
+    height: 150px;
+}
+
+#title {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-size: 50px;
+    font-family: monospace;
+    text-decoration: none;
+}
+
+#title a, #title a:visited {
+    color:black;
+    text-decoration: none;
+}
+
+#nav {
+    display: block;
+    padding: 0;
+    margin: 0;
+    padding-left: 310px;
+    padding-top: 22px;
+    text-align: right;
+    margin-right: 10%;
+
+    font-size: 18px;
+    font-family: monospace;
+}
+
+#prompt {
+    display: inline-block;
+    padding: 10px;
+}
+
+#nav li {
+    list-style: none;
+    display: inline-block;
+    padding: 15px;
+    border-radius: 3px;
+    background-color: #EEE;
+}
+
+#nav li:hover {
+    background-color: #DDD;
+}
+
+#nav a, #nav a:visited {
+    color: black;
+}
+
+@media (max-width: 550px) {
+    #nav {
+        padding-left: 5px;
+        padding-top: 160px;
+    }
+}
+
+#bodycolumn {
+    max-width: 900px;
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0px auto;
+}
+
+#footer {
+    background-color: #EEE;
+    border-top: 1px solid #DDD;
+    width: 100%;
+    height: 100px;
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+}
+
+#show-more-papers {
+    margin: 20px;
+}
+
+.show-more, .show-less {
+    margin: 0px auto;
+    font-size: 10px;
+    width: 200px;
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.show-more:hover, .show-less:hover {
+    background-color: #EEE;
+}
+
+.expandable { overflow: hidden; height: 0px; }
+.expand-check { display: none; }
+.show-less { display: none; }
+.show-more { display: inline; }
+.expand-check:checked ~ .expandable { height: auto; }
+.expand-check:checked + label .show-more { display: none; }
+.expand-check:checked + label .show-less { display: inline; }
+.block { display: block; }
+
+#announce {
+    font-style: italic;
+    padding: 30px;
+    margin: 20px auto;
+    text-align: center;
+    background-color: #EEE;
+    border: 2px dashed #CCC;
+    border-radius: 10px;
+}
+
+.post {
+    border-radius: 5px;
+    padding: 12px 5px 12px 5px;
+    display: block;
+    color: black;
+    text-decoration: none;
+}
+
+.post:visited, .post:link {
+    color: black;
+    text-decoration: none;
+}
+
+.post .list-main, .post span {
+    padding-left: 0px;
+    transition: padding-left 0.5s;
+}
+
+.subtext {
+    color: grey;
+    font-size: 12px;
+    width: 100%
+}
+
+.tag, .tag:visited, .tag:link {
+    background-color: #EEE;
+    border-radius: 3px;
+    padding: 3px;
+    color: black;
+    text-decoration: none;
+    margin: 1px;
+    transition: background-color 0.15s;
+}
+
+.tag:hover {
+    background-color: #CCC;
+}
+
+.code-chunk pre {
+    background-color: #EEE;
+    margin: 3%;
+    border-radius: 8px;
+}
+
+.bar-appears {
+    border-width: 0 0 0 10px;
+    border-style: solid;
+    border-left-color: transparent;
+    transition: all 0.1s ease-out 0.005s;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    background-color: none;
+}
+
+.post:hover .bar-appears {
+    border-left-color: #ffa500;
+    background-color: #EEE;
+}
+
+.list-main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.list-arrow {
+    color: #ff6c00;
+    font-size: 25px;
+    margin-bottom: 0px;
+    padding-right: 20px;
+}
+
+.list-title {
+    font-size: 25px;
+    margin-bottom: 0px;
+}
+
+.testing {
+    background-color: red;
+    border-left-width: 0px;
+    border-left-style: solid;
+    transition: border-left-width 0.5s;
+    padding-left: 50px;
+    font-size: 50px;
+}
+
+.testing:hover {
+    border-left-width: 15px;
+    background-color: white;
+}
+
+.newline-image {
+    background-color: #EEE;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ffb076;
+    margin: 3%;
+    margin-right: 5%;
+    padding: 20px;
+    border-radius: 5px;
+}

@@ -1,0 +1,217 @@
+<!DOCTYPE rowhtm>
+<html>
+<head>
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/main.css">
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/pure-min.css">
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/single.css">
+  <style type="text/css">
+    .hidden { display: none; }
+  </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/no_foac.js"></script>
+  <script type="text/javascript" src="/js/clicky.js"></script>
+</head>
+<body>
+<header id="header">
+  <div id="topbar">
+    <div id="title">
+      <a href="https://nilocunger.github.io/" class="nohighlight">
+        angr
+        <img id="logo" src="https://nilocunger.github.io/img/angry_face.png">
+      </a>
+    </div>
+    <ul id="nav">
+      <div id="prompt">&gt;&gt;&gt;</div>
+      
+        <a href="/"><li>home</li></a>
+      
+        <a href="/blog"><li>blog</li></a>
+      
+        <a href="http://docs.angr.io/"><li>docs</li></a>
+      
+        <a href="https://github.com/angr"><li>code</li></a>
+      
+        <a href="/#contact"><li>get involved!</li></a>
+      
+    </ul>
+  </div>
+</header>
+<div id="bodycolumn">
+
+<h1>throwing a tantrum, part 1: angr internals</h1>
+
+<div class="subtext">
+  
+  
+    Posted in
+    
+      <a href="https://nilocunger.github.io//tags/tutorial" class="tag">
+	<img src="https://nilocunger.github.io/img/tag.png" height="8px" width="8px">
+        tutorial
+      </a>
+    
+      <a href="https://nilocunger.github.io//tags/extending_angr" class="tag">
+	<img src="https://nilocunger.github.io/img/tag.png" height="8px" width="8px">
+        extending angr
+      </a>
+    
+      <a href="https://nilocunger.github.io//tags/internals" class="tag">
+	<img src="https://nilocunger.github.io/img/tag.png" height="8px" width="8px">
+        internals
+      </a>
+    
+      <a href="https://nilocunger.github.io//tags/throwing_a_tantrum" class="tag">
+	<img src="https://nilocunger.github.io/img/tag.png" height="8px" width="8px">
+        throwing a tantrum
+      </a>
+    
+  
+  
+    &nbsp;by
+    
+      <a href="https://nilocunger.github.io//authors/subwire" class="tag">
+	<img src="https://nilocunger.github.io/img/author.png" height="8px" width="8px">
+	subwire
+      </a>
+    
+      <a href="https://nilocunger.github.io//authors/lockshaw" class="tag">
+	<img src="https://nilocunger.github.io/img/author.png" height="8px" width="8px">
+	lockshaw
+      </a>
+    
+  
+</div>
+
+
+<section class="post-content">
+
+
+<p>In this n+1-part series, we will be exploring how you can extend <a href="http://angr.io/" title="angr">angr</a> with new features, without editing angr itself!</p>
+
+<p>angr is the popular framework for analyzing binary programs, from embedded firmware, to hardcore CTF challenges, all from the comfort of Python.
+angr&rsquo;s roots lie in the Valgrind VEX instrumentation framework, meaning it benefits from the multi-architecture support and community maintenance.
+However, we live in a big world full of crazy things that aren&rsquo;t Intel or ARM-based Linux machines.</p>
+
+<p>What about microcontrollers?</p>
+
+<p>What about Android bytecode?</p>
+
+<p>What about Javascript?</p>
+
+<p>What about <strong><em>BrainFuck</em></strong>??</p>
+
+<p>(<em>gasp</em>! Not BrainFuck! Anything but BrainFuck!)</p>
+
+<p>If you find yourself asking any of those sorts of questions, this is the guide for you!
+angr now supports extensions to each of its core components: the loader, architecture database, lifter, execution engine, and simulated OS layer.
+We will be exploring each in turn, with the goal of bringing the complete suite of powerful angr analyses to bear on a totally new class of program that it was not designed to before.</p>
+
+<p>In order to not overcomplicate things, and make the core ideas clear, we&rsquo;re going to start with something conceptually simple.</p>
+
+<p>Sorry, that BrainFuck thing was not a joke.
+In this guide, we&rsquo;re going to build the most insanely overkill BrainFuck analysis platform ever constructed.  By the time you&rsquo;re done here, you&rsquo;ll be able to totally obliterate any of the Brainfuck crack-me programs that I hear may even actually exist.</p>
+
+<p>First, let&rsquo;s go over the components themselves, and how they fit together.</p>
+
+<h1 id="the-angr-lifecycle">The angr lifecycle</h1>
+
+<p>If you&rsquo;ve used angr before, you&rsquo;ve probably done this:
+(blatantly stolen from <a href="https://github.com/angr/angr-doc/tree/master/examples/fauxware">angr-doc&rsquo;s fauxware example</a>)</p>
+<div class="highlight"><pre class="chroma"><code class="language-sc" data-lang="sc"><span class="kn">import</span> <span class="nn">angr</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="s2">&#34;crackme&#34;</span><span class="p">)</span>
+<span class="n">state</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">entry_state</span><span class="p">()</span>
+<span class="n">sm</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">simgr</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="n">sm</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">until</span><span class="o">=</span><span class="k">lambda</span> <span class="n">lpg</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">lpg</span><span class="o">.</span><span class="n">active</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">input_0</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">active</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">posix</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></code></pre></div>
+<p>That&rsquo;s only a few lines, but there&rsquo;s a whole lot going on here.
+In that little snippet, we load a binary, lift it from machine-code to an intermediate representation that we can reason about a bit more mathematically (VEX, by default), execute representation symbolically, and finally, print the input we needed to give the program to get to the first real branch, computed using a SMT-solver.</p>
+
+<div class="newline-image">
+  <strong>the angr lifecycle:</strong>
+  <img style="width: 90%; margin: 3% 5% 0% 5%;" src="/img/angr_diagram.png" />
+</div>
+
+
+<h2 id="cle-the-loader">CLE, the loader</h2>
+
+<p>The first thing that happens when you create an angr project is angr has to figure out what the heck you just told it to load.
+For this, it turns to the loader, CLE (CLE Loads Everythig) to come up with an educated guess, extract the executable code and data from whatever format it&rsquo;s in, take a guess as what architecture it&rsquo;s for, and create a representation of the program&rsquo;s memory map as if the real loader had been used.
+CLE supports a set of &ldquo;backends&rdquo; that service various formats, such as ELF, PE, and CGC.
+For the common cases, this means loading an ELF, which brings with it the complicated mess of header parsing, library resolution, and strange memory layouts you both require and expect.
+It also supports the exact opposite of this, pure binary blobs, with a backend that just takes the bytes and puts them in the right place in memory.
+The result is a Loader object, which has the memory of the main program itself (<code>Loader.main_object</code>) and any libraries.</p>
+
+<h2 id="archinfo-the-architecture-db">Archinfo, the architecture DB</h2>
+
+<p>During CLE&rsquo;s loading, it takes a guess as to what architecture the program is for.
+This is usually via either a header (as in ELFs) or some simple heuristic.
+Either way, it makes a guess, and uses it to fetch an <code>Arch</code> object from the <code>archinfo</code> package corresponding to it.
+This contains a map of the register file, bit width, usual endian-ness, and so on.
+Literally everything else relies on this, as you can imagine.</p>
+
+<h2 id="simengine-the-simulated-executer">SimEngine, the simulated executer</h2>
+
+<p>Next, angr will locate an execution engine capable of dealing with the code it just loaded.
+Engines are responsible for interpreting the code in some meaningful way.
+Fundamentally, they take a program&rsquo;s <em>state</em>&ndash; a snapshot of the registers, memory, and so on&ndash; do some thing to it, usually a basic block&rsquo;s worth of instructions, and produce a set of <em>successors</em>, coresponding to all the possible program states that can be reached by executing the current block.
+When branches are encountered, they collect <em>constraints</em> on the state which capture the conditions needed to take each path of the branch.
+In aggregate, this is what gives angr its reasoning power.</p>
+
+<h2 id="pyvex-the-lifter">PyVEX, the lifter</h2>
+
+<p>angr&rsquo;s default engine, SimEngineVEX, supports many architectures, simply because it doesn&rsquo;t run on their machine code directly. It uses an intermediate representation, known as VEX, which machine code is translated (<em>lifted</em>) into.
+As an alternative to creating your own engine for a new architecture, if it is similar enough to a &ldquo;normal&rdquo; PC architecture, the faster solution is to simply create a Lifter for it, allowing SimEngineVEX to take care of the rest.
+We will explore both Lifters and Engines in this guide.</p>
+
+<h2 id="claripy-the-solver">Claripy, the solver</h2>
+
+<p>Every action an engine performs, even something as simple as incrementing the program counter, is not necessarily an operation on a concrete value.
+The value could instead be a complicated expression, that when computed on, should actually result in an even bigger expression.
+Creating, composing, and eventually solving these is Claripy&rsquo;s job.
+Claripy uses a SMT-solver, currently Microsoft&rsquo;s Z3, to do all of this heavy-lifting.
+Thankfully, we won&rsquo;t need to delve into that in this series, as SMT-solving is some serious black magic.</p>
+
+<h2 id="simos-the-rest-of-the-nasty-bits">SimOS, the rest of the nasty bits</h2>
+
+<p>If we just view the engine&rsquo;s work on a program from the states it provides, we&rsquo;re going to have a lot of work to do to get anything useful out.
+Where is stdin? What the heck do I do with files? Network? Are you kidding?
+These higher-level abstractions are provided by the OS, and don&rsquo;t exist at the bare machine level.
+Therefore, SimOS&rsquo; job is to provide all of that to angr, so that it can be reasoned about without all the pain of interpreting just what the fake hardware would do.
+Based on a guess from CLE, a SimOS is created (ex. SimLinux), which defines the OS-specific embellishments on the initial state of the program, all its system calls, and convenient symbolic summaries of what syscalls and common library functions do, known as <em>SimProcedures</em>.
+These make angr dramatically faster and more compatible, as symbolically executing libc itself is, to say the least, insanely painful.</p>
+
+<h1 id="angr-the-real-deal">angr, the real deal</h1>
+
+<p>Finally, with a Loader, an Engine, an Arch, and a SimOS, we can get to work!
+All of this is packaged into a Project, and offered to the higher-level analyses, such as Control-flow Graph reconstruction, program slicing, and path-based reasoning, as in the earlier example.</p>
+
+<p>In the next part, we&rsquo;ll introduce our chosen architecture, BrainFuck, and discuss the implementation of additional architectures.</p>
+
+<hr>
+
+<p>Image icons made by</p>
+
+<ul>
+<li><a href="http://www.freepik.com">Freepik</a> from <a href="https://www.flaticon.com/">Flaticon</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</a></li>
+<li><a href="https://www.flaticon.com/authors/smashicons">Smashicons</a> from <a href="https://www.flaticon.com/">Flaticon</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</a></li>
+<li><a href="https://www.shareicon.net/computer-processor-computer-hardware-technology-microprocessor-computer-chip-651514">computer</a></li>
+<li><a href="http://clipground.com/image-post/70942-dead-lift-clipart-11.jpg.html">clipground</a></li>
+<li><a href="http://moziru.com/explore/Binary%20clipart%20computer%20file/#gal_post_4505_binary-clipart-computer-file-6.png">PinArt</a></li>
+</ul>
+
+</section>
+
+<br>
+</div>
+<div id="footer">
+  <p>angr owes its existence to research sponsored by DARPA under agreement number
+  <a href="http://www.darpa.mil/program/vetting-commodity-it-software-and-firmware">N66001-13-2-4039</a>!</p>
+  <p>Site icons provided by <a href="https://www.flaticon.com/authors/icomoon">Icomoon</a> and <a href="http://www.freepik.com">Freepik</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</a></p>
+  <p>For questions, hop on <a href="http://angr.slack.com">our slack</a> (get an invite <a href="/invite">here</a>)
+  or contact the angr mailing list:
+  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;%61%6e%67%72@%6c%69%73%74%73.%63%73.%75%63%73%62.%65%64%75">angr&nbsp;~at~&nbsp;lists.cs.ucsb.edu</a>
+  </div>
+</body>
+</html>
+

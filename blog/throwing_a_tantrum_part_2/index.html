@@ -1,0 +1,204 @@
+<!DOCTYPE rowhtm>
+<html>
+<head>
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/main.css">
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/pure-min.css">
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/single.css">
+  <style type="text/css">
+    .hidden { display: none; }
+  </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/no_foac.js"></script>
+  <script type="text/javascript" src="/js/clicky.js"></script>
+</head>
+<body>
+<header id="header">
+  <div id="topbar">
+    <div id="title">
+      <a href="https://nilocunger.github.io/" class="nohighlight">
+        angr
+        <img id="logo" src="https://nilocunger.github.io/img/angry_face.png">
+      </a>
+    </div>
+    <ul id="nav">
+      <div id="prompt">&gt;&gt;&gt;</div>
+      
+        <a href="/"><li>home</li></a>
+      
+        <a href="/blog"><li>blog</li></a>
+      
+        <a href="http://docs.angr.io/"><li>docs</li></a>
+      
+        <a href="https://github.com/angr"><li>code</li></a>
+      
+        <a href="/#contact"><li>get involved!</li></a>
+      
+    </ul>
+  </div>
+</header>
+<div id="bodycolumn">
+
+<h1>throwing a tantrum, part 2: architectures</h1>
+
+<div class="subtext">
+  
+  
+    Posted in
+    
+      <a href="https://nilocunger.github.io//tags/tutorial" class="tag">
+	<img src="https://nilocunger.github.io/img/tag.png" height="8px" width="8px">
+        tutorial
+      </a>
+    
+      <a href="https://nilocunger.github.io//tags/extending_angr" class="tag">
+	<img src="https://nilocunger.github.io/img/tag.png" height="8px" width="8px">
+        extending angr
+      </a>
+    
+      <a href="https://nilocunger.github.io//tags/archinfo" class="tag">
+	<img src="https://nilocunger.github.io/img/tag.png" height="8px" width="8px">
+        archinfo
+      </a>
+    
+      <a href="https://nilocunger.github.io//tags/throwing_a_tantrum" class="tag">
+	<img src="https://nilocunger.github.io/img/tag.png" height="8px" width="8px">
+        throwing a tantrum
+      </a>
+    
+  
+  
+    &nbsp;by
+    
+      <a href="https://nilocunger.github.io//authors/subwire" class="tag">
+	<img src="https://nilocunger.github.io/img/author.png" height="8px" width="8px">
+	subwire
+      </a>
+    
+      <a href="https://nilocunger.github.io//authors/lockshaw" class="tag">
+	<img src="https://nilocunger.github.io/img/author.png" height="8px" width="8px">
+	lockshaw
+      </a>
+    
+  
+</div>
+
+
+<section class="post-content">
+
+
+<p>Since this is a tutorial about extending the core parts of angr, we should start by focusing on how to extend the core-est of core parts: the architecture support!
+Pretty much every piece of angr&rsquo;s suite involves, in some way, specific information about the architecture of the program you&rsquo;re analyzing.  Dealing with all this low-level architecture stuff is part of what makes binaries a pain in the rear to analyze, but angr abstracts most of it away for you in the <code>archinfo</code> class, which is used by everything else to make the code flexible and platform-independent!</p>
+
+<p>Before we can talk about how to add a new architecture, let&rsquo;s talk about our target:</p>
+
+<h2 id="our-arch-brainfuck">Our Arch: BrainFuck.</h2>
+
+<p>We&rsquo;re going to implement BrainFuck in angr, because it&rsquo;s one of the simplest architectures that exists, but yet is far enough from the &ldquo;real&rdquo; architectures angr already supports to show off its flexibility.</p>
+
+<p>BrainFuck is an esoteric programming language created by Urban Muller to be simple in concept, but really painful to actually use.</p>
+
+<p>BrainFuck implements a Turing machine-like abstraction, in which a infinite(ish) tape of symbols contains the program, and another tape of &ldquo;cells&rdquo;, holds the program&rsquo;s state (memory).
+Each cell is an unsigned byte, and the cell being referred to by instructions is chosen by the current value of a &ldquo;pointer&rdquo;.
+BrainFuck&rsquo;s instruction pointer starts at 0, and the program ends when it moves past the last symbols.
+The data pointer starts at cell 0.</p>
+
+<p>BrainFuck has only 8 instructions:</p>
+
+<p><code>&gt;</code> - Move the pointer to the right (increment)</p>
+
+<p><code>&lt;</code> - Move the pointer to the left (decrement)</p>
+
+<p><code>+</code> - Increment the cell under the pointer</p>
+
+<p><code>-</code> - Decrement the cell under the pointer</p>
+
+<p><code>[</code> - If the value at the pointer is zero, skip forward to the matching <code>]</code></p>
+
+<p><code>]</code> - If the value at the pointer is non-zero, skip backward to the matching <code>[</code></p>
+
+<p><code>.</code> - Output (print to stdout) the cell at the pointer</p>
+
+<p><code>,</code> - Input (get character at stdin) to the cell at ptr</p>
+
+<h2 id="defining-our-architecture">Defining our architecture</h2>
+
+<p>From the description above, we notice a few things:</p>
+
+<ul>
+<li>This is a &ldquo;Harvard&rdquo; architecture, data and memory are separate.</li>
+<li>We have two real registers here: A pointer <code>ptr</code>, and the usual instruction pointer <code>ip</code>.</li>
+<li>Memory accesses in BF are all in terms of a single byte.  There&rsquo;s no endianness to worry about.  However, the width of <code>ip</code> and <code>ptr</code> are not defined.</li>
+<li>We have to do something about input and output.</li>
+</ul>
+
+<p>This last point is worth some discussion.
+In traditional architectures, this is handled by GPIOs, or some complicated mess of peripherals driven by the OS.  We have none of that, we just want bytes in and bytes out.  We&rsquo;ll need to help angr out a bit with this one; there are a few possible ways to implement this, but we&rsquo;re going to explore one that pretends there are mythical system calls to get our bytes in and out.  In a &ldquo;normal&rdquo; architecture, this means there&rsquo;s a syscall number in a register somewhere.  We&rsquo;re going to pretend that exists too.</p>
+
+<h2 id="archinfo">archinfo</h2>
+
+<p>archinfo is the class in the angr suite that holds all of this information.
+To create a new arch, you simply make a subclass of <code>archinfo.Arch</code>, and define your registers, their aliases, some info about bit widths and endianess, and so on.</p>
+
+<p>Now, let&rsquo;s lay down some code.</p>
+
+<p>First, the boring stuff:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">archinfo.arch</span> <span class="kn">import</span> <span class="n">Arch</span>
+<span class="kn">from</span> <span class="nn">archinfo</span> <span class="kn">import</span> <span class="n">register_arch</span>
+
+<span class="k">class</span> <span class="nc">ArchBF</span><span class="p">(</span><span class="n">Arch</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endness</span><span class="o">=</span><span class="s2">&#34;Iend_LE&#34;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ArchBF</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;Iend_LE&#39;</span><span class="p">)</span></code></pre></div>
+<p>We&rsquo;ll call this arch little endian, since we have to say something, and in this case it doesn&rsquo;t matter.</p>
+
+<p>Next, some simple metadata:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">        <span class="bp">self</span><span class="o">.</span><span class="n">bits</span> <span class="o">=</span> <span class="mi">64</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vex_arch</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;BF&#34;</span></code></pre></div>
+<p>Names are usually all-caps.  As I mentioned above, the bit-width here corresponds to the address space and register widths, and we don&rsquo;t have one defined, so I picked 64.
+VEX doesn&rsquo;t support this arch, so <code>vex_arch</code> is None.</p>
+
+<p>Now here&rsquo;s the register file:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s2">&#34;ip&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s2">&#34;ptr&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s2">&#34;inout&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s2">&#34;ip_at_syscall&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></code></pre></div>
+<p>I mentioned the &lsquo;inout&rsquo; register, which is our syscall number when picking input vs output.
+However, we have another fake register <code>ip_at_syscall</code>, which is used by angr to track syscall-related return behavior.  Don&rsquo;t worry about it, just put it here.</p>
+
+<p>You can also assign aliases, like <code>pc</code> for <code>ip</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">        <span class="bp">self</span><span class="o">.</span><span class="n">register_names</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_names</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;pc&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_names</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;ip&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ip_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s2">&#34;ip&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></code></pre></div>
+<p>Various kinds of reasoning need to where the ip is rather explicitly.  We set that here too.</p>
+
+<p>Finally, we need to tell archinfo about our new arch:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">register_arch</span><span class="p">([</span><span class="s1">&#39;bf|brainfuck&#39;</span><span class="p">],</span> <span class="mi">64</span><span class="p">,</span> <span class="s1">&#39;any&#39;</span><span class="p">,</span> <span class="n">ArchBF</span><span class="p">)</span></code></pre></div>
+<p>The first argument is a list of regular expressions that match the name of our architecture.  (Note, as of this writing, you can assume input is lowercase).  Next, the bit-width of our arch, which is 64.
+The third argument is the <code>endness</code>, which can either be &ldquo;Iend_LE&rdquo;, &ldquo;Iend_BE&rdquo;, or &ldquo;any&rdquo;.  (<em>these constants come from VEX, if you&rsquo;re curious</em>) &lsquo;any&rsquo; means this Arch will match for either endness.</p>
+
+<p>This is used by <code>archinfo.arch_from_id()</code> to look up the Arch for a given set of parameters.  Given the various circumstances under which this is needed, we deliberately make this super flexible, and encourage you to make your mappings flexible too.</p>
+
+<p>That&rsquo;s it!</p>
+
+<p>This doesn&rsquo;t do a whole lot yet, but it&rsquo;s an important first step.</p>
+
+<p>We&rsquo;ll build on this in the next part, where we get angr to load BF programs into its simulated memory.</p>
+
+</section>
+
+<br>
+</div>
+<div id="footer">
+  <p>angr owes its existence to research sponsored by DARPA under agreement number
+  <a href="http://www.darpa.mil/program/vetting-commodity-it-software-and-firmware">N66001-13-2-4039</a>!</p>
+  <p>Site icons provided by <a href="https://www.flaticon.com/authors/icomoon">Icomoon</a> and <a href="http://www.freepik.com">Freepik</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</a></p>
+  <p>For questions, hop on <a href="http://angr.slack.com">our slack</a> (get an invite <a href="/invite">here</a>)
+  or contact the angr mailing list:
+  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;%61%6e%67%72@%6c%69%73%74%73.%63%73.%75%63%73%62.%65%64%75">angr&nbsp;~at~&nbsp;lists.cs.ucsb.edu</a>
+  </div>
+</body>
+</html>
+

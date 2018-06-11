@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Authors on angr</title>
+    <link>https://nilocunger.github.io/authors/</link>
+    <description>Recent content in Authors on angr</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://nilocunger.github.io/authors/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Lockshaw</title>
+      <link>https://nilocunger.github.io/authors/lockshaw/</link>
+      <pubDate>Thu, 18 Jan 2018 19:41:03 -0800</pubDate>
+      
+      <guid>https://nilocunger.github.io/authors/lockshaw/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Subwire</title>
+      <link>https://nilocunger.github.io/authors/subwire/</link>
+      <pubDate>Thu, 18 Jan 2018 19:41:03 -0800</pubDate>
+      
+      <guid>https://nilocunger.github.io/authors/subwire/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zardus</title>
+      <link>https://nilocunger.github.io/authors/zardus/</link>
+      <pubDate>Mon, 15 Jan 2018 15:35:26 -0800</pubDate>
+      
+      <guid>https://nilocunger.github.io/authors/zardus/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

