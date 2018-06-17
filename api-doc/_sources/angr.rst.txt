@@ -10,15 +10,22 @@ Project
 .. automodule:: angr.factory
 .. automodule:: angr.block
 
+Plugin Ecosystem
+----------------
+
+.. automodule:: angr.misc.plugins
+
 Program State
 -------------
 .. automodule:: angr.sim_state
 .. automodule:: angr.sim_options
+.. automodule:: angr.sim_state_options
 .. automodule:: angr.state_plugins
 .. automodule:: angr.state_plugins.plugin
 .. automodule:: angr.state_plugins.inspect
 .. automodule:: angr.state_plugins.libc
 .. automodule:: angr.state_plugins.posix
+.. automodule:: angr.state_plugins.filesystem
 .. automodule:: angr.state_plugins.solver
 .. automodule:: angr.state_plugins.log
 .. automodule:: angr.state_plugins.callstack
@@ -68,7 +75,7 @@ Concretization Strategies
 Simulation Manager
 ------------------
 
-.. automodule:: angr.manager
+.. automodule:: angr.sim_manager
 .. automodule:: angr.state_hierarchy
 
 Exploration Techniques
@@ -90,6 +97,8 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.oppologist
 .. automodule:: angr.exploration_techniques.loop_seer
 .. automodule:: angr.exploration_techniques.cacher
+.. automodule:: angr.exploration_techniques.stochastic
+.. automodule:: angr.exploration_techniques.unique
 .. automodule:: angr.exploration_techniques.tech_builder
 
 Simulation Engines
@@ -98,6 +107,7 @@ Simulation Engines
 .. automodule:: angr.engines
 .. automodule:: angr.engines.engine
 .. automodule:: angr.engines.successors
+.. automodule:: angr.engines.hub
 .. automodule:: angr.engines.vex
 .. automodule:: angr.engines.vex.engine
 .. automodule:: angr.engines.procedure
@@ -156,7 +166,9 @@ Analysis
 .. automodule:: angr.analyses.backward_slice
 .. automodule:: angr.analyses.bindiff
 .. automodule:: angr.analyses.boyscout
+.. automodule:: angr.analyses.calling_convention
 .. automodule:: angr.analyses.cfg
+.. automodule:: angr.analyses.cfg.cfb
 .. automodule:: angr.analyses.cfg.cfg
 .. automodule:: angr.analyses.cfg.cfg_accurate
 .. automodule:: angr.analyses.cfg.cfg_base
@@ -172,11 +184,31 @@ Analysis
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.resolver
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers
 .. automodule:: angr.analyses.cfg.cfg_utils
+.. automodule:: angr.analyses.cfg.memory_data
 .. automodule:: angr.analyses.cdg
 .. automodule:: angr.analyses.code_location
 .. automodule:: angr.analyses.datagraph_meta
+.. automodule:: angr.analyses.decompiler.structurer
+.. automodule:: angr.analyses.decompiler
+.. automodule:: angr.analyses.decompiler.clinic
+.. automodule:: angr.analyses.decompiler.structured_codegen
+.. automodule:: angr.analyses.decompiler.region_identifier
 .. automodule:: angr.analyses.ddg
 .. automodule:: angr.analyses.dfg
+.. automodule:: angr.engines.light.data
+.. automodule:: angr.engines.light
+.. automodule:: angr.engines.light.engine
+.. automodule:: angr.analyses.reaching_definitions.uses
+.. automodule:: angr.analyses.reaching_definitions.undefined
+.. automodule:: angr.analyses.reaching_definitions.definition
+.. automodule:: angr.analyses.reaching_definitions.constants
+.. automodule:: angr.analyses.reaching_definitions.atoms
+.. automodule:: angr.analyses.reaching_definitions.engine_vex
+.. automodule:: angr.analyses.reaching_definitions.reaching_definitions
+.. automodule:: angr.analyses.reaching_definitions
+.. automodule:: angr.analyses.reaching_definitions.dataset
+.. automodule:: angr.analyses.reaching_definitions.engine_ail
+.. automodule:: angr.analyses.reaching_definitions.external_codeloc
 .. automodule:: angr.analyses.variable_recovery.annotations
 .. automodule:: angr.analyses.variable_recovery.variable_recovery_fast
 .. automodule:: angr.analyses.variable_recovery.variable_recovery
@@ -209,6 +241,12 @@ SimOS
 .. automodule:: angr.simos.cgc
 .. automodule:: angr.simos.userland
 .. automodule:: angr.simos.windows
+
+Utils
+-----
+.. automodule:: angr.utils
+.. automodule:: angr.utils.graph
+.. automodule:: angr.utils.library
 
 Errors
 ------

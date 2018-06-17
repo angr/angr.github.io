@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>angr API documentation &mdash; angr 7.8.2.21 documentation</title>
+  <title>angr API documentation &mdash; angr 7.8.6.16 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,27 +24,20 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 7.8.2.21 documentation" href="#"/>
-        <link rel="next" title="angr — Analysis and Coordination" href="angr.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="angr — Analysis and Coordination" href="angr.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -62,7 +57,7 @@
             
             
               <div class="version">
-                7.8.2.21
+                7.8.6.16
               </div>
             
           
@@ -83,7 +78,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal notranslate"><span class="pre">angr</span></code> — Analysis and Coordination</a></li>
 <li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal notranslate"><span class="pre">claripy</span></code> — Solver Engine</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal notranslate"><span class="pre">cle</span></code> — Binary Loader</a></li>
@@ -100,34 +98,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">angr</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">angr</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="#">Docs</a> &raquo;</li>
-      
-    <li>angr API documentation</li>
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>angr API documentation</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -141,10 +159,11 @@ Mayhem, KLEE, etc) and various static analyses on binaries.</p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal notranslate"><span class="pre">angr</span></code> — Analysis and Coordination</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.project">Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.misc.plugins">Plugin Ecosystem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.sim_state">Program State</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.storage">Storage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.concretization_strategies.single">Concretization Strategies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.manager">Simulation Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.sim_manager">Simulation Manager</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.exploration_techniques">Exploration Techniques</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.engines">Simulation Engines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.state_plugins.sim_action">Simulation Logging</a></li>
@@ -153,6 +172,7 @@ Mayhem, KLEE, etc) and various static analyses on binaries.</p>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.knowledge_base">Knowledge Base</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.analyses">Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.simos">SimOS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.utils">Utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="angr.html#module-angr.errors">Errors</a></li>
 </ul>
 </li>
@@ -178,7 +198,8 @@ Mayhem, KLEE, etc) and various static analyses on binaries.</p>
 <li class="toctree-l1"><a class="reference internal" href="pyvex.html"><code class="docutils literal notranslate"><span class="pre">pyvex</span></code> — Binary Translator</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.block">Translation Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.stmt">IR Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.lift">Lifting System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.lifting">Lifting System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.lifting.zerodivision">Builtin IR Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyvex.html#module-pyvex.errors">Errors</a></li>
 </ul>
 </li>
@@ -202,12 +223,13 @@ Mayhem, KLEE, etc) and various static analyses on binaries.</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="angr.html" class="btn btn-neutral float-right" title="angr — Analysis and Coordination" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="angr.html" class="btn btn-neutral float-right" title="angr — Analysis and Coordination" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -221,7 +243,7 @@ Mayhem, KLEE, etc) and various static analyses on binaries.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -239,10 +261,12 @@ Mayhem, KLEE, etc) and various static analyses on binaries.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.8.2.21',
+            VERSION:'7.8.6.16',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
@@ -251,19 +275,13 @@ Mayhem, KLEE, etc) and various static analyses on binaries.</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

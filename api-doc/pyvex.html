@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyvex — Binary Translator &mdash; angr 7.8.2.21 documentation</title>
+  <title>pyvex — Binary Translator &mdash; angr 7.8.6.16 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,28 +24,21 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 7.8.2.21 documentation" href="index.html"/>
-        <link rel="next" title="archinfo — Arch Information Repository" href="archinfo.html"/>
-        <link rel="prev" title="cle — Binary Loader" href="cle.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="archinfo — Arch Information Repository" href="archinfo.html" />
+    <link rel="prev" title="cle — Binary Loader" href="cle.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -63,7 +58,7 @@
             
             
               <div class="version">
-                7.8.2.21
+                7.8.6.16
               </div>
             
           
@@ -84,14 +79,18 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal notranslate"><span class="pre">angr</span></code> — Analysis and Coordination</a></li>
 <li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal notranslate"><span class="pre">claripy</span></code> — Solver Engine</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal notranslate"><span class="pre">cle</span></code> — Binary Loader</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">pyvex</span></code> — Binary Translator</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-pyvex.block">Translation Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pyvex.stmt">IR Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.lift">Lifting System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.lifting">Lifting System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.lifting.zerodivision">Builtin IR Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pyvex.errors">Errors</a></li>
 </ul>
 </li>
@@ -107,34 +106,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">angr</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">angr</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li><code class="docutils literal notranslate"><span class="pre">pyvex</span></code> — Binary Translator</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><code class="docutils literal notranslate"><span class="pre">pyvex</span></code> — Binary Translator</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/pyvex.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -148,7 +167,7 @@ For an introduction to VEX, take a look here: <a class="reference external" href
 <span id="translation-interface"></span><h2>Translation Interface<a class="headerlink" href="#module-pyvex.block" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyvex.block.IRSB">
-<em class="property">class </em><code class="descclassname">pyvex.block.</code><code class="descname">IRSB</code><span class="sig-paren">(</span><em>data</em>, <em>mem_addr</em>, <em>arch</em>, <em>max_inst=None</em>, <em>max_bytes=None</em>, <em>bytes_offset=0</em>, <em>traceflags=0</em>, <em>opt_level=1</em>, <em>num_inst=None</em>, <em>num_bytes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRSB" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.block.</code><code class="descname">IRSB</code><span class="sig-paren">(</span><em>data</em>, <em>mem_addr</em>, <em>arch</em>, <em>max_inst=None</em>, <em>max_bytes=None</em>, <em>bytes_offset=0</em>, <em>traceflags=0</em>, <em>opt_level=1</em>, <em>num_inst=None</em>, <em>num_bytes=None</em>, <em>strict_block_end=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRSB" title="Permalink to this definition">¶</a></dt>
 <dd><p>The IRSB is the primary interface to pyvex. Constructing one of these will make a call into LibVEX to perform a
 translation.</p>
 <p>IRSB stands for <em>Intermediate Representation Super-Block</em>. An IRSB in VEX is a single-entry, multiple-exit code
@@ -182,6 +201,7 @@ You may also pass None to initialize an empty IRSB.</li>
 <li><strong>bytes_offset</strong> – The offset into <cite>data</cite> to start lifting at.</li>
 <li><strong>traceflags</strong> – The libVEX traceflags, controlling VEX debug prints.</li>
 <li><strong>opt_level</strong> – The level of optimization to apply to the IR, 0-2. 2 is highest, 0 is no optimization.</li>
+<li><strong>strict_block_end</strong> – Should the LibVEX arm-thumb split block at some instructions, for example CB{N}Z.</li>
 </ul>
 </td>
 </tr>
@@ -205,15 +225,9 @@ ends properly or until it runs out of data to lift.</p>
 <dt id="pyvex.block.IRSB.extend">
 <code class="descname">extend</code><span class="sig-paren">(</span><em>extendwith</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRSB.extend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Appends an irsb to the current irsb. The irsb that is appended is invalidated. The appended irsb’s jumpkind and
-default exit are used.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>extendwith</strong> – The IRSB to append to this IRSB</td>
-</tr>
-</tbody>
-</table>
+default exit are used.
+:param extendwith:     The IRSB to append to this IRSB
+:vartype extendwith:   <a class="reference internal" href="#pyvex.block.IRSB" title="pyvex.block.IRSB"><code class="xref py py-class docutils literal notranslate"><span class="pre">IRSB</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
@@ -394,6 +408,12 @@ else it is a Store-Conditional.</p>
 <dd><p>A guarded store.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="pyvex.stmt.cls">
+<code class="descclassname">pyvex.stmt.</code><code class="descname">cls</code><a class="headerlink" href="#pyvex.stmt.cls" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#pyvex.stmt.Dirty" title="pyvex.stmt.Dirty"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyvex.stmt.Dirty</span></code></a></p>
+</dd></dl>
+
 <span class="target" id="module-pyvex.expr"></span><dl class="class">
 <dt id="pyvex.expr.IRExpr">
 <em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">IRExpr</code><a class="headerlink" href="#pyvex.expr.IRExpr" title="Permalink to this definition">¶</a></dt>
@@ -460,7 +480,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="class">
 <dt id="pyvex.expr.Binop">
-<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Binop</code><span class="sig-paren">(</span><em>op</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Binop" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">Binop</code><span class="sig-paren">(</span><em>op</em>, <em>args</em>, <em>op_int=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Binop" title="Permalink to this definition">¶</a></dt>
 <dd><p>A binary operation (2 arguments).</p>
 </dd></dl>
 
@@ -503,6 +523,42 @@ else it is a Store-Conditional.</p>
 <dt id="pyvex.expr.PyvexTypeErrorException">
 <em class="property">exception </em><code class="descclassname">pyvex.expr.</code><code class="descname">PyvexTypeErrorException</code><a class="headerlink" href="#pyvex.expr.PyvexTypeErrorException" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="pyvex.expr.tag_to_expr_class">
+<code class="descclassname">pyvex.expr.</code><code class="descname">tag_to_expr_class</code><span class="sig-paren">(</span><em>tag</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.tag_to_expr_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a tag string to the corresponding IRExpr class type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tag</strong> (<em>str</em>) – The tag string.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A class.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">type</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyvex.expr.enum_to_expr_class">
+<code class="descclassname">pyvex.expr.</code><code class="descname">enum_to_expr_class</code><span class="sig-paren">(</span><em>tag_enum</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.enum_to_expr_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a tag enum to the corresponding IRExpr class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tag_enum</strong> (<em>int</em>) – The tag enum.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A class.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">type</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <span class="target" id="module-pyvex.const"></span><dl class="class">
 <dt id="pyvex.const.IRConst">
@@ -626,53 +682,16 @@ rotating register files on the guest.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyvex.lift">
-<span id="lifting-system"></span><h2>Lifting System<a class="headerlink" href="#module-pyvex.lift" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyvex.lifting">
+<span id="lifting-system"></span><h2>Lifting System<a class="headerlink" href="#module-pyvex.lifting" title="Permalink to this headline">¶</a></h2>
 <dl class="exception">
-<dt id="pyvex.lift.LiftingException">
-<em class="property">exception </em><code class="descclassname">pyvex.lift.</code><code class="descname">LiftingException</code><a class="headerlink" href="#pyvex.lift.LiftingException" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.LiftingException">
+<em class="property">exception </em><code class="descclassname">pyvex.lifting.</code><code class="descname">LiftingException</code><a class="headerlink" href="#pyvex.lifting.LiftingException" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="class">
-<dt id="pyvex.lift.Lifter">
-<em class="property">class </em><code class="descclassname">pyvex.lift.</code><code class="descname">Lifter</code><span class="sig-paren">(</span><em>arch</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.Lifter" title="Permalink to this definition">¶</a></dt>
-<dd><p>A lifter is a class of methods for processing a block.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> – The bytes to lift as either a python string of bytes or a cffi buffer object.</li>
-<li><strong>bytes_offset</strong> – The offset into <cite>data</cite> to start lifting at.</li>
-<li><strong>max_bytes</strong> – The maximum number of bytes to lift. If set to None, no byte limit is used.</li>
-<li><strong>max_inst</strong> – The maximum number of instructions to lift. If set to None, no instruction limit is used.</li>
-<li><strong>opt_level</strong> – The level of optimization to apply to the IR, 0-2. Most likely will be ignored in any lifter
-other then LibVEX.</li>
-<li><strong>traceflags</strong> – The libVEX traceflags, controlling VEX debug prints. Most likely will be ignored in any lifter
-other than LibVEX.</li>
-<li><strong>allow_lookback</strong> – Should the LibVEX arm-thumb lifter be allowed to look before the current instruction pointer.
-Most likely will be ignored in any lifter other than LibVEX.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="pyvex.lift.Lifter.lift">
-<code class="descname">lift</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.Lifter.lift" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lifts the data using the information passed into _lift. Should be overridden in child classes.</p>
-<p>Should set the lifted IRSB to self.irsb.
-If a lifter raises a LiftingException on the data, this signals that the lifter cannot lift this data and arch
-and the lifter is skipped.
-If a lifter can lift any amount of data, it should lift it and return the lifted block with a jumpkind of
-Ijk_NoDecode, signalling to pyvex that other lifters should be used on the undecodable data.</p>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="function">
-<dt id="pyvex.lift.lift">
-<code class="descclassname">pyvex.lift.</code><code class="descname">lift</code><span class="sig-paren">(</span><em>irsb</em>, <em>arch</em>, <em>addr</em>, <em>data</em>, <em>max_bytes=None</em>, <em>max_inst=None</em>, <em>bytes_offset=None</em>, <em>opt_level=1</em>, <em>traceflags=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.lift" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.lift">
+<code class="descclassname">pyvex.lifting.</code><code class="descname">lift</code><span class="sig-paren">(</span><em>irsb</em>, <em>arch</em>, <em>addr</em>, <em>data</em>, <em>max_bytes=None</em>, <em>max_inst=None</em>, <em>bytes_offset=None</em>, <em>opt_level=1</em>, <em>traceflags=False</em>, <em>strict_block_end=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.lift" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursively lifts blocks using the registered lifters and postprocessors. Tries each lifter in the order in
 which they are registered on the data to lift.</p>
 <p>If a lifter raises a LiftingException on the data, it is skipped.
@@ -714,8 +733,8 @@ ends properly or until it runs out of data to lift.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyvex.lift.register">
-<code class="descclassname">pyvex.lift.</code><code class="descname">register</code><span class="sig-paren">(</span><em>lifter</em>, <em>arch_name</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.register" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.register">
+<code class="descclassname">pyvex.lifting.</code><code class="descname">register</code><span class="sig-paren">(</span><em>lifter</em>, <em>arch_name</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.register" title="Permalink to this definition">¶</a></dt>
 <dd><p>Registers a Lifter or Postprocessor to be used by pyvex. Lifters are are given priority based on the order
 in which they are registered. Postprocessors will be run in registration order.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -728,12 +747,12 @@ in which they are registered. Postprocessors will be run in registration order.<
 </table>
 </dd></dl>
 
-<span class="target" id="module-pyvex.lift.libvex"></span><dl class="class">
-<dt id="pyvex.lift.libvex.LibVEXLifter">
-<em class="property">class </em><code class="descclassname">pyvex.lift.libvex.</code><code class="descname">LibVEXLifter</code><span class="sig-paren">(</span><em>arch</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.libvex.LibVEXLifter" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-pyvex.lifting.libvex"></span><dl class="class">
+<dt id="pyvex.lifting.libvex.LibVEXLifter">
+<em class="property">class </em><code class="descclassname">pyvex.lifting.libvex.</code><code class="descname">LibVEXLifter</code><span class="sig-paren">(</span><em>arch</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.libvex.LibVEXLifter" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="method">
-<dt id="pyvex.lift.libvex.LibVEXLifter.lift">
-<code class="descname">lift</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.libvex.LibVEXLifter.lift" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.libvex.LibVEXLifter.lift">
+<code class="descname">lift</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.libvex.LibVEXLifter.lift" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lifts the data using the information passed into _lift. Should be overridden in child classes.</p>
 <p>Should set the lifted IRSB to self.irsb.
 If a lifter raises a LiftingException on the data, this signals that the lifter cannot lift this data and arch
@@ -744,9 +763,47 @@ Ijk_NoDecode, signalling to pyvex that other lifters should be used on the undec
 
 </dd></dl>
 
-<span class="target" id="module-pyvex.lift.fixes"></span><span class="target" id="module-pyvex.lift.util.irsb_postprocess"></span><dl class="function">
-<dt id="pyvex.lift.util.irsb_postprocess.irsb_postproc_flatten">
-<code class="descclassname">pyvex.lift.util.irsb_postprocess.</code><code class="descname">irsb_postproc_flatten</code><span class="sig-paren">(</span><em>irsb_old</em>, <em>irsb_new=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.irsb_postprocess.irsb_postproc_flatten" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-pyvex.lifting.lifter"></span><dl class="class">
+<dt id="pyvex.lifting.lifter.Lifter">
+<em class="property">class </em><code class="descclassname">pyvex.lifting.lifter.</code><code class="descname">Lifter</code><span class="sig-paren">(</span><em>arch</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.lifter.Lifter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A lifter is a class of methods for processing a block.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> – The bytes to lift as either a python string of bytes or a cffi buffer object.</li>
+<li><strong>bytes_offset</strong> – The offset into <cite>data</cite> to start lifting at.</li>
+<li><strong>max_bytes</strong> – The maximum number of bytes to lift. If set to None, no byte limit is used.</li>
+<li><strong>max_inst</strong> – The maximum number of instructions to lift. If set to None, no instruction limit is used.</li>
+<li><strong>opt_level</strong> – The level of optimization to apply to the IR, 0-2. Most likely will be ignored in any lifter
+other then LibVEX.</li>
+<li><strong>traceflags</strong> – The libVEX traceflags, controlling VEX debug prints. Most likely will be ignored in any lifter
+other than LibVEX.</li>
+<li><strong>allow_lookback</strong> – Should the LibVEX arm-thumb lifter be allowed to look before the current instruction pointer.
+Most likely will be ignored in any lifter other than LibVEX.</li>
+<li><strong>strict_block_end</strong> – Should the LibVEX arm-thumb split block at some instructions, for example CB{N}Z.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyvex.lifting.lifter.Lifter.lift">
+<code class="descname">lift</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.lifter.Lifter.lift" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lifts the data using the information passed into _lift. Should be overridden in child classes.</p>
+<p>Should set the lifted IRSB to self.irsb.
+If a lifter raises a LiftingException on the data, this signals that the lifter cannot lift this data and arch
+and the lifter is skipped.
+If a lifter can lift any amount of data, it should lift it and return the lifted block with a jumpkind of
+Ijk_NoDecode, signalling to pyvex that other lifters should be used on the undecodable data.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyvex.lifting.post_processor"></span><span class="target" id="module-pyvex.lifting.util.irsb_postprocess"></span><dl class="function">
+<dt id="pyvex.lifting.util.irsb_postprocess.irsb_postproc_flatten">
+<code class="descclassname">pyvex.lifting.util.irsb_postprocess.</code><code class="descname">irsb_postproc_flatten</code><span class="sig-paren">(</span><em>irsb_old</em>, <em>irsb_new=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.irsb_postprocess.irsb_postproc_flatten" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -767,21 +824,21 @@ Ijk_NoDecode, signalling to pyvex that other lifters should be used on the undec
 </table>
 </dd></dl>
 
-<span class="target" id="module-pyvex.lift.util.syntax_wrapper"></span><span class="target" id="module-pyvex.lift.util"></span><span class="target" id="module-pyvex.lift.util.vex_helper"></span><dl class="function">
-<dt id="pyvex.lift.util.vex_helper.make_format_op_generator">
-<code class="descclassname">pyvex.lift.util.vex_helper.</code><code class="descname">make_format_op_generator</code><span class="sig-paren">(</span><em>fmt_string</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.vex_helper.make_format_op_generator" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-pyvex.lifting.util.syntax_wrapper"></span><span class="target" id="module-pyvex.lifting.util"></span><span class="target" id="module-pyvex.lifting.util.vex_helper"></span><dl class="function">
+<dt id="pyvex.lifting.util.vex_helper.make_format_op_generator">
+<code class="descclassname">pyvex.lifting.util.vex_helper.</code><code class="descname">make_format_op_generator</code><span class="sig-paren">(</span><em>fmt_string</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.vex_helper.make_format_op_generator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a function which generates an op format (just a string of the vex instruction)</p>
 <p>Functions by formatting the fmt_string with the types of the arguments</p>
 </dd></dl>
 
-<span class="target" id="module-pyvex.lift.util.lifter_helper"></span><dl class="exception">
-<dt id="pyvex.lift.util.lifter_helper.ParseError">
-<em class="property">exception </em><code class="descclassname">pyvex.lift.util.lifter_helper.</code><code class="descname">ParseError</code><a class="headerlink" href="#pyvex.lift.util.lifter_helper.ParseError" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-pyvex.lifting.util.lifter_helper"></span><dl class="exception">
+<dt id="pyvex.lifting.util.lifter_helper.ParseError">
+<em class="property">exception </em><code class="descclassname">pyvex.lifting.util.lifter_helper.</code><code class="descname">ParseError</code><a class="headerlink" href="#pyvex.lifting.util.lifter_helper.ParseError" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="class">
-<dt id="pyvex.lift.util.lifter_helper.GymratLifter">
-<em class="property">class </em><code class="descclassname">pyvex.lift.util.lifter_helper.</code><code class="descname">GymratLifter</code><span class="sig-paren">(</span><em>arch</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.lifter_helper.GymratLifter" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.util.lifter_helper.GymratLifter">
+<em class="property">class </em><code class="descclassname">pyvex.lifting.util.lifter_helper.</code><code class="descname">GymratLifter</code><span class="sig-paren">(</span><em>arch</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.lifter_helper.GymratLifter" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is a base class for lifters that use Gymrat.
 For most architectures, all you need to do is subclass this, and set the property “instructions”
 to be a list of classes that define each instruction.
@@ -790,8 +847,8 @@ This will use an IRSBCustomizer, which will, if it succeeds, add the appropriate
 pyvex, when lifting a block of code for this architecture, will call the method “lift”, which will produce the IRSB
 of the lifted code.</p>
 <dl class="method">
-<dt id="pyvex.lift.util.lifter_helper.GymratLifter.lift">
-<code class="descname">lift</code><span class="sig-paren">(</span><em>disassemble=False</em>, <em>dump_irsb=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.lifter_helper.GymratLifter.lift" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.util.lifter_helper.GymratLifter.lift">
+<code class="descname">lift</code><span class="sig-paren">(</span><em>disassemble=False</em>, <em>dump_irsb=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.lifter_helper.GymratLifter.lift" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lifts the data using the information passed into _lift. Should be overridden in child classes.</p>
 <p>Should set the lifted IRSB to self.irsb.
 If a lifter raises a LiftingException on the data, this signals that the lifter cannot lift this data and arch
@@ -802,9 +859,9 @@ Ijk_NoDecode, signalling to pyvex that other lifters should be used on the undec
 
 </dd></dl>
 
-<span class="target" id="module-pyvex.lift.util.instr_helper"></span><dl class="class">
-<dt id="pyvex.lift.util.instr_helper.Instruction">
-<em class="property">class </em><code class="descclassname">pyvex.lift.util.instr_helper.</code><code class="descname">Instruction</code><span class="sig-paren">(</span><em>bitstrm</em>, <em>arch</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-pyvex.lifting.util.instr_helper"></span><dl class="class">
+<dt id="pyvex.lifting.util.instr_helper.Instruction">
+<em class="property">class </em><code class="descclassname">pyvex.lifting.util.instr_helper.</code><code class="descname">Instruction</code><span class="sig-paren">(</span><em>bitstrm</em>, <em>arch</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for an Instruction.
 You should make a subclass of this for each instruction you want to lift.
 These classes will contain the “semantics” of the instruction, that is, what it _does_, in terms of the VEX IR.</p>
@@ -817,71 +874,73 @@ Bit formats are strings of symbols, like those you’d find in an ISA document, 
 Any letters specify arguments, grouped by letter, which will be parsed and provided as bitstrings in the “data”
 member of the class as a dictionary.
 So, in our example, the bits 0010110101101001, applied to format string 0010rrrrddddffmm
-will result in the following in self.data:
-{‘r’: ‘1101’,</p>
+will result in the following in self.data:</p>
 <blockquote>
-<div>‘d’: ‘0110’,
+<div><dl class="docutils">
+<dt>{‘r’: ‘1101’,</dt>
+<dd>‘d’: ‘0110’,
 ‘f’: ‘10’,
-‘m’: ‘01’}</div></blockquote>
-<dl class="docutils">
-<dt>Implement compute_result to provide the “meat” of what your instruction does.</dt>
-<dd>You can also implement it in your arch-specific subclass of Instruction, to handle things common to all
-instructions, and provide instruction implementations elsewhere..</dd>
+‘m’: ‘01’}</dd>
 </dl>
+</div></blockquote>
+<p>Implement compute_result to provide the “meat” of what your instruction does.
+You can also implement it in your arch-specific subclass of Instruction, to handle things common to all
+instructions, and provide instruction implementations elsewhere..</p>
 <p>We provide the VexValue syntax wrapper to make expressing instruction semantics easy.
 You first convert the bitstring arguments into VexValues using the provided convenience methods (self.get/put/load)
 store/etc. This loads the register from the actual registers into a temporary value we can work with.
 You can then write it back to a register when you’re done.
 For example, if you have the register in ‘r’, as above, you can make a VexValue like this:
 r_vv = self.get(int(self.data[‘r’], 2), Type.int_32)
-If you then had an instruction to increment r, you could simply:
-return r_vv += 1
-You could then write it back to the register like this:
-self.put(r_vv, int(self.data[‘r’, 2))</p>
+If you then had an instruction to increment r, you could simply:</p>
+<blockquote>
+<div>return r_vv += 1</div></blockquote>
+<p>You could then write it back to the register like this:</p>
+<blockquote>
+<div>self.put(r_vv, int(self.data[‘r’, 2))</div></blockquote>
 <p>Note that most architectures have special flags that get set differently for each instruction, make sure to
 implement those as well. (override set_flags() )</p>
 <p>Override parse() to extend parsing; for example, in MSP430, this allows us to grab extra words from the bitstream
 when extra immediate words are present.</p>
 <p>All architectures are different enough that there’s no magic recipe for how to write a lifter;
 See the examples provided by gymrat for ideas of how to use this to build your own lifters quickly and easily.</p>
-<p>Create an instance of the instruction
-:param irsb_c: The IRSBCustomizer to put VEX instructions into
-:param bitstrm: The bitstream to decode instructions from
-:param addr: The address of the instruction to be lifted, used only for jumps and branches</p>
-<dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.fetch_operands">
-<code class="descname">fetch_operands</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.fetch_operands" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the operands out of memory or registers
-Return a tuple of operands for the instruction
-:return:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.lift">
-<code class="descname">lift</code><span class="sig-paren">(</span><em>irsb_c</em>, <em>past_instructions</em>, <em>future_instructions</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.lift" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is the main body of the “lifting” for the instruction.
-This can/should be overriden to provide the general flow of how instructions in your arch work.
-For example, in MSP430, this is:</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li>Figure out what your operands are by parsing the addressing, and load them into temporary registers</li>
-<li>Do the actual operation, and commit the result, if needed.</li>
-<li>Compute the flags</li>
-</ol>
-</div></blockquote>
+<p>Create an instance of the instruction</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>irsb_c</strong> – The IRSBCustomizer to put VEX instructions into</li>
+<li><strong>bitstrm</strong> – The bitstream to decode instructions from</li>
+<li><strong>addr</strong> – The address of the instruction to be lifted, used only for jumps and branches</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
+<dl class="method">
+<dt id="pyvex.lifting.util.instr_helper.Instruction.fetch_operands">
+<code class="descname">fetch_operands</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.fetch_operands" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the operands out of memory or registers
+Return a tuple of operands for the instruction</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.commit_result">
-<code class="descname">commit_result</code><span class="sig-paren">(</span><em>res</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.commit_result" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.util.instr_helper.Instruction.lift">
+<code class="descname">lift</code><span class="sig-paren">(</span><em>irsb_c</em>, <em>past_instructions</em>, <em>future_instructions</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.lift" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is the main body of the “lifting” for the instruction.
+This can/should be overriden to provide the general flow of how instructions in your arch work.
+For example, in MSP430, this is:</p>
+<ul class="simple">
+<li>Figure out what your operands are by parsing the addressing, and load them into temporary registers</li>
+<li>Do the actual operation, and commit the result, if needed.</li>
+<li>Compute the flags</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyvex.lifting.util.instr_helper.Instruction.commit_result">
+<code class="descname">commit_result</code><span class="sig-paren">(</span><em>res</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.commit_result" title="Permalink to this definition">¶</a></dt>
 <dd><p>This where the result of the operation is written to a destination.
 This happens only if compute_result does not return None, and happens before compute_flags is called.
 Override this to specify how to write out the result.
@@ -895,12 +954,11 @@ A common pattern is to return a function from fetch_operands which will be calle
 </tr>
 </tbody>
 </table>
-<p>:return n/a</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.compute_result">
-<code class="descname">compute_result</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.compute_result" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.util.instr_helper.Instruction.compute_result">
+<code class="descname">compute_result</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.compute_result" title="Permalink to this definition">¶</a></dt>
 <dd><p>This is where the actual operation performed by your instruction, excluding the calculation of flags, should be
 performed.  Return the VexValue of the “result” of the instruction, which may
 be used to calculate the flags later.
@@ -920,17 +978,16 @@ For example, for a simple add, with arguments src and dst, you can simply write:
 </dd></dl>
 
 <dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.compute_flags">
-<code class="descname">compute_flags</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.compute_flags" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.util.instr_helper.Instruction.compute_flags">
+<code class="descname">compute_flags</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.compute_flags" title="Permalink to this definition">¶</a></dt>
 <dd><p>Most CPU architectures have “flags” that should be computed for many instructions.
 Override this to specify how that happens.  One common pattern is to define this method to call specifi methods
-to update each flag, which can then be overriden in the actual classes for each instruction.
-:return: n/a</p>
+to update each flag, which can then be overriden in the actual classes for each instruction.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.match_instruction">
-<code class="descname">match_instruction</code><span class="sig-paren">(</span><em>data</em>, <em>bitstrm</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.match_instruction" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.util.instr_helper.Instruction.match_instruction">
+<code class="descname">match_instruction</code><span class="sig-paren">(</span><em>data</em>, <em>bitstrm</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.match_instruction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Override this to extend the parsing functionality.
 This is great for if your arch has instruction “formats” that have an opcode that has to match.
 :param data:
@@ -939,34 +996,65 @@ This is great for if your arch has instruction “formats” that have an opcode
 </dd></dl>
 
 <dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.disassemble">
-<code class="descname">disassemble</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.disassemble" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.util.instr_helper.Instruction.disassemble">
+<code class="descname">disassemble</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.disassemble" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the disassembly of this instruction, as a string.
-Override this in subclasses.
-:return: The address (self.addr), the instruction’s name, and a list of its operands, as strings</p>
+Override this in subclasses.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The address (self.addr), the instruction’s name, and a list of its operands, as strings</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.load">
-<code class="descname">load</code><span class="sig-paren">(</span><em>addr</em>, <em>ty</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.load" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load a value from memory into a VEX temporary register.
-:param addr: The VexValue containing the addr to load from.
-:param ty: The Type of the resulting data
-:return: a VexValue</p>
+<dt id="pyvex.lifting.util.instr_helper.Instruction.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>addr</em>, <em>ty</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a value from memory into a VEX temporary register.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> – The VexValue containing the addr to load from.</li>
+<li><strong>ty</strong> – The Type of the resulting data</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a VexValue</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.constant">
-<code class="descname">constant</code><span class="sig-paren">(</span><em>val</em>, <em>ty</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.constant" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a constant as a VexValue
-:param val: The value, as an integer
-:param ty: The type of the resulting VexValue
-:return: a VexValue</p>
+<dt id="pyvex.lifting.util.instr_helper.Instruction.constant">
+<code class="descname">constant</code><span class="sig-paren">(</span><em>val</em>, <em>ty</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.constant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a constant as a VexValue</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>val</strong> – The value, as an integer</li>
+<li><strong>ty</strong> – The type of the resulting VexValue</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a VexValue</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.get">
-<code class="descname">get</code><span class="sig-paren">(</span><em>reg</em>, <em>ty</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.get" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.util.instr_helper.Instruction.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>reg</em>, <em>ty</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load a value from a machine register into a VEX temporary register.
 All values must be loaded out of registers before they can be used with operations, etc
 and stored back into them when the instruction is over.  See Put().</p>
@@ -988,53 +1076,145 @@ and stored back into them when the instruction is over.  See Put().</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.put">
-<code class="descname">put</code><span class="sig-paren">(</span><em>val</em>, <em>reg</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.put" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.util.instr_helper.Instruction.put">
+<code class="descname">put</code><span class="sig-paren">(</span><em>val</em>, <em>reg</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.put" title="Permalink to this definition">¶</a></dt>
 <dd><p>Puts a value from a VEX temporary register into a machine register.
-This is how the results of operations done to registers get committed to the machine’s state.
-:param val: The VexValue to store (Want to store a constant? See Constant() first)
-:param reg: The integer register number to store into, or register name
-:return: None</p>
+This is how the results of operations done to registers get committed to the machine’s state.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>val</strong> – The VexValue to store (Want to store a constant? See Constant() first)</li>
+<li><strong>reg</strong> – The integer register number to store into, or register name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.store">
-<code class="descname">store</code><span class="sig-paren">(</span><em>val</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.store" title="Permalink to this definition">¶</a></dt>
-<dd><p>Store a VexValue in memory at the specified loaction.
-:param val: The VexValue of the value to store
-:param addr: The VexValue of the address to store into
-:return: None</p>
+<dt id="pyvex.lifting.util.instr_helper.Instruction.store">
+<code class="descname">store</code><span class="sig-paren">(</span><em>val</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.store" title="Permalink to this definition">¶</a></dt>
+<dd><p>Store a VexValue in memory at the specified loaction.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>val</strong> – The VexValue of the value to store</li>
+<li><strong>addr</strong> – The VexValue of the address to store into</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.jump">
-<code class="descname">jump</code><span class="sig-paren">(</span><em>condition</em>, <em>to_addr</em>, <em>jumpkind='Ijk_Boring'</em>, <em>ip_offset=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.jump" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.util.instr_helper.Instruction.jump">
+<code class="descname">jump</code><span class="sig-paren">(</span><em>condition</em>, <em>to_addr</em>, <em>jumpkind='Ijk_Boring'</em>, <em>ip_offset=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.jump" title="Permalink to this definition">¶</a></dt>
 <dd><p>Jump to a specified destination, under the specified condition.
-Used for branches, jumps, calls, returns, etc.
-:param condition: The VexValue representing the expression for the guard, or None for an unconditional jump
-:param to_addr: The address to jump to.
-:param jumpkind: The JumpKind to use.  See the VEX docs for what these are; you only need them for things
-aren’t normal jumps (e.g., calls, interrupts, program exits, etc etc)
-:return: None</p>
+Used for branches, jumps, calls, returns, etc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>condition</strong> – The VexValue representing the expression for the guard, or None for an unconditional jump</li>
+<li><strong>to_addr</strong> – The address to jump to.</li>
+<li><strong>jumpkind</strong> – The JumpKind to use.  See the VEX docs for what these are; you only need them for things
+aren’t normal jumps (e.g., calls, interrupts, program exits, etc etc)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
-<dt id="pyvex.lift.util.instr_helper.Instruction.ccall">
-<code class="descname">ccall</code><span class="sig-paren">(</span><em>ret_type</em>, <em>func_obj</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lift.util.instr_helper.Instruction.ccall" title="Permalink to this definition">¶</a></dt>
+<dt id="pyvex.lifting.util.instr_helper.Instruction.ccall">
+<code class="descname">ccall</code><span class="sig-paren">(</span><em>ret_type</em>, <em>func_obj</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.instr_helper.Instruction.ccall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a CCall operation.
 A CCall is a procedure that calculates a value at <em>runtime</em>, not at lift-time.
 You can use these for flags, unresolvable jump targets, etc.
 We caution you to avoid using them when at all possible though.</p>
-<p>For an example of how to write and use a CCall, see gymrat/bf/lift_bf.py
-:param ret_type: The return type of the CCall
-:param func_obj: The function object to eventually call.
-:param args: List of arguments to the function
-:return: A VexValue of the result.</p>
+<p>For an example of how to write and use a CCall, see gymrat/bf/lift_bf.py</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ret_type</strong> – The return type of the CCall</li>
+<li><strong>func_obj</strong> – The function object to eventually call.</li>
+<li><strong>args</strong> – List of arguments to the function</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A VexValue of the result.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
 
 </div>
+<div class="section" id="module-pyvex.lifting.zerodivision">
+<span id="builtin-ir-processors"></span><h2>Builtin IR Processors<a class="headerlink" href="#module-pyvex.lifting.zerodivision" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyvex.lifting.zerodivision.ZeroDivisionPostProcessor">
+<em class="property">class </em><code class="descclassname">pyvex.lifting.zerodivision.</code><code class="descname">ZeroDivisionPostProcessor</code><span class="sig-paren">(</span><em>irsb</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.zerodivision.ZeroDivisionPostProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>A postprocessor for adding zero-division checks to VEX.</p>
+<p>For “div rcx”, will turn:</p>
+<blockquote>
+<div>00 | —— IMark(0x8000, 3, 0) ——
+01 | t0 = GET:I64(rcx)
+02 | t1 = GET:I64(rax)
+03 | t2 = GET:I64(rdx)
+04 | t3 = 64HLto128(t2,t1)
+05 | t4 = DivModU128to64(t3,t0)
+06 | t5 = 128to64(t4)
+07 | PUT(rax) = t5
+08 | t6 = 128HIto64(t4)
+09 | PUT(rdx) = t6
+NEXT: PUT(rip) = 0x0000000000008003; Ijk_Boring</div></blockquote>
+<p>into:</p>
+<blockquote>
+<div>00 | —— IMark(0x8000, 3, 0) ——
+01 | t0 = GET:I64(rcx)
+02 | t4 = GET:I64(rax)
+03 | t5 = GET:I64(rdx)
+04 | t3 = 64HLto128(t5,t4)
+05 | t9 = CmpEQ(t0,0x0000000000000000)
+06 | if (t9) { PUT(pc) = 0x8000; Ijk_SigFPE_IntDiv }
+07 | t2 = DivModU128to64(t3,t0)
+08 | t6 = 128to64(t2)
+09 | PUT(rax) = t6
+10 | t7 = 128HIto64(t2)
+11 | PUT(rdx) = t7
+NEXT: PUT(rip) = 0x0000000000008003; Ijk_Boring</div></blockquote>
+<dl class="method">
+<dt id="pyvex.lifting.zerodivision.ZeroDivisionPostProcessor.postprocess">
+<code class="descname">postprocess</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.zerodivision.ZeroDivisionPostProcessor.postprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modify the irsb</p>
+<p>All of the postprocessors will be used in the order that they are registered</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyvex.lifting.fixes"></span></div>
 <div class="section" id="module-pyvex.errors">
 <span id="errors"></span><h2>Errors<a class="headerlink" href="#module-pyvex.errors" title="Permalink to this headline">¶</a></h2>
 <dl class="exception">
@@ -1047,15 +1227,16 @@ We caution you to avoid using them when at all possible though.</p>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="archinfo.html" class="btn btn-neutral float-right" title="archinfo — Arch Information Repository" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="archinfo.html" class="btn btn-neutral float-right" title="archinfo — Arch Information Repository" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="cle.html" class="btn btn-neutral" title="cle — Binary Loader" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cle.html" class="btn btn-neutral" title="cle — Binary Loader" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1068,7 +1249,7 @@ We caution you to avoid using them when at all possible though.</p>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1086,10 +1267,12 @@ We caution you to avoid using them when at all possible though.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.8.2.21',
+            VERSION:'7.8.6.16',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
@@ -1098,19 +1281,13 @@ We caution you to avoid using them when at all possible though.</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

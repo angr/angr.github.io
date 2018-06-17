@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>archinfo — Arch Information Repository &mdash; angr 7.8.2.21 documentation</title>
+  <title>archinfo — Arch Information Repository &mdash; angr 7.8.6.16 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,27 +24,20 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 7.8.2.21 documentation" href="index.html"/>
-        <link rel="prev" title="pyvex — Binary Translator" href="pyvex.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="pyvex — Binary Translator" href="pyvex.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -62,7 +57,7 @@
             
             
               <div class="version">
-                7.8.2.21
+                7.8.6.16
               </div>
             
           
@@ -83,7 +78,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal notranslate"><span class="pre">angr</span></code> — Analysis and Coordination</a></li>
 <li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal notranslate"><span class="pre">claripy</span></code> — Solver Engine</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cle.html"><code class="docutils literal notranslate"><span class="pre">cle</span></code> — Binary Loader</a></li>
@@ -105,34 +103,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">angr</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">angr</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li><code class="docutils literal notranslate"><span class="pre">archinfo</span></code> — Arch Information Repository</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><code class="docutils literal notranslate"><span class="pre">archinfo</span></code> — Arch Information Repository</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/archinfo.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -164,8 +182,42 @@ It is useful for cross-architecture tools (such as pyvex).</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="archinfo.arch.Register">
+<em class="property">class </em><code class="descclassname">archinfo.arch.</code><code class="descname">Register</code><span class="sig-paren">(</span><em>name</em>, <em>size</em>, <em>vex_offset=None</em>, <em>vex_name=None</em>, <em>subregisters=None</em>, <em>alias_names=None</em>, <em>general_purpose=False</em>, <em>floating_point=False</em>, <em>vector=False</em>, <em>argument=False</em>, <em>persistent=False</em>, <em>default_value=None</em>, <em>linux_entry_value=None</em>, <em>concretize_unique=False</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Register" title="Permalink to this definition">¶</a></dt>
+<dd><p>A collection of information about a register. Each different architecture
+has its own list of registers, which is the base for all other
+register-related collections.</p>
+<p>It is, just like for Arch object, assumed that the information is compatible
+with PyVEX.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> (<em>str</em>) – The name of the register</li>
+<li><strong>size</strong> (<em>int</em>) – The size of the register (in bytes)</li>
+<li><strong>vex_offset</strong> (<em>int</em>) – The VEX offset used to identify this register</li>
+<li><strong>vex_name</strong> (<em>str</em>) – The name libVEX uses to identify the register</li>
+<li><strong>subregisters</strong> (<em>list</em>) – The list of subregisters in the form (name, offset from vex_offset, size)</li>
+<li><strong>alias_names</strong> (<em>tuple</em>) – The list of possible alias names</li>
+<li><strong>general_purpose</strong> (<em>bool</em>) – Whether this is a general purpose register</li>
+<li><strong>floating_point</strong> (<em>bool</em>) – Whether this is a floating-point register</li>
+<li><strong>vector</strong> (<em>bool</em>) – Whether this is a vector register</li>
+<li><strong>argument</strong> (<em>bool</em>) – Whether this is an argument register</li>
+<li><strong>persistent</strong> (<em>bool</em>) – Whether this is a persistent register</li>
+<li><strong>default_value</strong> (<em>tuple</em>) – The offset of the instruction pointer in the register file</li>
+<li><strong>str linux_entry_value</strong> (<em>int</em><em>,</em>) – The offset of the instruction pointer in the register file</li>
+<li><strong>concretize_unique</strong> (<em>bool</em>) – Whether this register should be concretized, if unique, at the end of each block</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
 <dt id="archinfo.arch.Arch">
-<em class="property">class </em><code class="descclassname">archinfo.arch.</code><code class="descname">Arch</code><span class="sig-paren">(</span><em>endness</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Arch" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">archinfo.arch.</code><code class="descname">Arch</code><span class="sig-paren">(</span><em>endness</em>, <em>instruction_endness=None</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Arch" title="Permalink to this definition">¶</a></dt>
 <dd><p>A collection of information about a given architecture. This class should be subclasses for each different
 architecture, and then that subclass should be registered with the <code class="docutils literal notranslate"><span class="pre">register_arch</span></code> method.</p>
 <p>A good number of assumptions are made that code is being processed under the VEX IR - for instance, it is expected
@@ -200,12 +252,14 @@ In other words, this controls whether instructions are stored endian-flipped com
 in the ISA manual, and should be flipped when lifted. Iend_BE means “don’t flip”
 NOTE: Only used for non-libVEX lifters.</li>
 <li><strong>sizeof</strong> (<em>dict</em>) – A mapping from C type to variable size in bits</li>
-<li><strong>cs_arch</strong> – The capstone arch value for this arch</li>
-<li><strong>cs_mode</strong> – The capstone mode value for this arch</li>
-<li><strong>uc_arch</strong> – The unicorn engine arch value for this arch</li>
-<li><strong>uc_mode</strong> – The unicorn engine mode value for this arch</li>
-<li><strong>uc_const</strong> – The unicorn engine constants module for this arch</li>
-<li><strong>uc_prefix</strong> – The prefix used for variables in the unicorn engine constants module</li>
+<li><strong>cs_arch</strong> – The Capstone arch value for this arch</li>
+<li><strong>cs_mode</strong> – The Capstone mode value for this arch</li>
+<li><strong>ks_arch</strong> – The Keystone arch value for this arch</li>
+<li><strong>ks_mode</strong> – The Keystone mode value for this arch</li>
+<li><strong>uc_arch</strong> – The Unicorn engine arch value for this arch</li>
+<li><strong>uc_mode</strong> – The Unicorn engine mode value for this arch</li>
+<li><strong>uc_const</strong> – The Unicorn engine constants module for this arch</li>
+<li><strong>uc_prefix</strong> – The prefix used for variables in the Unicorn engine constants module</li>
 <li><strong>function_prologs</strong> (<em>list</em>) – A list of regular expressions matching the bytes for common function prologues</li>
 <li><strong>function_epilogs</strong> (<em>list</em>) – A list of regular expressions matching the bytes for common function epilogues</li>
 <li><strong>ret_instruction</strong> (<em>str</em>) – The bytes for a return instruction</li>
@@ -251,13 +305,36 @@ the general purpose registers.</li>
 <dl class="attribute">
 <dt id="archinfo.arch.Arch.capstone">
 <code class="descname">capstone</code><a class="headerlink" href="#archinfo.arch.Arch.capstone" title="Permalink to this definition">¶</a></dt>
-<dd><p>A capstone instance for this arch</p>
+<dd><p>A Capstone instance for this arch</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="archinfo.arch.Arch.unicorn">
 <code class="descname">unicorn</code><a class="headerlink" href="#archinfo.arch.Arch.unicorn" title="Permalink to this definition">¶</a></dt>
-<dd><p>A unicorn engine instance for this arch</p>
+<dd><p>A Unicorn engine instance for this arch</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="archinfo.arch.Arch.asm">
+<code class="descname">asm</code><span class="sig-paren">(</span><em>string</em>, <em>addr=0</em>, <em>as_bytes=True</em>, <em>thumb=False</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Arch.asm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compile the assembly instruction represented by string using Keystone</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>string</strong> – The textual assembly instructions, separated by semicolons</li>
+<li><strong>addr</strong> – The address at which the text should be assembled, to deal with PC-relative access. Default 0</li>
+<li><strong>as_bytes</strong> – Set to False to return a list of integers instead of a python byte string</li>
+<li><strong>thumb</strong> – If working with an ARM processor, set to True to assemble in thumb mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The assembled bytecode</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -306,7 +383,23 @@ the general purpose registers.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if this Arch is supported by the Capstone engine, False Otherwise.</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if this Arch is supported by the Capstone engine, False otherwise.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="archinfo.arch.Arch.keystone_support">
+<code class="descname">keystone_support</code><a class="headerlink" href="#archinfo.arch.Arch.keystone_support" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether the architecture is supported by the Keystone engine or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if this Arch is supported by the Keystone engine, False otherwise.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
 </tr>
@@ -367,7 +460,7 @@ architecture has no intrinsic endianness.</li>
 <dd><dl class="attribute">
 <dt id="archinfo.arch_amd64.ArchAMD64.capstone_x86_syntax">
 <code class="descname">capstone_x86_syntax</code><a class="headerlink" href="#archinfo.arch_amd64.ArchAMD64.capstone_x86_syntax" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the current syntax capstone uses for x86. It can be ‘intel’ or ‘at&amp;t’</p>
+<dd><p>Get the current syntax Capstone uses for x86. It can be ‘intel’ or ‘at&amp;t’</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -380,12 +473,75 @@ architecture has no intrinsic endianness.</li>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="archinfo.arch_amd64.ArchAMD64.keystone_x86_syntax">
+<code class="descname">keystone_x86_syntax</code><a class="headerlink" href="#archinfo.arch_amd64.ArchAMD64.keystone_x86_syntax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current syntax Keystone uses for x86. It can be ‘intel’,
+‘at&amp;t’, ‘nasm’, ‘masm’, ‘gas’ or ‘radix16’</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Keystone’s current x86 syntax</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="archinfo.arch_amd64.ArchAMD64.asm">
+<code class="descname">asm</code><span class="sig-paren">(</span><em>string</em>, <em>addr=0</em>, <em>as_bytes=True</em>, <em>thumb=False</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_amd64.ArchAMD64.asm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compile the assembly instruction represented by string using Keystone</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>string</strong> – The textual assembly instructions, separated by semicolons</li>
+<li><strong>addr</strong> – The address at which the text should be assembled, to deal with PC-relative access. Default 0</li>
+<li><strong>as_bytes</strong> – Set to False to return a list of integers instead of a python byte string</li>
+<li><strong>thumb</strong> – If working with an ARM processor, set to True to assemble in thumb mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The assembled bytecode</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-archinfo.arch_arm"></span><dl class="class">
 <dt id="archinfo.arch_arm.ArchARM">
 <em class="property">class </em><code class="descclassname">archinfo.arch_arm.</code><code class="descname">ArchARM</code><span class="sig-paren">(</span><em>endness='Iend_LE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_arm.ArchARM" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="method">
+<dt id="archinfo.arch_arm.ArchARM.asm">
+<code class="descname">asm</code><span class="sig-paren">(</span><em>string</em>, <em>addr=0</em>, <em>as_bytes=True</em>, <em>thumb=False</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_arm.ArchARM.asm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compile the assembly instruction represented by string using Keystone</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>string</strong> – The textual assembly instructions, separated by semicolons</li>
+<li><strong>addr</strong> – The address at which the text should be assembled, to deal with PC-relative access. Default 0</li>
+<li><strong>as_bytes</strong> – Set to False to return a list of integers instead of a python byte string</li>
+<li><strong>thumb</strong> – If working with an ARM processor, set to True to assemble in thumb mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The assembled bytecode</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
 
 <dl class="class">
 <dt id="archinfo.arch_arm.ArchARMHF">
@@ -423,7 +579,7 @@ architecture has no intrinsic endianness.</li>
 <dd><dl class="attribute">
 <dt id="archinfo.arch_x86.ArchX86.capstone_x86_syntax">
 <code class="descname">capstone_x86_syntax</code><a class="headerlink" href="#archinfo.arch_x86.ArchX86.capstone_x86_syntax" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the current syntax capstone uses for x86. It can be ‘intel’ or ‘at&amp;t’</p>
+<dd><p>Get the current syntax Capstone uses for x86. It can be ‘intel’ or ‘at&amp;t’</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -436,17 +592,58 @@ architecture has no intrinsic endianness.</li>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="archinfo.arch_x86.ArchX86.keystone_x86_syntax">
+<code class="descname">keystone_x86_syntax</code><a class="headerlink" href="#archinfo.arch_x86.ArchX86.keystone_x86_syntax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current syntax Keystone uses for x86. It can be ‘intel’,
+‘at&amp;t’, ‘nasm’, ‘masm’, ‘gas’ or ‘radix16’</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Keystone’s current x86 syntax</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<span class="target" id="module-archinfo.arch_avr"></span><dl class="class">
-<dt id="archinfo.arch_avr.ArchAVR">
-<em class="property">class </em><code class="descclassname">archinfo.arch_avr.</code><code class="descname">ArchAVR</code><span class="sig-paren">(</span><em>endness='Iend_LE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_avr.ArchAVR" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="method">
+<dt id="archinfo.arch_x86.ArchX86.asm">
+<code class="descname">asm</code><span class="sig-paren">(</span><em>string</em>, <em>addr=0</em>, <em>as_bytes=True</em>, <em>thumb=False</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_x86.ArchX86.asm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compile the assembly instruction represented by string using Keystone</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>string</strong> – The textual assembly instructions, separated by semicolons</li>
+<li><strong>addr</strong> – The address at which the text should be assembled, to deal with PC-relative access. Default 0</li>
+<li><strong>as_bytes</strong> – Set to False to return a list of integers instead of a python byte string</li>
+<li><strong>thumb</strong> – If working with an ARM processor, set to True to assemble in thumb mode.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The assembled bytecode</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
 
 <span class="target" id="module-archinfo.arch_soot"></span><dl class="class">
 <dt id="archinfo.arch_soot.ArchSoot">
 <em class="property">class </em><code class="descclassname">archinfo.arch_soot.</code><code class="descname">ArchSoot</code><span class="sig-paren">(</span><em>endness='Iend_BE'</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_soot.ArchSoot" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="method">
+<dt id="archinfo.arch_soot.ArchSoot.library_search_path">
+<code class="descname">library_search_path</code><span class="sig-paren">(</span><em>pedantic=False</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_soot.ArchSoot.library_search_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of paths in which to search for shared libraries.</p>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="module-archinfo.tls">
@@ -512,13 +709,14 @@ architecture has no intrinsic endianness.</li>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="pyvex.html" class="btn btn-neutral" title="pyvex — Binary Translator" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pyvex.html" class="btn btn-neutral" title="pyvex — Binary Translator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -531,7 +729,7 @@ architecture has no intrinsic endianness.</li>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -549,10 +747,12 @@ architecture has no intrinsic endianness.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.8.2.21',
+            VERSION:'7.8.6.16',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
@@ -561,19 +761,13 @@ architecture has no intrinsic endianness.</li>
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

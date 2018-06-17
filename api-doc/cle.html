@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cle — Binary Loader &mdash; angr 7.8.2.21 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 7.8.6.16 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,28 +24,21 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="angr 7.8.2.21 documentation" href="index.html"/>
-        <link rel="next" title="pyvex — Binary Translator" href="pyvex.html"/>
-        <link rel="prev" title="claripy — Solver Engine" href="claripy.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pyvex — Binary Translator" href="pyvex.html" />
+    <link rel="prev" title="claripy — Solver Engine" href="claripy.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -63,7 +58,7 @@
             
             
               <div class="version">
-                7.8.2.21
+                7.8.6.16
               </div>
             
           
@@ -84,7 +79,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="angr.html"><code class="docutils literal notranslate"><span class="pre">angr</span></code> — Analysis and Coordination</a></li>
 <li class="toctree-l1"><a class="reference internal" href="claripy.html"><code class="docutils literal notranslate"><span class="pre">claripy</span></code> — Solver Engine</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">cle</span></code> — Binary Loader</a><ul>
@@ -109,34 +107,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">angr</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">angr</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li><code class="docutils literal notranslate"><span class="pre">cle</span></code> — Binary Loader</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li><code class="docutils literal notranslate"><span class="pre">cle</span></code> — Binary Loader</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
+            
             <a href="_sources/cle.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -303,6 +321,81 @@ I’m not sure what order they should be run in.</p>
 <dt id="cle.loader.Loader.find_object_containing">
 <code class="descname">find_object_containing</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_object_containing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the object that contains the given address, or None if the address is unmapped.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.loader.Loader.find_segment_containing">
+<code class="descname">find_segment_containing</code><span class="sig-paren">(</span><em>addr</em>, <em>skip_pseudo_objects=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_segment_containing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the section object that the address belongs to.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> (<em>int</em>) – The address to test</li>
+<li><strong>skip_pseudo_objects</strong> (<em>bool</em>) – Skip objects that CLE adds during loading.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The section that the address belongs to, or None if the address does not belong to any section, or if
+section information is not available.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">cle.Segment</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.loader.Loader.find_section_containing">
+<code class="descname">find_section_containing</code><span class="sig-paren">(</span><em>addr</em>, <em>skip_pseudo_objects=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_section_containing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the section object that the address belongs to.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> (<em>int</em>) – The address to test.</li>
+<li><strong>skip_pseudo_objects</strong> (<em>bool</em>) – Skip objects that CLE adds during loading.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The section that the address belongs to, or None if the address does not belong to any section, or if
+section information is not available.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">cle.Section</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.loader.Loader.find_section_next_to">
+<code class="descname">find_section_next_to</code><span class="sig-paren">(</span><em>addr</em>, <em>skip_pseudo_objects=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader.find_section_next_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the next section after the given address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> (<em>int</em>) – The address to test.</li>
+<li><strong>skip_pseudo_objects</strong> (<em>bool</em>) – Skip objects that CLE adds during loading.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The next section that goes after the given address, or None if there is no section after the address,
+or if section information is not available.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">cle.Section</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -506,7 +599,7 @@ before execution reaches the entry point. Addresses should be rebased.</p>
 
 <dl class="staticmethod">
 <dt id="cle.backends.Backend.extract_soname">
-<em class="property">static </em><code class="descname">extract_soname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.extract_soname" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">extract_soname</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.extract_soname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts the shared object identifier from the path, or returns None if it cannot.</p>
 </dd></dl>
 
@@ -620,9 +713,10 @@ Therefore you probably does not want to modify the list.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The highest address of all regions, or None if there is no region available.</td>
 </tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int or None</td>
+</tr>
 </tbody>
 </table>
-<p>rtype:   int or None</p>
 </dd></dl>
 
 <dl class="method">
@@ -650,6 +744,25 @@ Therefore you probably does not want to modify the list.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> (<em>int</em>) – The address.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The region that covers the specific address, or None if no such region is found.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cle.backends.region.Region" title="cle.backends.region.Region">Region</a> or None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.regions.Regions.find_region_next_to">
+<code class="descname">find_region_next_to</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.regions.Regions.find_region_next_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the next region after the given address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> (<em>int</em>) – The address to test.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The next region that goes after the given address, or None if there is no section after the
+address,</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#cle.backends.region.Region" title="cle.backends.region.Region">Region</a> or None</td>
 </tr>
@@ -865,7 +978,7 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 
 <dl class="staticmethod">
 <dt id="cle.backends.elf.metaelf.MetaELF.get_text_offset">
-<em class="property">static </em><code class="descname">get_text_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.metaelf.MetaELF.get_text_offset" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">get_text_offset</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.metaelf.MetaELF.get_text_offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Offset of .text in the binary.</p>
 </dd></dl>
 
@@ -1972,18 +2085,16 @@ just the same as R_ARM_CALL.</p>
 <p>R_ARM_JUMP24 doesn’t need the Thumb check. Technically, if the Thumb check
 succeeds on R_ARM_JUMP24, it’s a bad call that shouldn’t have been generated
 by the linker, so we may as well as just treat it like R_ARM_CALL.</p>
-<p>Class: Static
-Type: ARM (R_ARM_CALL, R_ARM_JUMP24); Deprecated (R_ARM_PC24)
-Code: 1 (R_ARM_PC24), 28 (R_ARM_CALL), 29 (R_ARM_JUMP24)
-Operation: ((S + A) | T) - P</p>
-<blockquote>
-<div><ul class="simple">
-<li>S is the address of the symbol</li>
-<li>A is the addend</li>
-<li>P is the target location (place being relocated)</li>
-<li>T is 1 if the symbol is of type STT_FUNC and addresses a Thumb instruction</li>
+<ul class="simple">
+<li>Class: Static</li>
+<li>Type: ARM (R_ARM_CALL, R_ARM_JUMP24); Deprecated (R_ARM_PC24)</li>
+<li>Code: 1 (R_ARM_PC24), 28 (R_ARM_CALL), 29 (R_ARM_JUMP24)</li>
+<li>Operation: ((S + A) | T) - P
+- S is the address of the symbol
+- A is the addend
+- P is the target location (place being relocated)
+- T is 1 if the symbol is of type STT_FUNC and addresses a Thumb instruction</li>
 </ul>
-</div></blockquote>
 </dd></dl>
 
 <dl class="class">
@@ -1992,18 +2103,16 @@ Operation: ((S + A) | T) - P</p>
 <dd><p>Relocate R_ARM_PREL31 symbols via instruction modification. The difference
 between this and R_ARM_CALL/R_ARM_PC24/R_ARM_JUMP24 is that it’s a data
 relocation</p>
-<p>Class: Static
-Type: Data
-Code: 42
-Operation: ((S + A) | T) - P</p>
-<blockquote>
-<div><ul class="simple">
-<li>S is the address of the symbol</li>
-<li>A is the addend</li>
-<li>P is the target location (place being relocated)</li>
-<li>T is 1 if the symbol is of type STT_FUNC and addresses a Thumb instruction</li>
+<ul class="simple">
+<li>Class: Static</li>
+<li>Type: Data</li>
+<li>Code: 42</li>
+<li>Operation: ((S + A) | T) - P
+- S is the address of the symbol
+- A is the addend
+- P is the target location (place being relocated)
+- T is 1 if the symbol is of type STT_FUNC and addresses a Thumb instruction</li>
 </ul>
-</div></blockquote>
 </dd></dl>
 
 <dl class="class">
@@ -2012,18 +2121,16 @@ Operation: ((S + A) | T) - P</p>
 <dd><p>Relocate R_ARM_REL32 symbols. This is essentially the same as
 generic.GenericPCRelativeAddendReloc with the addition of a check
 for whether or not the target is Thumb.</p>
-<p>Class: Static
-Type: Data
-Code: 3
-Operation: ((S + A) | T) - P</p>
-<blockquote>
-<div><ul class="simple">
-<li>S is the address of the symbol</li>
-<li>A is the addend</li>
-<li>P is the target location (place being relocated)</li>
-<li>T is 1 if the symbol is of type STT_FUNC and addresses a Thumb instruction</li>
+<ul class="simple">
+<li>Class: Static</li>
+<li>Type: Data</li>
+<li>Code: 3</li>
+<li>Operation: ((S + A) | T) - P
+- S is the address of the symbol
+- A is the addend
+- P is the target location (place being relocated)
+- T is 1 if the symbol is of type STT_FUNC and addresses a Thumb instruction</li>
 </ul>
-</div></blockquote>
 </dd></dl>
 
 <dl class="class">
@@ -2032,17 +2139,15 @@ Operation: ((S + A) | T) - P</p>
 <dd><p>Relocate R_ARM_ABS32 symbols. This is essentially the same as
 generic.GenericAbsoluteAddendReloc with the addition of a check
 for whether or not the target is Thumb.</p>
-<p>Class: Static
-Type: Data
-Code: 3
-Operation: (S + A) | T</p>
-<blockquote>
-<div><ul class="simple">
-<li>S is the address of the symbol</li>
-<li>A is the addend</li>
-<li>T is 1 if the symbol is of type STT_FUNC and addresses a Thumb instruction</li>
+<ul class="simple">
+<li>Class: Static</li>
+<li>Type: Data</li>
+<li>Code: 3</li>
+<li>Operation: (S + A) | T
+- S is the address of the symbol
+- A is the addend
+- T is 1 if the symbol is of type STT_FUNC and addresses a Thumb instruction</li>
 </ul>
-</div></blockquote>
 </dd></dl>
 
 <dl class="class">
@@ -2864,15 +2969,16 @@ MVA - mapped VA (loader)
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pyvex.html" class="btn btn-neutral float-right" title="pyvex — Binary Translator" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pyvex.html" class="btn btn-neutral float-right" title="pyvex — Binary Translator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="claripy.html" class="btn btn-neutral" title="claripy — Solver Engine" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="claripy.html" class="btn btn-neutral" title="claripy — Solver Engine" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -2885,7 +2991,7 @@ MVA - mapped VA (loader)
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -2903,10 +3009,12 @@ MVA - mapped VA (loader)
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.8.2.21',
+            VERSION:'7.8.6.16',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
@@ -2915,19 +3023,13 @@ MVA - mapped VA (loader)
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
