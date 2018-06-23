@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>angr — Analysis and Coordination &mdash; angr 7.8.6.16 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 7.8.6.23 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                7.8.6.16
+                7.8.6.23
               </div>
             
           
@@ -341,7 +341,7 @@ replace the hook. If none, warn and replace the hook.</li>
 
 <dl class="method">
 <dt id="angr.project.Project.hook_symbol">
-<code class="descname">hook_symbol</code><span class="sig-paren">(</span><em>symbol_name</em>, <em>obj</em>, <em>kwargs=None</em>, <em>replace=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Project.hook_symbol" title="Permalink to this definition">¶</a></dt>
+<code class="descname">hook_symbol</code><span class="sig-paren">(</span><em>symbol_name</em>, <em>simproc</em>, <em>kwargs=None</em>, <em>replace=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Project.hook_symbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resolve a dependency in a binary. Looks up the address of the given symbol, and then hooks that
 address. If the symbol was not available in the loaded libraries, this address may be provided
 by the CLE externs object.</p>
@@ -355,7 +355,7 @@ functions, in which case it’ll do the right thing.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>symbol_name</strong> – The name of the dependency to resolve.</li>
-<li><strong>obj</strong> – The thing with which to satisfy the dependency.</li>
+<li><strong>simproc</strong> – The SimProcedure instance (or function) with which to hook the symbol</li>
 <li><strong>kwargs</strong> – If you provide a SimProcedure for the hook, these are the keyword
 arguments that will be passed to the procedure’s <cite>run</cite> method
 eventually.</li>
@@ -6398,7 +6398,7 @@ Currently this is only used for stack!</li>
 
 <dl class="method">
 <dt id="angr.state_plugins.abstract_memory.SimAbstractMemory.normalize_address">
-<code class="descname">normalize_address</code><span class="sig-paren">(</span><em>addr</em>, <em>is_write=False</em>, <em>convert_to_valueset=False</em>, <em>target_region=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.abstract_memory.SimAbstractMemory.normalize_address" title="Permalink to this definition">¶</a></dt>
+<code class="descname">normalize_address</code><span class="sig-paren">(</span><em>addr</em>, <em>is_write=False</em>, <em>convert_to_valueset=False</em>, <em>target_region=None</em>, <em>condition=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.abstract_memory.SimAbstractMemory.normalize_address" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a ValueSet object into a list of addresses.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -7243,7 +7243,7 @@ To use an exploration technique, call <code class="docutils literal notranslate"
 
 <dl class="method">
 <dt id="angr.exploration_techniques.ExplorationTechnique.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.ExplorationTechnique.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.ExplorationTechnique.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7302,7 +7302,7 @@ When we run out of active paths to step, we take the longest one from deferred a
 
 <dl class="method">
 <dt id="angr.exploration_techniques.dfs.DFS.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.dfs.DFS.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.dfs.DFS.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7332,7 +7332,7 @@ preemptively avoided.</p>
 
 <dl class="method">
 <dt id="angr.exploration_techniques.explorer.Explorer.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.explorer.Explorer.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.explorer.Explorer.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7362,7 +7362,7 @@ modified state.</p>
 <dd><p>Length limiter on paths.</p>
 <dl class="method">
 <dt id="angr.exploration_techniques.lengthlimiter.LengthLimiter.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.lengthlimiter.LengthLimiter.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.lengthlimiter.LengthLimiter.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7379,7 +7379,7 @@ Paths that exceed the loop limit are moved to a discard stash.</p>
 counts by counting the number of times each basic block is executed in a given stack frame.</p>
 <dl class="method">
 <dt id="angr.exploration_techniques.looplimiter.LoopLimiter.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.looplimiter.LoopLimiter.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.looplimiter.LoopLimiter.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7408,7 +7408,7 @@ modified state.</p>
 
 <dl class="method">
 <dt id="angr.exploration_techniques.manual_mergepoint.ManualMergepoint.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.manual_mergepoint.ManualMergepoint.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.manual_mergepoint.ManualMergepoint.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7429,7 +7429,7 @@ them out to ANA, or first do the former and then (after enough states) the latte
 &#64;param priority_key: a function that takes a state and returns its numberical priority (MAX_INT is lowest priority). By default, self.state_priority will be used, which prioritizes by object ID.</p>
 <dl class="method">
 <dt id="angr.exploration_techniques.spiller.Spiller.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.spiller.Spiller.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.spiller.Spiller.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7445,7 +7445,7 @@ processing.</p>
 This is because of python’s GIL, which says that only one thread at a time may be executing python code.</p>
 <dl class="method">
 <dt id="angr.exploration_techniques.threading.Threading.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.threading.Threading.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.threading.Threading.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7508,7 +7508,7 @@ Default 1, must be greater than 0.</li>
 
 <dl class="method">
 <dt id="angr.exploration_techniques.tracer.Tracer.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.tracer.Tracer.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.tracer.Tracer.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7537,7 +7537,7 @@ processing.</p>
 
 <dl class="method">
 <dt id="angr.exploration_techniques.crash_monitor.CrashMonitor.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.crash_monitor.CrashMonitor.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.crash_monitor.CrashMonitor.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7568,7 +7568,7 @@ state transitions.</p>
 
 <dl class="method">
 <dt id="angr.exploration_techniques.driller_core.DrillerCore.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.driller_core.DrillerCore.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.driller_core.DrillerCore.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7692,7 +7692,7 @@ chance for those states to be explored as well in order to prevent over-fitting.
 <p>Constructor.</p>
 <dl class="method">
 <dt id="angr.exploration_techniques.director.Director.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.director.Director.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.director.Director.step" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -7776,7 +7776,7 @@ Default to moving states that exceed the loop limit to a discard stash.</li>
 
 <dl class="method">
 <dt id="angr.exploration_techniques.loop_seer.LoopSeer.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.loop_seer.LoopSeer.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.loop_seer.LoopSeer.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7817,7 +7817,7 @@ SimulationManager. Default to uncaching the stash to be stepped.</li>
 
 <dl class="method">
 <dt id="angr.exploration_techniques.cacher.Cacher.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.cacher.Cacher.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.cacher.Cacher.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7847,7 +7847,7 @@ When we run out of active paths to step, we start again from the start state.</p
 </table>
 <dl class="method">
 <dt id="angr.exploration_techniques.stochastic.StochasticSearch.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.stochastic.StochasticSearch.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.stochastic.StochasticSearch.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -7884,7 +7884,7 @@ The (L2) distance between the counts of the state addresses in the history of th
 
 <dl class="method">
 <dt id="angr.exploration_techniques.unique.UniqueSearch.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.unique.UniqueSearch.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.unique.UniqueSearch.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
 processing.</p>
 <p>Return the stepped manager.</p>
@@ -12919,7 +12919,7 @@ blocks or not, and obtain the exact block(segment) that the address belongs to.<
 
 <dl class="method">
 <dt id="angr.analyses.cfg.cfg_fast.SegmentList.next_pos_with_sort_not_in">
-<code class="descname">next_pos_with_sort_not_in</code><span class="sig-paren">(</span><em>address</em>, <em>sorts</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_fast.SegmentList.next_pos_with_sort_not_in" title="Permalink to this definition">¶</a></dt>
+<code class="descname">next_pos_with_sort_not_in</code><span class="sig-paren">(</span><em>address</em>, <em>sorts</em>, <em>max_distance=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_fast.SegmentList.next_pos_with_sort_not_in" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the address of the next occupied block whose sort is not one of the specified ones.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -12928,6 +12928,9 @@ blocks or not, and obtain the exact block(segment) that the address belongs to.<
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>address</strong> (<em>int</em>) – The address to begin the search with (including itself).</li>
 <li><strong>sorts</strong> – A collection of sort strings.</li>
+<li><strong>max_distance</strong> – The maximum distance between <cite>address</cite> and the next position. Search will stop after
+we come across an occupied position that is beyond <cite>address</cite> + max_distance. This check
+will be disabled if <cite>max_distance</cite> is set to None.</li>
 </ul>
 </td>
 </tr>
@@ -13226,13 +13229,19 @@ and the exception messages.</p>
 
 <dl class="class">
 <dt id="angr.analyses.cfg.cfg_node.CFGNode">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg.cfg_node.</code><code class="descname">CFGNode</code><span class="sig-paren">(</span><em>addr</em>, <em>size</em>, <em>cfg</em>, <em>callstack=None</em>, <em>input_state=None</em>, <em>simprocedure_name=None</em>, <em>syscall_name=None</em>, <em>looping_times=0</em>, <em>no_ret=False</em>, <em>is_syscall=False</em>, <em>syscall=None</em>, <em>function_address=None</em>, <em>final_states=None</em>, <em>block_id=None</em>, <em>irsb=None</em>, <em>instruction_addrs=None</em>, <em>depth=None</em>, <em>callstack_key=None</em>, <em>creation_failure_info=None</em>, <em>thumb=False</em>, <em>byte_string=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_node.CFGNode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg.cfg_node.</code><code class="descname">CFGNode</code><span class="sig-paren">(</span><em>addr</em>, <em>size</em>, <em>cfg</em>, <em>simprocedure_name=None</em>, <em>is_syscall=False</em>, <em>no_ret=False</em>, <em>function_address=None</em>, <em>block_id=None</em>, <em>irsb=None</em>, <em>instruction_addrs=None</em>, <em>thumb=False</em>, <em>byte_string=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_node.CFGNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class stands for each single node in CFG.</p>
 <p>Note: simprocedure_name is not used to recreate the SimProcedure object. It’s only there for better
 __repr__.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.cfg.cfg_node.CFGNodeA">
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg.cfg_node.</code><code class="descname">CFGNodeA</code><span class="sig-paren">(</span><em>addr</em>, <em>size</em>, <em>cfg</em>, <em>simprocedure_name=None</em>, <em>no_ret=False</em>, <em>function_address=None</em>, <em>block_id=None</em>, <em>irsb=None</em>, <em>instruction_addrs=None</em>, <em>thumb=False</em>, <em>byte_string=None</em>, <em>callstack=None</em>, <em>input_state=None</em>, <em>final_states=None</em>, <em>syscall_name=None</em>, <em>looping_times=0</em>, <em>is_syscall=False</em>, <em>syscall=None</em>, <em>depth=None</em>, <em>callstack_key=None</em>, <em>creation_failure_info=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_node.CFGNodeA" title="Permalink to this definition">¶</a></dt>
+<dd><p>The CFGNode that is used in CFGAccurate.</p>
 <dl class="method">
-<dt id="angr.analyses.cfg.cfg_node.CFGNode.downsize">
-<code class="descname">downsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_node.CFGNode.downsize" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.analyses.cfg.cfg_node.CFGNodeA.downsize">
+<code class="descname">downsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_node.CFGNodeA.downsize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Drop saved states.</p>
 </dd></dl>
 
@@ -16521,7 +16530,7 @@ SimType-based Python representation.</td>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.8.6.16',
+            VERSION:'7.8.6.23',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
