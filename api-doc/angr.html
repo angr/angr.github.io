@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>angr — Analysis and Coordination &mdash; angr 7.8.6.23 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 7.8.7.1 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                7.8.6.23
+                7.8.7.1
               </div>
             
           
@@ -7370,23 +7370,6 @@ processing.</p>
 
 </dd></dl>
 
-<span class="target" id="module-angr.exploration_techniques.looplimiter"></span><dl class="class">
-<dt id="angr.exploration_techniques.looplimiter.LoopLimiter">
-<em class="property">class </em><code class="descclassname">angr.exploration_techniques.looplimiter.</code><code class="descname">LoopLimiter</code><span class="sig-paren">(</span><em>count=5</em>, <em>discard_stash='spinning'</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.looplimiter.LoopLimiter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Limit the number of loops a path may go through.
-Paths that exceed the loop limit are moved to a discard stash.</p>
-<p>Note that this uses the default detect_loops method from Path, which approximates loop
-counts by counting the number of times each basic block is executed in a given stack frame.</p>
-<dl class="method">
-<dt id="angr.exploration_techniques.looplimiter.LoopLimiter.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.looplimiter.LoopLimiter.step" title="Permalink to this definition">¶</a></dt>
-<dd><p>Step this stash of this manager forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the actual
-processing.</p>
-<p>Return the stepped manager.</p>
-</dd></dl>
-
-</dd></dl>
-
 <span class="target" id="module-angr.exploration_techniques.manual_mergepoint"></span><dl class="class">
 <dt id="angr.exploration_techniques.manual_mergepoint.ManualMergepoint">
 <em class="property">class </em><code class="descclassname">angr.exploration_techniques.manual_mergepoint.</code><code class="descname">ManualMergepoint</code><span class="sig-paren">(</span><em>address</em>, <em>wait_counter=10</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.manual_mergepoint.ManualMergepoint" title="Permalink to this definition">¶</a></dt>
@@ -12219,7 +12202,7 @@ instead.</p>
 
 <dl class="class">
 <dt id="angr.analyses.cfg.cfg_accurate.CFGAccurate">
-<em class="property">class </em><code class="descclassname">angr.analyses.cfg.cfg_accurate.</code><code class="descname">CFGAccurate</code><span class="sig-paren">(</span><em>context_sensitivity_level=1</em>, <em>start=None</em>, <em>avoid_runs=None</em>, <em>enable_function_hints=False</em>, <em>call_depth=None</em>, <em>call_tracing_filter=None</em>, <em>initial_state=None</em>, <em>starts=None</em>, <em>keep_state=False</em>, <em>enable_advanced_backward_slicing=False</em>, <em>enable_symbolic_back_traversal=False</em>, <em>additional_edges=None</em>, <em>no_construct=False</em>, <em>normalize=False</em>, <em>max_iterations=1</em>, <em>address_whitelist=None</em>, <em>base_graph=None</em>, <em>iropt_level=None</em>, <em>max_steps=None</em>, <em>state_add_options=None</em>, <em>state_remove_options=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_accurate.CFGAccurate" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.analyses.cfg.cfg_accurate.</code><code class="descname">CFGAccurate</code><span class="sig-paren">(</span><em>context_sensitivity_level=1</em>, <em>start=None</em>, <em>avoid_runs=None</em>, <em>enable_function_hints=False</em>, <em>call_depth=None</em>, <em>call_tracing_filter=None</em>, <em>initial_state=None</em>, <em>starts=None</em>, <em>keep_state=False</em>, <em>indirect_jump_target_limit=100000</em>, <em>enable_indirect_jump_resolvers=True</em>, <em>enable_advanced_backward_slicing=False</em>, <em>enable_symbolic_back_traversal=False</em>, <em>indirect_jump_resolvers=None</em>, <em>additional_edges=None</em>, <em>no_construct=False</em>, <em>normalize=False</em>, <em>max_iterations=1</em>, <em>address_whitelist=None</em>, <em>base_graph=None</em>, <em>iropt_level=None</em>, <em>max_steps=None</em>, <em>state_add_options=None</em>, <em>state_remove_options=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_accurate.CFGAccurate" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class represents a control-flow graph.</p>
 <p>All parameters are optional.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -12242,8 +12225,12 @@ as an integer, a 2-tuple that includes an integer address and a
 jumpkind, or a SimState instance. Unsupported entries in starts will
 lead to an AngrCFGError being raised.</li>
 <li><strong>keep_state</strong> – Whether to keep the SimStates for each CFGNode.</li>
-<li><strong>enable_advanced_backward_slicing</strong> – Whether to enable an intensive technique for resolving direct jumps</li>
+<li><strong>enable_indirect_jump_resolvers</strong> – Whether to enable the indirect jump resolvers for resolving indirect jumps</li>
+<li><strong>enable_advanced_backward_slicing</strong> – Whether to enable an intensive technique for resolving indirect jumps</li>
 <li><strong>enable_symbolic_back_traversal</strong> – Whether to enable an intensive technique for resolving indirect jumps</li>
+<li><strong>indirect_jump_resolvers</strong> (<em>list</em>) – A custom list of indirect jump resolvers. If this list is None or empty,
+default indirect jump resolvers specific to this architecture and binary
+types will be loaded.</li>
 <li><strong>additional_edges</strong> – A dict mapping addresses of basic blocks to addresses of
 successors to manually include and analyze forward from.</li>
 <li><strong>no_construct</strong> (<em>bool</em>) – Skip the construction procedure. Only used in unit-testing.</li>
@@ -14224,26 +14211,6 @@ or memory variables.</li>
 </table>
 </dd></dl>
 
-</dd></dl>
-
-<span class="target" id="module-angr.analyses.dfg"></span><dl class="class">
-<dt id="angr.analyses.dfg.DFG">
-<em class="property">class </em><code class="descclassname">angr.analyses.dfg.</code><code class="descname">DFG</code><span class="sig-paren">(</span><em>cfg=None</em>, <em>annocfg=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.dfg.DFG" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build a Data Flow Grah (DFG) for every basic block of a CFG</p>
-<p>The DFGs are available in the dict self.dfgs where the key
-is a basic block addr and the value a DFG.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>cfg</strong> – A CFG used to get all the basic blocks</li>
-<li><strong>annocfg</strong> – An AnnotatedCFG built from a backward slice used to only build the DFG on the whitelisted statements</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 <span class="target" id="module-angr.engines.light.data"></span><span class="target" id="module-angr.engines.light"></span><span class="target" id="module-angr.engines.light.engine"></span><dl class="class">
@@ -16530,7 +16497,7 @@ SimType-based Python representation.</td>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.8.6.23',
+            VERSION:'7.8.7.1',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

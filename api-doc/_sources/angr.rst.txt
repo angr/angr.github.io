@@ -85,7 +85,6 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.dfs
 .. automodule:: angr.exploration_techniques.explorer
 .. automodule:: angr.exploration_techniques.lengthlimiter
-.. automodule:: angr.exploration_techniques.looplimiter
 .. automodule:: angr.exploration_techniques.manual_mergepoint
 .. automodule:: angr.exploration_techniques.spiller
 .. automodule:: angr.exploration_techniques.threading
@@ -194,7 +193,6 @@ Analysis
 .. automodule:: angr.analyses.decompiler.structured_codegen
 .. automodule:: angr.analyses.decompiler.region_identifier
 .. automodule:: angr.analyses.ddg
-.. automodule:: angr.analyses.dfg
 .. automodule:: angr.engines.light.data
 .. automodule:: angr.engines.light
 .. automodule:: angr.engines.light.engine

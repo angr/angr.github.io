@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyvex — Binary Translator &mdash; angr 7.8.6.23 documentation</title>
+  <title>pyvex — Binary Translator &mdash; angr 7.8.7.1 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                7.8.6.23
+                7.8.7.1
               </div>
             
           
@@ -239,7 +239,7 @@ default exit are used.
 <dl class="attribute">
 <dt id="pyvex.block.IRSB.expressions">
 <code class="descname">expressions</code><a class="headerlink" href="#pyvex.block.IRSB.expressions" title="Permalink to this definition">¶</a></dt>
-<dd><p>A list of all expressions contained in the IRSB.</p>
+<dd><p>Return an iterator of all expressions contained in the IRSB.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -320,6 +320,27 @@ default exit are used.
 <dt id="pyvex.stmt.IRStmt">
 <em class="property">class </em><code class="descclassname">pyvex.stmt.</code><code class="descname">IRStmt</code><a class="headerlink" href="#pyvex.stmt.IRStmt" title="Permalink to this definition">¶</a></dt>
 <dd><p>IR statements in VEX represents operations with side-effects.</p>
+<dl class="method">
+<dt id="pyvex.stmt.IRStmt.replace_expression">
+<code class="descname">replace_expression</code><span class="sig-paren">(</span><em>expr</em>, <em>replacement</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.IRStmt.replace_expression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace child expressions in-place.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> (<a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><em>IRExpr</em></a>) – The expression to look for.</li>
+<li><strong>replacement</strong> (<a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><em>IRExpr</em></a>) – The expression to replace with.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -430,6 +451,27 @@ else it is a Store-Conditional.</p>
 <dd><p>A list of all of the constants that this expression ends up using.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="pyvex.expr.IRExpr.replace_expression">
+<code class="descname">replace_expression</code><span class="sig-paren">(</span><em>expr</em>, <em>replacement</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.IRExpr.replace_expression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace child expressions in-place.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> (<a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><em>IRExpr</em></a>) – The expression to look for.</li>
+<li><strong>replacement</strong> (<a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><em>IRExpr</em></a>) – The expression to replace with.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -458,6 +500,27 @@ else it is a Store-Conditional.</p>
 <dt id="pyvex.expr.RdTmp">
 <em class="property">class </em><code class="descclassname">pyvex.expr.</code><code class="descname">RdTmp</code><span class="sig-paren">(</span><em>tmp</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.RdTmp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the value held by a temporary.</p>
+<dl class="method">
+<dt id="pyvex.expr.RdTmp.replace_expression">
+<code class="descname">replace_expression</code><span class="sig-paren">(</span><em>expr</em>, <em>replacement</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.RdTmp.replace_expression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace child expressions in-place.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> (<a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><em>IRExpr</em></a>) – The expression to look for.</li>
+<li><strong>replacement</strong> (<a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><em>IRExpr</em></a>) – The expression to replace with.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -691,7 +754,7 @@ rotating register files on the guest.</p>
 
 <dl class="function">
 <dt id="pyvex.lifting.lift">
-<code class="descclassname">pyvex.lifting.</code><code class="descname">lift</code><span class="sig-paren">(</span><em>irsb</em>, <em>arch</em>, <em>addr</em>, <em>data</em>, <em>max_bytes=None</em>, <em>max_inst=None</em>, <em>bytes_offset=None</em>, <em>opt_level=1</em>, <em>traceflags=False</em>, <em>strict_block_end=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.lift" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyvex.lifting.</code><code class="descname">lift</code><span class="sig-paren">(</span><em>irsb</em>, <em>arch</em>, <em>addr</em>, <em>data</em>, <em>max_bytes=None</em>, <em>max_inst=None</em>, <em>bytes_offset=None</em>, <em>opt_level=1</em>, <em>traceflags=False</em>, <em>strict_block_end=True</em>, <em>inner=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.lift" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursively lifts blocks using the registered lifters and postprocessors. Tries each lifter in the order in
 which they are registered on the data to lift.</p>
 <p>If a lifter raises a LiftingException on the data, it is skipped.
@@ -1267,7 +1330,7 @@ NEXT: PUT(rip) = 0x0000000000008003; Ijk_Boring</div></blockquote>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.8.6.23',
+            VERSION:'7.8.7.1',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
