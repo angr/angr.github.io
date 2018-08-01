@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyvex — Binary Translator &mdash; angr 7.8.7.1 documentation</title>
+  <title>pyvex — Binary Translator &mdash; angr 7.8.8.1 documentation</title>
   
 
   
@@ -24,19 +24,27 @@
 
   
 
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="archinfo — Arch Information Repository" href="archinfo.html" />
-    <link rel="prev" title="cle — Binary Loader" href="cle.html" /> 
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="angr 7.8.8.1 documentation" href="index.html"/>
+        <link rel="next" title="archinfo — Arch Information Repository" href="archinfo.html"/>
+        <link rel="prev" title="cle — Binary Loader" href="cle.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
    
   <div class="wy-grid-for-nav">
@@ -58,7 +66,7 @@
             
             
               <div class="version">
-                7.8.7.1
+                7.8.8.1
               </div>
             
           
@@ -89,7 +97,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">pyvex</span></code> — Binary Translator</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-pyvex.block">Translation Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pyvex.stmt">IR Components</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.lifting">Lifting System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyvex.data_ref">Lifting System</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pyvex.lifting.zerodivision">Builtin IR Processors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-pyvex.errors">Errors</a></li>
 </ul>
@@ -106,7 +114,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">angr</a>
@@ -114,10 +122,9 @@
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
 
@@ -167,7 +174,7 @@ For an introduction to VEX, take a look here: <a class="reference external" href
 <span id="translation-interface"></span><h2>Translation Interface<a class="headerlink" href="#module-pyvex.block" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyvex.block.IRSB">
-<em class="property">class </em><code class="descclassname">pyvex.block.</code><code class="descname">IRSB</code><span class="sig-paren">(</span><em>data</em>, <em>mem_addr</em>, <em>arch</em>, <em>max_inst=None</em>, <em>max_bytes=None</em>, <em>bytes_offset=0</em>, <em>traceflags=0</em>, <em>opt_level=1</em>, <em>num_inst=None</em>, <em>num_bytes=None</em>, <em>strict_block_end=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRSB" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pyvex.block.</code><code class="descname">IRSB</code><span class="sig-paren">(</span><em>data</em>, <em>mem_addr</em>, <em>arch</em>, <em>max_inst=None</em>, <em>max_bytes=None</em>, <em>bytes_offset=0</em>, <em>traceflags=0</em>, <em>opt_level=1</em>, <em>num_inst=None</em>, <em>num_bytes=None</em>, <em>strict_block_end=False</em>, <em>skip_stmts=False</em>, <em>collect_data_refs=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRSB" title="Permalink to this definition">¶</a></dt>
 <dd><p>The IRSB is the primary interface to pyvex. Constructing one of these will make a call into LibVEX to perform a
 translation.</p>
 <p>IRSB stands for <em>Intermediate Representation Super-Block</em>. An IRSB in VEX is a single-entry, multiple-exit code
@@ -246,6 +253,12 @@ default exit are used.
 <dt id="pyvex.block.IRSB.instructions">
 <code class="descname">instructions</code><a class="headerlink" href="#pyvex.block.IRSB.instructions" title="Permalink to this definition">¶</a></dt>
 <dd><p>The number of instructions in this block</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyvex.block.IRSB.instruction_addresses">
+<code class="descname">instruction_addresses</code><a class="headerlink" href="#pyvex.block.IRSB.instruction_addresses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Addresses of instructions in this block.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -432,7 +445,7 @@ else it is a Store-Conditional.</p>
 <dl class="attribute">
 <dt id="pyvex.stmt.cls">
 <code class="descclassname">pyvex.stmt.</code><code class="descname">cls</code><a class="headerlink" href="#pyvex.stmt.cls" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <a class="reference internal" href="#pyvex.stmt.Dirty" title="pyvex.stmt.Dirty"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyvex.stmt.Dirty</span></code></a></p>
+<dd><p>alias of <a class="reference internal" href="#pyvex.stmt.StoreG" title="pyvex.stmt.StoreG"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyvex.stmt.StoreG</span></code></a></p>
 </dd></dl>
 
 <span class="target" id="module-pyvex.expr"></span><dl class="class">
@@ -745,16 +758,44 @@ rotating register files on the guest.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyvex.lifting">
-<span id="lifting-system"></span><h2>Lifting System<a class="headerlink" href="#module-pyvex.lifting" title="Permalink to this headline">¶</a></h2>
-<dl class="exception">
-<dt id="pyvex.lifting.LiftingException">
-<em class="property">exception </em><code class="descclassname">pyvex.lifting.</code><code class="descname">LiftingException</code><a class="headerlink" href="#pyvex.lifting.LiftingException" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="module-pyvex.data_ref">
+<span id="lifting-system"></span><h2>Lifting System<a class="headerlink" href="#module-pyvex.data_ref" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="pyvex.data_ref.data_ref_type_str">
+<code class="descclassname">pyvex.data_ref.</code><code class="descname">data_ref_type_str</code><span class="sig-paren">(</span><em>dref_enum</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.data_ref.data_ref_type_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translate an <code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">DataRefTypes</span></code> value into a string representation.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyvex.data_ref.DataRef">
+<em class="property">class </em><code class="descclassname">pyvex.data_ref.</code><code class="descname">DataRef</code><span class="sig-paren">(</span><em>data_addr</em>, <em>data_size</em>, <em>data_type</em>, <em>stmt_idx</em>, <em>ins_addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.data_ref.DataRef" title="Permalink to this definition">¶</a></dt>
+<dd><p>A data reference object. Indicates a data access in an IRSB.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data_addr</strong> – The address of the data being accessed</li>
+<li><strong>data_size</strong> – The size of the data being accessed, in bytes</li>
+<li><strong>data_type</strong> – The type of the data, a DataRefTypes enum.</li>
+<li><strong>stmt_idx</strong> – The IRSB statement index containing the data access</li>
+<li><strong>ins_addr</strong> – The address of the instruction performing the data access</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pyvex.data_ref.DataRef.data_type_str">
+<code class="descname">data_type_str</code><a class="headerlink" href="#pyvex.data_ref.DataRef.data_type_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>The data ref type as a string, “unknown” “integer” “fp” or “INVALID”</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-pyvex.lifting"></span><dl class="function">
 <dt id="pyvex.lifting.lift">
-<code class="descclassname">pyvex.lifting.</code><code class="descname">lift</code><span class="sig-paren">(</span><em>irsb</em>, <em>arch</em>, <em>addr</em>, <em>data</em>, <em>max_bytes=None</em>, <em>max_inst=None</em>, <em>bytes_offset=None</em>, <em>opt_level=1</em>, <em>traceflags=False</em>, <em>strict_block_end=True</em>, <em>inner=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.lift" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pyvex.lifting.</code><code class="descname">lift</code><span class="sig-paren">(</span><em>data</em>, <em>addr</em>, <em>arch</em>, <em>max_bytes=None</em>, <em>max_inst=None</em>, <em>bytes_offset=0</em>, <em>opt_level=1</em>, <em>traceflags=0</em>, <em>strict_block_end=True</em>, <em>inner=False</em>, <em>skip_stmts=False</em>, <em>collect_data_refs=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.lift" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursively lifts blocks using the registered lifters and postprocessors. Tries each lifter in the order in
 which they are registered on the data to lift.</p>
 <p>If a lifter raises a LiftingException on the data, it is skipped.
@@ -765,7 +806,6 @@ of the data and if they work, their output is appended to the first block.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>irsb</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">IRSB</span></code>) – The IRSB to set to the lifted block (overriden by the lifted block)</li>
 <li><strong>arch</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.Arch</span></code>) – The arch to lift the data as.</li>
 <li><strong>addr</strong> – The starting address of the block. Effects the IMarks.</li>
 <li><strong>data</strong> – The bytes to lift as either a python string of bytes or a cffi buffer object.</li>
@@ -810,61 +850,7 @@ in which they are registered. Postprocessors will be run in registration order.<
 </table>
 </dd></dl>
 
-<span class="target" id="module-pyvex.lifting.libvex"></span><dl class="class">
-<dt id="pyvex.lifting.libvex.LibVEXLifter">
-<em class="property">class </em><code class="descclassname">pyvex.lifting.libvex.</code><code class="descname">LibVEXLifter</code><span class="sig-paren">(</span><em>arch</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.libvex.LibVEXLifter" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
-<dt id="pyvex.lifting.libvex.LibVEXLifter.lift">
-<code class="descname">lift</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.libvex.LibVEXLifter.lift" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lifts the data using the information passed into _lift. Should be overridden in child classes.</p>
-<p>Should set the lifted IRSB to self.irsb.
-If a lifter raises a LiftingException on the data, this signals that the lifter cannot lift this data and arch
-and the lifter is skipped.
-If a lifter can lift any amount of data, it should lift it and return the lifted block with a jumpkind of
-Ijk_NoDecode, signalling to pyvex that other lifters should be used on the undecodable data.</p>
-</dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-pyvex.lifting.lifter"></span><dl class="class">
-<dt id="pyvex.lifting.lifter.Lifter">
-<em class="property">class </em><code class="descclassname">pyvex.lifting.lifter.</code><code class="descname">Lifter</code><span class="sig-paren">(</span><em>arch</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.lifter.Lifter" title="Permalink to this definition">¶</a></dt>
-<dd><p>A lifter is a class of methods for processing a block.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><strong>data</strong> – The bytes to lift as either a python string of bytes or a cffi buffer object.</li>
-<li><strong>bytes_offset</strong> – The offset into <cite>data</cite> to start lifting at.</li>
-<li><strong>max_bytes</strong> – The maximum number of bytes to lift. If set to None, no byte limit is used.</li>
-<li><strong>max_inst</strong> – The maximum number of instructions to lift. If set to None, no instruction limit is used.</li>
-<li><strong>opt_level</strong> – The level of optimization to apply to the IR, 0-2. Most likely will be ignored in any lifter
-other then LibVEX.</li>
-<li><strong>traceflags</strong> – The libVEX traceflags, controlling VEX debug prints. Most likely will be ignored in any lifter
-other than LibVEX.</li>
-<li><strong>allow_lookback</strong> – Should the LibVEX arm-thumb lifter be allowed to look before the current instruction pointer.
-Most likely will be ignored in any lifter other than LibVEX.</li>
-<li><strong>strict_block_end</strong> – Should the LibVEX arm-thumb split block at some instructions, for example CB{N}Z.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="pyvex.lifting.lifter.Lifter.lift">
-<code class="descname">lift</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.lifter.Lifter.lift" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lifts the data using the information passed into _lift. Should be overridden in child classes.</p>
-<p>Should set the lifted IRSB to self.irsb.
-If a lifter raises a LiftingException on the data, this signals that the lifter cannot lift this data and arch
-and the lifter is skipped.
-If a lifter can lift any amount of data, it should lift it and return the lifted block with a jumpkind of
-Ijk_NoDecode, signalling to pyvex that other lifters should be used on the undecodable data.</p>
-</dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-pyvex.lifting.post_processor"></span><span class="target" id="module-pyvex.lifting.util.irsb_postprocess"></span><dl class="function">
+<span class="target" id="module-pyvex.lifting.libvex"></span><span class="target" id="module-pyvex.lifting.lifter"></span><span class="target" id="module-pyvex.lifting.post_processor"></span><span class="target" id="module-pyvex.lifting.util.irsb_postprocess"></span><dl class="function">
 <dt id="pyvex.lifting.util.irsb_postprocess.irsb_postproc_flatten">
 <code class="descclassname">pyvex.lifting.util.irsb_postprocess.</code><code class="descname">irsb_postproc_flatten</code><span class="sig-paren">(</span><em>irsb_old</em>, <em>irsb_new=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.util.irsb_postprocess.irsb_postproc_flatten" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
@@ -1277,7 +1263,7 @@ NEXT: PUT(rip) = 0x0000000000008003; Ijk_Boring</div></blockquote>
 
 </dd></dl>
 
-<span class="target" id="module-pyvex.lifting.fixes"></span></div>
+</div>
 <div class="section" id="module-pyvex.errors">
 <span id="errors"></span><h2>Errors<a class="headerlink" href="#module-pyvex.errors" title="Permalink to this headline">¶</a></h2>
 <dl class="exception">
@@ -1285,12 +1271,32 @@ NEXT: PUT(rip) = 0x0000000000008003; Ijk_Boring</div></blockquote>
 <em class="property">exception </em><code class="descclassname">pyvex.errors.</code><code class="descname">PyVEXError</code><a class="headerlink" href="#pyvex.errors.PyVEXError" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="exception">
+<dt id="pyvex.errors.LiftingException">
+<em class="property">exception </em><code class="descclassname">pyvex.errors.</code><code class="descname">LiftingException</code><a class="headerlink" href="#pyvex.errors.LiftingException" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="pyvex.errors.NeedStatementsNotification">
+<em class="property">exception </em><code class="descclassname">pyvex.errors.</code><code class="descname">NeedStatementsNotification</code><a class="headerlink" href="#pyvex.errors.NeedStatementsNotification" title="Permalink to this definition">¶</a></dt>
+<dd><p>A post-processor may raise a NeedStatementsNotification if it needs to work with statements, but the current IRSB
+is generated without any statement available (skip_stmts=True). The lifter will re-lift the current block with
+skip_stmts=False upon catching a NeedStatementsNotification, and re-run the post-processors.</p>
+<p>It’s worth noting that if a post-processor always raises this notification for every basic block without statements,
+it will essentially disable the skipping statement optimization, and it is bad for performance (especially for
+CFGFast, which heavily relies on this optimization). Post-processor authors are encouraged to at least filter the
+IRSBs based on available properties (jumpkind, next, etc.). If a post-processor must work with statements for the
+majority of IRSBs, the author should implement it in PyVEX in C for the sake of a better performance.</p>
+</dd></dl>
+
 </div>
 </div>
 
 
            </div>
-           
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -1312,7 +1318,7 @@ NEXT: PUT(rip) = 0x0000000000008003; Ijk_Boring</div></blockquote>
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1330,8 +1336,7 @@ NEXT: PUT(rip) = 0x0000000000008003; Ijk_Boring</div></blockquote>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.8.7.1',
-            LANGUAGE:'None',
+            VERSION:'7.8.8.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -1344,13 +1349,19 @@ NEXT: PUT(rip) = 0x0000000000008003; Ijk_Boring</div></blockquote>
 
   
 
-  <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>

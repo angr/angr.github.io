@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cle — Binary Loader &mdash; angr 7.8.7.1 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 7.8.8.1 documentation</title>
   
 
   
@@ -24,19 +24,27 @@
 
   
 
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pyvex — Binary Translator" href="pyvex.html" />
-    <link rel="prev" title="claripy — Solver Engine" href="claripy.html" /> 
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="angr 7.8.8.1 documentation" href="index.html"/>
+        <link rel="next" title="pyvex — Binary Translator" href="pyvex.html"/>
+        <link rel="prev" title="claripy — Solver Engine" href="claripy.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav" role="document">
 
    
   <div class="wy-grid-for-nav">
@@ -58,7 +66,7 @@
             
             
               <div class="version">
-                7.8.7.1
+                7.8.8.1
               </div>
             
           
@@ -107,7 +115,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">angr</a>
@@ -115,10 +123,9 @@
       </nav>
 
 
+      
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
           
 
 
@@ -616,7 +623,7 @@ before execution reaches the entry point. Addresses should be rebased.</p>
 
 <dl class="staticmethod">
 <dt id="cle.backends.Backend.extract_soname">
-<em class="property">static </em><code class="descname">extract_soname</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.extract_soname" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">extract_soname</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.extract_soname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts the shared object identifier from the path, or returns None if it cannot.</p>
 </dd></dl>
 
@@ -995,7 +1002,7 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 
 <dl class="staticmethod">
 <dt id="cle.backends.elf.metaelf.MetaELF.get_text_offset">
-<em class="property">static </em><code class="descname">get_text_offset</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.metaelf.MetaELF.get_text_offset" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">get_text_offset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.metaelf.MetaELF.get_text_offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Offset of .text in the binary.</p>
 </dd></dl>
 
@@ -1560,6 +1567,88 @@ the address <cite>new_val</cite> inline (instead of updating GOT slots). Don’t
 
 </dd></dl>
 
+<span class="target" id="module-cle.backends.binja"></span><dl class="class">
+<dt id="cle.backends.binja.BinjaSymbol">
+<em class="property">class </em><code class="descclassname">cle.backends.binja.</code><code class="descname">BinjaSymbol</code><span class="sig-paren">(</span><em>owner</em>, <em>sym</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.binja.BinjaSymbol" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.binja.BinjaReloc">
+<em class="property">class </em><code class="descclassname">cle.backends.binja.</code><code class="descname">BinjaReloc</code><span class="sig-paren">(</span><em>owner</em>, <em>symbol</em>, <em>relative_addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.binja.BinjaReloc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.binja.BinjaBin">
+<em class="property">class </em><code class="descclassname">cle.backends.binja.</code><code class="descname">BinjaBin</code><span class="sig-paren">(</span><em>binary</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.binja.BinjaBin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get information from binaries using Binary Ninja. Basing this on idabin.py, but will try to be more complete.
+TODO: add more features as Binary Ninja’s feature set improves</p>
+<dl class="method">
+<dt id="cle.backends.binja.BinjaBin.in_which_segment">
+<code class="descname">in_which_segment</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.binja.BinjaBin.in_which_segment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the segment name at address <cite>addr</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.binja.BinjaBin.get_symbol_addr">
+<code class="descname">get_symbol_addr</code><span class="sig-paren">(</span><em>sym</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.binja.BinjaBin.get_symbol_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the address of the symbol <cite>sym</cite> from IDA.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An address.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.binja.BinjaBin.function_name">
+<code class="descname">function_name</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.binja.BinjaBin.function_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the function name at address <cite>addr</cite>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.binja.BinjaBin.min_addr">
+<code class="descname">min_addr</code><a class="headerlink" href="#cle.backends.binja.BinjaBin.min_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Get the min address of the binary. (note</em> – this is probably not “right”)</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.binja.BinjaBin.max_addr">
+<code class="descname">max_addr</code><a class="headerlink" href="#cle.backends.binja.BinjaBin.max_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the max address of the binary.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.binja.BinjaBin.get_strings">
+<code class="descname">get_strings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.binja.BinjaBin.get_strings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract strings from binary (Binary Ninja).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An array of strings.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.binja.BinjaBin.set_got_entry">
+<code class="descname">set_got_entry</code><span class="sig-paren">(</span><em>name</em>, <em>newaddr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.binja.BinjaBin.set_got_entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolve import <cite>name</cite> with address <cite>newaddr</cite>. That is, update the GOT entry for <cite>name</cite> with <cite>newaddr</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.binja.BinjaBin.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.binja.BinjaBin.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Release the BinaryView we created in __init__
+:return: None</p>
+</dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-cle.backends.soot"></span><dl class="class">
 <dt id="cle.backends.soot.Soot">
 <em class="property">class </em><code class="descclassname">cle.backends.soot.</code><code class="descname">Soot</code><span class="sig-paren">(</span><em>path</em>, <em>additional_jars=None</em>, <em>additional_jar_roots=None</em>, <em>main_class=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.soot.Soot" title="Permalink to this definition">¶</a></dt>
@@ -1870,7 +1959,23 @@ object it came from.</p>
 <dl class="class">
 <dt id="cle.backends.elf.relocation.ppc.R_PPC_JMP_SLOT">
 <em class="property">class </em><code class="descclassname">cle.backends.elf.relocation.ppc.</code><code class="descname">R_PPC_JMP_SLOT</code><span class="sig-paren">(</span><em>owner</em>, <em>symbol</em>, <em>relative_addr</em>, <em>addend=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.ppc.R_PPC_JMP_SLOT" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="method">
+<dt id="cle.backends.elf.relocation.ppc.R_PPC_JMP_SLOT.relocate">
+<code class="descname">relocate</code><span class="sig-paren">(</span><em>solist</em>, <em>bypass_compatibility=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.ppc.R_PPC_JMP_SLOT.relocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies this relocation. Will make changes to the memory object of the
+object it came from.</p>
+<p>This implementation is a generic version that can be overridden in subclasses.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>solist</strong> – A list of objects from which to resolve symbols.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
 
 <dl class="class">
 <dt id="cle.backends.elf.relocation.ppc.R_PPC_RELATIVE">
@@ -2781,7 +2886,9 @@ except to make it seem like the data has actually been patched by the given patc
 
 
            </div>
-           
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
@@ -2803,7 +2910,7 @@ except to make it seem like the data has actually been patched by the given patc
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -2821,8 +2928,7 @@ except to make it seem like the data has actually been patched by the given patc
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'7.8.7.1',
-            LANGUAGE:'None',
+            VERSION:'7.8.8.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
@@ -2835,13 +2941,19 @@ except to make it seem like the data has actually been patched by the given patc
 
   
 
-  <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
 
+  
+  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
+          SphinxRtdTheme.StickyNav.enable();
       });
-  </script> 
+  </script>
+   
 
 </body>
 </html>
