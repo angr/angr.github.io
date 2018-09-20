@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blogs on angr</title>
-    <link>https://nilocunger.github.io/blog/</link>
+    <link>https://angr.github.io/blog/</link>
     <description>Recent content in Blogs on angr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 18 Jan 2018 19:41:03 -0800</lastBuildDate>
     
-	<atom:link href="https://nilocunger.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://angr.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>throwing a tantrum, part 4: vex and gymrat</title>
-      <link>https://nilocunger.github.io/blog/throwing_a_tantrum_part_4/</link>
+      <link>https://angr.github.io/blog/throwing_a_tantrum_part_4/</link>
       <pubDate>Thu, 18 Jan 2018 19:41:03 -0800</pubDate>
       
-      <guid>https://nilocunger.github.io/blog/throwing_a_tantrum_part_4/</guid>
+      <guid>https://angr.github.io/blog/throwing_a_tantrum_part_4/</guid>
       <description>In order for angr to perform any sort of analysis on binary code, we need to first translate, or lift, this code into an intermediate representation (IR) that angr uses, called VEX.
 VEX is the IR used by the Valgrind analysis tools. angr uses the libvex library also used by Valgrind, etc. to lift code, and uses its pyvex package to provide a pythonic interface to the resulting IR objects.</description>
     </item>
     
     <item>
       <title>throwing a tantrum, part 3: loaders</title>
-      <link>https://nilocunger.github.io/blog/throwing_a_tantrum_part_3/</link>
+      <link>https://angr.github.io/blog/throwing_a_tantrum_part_3/</link>
       <pubDate>Thu, 18 Jan 2018 19:41:02 -0800</pubDate>
       
-      <guid>https://nilocunger.github.io/blog/throwing_a_tantrum_part_3/</guid>
+      <guid>https://angr.github.io/blog/throwing_a_tantrum_part_3/</guid>
       <description>Now we&amp;rsquo;re going to focus on the first actual step in the process of analyzing a program: Figuring out what it even is, and loading it into our system&amp;rsquo;s memory somehow.
 CLE: CLE Loads Everything The angr suite uses CLE to load binaries. It serves as a logical implementation of the Linux loader first and foremost, but supports other OSes and formats through a series of &amp;ldquo;backends&amp;rdquo;.
 CLE is given, by angr, a path to the &amp;ldquo;main binary&amp;rdquo;.</description>
@@ -34,48 +34,48 @@ CLE is given, by angr, a path to the &amp;ldquo;main binary&amp;rdquo;.</descrip
     
     <item>
       <title>throwing a tantrum, part 2: architectures</title>
-      <link>https://nilocunger.github.io/blog/throwing_a_tantrum_part_2/</link>
+      <link>https://angr.github.io/blog/throwing_a_tantrum_part_2/</link>
       <pubDate>Thu, 18 Jan 2018 19:40:58 -0800</pubDate>
       
-      <guid>https://nilocunger.github.io/blog/throwing_a_tantrum_part_2/</guid>
+      <guid>https://angr.github.io/blog/throwing_a_tantrum_part_2/</guid>
       <description>Since this is a tutorial about extending the core parts of angr, we should start by focusing on how to extend the core-est of core parts: the architecture support! Pretty much every piece of angr&amp;rsquo;s suite involves, in some way, specific information about the architecture of the program you&amp;rsquo;re analyzing. Dealing with all this low-level architecture stuff is part of what makes binaries a pain in the rear to analyze, but angr abstracts most of it away for you in the archinfo class, which is used by everything else to make the code flexible and platform-independent!</description>
     </item>
     
     <item>
       <title>throwing a tantrum, part 1: angr internals</title>
-      <link>https://nilocunger.github.io/blog/throwing_a_tantrum_part_1/</link>
+      <link>https://angr.github.io/blog/throwing_a_tantrum_part_1/</link>
       <pubDate>Thu, 18 Jan 2018 18:51:25 -0800</pubDate>
       
-      <guid>https://nilocunger.github.io/blog/throwing_a_tantrum_part_1/</guid>
+      <guid>https://angr.github.io/blog/throwing_a_tantrum_part_1/</guid>
       <description>In this n+1-part series, we will be exploring how you can extend angr with new features, without editing angr itself!
 angr is the popular framework for analyzing binary programs, from embedded firmware, to hardcore CTF challenges, all from the comfort of Python. angr&amp;rsquo;s roots lie in the Valgrind VEX instrumentation framework, meaning it benefits from the multi-architecture support and community maintenance. However, we live in a big world full of crazy things that aren&amp;rsquo;t Intel or ARM-based Linux machines.</description>
     </item>
     
     <item>
       <title>throwing a tantrum</title>
-      <link>https://nilocunger.github.io/blog/throwing_a_tantrum_index/</link>
+      <link>https://angr.github.io/blog/throwing_a_tantrum_index/</link>
       <pubDate>Thu, 18 Jan 2018 18:51:24 -0800</pubDate>
       
-      <guid>https://nilocunger.github.io/blog/throwing_a_tantrum_index/</guid>
+      <guid>https://angr.github.io/blog/throwing_a_tantrum_index/</guid>
       <description>Welcome to the Throwing a Tantrum tutorial! In this n+1-part series, we will be exploring how you can extend angr with new features without editing angr itself. We&amp;rsquo;ll be covering a range of topics from gymrat to Analyses, and including a plethora of examples and explanations along the way. If you&amp;rsquo;re interested in learning how to port angr to a new architecture, write a custom engine or analysis, or even (gasp) use angr to analyze BrainFuck programs, then read on.</description>
     </item>
     
     <item>
       <title>angr blog starting up again</title>
-      <link>https://nilocunger.github.io/blog/angr_blog_starting_up_again/</link>
+      <link>https://angr.github.io/blog/angr_blog_starting_up_again/</link>
       <pubDate>Mon, 15 Jan 2018 15:48:59 -0800</pubDate>
       
-      <guid>https://nilocunger.github.io/blog/angr_blog_starting_up_again/</guid>
+      <guid>https://angr.github.io/blog/angr_blog_starting_up_again/</guid>
       <description>Like most New Year resolutions, we did a pretty terrible job of continuing to post on the angr blog throughout 2017. We learned from this, so this time we&amp;rsquo;re making an May resolution and bringing the angr blog back!
 We know that angr can be pretty unapproachable and that while we have examples, they&amp;rsquo;re generally a little short on the thought process that underlies our solutions. On this blog, we&amp;rsquo;ll be posting many examples with abundant explanation, announcements and tutorials covering new angr features, and in-depth looks at parts of angr you&amp;rsquo;ve never though about before.</description>
     </item>
     
     <item>
       <title>angr&#39;s new year resolutions</title>
-      <link>https://nilocunger.github.io/blog/new_years_resolutions_2017/</link>
+      <link>https://angr.github.io/blog/new_years_resolutions_2017/</link>
       <pubDate>Mon, 15 Jan 2018 15:35:26 -0800</pubDate>
       
-      <guid>https://nilocunger.github.io/blog/new_years_resolutions_2017/</guid>
+      <guid>https://angr.github.io/blog/new_years_resolutions_2017/</guid>
       <description>From academic research to the Cyber Grand Challenge, angr has had a busy 2016! Now that the angr team is (mostly) back from the holidays, it&amp;rsquo;s time to plan a busy and successful 2017. For this year, we are looking at three major areas of improvement: usability, contributability, and applicability.
 Usability First, we would like to make angr more approachable and usable by the community. We recognize that, in its current state, angr is very hard to get started with.</description>
     </item>

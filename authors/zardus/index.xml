@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zardus on angr</title>
-    <link>https://nilocunger.github.io/authors/zardus/</link>
+    <link>https://angr.github.io/authors/zardus/</link>
     <description>Recent content in Zardus on angr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 15 Jan 2018 15:35:26 -0800</lastBuildDate>
     
-	<atom:link href="https://nilocunger.github.io/authors/zardus/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://angr.github.io/authors/zardus/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>angr&#39;s new year resolutions</title>
-      <link>https://nilocunger.github.io/blog/new_years_resolutions_2017/</link>
+      <link>https://angr.github.io/blog/new_years_resolutions_2017/</link>
       <pubDate>Mon, 15 Jan 2018 15:35:26 -0800</pubDate>
       
-      <guid>https://nilocunger.github.io/blog/new_years_resolutions_2017/</guid>
+      <guid>https://angr.github.io/blog/new_years_resolutions_2017/</guid>
       <description>From academic research to the Cyber Grand Challenge, angr has had a busy 2016! Now that the angr team is (mostly) back from the holidays, it&amp;rsquo;s time to plan a busy and successful 2017. For this year, we are looking at three major areas of improvement: usability, contributability, and applicability.
 Usability First, we would like to make angr more approachable and usable by the community. We recognize that, in its current state, angr is very hard to get started with.</description>
     </item>

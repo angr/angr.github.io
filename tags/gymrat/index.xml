@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Gymrat on angr</title>
-    <link>https://nilocunger.github.io/tags/gymrat/</link>
+    <link>https://angr.github.io/tags/gymrat/</link>
     <description>Recent content in Gymrat on angr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 18 Jan 2018 19:41:03 -0800</lastBuildDate>
     
-	<atom:link href="https://nilocunger.github.io/tags/gymrat/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://angr.github.io/tags/gymrat/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>throwing a tantrum, part 4: vex and gymrat</title>
-      <link>https://nilocunger.github.io/blog/throwing_a_tantrum_part_4/</link>
+      <link>https://angr.github.io/blog/throwing_a_tantrum_part_4/</link>
       <pubDate>Thu, 18 Jan 2018 19:41:03 -0800</pubDate>
       
-      <guid>https://nilocunger.github.io/blog/throwing_a_tantrum_part_4/</guid>
+      <guid>https://angr.github.io/blog/throwing_a_tantrum_part_4/</guid>
       <description>In order for angr to perform any sort of analysis on binary code, we need to first translate, or lift, this code into an intermediate representation (IR) that angr uses, called VEX.
 VEX is the IR used by the Valgrind analysis tools. angr uses the libvex library also used by Valgrind, etc. to lift code, and uses its pyvex package to provide a pythonic interface to the resulting IR objects.</description>
     </item>
