@@ -6,10 +6,19 @@
     <description>Recent content in Tags on angr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jan 2018 15:35:26 -0800</lastBuildDate>
+    <lastBuildDate>Wed, 26 Sep 2018 14:14:02 -0700</lastBuildDate>
     
 	<atom:link href="https://angr.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Angr8</title>
+      <link>https://angr.github.io/tags/angr8/</link>
+      <pubDate>Wed, 26 Sep 2018 14:14:02 -0700</pubDate>
+      
+      <guid>https://angr.github.io/tags/angr8/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Announcement</title>
@@ -89,6 +98,15 @@
       <pubDate>Thu, 18 Jan 2018 19:41:03 -0800</pubDate>
       
       <guid>https://angr.github.io/tags/pyvex/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Release</title>
+      <link>https://angr.github.io/tags/release/</link>
+      <pubDate>Wed, 26 Sep 2018 14:14:02 -0700</pubDate>
+      
+      <guid>https://angr.github.io/tags/release/</guid>
       <description></description>
     </item>
     

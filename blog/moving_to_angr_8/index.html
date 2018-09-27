@@ -1,0 +1,125 @@
+<!DOCTYPE rowhtm>
+<html>
+<head>
+  <link rel="stylesheet" href="https://angr.github.io/css/main.css">
+  <link rel="stylesheet" href="https://angr.github.io/css/syntax.css">
+  <link rel="stylesheet" href="https://angr.github.io/css/pure-min.css">
+  <link rel="stylesheet" href="https://angr.github.io/css/single.css">
+  <style type="text/css">
+    .hidden { display: none; }
+  </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/no_foac.js"></script>
+  <script type="text/javascript" src="/js/clicky.js"></script>
+</head>
+<body>
+<header id="header">
+  <div id="topbar">
+    <div id="title">
+      <a href="https://angr.github.io/" class="nohighlight">
+        angr
+        <img id="logo" src="https://angr.github.io/img/angry_face.png">
+      </a>
+    </div>
+    <ul id="nav">
+      <div id="prompt">&gt;&gt;&gt;</div>
+      
+        <a href="/"><li>home</li></a>
+      
+        <a href="/blog"><li>blog</li></a>
+      
+        <a href="http://docs.angr.io/"><li>docs</li></a>
+      
+        <a href="https://github.com/angr"><li>code</li></a>
+      
+        <a href="/#contact"><li>get involved!</li></a>
+      
+    </ul>
+  </div>
+</header>
+<div id="bodycolumn">
+
+<h1>angr 8 release</h1>
+
+<div class="subtext">
+  
+  
+    Posted in
+    
+      <a href="https://angr.github.io//tags/release" class="tag">
+	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
+        release
+      </a>
+    
+      <a href="https://angr.github.io//tags/angr8" class="tag">
+	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
+        angr8
+      </a>
+    
+  
+  
+    &nbsp;by
+    
+      <a href="https://angr.github.io//authors/lockshaw" class="tag">
+	<img src="https://angr.github.io/img/author.png" height="8px" width="8px">
+	lockshaw
+      </a>
+    
+  
+</div>
+
+
+<section class="post-content">
+
+
+<p>The angr team is happy to announce the release of a new major version of angr, angr 8!
+angr 8 brings a variety of large and potentially breaking improvements, as well as a bunch of smaller bugfixes.
+The highlights are listed below, but we also recommend checking the angr 8 section of the <a href="https://docs.angr.io/CHANGELOG.html">Changelog</a> for a list of the major changes and the <a href="https://docs.angr.io/MIGRATION.html">Migration Guide</a> for help in migrating your project to angr 8.</p>
+
+<p>As always, to contact the angr team please reach out on <a href="http://angr.slack.com">our slack</a>.
+You can request an invitation <a href="/invite">here</a>.
+For more information on how to get involved with the angr project, see <a href="/#contact">here</a>.</p>
+
+<h1 id="highlights">Highlights:</h1>
+
+<h2 id="python-3-migration">Python 3 Migration</h2>
+
+<p>The largest change in angr 8 is the migration to Python 3. <strong>As of angr 8, angr will be dropping all Python 2 support and moving to Python 3</strong>.
+For now, we will be targeting Python 3.5, with plans to eventually move to 3.6.
+The last Python 2-compatible angr release is version 7.8.9.26.
+This release pins the version numbers of all its dependencies so it should hopefully work far into the future.
+If you need any help migrating your code to Python 3, please see the <a href="https://docs.angr.io/MIGRATION.html">Migration Guide</a>.</p>
+
+<h2 id="clemory-api-refactor">Clemory API Refactor</h2>
+
+<p>With the upgrade to Python 3 come a number of changes to the Clemory API (<code>project.loader.memory</code>) around replacing the Python 2 string type with Python 3&rsquo;s <code>bytes</code>.
+This should make working with Clemory easier, as well as yield significant performance benefits.
+We also recommend no longer using the <code>cbackers</code> and <code>read_bytes_c</code> functions, since the improved performance makes them unnecessary.
+Except for this, migrating code to use the new API should be relatively easy.
+For a detailed explanation of the changes, see the <a href="https://docs.angr.io/MIGRATION.html">Migration Guide</a>. Thanks to <strong>@rhelmot</strong> for the refactor!</p>
+
+<p>For those interested, the commit with most of the changes can be found <a href="https://github.com/angr/cle/commit/d1b518736e48abe67cfdf0fc1b18f09cf88f17d9">here</a>.</p>
+
+<h2 id="up-to-5x-speedup-in-cfgfast">Up to 5x Speedup in CFGFast</h2>
+
+<p>Driven by the need to recover the CFG of a large blob, the angr team has significantly improved the performance of CFGFast.
+Amongst other things, angr is now able to lift blocks without converting their statements into Python objects, perform more of the analysis in C, and avoid lifting any basic block more than once.
+All combined, we&rsquo;ve seen this give a more than 5x speedup on large binaries!
+For changes and benchmarking details, see <a href="https://github.com/angr/angr/pull/1092">PR #1092</a>.
+Thanks to <strong>@KevOrr</strong> for the binary that motivated the changes and <strong>@ltfish</strong> for the optimizations!</p>
+
+</section>
+
+<br>
+</div>
+<div id="footer">
+  <p>angr owes its existence to research sponsored by DARPA under agreement number
+  <a href="http://www.darpa.mil/program/vetting-commodity-it-software-and-firmware">N66001-13-2-4039</a>!</p>
+  <p>Site icons provided by <a href="https://www.flaticon.com/authors/icomoon">Icomoon</a> and <a href="http://www.freepik.com">Freepik</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</a></p>
+  <p>For questions, hop on <a href="http://angr.slack.com">our slack</a> (get an invite <a href="/invite">here</a>)
+  or contact the angr mailing list:
+  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;%61%6e%67%72@%6c%69%73%74%73.%63%73.%75%63%73%62.%65%64%75">angr&nbsp;~at~&nbsp;lists.cs.ucsb.edu</a>
+  </div>
+</body>
+</html>
+

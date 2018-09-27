@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Release on angr</title>
+    <link>https://angr.github.io/tags/release/</link>
+    <description>Recent content in Release on angr</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 26 Sep 2018 14:14:02 -0700</lastBuildDate>
+    
+	<atom:link href="https://angr.github.io/tags/release/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>angr 8 release</title>
+      <link>https://angr.github.io/blog/moving_to_angr_8/</link>
+      <pubDate>Wed, 26 Sep 2018 14:14:02 -0700</pubDate>
+      
+      <guid>https://angr.github.io/blog/moving_to_angr_8/</guid>
+      <description>The angr team is happy to announce the release of a new major version of angr, angr 8! angr 8 brings a variety of large and potentially breaking improvements, as well as a bunch of smaller bugfixes. The highlights are listed below, but we also recommend checking the angr 8 section of the Changelog for a list of the major changes and the Migration Guide for help in migrating your project to angr 8.</description>
+    </item>
+    
+  </channel>
+</rss>

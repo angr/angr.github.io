@@ -118,7 +118,7 @@ In this guide, we&rsquo;re going to build the most insanely overkill BrainFuck a
 
 <p>If you&rsquo;ve used angr before, you&rsquo;ve probably done this:
 (blatantly stolen from <a href="https://github.com/angr/angr-doc/tree/master/examples/fauxware">angr-doc&rsquo;s fauxware example</a>)</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">angr</span>
+<div class="highlight"><pre class="chroma"><code class="language-sc" data-lang="sc"><span class="kn">import</span> <span class="nn">angr</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="s2">&#34;crackme&#34;</span><span class="p">)</span>
 <span class="n">state</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">entry_state</span><span class="p">()</span>
 <span class="n">sm</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">simgr</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
