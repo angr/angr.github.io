@@ -41,53 +41,6 @@
 
 <h1>throwing a tantrum, part 4: vex and gymrat</h1>
 
-<div class="subtext">
-  
-  
-    Posted in
-    
-      <a href="https://angr.github.io//tags/tutorial" class="tag">
-	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
-        tutorial
-      </a>
-    
-      <a href="https://angr.github.io//tags/extending_angr" class="tag">
-	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
-        extending angr
-      </a>
-    
-      <a href="https://angr.github.io//tags/gymrat" class="tag">
-	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
-        gymrat
-      </a>
-    
-      <a href="https://angr.github.io//tags/pyvex" class="tag">
-	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
-        pyvex
-      </a>
-    
-      <a href="https://angr.github.io//tags/throwing_a_tantrum" class="tag">
-	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
-        throwing a tantrum
-      </a>
-    
-  
-  
-    &nbsp;by
-    
-      <a href="https://angr.github.io//authors/subwire" class="tag">
-	<img src="https://angr.github.io/img/author.png" height="8px" width="8px">
-	subwire
-      </a>
-    
-      <a href="https://angr.github.io//authors/lockshaw" class="tag">
-	<img src="https://angr.github.io/img/author.png" height="8px" width="8px">
-	lockshaw
-      </a>
-    
-  
-</div>
-
 
 <section class="post-content">
 
@@ -100,11 +53,11 @@
 
 <p>That&rsquo;s where the <code>gymrat</code> framework included with newer versions of pyvex comes in. Gymrat&rsquo;s goal is to make lifting just about anything easy, by moving the focus from messing with parsing and bits and what not, to simply and quickly specifying what the instructions actually <em>do</em>, which is magically translated into VEX.</p>
 
-<h2 id="building-your-workout-plan">Building your workout plan</h2>
+<h2 id="building-your-workout-plan:2e92144f4eec386310ffce722950f193">Building your workout plan</h2>
 
 <p>Before you jump into lifting, you&rsquo;re going to need some sort of plan on how to structure your lifter, to make the process easier, and to make auditing the result less painful.</p>
 
-<h2 id="know-your-body">Know your body</h2>
+<h2 id="know-your-body:2e92144f4eec386310ffce722950f193">Know your body</h2>
 
 <p>The most important part of this planning process is becoming familiar with your chosen architecture, and particularly its instructions. We touched on <code>archinfo</code> in a previous part of this tutorial, and we assume you have already built the <code>archinfo</code> class for your architecture, with all of the register maps, and so on. In this section, we will be using the BF and MSP430 examples introduced earlier to demonstrate how we designed the lifters, and why.</p>
 
@@ -128,12 +81,12 @@ Instructions can set one of four flags (Carry, Negative, Zero, and Overflow), al
 
 <p>This means, in summary, that there is some logic that&rsquo;s common to all instructions, and some common to each type.  There are, of course edge cases, but all of this can be specified neatly using <code>gymrat</code>.</p>
 
-<h2 id="know-your-equipment">Know your equipment</h2>
+<h2 id="know-your-equipment:2e92144f4eec386310ffce722950f193">Know your equipment</h2>
 
 <p>Here we will introduce briefly the primary classes used to write a lifter using <code>gymrat</code>.
 All of the following are contained in <code>pyvex.util</code>:</p>
 
-<h3 id="gymratlifter">GymratLifter</h3>
+<h3 id="gymratlifter:2e92144f4eec386310ffce722950f193">GymratLifter</h3>
 
 <p>This is the actual lifter class used by <code>pyvex</code>.
 You will need to make a subclass of this, and provide a property <code>instrs</code> containing a list of possible instruction classes.
@@ -141,14 +94,14 @@ You will need to make a subclass of this, and provide a property <code>instrs</c
 By default, GymratLifter will try using every instruction contained in <code>instrs</code> until one succeeds.
 Don&rsquo;t forget to call <code>pyvex.lift.register()</code> to tell pyvex that your new lifter exists.</p>
 
-<h3 id="type">Type</h3>
+<h3 id="type:2e92144f4eec386310ffce722950f193">Type</h3>
 
 <p>In the binary world, a &ldquo;type&rdquo; here merely denodes how many bits wide a value is, and how it is interpreted (int, float, etc)
 This class uses &ldquo;type imagination&rdquo;, don&rsquo;t worry about what sizes it supports, it will make them up for you.
 Simply use <code>Type.int_16</code> for a 16-bit integer, or even <code>Type.int_9</code> if you really want to (cLEMENCy you say? Yeah, we can do that.)
 You&rsquo;ll see these mentioned around as the argument named <code>ty</code>.</p>
 
-<h3 id="instruction">Instruction</h3>
+<h3 id="instruction:2e92144f4eec386310ffce722950f193">Instruction</h3>
 
 <p>You should create a class for every instruction in your architecture, which should be subclasses of <code>Instruction</code>.  Instructions receive the bitstream given to the lifter, and attempt to match it with a format string (<code>self.bin_format</code>), which both identifies that this is the correct instruction, and parses the various operands and flags.  Format strings are specified similar to how many ISA documents will; for example, a 2-operand instruction, with fixed bits of 1101, and 2x2 bits of mode flags, could look like <code>1101ssssmmddddMM</code>.  The instruction would only match if it started with 1101, and each similarly-lettered bit would be extracted into a dictionary keyed by the letter.</p>
 
@@ -179,7 +132,7 @@ You may want to extend this to implement changes in how data is parsed, based on
 
 <p>(Note: there is also <code>ccall()</code>; If you have something really messed up you don&rsquo;t think you can express correctly, such as something that needs extensive runtime information, you may need a ccall, but try to avoid it if you can.  See the python docs for info.)</p>
 
-<h3 id="vexvalue">VexValue</h3>
+<h3 id="vexvalue:2e92144f4eec386310ffce722950f193">VexValue</h3>
 
 <p>What are all these &lsquo;temprary values&rsquo;? How do I actually specify what instructions do? That&rsquo;s the magic of <code>VexValue</code>.
 In VEX, you cannot do operations directly on registers or memory.  They must be first loaded into a temporary variable, operated on, and then written back to the registers or memory.  We wanted the lifter author to think as little about this as possible, so VexValue makes this whole process a snap.</p>
@@ -192,14 +145,16 @@ You can even fetch bits using python&rsquo;s slice and index notation!</p>
 Of course you have to xor, but what about the types? What&rsquo;s the VEX operation for xor? Weird expressions for the flags?</p>
 
 <p>Nah.</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">compute_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">src</span> <span class="o">^</span> <span class="n">dst</span></code></pre></div>
+    def compute_result(self, src, dst):
+        return src ^ dst
+
 <p>Or something boolean:</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">carry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">ret</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span></code></pre></div>
+    def carry(self, src, dst, ret):
+        return ret != 0
+
 <p>It&rsquo;s pretty magic.</p>
 
-<h2 id="use-the-proper-form">Use the proper form</h2>
+<h2 id="use-the-proper-form:2e92144f4eec386310ffce722950f193">Use the proper form</h2>
 
 <p>As in exercise, using the proper form when lifting is better for your health, and just makes things work better.
 Its time to put the two sections above together and make your lifter&rsquo;s design. A good lifter design, like any other piece of software, must minimize the amount of repetative code, while still being readable.  In particular, we&rsquo;d like to make the structure of our lifter as close to that of the documentation, to allow for better manual auditing.</p>
@@ -214,7 +169,7 @@ Because the three types have their own opcode, we define <code>match_instruction
 
 <p>Finally, we will create a class for each instruction, subclassing the appropriate type, and providing only the <code>opcode</code> (to be matched in <code>match_instruction</code>), the <code>compute_result</code> function, which returns the value to be committed, and the computation of any flags the instruction modifies.</p>
 
-<h2 id="time-to-get-swole">Time to get swole!</h2>
+<h2 id="time-to-get-swole:2e92144f4eec386310ffce722950f193">Time to get swole!</h2>
 
 <p>While we aimed these features to spare the user from thinking about an IR as much as possible (did you notice we told you almost nothing about how the IR actually works?), there&rsquo;s no magical formula for getting totally shredded, or for lifting every architecture.  CPU architectures, like human bodies, are different, and have their own quirks, so the best thing we can do is give you really in-depth examples.</p>
 

@@ -41,48 +41,6 @@
 
 <h1>throwing a tantrum, part 1: angr internals</h1>
 
-<div class="subtext">
-  
-  
-    Posted in
-    
-      <a href="https://angr.github.io//tags/tutorial" class="tag">
-	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
-        tutorial
-      </a>
-    
-      <a href="https://angr.github.io//tags/extending_angr" class="tag">
-	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
-        extending angr
-      </a>
-    
-      <a href="https://angr.github.io//tags/internals" class="tag">
-	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
-        internals
-      </a>
-    
-      <a href="https://angr.github.io//tags/throwing_a_tantrum" class="tag">
-	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
-        throwing a tantrum
-      </a>
-    
-  
-  
-    &nbsp;by
-    
-      <a href="https://angr.github.io//authors/subwire" class="tag">
-	<img src="https://angr.github.io/img/author.png" height="8px" width="8px">
-	subwire
-      </a>
-    
-      <a href="https://angr.github.io//authors/lockshaw" class="tag">
-	<img src="https://angr.github.io/img/author.png" height="8px" width="8px">
-	lockshaw
-      </a>
-    
-  
-</div>
-
 
 <section class="post-content">
 
@@ -114,16 +72,17 @@ In this guide, we&rsquo;re going to build the most insanely overkill BrainFuck a
 
 <p>First, let&rsquo;s go over the components themselves, and how they fit together.</p>
 
-<h1 id="the-angr-lifecycle">The angr lifecycle</h1>
+<h1 id="the-angr-lifecycle:37fe22cd38873400578b57198cb3f903">The angr lifecycle</h1>
 
 <p>If you&rsquo;ve used angr before, you&rsquo;ve probably done this:
 (blatantly stolen from <a href="https://github.com/angr/angr-doc/tree/master/examples/fauxware">angr-doc&rsquo;s fauxware example</a>)</p>
-<div class="highlight"><pre class="chroma"><code class="language-sc" data-lang="sc"><span class="kn">import</span> <span class="nn">angr</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="s2">&#34;crackme&#34;</span><span class="p">)</span>
-<span class="n">state</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">entry_state</span><span class="p">()</span>
-<span class="n">sm</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">simgr</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-<span class="n">sm</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">until</span><span class="o">=</span><span class="k">lambda</span> <span class="n">lpg</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">lpg</span><span class="o">.</span><span class="n">active</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">input_0</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">active</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">posix</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></code></pre></div>
+import angr
+p = angr.Project("crackme")
+state = p.factory.entry_state()
+sm = p.factory.simgr(state)
+sm.step(until=lambda lpg: len(lpg.active) > 1)
+input_0 = sm.active[0].posix.dumps(0)
+
 <p>That&rsquo;s only a few lines, but there&rsquo;s a whole lot going on here.
 In that little snippet, we load a binary, lift it from machine-code to an intermediate representation that we can reason about a bit more mathematically (VEX, by default), execute representation symbolically, and finally, print the input we needed to give the program to get to the first real branch, computed using a SMT-solver.</p>
 
@@ -133,7 +92,7 @@ In that little snippet, we load a binary, lift it from machine-code to an interm
 </div>
 
 
-<h2 id="cle-the-loader">CLE, the loader</h2>
+<h2 id="cle-the-loader:37fe22cd38873400578b57198cb3f903">CLE, the loader</h2>
 
 <p>The first thing that happens when you create an angr project is angr has to figure out what the heck you just told it to load.
 For this, it turns to the loader, CLE (CLE Loads Everythig) to come up with an educated guess, extract the executable code and data from whatever format it&rsquo;s in, take a guess as what architecture it&rsquo;s for, and create a representation of the program&rsquo;s memory map as if the real loader had been used.
@@ -142,7 +101,7 @@ For the common cases, this means loading an ELF, which brings with it the compli
 It also supports the exact opposite of this, pure binary blobs, with a backend that just takes the bytes and puts them in the right place in memory.
 The result is a Loader object, which has the memory of the main program itself (<code>Loader.main_object</code>) and any libraries.</p>
 
-<h2 id="archinfo-the-architecture-db">Archinfo, the architecture DB</h2>
+<h2 id="archinfo-the-architecture-db:37fe22cd38873400578b57198cb3f903">Archinfo, the architecture DB</h2>
 
 <p>During CLE&rsquo;s loading, it takes a guess as to what architecture the program is for.
 This is usually via either a header (as in ELFs) or some simple heuristic.
@@ -150,7 +109,7 @@ Either way, it makes a guess, and uses it to fetch an <code>Arch</code> object f
 This contains a map of the register file, bit width, usual endian-ness, and so on.
 Literally everything else relies on this, as you can imagine.</p>
 
-<h2 id="simengine-the-simulated-executer">SimEngine, the simulated executer</h2>
+<h2 id="simengine-the-simulated-executer:37fe22cd38873400578b57198cb3f903">SimEngine, the simulated executer</h2>
 
 <p>Next, angr will locate an execution engine capable of dealing with the code it just loaded.
 Engines are responsible for interpreting the code in some meaningful way.
@@ -158,13 +117,13 @@ Fundamentally, they take a program&rsquo;s <em>state</em>&ndash; a snapshot of t
 When branches are encountered, they collect <em>constraints</em> on the state which capture the conditions needed to take each path of the branch.
 In aggregate, this is what gives angr its reasoning power.</p>
 
-<h2 id="pyvex-the-lifter">PyVEX, the lifter</h2>
+<h2 id="pyvex-the-lifter:37fe22cd38873400578b57198cb3f903">PyVEX, the lifter</h2>
 
 <p>angr&rsquo;s default engine, SimEngineVEX, supports many architectures, simply because it doesn&rsquo;t run on their machine code directly. It uses an intermediate representation, known as VEX, which machine code is translated (<em>lifted</em>) into.
 As an alternative to creating your own engine for a new architecture, if it is similar enough to a &ldquo;normal&rdquo; PC architecture, the faster solution is to simply create a Lifter for it, allowing SimEngineVEX to take care of the rest.
 We will explore both Lifters and Engines in this guide.</p>
 
-<h2 id="claripy-the-solver">Claripy, the solver</h2>
+<h2 id="claripy-the-solver:37fe22cd38873400578b57198cb3f903">Claripy, the solver</h2>
 
 <p>Every action an engine performs, even something as simple as incrementing the program counter, is not necessarily an operation on a concrete value.
 The value could instead be a complicated expression, that when computed on, should actually result in an even bigger expression.
@@ -172,7 +131,7 @@ Creating, composing, and eventually solving these is Claripy&rsquo;s job.
 Claripy uses a SMT-solver, currently Microsoft&rsquo;s Z3, to do all of this heavy-lifting.
 Thankfully, we won&rsquo;t need to delve into that in this series, as SMT-solving is some serious black magic.</p>
 
-<h2 id="simos-the-rest-of-the-nasty-bits">SimOS, the rest of the nasty bits</h2>
+<h2 id="simos-the-rest-of-the-nasty-bits:37fe22cd38873400578b57198cb3f903">SimOS, the rest of the nasty bits</h2>
 
 <p>If we just view the engine&rsquo;s work on a program from the states it provides, we&rsquo;re going to have a lot of work to do to get anything useful out.
 Where is stdin? What the heck do I do with files? Network? Are you kidding?
@@ -181,7 +140,7 @@ Therefore, SimOS&rsquo; job is to provide all of that to angr, so that it can be
 Based on a guess from CLE, a SimOS is created (ex. SimLinux), which defines the OS-specific embellishments on the initial state of the program, all its system calls, and convenient symbolic summaries of what syscalls and common library functions do, known as <em>SimProcedures</em>.
 These make angr dramatically faster and more compatible, as symbolically executing libc itself is, to say the least, insanely painful.</p>
 
-<h1 id="angr-the-real-deal">angr, the real deal</h1>
+<h1 id="angr-the-real-deal:37fe22cd38873400578b57198cb3f903">angr, the real deal</h1>
 
 <p>Finally, with a Loader, an Engine, an Arch, and a SimOS, we can get to work!
 All of this is packaged into a Project, and offered to the higher-level analyses, such as Control-flow Graph reconstruction, program slicing, and path-based reasoning, as in the earlier example.</p>
