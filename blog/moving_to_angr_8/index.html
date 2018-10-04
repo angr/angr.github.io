@@ -42,33 +42,6 @@
 
 <h1>angr 8 release</h1>
 
-<div class="subtext">
-  
-  
-    Posted in
-    
-      <a href="https://angr.github.io//tags/release" class="tag">
-	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
-        release
-      </a>
-    
-      <a href="https://angr.github.io//tags/angr8" class="tag">
-	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
-        angr8
-      </a>
-    
-  
-  
-    &nbsp;by
-    
-      <a href="https://angr.github.io//authors/lockshaw" class="tag">
-	<img src="https://angr.github.io/img/author.png" height="8px" width="8px">
-	lockshaw
-      </a>
-    
-  
-</div>
-
 
 <section class="post-content">
 
@@ -81,9 +54,9 @@ The highlights are listed below, but we also recommend checking the angr 8 secti
 You can request an invitation <a href="/invite">here</a>.
 For more information on how to get involved with the angr project, see <a href="/#contact">here</a>.</p>
 
-<h1 id="highlights">Highlights:</h1>
+<h1 id="highlights:1d36e95f164f5af3003b95ca5346ba1a">Highlights:</h1>
 
-<h2 id="python-3-migration">Python 3 Migration</h2>
+<h2 id="python-3-migration:1d36e95f164f5af3003b95ca5346ba1a">Python 3 Migration</h2>
 
 <p>The largest change in angr 8 is the migration to Python 3. <strong>As of angr 8, angr will be dropping all Python 2 support and moving to Python 3</strong>.
 For now, we will be targeting Python 3.5, with plans to eventually move to 3.6.
@@ -91,7 +64,7 @@ The last Python 2-compatible angr release is version 7.8.9.26.
 This release pins the version numbers of all its dependencies so it should hopefully work far into the future.
 If you need any help migrating your code to Python 3, please see the <a href="https://docs.angr.io/MIGRATION.html">Migration Guide</a>.</p>
 
-<h2 id="clemory-api-refactor">Clemory API Refactor</h2>
+<h2 id="clemory-api-refactor:1d36e95f164f5af3003b95ca5346ba1a">Clemory API Refactor</h2>
 
 <p>With the upgrade to Python 3 come a number of changes to the Clemory API (<code>project.loader.memory</code>) around replacing the Python 2 string type with Python 3&rsquo;s <code>bytes</code>.
 This should make working with Clemory easier, as well as yield significant performance benefits.
@@ -101,7 +74,7 @@ For a detailed explanation of the changes, see the <a href="https://docs.angr.io
 
 <p>For those interested, the commit with most of the changes can be found <a href="https://github.com/angr/cle/commit/d1b518736e48abe67cfdf0fc1b18f09cf88f17d9">here</a>.</p>
 
-<h2 id="up-to-5x-speedup-in-cfgfast">Up to 5x Speedup in CFGFast</h2>
+<h2 id="up-to-5x-speedup-in-cfgfast:1d36e95f164f5af3003b95ca5346ba1a">Up to 5x Speedup in CFGFast</h2>
 
 <p>Driven by the need to recover the CFG of a large blob, the angr team has significantly improved the performance of CFGFast.
 Amongst other things, angr is now able to lift blocks without converting their statements into Python objects, perform more of the analysis in C, and avoid lifting any basic block more than once.

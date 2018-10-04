@@ -6,9 +6,7 @@
     <description>Recent content in Tops on angr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    
-	<atom:link href="https://angr.github.io/top/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="https://angr.github.io/top/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title></title>
@@ -16,8 +14,18 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://angr.github.io/invite/</guid>
-      <description>How do I get a slack invite? To get an automatic slack invite, submit this form:
- Email address: Affiliation (university, company, country, anything!): How are you planning on using angr?   </description>
+      <description>&lt;p&gt;&lt;h2&gt;How do I get a slack invite?&lt;/h2&gt;
+&lt;p&gt;To get an automatic slack invite, submit this form:&lt;/p&gt;
+&lt;form method=POST action=&#34;https://maker.ifttt.com/trigger/angr_slack_invite/with/key/c38ZfBEsChSCJjfkniPW2G&#34;&gt;
+  &lt;div&gt;
+    Email address: &lt;input name=&#34;value1&#34;&gt;&lt;br&gt;
+    Affiliation (university, company, country, anything!): &lt;input name=&#34;value2&#34;&gt;&lt;br&gt;
+    How are you planning on using angr? &lt;input name=&#34;value3&#34;&gt;&lt;br&gt;
+    &lt;input type=submit&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+&lt;br&gt;&lt;/p&gt;
+</description>
     </item>
     
   </channel>

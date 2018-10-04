@@ -7,9 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 26 Sep 2018 14:14:02 -0700</lastBuildDate>
-    
-	<atom:link href="https://angr.github.io/tags/release/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="https://angr.github.io/tags/release/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>angr 8 release</title>
@@ -17,7 +15,44 @@
       <pubDate>Wed, 26 Sep 2018 14:14:02 -0700</pubDate>
       
       <guid>https://angr.github.io/blog/moving_to_angr_8/</guid>
-      <description>The angr team is happy to announce the release of a new major version of angr, angr 8! angr 8 brings a variety of large and potentially breaking improvements, as well as a bunch of smaller bugfixes. The highlights are listed below, but we also recommend checking the angr 8 section of the Changelog for a list of the major changes and the Migration Guide for help in migrating your project to angr 8.</description>
+      <description>
+
+&lt;p&gt;The angr team is happy to announce the release of a new major version of angr, angr 8!
+angr 8 brings a variety of large and potentially breaking improvements, as well as a bunch of smaller bugfixes.
+The highlights are listed below, but we also recommend checking the angr 8 section of the &lt;a href=&#34;https://docs.angr.io/CHANGELOG.html&#34;&gt;Changelog&lt;/a&gt; for a list of the major changes and the &lt;a href=&#34;https://docs.angr.io/MIGRATION.html&#34;&gt;Migration Guide&lt;/a&gt; for help in migrating your project to angr 8.&lt;/p&gt;
+
+&lt;p&gt;As always, to contact the angr team please reach out on &lt;a href=&#34;http://angr.slack.com&#34;&gt;our slack&lt;/a&gt;.
+You can request an invitation &lt;a href=&#34;https://angr.github.io/invite&#34;&gt;here&lt;/a&gt;.
+For more information on how to get involved with the angr project, see &lt;a href=&#34;https://angr.github.io/#contact&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;highlights:1d36e95f164f5af3003b95ca5346ba1a&#34;&gt;Highlights:&lt;/h1&gt;
+
+&lt;h2 id=&#34;python-3-migration:1d36e95f164f5af3003b95ca5346ba1a&#34;&gt;Python 3 Migration&lt;/h2&gt;
+
+&lt;p&gt;The largest change in angr 8 is the migration to Python 3. &lt;strong&gt;As of angr 8, angr will be dropping all Python 2 support and moving to Python 3&lt;/strong&gt;.
+For now, we will be targeting Python 3.5, with plans to eventually move to 3.6.
+The last Python 2-compatible angr release is version 7.8.9.26.
+This release pins the version numbers of all its dependencies so it should hopefully work far into the future.
+If you need any help migrating your code to Python 3, please see the &lt;a href=&#34;https://docs.angr.io/MIGRATION.html&#34;&gt;Migration Guide&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;clemory-api-refactor:1d36e95f164f5af3003b95ca5346ba1a&#34;&gt;Clemory API Refactor&lt;/h2&gt;
+
+&lt;p&gt;With the upgrade to Python 3 come a number of changes to the Clemory API (&lt;code&gt;project.loader.memory&lt;/code&gt;) around replacing the Python 2 string type with Python 3&amp;rsquo;s &lt;code&gt;bytes&lt;/code&gt;.
+This should make working with Clemory easier, as well as yield significant performance benefits.
+We also recommend no longer using the &lt;code&gt;cbackers&lt;/code&gt; and &lt;code&gt;read_bytes_c&lt;/code&gt; functions, since the improved performance makes them unnecessary.
+Except for this, migrating code to use the new API should be relatively easy.
+For a detailed explanation of the changes, see the &lt;a href=&#34;https://docs.angr.io/MIGRATION.html&#34;&gt;Migration Guide&lt;/a&gt;. Thanks to &lt;strong&gt;@rhelmot&lt;/strong&gt; for the refactor!&lt;/p&gt;
+
+&lt;p&gt;For those interested, the commit with most of the changes can be found &lt;a href=&#34;https://github.com/angr/cle/commit/d1b518736e48abe67cfdf0fc1b18f09cf88f17d9&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;up-to-5x-speedup-in-cfgfast:1d36e95f164f5af3003b95ca5346ba1a&#34;&gt;Up to 5x Speedup in CFGFast&lt;/h2&gt;
+
+&lt;p&gt;Driven by the need to recover the CFG of a large blob, the angr team has significantly improved the performance of CFGFast.
+Amongst other things, angr is now able to lift blocks without converting their statements into Python objects, perform more of the analysis in C, and avoid lifting any basic block more than once.
+All combined, we&amp;rsquo;ve seen this give a more than 5x speedup on large binaries!
+For changes and benchmarking details, see &lt;a href=&#34;https://github.com/angr/angr/pull/1092&#34;&gt;PR #1092&lt;/a&gt;.
+Thanks to &lt;strong&gt;@KevOrr&lt;/strong&gt; for the binary that motivated the changes and &lt;strong&gt;@ltfish&lt;/strong&gt; for the optimizations!&lt;/p&gt;
+</description>
     </item>
     
   </channel>
