@@ -8,7 +8,7 @@
     <language>en-us</language>
     <lastBuildDate>Thu, 18 Jan 2018 19:41:03 -0800</lastBuildDate>
     
-	<atom:link href="https://angr.github.io/tags/extending_angr/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://angr.github.io/tags/extending_angr/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,8 +17,7 @@
       <pubDate>Thu, 18 Jan 2018 19:41:03 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_4/</guid>
-      <description>In order for angr to perform any sort of analysis on binary code, we need to first translate, or lift, this code into an intermediate representation (IR) that angr uses, called VEX.
-VEX is the IR used by the Valgrind analysis tools. angr uses the libvex library also used by Valgrind, etc. to lift code, and uses its pyvex package to provide a pythonic interface to the resulting IR objects.</description>
+      <description>Get a workout translating BrainFuck into the VEX intermediate representation</description>
     </item>
     
     <item>
@@ -27,9 +26,7 @@ VEX is the IR used by the Valgrind analysis tools. angr uses the libvex library 
       <pubDate>Thu, 18 Jan 2018 19:41:02 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_3/</guid>
-      <description>Now we&amp;rsquo;re going to focus on the first actual step in the process of analyzing a program: Figuring out what it even is, and loading it into our system&amp;rsquo;s memory somehow.
-CLE: CLE Loads Everything The angr suite uses CLE to load binaries. It serves as a logical implementation of the Linux loader first and foremost, but supports other OSes and formats through a series of &amp;ldquo;backends&amp;rdquo;.
-CLE is given, by angr, a path to the &amp;ldquo;main binary&amp;rdquo;.</description>
+      <description>Learn to go from a file on disk to angr through the magic of loaders</description>
     </item>
     
     <item>
@@ -38,7 +35,7 @@ CLE is given, by angr, a path to the &amp;ldquo;main binary&amp;rdquo;.</descrip
       <pubDate>Thu, 18 Jan 2018 19:40:58 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_2/</guid>
-      <description>Since this is a tutorial about extending the core parts of angr, we should start by focusing on how to extend the core-est of core parts: the architecture support! Pretty much every piece of angr&amp;rsquo;s suite involves, in some way, specific information about the architecture of the program you&amp;rsquo;re analyzing. Dealing with all this low-level architecture stuff is part of what makes binaries a pain in the rear to analyze, but angr abstracts most of it away for you in the archinfo class, which is used by everything else to make the code flexible and platform-independent!</description>
+      <description>Teach angr the basics of the BrainFuck architecture through archinfo</description>
     </item>
     
     <item>
@@ -47,8 +44,7 @@ CLE is given, by angr, a path to the &amp;ldquo;main binary&amp;rdquo;.</descrip
       <pubDate>Thu, 18 Jan 2018 18:51:25 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_1/</guid>
-      <description>In this n+1-part series, we will be exploring how you can extend angr with new features, without editing angr itself!
-angr is the popular framework for analyzing binary programs, from embedded firmware, to hardcore CTF challenges, all from the comfort of Python. angr&amp;rsquo;s roots lie in the Valgrind VEX instrumentation framework, meaning it benefits from the multi-architecture support and community maintenance. However, we live in a big world full of crazy things that aren&amp;rsquo;t Intel or ARM-based Linux machines.</description>
+      <description>Learn the basics of how angr works and how to extend angr to support new architectures</description>
     </item>
     
     <item>
@@ -57,7 +53,7 @@ angr is the popular framework for analyzing binary programs, from embedded firmw
       <pubDate>Thu, 18 Jan 2018 18:51:24 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_index/</guid>
-      <description>Welcome to the Throwing a Tantrum tutorial! In this n+1-part series, we will be exploring how you can extend angr with new features without editing angr itself. We&amp;rsquo;ll be covering a range of topics from gymrat to Analyses, and including a plethora of examples and explanations along the way. If you&amp;rsquo;re interested in learning how to port angr to a new architecture, write a custom engine or analysis, or even (gasp) use angr to analyze BrainFuck programs, then read on.</description>
+      <description>Learn how to extend angr in this n+1 part tutorial!</description>
     </item>
     
   </channel>

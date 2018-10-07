@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="https://angr.github.io/authors/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://angr.github.io/authors/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -16,7 +16,7 @@
       <pubDate>Wed, 26 Sep 2018 14:14:02 -0700</pubDate>
       
       <guid>https://angr.github.io/authors/lockshaw/</guid>
-      <description></description>
+      <description>&lt;no value&gt;</description>
     </item>
     
     <item>
@@ -25,7 +25,7 @@
       <pubDate>Thu, 18 Jan 2018 19:41:03 -0800</pubDate>
       
       <guid>https://angr.github.io/authors/subwire/</guid>
-      <description></description>
+      <description>&lt;no value&gt;</description>
     </item>
     
     <item>
@@ -34,7 +34,7 @@
       <pubDate>Mon, 15 Jan 2018 15:35:26 -0800</pubDate>
       
       <guid>https://angr.github.io/authors/zardus/</guid>
-      <description></description>
+      <description>&lt;no value&gt;</description>
     </item>
     
   </channel>

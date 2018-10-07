@@ -8,7 +8,7 @@
     <language>en-us</language>
     <lastBuildDate>Thu, 18 Jan 2018 18:51:25 -0800</lastBuildDate>
     
-	<atom:link href="https://angr.github.io/tags/internals/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://angr.github.io/tags/internals/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,8 +17,7 @@
       <pubDate>Thu, 18 Jan 2018 18:51:25 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_1/</guid>
-      <description>In this n+1-part series, we will be exploring how you can extend angr with new features, without editing angr itself!
-angr is the popular framework for analyzing binary programs, from embedded firmware, to hardcore CTF challenges, all from the comfort of Python. angr&amp;rsquo;s roots lie in the Valgrind VEX instrumentation framework, meaning it benefits from the multi-architecture support and community maintenance. However, we live in a big world full of crazy things that aren&amp;rsquo;t Intel or ARM-based Linux machines.</description>
+      <description>Learn the basics of how angr works and how to extend angr to support new architectures</description>
     </item>
     
   </channel>

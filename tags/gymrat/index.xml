@@ -8,7 +8,7 @@
     <language>en-us</language>
     <lastBuildDate>Thu, 18 Jan 2018 19:41:03 -0800</lastBuildDate>
     
-	<atom:link href="https://angr.github.io/tags/gymrat/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://angr.github.io/tags/gymrat/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,8 +17,7 @@
       <pubDate>Thu, 18 Jan 2018 19:41:03 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_4/</guid>
-      <description>In order for angr to perform any sort of analysis on binary code, we need to first translate, or lift, this code into an intermediate representation (IR) that angr uses, called VEX.
-VEX is the IR used by the Valgrind analysis tools. angr uses the libvex library also used by Valgrind, etc. to lift code, and uses its pyvex package to provide a pythonic interface to the resulting IR objects.</description>
+      <description>Get a workout translating BrainFuck into the VEX intermediate representation</description>
     </item>
     
   </channel>

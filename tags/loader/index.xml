@@ -8,7 +8,7 @@
     <language>en-us</language>
     <lastBuildDate>Thu, 18 Jan 2018 19:41:02 -0800</lastBuildDate>
     
-	<atom:link href="https://angr.github.io/tags/loader/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://angr.github.io/tags/loader/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -17,9 +17,7 @@
       <pubDate>Thu, 18 Jan 2018 19:41:02 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_3/</guid>
-      <description>Now we&amp;rsquo;re going to focus on the first actual step in the process of analyzing a program: Figuring out what it even is, and loading it into our system&amp;rsquo;s memory somehow.
-CLE: CLE Loads Everything The angr suite uses CLE to load binaries. It serves as a logical implementation of the Linux loader first and foremost, but supports other OSes and formats through a series of &amp;ldquo;backends&amp;rdquo;.
-CLE is given, by angr, a path to the &amp;ldquo;main binary&amp;rdquo;.</description>
+      <description>Learn to go from a file on disk to angr through the magic of loaders</description>
     </item>
     
   </channel>
