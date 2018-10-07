@@ -7,7 +7,9 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 18 Jan 2018 19:41:02 -0800</lastBuildDate>
-    <atom:link href="https://angr.github.io/tags/loader/index.xml" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://angr.github.io/tags/loader/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>throwing a tantrum, part 3: loaders</title>
@@ -15,86 +17,9 @@
       <pubDate>Thu, 18 Jan 2018 19:41:02 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_3/</guid>
-      <description>
-
-&lt;p&gt;Now we&amp;rsquo;re going to focus on the first actual step in the process of analyzing a program: Figuring out what it even is, and loading it into our system&amp;rsquo;s memory somehow.&lt;/p&gt;
-
-&lt;h2 id=&#34;cle-cle-loads-everything:fa3bdce50e49401721b005bbaf2e790d&#34;&gt;CLE: CLE Loads Everything&lt;/h2&gt;
-
-&lt;p&gt;The angr suite uses &lt;code&gt;CLE&lt;/code&gt; to load binaries.
-It serves as a logical implementation of the Linux loader first and foremost, but supports other OSes and formats through a series of &amp;ldquo;backends&amp;rdquo;.&lt;/p&gt;
-
-&lt;p&gt;CLE is given, by angr, a path to the &amp;ldquo;main binary&amp;rdquo;.  This is the argument to angr.Project().
-It&amp;rsquo;s CLE&amp;rsquo;s job to open it, figure out what it is, figure out what architecture it is (unless the user overrides), figure out where in memory it&amp;rsquo;s supposed to go, and load any dependencies, such as shared libraries, that it may depend on.&lt;/p&gt;
-
-&lt;h2 id=&#34;shortcut-what-if-my-architecture-uses-elf-files:fa3bdce50e49401721b005bbaf2e790d&#34;&gt;Shortcut: What if my architecture uses ELF files?&lt;/h2&gt;
-
-&lt;p&gt;You don&amp;rsquo;t need to do anything; CLE will load your binary just fine.  However, you will need to tell angr which sorts of ELF files map to the correct SimOS environment model, described in section 6.  These are tracked by the content of their EI_OSABI field.&lt;/p&gt;
-
-&lt;p&gt;If you have pyelftools installed, you can identify this simply like this:&lt;/p&gt;
-% readelf.py -h switchLeds.elf
-ELF Header:
-  Magic:   7f 45 4c 46 01 01 01 ff 00 00 00 00 00 00 00 00
-  Class:                             ELF32
-  Data:                              2&#39;s complement, little endian
-  Version:                           1 (current)
-  OS/ABI:                            Standalone App
-  ABI Version:                       0
-
-&lt;p&gt;To register this with our MSP430 environment model, we would simply do:&lt;/p&gt;
-from angr.simos import register_simos
-register_simos(&#39;Standalone App&#39;, SimMSP430)
-
-&lt;p&gt;Were your binaries made by orcs instead? Read on.&lt;/p&gt;
-
-&lt;h2 id=&#34;defining-the-bf-backend:fa3bdce50e49401721b005bbaf2e790d&#34;&gt;Defining the BF backend&lt;/h2&gt;
-
-&lt;p&gt;For BrainFuck, we really just need to read the program in, and put it in memory, rather straight-up, at address 0.
-You could get away with using the &lt;code&gt;Blob&lt;/code&gt; loader backend directly to do this, but we&amp;rsquo;re going to make it a little more explicit and demonstrative and define our own based on it.&lt;/p&gt;
-
-&lt;p&gt;First, the boring stuff:&lt;/p&gt;
-from cle.backends import Blob, register_backend
-from archinfo import arch_from_id
-import re
-import logging
-l = logging.getLogger(&#34;cle.bf&#34;)
-__all__ = (&#39;BF&#39;,)
-
-class BF(Blob):
-    def __init__(self, path, offset=0, *args, **kwargs):
-
-        super(BF, self).__init__(path, *args,
-                arch=arch_from_id(&#34;bf&#34;),
-                offset=offset,
-                entry_point=0,
-                **kwargs)
-
-
-&lt;p&gt;Normally, to use the Blob loader, you must specify an entry point and arch &lt;em&gt;manually&lt;/em&gt;.
-We want to be able to just use angr.Project() on a BF program and have it work, so we subclass the Blob loader, and give it this information.&lt;/p&gt;
-
-&lt;p&gt;Next, we need to tell CLE when this loader will work on the given file, so that it can pick the right backend.
-Technically, by many definitions of BF, you can have other non-instruction characters in a file and still have it be valid.  For the ease of demonstration, let&amp;rsquo;s keep it simple and support the &amp;ldquo;non-compatible&amp;rdquo; BF syntax of only the instructions and newlines.&lt;/p&gt;
-    @staticmethod
-    def is_compatible(stream):
-        bf_re = re.compile(&#39;[+\-&lt;&gt;.,\[\]\n]+&#39;)
-        stream.seek(0)
-        stuff = stream.read(0x1000)
-        if bf_re.match(stuff):
-            return True
-        return False
-
-&lt;p&gt;Don&amp;rsquo;t forget to seek the stream to 0!! Some other &lt;code&gt;is_compatible&lt;/code&gt;, or the rest of CLE, is going to use it later.  As they used to say when I was a kid, &amp;ldquo;Be kind, rewind&amp;rdquo; :)&lt;/p&gt;
-
-&lt;p&gt;Last but not least, we need to tell CLE about our backend.&lt;/p&gt;
-register_backend(&#34;bf&#34;, BF)
-
-&lt;p&gt;That&amp;rsquo;s it?? That&amp;rsquo;s it.&lt;/p&gt;
-
-&lt;p&gt;If you want to see a more complex, but not too-complex example on something a bit less contrived, check out CLE&amp;rsquo;s CGC backend.  CGC binaries are deliberately simplified ELF-like files, that were designed to make analysis easy, so they make a nice template for crazier formats.&lt;/p&gt;
-
-&lt;p&gt;Next time, we get to talk about lifters! Get that protein powder ready.&lt;/p&gt;
-</description>
+      <description>Now we&amp;rsquo;re going to focus on the first actual step in the process of analyzing a program: Figuring out what it even is, and loading it into our system&amp;rsquo;s memory somehow.
+CLE: CLE Loads Everything The angr suite uses CLE to load binaries. It serves as a logical implementation of the Linux loader first and foremost, but supports other OSes and formats through a series of &amp;ldquo;backends&amp;rdquo;.
+CLE is given, by angr, a path to the &amp;ldquo;main binary&amp;rdquo;.</description>
     </item>
     
   </channel>
