@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cle — Binary Loader &mdash; angr 8.18.10.5 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 8.18.10.25 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                8.18.10.5
+                8.18.10.25
               </div>
             
           
@@ -223,7 +223,7 @@ dependency by somebody.</li>
 </table>
 <p>When reference is made to a dictionary of options, it requires a dictionary with zero or more of the following keys:</p>
 <ul class="simple">
-<li>backend :             “elf”, “pe”, “mach-o”, “ida”, “blob” : which loader backend to use</li>
+<li>backend :             “elf”, “pe”, “mach-o”, “blob” : which loader backend to use</li>
 <li>arch :                The archinfo.Arch object to use for the binary</li>
 <li>base_addr :           The address to rebase the object at</li>
 <li>entry_point :         The entry point to use for the object</li>
@@ -728,7 +728,7 @@ before execution reaches the entry point. Addresses should be rebased.</p>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.Backend</span></code></a></p>
 <dl class="method">
 <dt id="cle.backends.externs.ExternObject.make_extern">
-<code class="descname">make_extern</code><span class="sig-paren">(</span><em>name</em>, <em>size=1</em>, <em>alignment=8</em>, <em>thumb=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.ExternObject.make_extern" title="Permalink to this definition">¶</a></dt>
+<code class="descname">make_extern</code><span class="sig-paren">(</span><em>name</em>, <em>size=1</em>, <em>alignment=8</em>, <em>thumb=False</em>, <em>sym_type=2</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.ExternObject.make_extern" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -2213,120 +2213,6 @@ See <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_HEX"
 <dl class="staticmethod">
 <dt id="cle.backends.ihex.Hex.is_compatible">
 <em class="property">static </em><code class="descname">is_compatible</code><span class="sig-paren">(</span><em>stream</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.ihex.Hex.is_compatible" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-cle.backends.idabin"></span><dl class="class">
-<dt id="cle.backends.idabin.IDABin">
-<em class="property">class </em><code class="descclassname">cle.backends.idabin.</code><code class="descname">IDABin</code><span class="sig-paren">(</span><em>binary</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.Backend</span></code></a></p>
-<p>Get information from binaries using IDA.</p>
-<dl class="attribute">
-<dt id="cle.backends.idabin.IDABin.is_default">
-<code class="descname">is_default</code><em class="property"> = True</em><a class="headerlink" href="#cle.backends.idabin.IDABin.is_default" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="cle.backends.idabin.IDABin.is_compatible">
-<em class="property">static </em><code class="descname">is_compatible</code><span class="sig-paren">(</span><em>stream</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.is_compatible" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.idabin.IDABin.in_which_segment">
-<code class="descname">in_which_segment</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.in_which_segment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the segment name at address <cite>addr</cite> (IDA).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.idabin.IDABin.function_name">
-<code class="descname">function_name</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.function_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the function name at address <cite>addr</cite> (IDA).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.idabin.IDABin.get_symbol_addr">
-<code class="descname">get_symbol_addr</code><span class="sig-paren">(</span><em>sym</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.get_symbol_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the address of the symbol <cite>sym</cite> from IDA.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An address.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.idabin.IDABin.min_addr">
-<code class="descname">min_addr</code><a class="headerlink" href="#cle.backends.idabin.IDABin.min_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the min address of the binary (IDA).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.idabin.IDABin.max_addr">
-<code class="descname">max_addr</code><a class="headerlink" href="#cle.backends.idabin.IDABin.max_addr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the max address of the binary (IDA).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.idabin.IDABin.entry">
-<code class="descname">entry</code><a class="headerlink" href="#cle.backends.idabin.IDABin.entry" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.idabin.IDABin.resolve_import_dirty">
-<code class="descname">resolve_import_dirty</code><span class="sig-paren">(</span><em>sym</em>, <em>new_val</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.resolve_import_dirty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resolve import for symbol <cite>sym</cite> the dirty way, i.e. find all references to it in the code and replace it with
-the address <cite>new_val</cite> inline (instead of updating GOT slots). Don’t use this unless you really have to, use
-<code class="xref py py-func docutils literal notranslate"><span class="pre">resolve_import_with()</span></code> instead.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.idabin.IDABin.set_got_entry">
-<code class="descname">set_got_entry</code><span class="sig-paren">(</span><em>name</em>, <em>newaddr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.set_got_entry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resolve import <cite>name</cite> with address <cite>newaddr</cite>. That is, update the GOT entry for <cite>name</cite> with <cite>newaddr</cite>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.idabin.IDABin.is_thumb">
-<code class="descname">is_thumb</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.is_thumb" title="Permalink to this definition">¶</a></dt>
-<dd><p>Is the address <cite>addr</cite> in thumb mode ? (ARM).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.idabin.IDABin.get_strings">
-<code class="descname">get_strings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.get_strings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract strings from binary (IDA).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An array of strings.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.idabin.IDABin.plt">
-<code class="descname">plt</code><a class="headerlink" href="#cle.backends.idabin.IDABin.plt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.idabin.IDABin.reverse_plt">
-<code class="descname">reverse_plt</code><a class="headerlink" href="#cle.backends.idabin.IDABin.reverse_plt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="staticmethod">
-<dt id="cle.backends.idabin.IDABin.get_call_stub_addr">
-<em class="property">static </em><code class="descname">get_call_stub_addr</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.idabin.IDABin.get_call_stub_addr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.idabin.IDABin.is_ppc64_abiv1">
-<code class="descname">is_ppc64_abiv1</code><a class="headerlink" href="#cle.backends.idabin.IDABin.is_ppc64_abiv1" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -4488,7 +4374,7 @@ except to make it seem like the data has actually been patched by the given patc
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'8.18.10.5',
+            VERSION:'8.18.10.25',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

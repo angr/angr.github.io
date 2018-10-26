@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>angr — Analysis and Coordination &mdash; angr 8.18.10.5 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 8.18.10.25 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                8.18.10.5
+                8.18.10.25
               </div>
             
           
@@ -253,7 +253,6 @@ regardless of the current memory protections.</li>
 <li><strong>factory</strong> – Provides access to important analysis elements such as path groups and symbolic execution results.</li>
 <li><strong>filename</strong> – The filename of the executable.</li>
 <li><strong>loader</strong> – The program loader.</li>
-<li><strong>surveyors</strong> – The available surveyors.</li>
 <li><strong>storage</strong> – Dictionary of things that should be loaded/stored with the Project.</li>
 </ul>
 </td>
@@ -701,7 +700,7 @@ function.</p>
 python function.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">angr.surveyors.caller.Callable</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#angr.callable.Callable" title="angr.callable.Callable">angr.callable.Callable</a></p>
 </td>
 </tr>
 </tbody>
@@ -720,12 +719,17 @@ python function.</p>
 <li><strong>args</strong> – A list of argument storage locations, as SimFunctionArguments.</li>
 <li><strong>ret_val</strong> – The return value storage location, as a SimFunctionArgument.</li>
 <li><strong>sp_delta</strong> – Does this even matter??</li>
-<li><strong>func_ty</strong> – The protoype for the given function, as a SimType.</li>
+<li><strong>func_ty</strong> – The prototype for the given function, as a SimType or a C-style function declaration that
+can be parsed into a SimTypeFunction instance.</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <p>Relevant subclasses of SimFunctionArgument are SimRegArg and SimStackArg, and shortcuts to them can be found on
 this <cite>cc</cite> object.</p>
 <p>For stack arguments, offsets are relative to the stack pointer on function entry.</p>
@@ -739,7 +743,7 @@ this <cite>cc</cite> object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>fp_args</strong> – A list, with one entry for each argument the function can take. True if the argument is fp,
 false if it is integral.</li>
@@ -747,14 +751,17 @@ false if it is integral.</li>
 <li><strong>sizes</strong> – Optional: A list, with one entry for each argument the function can take. Each entry is the
 size of the corresponding argument in bytes.</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimType for the function itself or a C-style function declaration that can be parsed into
+a SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 </dd></dl>
 
 <dl class="method">
@@ -1049,7 +1056,13 @@ It will directly return the plugins provided by the preset instead of instanciat
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>project</strong> (<em>angr.Project</em>) – </li>
+<li><strong>arch</strong> (<em>archinfo.Arch</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
 <li><strong>regs</strong> – A convenient view of the state’s registers, where each register is a property</li>
 <li><strong>mem</strong> – A convenient view of the state’s memory, a <a class="reference internal" href="#angr.state_plugins.view.SimMemView" title="angr.state_plugins.view.SimMemView"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.state_plugins.view.SimMemView</span></code></a></li>
 <li><strong>registers</strong> – The state’s register file as a flat memory region</li>
@@ -1063,7 +1076,7 @@ It will directly return the plugins provided by the preset instead of instanciat
 <li><strong>libc</strong> – Information about the standard library we are emulating</li>
 <li><strong>cgc</strong> – Information about the cgc environment</li>
 <li><strong>uc_manager</strong> – Control of under-constrained symbolic execution</li>
-<li><strong>unicorn</strong> – Control of the Unicorn Engine</li>
+<li><strong>unicorn</strong> (<em>str</em>) – Control of the Unicorn Engine</li>
 </ul>
 </td>
 </tr>
@@ -4325,7 +4338,7 @@ If in symbolic mode, this involves adding a constraint for the tmp’s symbolic 
 <em class="property">class </em><code class="descclassname">angr.state_plugins.preconstrainer.</code><code class="descname">SimStatePreconstrainer</code><span class="sig-paren">(</span><em>constrained_addrs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.preconstrainer.SimStatePreconstrainer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.state_plugins.plugin.SimStatePlugin" title="angr.state_plugins.plugin.SimStatePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.state_plugins.plugin.SimStatePlugin</span></code></a></p>
 <p>This state plugin manages the concept of preconstraining - adding constraints which you would like to remove later.</p>
-<p>:param constrained_addrs : Addresses which have had constraints applied to them and should not be removed.</p>
+<p>:param constrained_addrs : SimActions for memory operations whose addresses should be constrained during crash analysis</p>
 <dl class="method">
 <dt id="angr.state_plugins.preconstrainer.SimStatePreconstrainer.merge">
 <code class="descname">merge</code><span class="sig-paren">(</span><em>others</em>, <em>merge_conditions</em>, <em>common_ancestor=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.preconstrainer.SimStatePreconstrainer.merge" title="Permalink to this definition">¶</a></dt>
@@ -7662,7 +7675,7 @@ returns True or False. Stepping will terminate when it is True.</li>
 
 <dl class="method">
 <dt id="angr.sim_manager.SimulationManager.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>n=None</em>, <em>selector_func=None</em>, <em>step_func=None</em>, <em>stash='active'</em>, <em>successor_func=None</em>, <em>until=None</em>, <em>filter_func=None</em>, <em>**run_args</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_manager.SimulationManager.step" title="Permalink to this definition">¶</a></dt>
+<code class="descname">step</code><span class="sig-paren">(</span><em>stash='active'</em>, <em>n=None</em>, <em>selector_func=None</em>, <em>step_func=None</em>, <em>successor_func=None</em>, <em>until=None</em>, <em>filter_func=None</em>, <em>**run_args</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_manager.SimulationManager.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Step a stash of states forward and categorize the successors appropriately.</p>
 <p>The parameters to this function allow you to control everything about the stepping and
 categorization process.</p>
@@ -7672,7 +7685,6 @@ categorization process.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>stash</strong> – The name of the stash to step (default: ‘active’)</li>
-<li><strong>n</strong> – (DEPRECATED) The number of times to step (default: 1 if “until” is not provided)</li>
 <li><strong>selector_func</strong> – If provided, should be a function that takes a state and returns a
 boolean. If True, the state will be stepped. Otherwise, it will be
 kept as-is.</li>
@@ -7682,16 +7694,17 @@ at every step. Note that this function should not actually perform any
 stepping - it is meant to be a maintenance function called after each step.</li>
 <li><strong>successor_func</strong> – If provided, should be a function that takes a state and return its successors.
 Otherwise, project.factory.successors will be used.</li>
-<li><strong>until</strong> – (DEPRECATED) If provided, should be a function that takes a SimulationManager and
-returns True or False. Stepping will terminate when it is True.</li>
 <li><strong>filter_func</strong> – If provided, should be a function that takes a state and return the name
 of the stash, to which the state should be moved.</li>
+<li><strong>until</strong> – (DEPRECATED) If provided, should be a function that takes a SimulationManager and
+returns True or False. Stepping will terminate when it is True.</li>
+<li><strong>n</strong> – (DEPRECATED) The number of times to step (default: 1 if “until” is not provided)</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>Additionally, you can pass in any of the following keyword args for project.factory.sim_run:</p>
+<p>Additionally, you can pass in any of the following keyword args for project.factory.successors:</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -8140,6 +8153,14 @@ original methods, or else it will mangle the behvior.</p>
 <dt id="angr.exploration_techniques.ExplorationTechnique.setup">
 <code class="descname">setup</code><span class="sig-paren">(</span><em>simgr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.ExplorationTechnique.setup" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform any initialization on this manager you might need to do.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>simgr</strong> (<em>angr.SimulationManager</em>) – The simulation manager to which you have just been added</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -8147,6 +8168,18 @@ original methods, or else it will mangle the behvior.</p>
 <code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.ExplorationTechnique.step" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hook the process of stepping a stash forward. Should call <code class="docutils literal notranslate"><span class="pre">simgr.step(stash,</span> <span class="pre">**kwargs)</span></code> in order to do the
 actual processing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>simgr</strong> (<em>angr.SimulationManager</em>) – </li>
+<li><strong>stash</strong> (<em>str</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -8158,6 +8191,18 @@ If you want to modify the state before filtering it, return a tuple of the stash
 modified state.
 To defer to the original categorization procedure, return the result of <code class="docutils literal notranslate"><span class="pre">simgr.filter(state,</span> <span class="pre">**kwargs)</span></code></p>
 <p>If the user provided a <code class="docutils literal notranslate"><span class="pre">filter_func</span></code> in their step or run command, it will appear here.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>simgr</strong> (<em>angr.SimulationManager</em>) – </li>
+<li><strong>state</strong> (<em>angr.SimState</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -8167,6 +8212,18 @@ To defer to the original categorization procedure, return the result of <code cl
 Return True if the state should be stepped, and False if the state should not be stepped.
 To defer to the original selection procedure, return the result of <code class="docutils literal notranslate"><span class="pre">simgr.selector(state,</span> <span class="pre">**kwargs)</span></code>.</p>
 <p>If the user provided a <code class="docutils literal notranslate"><span class="pre">selector_func</span></code> in their step or run command, it will appear here.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>simgr</strong> (<em>angr.SimulationManager</em>) – </li>
+<li><strong>state</strong> (<em>angr.SimState</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -8181,6 +8238,18 @@ look at the successors. Therefore, the usual technique is to call <code class="d
 then mutate the returned dict before returning it yourself.</p>
 <p>..note:: This takes precedence over the <cite>filter</cite> hook - <cite>filter</cite> is only applied to states returned from here
 in the None stash.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>simgr</strong> (<em>angr.SimulationManager</em>) – </li>
+<li><strong>state</strong> (<em>angr.SimState</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -8192,6 +8261,18 @@ Be careful about not calling this method (e.g. calling <code class="docutils lit
 other hooks the opportunity to instrument the step. Instead, you can mutate the kwargs for the step before
 calling the original, and mutate the result before returning it yourself.</p>
 <p>If the user provided a <code class="docutils literal notranslate"><span class="pre">successor_func</span></code> in their step or run command, it will appear here.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>simgr</strong> (<em>angr.SimulationManager</em>) – </li>
+<li><strong>state</strong> (<em>angr.SimState</em>) – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -8202,6 +8283,14 @@ calling the original, and mutate the result before returning it yourself.</p>
 You should <em>not</em> call <code class="docutils literal notranslate"><span class="pre">simgr.complete</span></code>, you should make your own decision and return True or False.
 Each of the techniques’ completion checkers will be called and the final result will be compted with
 <code class="docutils literal notranslate"><span class="pre">simgr.completion_mode</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>simgr</strong> (<em>angr.SimulationManager</em>) – </td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
@@ -8365,25 +8454,28 @@ explosions in loops by performing smart merging.</p>
 
 <span class="target" id="module-angr.exploration_techniques.tracer"></span><dl class="class">
 <dt id="angr.exploration_techniques.tracer.Tracer">
-<em class="property">class </em><code class="descclassname">angr.exploration_techniques.tracer.</code><code class="descname">Tracer</code><span class="sig-paren">(</span><em>trace=None</em>, <em>resiliency=True</em>, <em>dump_syscall=False</em>, <em>keep_predecessors=1</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.tracer.Tracer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">angr.exploration_techniques.tracer.</code><code class="descname">Tracer</code><span class="sig-paren">(</span><em>trace=None</em>, <em>resiliency=False</em>, <em>keep_predecessors=1</em>, <em>crash_addr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.tracer.Tracer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.ExplorationTechnique" title="angr.exploration_techniques.ExplorationTechnique"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.exploration_techniques.ExplorationTechnique</span></code></a></p>
 <p>An exploration technique that follows an angr path with a concrete input.
-The tracing result is the state after executing the last basic block of the
-given trace and can be found in ‘traced’ stash.</p>
-<p>If the given concrete input makes the program crash, the last correct
-states that you might want are kept in the ‘predecessors’ list. The crashed
-state can be found with CrashMonitor exploration technique.</p>
+The tracing result is the state at the last address of the trace, which can be found in the
+‘traced’ stash.</p>
+<p>If the given concrete input makes the program crash, you should provide crash_addr, and the
+crashing state will be found in the ‘crashed’ stash.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>trace</strong> – The basic block trace.</li>
 <li><strong>resiliency</strong> – Should we continue to step forward even if qemu and angr disagree?</li>
-<li><strong>dump_syscall</strong> – True if we want to dump the syscall information.</li>
-<li><strong>keep_predecessors</strong> – Number of states before the final state we should preserve.
-Default 1, must be greater than 0.</li>
+<li><strong>keep_predecessors</strong> – Number of states before the final state we should log.</li>
+<li><strong>crash_addr</strong> – If the trace resulted in a crash, provide the crashing instruction
+pointer here, and the ‘crashed’ stash will be populated with the
+crashing state.</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Variables:</th><td class="field-body"><p class="first last"><strong>predecessors</strong> – A list of states in the history before the final state.</p>
 </td>
 </tr>
 </tbody>
@@ -8399,28 +8491,18 @@ Default 1, must be greater than 0.</li>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="angr.exploration_techniques.tracer.Tracer.filter">
+<code class="descname">filter</code><span class="sig-paren">(</span><em>simgr</em>, <em>state</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.tracer.Tracer.filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="angr.exploration_techniques.tracer.Tracer.step">
 <code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.tracer.Tracer.step" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
-<span class="target" id="module-angr.exploration_techniques.crash_monitor"></span><dl class="class">
-<dt id="angr.exploration_techniques.crash_monitor.CrashMonitor">
-<em class="property">class </em><code class="descclassname">angr.exploration_techniques.crash_monitor.</code><code class="descname">CrashMonitor</code><span class="sig-paren">(</span><em>trace=None</em>, <em>crash_addr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.crash_monitor.CrashMonitor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.ExplorationTechnique" title="angr.exploration_techniques.ExplorationTechnique"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.exploration_techniques.ExplorationTechnique</span></code></a></p>
-<p>An exploration technique that checks for crashing (currently only during tracing).</p>
-<p>The crashed state that would make the program crash is in ‘crashed’ stash.</p>
-<p>:param trace       : The basic block trace.
-:param crash_addr  : If the input caused a crash, what address did it crash at?</p>
 <dl class="method">
-<dt id="angr.exploration_techniques.crash_monitor.CrashMonitor.complete">
-<code class="descname">complete</code><span class="sig-paren">(</span><em>simgr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.crash_monitor.CrashMonitor.complete" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.exploration_techniques.crash_monitor.CrashMonitor.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.crash_monitor.CrashMonitor.step" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.exploration_techniques.tracer.Tracer.step_state">
+<code class="descname">step_state</code><span class="sig-paren">(</span><em>simgr</em>, <em>state</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.tracer.Tracer.step_state" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -8441,13 +8523,49 @@ state transitions.</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="angr.exploration_techniques.driller_core.DrillerCore.complete">
-<code class="descname">complete</code><span class="sig-paren">(</span><em>simgr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.driller_core.DrillerCore.complete" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.exploration_techniques.driller_core.DrillerCore.step">
+<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.driller_core.DrillerCore.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.exploration_techniques.slicecutor"></span><dl class="class">
+<dt id="angr.exploration_techniques.slicecutor.Slicecutor">
+<em class="property">class </em><code class="descclassname">angr.exploration_techniques.slicecutor.</code><code class="descname">Slicecutor</code><span class="sig-paren">(</span><em>annotated_cfg</em>, <em>force_taking_exit=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.slicecutor.Slicecutor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.ExplorationTechnique" title="angr.exploration_techniques.ExplorationTechnique"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.exploration_techniques.ExplorationTechnique</span></code></a></p>
+<p>The Slicecutor is an exploration that executes provided code slices.</p>
+<p>All parameters except <cite>annotated_cfg</cite> are optional.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>annotated_cfg</strong> – The AnnotatedCFG that provides the code slice.</li>
+<li><strong>force_taking_exit</strong> – Set to True if you want to create a successor based on our slice in case of
+unconstrained successors.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="angr.exploration_techniques.slicecutor.Slicecutor.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><em>simgr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.slicecutor.Slicecutor.setup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="angr.exploration_techniques.driller_core.DrillerCore.step">
-<code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.driller_core.DrillerCore.step" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.exploration_techniques.slicecutor.Slicecutor.filter">
+<code class="descname">filter</code><span class="sig-paren">(</span><em>simgr</em>, <em>state</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.slicecutor.Slicecutor.filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.exploration_techniques.slicecutor.Slicecutor.step_state">
+<code class="descname">step_state</code><span class="sig-paren">(</span><em>simgr</em>, <em>state</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.slicecutor.Slicecutor.step_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.exploration_techniques.slicecutor.Slicecutor.successors">
+<code class="descname">successors</code><span class="sig-paren">(</span><em>simgr</em>, <em>state</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.slicecutor.Slicecutor.successors" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -8673,8 +8791,8 @@ chance for those states to be explored as well in order to prevent over-fitting.
 <dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.ExplorationTechnique" title="angr.exploration_techniques.ExplorationTechnique"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.exploration_techniques.ExplorationTechnique</span></code></a></p>
 <p>The Oppologist is an exploration technique that forces uncooperative code through qemu.</p>
 <dl class="method">
-<dt id="angr.exploration_techniques.oppologist.Oppologist.step_state">
-<code class="descname">step_state</code><span class="sig-paren">(</span><em>simgr</em>, <em>state</em>, <em>successor_func=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.oppologist.Oppologist.step_state" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.exploration_techniques.oppologist.Oppologist.successors">
+<code class="descname">successors</code><span class="sig-paren">(</span><em>simgr</em>, <em>state</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.oppologist.Oppologist.successors" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -8713,6 +8831,11 @@ Default to moving states that exceed the loop limit to a discard stash.</li>
 <dl class="method">
 <dt id="angr.exploration_techniques.loop_seer.LoopSeer.step">
 <code class="descname">step</code><span class="sig-paren">(</span><em>simgr</em>, <em>stash='active'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.loop_seer.LoopSeer.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.exploration_techniques.loop_seer.LoopSeer.successors">
+<code class="descname">successors</code><span class="sig-paren">(</span><em>simgr</em>, <em>state</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.loop_seer.LoopSeer.successors" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -10503,19 +10626,22 @@ this may be overridden with the <cite>stack_base</cite> parameter to each indivi
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="classmethod">
 <dt id="angr.calling_conventions.SimCC.from_arg_kinds">
 <em class="property">classmethod </em><code class="descname">from_arg_kinds</code><span class="sig-paren">(</span><em>arch</em>, <em>fp_args</em>, <em>ret_fp=False</em>, <em>sizes=None</em>, <em>sp_delta=None</em>, <em>func_ty=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCC.from_arg_kinds" title="Permalink to this definition">¶</a></dt>
@@ -10856,19 +10982,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCCdecl.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = []</em><a class="headerlink" href="#angr.calling_conventions.SimCCCdecl.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -10915,19 +11044,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCStdcall.CALLEE_CLEANUP">
 <code class="descname">CALLEE_CLEANUP</code><em class="property"> = True</em><a class="headerlink" href="#angr.calling_conventions.SimCCStdcall.CALLEE_CLEANUP" title="Permalink to this definition">¶</a></dt>
@@ -10943,19 +11075,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCMicrosoftAMD64.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['rcx', 'rdx', 'r8', 'r9']</em><a class="headerlink" href="#angr.calling_conventions.SimCCMicrosoftAMD64.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11007,19 +11142,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCX86LinuxSyscall.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['ebx', 'ecx', 'edx', 'esi', 'edi', 'ebp']</em><a class="headerlink" href="#angr.calling_conventions.SimCCX86LinuxSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11061,19 +11199,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCX86WindowsSyscall.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = []</em><a class="headerlink" href="#angr.calling_conventions.SimCCX86WindowsSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11167,19 +11308,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCAMD64LinuxSyscall.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['rdi', 'rsi', 'rdx', 'r10', 'r8', 'r9']</em><a class="headerlink" href="#angr.calling_conventions.SimCCAMD64LinuxSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11216,19 +11360,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCAMD64WindowsSyscall.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = []</em><a class="headerlink" href="#angr.calling_conventions.SimCCAMD64WindowsSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11270,19 +11417,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCARM.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['r0', 'r1', 'r2', 'r3']</em><a class="headerlink" href="#angr.calling_conventions.SimCCARM.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11319,19 +11469,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCARMLinuxSyscall.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['r0', 'r1', 'r2', 'r3']</em><a class="headerlink" href="#angr.calling_conventions.SimCCARMLinuxSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11373,19 +11526,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCAArch64.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['x0', 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7']</em><a class="headerlink" href="#angr.calling_conventions.SimCCAArch64.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11422,19 +11578,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCAArch64LinuxSyscall.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['x0', 'x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7']</em><a class="headerlink" href="#angr.calling_conventions.SimCCAArch64LinuxSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11476,19 +11635,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCO32.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['a0', 'a1', 'a2', 'a3']</em><a class="headerlink" href="#angr.calling_conventions.SimCCO32.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11530,19 +11692,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCO32LinuxSyscall.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['a0', 'a1', 'a2', 'a3']</em><a class="headerlink" href="#angr.calling_conventions.SimCCO32LinuxSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11584,19 +11749,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCO64.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['a0', 'a1', 'a2', 'a3']</em><a class="headerlink" href="#angr.calling_conventions.SimCCO64.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11638,19 +11806,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCO64LinuxSyscall.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['a0', 'a1', 'a2', 'a3']</em><a class="headerlink" href="#angr.calling_conventions.SimCCO64LinuxSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11692,19 +11863,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCPowerPC.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'r10']</em><a class="headerlink" href="#angr.calling_conventions.SimCCPowerPC.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11746,19 +11920,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCPowerPCLinuxSyscall.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'r10']</em><a class="headerlink" href="#angr.calling_conventions.SimCCPowerPCLinuxSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11800,19 +11977,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCPowerPC64.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'r10']</em><a class="headerlink" href="#angr.calling_conventions.SimCCPowerPC64.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11854,19 +12034,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCPowerPC64LinuxSyscall.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = []</em><a class="headerlink" href="#angr.calling_conventions.SimCCPowerPC64LinuxSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11909,19 +12092,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 </dd></dl>
 
 <dl class="class">
@@ -11932,19 +12118,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCS390X.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['r2', 'r3', 'r4', 'r5', 'r6']</em><a class="headerlink" href="#angr.calling_conventions.SimCCS390X.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -11986,19 +12175,22 @@ arguments provided.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>arch</strong> – The Archinfo arch for this CC</li>
 <li><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</li>
 <li><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</li>
 <li><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</li>
+<li><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Parmm func_ty:</th><td class="field-body"><p class="first last">A SimType for the function itself</p>
 </td>
 </tr>
 </tbody>
 </table>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
 <dl class="attribute">
 <dt id="angr.calling_conventions.SimCCS390XLinuxSyscall.ARG_REGS">
 <code class="descname">ARG_REGS</code><em class="property"> = ['r2', 'r3', 'r4', 'r5', 'r6', 'r7']</em><a class="headerlink" href="#angr.calling_conventions.SimCCS390XLinuxSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
@@ -12292,11 +12484,6 @@ arguments provided.</p>
 <dl class="attribute">
 <dt id="angr.sim_type.SimType.base">
 <code class="descname">base</code><em class="property"> = True</em><a class="headerlink" href="#angr.sim_type.SimType.base" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.sim_type.SimType.view">
-<code class="descname">view</code><span class="sig-paren">(</span><em>state</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimType.view" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -13020,6 +13207,24 @@ you can get the result state with callable.result_state.</p>
 <dt id="angr.callable.Callable.perform_call">
 <code class="descname">perform_call</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.callable.Callable.perform_call" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.callable.Callable.call_c">
+<code class="descname">call_c</code><span class="sig-paren">(</span><em>c_args</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.callable.Callable.call_c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call this Callable with a string of C-style arguments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>c_args</strong> (<em>str</em>) – C-style arguments.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The return value from the call.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">claripy.Ast</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -19044,36 +19249,7 @@ analysis to resolve the conflicts between overlapping variables.</p>
 </table>
 </dd></dl>
 
-<span class="target" id="module-angr.analyses.variable_recovery"></span><span class="target" id="module-angr.analyses.girlscout"></span><dl class="class">
-<dt id="angr.analyses.girlscout.GirlScout">
-<em class="property">class </em><code class="descclassname">angr.analyses.girlscout.</code><code class="descname">GirlScout</code><span class="sig-paren">(</span><em>binary=None</em>, <em>start=None</em>, <em>end=None</em>, <em>pickle_intermediate_results=False</em>, <em>perform_full_code_scan=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.girlscout.GirlScout" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a></p>
-<p>We find functions inside the given binary, try to decide the base address if needed, and build a control-flow
-graph on top of that to see if there is an entry or not. Obviously if the binary is not loaded as a blob (not
-using Blob as its backend), GirlScout will not try to determine the base address.</p>
-<p>It’s also optional to perform a full code scan of the binary to show where all codes are. By default we don’t scan
-the entire binary since it’s time consuming.</p>
-<p>You probably need a BoyScout to determine the possible architecture and endianess of your binary blob.</p>
-<dl class="attribute">
-<dt id="angr.analyses.girlscout.GirlScout.call_map">
-<code class="descname">call_map</code><a class="headerlink" href="#angr.analyses.girlscout.GirlScout.call_map" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.girlscout.GirlScout.genenare_callmap_sif">
-<code class="descname">genenare_callmap_sif</code><span class="sig-paren">(</span><em>filepath</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.girlscout.GirlScout.genenare_callmap_sif" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a sif file from the call map</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.girlscout.GirlScout.generate_code_cover">
-<code class="descname">generate_code_cover</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.girlscout.GirlScout.generate_code_cover" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a list of all recovered basic blocks.</p>
-</dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-angr.analyses.identifier.identify"></span><dl class="class">
+<span class="target" id="module-angr.analyses.variable_recovery"></span><span class="target" id="module-angr.analyses.identifier.identify"></span><dl class="class">
 <dt id="angr.analyses.identifier.identify.FuncInfo">
 <em class="property">class </em><code class="descclassname">angr.analyses.identifier.identify.</code><code class="descname">FuncInfo</code><a class="headerlink" href="#angr.analyses.identifier.identify.FuncInfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -22170,7 +22346,7 @@ SimType-based Python representation.</td>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'8.18.10.5',
+            VERSION:'8.18.10.25',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

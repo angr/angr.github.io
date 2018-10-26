@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; angr 8.18.10.5 documentation</title>
+  <title>Index &mdash; angr 8.18.10.25 documentation</title>
   
 
   
@@ -57,7 +57,7 @@
             
             
               <div class="version">
-                8.18.10.5
+                8.18.10.25
               </div>
             
           
@@ -631,8 +631,6 @@
 </li>
       <li><a href="angr.html#module-angr.analyses.forward_analysis">angr.analyses.forward_analysis (module)</a>
 </li>
-      <li><a href="angr.html#module-angr.analyses.girlscout">angr.analyses.girlscout (module)</a>
-</li>
       <li><a href="angr.html#module-angr.analyses.identifier.identify">angr.analyses.identifier.identify (module)</a>
 </li>
       <li><a href="angr.html#module-angr.analyses.loopfinder">angr.analyses.loopfinder (module)</a>
@@ -749,8 +747,6 @@
 </li>
       <li><a href="angr.html#module-angr.exploration_techniques.common">angr.exploration_techniques.common (module)</a>
 </li>
-      <li><a href="angr.html#module-angr.exploration_techniques.crash_monitor">angr.exploration_techniques.crash_monitor (module)</a>
-</li>
       <li><a href="angr.html#module-angr.exploration_techniques.dfs">angr.exploration_techniques.dfs (module)</a>
 </li>
       <li><a href="angr.html#module-angr.exploration_techniques.director">angr.exploration_techniques.director (module)</a>
@@ -759,15 +755,17 @@
 </li>
       <li><a href="angr.html#module-angr.exploration_techniques.explorer">angr.exploration_techniques.explorer (module)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#module-angr.exploration_techniques.lengthlimiter">angr.exploration_techniques.lengthlimiter (module)</a>
 </li>
       <li><a href="angr.html#module-angr.exploration_techniques.loop_seer">angr.exploration_techniques.loop_seer (module)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#module-angr.exploration_techniques.manual_mergepoint">angr.exploration_techniques.manual_mergepoint (module)</a>
 </li>
       <li><a href="angr.html#module-angr.exploration_techniques.oppologist">angr.exploration_techniques.oppologist (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.exploration_techniques.slicecutor">angr.exploration_techniques.slicecutor (module)</a>
 </li>
       <li><a href="angr.html#module-angr.exploration_techniques.spiller">angr.exploration_techniques.spiller (module)</a>
 </li>
@@ -1462,6 +1460,8 @@
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tMSR.bin_format">(pyvex.lifting.gym.arm_spotter.Instruction_tMSR attribute)</a>
 </li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.Instruction_ENDBR.bin_format">(pyvex.lifting.gym.x86_spotter.Instruction_ENDBR attribute)</a>
+</li>
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.binary">binary (angr.knowledge_plugins.functions.function.Function attribute)</a>
 </li>
@@ -1811,7 +1811,7 @@
         <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.call">(pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.analyses.girlscout.GirlScout.call_map">call_map (angr.analyses.girlscout.GirlScout attribute)</a>
+      <li><a href="angr.html#angr.callable.Callable.call_c">call_c() (angr.callable.Callable method)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch.Arch.call_pushes_ret">call_pushes_ret (archinfo.arch.Arch attribute)</a>
 
@@ -2345,8 +2345,6 @@
 </li>
       <li><a href="cle.html#module-cle.backends.externs">cle.backends.externs (module)</a>
 </li>
-      <li><a href="cle.html#module-cle.backends.idabin">cle.backends.idabin (module)</a>
-</li>
       <li><a href="cle.html#module-cle.backends.ihex">cle.backends.ihex (module)</a>
 </li>
       <li><a href="cle.html#module-cle.backends.macho">cle.backends.macho (module)</a>
@@ -2545,13 +2543,9 @@
 </li>
       <li><a href="angr.html#angr.sim_variable.SimVariableSet.complement">complement() (angr.sim_variable.SimVariableSet method)</a>
 </li>
-      <li><a href="angr.html#angr.exploration_techniques.crash_monitor.CrashMonitor.complete">complete() (angr.exploration_techniques.crash_monitor.CrashMonitor method)</a>
+      <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.complete">complete() (angr.exploration_techniques.ExplorationTechnique method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.complete">(angr.exploration_techniques.ExplorationTechnique method)</a>
-</li>
-        <li><a href="angr.html#angr.exploration_techniques.driller_core.DrillerCore.complete">(angr.exploration_techniques.driller_core.DrillerCore method)</a>
-</li>
         <li><a href="angr.html#angr.exploration_techniques.explorer.Explorer.complete">(angr.exploration_techniques.explorer.Explorer method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.tracer.Tracer.complete">(angr.exploration_techniques.tracer.Tracer method)</a>
@@ -2601,6 +2595,8 @@
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tCPSID.compute_result">(pyvex.lifting.gym.arm_spotter.Instruction_tCPSID method)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tMSR.compute_result">(pyvex.lifting.gym.arm_spotter.Instruction_tMSR method)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.Instruction_ENDBR.compute_result">(pyvex.lifting.gym.x86_spotter.Instruction_ENDBR method)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.util.instr_helper.Instruction.compute_result">(pyvex.lifting.util.instr_helper.Instruction method)</a>
 </li>
@@ -2988,8 +2984,6 @@
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.TRANSMIT_RECORD.count">count (angr.state_plugins.unicorn_engine.TRANSMIT_RECORD attribute)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.history.TreeIter.count">count() (angr.state_plugins.history.TreeIter method)</a>
-</li>
-      <li><a href="angr.html#angr.exploration_techniques.crash_monitor.CrashMonitor">CrashMonitor (class in angr.exploration_techniques.crash_monitor)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.lifter_helper.GymratLifter.create_bitstrm">create_bitstrm() (pyvex.lifting.util.lifter_helper.GymratLifter method)</a>
 </li>
@@ -3676,8 +3670,6 @@
       <ul>
         <li><a href="cle.html#cle.backends.binja.BinjaBin.entry">(cle.backends.binja.BinjaBin attribute)</a>
 </li>
-        <li><a href="cle.html#cle.backends.idabin.IDABin.entry">(cle.backends.idabin.IDABin attribute)</a>
-</li>
         <li><a href="cle.html#cle.backends.soot.Soot.entry">(cle.backends.soot.Soot attribute)</a>
 </li>
       </ul></li>
@@ -3707,10 +3699,10 @@
 </li>
       <li><a href="claripy.html#claripy.operations.eq_simplifier">eq_simplifier() (in module claripy.operations)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.ERANGE">ERANGE (angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EROFS">EROFS (angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.lifter_helper.GymratLifter.error">error() (pyvex.lifting.util.lifter_helper.GymratLifter method)</a>
@@ -3967,6 +3959,10 @@
         <li><a href="angr.html#angr.exploration_techniques.explorer.Explorer.filter">(angr.exploration_techniques.explorer.Explorer method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.manual_mergepoint.ManualMergepoint.filter">(angr.exploration_techniques.manual_mergepoint.ManualMergepoint method)</a>
+</li>
+        <li><a href="angr.html#angr.exploration_techniques.slicecutor.Slicecutor.filter">(angr.exploration_techniques.slicecutor.Slicecutor method)</a>
+</li>
+        <li><a href="angr.html#angr.exploration_techniques.tracer.Tracer.filter">(angr.exploration_techniques.tracer.Tracer method)</a>
 </li>
         <li><a href="angr.html#angr.sim_manager.SimulationManager.filter">(angr.sim_manager.SimulationManager method)</a>
 </li>
@@ -4342,8 +4338,6 @@
       <ul>
         <li><a href="cle.html#cle.backends.blob.Blob.function_name">(cle.backends.blob.Blob method)</a>
 </li>
-        <li><a href="cle.html#cle.backends.idabin.IDABin.function_name">(cle.backends.idabin.IDABin method)</a>
-</li>
       </ul></li>
       <li><a href="archinfo.html#archinfo.arch.Arch.function_prologs">function_prologs (archinfo.arch.Arch attribute)</a>
 
@@ -4411,14 +4405,8 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.gdb.GDB">GDB (class in angr.state_plugins.gdb)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.girlscout.GirlScout.genenare_callmap_sif">genenare_callmap_sif() (angr.analyses.girlscout.GirlScout method)</a>
-</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGFast.generate_code_cover">generate_code_cover() (angr.analyses.cfg.cfg_fast.CFGFast method)</a>
-
-      <ul>
-        <li><a href="angr.html#angr.analyses.girlscout.GirlScout.generate_code_cover">(angr.analyses.girlscout.GirlScout method)</a>
 </li>
-      </ul></li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.generate_index">generate_index() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.trace_additions.generic_info_hook">generic_info_hook() (in module angr.state_plugins.trace_additions)</a>
@@ -4532,8 +4520,6 @@
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.get_call_sites">get_call_sites() (angr.knowledge_plugins.functions.function.Function method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_job_base.CFGJobBase.get_call_stack_suffix">get_call_stack_suffix() (angr.analyses.cfg.cfg_job_base.CFGJobBase method)</a>
-</li>
-      <li><a href="cle.html#cle.backends.idabin.IDABin.get_call_stub_addr">get_call_stub_addr() (cle.backends.idabin.IDABin static method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.get_call_target">get_call_target() (angr.knowledge_plugins.functions.function.Function method)</a>
 </li>
@@ -4690,11 +4676,7 @@
       <li><a href="cle.html#cle.backends.macho.macho.MachO.get_string">get_string() (cle.backends.macho.macho.MachO method)</a>
 </li>
       <li><a href="cle.html#cle.backends.binja.BinjaBin.get_strings">get_strings() (cle.backends.binja.BinjaBin method)</a>
-
-      <ul>
-        <li><a href="cle.html#cle.backends.idabin.IDABin.get_strings">(cle.backends.idabin.IDABin method)</a>
 </li>
-      </ul></li>
       <li><a href="angr.html#angr.procedures.definitions.SimLibrary.get_stub">get_stub() (angr.procedures.definitions.SimLibrary method)</a>
 
       <ul>
@@ -4718,11 +4700,7 @@
 </li>
       </ul></li>
       <li><a href="cle.html#cle.backends.binja.BinjaBin.get_symbol_addr">get_symbol_addr() (cle.backends.binja.BinjaBin method)</a>
-
-      <ul>
-        <li><a href="cle.html#cle.backends.idabin.IDABin.get_symbol_addr">(cle.backends.idabin.IDABin method)</a>
 </li>
-      </ul></li>
       <li><a href="cle.html#cle.backends.macho.macho.MachO.get_symbol_by_address_fuzzy">get_symbol_by_address_fuzzy() (cle.backends.macho.macho.MachO method)</a>
 </li>
       <li><a href="angr.html#angr.storage.paged_memory.SimPagedMemory.get_symbolic_addrs">get_symbolic_addrs() (angr.storage.paged_memory.SimPagedMemory method)</a>
@@ -4794,8 +4772,6 @@
       <li><a href="pyvex.html#pyvex.expr.GetI">GetI (class in pyvex.expr)</a>
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.DisassemblyPiece.getpiece">getpiece() (angr.analyses.disassembly.DisassemblyPiece method)</a>
-</li>
-      <li><a href="angr.html#angr.analyses.girlscout.GirlScout">GirlScout (class in angr.analyses.girlscout)</a>
 </li>
       <li><a href="cle.html#cle.backends.elf.hashtable.GNUHashTable.gnu_hash">gnu_hash() (cle.backends.elf.hashtable.GNUHashTable static method)</a>
 </li>
@@ -5025,8 +5001,6 @@
         <li><a href="archinfo.html#archinfo.arch_x86.ArchX86.ida_processor">(archinfo.arch_x86.ArchX86 attribute)</a>
 </li>
       </ul></li>
-      <li><a href="cle.html#cle.backends.idabin.IDABin">IDABin (class in cle.backends.idabin)</a>
-</li>
       <li><a href="angr.html#angr.analyses.disassembly.DisassemblyPiece.ident">ident (angr.analyses.disassembly.DisassemblyPiece attribute)</a>
 
       <ul>
@@ -5188,8 +5162,6 @@
       <ul>
         <li><a href="cle.html#cle.backends.blob.Blob.in_which_segment">(cle.backends.blob.Blob method)</a>
 </li>
-        <li><a href="cle.html#cle.backends.idabin.IDABin.in_which_segment">(cle.backends.idabin.IDABin method)</a>
-</li>
       </ul></li>
       <li><a href="angr.html#angr.keyed_region.RegionObject.includes">includes() (angr.keyed_region.RegionObject method)</a>
 
@@ -5304,6 +5276,8 @@
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.instrs">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.instrs">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.disassembly.Instruction">Instruction (class in angr.analyses.disassembly)</a>
 
@@ -5350,6 +5324,8 @@
 </li>
       </ul></li>
       <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_CDP">Instruction_CDP (class in pyvex.lifting.gym.arm_spotter)</a>
+</li>
+      <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.Instruction_ENDBR">Instruction_ENDBR (class in pyvex.lifting.gym.x86_spotter)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch.Arch.instruction_endness">instruction_endness (archinfo.arch.Arch attribute)</a>
 
@@ -5492,8 +5468,6 @@
 </li>
         <li><a href="cle.html#cle.backends.elf.elfcore.ELFCore.is_compatible">(cle.backends.elf.elfcore.ELFCore static method)</a>
 </li>
-        <li><a href="cle.html#cle.backends.idabin.IDABin.is_compatible">(cle.backends.idabin.IDABin static method)</a>
-</li>
         <li><a href="cle.html#cle.backends.ihex.Hex.is_compatible">(cle.backends.ihex.Hex static method)</a>
 </li>
         <li><a href="cle.html#cle.backends.macho.macho.MachO.is_compatible">(cle.backends.macho.macho.MachO static method)</a>
@@ -5517,8 +5491,6 @@
         <li><a href="cle.html#cle.backends.elf.elf.ELF.is_default">(cle.backends.elf.elf.ELF attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.elf.elfcore.ELFCore.is_default">(cle.backends.elf.elfcore.ELFCore attribute)</a>
-</li>
-        <li><a href="cle.html#cle.backends.idabin.IDABin.is_default">(cle.backends.idabin.IDABin attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.ihex.Hex.is_default">(cle.backends.ihex.Hex attribute)</a>
 </li>
@@ -5660,11 +5632,7 @@
 </li>
       </ul></li>
       <li><a href="cle.html#cle.backends.elf.metaelf.MetaELF.is_ppc64_abiv1">is_ppc64_abiv1 (cle.backends.elf.metaelf.MetaELF attribute)</a>
-
-      <ul>
-        <li><a href="cle.html#cle.backends.idabin.IDABin.is_ppc64_abiv1">(cle.backends.idabin.IDABin attribute)</a>
 </li>
-      </ul></li>
       <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_private_external">is_private_external (cle.backends.macho.symbol.MachOSymbol attribute)</a>
 </li>
       <li><a href="cle.html#cle.backends.elf.regions.ELFSection.is_readable">is_readable (cle.backends.elf.regions.ELFSection attribute)</a>
@@ -5722,8 +5690,6 @@
       <li><a href="angr.html#angr.analyses.backward_slice.BackwardSlice.is_taint_impacting_stack_pointers">is_taint_impacting_stack_pointers() (angr.analyses.backward_slice.BackwardSlice method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.backward_slice.BackwardSlice.is_taint_related_to_ip">is_taint_related_to_ip() (angr.analyses.backward_slice.BackwardSlice method)</a>
-</li>
-      <li><a href="cle.html#cle.backends.idabin.IDABin.is_thumb">is_thumb() (cle.backends.idabin.IDABin method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.is_thumb_addr">is_thumb_addr() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
 </li>
@@ -6430,8 +6396,6 @@
 </li>
         <li><a href="cle.html#cle.backends.externs.KernelObject.max_addr">(cle.backends.externs.KernelObject attribute)</a>
 </li>
-        <li><a href="cle.html#cle.backends.idabin.IDABin.max_addr">(cle.backends.idabin.IDABin attribute)</a>
-</li>
         <li><a href="cle.html#cle.backends.region.Region.max_addr">(cle.backends.region.Region attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.regions.Regions.max_addr">(cle.backends.regions.Regions attribute)</a>
@@ -6740,8 +6704,6 @@
 </li>
         <li><a href="cle.html#cle.backends.blob.Blob.min_addr">(cle.backends.blob.Blob attribute)</a>
 </li>
-        <li><a href="cle.html#cle.backends.idabin.IDABin.min_addr">(cle.backends.idabin.IDABin attribute)</a>
-</li>
         <li><a href="cle.html#cle.backends.region.Region.min_addr">(cle.backends.region.Region attribute)</a>
 </li>
         <li><a href="cle.html#cle.loader.Loader.min_addr">(cle.loader.Loader attribute)</a>
@@ -6924,6 +6886,8 @@
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tMSR.name">(pyvex.lifting.gym.arm_spotter.Instruction_tMSR attribute)</a>
 </li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.Instruction_ENDBR.name">(pyvex.lifting.gym.x86_spotter.Instruction_ENDBR attribute)</a>
+</li>
       </ul></li>
       <li><a href="claripy.html#claripy.backends.Backend.name">name() (claripy.backends.Backend method)</a>
 
@@ -6943,10 +6907,10 @@
 </li>
       <li><a href="claripy.html#claripy.operations.ne_simplifier">ne_simplifier() (in module claripy.operations)</a>
 </li>
-      <li><a href="pyvex.html#pyvex.errors.NeedStatementsNotification">NeedStatementsNotification</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyvex.html#pyvex.errors.NeedStatementsNotification">NeedStatementsNotification</a>
+</li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.neg">neg() (claripy.vsa.strided_interval.StridedInterval method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.enums.IRRegArray.nElems">nElems (pyvex.enums.IRRegArray attribute)</a>
@@ -7454,11 +7418,7 @@
 </li>
       </ul></li>
       <li><a href="cle.html#cle.backends.elf.metaelf.MetaELF.plt">plt (cle.backends.elf.metaelf.MetaELF attribute)</a>
-
-      <ul>
-        <li><a href="cle.html#cle.backends.idabin.IDABin.plt">(cle.backends.idabin.IDABin attribute)</a>
 </li>
-      </ul></li>
       <li><a href="angr.html#angr.misc.plugins.PluginHub.plugin_preset">plugin_preset (angr.misc.plugins.PluginHub attribute)</a>
 </li>
       <li><a href="angr.html#angr.misc.plugins.PluginHub">PluginHub (class in angr.misc.plugins)</a>
@@ -7662,6 +7622,8 @@
       <li><a href="pyvex.html#module-pyvex.lifting.gym">pyvex.lifting.gym (module)</a>
 </li>
       <li><a href="pyvex.html#module-pyvex.lifting.gym.arm_spotter">pyvex.lifting.gym.arm_spotter (module)</a>
+</li>
+      <li><a href="pyvex.html#module-pyvex.lifting.gym.x86_spotter">pyvex.lifting.gym.x86_spotter (module)</a>
 </li>
       <li><a href="pyvex.html#module-pyvex.lifting.libvex">pyvex.lifting.libvex (module)</a>
 </li>
@@ -8421,8 +8383,6 @@
         <li><a href="cle.html#cle.backends.symbol.Symbol.resolve_forwarder">(cle.backends.symbol.Symbol method)</a>
 </li>
       </ul></li>
-      <li><a href="cle.html#cle.backends.idabin.IDABin.resolve_import_dirty">resolve_import_dirty() (cle.backends.idabin.IDABin method)</a>
-</li>
       <li><a href="cle.html#cle.backends.elf.relocation.arm.R_ARM_THM_CALL.resolve_symbol">resolve_symbol() (cle.backends.elf.relocation.arm.R_ARM_THM_CALL method)</a>
 
       <ul>
@@ -8661,9 +8621,11 @@
 </li>
       <li><a href="claripy.html#claripy.backends.backend_vsa.BackendVSA.Reverse">Reverse() (claripy.backends.backend_vsa.BackendVSA static method)</a>
 </li>
-      <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.reverse">reverse() (claripy.vsa.strided_interval.StridedInterval method)</a>
+      <li><a href="claripy.html#claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet.reverse">reverse() (claripy.vsa.discrete_strided_interval_set.DiscreteStridedIntervalSet method)</a>
 
       <ul>
+        <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.reverse">(claripy.vsa.strided_interval.StridedInterval method)</a>
+</li>
         <li><a href="claripy.html#claripy.vsa.valueset.ValueSet.reverse">(claripy.vsa.valueset.ValueSet method)</a>
 </li>
       </ul></li>
@@ -8674,11 +8636,7 @@
       <li><a href="claripy.html#claripy.ast.bool.reverse_ite_cases">reverse_ite_cases() (in module claripy.ast.bool)</a>
 </li>
       <li><a href="cle.html#cle.backends.elf.metaelf.MetaELF.reverse_plt">reverse_plt (cle.backends.elf.metaelf.MetaELF attribute)</a>
-
-      <ul>
-        <li><a href="cle.html#cle.backends.idabin.IDABin.reverse_plt">(cle.backends.idabin.IDABin attribute)</a>
 </li>
-      </ul></li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_utils.CFGUtils.reverse_post_order_sort_nodes">reverse_post_order_sort_nodes() (angr.analyses.cfg.cfg_utils.CFGUtils static method)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.bv.BV.reversed">reversed (claripy.ast.bv.BV attribute)</a>
@@ -8866,11 +8824,7 @@
       <li><a href="angr.html#angr.simos.linux.SimLinux.set_entry_register_values">set_entry_register_values() (angr.simos.linux.SimLinux method)</a>
 </li>
       <li><a href="cle.html#cle.backends.binja.BinjaBin.set_got_entry">set_got_entry() (cle.backends.binja.BinjaBin method)</a>
-
-      <ul>
-        <li><a href="cle.html#cle.backends.idabin.IDABin.set_got_entry">(cle.backends.idabin.IDABin method)</a>
 </li>
-      </ul></li>
       <li><a href="angr.html#angr.state_plugins.gdb.GDB.set_heap">set_heap() (angr.state_plugins.gdb.GDB method)</a>
 </li>
       <li><a href="angr.html#angr.annocfg.AnnotatedCFG.set_last_statement">set_last_statement() (angr.annocfg.AnnotatedCFG method)</a>
@@ -8995,6 +8949,8 @@
         <li><a href="angr.html#angr.exploration_techniques.loop_seer.LoopSeer.setup">(angr.exploration_techniques.loop_seer.LoopSeer method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.manual_mergepoint.ManualMergepoint.setup">(angr.exploration_techniques.manual_mergepoint.ManualMergepoint method)</a>
+</li>
+        <li><a href="angr.html#angr.exploration_techniques.slicecutor.Slicecutor.setup">(angr.exploration_techniques.slicecutor.Slicecutor method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.tracer.Tracer.setup">(angr.exploration_techniques.tracer.Tracer method)</a>
 </li>
@@ -9531,12 +9487,12 @@
 </li>
       <li><a href="angr.html#angr.errors.SimUnsatError">SimUnsatError</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.errors.SimUnsupportedError">SimUnsupportedError</a>
 </li>
       <li><a href="angr.html#angr.simos.userland.SimUserland">SimUserland (class in angr.simos.userland)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.errors.SimValueError">SimValueError</a>
 </li>
       <li><a href="angr.html#angr.sim_variable.SimVariable">SimVariable (class in angr.sim_variable)</a>
@@ -9674,6 +9630,8 @@
       <li><a href="angr.html#angr.blade.Blade.slice">slice (angr.blade.Blade attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.region_identifier.RegionIdentifier.slice_graph">slice_graph() (angr.analyses.decompiler.region_identifier.RegionIdentifier static method)</a>
+</li>
+      <li><a href="angr.html#angr.exploration_techniques.slicecutor.Slicecutor">Slicecutor (class in angr.exploration_techniques.slicecutor)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.bv.BV.SLT">SLT() (claripy.ast.bv.BV method)</a>
 
@@ -10042,8 +10000,6 @@
       <ul>
         <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.step">(angr.exploration_techniques.ExplorationTechnique method)</a>
 </li>
-        <li><a href="angr.html#angr.exploration_techniques.crash_monitor.CrashMonitor.step">(angr.exploration_techniques.crash_monitor.CrashMonitor method)</a>
-</li>
         <li><a href="angr.html#angr.exploration_techniques.dfs.DFS.step">(angr.exploration_techniques.dfs.DFS method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.director.Director.step">(angr.exploration_techniques.director.Director method)</a>
@@ -10076,7 +10032,9 @@
       <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.step_state">step_state() (angr.exploration_techniques.ExplorationTechnique method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.exploration_techniques.oppologist.Oppologist.step_state">(angr.exploration_techniques.oppologist.Oppologist method)</a>
+        <li><a href="angr.html#angr.exploration_techniques.slicecutor.Slicecutor.step_state">(angr.exploration_techniques.slicecutor.Slicecutor method)</a>
+</li>
+        <li><a href="angr.html#angr.exploration_techniques.tracer.Tracer.step_state">(angr.exploration_techniques.tracer.Tracer method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.veritesting.Veritesting.step_state">(angr.exploration_techniques.veritesting.Veritesting method)</a>
 </li>
@@ -10239,6 +10197,12 @@
         <li><a href="angr.html#angr.engines.hub.EngineHub.successors">(angr.engines.hub.EngineHub method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.successors">(angr.exploration_techniques.ExplorationTechnique method)</a>
+</li>
+        <li><a href="angr.html#angr.exploration_techniques.loop_seer.LoopSeer.successors">(angr.exploration_techniques.loop_seer.LoopSeer method)</a>
+</li>
+        <li><a href="angr.html#angr.exploration_techniques.oppologist.Oppologist.successors">(angr.exploration_techniques.oppologist.Oppologist method)</a>
+</li>
+        <li><a href="angr.html#angr.exploration_techniques.slicecutor.Slicecutor.successors">(angr.exploration_techniques.slicecutor.Slicecutor method)</a>
 </li>
         <li><a href="angr.html#angr.factory.AngrObjectFactory.successors">(angr.factory.AngrObjectFactory method)</a>
 </li>
@@ -11319,8 +11283,6 @@
 </li>
       <li><a href="angr.html#angr.analyses.vfg.VFGNode">VFGNode (class in angr.analyses.vfg)</a>
 </li>
-      <li><a href="angr.html#angr.sim_type.SimType.view">view() (angr.sim_type.SimType method)</a>
-</li>
       <li><a href="claripy.html#claripy.ast.vs.VS">VS (class in claripy.ast.vs)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.bv.VS">VS() (in module claripy.ast.bv)</a>
@@ -11495,12 +11457,18 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt.X86ElfPicPltResolver">X86ElfPicPltResolver (class in angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt)</a>
 </li>
+      <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Instruction">X86Instruction (class in pyvex.lifting.gym.x86_spotter)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.x86_pe_iat.X86PeIatResolver">X86PeIatResolver (class in angr.analyses.cfg.indirect_jump_resolvers.x86_pe_iat)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter">X86Spotter (class in pyvex.lifting.gym)</a>
+
+      <ul>
+        <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter">(class in pyvex.lifting.gym.x86_spotter)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -11572,7 +11540,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'8.18.10.5',
+            VERSION:'8.18.10.25',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
