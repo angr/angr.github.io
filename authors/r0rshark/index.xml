@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Announcements on angr</title>
-    <link>https://angr.github.io/tags/announcements/</link>
-    <description>Recent content in Announcements on angr</description>
+    <title>R0rshark on angr</title>
+    <link>https://angr.github.io/authors/r0rshark/</link>
+    <description>Recent content in R0rshark on angr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 20 Nov 2018 15:48:59 -0800</lastBuildDate>
     
-        <atom:link href="https://angr.github.io/tags/announcements/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://angr.github.io/authors/r0rshark/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -337,30 +337,6 @@ programs. We are excited to release this to the community, to see how you all wi
 push the boundaries of program analysis even further.&lt;/p&gt;
 
 &lt;p&gt;Stay tuned for more example and updates about the project!&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>angr blog starting up again</title>
-      <link>https://angr.github.io/blog/angr_blog_starting_up_again/</link>
-      <pubDate>Mon, 15 Jan 2018 15:48:59 -0800</pubDate>
-      
-      <guid>https://angr.github.io/blog/angr_blog_starting_up_again/</guid>
-      <description>&lt;p&gt;Like most New Year resolutions, we did a pretty terrible job of continuing to post on the angr blog throughout 2017.
-We learned from this, so this time we&amp;rsquo;re making an May resolution and bringing the angr blog back!&lt;/p&gt;
-
-&lt;p&gt;We know that angr can be pretty unapproachable and that while we have &lt;a href=&#34;https://docs.angr.io/docs/examples.html&#34;&gt;examples&lt;/a&gt;,
-they&amp;rsquo;re generally a little short on the thought process that underlies our solutions.
-On this blog, we&amp;rsquo;ll be posting many examples with abundant explanation, announcements and tutorials covering new angr
-features, and in-depth looks at parts of angr you&amp;rsquo;ve never though about before.
-To get you all started, we have a tutorial on extending angr to new architectures through gymrat plugins and more!
-If you&amp;rsquo;ve ever wanted to use angr to symbolically execute MSP430, Xtensa, BPF, cLEMENCy,
-or even Brainfuck (&lt;em&gt;gasp&lt;/em&gt;! Not BrainFuck!), then it&amp;rsquo;s definitely worth giving it a read!
-You can find links to each of the tutorial pages &lt;a href=&#34;https://angr.github.io/blog/throwing_a_tantrum_index&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;If you have any suggestions for articles or questions for the angr team, please reach out on &lt;a href=&#34;http://angr.slack.com&#34;&gt;our slack&lt;/a&gt;!
-You can request an invitation &lt;a href=&#34;https://angr.github.io/invite&#34;&gt;here&lt;/a&gt;.
-For more information on how you can contact us and get involved with the angr project, see &lt;a href=&#34;https://angr.github.io/#contact&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
