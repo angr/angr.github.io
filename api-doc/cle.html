@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cle — Binary Loader &mdash; angr 8.18.10.25 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 8.19.2.4 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                8.18.10.25
+                8.19.2.4
               </div>
             
           
@@ -169,7 +169,7 @@ produce an address space where that program is loaded and ready to run.</p>
 <span id="loading-interface"></span><h2>Loading Interface<a class="headerlink" href="#module-cle.loader" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cle.loader.Loader">
-<em class="property">class </em><code class="descclassname">cle.loader.</code><code class="descname">Loader</code><span class="sig-paren">(</span><em>main_binary</em>, <em>auto_load_libs=True</em>, <em>force_load_libs=()</em>, <em>skip_libs=()</em>, <em>main_opts=None</em>, <em>lib_opts=None</em>, <em>ld_path=()</em>, <em>use_system_libs=True</em>, <em>ignore_import_version_numbers=True</em>, <em>case_insensitive=False</em>, <em>rebase_granularity=16777216</em>, <em>except_missing_libs=False</em>, <em>aslr=False</em>, <em>perform_relocations=True</em>, <em>page_size=1</em>, <em>extern_size=32768</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cle.loader.</code><code class="descname">Loader</code><span class="sig-paren">(</span><em>main_binary</em>, <em>auto_load_libs=True</em>, <em>concrete_target=None</em>, <em>force_load_libs=()</em>, <em>skip_libs=()</em>, <em>main_opts=None</em>, <em>lib_opts=None</em>, <em>ld_path=()</em>, <em>use_system_libs=True</em>, <em>ignore_import_version_numbers=True</em>, <em>case_insensitive=False</em>, <em>rebase_granularity=16777216</em>, <em>except_missing_libs=False</em>, <em>aslr=False</em>, <em>perform_relocations=True</em>, <em>page_size=1</em>, <em>extern_size=32768</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.loader.Loader" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The loader loads all the objects and exports an abstraction of the memory of the process. What you see here is an
 address space with loaded and rebased binaries.</p>
@@ -189,6 +189,9 @@ in it.</td>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>auto_load_libs</strong> – Whether to automatically load shared libraries that loaded objects depend on.</li>
+<li><strong>concrete_target</strong> – Whether to instantiate a concrete target for a concrete execution of the process.
+if this is the case we will need to instantiate a SimConcreteEngine that wraps the
+ConcreteTarget provided by the user.</li>
 <li><strong>force_load_libs</strong> – A list of libraries to load regardless of if they’re required by a loaded object.</li>
 <li><strong>skip_libs</strong> – A list of libraries to never load, even if they’re required by a loaded object.</li>
 <li><strong>main_opts</strong> – A dictionary of options to be used loading the main binary.</li>
@@ -544,7 +547,7 @@ not being found, return None.</td>
 <li><strong>segments</strong> – A listing of all the loaded segments in this file</li>
 <li><strong>sections</strong> – A listing of all the demarked sections in the file</li>
 <li><strong>sections_map</strong> – A dict mapping from section name to section</li>
-<li><strong>imports</strong> – A mapping from symbol name to import symbol</li>
+<li><strong>imports</strong> – A mapping from symbol name to import relocation</li>
 <li><strong>resolved_imports</strong> – A list of all the import symbols that are successfully resolved</li>
 <li><strong>relocs</strong> – A list of all the relocations in this binary</li>
 <li><strong>irelatives</strong> – A list of tuples representing all the irelative relocations that need to be performed. The
@@ -694,75 +697,18 @@ before execution reaches the entry point. Addresses should be rebased.</p>
 <dd><p>Performs a minimal static load of <code class="docutils literal notranslate"><span class="pre">spec</span></code> and returns whether it’s compatible with other_obj</p>
 </dd></dl>
 
+<dl class="classmethod">
+<dt id="cle.backends.Backend.check_magic_compatibility">
+<em class="property">classmethod </em><code class="descname">check_magic_compatibility</code><span class="sig-paren">(</span><em>stream</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.check_magic_compatibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a stream of bytes contains the same magic number as the main object</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="function">
 <dt id="cle.backends.register_backend">
 <code class="descclassname">cle.backends.</code><code class="descname">register_backend</code><span class="sig-paren">(</span><em>name</em>, <em>cls</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.register_backend" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<span class="target" id="module-cle.backends.externs"></span><dl class="class">
-<dt id="cle.backends.externs.ExternSegment">
-<em class="property">class </em><code class="descclassname">cle.backends.externs.</code><code class="descname">ExternSegment</code><span class="sig-paren">(</span><em>offset</em>, <em>vaddr</em>, <em>filesize</em>, <em>memsize</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.ExternSegment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.region.Segment" title="cle.backends.region.Segment"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.region.Segment</span></code></a></p>
-<dl class="attribute">
-<dt id="cle.backends.externs.ExternSegment.is_readable">
-<code class="descname">is_readable</code><em class="property"> = True</em><a class="headerlink" href="#cle.backends.externs.ExternSegment.is_readable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.externs.ExternSegment.is_writable">
-<code class="descname">is_writable</code><em class="property"> = True</em><a class="headerlink" href="#cle.backends.externs.ExternSegment.is_writable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.externs.ExternSegment.is_executable">
-<code class="descname">is_executable</code><em class="property"> = True</em><a class="headerlink" href="#cle.backends.externs.ExternSegment.is_executable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="cle.backends.externs.ExternObject">
-<em class="property">class </em><code class="descclassname">cle.backends.externs.</code><code class="descname">ExternObject</code><span class="sig-paren">(</span><em>loader</em>, <em>map_size=32768</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.ExternObject" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.Backend</span></code></a></p>
-<dl class="method">
-<dt id="cle.backends.externs.ExternObject.make_extern">
-<code class="descname">make_extern</code><span class="sig-paren">(</span><em>name</em>, <em>size=1</em>, <em>alignment=8</em>, <em>thumb=False</em>, <em>sym_type=2</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.ExternObject.make_extern" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.externs.ExternObject.get_pseudo_addr">
-<code class="descname">get_pseudo_addr</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.ExternObject.get_pseudo_addr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.externs.ExternObject.allocate">
-<code class="descname">allocate</code><span class="sig-paren">(</span><em>size=1</em>, <em>alignment=8</em>, <em>thumb=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.ExternObject.allocate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.externs.ExternObject.max_addr">
-<code class="descname">max_addr</code><a class="headerlink" href="#cle.backends.externs.ExternObject.max_addr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="cle.backends.externs.KernelObject">
-<em class="property">class </em><code class="descclassname">cle.backends.externs.</code><code class="descname">KernelObject</code><span class="sig-paren">(</span><em>loader</em>, <em>map_size=32768</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.KernelObject" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.Backend</span></code></a></p>
-<dl class="method">
-<dt id="cle.backends.externs.KernelObject.add_name">
-<code class="descname">add_name</code><span class="sig-paren">(</span><em>name</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.KernelObject.add_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cle.backends.externs.KernelObject.max_addr">
-<code class="descname">max_addr</code><a class="headerlink" href="#cle.backends.externs.KernelObject.max_addr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
 
 <span class="target" id="module-cle.backends.symbol"></span><dl class="class">
 <dt id="cle.backends.symbol.Symbol">
@@ -775,18 +721,16 @@ the <a class="reference internal" href="#cle.backends.Backend.get_symbol" title=
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first simple">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
 <li><strong>owner</strong> (<a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><em>cle.backends.Backend</em></a>) – The object that contains this symbol</li>
 <li><strong>name</strong> (<em>str</em>) – The name of this symbol</li>
 <li><strong>addr</strong> (<em>int</em>) – The un-based address of this symbol, an RVA</li>
+<li><strong>size</strong> (<em>int</em>) – The size of this symbol</li>
 <li><strong>type</strong> (<em>int</em>) – The type of this symbol as one of SYMBOL.TYPE_*</li>
 <li><strong>resolved</strong> (<em>bool</em>) – Whether this import symbol has been resolved to a real symbol</li>
 <li><strong>resolvedby</strong> (<em>None</em><em> or </em><em>cle.backends.Symbol</em>) – The real symbol this import symbol has been resolve to</li>
 <li><strong>resolvewith</strong> (<em>str</em>) – The name of the library we must use to resolve this symbol, or None if none is required.</li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Iver int size:</th><td class="field-body"><p class="first last">The size of this symbol</p>
 </td>
 </tr>
 </tbody>
@@ -815,6 +759,11 @@ the <a class="reference internal" href="#cle.backends.Backend.get_symbol" title=
 <dl class="attribute">
 <dt id="cle.backends.symbol.Symbol.TYPE_SECTION">
 <code class="descname">TYPE_SECTION</code><em class="property"> = 4</em><a class="headerlink" href="#cle.backends.symbol.Symbol.TYPE_SECTION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.symbol.Symbol.TYPE_TLS_OBJECT">
+<code class="descname">TYPE_TLS_OBJECT</code><em class="property"> = 5</em><a class="headerlink" href="#cle.backends.symbol.Symbol.TYPE_TLS_OBJECT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1110,6 +1059,12 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <dd><p>Whether this section has execute permissions</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="cle.backends.region.Section.only_contains_uninitialized_data">
+<code class="descname">only_contains_uninitialized_data</code><a class="headerlink" href="#cle.backends.region.Section.only_contains_uninitialized_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether this section is initialized to zero after the executable is loaded.</p>
+</dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-cle.backends.elf"></span><span class="target" id="module-cle.backends.elf.elf"></span><dl class="class">
@@ -1125,6 +1080,11 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <dl class="classmethod">
 <dt id="cle.backends.elf.elf.ELF.check_compatibility">
 <em class="property">classmethod </em><code class="descname">check_compatibility</code><span class="sig-paren">(</span><em>spec</em>, <em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.elf.ELF.check_compatibility" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cle.backends.elf.elf.ELF.check_magic_compatibility">
+<em class="property">classmethod </em><code class="descname">check_magic_compatibility</code><span class="sig-paren">(</span><em>stream</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.elf.ELF.check_magic_compatibility" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">
@@ -1343,8 +1303,18 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="cle.backends.elf.regions.ELFSection.SHT_NULL">
+<code class="descname">SHT_NULL</code><em class="property"> = 'SHT_NULL'</em><a class="headerlink" href="#cle.backends.elf.regions.ELFSection.SHT_NULL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="cle.backends.elf.regions.ELFSection.is_readable">
 <code class="descname">is_readable</code><a class="headerlink" href="#cle.backends.elf.regions.ELFSection.is_readable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.elf.regions.ELFSection.is_active">
+<code class="descname">is_active</code><a class="headerlink" href="#cle.backends.elf.regions.ELFSection.is_active" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1365,6 +1335,11 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <dl class="attribute">
 <dt id="cle.backends.elf.regions.ELFSection.is_strings">
 <code class="descname">is_strings</code><a class="headerlink" href="#cle.backends.elf.regions.ELFSection.is_strings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.elf.regions.ELFSection.only_contains_uninitialized_data">
+<code class="descname">only_contains_uninitialized_data</code><a class="headerlink" href="#cle.backends.elf.regions.ELFSection.only_contains_uninitialized_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1467,6 +1442,11 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <dd></dd></dl>
 
 <dl class="classmethod">
+<dt id="cle.backends.pe.pe.PE.check_magic_compatibility">
+<em class="property">classmethod </em><code class="descname">check_magic_compatibility</code><span class="sig-paren">(</span><em>stream</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.pe.pe.PE.check_magic_compatibility" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cle.backends.pe.pe.PE.check_compatibility">
 <em class="property">classmethod </em><code class="descname">check_compatibility</code><span class="sig-paren">(</span><em>spec</em>, <em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.pe.pe.PE.check_compatibility" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1509,6 +1489,11 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <dl class="attribute">
 <dt id="cle.backends.pe.regions.PESection.is_executable">
 <code class="descname">is_executable</code><a class="headerlink" href="#cle.backends.pe.regions.PESection.is_executable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.pe.regions.PESection.only_contains_uninitialized_data">
+<code class="descname">only_contains_uninitialized_data</code><a class="headerlink" href="#cle.backends.pe.regions.PESection.only_contains_uninitialized_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2240,7 +2225,7 @@ See <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_HEX"
 
 <dl class="class">
 <dt id="cle.backends.binja.BinjaReloc">
-<em class="property">class </em><code class="descclassname">cle.backends.binja.</code><code class="descname">BinjaReloc</code><span class="sig-paren">(</span><em>owner</em>, <em>symbol</em>, <em>relative_addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.binja.BinjaReloc" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cle.backends.binja.</code><code class="descname">BinjaReloc</code><span class="sig-paren">(</span><em>owner: cle.backends.Backend</em>, <em>symbol: cle.backends.symbol.Symbol</em>, <em>relative_addr: int</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.binja.BinjaReloc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.relocation.Relocation" title="cle.backends.relocation.Relocation"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.relocation.Relocation</span></code></a></p>
 <dl class="attribute">
 <dt id="cle.backends.binja.BinjaReloc.value">
@@ -2460,6 +2445,313 @@ TODO: add more features as Binary Ninja’s feature set improves</p>
 
 </dd></dl>
 
+<span class="target" id="module-cle.backends.externs"></span><dl class="class">
+<dt id="cle.backends.externs.ExternSegment">
+<em class="property">class </em><code class="descclassname">cle.backends.externs.</code><code class="descname">ExternSegment</code><span class="sig-paren">(</span><em>offset</em>, <em>vaddr</em>, <em>filesize</em>, <em>memsize</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.ExternSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.region.Segment" title="cle.backends.region.Segment"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.region.Segment</span></code></a></p>
+<dl class="attribute">
+<dt id="cle.backends.externs.ExternSegment.is_readable">
+<code class="descname">is_readable</code><em class="property"> = True</em><a class="headerlink" href="#cle.backends.externs.ExternSegment.is_readable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.externs.ExternSegment.is_writable">
+<code class="descname">is_writable</code><em class="property"> = True</em><a class="headerlink" href="#cle.backends.externs.ExternSegment.is_writable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.externs.ExternSegment.is_executable">
+<code class="descname">is_executable</code><em class="property"> = True</em><a class="headerlink" href="#cle.backends.externs.ExternSegment.is_executable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.externs.ExternObject">
+<em class="property">class </em><code class="descclassname">cle.backends.externs.</code><code class="descname">ExternObject</code><span class="sig-paren">(</span><em>loader</em>, <em>map_size=32768</em>, <em>tls_size=4096</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.ExternObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.Backend</span></code></a></p>
+<dl class="method">
+<dt id="cle.backends.externs.ExternObject.make_extern">
+<code class="descname">make_extern</code><span class="sig-paren">(</span><em>name</em>, <em>size=0</em>, <em>alignment=None</em>, <em>thumb=False</em>, <em>sym_type=2</em>, <em>libname=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.ExternObject.make_extern" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.externs.ExternObject.get_pseudo_addr">
+<code class="descname">get_pseudo_addr</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.ExternObject.get_pseudo_addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.externs.ExternObject.allocate">
+<code class="descname">allocate</code><span class="sig-paren">(</span><em>size=1</em>, <em>alignment=8</em>, <em>thumb=False</em>, <em>tls=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.ExternObject.allocate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.externs.ExternObject.max_addr">
+<code class="descname">max_addr</code><a class="headerlink" href="#cle.backends.externs.ExternObject.max_addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.externs.ExternObject.make_import">
+<code class="descname">make_import</code><span class="sig-paren">(</span><em>name</em>, <em>sym_type</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.ExternObject.make_import" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.externs.KernelObject">
+<em class="property">class </em><code class="descclassname">cle.backends.externs.</code><code class="descname">KernelObject</code><span class="sig-paren">(</span><em>loader</em>, <em>map_size=32768</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.KernelObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.Backend</span></code></a></p>
+<dl class="method">
+<dt id="cle.backends.externs.KernelObject.add_name">
+<code class="descname">add_name</code><span class="sig-paren">(</span><em>name</em>, <em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.KernelObject.add_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.externs.KernelObject.max_addr">
+<code class="descname">max_addr</code><a class="headerlink" href="#cle.backends.externs.KernelObject.max_addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cle.backends.externs.simdata"></span><dl class="class">
+<dt id="cle.backends.externs.simdata.SimData">
+<em class="property">class </em><code class="descclassname">cle.backends.externs.simdata.</code><code class="descname">SimData</code><span class="sig-paren">(</span><em>owner</em>, <em>name</em>, <em>relative_addr</em>, <em>size</em>, <em>sym_type</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.SimData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.symbol.Symbol" title="cle.backends.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.symbol.Symbol</span></code></a></p>
+<p>A SimData class is used to provide data when there is an unresolved data import symbol.</p>
+<p>To use it, subclass this class and implement the below attributes and methods.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> – The name of the symbol to provide</li>
+<li><strong>libname</strong> – The name of the library from which the symbol originally comes (currently unused).</li>
+<li><strong>type</strong> – The type of the symbol, usually <code class="docutils literal notranslate"><span class="pre">Symbol.TYPE_OBJECT</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Use the below <cite>register</cite> method to register SimData subclasses with CLE.</p>
+<p>Not documenting this since if you try calling it, you’re wrong.</p>
+<dl class="attribute">
+<dt id="cle.backends.externs.simdata.SimData.name">
+<code class="descname">name</code><em class="property"> = NotImplemented</em><a class="headerlink" href="#cle.backends.externs.simdata.SimData.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.externs.simdata.SimData.type">
+<code class="descname">type</code><em class="property"> = NotImplemented</em><a class="headerlink" href="#cle.backends.externs.simdata.SimData.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.externs.simdata.SimData.libname">
+<code class="descname">libname</code><em class="property"> = NotImplemented</em><a class="headerlink" href="#cle.backends.externs.simdata.SimData.libname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cle.backends.externs.simdata.SimData.static_size">
+<em class="property">classmethod </em><code class="descname">static_size</code><span class="sig-paren">(</span><em>owner</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#cle.backends.externs.simdata.SimData.static_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement me: return the size of the symbol in bytes before it gets constructed</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>owner</strong> – The ExternObject owning the symbol-to-be. Useful to get at <code class="docutils literal notranslate"><span class="pre">owner.arch</span></code>.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.externs.simdata.SimData.value">
+<code class="descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bytes<a class="headerlink" href="#cle.backends.externs.simdata.SimData.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement me: the initial value of the bytes in memory for the symbol. Should return a
+bytestring of the same length as static_size returned. (owner is <code class="docutils literal notranslate"><span class="pre">self.owner</span></code> now)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.externs.simdata.SimData.relocations">
+<code class="descname">relocations</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[cle.backends.relocation.Relocation]<a class="headerlink" href="#cle.backends.externs.simdata.SimData.relocations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maybe implement me: If you like, return a list of relocation objects to apply. To create
+new import symbols, use <code class="docutils literal notranslate"><span class="pre">self.owner.make_extern_import</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cle.backends.externs.simdata.register">
+<code class="descclassname">cle.backends.externs.simdata.</code><code class="descname">register</code><span class="sig-paren">(</span><em>simdata_cls</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register the given SimData class with CLE so it may be used during loading</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="cle.backends.externs.simdata.lookup">
+<code class="descclassname">cle.backends.externs.simdata.</code><code class="descname">lookup</code><span class="sig-paren">(</span><em>name</em>, <em>libname</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.lookup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-cle.backends.externs.simdata.common"></span><dl class="class">
+<dt id="cle.backends.externs.simdata.common.StaticData">
+<em class="property">class </em><code class="descclassname">cle.backends.externs.simdata.common.</code><code class="descname">StaticData</code><span class="sig-paren">(</span><em>owner</em>, <em>name</em>, <em>relative_addr</em>, <em>size</em>, <em>sym_type</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.common.StaticData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.externs.simdata.SimData" title="cle.backends.externs.simdata.SimData"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.externs.simdata.SimData</span></code></a></p>
+<p>A simple SimData utility class to use when you have a SimData which should provide just a static
+set of bytes. To use, implement the following:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> – The name of the symbol to provide.</li>
+<li><strong>libname</strong> – The name of the library from which the symbol originally comes (currently unused).</li>
+<li><strong>data</strong> – The bytes to provide</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Not documenting this since if you try calling it, you’re wrong.</p>
+<dl class="attribute">
+<dt id="cle.backends.externs.simdata.common.StaticData.type">
+<code class="descname">type</code><em class="property"> = 3</em><a class="headerlink" href="#cle.backends.externs.simdata.common.StaticData.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.externs.simdata.common.StaticData.data">
+<code class="descname">data</code><em class="property"> = NotImplemented</em><a class="headerlink" href="#cle.backends.externs.simdata.common.StaticData.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cle.backends.externs.simdata.common.StaticData.static_size">
+<em class="property">classmethod </em><code class="descname">static_size</code><span class="sig-paren">(</span><em>owner</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.common.StaticData.static_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.externs.simdata.common.StaticData.value">
+<code class="descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.common.StaticData.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.externs.simdata.common.StaticWord">
+<em class="property">class </em><code class="descclassname">cle.backends.externs.simdata.common.</code><code class="descname">StaticWord</code><span class="sig-paren">(</span><em>owner</em>, <em>name</em>, <em>relative_addr</em>, <em>size</em>, <em>sym_type</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.common.StaticWord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.externs.simdata.SimData" title="cle.backends.externs.simdata.SimData"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.externs.simdata.SimData</span></code></a></p>
+<p>A simple SimData utility class to use when you have a SimData which should provide just a static
+integer. To use, implement the following:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> – The name of the symbol to provide.</li>
+<li><strong>libname</strong> – The name of the library from which the symbol originally comes (currently unused).</li>
+<li><strong>word</strong> – The value to provide</li>
+<li><strong>wordsize</strong> – (optional) The size of the value in bytes, default the CPU wordsize</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Not documenting this since if you try calling it, you’re wrong.</p>
+<dl class="attribute">
+<dt id="cle.backends.externs.simdata.common.StaticWord.type">
+<code class="descname">type</code><em class="property"> = 3</em><a class="headerlink" href="#cle.backends.externs.simdata.common.StaticWord.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.externs.simdata.common.StaticWord.word">
+<code class="descname">word</code><em class="property"> = NotImplemented</em><a class="headerlink" href="#cle.backends.externs.simdata.common.StaticWord.word" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.externs.simdata.common.StaticWord.wordsize">
+<code class="descname">wordsize</code><em class="property"> = None</em><a class="headerlink" href="#cle.backends.externs.simdata.common.StaticWord.wordsize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cle.backends.externs.simdata.common.StaticWord.static_size">
+<em class="property">classmethod </em><code class="descname">static_size</code><span class="sig-paren">(</span><em>owner</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.common.StaticWord.static_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.externs.simdata.common.StaticWord.value">
+<code class="descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.common.StaticWord.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.externs.simdata.common.PointTo">
+<em class="property">class </em><code class="descclassname">cle.backends.externs.simdata.common.</code><code class="descname">PointTo</code><span class="sig-paren">(</span><em>owner</em>, <em>name</em>, <em>relative_addr</em>, <em>size</em>, <em>sym_type</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.common.PointTo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.externs.simdata.SimData" title="cle.backends.externs.simdata.SimData"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.externs.simdata.SimData</span></code></a></p>
+<p>A simple SimData utility class to use when you have a SimData which should provide just a
+pointer to some other symbol. To use, implement the following:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> – The name of the symbol to provide.</li>
+<li><strong>libname</strong> – The name of the library from which the symbol originally comes (currently unused).</li>
+<li><strong>pointto_name</strong> – The name of the symbol to point to</li>
+<li><strong>pointto_type</strong> – The type of the symbol to point to (usually <code class="docutils literal notranslate"><span class="pre">Symbol.TYPE_FUNCTION</span></code> or
+<code class="docutils literal notranslate"><span class="pre">Symbol.TYPE_OBJECT</span></code>)</li>
+<li><strong>addend</strong> – (optional) an integer to be added to the symbol’s address before storage</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Not documenting this since if you try calling it, you’re wrong.</p>
+<dl class="attribute">
+<dt id="cle.backends.externs.simdata.common.PointTo.pointto_name">
+<code class="descname">pointto_name</code><em class="property"> = NotImplemented</em><a class="headerlink" href="#cle.backends.externs.simdata.common.PointTo.pointto_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.externs.simdata.common.PointTo.pointto_type">
+<code class="descname">pointto_type</code><em class="property"> = NotImplemented</em><a class="headerlink" href="#cle.backends.externs.simdata.common.PointTo.pointto_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.externs.simdata.common.PointTo.type">
+<code class="descname">type</code><em class="property"> = 3</em><a class="headerlink" href="#cle.backends.externs.simdata.common.PointTo.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.backends.externs.simdata.common.PointTo.addend">
+<code class="descname">addend</code><em class="property"> = 0</em><a class="headerlink" href="#cle.backends.externs.simdata.common.PointTo.addend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cle.backends.externs.simdata.common.PointTo.static_size">
+<em class="property">classmethod </em><code class="descname">static_size</code><span class="sig-paren">(</span><em>owner</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.common.PointTo.static_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.externs.simdata.common.PointTo.value">
+<code class="descname">value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.common.PointTo.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.externs.simdata.common.PointTo.relocations">
+<code class="descname">relocations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.common.PointTo.relocations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.externs.simdata.common.SimDataSimpleRelocation">
+<em class="property">class </em><code class="descclassname">cle.backends.externs.simdata.common.</code><code class="descname">SimDataSimpleRelocation</code><span class="sig-paren">(</span><em>owner</em>, <em>symbol</em>, <em>addr</em>, <em>addend</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.externs.simdata.common.SimDataSimpleRelocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.relocation.Relocation" title="cle.backends.relocation.Relocation"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.relocation.Relocation</span></code></a></p>
+<p>A relocation used to implement PointTo. Pretty simple.</p>
+<dl class="attribute">
+<dt id="cle.backends.externs.simdata.common.SimDataSimpleRelocation.value">
+<code class="descname">value</code><a class="headerlink" href="#cle.backends.externs.simdata.common.SimDataSimpleRelocation.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="relocations">
 <h2>Relocations<a class="headerlink" href="#relocations" title="Permalink to this headline">¶</a></h2>
@@ -2470,7 +2762,7 @@ The name of the subclass will be used to determine when to use it!
 Look at the existing versions for details.</p>
 <span class="target" id="module-cle.backends.relocation"></span><dl class="class">
 <dt id="cle.backends.relocation.Relocation">
-<em class="property">class </em><code class="descclassname">cle.backends.relocation.</code><code class="descname">Relocation</code><span class="sig-paren">(</span><em>owner</em>, <em>symbol</em>, <em>relative_addr</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.relocation.Relocation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cle.backends.relocation.</code><code class="descname">Relocation</code><span class="sig-paren">(</span><em>owner: cle.backends.Backend</em>, <em>symbol: cle.backends.symbol.Symbol</em>, <em>relative_addr: int</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.relocation.Relocation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A representation of a relocation in a binary file. Smart enough to
 relocate itself.</p>
@@ -2482,10 +2774,9 @@ relocate itself.</p>
 <li><strong>owner</strong> – The binary this relocation was originaly found in, as a cle object</li>
 <li><strong>symbol</strong> – The Symbol object this relocation refers to</li>
 <li><strong>relative_addr</strong> – The address in owner this relocation would like to write to</li>
-<li><strong>rebased_addr</strong> – The address in the global memory space this relocation would like to write to</li>
 <li><strong>resolvedby</strong> – If the symbol this relocation refers to is an import symbol and that import has been resolved,
 this attribute holds the symbol from a different binary that was used to resolve the import.</li>
-<li><strong>resolved</strong> – Whether the application of this relocation was succesful</li>
+<li><strong>resolved</strong> – Whether the application of this relocation was successful</li>
 </ul>
 </td>
 </tr>
@@ -2504,7 +2795,8 @@ this attribute holds the symbol from a different binary that was used to resolve
 <dl class="attribute">
 <dt id="cle.backends.relocation.Relocation.rebased_addr">
 <code class="descname">rebased_addr</code><a class="headerlink" href="#cle.backends.relocation.Relocation.rebased_addr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The address in the global memory space this relocation would like to write to</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="cle.backends.relocation.Relocation.linked_addr">
@@ -2719,9 +3011,9 @@ object it came from.</p>
 <dt id="cle.backends.elf.relocation.generic.GenericCopyReloc">
 <em class="property">class </em><code class="descclassname">cle.backends.elf.relocation.generic.</code><code class="descname">GenericCopyReloc</code><span class="sig-paren">(</span><em>owner</em>, <em>symbol</em>, <em>relative_addr</em>, <em>addend=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.generic.GenericCopyReloc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.elfreloc.ELFReloc" title="cle.backends.elf.relocation.elfreloc.ELFReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.elf.relocation.elfreloc.ELFReloc</span></code></a></p>
-<dl class="attribute">
-<dt id="cle.backends.elf.relocation.generic.GenericCopyReloc.value">
-<code class="descname">value</code><a class="headerlink" href="#cle.backends.elf.relocation.generic.GenericCopyReloc.value" title="Permalink to this definition">¶</a></dt>
+<dl class="method">
+<dt id="cle.backends.elf.relocation.generic.GenericCopyReloc.relocate">
+<code class="descname">relocate</code><span class="sig-paren">(</span><em>solist</em>, <em>bypass_compatibility=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.generic.GenericCopyReloc.relocate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -3403,7 +3695,7 @@ for whether or not the target is Thumb.</p>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.relocation.Relocation" title="cle.backends.relocation.Relocation"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.relocation.Relocation</span></code></a></p>
 <dl class="method">
 <dt id="cle.backends.pe.relocation.pereloc.PEReloc.resolve_symbol">
-<code class="descname">resolve_symbol</code><span class="sig-paren">(</span><em>solist</em>, <em>bypass_compatibility=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.pe.relocation.pereloc.PEReloc.resolve_symbol" title="Permalink to this definition">¶</a></dt>
+<code class="descname">resolve_symbol</code><span class="sig-paren">(</span><em>solist</em>, <em>bypass_compatibility=False</em>, <em>thumb=False</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.pe.relocation.pereloc.PEReloc.resolve_symbol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -3700,17 +3992,22 @@ case, however, we have to adjust the un-rebased address first.</p>
 <span id="thread-local-storage"></span><h2>Thread-local storage<a class="headerlink" href="#module-cle.backends.tls" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cle.backends.tls.TLSObject">
-<em class="property">class </em><code class="descclassname">cle.backends.tls.</code><code class="descname">TLSObject</code><span class="sig-paren">(</span><em>loader</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.tls.TLSObject" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cle.backends.tls.</code><code class="descname">TLSObject</code><span class="sig-paren">(</span><em>loader</em>, <em>max_modules=256</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.tls.TLSObject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.Backend</span></code></a></p>
 <p>CLE implements thread-local storage by treating the TLS region as another object to be loaded. Because of the
 complex interactions between TLS and all the other objects that can be loaded into memory, each TLS object will
-perform some basic initialization when instanciated, and then once all other objects have been loaded,
-<code class="docutils literal notranslate"><span class="pre">finalize()</span></code> is called.</p>
+perform some basic initialization when instantiated, and then once all other objects have been loaded,
+<code class="docutils literal notranslate"><span class="pre">map_object()</span></code> is called to actually put each object’s image into memory.</p>
 <dl class="method">
 <dt id="cle.backends.tls.TLSObject.register_object">
 <code class="descname">register_object</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.tls.TLSObject.register_object" title="Permalink to this definition">¶</a></dt>
-<dd><p>Lay out the TLS initialization images into memory. Do the actual work in a subclass.</p>
+<dd><p>Assign some thread-local identifiers to the module (object). Do the heavy lifting in a subclass.</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.tls.TLSObject.map_object">
+<code class="descname">map_object</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.tls.TLSObject.map_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="cle.backends.tls.TLSObject.rebase">
@@ -3763,11 +4060,6 @@ namedtuple from archinfo.</p>
 <dl class="method">
 <dt id="cle.backends.tls.elf_tls.ELFTLSObject.register_object">
 <code class="descname">register_object</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.tls.elf_tls.ELFTLSObject.register_object" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.tls.elf_tls.ELFTLSObject.map_object">
-<code class="descname">map_object</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.tls.elf_tls.ELFTLSObject.map_object" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -3844,11 +4136,6 @@ TLS array to get the start address of the TLS data.</p>
 <dl class="method">
 <dt id="cle.backends.tls.pe_tls.PETLSObject.register_object">
 <code class="descname">register_object</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.tls.pe_tls.PETLSObject.register_object" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.tls.pe_tls.PETLSObject.map_object">
-<code class="descname">map_object</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.tls.pe_tls.PETLSObject.map_object" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -3935,6 +4222,21 @@ the address space from the gdb session</p>
 <dl class="attribute">
 <dt id="cle.memory.Clemory.max_addr">
 <code class="descname">max_addr</code><a class="headerlink" href="#cle.memory.Clemory.max_addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cle.memory.Clemory.concrete_target">
+<code class="descname">concrete_target</code><a class="headerlink" href="#cle.memory.Clemory.concrete_target" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.memory.Clemory.is_concrete_target_set">
+<code class="descname">is_concrete_target_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.is_concrete_target_set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.memory.Clemory.set_concrete_target">
+<code class="descname">set_concrete_target</code><span class="sig-paren">(</span><em>concrete_target</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.set_concrete_target" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -4078,6 +4380,29 @@ encountered.</p>
 <dt id="cle.memory.Clemory.tell">
 <code class="descname">tell</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.tell" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.memory.Clemory.find">
+<code class="descname">find</code><span class="sig-paren">(</span><em>data</em>, <em>search_min=None</em>, <em>search_max=None</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.memory.Clemory.find" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find all occurances of a bytestring in memory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>bytes</em>) – The bytestring to search for</li>
+<li><strong>search_min</strong> (<em>int</em>) – Optional: The first address to include as valid</li>
+<li><strong>search_max</strong> (<em>int</em>) – Optional: The last address to include as valid</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Return Iterator[int]:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last">Iterates over addresses at which the bytestring occurs</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -4352,7 +4677,7 @@ except to make it seem like the data has actually been patched by the given patc
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, The angr project.
+        &copy; Copyright 2018, The angr project
 
     </p>
   </div>
@@ -4371,21 +4696,14 @@ except to make it seem like the data has actually been patched by the given patc
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'8.18.10.25',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
 
   
 

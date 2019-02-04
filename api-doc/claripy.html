@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>claripy — Solver Engine &mdash; angr 8.18.10.25 documentation</title>
+  <title>claripy — Solver Engine &mdash; angr 8.19.2.4 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                8.18.10.25
+                8.19.2.4
               </div>
             
           
@@ -198,7 +198,7 @@ Most of the time, you’ll be using claripy as a simple frontend to z3:</p>
 <dl class="class">
 <dt id="claripy.ast.base.Base">
 <em class="property">class </em><code class="descclassname">claripy.ast.base.</code><code class="descname">Base</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ana.storable.Storable</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This is the base class of all claripy ASTs. An AST tracks a tree of operations on arguments.</p>
 <p>This class should not be instanciated directly - instead, use one of the constructor functions (BVS, BVV, FPS,
 FPV…) to construct a leaf node and then build more complicated expressions using operations.</p>
@@ -261,24 +261,19 @@ it creates, initializes, and returns the AST.</p>
 <code class="descname">UNSIMPLIFIED</code><em class="property"> = 0</em><a class="headerlink" href="#claripy.ast.base.Base.UNSIMPLIFIED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="claripy.ast.base.Base.make_uuid">
-<code class="descname">make_uuid</code><span class="sig-paren">(</span><em>uuid=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.make_uuid" title="Permalink to this definition">¶</a></dt>
-<dd><p>This overrides the default ANA uuid with the hash of the AST. UUID is slow, and we’ll soon replace it from ANA
-itself, and this will go away.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a string representation of the AST hash.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dl class="attribute">
+<dt id="claripy.ast.base.Base.LITE_REPR">
+<code class="descname">LITE_REPR</code><em class="property"> = 0</em><a class="headerlink" href="#claripy.ast.base.Base.LITE_REPR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="attribute">
-<dt id="claripy.ast.base.Base.uuid">
-<code class="descname">uuid</code><a class="headerlink" href="#claripy.ast.base.Base.uuid" title="Permalink to this definition">¶</a></dt>
+<dt id="claripy.ast.base.Base.MID_REPR">
+<code class="descname">MID_REPR</code><em class="property"> = 1</em><a class="headerlink" href="#claripy.ast.base.Base.MID_REPR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.ast.base.Base.FULL_REPR">
+<code class="descname">FULL_REPR</code><em class="property"> = 2</em><a class="headerlink" href="#claripy.ast.base.Base.FULL_REPR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -428,39 +423,73 @@ itself, and this will go away.</p>
 
 <dl class="method">
 <dt id="claripy.ast.base.Base.shallow_repr">
-<code class="descname">shallow_repr</code><span class="sig-paren">(</span><em>max_depth=8</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.shallow_repr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a string representation of this AST, but with a maximum depth to prevent floods of text being printed.</p>
+<code class="descname">shallow_repr</code><span class="sig-paren">(</span><em>max_depth=8</em>, <em>explicit_length=False</em>, <em>details=0</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.shallow_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string representation of this AST, but with a maximum depth to
+prevent floods of text being printed.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>max_depth</strong> – The maximum depth to print</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>max_depth</strong> – The maximum depth to print.</li>
+<li><strong>explicit_length</strong> – Print lengths of BVV arguments.</li>
+<li><strong>details</strong> – An integer value specifying how detailed the output should be:
+LITE_REPR - print short repr for both operations and BVs,
+MID_REPR  - print full repr for operations and short for BVs,
+FULL_REPR - print full repr of both operations and BVs.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A string representing the AST</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A string representing the AST</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.children_asts">
+<code class="descname">children_asts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.children_asts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over the nested children ASTs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.leaf_asts">
+<code class="descname">leaf_asts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.leaf_asts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over the leaf ASTs.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.ast.base.Base.recursive_children_asts">
+<code class="descname">recursive_children_asts</code><a class="headerlink" href="#claripy.ast.base.Base.recursive_children_asts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use children_asts() instead.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">DEPRECATED</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="claripy.ast.base.Base.depth">
-<code class="descname">depth</code><a class="headerlink" href="#claripy.ast.base.Base.depth" title="Permalink to this definition">¶</a></dt>
-<dd><p>The depth of this AST. For example, an AST representing (a+(b+c)) would have a depth of 2.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.base.Base.recursive_children_asts">
-<code class="descname">recursive_children_asts</code><a class="headerlink" href="#claripy.ast.base.Base.recursive_children_asts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="claripy.ast.base.Base.recursive_leaf_asts">
 <code class="descname">recursive_leaf_asts</code><a class="headerlink" href="#claripy.ast.base.Base.recursive_leaf_asts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Use leaf_asts() instead.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">DEPRECATED</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="claripy.ast.base.Base.dbg_is_looped">
-<code class="descname">dbg_is_looped</code><span class="sig-paren">(</span><em>seen=None</em>, <em>checked=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.dbg_is_looped" title="Permalink to this definition">¶</a></dt>
+<code class="descname">dbg_is_looped</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.dbg_is_looped" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -494,24 +523,31 @@ just the AST.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="claripy.ast.base.Base.replace">
-<code class="descname">replace</code><span class="sig-paren">(</span><em>old</em>, <em>new</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns this AST but with the AST ‘old’ replaced with AST ‘new’ in its subexpressions.</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="claripy.ast.base.Base.replace_dict">
-<code class="descname">replace_dict</code><span class="sig-paren">(</span><em>replacements</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace_dict" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
+<code class="descname">replace_dict</code><span class="sig-paren">(</span><em>replacements</em>, <em>variable_set=None</em>, <em>leaf_operation=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns this AST with subexpressions replaced by those that can be found in <cite>replacements</cite> dict.</p>
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>replacements</strong> – A dictionary of asts to replace and their replacements.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>variable_set</strong> – For optimization, ast’s without these variables are not checked for replacing.</li>
+<li><strong>replacements</strong> – A dictionary of hashes to their replacements.</li>
+<li><strong>leaf_operation</strong> – An operation that should be applied to the leaf nodes.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">An AST with all instances of ast’s in replacements.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An AST with all instances of ast’s in replacements.</p>
+</td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.base.Base.replace">
+<code class="descname">replace</code><span class="sig-paren">(</span><em>old</em>, <em>new</em>, <em>variable_set=None</em>, <em>leaf_operation=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns this AST but with the AST ‘old’ replaced with AST ‘new’ in its subexpressions.</p>
 </dd></dl>
 
 <dl class="method">
@@ -590,6 +626,11 @@ execution mode.</p>
 <dl class="attribute">
 <dt id="claripy.ast.base.Base.args">
 <code class="descname">args</code><a class="headerlink" href="#claripy.ast.base.Base.args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.ast.base.Base.depth">
+<code class="descname">depth</code><a class="headerlink" href="#claripy.ast.base.Base.depth" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1916,6 +1957,16 @@ approximation.</p>
 <em class="property">static </em><code class="descname">FPV</code><span class="sig-paren">(</span><em>op</em>, <em>sort</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_concrete.BackendConcrete.FPV" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="claripy.backends.backend_concrete.BackendConcrete.is_true">
+<code class="descname">is_true</code><span class="sig-paren">(</span><em>e</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_concrete.BackendConcrete.is_true" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_concrete.BackendConcrete.is_false">
+<code class="descname">is_false</code><span class="sig-paren">(</span><em>e</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_concrete.BackendConcrete.is_false" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-claripy.backends.backend_z3"></span><dl class="function">
@@ -1924,8 +1975,19 @@ approximation.</p>
 <dd></dd></dl>
 
 <dl class="class">
+<dt id="claripy.backends.backend_z3.SmartLRUCache">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_z3.</code><code class="descname">SmartLRUCache</code><span class="sig-paren">(</span><em>maxsize</em>, <em>getsizeof=None</em>, <em>evict=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.SmartLRUCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cachetools.lru.LRUCache</span></code></p>
+<dl class="method">
+<dt id="claripy.backends.backend_z3.SmartLRUCache.popitem">
+<code class="descname">popitem</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.SmartLRUCache.popitem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="claripy.backends.backend_z3.BackendZ3">
-<em class="property">class </em><code class="descclassname">claripy.backends.backend_z3.</code><code class="descname">BackendZ3</code><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_z3.</code><code class="descname">BackendZ3</code><span class="sig-paren">(</span><em>reuse_z3_solver=None</em>, <em>ast_cache_size=10000</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.backends.Backend" title="claripy.backends.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.backends.Backend</span></code></a></p>
 <dl class="attribute">
 <dt id="claripy.backends.backend_z3.BackendZ3.extra_bvs_data">
@@ -2244,7 +2306,7 @@ approximation.</p>
 <dl class="class">
 <dt id="claripy.frontend.Frontend">
 <em class="property">class </em><code class="descclassname">claripy.frontend.</code><code class="descname">Frontend</code><a class="headerlink" href="#claripy.frontend.Frontend" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ana.storable.Storable</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="claripy.frontend.Frontend.branch">
 <code class="descname">branch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontend.Frontend.branch" title="Permalink to this definition">¶</a></dt>
@@ -2253,11 +2315,6 @@ approximation.</p>
 <dl class="method">
 <dt id="claripy.frontend.Frontend.blank_copy">
 <code class="descname">blank_copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontend.Frontend.blank_copy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.frontend.Frontend.uuid">
-<code class="descname">uuid</code><a class="headerlink" href="#claripy.frontend.Frontend.uuid" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -2490,7 +2547,7 @@ approximation.</p>
 
 <dl class="method">
 <dt id="claripy.frontends.constrained_frontend.ConstrainedFrontend.batch_eval">
-<code class="descname">batch_eval</code><span class="sig-paren">(</span><em>e</em>, <em>n</em>, <em>extra_constraints=()</em>, <em>exact=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.batch_eval" title="Permalink to this definition">¶</a></dt>
+<code class="descname">batch_eval</code><span class="sig-paren">(</span><em>exprs</em>, <em>n</em>, <em>extra_constraints=()</em>, <em>exact=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.batch_eval" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -2598,7 +2655,7 @@ approximation.</p>
 
 <span class="target" id="module-claripy.frontends.hybrid_frontend"></span><dl class="class">
 <dt id="claripy.frontends.hybrid_frontend.HybridFrontend">
-<em class="property">class </em><code class="descclassname">claripy.frontends.hybrid_frontend.</code><code class="descname">HybridFrontend</code><span class="sig-paren">(</span><em>exact_frontend</em>, <em>approximate_frontend</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.hybrid_frontend.HybridFrontend" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">claripy.frontends.hybrid_frontend.</code><code class="descname">HybridFrontend</code><span class="sig-paren">(</span><em>exact_frontend</em>, <em>approximate_frontend</em>, <em>approximate_first=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.hybrid_frontend.HybridFrontend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.frontend.Frontend" title="claripy.frontend.Frontend"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend.Frontend</span></code></a></p>
 <dl class="attribute">
 <dt id="claripy.frontends.hybrid_frontend.HybridFrontend.constraints">
@@ -2839,7 +2896,7 @@ approximation.</p>
 
 <dl class="class">
 <dt id="claripy.solvers.SolverHybrid">
-<em class="property">class </em><code class="descclassname">claripy.solvers.</code><code class="descname">SolverHybrid</code><span class="sig-paren">(</span><em>exact_frontend=None</em>, <em>approximate_frontend=None</em>, <em>complex_auto_replace=True</em>, <em>replace_constraints=True</em>, <em>track=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.solvers.SolverHybrid" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">claripy.solvers.</code><code class="descname">SolverHybrid</code><span class="sig-paren">(</span><em>exact_frontend=None</em>, <em>approximate_frontend=None</em>, <em>complex_auto_replace=True</em>, <em>replace_constraints=True</em>, <em>track=False</em>, <em>approximate_first=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.solvers.SolverHybrid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.frontend_mixins.constraint_fixer_mixin.ConstraintFixerMixin" title="claripy.frontend_mixins.constraint_fixer_mixin.ConstraintFixerMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.constraint_fixer_mixin.ConstraintFixerMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin" title="claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.eager_resolution_mixin.EagerResolutionMixin" title="claripy.frontend_mixins.eager_resolution_mixin.EagerResolutionMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.eager_resolution_mixin.EagerResolutionMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin" title="claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin" title="claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.simplify_skipper_mixin.SimplifySkipperMixin" title="claripy.frontend_mixins.simplify_skipper_mixin.SimplifySkipperMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.simplify_skipper_mixin.SimplifySkipperMixin</span></code></a>, <a class="reference internal" href="#claripy.frontends.hybrid_frontend.HybridFrontend" title="claripy.frontends.hybrid_frontend.HybridFrontend"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontends.hybrid_frontend.HybridFrontend</span></code></a></p>
 </dd></dl>
 
@@ -5083,6 +5140,11 @@ one.</p>
 <code class="descclassname">claripy.</code><code class="descname">downsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.downsize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="function">
+<dt id="claripy.reset">
+<code class="descclassname">claripy.</code><code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <span class="target" id="module-claripy.balancer"></span><dl class="class">
 <dt id="claripy.balancer.Balancer">
 <em class="property">class </em><code class="descclassname">claripy.balancer.</code><code class="descname">Balancer</code><span class="sig-paren">(</span><em>helper</em>, <em>c</em>, <em>validation_frontend=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.balancer.Balancer" title="Permalink to this definition">¶</a></dt>
@@ -5564,116 +5626,6 @@ unknown terms on one side of an inequality.</p>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="claripy.operations.if_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">if_simplifier</code><span class="sig-paren">(</span><em>cond</em>, <em>if_true</em>, <em>if_false</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.if_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.concat_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">concat_simplifier</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.concat_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.rshift_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">rshift_simplifier</code><span class="sig-paren">(</span><em>val</em>, <em>shift</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.rshift_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.lshift_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">lshift_simplifier</code><span class="sig-paren">(</span><em>val</em>, <em>shift</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.lshift_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.eq_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">eq_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.eq_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.ne_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">ne_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.ne_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.boolean_reverse_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">boolean_reverse_simplifier</code><span class="sig-paren">(</span><em>body</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.boolean_reverse_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.boolean_and_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">boolean_and_simplifier</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.boolean_and_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.boolean_or_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">boolean_or_simplifier</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.boolean_or_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.bitwise_add_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">bitwise_add_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.bitwise_add_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.bitwise_mul_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">bitwise_mul_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.bitwise_mul_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.bitwise_sub_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">bitwise_sub_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.bitwise_sub_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.bitwise_xor_simplifier_minmax">
-<code class="descclassname">claripy.operations.</code><code class="descname">bitwise_xor_simplifier_minmax</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.bitwise_xor_simplifier_minmax" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.bitwise_xor_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">bitwise_xor_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.bitwise_xor_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.bitwise_or_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">bitwise_or_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.bitwise_or_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.bitwise_and_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">bitwise_and_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.bitwise_and_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.boolean_not_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">boolean_not_simplifier</code><span class="sig-paren">(</span><em>body</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.boolean_not_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.zeroext_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">zeroext_simplifier</code><span class="sig-paren">(</span><em>n</em>, <em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.zeroext_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.signext_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">signext_simplifier</code><span class="sig-paren">(</span><em>n</em>, <em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.signext_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.extract_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">extract_simplifier</code><span class="sig-paren">(</span><em>high</em>, <em>low</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.extract_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.fptobv_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">fptobv_simplifier</code><span class="sig-paren">(</span><em>the_fp</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.fptobv_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="claripy.operations.fptofp_simplifier">
-<code class="descclassname">claripy.operations.</code><code class="descname">fptofp_simplifier</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.fptofp_simplifier" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
 <dt id="claripy.operations.length_same_check">
 <code class="descclassname">claripy.operations.</code><code class="descname">length_same_check</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.length_same_check" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -5703,6 +5655,151 @@ unknown terms on one side of an inequality.</p>
 <code class="descclassname">claripy.operations.</code><code class="descname">concat_length_calc</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.concat_length_calc" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<span class="target" id="module-claripy.simplifications"></span><dl class="class">
+<dt id="claripy.simplifications.SimplificationManager">
+<em class="property">class </em><code class="descclassname">claripy.simplifications.</code><code class="descname">SimplificationManager</code><a class="headerlink" href="#claripy.simplifications.SimplificationManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="claripy.simplifications.SimplificationManager.simplify">
+<code class="descname">simplify</code><span class="sig-paren">(</span><em>op</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.simplify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.if_simplifier">
+<em class="property">static </em><code class="descname">if_simplifier</code><span class="sig-paren">(</span><em>cond</em>, <em>if_true</em>, <em>if_false</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.if_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.concat_simplifier">
+<em class="property">static </em><code class="descname">concat_simplifier</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.concat_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.rshift_simplifier">
+<em class="property">static </em><code class="descname">rshift_simplifier</code><span class="sig-paren">(</span><em>val</em>, <em>shift</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.rshift_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.lshr_simplifier">
+<em class="property">static </em><code class="descname">lshr_simplifier</code><span class="sig-paren">(</span><em>val</em>, <em>shift</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.lshr_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.lshift_simplifier">
+<em class="property">static </em><code class="descname">lshift_simplifier</code><span class="sig-paren">(</span><em>val</em>, <em>shift</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.lshift_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.eq_simplifier">
+<em class="property">static </em><code class="descname">eq_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.eq_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.ne_simplifier">
+<em class="property">static </em><code class="descname">ne_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.ne_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.boolean_reverse_simplifier">
+<em class="property">static </em><code class="descname">boolean_reverse_simplifier</code><span class="sig-paren">(</span><em>body</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.boolean_reverse_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.boolean_and_simplifier">
+<em class="property">static </em><code class="descname">boolean_and_simplifier</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.boolean_and_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.boolean_or_simplifier">
+<em class="property">static </em><code class="descname">boolean_or_simplifier</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.boolean_or_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.bitwise_add_simplifier">
+<em class="property">static </em><code class="descname">bitwise_add_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.bitwise_add_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.bitwise_mul_simplifier">
+<em class="property">static </em><code class="descname">bitwise_mul_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.bitwise_mul_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.bitwise_sub_simplifier">
+<em class="property">static </em><code class="descname">bitwise_sub_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.bitwise_sub_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.bitwise_xor_simplifier_minmax">
+<em class="property">static </em><code class="descname">bitwise_xor_simplifier_minmax</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.bitwise_xor_simplifier_minmax" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.bitwise_xor_simplifier">
+<em class="property">static </em><code class="descname">bitwise_xor_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.bitwise_xor_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.bitwise_or_simplifier">
+<em class="property">static </em><code class="descname">bitwise_or_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.bitwise_or_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.bitwise_and_simplifier">
+<em class="property">static </em><code class="descname">bitwise_and_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.bitwise_and_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.boolean_not_simplifier">
+<em class="property">static </em><code class="descname">boolean_not_simplifier</code><span class="sig-paren">(</span><em>body</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.boolean_not_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.zeroext_simplifier">
+<em class="property">static </em><code class="descname">zeroext_simplifier</code><span class="sig-paren">(</span><em>n</em>, <em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.zeroext_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.signext_simplifier">
+<em class="property">static </em><code class="descname">signext_simplifier</code><span class="sig-paren">(</span><em>n</em>, <em>e</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.signext_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.extract_simplifier">
+<em class="property">static </em><code class="descname">extract_simplifier</code><span class="sig-paren">(</span><em>high</em>, <em>low</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.extract_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.fptobv_simplifier">
+<em class="property">static </em><code class="descname">fptobv_simplifier</code><span class="sig-paren">(</span><em>the_fp</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.fptobv_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.fptofp_simplifier">
+<em class="property">static </em><code class="descname">fptofp_simplifier</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.fptofp_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.rotate_shift_mask_simplifier">
+<em class="property">static </em><code class="descname">rotate_shift_mask_simplifier</code><span class="sig-paren">(</span><em>a</em>, <em>b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.rotate_shift_mask_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Handles the following case:</dt>
+<dd><dl class="first last docutils">
+<dt>((A &lt;&lt; a) | (A &gt;&gt; (_N - a))) &amp; mask, where</dt>
+<dd>A being a BVS,
+a being a integer that is less than _N,
+_N is either 32 or 64, and
+mask can be evaluated to 0xffffffff (64-bit) or 0xffff (32-bit) after reversing the rotate-shift
+operation.</dd>
+</dl>
+</dd>
+<dt>It will be simplified to:</dt>
+<dd>(A &amp; (mask &gt;&gt;&gt; a)) &lt;&lt;&lt; a</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-claripy.ops"></span><dl class="function">
 <dt id="claripy.ops.AbstractLocation">
 <code class="descclassname">claripy.ops.</code><code class="descname">AbstractLocation</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ops.AbstractLocation" title="Permalink to this definition">¶</a></dt>
@@ -5731,7 +5828,7 @@ unknown terms on one side of an inequality.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, The angr project.
+        &copy; Copyright 2018, The angr project
 
     </p>
   </div>
@@ -5750,21 +5847,14 @@ unknown terms on one side of an inequality.</p>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'8.18.10.25',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
 
   
 

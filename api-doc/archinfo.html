@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>archinfo — Arch Information Repository &mdash; angr 8.18.10.25 documentation</title>
+  <title>archinfo — Arch Information Repository &mdash; angr 8.19.2.4 documentation</title>
   
 
   
@@ -57,7 +57,7 @@
             
             
               <div class="version">
-                8.18.10.25
+                8.19.2.4
               </div>
             
           
@@ -199,7 +199,7 @@ It is useful for cross-architecture tools (such as pyvex).</p>
 
 <dl class="class">
 <dt id="archinfo.arch.Register">
-<em class="property">class </em><code class="descclassname">archinfo.arch.</code><code class="descname">Register</code><span class="sig-paren">(</span><em>name</em>, <em>size</em>, <em>vex_offset=None</em>, <em>vex_name=None</em>, <em>subregisters=None</em>, <em>alias_names=None</em>, <em>general_purpose=False</em>, <em>floating_point=False</em>, <em>vector=False</em>, <em>argument=False</em>, <em>persistent=False</em>, <em>default_value=None</em>, <em>linux_entry_value=None</em>, <em>concretize_unique=False</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Register" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">archinfo.arch.</code><code class="descname">Register</code><span class="sig-paren">(</span><em>name</em>, <em>size</em>, <em>vex_offset=None</em>, <em>vex_name=None</em>, <em>subregisters=None</em>, <em>alias_names=None</em>, <em>general_purpose=False</em>, <em>floating_point=False</em>, <em>vector=False</em>, <em>argument=False</em>, <em>persistent=False</em>, <em>default_value=None</em>, <em>linux_entry_value=None</em>, <em>concretize_unique=False</em>, <em>concrete=True</em>, <em>artificial=False</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Register" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A collection of information about a register. Each different architecture
 has its own list of registers, which is the base for all other
@@ -225,6 +225,9 @@ with PyVEX.</p>
 <li><strong>default_value</strong> (<em>tuple</em>) – The offset of the instruction pointer in the register file</li>
 <li><strong>str linux_entry_value</strong> (<em>int</em><em>,</em>) – The offset of the instruction pointer in the register file</li>
 <li><strong>concretize_unique</strong> (<em>bool</em>) – Whether this register should be concretized, if unique, at the end of each block</li>
+<li><strong>concrete</strong> (<em>bool</em>) – Whether this register should be considered during the synchronization of the concrete execution
+of the process</li>
+<li><strong>artificial</strong> (<em>bool</em>) – Whether this register is an artificial register added by VEX IR or other ILs.</li>
 </ul>
 </td>
 </tr>
@@ -412,14 +415,95 @@ the general purpose registers.</li>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="archinfo.arch.Arch.get_base_register">
+<code class="descname">get_base_register</code><span class="sig-paren">(</span><em>offset</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Arch.get_base_register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a register or sub-register to its base register’s offset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>offset</strong> (<em>int</em>) – The offset of the register to look up for.</li>
+<li><strong>size</strong> (<em>int</em>) – Size of the register.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Offset and size of the base register, or None if no base register is found.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="archinfo.arch.Arch.get_register_offset">
 <code class="descname">get_register_offset</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Arch.get_register_offset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="archinfo.arch.Arch.is_artificial_register">
+<code class="descname">is_artificial_register</code><span class="sig-paren">(</span><em>offset</em>, <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Arch.is_artificial_register" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="archinfo.arch.Arch.library_search_path">
 <code class="descname">library_search_path</code><span class="sig-paren">(</span><em>pedantic=False</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Arch.library_search_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>A list of paths in which to search for shared libraries.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="archinfo.arch.Arch.m_addr">
+<code class="descname">m_addr</code><span class="sig-paren">(</span><em>addr</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Arch.m_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the address of some code block, convert it to the address where this block
+is stored in memory. The memory address can also be referred to as the “real” address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> – The address to convert.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The “real” address in memory.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="archinfo.arch.Arch.x_addr">
+<code class="descname">x_addr</code><span class="sig-paren">(</span><em>addr</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Arch.x_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the address of some code block, convert it to the value that should be assigned
+to the instruction pointer register in order to execute the code in that block.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> – The address to convert.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The “execution” address.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="archinfo.arch.Arch.is_thumb">
+<code class="descname">is_thumb</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.Arch.is_thumb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True, if the address is the THUMB address. False otherwise.</p>
+<p>For non-ARM architectures this method always returns False.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> – The address to check.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether the given address is the THUMB address.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -965,7 +1049,7 @@ architecture has no intrinsic endianness.</li>
 
 <dl class="attribute">
 <dt id="archinfo.arch_aarch64.ArchAArch64.uc_const">
-<code class="descname">uc_const</code><em class="property"> = &lt;module 'unicorn.arm64_const' from '/home/audrey/.virtualenvs/angr3/lib/python3.6/site-packages/unicorn/arm64_const.py'&gt;</em><a class="headerlink" href="#archinfo.arch_aarch64.ArchAArch64.uc_const" title="Permalink to this definition">¶</a></dt>
+<code class="descname">uc_const</code><em class="property"> = &lt;module 'unicorn.arm64_const' from '/home/fish/.virtualenvs/angr/lib/python3.6/site-packages/unicorn/arm64_const.py'&gt;</em><a class="headerlink" href="#archinfo.arch_aarch64.ArchAArch64.uc_const" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1169,7 +1253,7 @@ architecture has no intrinsic endianness.</li>
 
 <dl class="attribute">
 <dt id="archinfo.arch_amd64.ArchAMD64.uc_const">
-<code class="descname">uc_const</code><em class="property"> = &lt;module 'unicorn.x86_const' from '/home/audrey/.virtualenvs/angr3/lib/python3.6/site-packages/unicorn/x86_const.py'&gt;</em><a class="headerlink" href="#archinfo.arch_amd64.ArchAMD64.uc_const" title="Permalink to this definition">¶</a></dt>
+<code class="descname">uc_const</code><em class="property"> = &lt;module 'unicorn.x86_const' from '/home/fish/.virtualenvs/angr/lib/python3.6/site-packages/unicorn/x86_const.py'&gt;</em><a class="headerlink" href="#archinfo.arch_amd64.ArchAMD64.uc_const" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1247,6 +1331,69 @@ architecture has no intrinsic endianness.</li>
 <dt id="archinfo.arch_arm.ArchARM.unicorn_thumb">
 <code class="descname">unicorn_thumb</code><a class="headerlink" href="#archinfo.arch_arm.ArchARM.unicorn_thumb" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="archinfo.arch_arm.ArchARM.m_addr">
+<code class="descname">m_addr</code><span class="sig-paren">(</span><em>addr</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_arm.ArchARM.m_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the address of some code block, convert it to the address where this block
+is stored in memory. The memory address can also be referred to as the “real” address.</p>
+<p>For ARM-architecture, the “real” address is always even (has its lowest bit clear).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> – The address to convert.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The “real” address in memory.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="archinfo.arch_arm.ArchARM.x_addr">
+<code class="descname">x_addr</code><span class="sig-paren">(</span><em>addr</em>, <em>thumb=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_arm.ArchARM.x_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the address of some code block, convert it to the value that should be assigned
+to the instruction pointer register in order to execute the code in that block.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>addr</strong> – The address to convert.</li>
+<li><strong>thumb</strong> – Set this parameter to True if you want to convert the address into the THUMB form.
+Set this parameter to False if you want to convert the address into the ARM form.
+Set this parameter to None (default) if you want to keep the address as is.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The “execution” address.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">int</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="archinfo.arch_arm.ArchARM.is_thumb">
+<code class="descname">is_thumb</code><span class="sig-paren">(</span><em>addr</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch_arm.ArchARM.is_thumb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True, if the address is the THUMB address. False otherwise.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>addr</strong> – The address to check.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Whether the given address is the THUMB address.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="archinfo.arch_arm.ArchARM.bits">
@@ -1345,7 +1492,7 @@ architecture has no intrinsic endianness.</li>
 
 <dl class="attribute">
 <dt id="archinfo.arch_arm.ArchARM.ks_mode">
-<code class="descname">ks_mode</code><em class="property"> = 0</em><a class="headerlink" href="#archinfo.arch_arm.ArchARM.ks_mode" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ks_mode</code><em class="property"> = 1</em><a class="headerlink" href="#archinfo.arch_arm.ArchARM.ks_mode" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1360,7 +1507,7 @@ architecture has no intrinsic endianness.</li>
 
 <dl class="attribute">
 <dt id="archinfo.arch_arm.ArchARM.uc_const">
-<code class="descname">uc_const</code><em class="property"> = &lt;module 'unicorn.arm_const' from '/home/audrey/.virtualenvs/angr3/lib/python3.6/site-packages/unicorn/arm_const.py'&gt;</em><a class="headerlink" href="#archinfo.arch_arm.ArchARM.uc_const" title="Permalink to this definition">¶</a></dt>
+<code class="descname">uc_const</code><em class="property"> = &lt;module 'unicorn.arm_const' from '/home/fish/.virtualenvs/angr/lib/python3.6/site-packages/unicorn/arm_const.py'&gt;</em><a class="headerlink" href="#archinfo.arch_arm.ArchARM.uc_const" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1568,7 +1715,7 @@ architecture has no intrinsic endianness.</li>
 
 <dl class="attribute">
 <dt id="archinfo.arch_mips32.ArchMIPS32.uc_const">
-<code class="descname">uc_const</code><em class="property"> = &lt;module 'unicorn.mips_const' from '/home/audrey/.virtualenvs/angr3/lib/python3.6/site-packages/unicorn/mips_const.py'&gt;</em><a class="headerlink" href="#archinfo.arch_mips32.ArchMIPS32.uc_const" title="Permalink to this definition">¶</a></dt>
+<code class="descname">uc_const</code><em class="property"> = &lt;module 'unicorn.mips_const' from '/home/fish/.virtualenvs/angr/lib/python3.6/site-packages/unicorn/mips_const.py'&gt;</em><a class="headerlink" href="#archinfo.arch_mips32.ArchMIPS32.uc_const" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1729,7 +1876,7 @@ architecture has no intrinsic endianness.</li>
 
 <dl class="attribute">
 <dt id="archinfo.arch_mips64.ArchMIPS64.uc_const">
-<code class="descname">uc_const</code><em class="property"> = &lt;module 'unicorn.mips_const' from '/home/audrey/.virtualenvs/angr3/lib/python3.6/site-packages/unicorn/mips_const.py'&gt;</em><a class="headerlink" href="#archinfo.arch_mips64.ArchMIPS64.uc_const" title="Permalink to this definition">¶</a></dt>
+<code class="descname">uc_const</code><em class="property"> = &lt;module 'unicorn.mips_const' from '/home/fish/.virtualenvs/angr/lib/python3.6/site-packages/unicorn/mips_const.py'&gt;</em><a class="headerlink" href="#archinfo.arch_mips64.ArchMIPS64.uc_const" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2220,7 +2367,7 @@ architecture has no intrinsic endianness.</li>
 
 <dl class="attribute">
 <dt id="archinfo.arch_x86.ArchX86.uc_const">
-<code class="descname">uc_const</code><em class="property"> = &lt;module 'unicorn.x86_const' from '/home/audrey/.virtualenvs/angr3/lib/python3.6/site-packages/unicorn/x86_const.py'&gt;</em><a class="headerlink" href="#archinfo.arch_x86.ArchX86.uc_const" title="Permalink to this definition">¶</a></dt>
+<code class="descname">uc_const</code><em class="property"> = &lt;module 'unicorn.x86_const' from '/home/fish/.virtualenvs/angr/lib/python3.6/site-packages/unicorn/x86_const.py'&gt;</em><a class="headerlink" href="#archinfo.arch_x86.ArchX86.uc_const" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2592,7 +2739,7 @@ architecture has no intrinsic endianness.</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, The angr project.
+        &copy; Copyright 2018, The angr project
 
     </p>
   </div>
@@ -2611,21 +2758,14 @@ architecture has no intrinsic endianness.</li>
 
   
 
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'8.18.10.25',
-            LANGUAGE:'None',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
 
   
 
