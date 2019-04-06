@@ -30,6 +30,7 @@ Program State
 .. automodule:: angr.state_plugins.log
 .. automodule:: angr.state_plugins.callstack
 .. automodule:: angr.state_plugins.fast_memory
+.. automodule:: angr.state_plugins.light_registers
 .. automodule:: angr.state_plugins.history
 .. automodule:: angr.state_plugins.gdb
 .. automodule:: angr.state_plugins.cgc
@@ -41,6 +42,17 @@ Program State
 .. automodule:: angr.state_plugins.unicorn_engine
 .. automodule:: angr.state_plugins.loop_data
 .. automodule:: angr.state_plugins.concrete
+.. automodule:: angr.state_plugins.keyvalue_memory
+.. automodule:: angr.state_plugins.javavm_classloader
+.. automodule:: angr.state_plugins.jni_references
+.. automodule:: angr.state_plugins.javavm_memory
+.. automodule:: angr.state_plugins.heap
+.. automodule:: angr.state_plugins.heap.heap_base
+.. automodule:: angr.state_plugins.heap.heap_brk
+.. automodule:: angr.state_plugins.heap.heap_freelist
+.. automodule:: angr.state_plugins.heap.heap_libc
+.. automodule:: angr.state_plugins.heap.heap_ptmalloc
+.. automodule:: angr.state_plugins.heap.utils
 
 
 Storage
@@ -52,6 +64,7 @@ Storage
 .. automodule:: angr.storage.memory
 .. automodule:: angr.state_plugins.symbolic_memory
 .. automodule:: angr.state_plugins.abstract_memory
+.. automodule:: angr.storage.kvstore
 .. automodule:: angr.storage.memory_object
 .. automodule:: angr.storage.pcap
 .. automodule:: angr.storage.paged_memory
@@ -102,6 +115,7 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.tech_builder
 .. automodule:: angr.exploration_techniques.common
 .. automodule:: angr.exploration_techniques.symbion
+.. automodule:: angr.exploration_techniques.memory_watcher
 
 Simulation Engines
 ------------------
@@ -118,6 +132,8 @@ Simulation Engines
 .. automodule:: angr.engines.unicorn
 .. automodule:: angr.engines.failure
 .. automodule:: angr.engines.concrete
+.. automodule:: angr.engines.soot
+.. automodule:: angr.engines.soot.engine
 
 Simulation Logging
 ------------------
@@ -154,6 +170,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.functions.function_manager
     :members: FunctionManager
 .. automodule:: angr.knowledge_plugins.functions.function
+.. automodule:: angr.knowledge_plugins.functions.soot_function
 .. automodule:: angr.knowledge_plugins.variables
 .. automodule:: angr.knowledge_plugins.variables.variable_access
 .. automodule:: angr.knowledge_plugins.variables.variable_manager
@@ -170,6 +187,7 @@ Analysis
 .. automodule:: angr.analyses.bindiff
 .. automodule:: angr.analyses.boyscout
 .. automodule:: angr.analyses.calling_convention
+.. automodule:: angr.analyses.soot_class_hierarchy
 .. automodule:: angr.analyses.cfg
 .. automodule:: angr.analyses.cfg.cfb
 .. automodule:: angr.analyses.cfg.cfg
@@ -188,6 +206,7 @@ Analysis
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers
 .. automodule:: angr.analyses.cfg.cfg_utils
 .. automodule:: angr.analyses.cfg.memory_data
+.. automodule:: angr.analyses.cfg.cfg_fast_soot
 .. automodule:: angr.analyses.cdg
 .. automodule:: angr.analyses.code_location
 .. automodule:: angr.analyses.datagraph_meta
@@ -225,6 +244,7 @@ Analysis
 .. automodule:: angr.analyses.variable_recovery
 .. automodule:: angr.analyses.identifier.identify
 .. automodule:: angr.analyses.loopfinder
+.. automodule:: angr.analyses.loop_analysis
 .. automodule:: angr.analyses.veritesting
 .. automodule:: angr.analyses.vfg
 .. automodule:: angr.analyses.vsa_ddg
@@ -251,6 +271,7 @@ SimOS
 .. automodule:: angr.simos.cgc
 .. automodule:: angr.simos.userland
 .. automodule:: angr.simos.windows
+.. automodule:: angr.simos.javavm
 
 Utils
 -----

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>claripy — Solver Engine &mdash; angr 8.19.2.4 documentation</title>
+  <title>claripy — Solver Engine &mdash; angr 8.19.4.5 documentation</title>
   
 
   
@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="cle — Binary Loader" href="cle.html" />
     <link rel="prev" title="angr — Analysis and Coordination" href="angr.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                8.19.2.4
+                8.19.4.5
               </div>
             
           
@@ -1399,6 +1401,213 @@ it creates, initializes, and returns the AST.</p>
 </table>
 </dd></dl>
 
+<span class="target" id="module-claripy.ast.strings"></span><dl class="class">
+<dt id="claripy.ast.strings.String">
+<em class="property">class </em><code class="descclassname">claripy.ast.strings.</code><code class="descname">String</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.ast.bits.Bits" title="claripy.ast.bits.Bits"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.ast.bits.Bits</span></code></a></p>
+<p>Base class that represent the AST of a String object and implements all the operation useful to create and modify the AST.</p>
+<p>Do not instantiate this class directly, instead use StringS or StringV to construct a symbol or value, and then use
+operations to construct more complicated expressions.</p>
+<p>This is called when you create a new Base object, whether directly or through an operation.
+It finalizes the arguments (see the _finalize function, above) and then computes
+a hash. If an AST of this hash already exists, it returns that AST. Otherwise,
+it creates, initializes, and returns the AST.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>op</strong> – The AST operation (‘__add__’, ‘Or’, etc)</li>
+<li><strong>args</strong> – The arguments to the AST operation (i.e., the objects to add)</li>
+<li><strong>variables</strong> – The symbolic variables present in the AST (default: empty set)</li>
+<li><strong>symbolic</strong> – A flag saying whether or not the AST is symbolic (default: False)</li>
+<li><strong>length</strong> – An integer specifying the length of this AST (default: None)</li>
+<li><strong>simplified</strong> – A measure of how simplified this AST is. 0 means unsimplified, 1 means fast-simplified
+(basically, just undoing the Reverse op), and 2 means simplified through z3.</li>
+<li><strong>errored</strong> – A set of backends that are known to be unable to handle this AST.</li>
+<li><strong>eager_backends</strong> – A list of backends with which to attempt eager evaluation</li>
+<li><strong>annotations</strong> – A frozenset of annotations applied onto this AST.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="claripy.ast.strings.String.STRING_TYPE_IDENTIFIER">
+<code class="descname">STRING_TYPE_IDENTIFIER</code><em class="property"> = 'STRING_'</em><a class="headerlink" href="#claripy.ast.strings.String.STRING_TYPE_IDENTIFIER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.ast.strings.String.GENERATED_BVS_IDENTIFIER">
+<code class="descname">GENERATED_BVS_IDENTIFIER</code><em class="property"> = 'BVS_'</em><a class="headerlink" href="#claripy.ast.strings.String.GENERATED_BVS_IDENTIFIER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="claripy.ast.strings.String.MAX_LENGTH">
+<code class="descname">MAX_LENGTH</code><em class="property"> = 10000</em><a class="headerlink" href="#claripy.ast.strings.String.MAX_LENGTH" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.strings.String.strReplace">
+<code class="descname">strReplace</code><span class="sig-paren">(</span><em>str_to_replace</em>, <em>replacement</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.strReplace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace the first occurence of str_to_replace with replacement</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>str_to_replace</strong> (<a class="reference internal" href="#claripy.ast.strings.String" title="claripy.ast.strings.String"><em>String</em></a>) – pattern that has to be replaced</li>
+<li><strong>replacement</strong> (<a class="reference internal" href="#claripy.ast.strings.String" title="claripy.ast.strings.String"><em>String</em></a>) – replacement pattern</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.strings.String.toInt">
+<code class="descname">toInt</code><span class="sig-paren">(</span><em>bitlength</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.toInt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the string to a bitvector holding the integer
+representation of the string</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bitlength</strong> – size of the biitvector holding the result</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.strings.String.indexOf">
+<code class="descname">indexOf</code><span class="sig-paren">(</span><em>pattern</em>, <em>start_idx</em>, <em>bitlength</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.indexOf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the start index of the pattern inside the input string in a
+Bitvector representation, otherwise it returns -1 (always using a BitVector)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bitlength</strong> – size of the biitvector holding the result</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.strings.String.raw_to_bv">
+<code class="descname">raw_to_bv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.raw_to_bv" title="Permalink to this definition">¶</a></dt>
+<dd><p>A counterpart to FP.raw_to_bv - does nothing and returns itself.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.strings.String.raw_to_fp">
+<code class="descname">raw_to_fp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.raw_to_fp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.ast.strings.String.IntToStr">
+<em class="property">static </em><code class="descname">IntToStr</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.IntToStr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.ast.strings.String.StrConcat">
+<em class="property">static </em><code class="descname">StrConcat</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.StrConcat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.ast.strings.String.StrContains">
+<em class="property">static </em><code class="descname">StrContains</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.StrContains" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.ast.strings.String.StrExtract">
+<em class="property">static </em><code class="descname">StrExtract</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.StrExtract" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.ast.strings.String.StrIndexOf">
+<em class="property">static </em><code class="descname">StrIndexOf</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.StrIndexOf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.ast.strings.String.StrIsDigit">
+<em class="property">static </em><code class="descname">StrIsDigit</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.StrIsDigit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.ast.strings.String.StrLen">
+<em class="property">static </em><code class="descname">StrLen</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.StrLen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.ast.strings.String.StrPrefixOf">
+<em class="property">static </em><code class="descname">StrPrefixOf</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.StrPrefixOf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.ast.strings.String.StrReplace">
+<em class="property">static </em><code class="descname">StrReplace</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.StrReplace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.ast.strings.String.StrSubstr">
+<em class="property">static </em><code class="descname">StrSubstr</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.StrSubstr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.ast.strings.String.StrSuffixOf">
+<em class="property">static </em><code class="descname">StrSuffixOf</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.StrSuffixOf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.ast.strings.String.StrToInt">
+<em class="property">static </em><code class="descname">StrToInt</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.StrToInt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.ast.strings.StringS">
+<code class="descclassname">claripy.ast.strings.</code><code class="descname">StringS</code><span class="sig-paren">(</span><em>name</em>, <em>size</em>, <em>uninitialized=False</em>, <em>explicit_name=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.StringS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new symbolic string (analogous to z3.String())</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> – The name of the symbolic string (i. e. the name of the variable)</li>
+<li><strong>size</strong> – The size in bytes of the string (i. e. the length of the string)</li>
+<li><strong>uninitialized</strong> – Whether this value should be counted as an “uninitialized” value in the course of an
+analysis.</li>
+<li><strong>explicit_name</strong> (<em>bool</em>) – If False, an identifier is appended to the name to ensure uniqueness.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The String object representing the symbolic string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.ast.strings.StringV">
+<code class="descclassname">claripy.ast.strings.</code><code class="descname">StringV</code><span class="sig-paren">(</span><em>value</em>, <em>length=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.StringV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new Concrete string (analogous to z3.StringVal())</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> – The constant value of the concrete string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The String object representing the concrete string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 <span class="target" id="module-claripy.ast.vs"></span><dl class="class">
 <dt id="claripy.ast.vs.VS">
 <em class="property">class </em><code class="descclassname">claripy.ast.vs.</code><code class="descname">VS</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.vs.VS" title="Permalink to this definition">¶</a></dt>
@@ -1470,6 +1679,11 @@ object to any backend private function that did not originate as a return
 value from a private or public function of that backend. One exception to
 this is _convert(), as Claripy can try to stuff anything it feels like into
 _convert() to see if the backend can handle that type of object.</p>
+<dl class="attribute">
+<dt id="claripy.backends.Backend.is_smt_backend">
+<code class="descname">is_smt_backend</code><a class="headerlink" href="#claripy.backends.Backend.is_smt_backend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="claripy.backends.Backend.downsize">
 <code class="descname">downsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.downsize" title="Permalink to this definition">¶</a></dt>
@@ -1769,6 +1983,28 @@ the evaluation (for example, a z3.Solver)</li>
 </dd></dl>
 
 <dl class="method">
+<dt id="claripy.backends.Backend.check_satisfiability">
+<code class="descname">check_satisfiability</code><span class="sig-paren">(</span><em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.check_satisfiability" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function does a constraint check and returns the solvers state</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>solver</strong> – The backend solver object.</li>
+<li><strong>extra_constraints</strong> – Extra constraints (as ASTs) to add to s for this solve</li>
+<li><strong>model_callback</strong> – a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">‘SAT’, ‘UNSAT’, or ‘UNKNOWN’</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="claripy.backends.Backend.satisfiable">
 <code class="descname">satisfiable</code><span class="sig-paren">(</span><em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.Backend.satisfiable" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function does a constraint check and checks if the solver is in a sat state.</p>
@@ -1953,9 +2189,20 @@ approximation.</p>
 <dd></dd></dl>
 
 <dl class="staticmethod">
+<dt id="claripy.backends.backend_concrete.BackendConcrete.StringV">
+<em class="property">static </em><code class="descname">StringV</code><span class="sig-paren">(</span><em>value</em>, <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_concrete.BackendConcrete.StringV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
 <dt id="claripy.backends.backend_concrete.BackendConcrete.FPV">
 <em class="property">static </em><code class="descname">FPV</code><span class="sig-paren">(</span><em>op</em>, <em>sort</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_concrete.BackendConcrete.FPV" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_concrete.BackendConcrete.convert">
+<code class="descname">convert</code><span class="sig-paren">(</span><em>expr</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_concrete.BackendConcrete.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override Backend.convert() to add fast paths for BVVs and BoolVs.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="claripy.backends.backend_concrete.BackendConcrete.is_true">
@@ -2032,6 +2279,18 @@ approximation.</p>
 <dl class="method">
 <dt id="claripy.backends.backend_z3.BackendZ3.BoolV">
 <code class="descname">BoolV</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.BoolV" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Z3 condom intercepts Z3Exceptions and throws a ClaripyZ3Error instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3.BackendZ3.StringV">
+<code class="descname">StringV</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.StringV" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Z3 condom intercepts Z3Exceptions and throws a ClaripyZ3Error instead.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3.BackendZ3.StringS">
+<code class="descname">StringS</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.StringS" title="Permalink to this definition">¶</a></dt>
 <dd><p>The Z3 condom intercepts Z3Exceptions and throws a ClaripyZ3Error instead.</p>
 </dd></dl>
 
@@ -2300,6 +2559,283 @@ approximation.</p>
 
 </dd></dl>
 
+<span class="target" id="module-claripy.backends.backend_smtlib_solvers.z3str_popen"></span><dl class="function">
+<dt id="claripy.backends.backend_smtlib_solvers.z3str_popen.get_version">
+<code class="descclassname">claripy.backends.backend_smtlib_solvers.z3str_popen.</code><code class="descname">get_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.get_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="claripy.backends.backend_smtlib_solvers.z3str_popen.Z3StrProxy">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_smtlib_solvers.z3str_popen.</code><code class="descname">Z3StrProxy</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.Z3StrProxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy" title="claripy.backends.backend_smtlib_solvers.PopenSolverProxy"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.backends.backend_smtlib_solvers.PopenSolverProxy</span></code></a></p>
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.z3str_popen.Z3StrProxy.create_process">
+<code class="descname">create_process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.Z3StrProxy.create_process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="claripy.backends.backend_smtlib_solvers.z3str_popen.SolverBackendZ3Str">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_smtlib_solvers.z3str_popen.</code><code class="descname">SolverBackendZ3Str</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.SolverBackendZ3Str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend" title="claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend</span></code></a></p>
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.z3str_popen.SolverBackendZ3Str.solver">
+<code class="descname">solver</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3str_popen.SolverBackendZ3Str.solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function should return an instance of whatever object handles
+solving for this backend. For example, in Z3, this would be z3.Solver().</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-claripy.backends.backend_smtlib_solvers.cvc4_popen"></span><dl class="function">
+<dt id="claripy.backends.backend_smtlib_solvers.cvc4_popen.get_version">
+<code class="descclassname">claripy.backends.backend_smtlib_solvers.cvc4_popen.</code><code class="descname">get_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.get_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="claripy.backends.backend_smtlib_solvers.cvc4_popen.CVC4Proxy">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_smtlib_solvers.cvc4_popen.</code><code class="descname">CVC4Proxy</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.CVC4Proxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy" title="claripy.backends.backend_smtlib_solvers.PopenSolverProxy"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.backends.backend_smtlib_solvers.PopenSolverProxy</span></code></a></p>
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.cvc4_popen.CVC4Proxy.create_process">
+<code class="descname">create_process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.CVC4Proxy.create_process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="claripy.backends.backend_smtlib_solvers.cvc4_popen.SolverBackendCVC4">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_smtlib_solvers.cvc4_popen.</code><code class="descname">SolverBackendCVC4</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.SolverBackendCVC4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend" title="claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend</span></code></a></p>
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.cvc4_popen.SolverBackendCVC4.solver">
+<code class="descname">solver</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.cvc4_popen.SolverBackendCVC4.solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function should return an instance of whatever object handles
+solving for this backend. For example, in Z3, this would be z3.Solver().</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-claripy.backends.backend_smtlib_solvers.z3_popen"></span><dl class="function">
+<dt id="claripy.backends.backend_smtlib_solvers.z3_popen.get_version">
+<code class="descclassname">claripy.backends.backend_smtlib_solvers.z3_popen.</code><code class="descname">get_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3_popen.get_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="claripy.backends.backend_smtlib_solvers.z3_popen.Z3Proxy">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_smtlib_solvers.z3_popen.</code><code class="descname">Z3Proxy</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3_popen.Z3Proxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy" title="claripy.backends.backend_smtlib_solvers.PopenSolverProxy"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.backends.backend_smtlib_solvers.PopenSolverProxy</span></code></a></p>
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.z3_popen.Z3Proxy.create_process">
+<code class="descname">create_process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3_popen.Z3Proxy.create_process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="claripy.backends.backend_smtlib_solvers.z3_popen.SolverBackendZ3">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_smtlib_solvers.z3_popen.</code><code class="descname">SolverBackendZ3</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3_popen.SolverBackendZ3" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend" title="claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend</span></code></a></p>
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.z3_popen.SolverBackendZ3.solver">
+<code class="descname">solver</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.z3_popen.SolverBackendZ3.solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function should return an instance of whatever object handles
+solving for this backend. For example, in Z3, this would be z3.Solver().</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-claripy.backends.backend_smtlib_solvers.abc_popen"></span><dl class="function">
+<dt id="claripy.backends.backend_smtlib_solvers.abc_popen.get_version">
+<code class="descclassname">claripy.backends.backend_smtlib_solvers.abc_popen.</code><code class="descname">get_version</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.abc_popen.get_version" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="claripy.backends.backend_smtlib_solvers.abc_popen.ABCProxy">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_smtlib_solvers.abc_popen.</code><code class="descname">ABCProxy</code><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.abc_popen.ABCProxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy" title="claripy.backends.backend_smtlib_solvers.PopenSolverProxy"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.backends.backend_smtlib_solvers.PopenSolverProxy</span></code></a></p>
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.abc_popen.ABCProxy.create_process">
+<code class="descname">create_process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.abc_popen.ABCProxy.create_process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="claripy.backends.backend_smtlib_solvers.abc_popen.SolverBackendABC">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_smtlib_solvers.abc_popen.</code><code class="descname">SolverBackendABC</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.abc_popen.SolverBackendABC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend" title="claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend</span></code></a></p>
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.abc_popen.SolverBackendABC.solver">
+<code class="descname">solver</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.abc_popen.SolverBackendABC.solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function should return an instance of whatever object handles
+solving for this backend. For example, in Z3, this would be z3.Solver().</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-claripy.backends.backend_smtlib_solvers"></span><dl class="class">
+<dt id="claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_smtlib_solvers.</code><code class="descname">AbstractSMTLibSolverProxy</code><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>smt</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.setup">
+<code class="descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.readuntil">
+<code class="descname">readuntil</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.readuntil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.readline">
+<code class="descname">readline</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.readline" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.writeline">
+<code class="descname">writeline</code><span class="sig-paren">(</span><em>l</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.writeline" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.read_sat">
+<code class="descname">read_sat</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.read_sat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.read_model">
+<code class="descname">read_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.read_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.create_process">
+<code class="descname">create_process</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.create_process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="claripy.backends.backend_smtlib_solvers.PopenSolverProxy">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_smtlib_solvers.</code><code class="descname">PopenSolverProxy</code><span class="sig-paren">(</span><em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy" title="claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy</span></code></a></p>
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.PopenSolverProxy.read">
+<code class="descname">read</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.PopenSolverProxy.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>smt</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.PopenSolverProxy.add_constraints">
+<code class="descname">add_constraints</code><span class="sig-paren">(</span><em>csts</em>, <em>track=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy.add_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.PopenSolverProxy.terminate">
+<code class="descname">terminate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.PopenSolverProxy.terminate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_smtlib_solvers.</code><code class="descname">SMTLibSolverBackend</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.backends.backend_smtlib.BackendSMTLibBase" title="claripy.backends.backend_smtlib.BackendSMTLibBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.backends.backend_smtlib.BackendSMTLibBase</span></code></a></p>
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend.solver">
+<code class="descname">solver</code><span class="sig-paren">(</span><em>timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend.solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function should return an instance of whatever object handles
+solving for this backend. For example, in Z3, this would be z3.Solver().</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend.eval">
+<code class="descname">eval</code><span class="sig-paren">(</span><em>expr</em>, <em>n</em>, <em>extra_constraints=()</em>, <em>solver=None</em>, <em>model_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns up to <cite>n</cite> possible solutions for expression <cite>expr</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>expr</strong> – expression (an AST) to evaluate</li>
+<li><strong>n</strong> – number of results to return</li>
+<li><strong>solver</strong> – a solver object, native to the backend, to assist in
+the evaluation (for example, a z3.Solver)</li>
+<li><strong>extra_constraints</strong> – extra constraints (as ASTs) to add to the solver for this solve</li>
+<li><strong>model_callback</strong> – a function that will be executed with recovered models (if any)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A sequence of up to n results (backend objects)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-claripy.backends.backend_smtlib"></span><dl class="class">
+<dt id="claripy.backends.backend_smtlib.BackendSMTLibBase">
+<em class="property">class </em><code class="descclassname">claripy.backends.backend_smtlib.</code><code class="descname">BackendSMTLibBase</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib.BackendSMTLibBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.backends.Backend" title="claripy.backends.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.backends.Backend</span></code></a></p>
+<dl class="attribute">
+<dt id="claripy.backends.backend_smtlib.BackendSMTLibBase.is_smt_backend">
+<code class="descname">is_smt_backend</code><a class="headerlink" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.is_smt_backend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib.BackendSMTLibBase.StringV">
+<code class="descname">StringV</code><span class="sig-paren">(</span><em>ast</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.StringV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib.BackendSMTLibBase.StringS">
+<code class="descname">StringS</code><span class="sig-paren">(</span><em>ast</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.StringS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib.BackendSMTLibBase.BoolV">
+<code class="descname">BoolV</code><span class="sig-paren">(</span><em>ast</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.BoolV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib.BackendSMTLibBase.BoolS">
+<code class="descname">BoolS</code><span class="sig-paren">(</span><em>ast</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.BoolS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib.BackendSMTLibBase.BVV">
+<code class="descname">BVV</code><span class="sig-paren">(</span><em>ast</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.BVV" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_smtlib.BackendSMTLibBase.BVS">
+<code class="descname">BVS</code><span class="sig-paren">(</span><em>ast</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_smtlib.BackendSMTLibBase.BVS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-claripy.frontend">
 <span id="frontends"></span><h2>Frontends<a class="headerlink" href="#module-claripy.frontend" title="Permalink to this headline">¶</a></h2>
@@ -2354,6 +2890,11 @@ approximation.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="claripy.frontend.Frontend.check_satisfiability">
+<code class="descname">check_satisfiability</code><span class="sig-paren">(</span><em>extra_constraints=()</em>, <em>exact=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontend.Frontend.check_satisfiability" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="claripy.frontend.Frontend.satisfiable">
 <code class="descname">satisfiable</code><span class="sig-paren">(</span><em>extra_constraints=()</em>, <em>exact=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontend.Frontend.satisfiable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2402,7 +2943,7 @@ approximation.</p>
 
 <span class="target" id="module-claripy.frontends"></span><span class="target" id="module-claripy.frontends.composite_frontend"></span><dl class="class">
 <dt id="claripy.frontends.composite_frontend.CompositeFrontend">
-<em class="property">class </em><code class="descclassname">claripy.frontends.composite_frontend.</code><code class="descname">CompositeFrontend</code><span class="sig-paren">(</span><em>template_frontend</em>, <em>track=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.composite_frontend.CompositeFrontend" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">claripy.frontends.composite_frontend.</code><code class="descname">CompositeFrontend</code><span class="sig-paren">(</span><em>template_frontend</em>, <em>template_frontend_string</em>, <em>track=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.composite_frontend.CompositeFrontend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend" title="claripy.frontends.constrained_frontend.ConstrainedFrontend"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontends.constrained_frontend.ConstrainedFrontend</span></code></a></p>
 <dl class="method">
 <dt id="claripy.frontends.composite_frontend.CompositeFrontend.downsize">
@@ -2417,6 +2958,11 @@ approximation.</p>
 <dl class="method">
 <dt id="claripy.frontends.composite_frontend.CompositeFrontend.add">
 <code class="descname">add</code><span class="sig-paren">(</span><em>constraints</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.composite_frontend.CompositeFrontend.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.frontends.composite_frontend.CompositeFrontend.check_satisfiability">
+<code class="descname">check_satisfiability</code><span class="sig-paren">(</span><em>extra_constraints=()</em>, <em>exact=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.composite_frontend.CompositeFrontend.check_satisfiability" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -2541,6 +3087,11 @@ approximation.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="claripy.frontends.constrained_frontend.ConstrainedFrontend.check_satisfiability">
+<code class="descname">check_satisfiability</code><span class="sig-paren">(</span><em>extra_constraints=()</em>, <em>exact=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.check_satisfiability" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="claripy.frontends.constrained_frontend.ConstrainedFrontend.satisfiable">
 <code class="descname">satisfiable</code><span class="sig-paren">(</span><em>extra_constraints=()</em>, <em>exact=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.constrained_frontend.ConstrainedFrontend.satisfiable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2594,6 +3145,11 @@ approximation.</p>
 <dl class="method">
 <dt id="claripy.frontends.full_frontend.FullFrontend.simplify">
 <code class="descname">simplify</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.full_frontend.FullFrontend.simplify" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.frontends.full_frontend.FullFrontend.check_satisfiability">
+<code class="descname">check_satisfiability</code><span class="sig-paren">(</span><em>extra_constraints=()</em>, <em>exact=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontends.full_frontend.FullFrontend.check_satisfiability" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -2913,6 +3469,12 @@ approximation.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="claripy.solvers.SolverStrings">
+<em class="property">class </em><code class="descclassname">claripy.solvers.</code><code class="descname">SolverStrings</code><span class="sig-paren">(</span><em>backend</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.solvers.SolverStrings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.frontend_mixins.constraint_fixer_mixin.ConstraintFixerMixin" title="claripy.frontend_mixins.constraint_fixer_mixin.ConstraintFixerMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.constraint_fixer_mixin.ConstraintFixerMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin" title="claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin" title="claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin" title="claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.eager_resolution_mixin.EagerResolutionMixin" title="claripy.frontend_mixins.eager_resolution_mixin.EagerResolutionMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.eager_resolution_mixin.EagerResolutionMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.eval_string_to_ast_mixin.EvalStringsToASTsMixin" title="claripy.frontend_mixins.eval_string_to_ast_mixin.EvalStringsToASTsMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.eval_string_to_ast_mixin.EvalStringsToASTsMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.smtlib_script_dumper_mixin.SMTLibScriptDumperMixin" title="claripy.frontend_mixins.smtlib_script_dumper_mixin.SMTLibScriptDumperMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.smtlib_script_dumper_mixin.SMTLibScriptDumperMixin</span></code></a>, <a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend" title="claripy.frontends.full_frontend.FullFrontend"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontends.full_frontend.FullFrontend</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
 <dt id="claripy.solvers.SolverCompositeChild">
 <em class="property">class </em><code class="descclassname">claripy.solvers.</code><code class="descname">SolverCompositeChild</code><span class="sig-paren">(</span><em>backend=&lt;claripy.backends.backend_z3.BackendZ3 object&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.solvers.SolverCompositeChild" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin" title="claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin" title="claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.simplify_skipper_mixin.SimplifySkipperMixin" title="claripy.frontend_mixins.simplify_skipper_mixin.SimplifySkipperMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.simplify_skipper_mixin.SimplifySkipperMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin" title="claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.model_cache_mixin.ModelCacheMixin</span></code></a>, <a class="reference internal" href="#claripy.frontends.full_frontend.FullFrontend" title="claripy.frontends.full_frontend.FullFrontend"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontends.full_frontend.FullFrontend</span></code></a></p>
@@ -2920,7 +3482,7 @@ approximation.</p>
 
 <dl class="class">
 <dt id="claripy.solvers.SolverComposite">
-<em class="property">class </em><code class="descclassname">claripy.solvers.</code><code class="descname">SolverComposite</code><span class="sig-paren">(</span><em>template_solver=None</em>, <em>track=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.solvers.SolverComposite" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">claripy.solvers.</code><code class="descname">SolverComposite</code><span class="sig-paren">(</span><em>template_solver=None</em>, <em>track=False</em>, <em>template_solver_string=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.solvers.SolverComposite" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.frontend_mixins.constraint_fixer_mixin.ConstraintFixerMixin" title="claripy.frontend_mixins.constraint_fixer_mixin.ConstraintFixerMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.constraint_fixer_mixin.ConstraintFixerMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin" title="claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.concrete_handler_mixin.ConcreteHandlerMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.eager_resolution_mixin.EagerResolutionMixin" title="claripy.frontend_mixins.eager_resolution_mixin.EagerResolutionMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.eager_resolution_mixin.EagerResolutionMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin" title="claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.constraint_filter_mixin.ConstraintFilterMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin" title="claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.constraint_deduplicator_mixin.ConstraintDeduplicatorMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin" title="claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.sat_cache_mixin.SatCacheMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.simplify_skipper_mixin.SimplifySkipperMixin" title="claripy.frontend_mixins.simplify_skipper_mixin.SimplifySkipperMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.simplify_skipper_mixin.SimplifySkipperMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.simplify_helper_mixin.SimplifyHelperMixin" title="claripy.frontend_mixins.simplify_helper_mixin.SimplifyHelperMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.simplify_helper_mixin.SimplifyHelperMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.constraint_expansion_mixin.ConstraintExpansionMixin" title="claripy.frontend_mixins.constraint_expansion_mixin.ConstraintExpansionMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.constraint_expansion_mixin.ConstraintExpansionMixin</span></code></a>, <a class="reference internal" href="#claripy.frontend_mixins.composited_cache_mixin.CompositedCacheMixin" title="claripy.frontend_mixins.composited_cache_mixin.CompositedCacheMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontend_mixins.composited_cache_mixin.CompositedCacheMixin</span></code></a>, <a class="reference internal" href="#claripy.frontends.composite_frontend.CompositeFrontend" title="claripy.frontends.composite_frontend.CompositeFrontend"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.frontends.composite_frontend.CompositeFrontend</span></code></a></p>
 </dd></dl>
 
@@ -3317,6 +3879,37 @@ last model.</p>
 <dt id="claripy.frontend_mixins.solve_block_mixin.SolveBlockMixin.solution">
 <code class="descname">solution</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontend_mixins.solve_block_mixin.SolveBlockMixin.solution" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-claripy.frontend_mixins.eval_string_to_ast_mixin"></span><dl class="class">
+<dt id="claripy.frontend_mixins.eval_string_to_ast_mixin.EvalStringsToASTsMixin">
+<em class="property">class </em><code class="descclassname">claripy.frontend_mixins.eval_string_to_ast_mixin.</code><code class="descname">EvalStringsToASTsMixin</code><a class="headerlink" href="#claripy.frontend_mixins.eval_string_to_ast_mixin.EvalStringsToASTsMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="claripy.frontend_mixins.eval_string_to_ast_mixin.EvalStringsToASTsMixin.eval_to_ast">
+<code class="descname">eval_to_ast</code><span class="sig-paren">(</span><em>e</em>, <em>n</em>, <em>extra_constraints=()</em>, <em>exact=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontend_mixins.eval_string_to_ast_mixin.EvalStringsToASTsMixin.eval_to_ast" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-claripy.frontend_mixins.smtlib_script_dumper_mixin"></span><dl class="class">
+<dt id="claripy.frontend_mixins.smtlib_script_dumper_mixin.SMTLibScriptDumperMixin">
+<em class="property">class </em><code class="descclassname">claripy.frontend_mixins.smtlib_script_dumper_mixin.</code><code class="descname">SMTLibScriptDumperMixin</code><a class="headerlink" href="#claripy.frontend_mixins.smtlib_script_dumper_mixin.SMTLibScriptDumperMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="claripy.frontend_mixins.smtlib_script_dumper_mixin.SMTLibScriptDumperMixin.get_smtlib_script_satisfiability">
+<code class="descname">get_smtlib_script_satisfiability</code><span class="sig-paren">(</span><em>extra_constraints=()</em>, <em>extra_variables=()</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.frontend_mixins.smtlib_script_dumper_mixin.SMTLibScriptDumperMixin.get_smtlib_script_satisfiability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an smt-lib script that check the satisfiability of the current constraints</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return string:</th><td class="field-body">smt-lib script</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -5398,6 +5991,12 @@ unknown terms on one side of an inequality.</p>
 </dd></dl>
 
 <dl class="exception">
+<dt id="claripy.errors.MissingSolverError">
+<em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">MissingSolverError</code><a class="headerlink" href="#claripy.errors.MissingSolverError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.errors.ClaripyError" title="claripy.errors.ClaripyError"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.errors.ClaripyError</span></code></a></p>
+</dd></dl>
+
+<dl class="exception">
 <dt id="claripy.errors.ClaripyASTError">
 <em class="property">exception </em><code class="descclassname">claripy.errors.</code><code class="descname">ClaripyASTError</code><a class="headerlink" href="#claripy.errors.ClaripyASTError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#claripy.errors.ClaripyError" title="claripy.errors.ClaripyError"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.errors.ClaripyError</span></code></a></p>
@@ -5641,8 +6240,43 @@ unknown terms on one side of an inequality.</p>
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="claripy.operations.concat_length_calc">
+<code class="descclassname">claripy.operations.</code><code class="descname">concat_length_calc</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.concat_length_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="claripy.operations.extract_length_calc">
 <code class="descclassname">claripy.operations.</code><code class="descname">extract_length_calc</code><span class="sig-paren">(</span><em>high</em>, <em>low</em>, <em>_</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.extract_length_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="claripy.operations.str_basic_length_calc">
+<code class="descclassname">claripy.operations.</code><code class="descname">str_basic_length_calc</code><span class="sig-paren">(</span><em>str_1</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.str_basic_length_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="claripy.operations.str_extract_check">
+<code class="descclassname">claripy.operations.</code><code class="descname">str_extract_check</code><span class="sig-paren">(</span><em>start_idx</em>, <em>count</em>, <em>str_val</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.str_extract_check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="claripy.operations.str_extract_length_calc">
+<code class="descclassname">claripy.operations.</code><code class="descname">str_extract_length_calc</code><span class="sig-paren">(</span><em>start_idx</em>, <em>count</em>, <em>str_val</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.str_extract_length_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="claripy.operations.int_to_str_length_calc">
+<code class="descclassname">claripy.operations.</code><code class="descname">int_to_str_length_calc</code><span class="sig-paren">(</span><em>int_val</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.int_to_str_length_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="claripy.operations.str_replace_check">
+<code class="descclassname">claripy.operations.</code><code class="descname">str_replace_check</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.str_replace_check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="claripy.operations.substr_length_calc">
+<code class="descclassname">claripy.operations.</code><code class="descname">substr_length_calc</code><span class="sig-paren">(</span><em>start_idx</em>, <em>count</em>, <em>strval</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.substr_length_calc" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -5651,8 +6285,28 @@ unknown terms on one side of an inequality.</p>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="claripy.operations.concat_length_calc">
-<code class="descclassname">claripy.operations.</code><code class="descname">concat_length_calc</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.concat_length_calc" title="Permalink to this definition">¶</a></dt>
+<dt id="claripy.operations.str_concat_length_calc">
+<code class="descclassname">claripy.operations.</code><code class="descname">str_concat_length_calc</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.str_concat_length_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="claripy.operations.str_replace_length_calc">
+<code class="descclassname">claripy.operations.</code><code class="descname">str_replace_length_calc</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.str_replace_length_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="claripy.operations.strlen_bv_size_calc">
+<code class="descclassname">claripy.operations.</code><code class="descname">strlen_bv_size_calc</code><span class="sig-paren">(</span><em>s</em>, <em>bitlength</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.strlen_bv_size_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="claripy.operations.strindexof_bv_size_calc">
+<code class="descclassname">claripy.operations.</code><code class="descname">strindexof_bv_size_calc</code><span class="sig-paren">(</span><em>s1</em>, <em>s2</em>, <em>start_idx</em>, <em>bitlength</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.strindexof_bv_size_calc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="claripy.operations.strtoint_bv_size_calc">
+<code class="descclassname">claripy.operations.</code><code class="descname">strtoint_bv_size_calc</code><span class="sig-paren">(</span><em>s</em>, <em>bitlength</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.operations.strtoint_bv_size_calc" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <span class="target" id="module-claripy.simplifications"></span><dl class="class">
@@ -5700,8 +6354,8 @@ unknown terms on one side of an inequality.</p>
 <dd></dd></dl>
 
 <dl class="staticmethod">
-<dt id="claripy.simplifications.SimplificationManager.boolean_reverse_simplifier">
-<em class="property">static </em><code class="descname">boolean_reverse_simplifier</code><span class="sig-paren">(</span><em>body</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.boolean_reverse_simplifier" title="Permalink to this definition">¶</a></dt>
+<dt id="claripy.simplifications.SimplificationManager.bv_reverse_simplifier">
+<em class="property">static </em><code class="descname">bv_reverse_simplifier</code><span class="sig-paren">(</span><em>body</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.bv_reverse_simplifier" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">
@@ -5798,12 +6452,265 @@ operation.</dd>
 </dl>
 </dd></dl>
 
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.str_extract_simplifier">
+<em class="property">static </em><code class="descname">str_extract_simplifier</code><span class="sig-paren">(</span><em>start_idx</em>, <em>count</em>, <em>val</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.str_extract_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="claripy.simplifications.SimplificationManager.str_reverse_simplifier">
+<em class="property">static </em><code class="descname">str_reverse_simplifier</code><span class="sig-paren">(</span><em>arg</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.str_reverse_simplifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-claripy.ops"></span><dl class="function">
 <dt id="claripy.ops.AbstractLocation">
 <code class="descclassname">claripy.ops.</code><code class="descname">AbstractLocation</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ops.AbstractLocation" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<span class="target" id="module-claripy.smtlib_utils"></span><dl class="function">
+<dt id="claripy.smtlib_utils.make_pysmt_const_from_type">
+<code class="descclassname">claripy.smtlib_utils.</code><code class="descname">make_pysmt_const_from_type</code><span class="sig-paren">(</span><em>val</em>, <em>type</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.smtlib_utils.make_pysmt_const_from_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="claripy.smtlib_utils.SMTParser">
+<em class="property">class </em><code class="descclassname">claripy.smtlib_utils.</code><code class="descname">SMTParser</code><span class="sig-paren">(</span><em>tokens</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.smtlib_utils.SMTParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="claripy.smtlib_utils.SMTParser.expect">
+<code class="descname">expect</code><span class="sig-paren">(</span><em>*allowed</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.smtlib_utils.SMTParser.expect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.smtlib_utils.SMTParser.expect_assignment_tuple">
+<code class="descname">expect_assignment_tuple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.smtlib_utils.SMTParser.expect_assignment_tuple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.smtlib_utils.SMTParser.consume_assignment_list">
+<code class="descname">consume_assignment_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.smtlib_utils.SMTParser.consume_assignment_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-claripy.strings"></span><dl class="class">
+<dt id="claripy.strings.StringV">
+<em class="property">class </em><code class="descclassname">claripy.strings.</code><code class="descname">StringV</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.strings.StringV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#claripy.backend_object.BackendObject" title="claripy.backend_object.BackendObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.backend_object.BackendObject</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.strings.StrConcat">
+<code class="descclassname">claripy.strings.</code><code class="descname">StrConcat</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.strings.StrConcat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a concrete version of the concatenated string
+:param args: List of string that has to be concatenated</p>
+<p>:return : a concrete version of the concatenated string</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.strings.StrSubstr">
+<code class="descclassname">claripy.strings.</code><code class="descname">StrSubstr</code><span class="sig-paren">(</span><em>start_idx</em>, <em>count</em>, <em>initial_string</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.strings.StrSubstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a concrete version of the substring
+:param start_idx : starting index of the substring
+:param end_idx : last index of the substring
+:param initial_string</p>
+<p>:return : a concrete version of the substring</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.strings.StrExtract">
+<code class="descclassname">claripy.strings.</code><code class="descname">StrExtract</code><span class="sig-paren">(</span><em>high</em>, <em>low</em>, <em>str_val</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.strings.StrExtract" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="claripy.strings.StrReplace">
+<code class="descclassname">claripy.strings.</code><code class="descname">StrReplace</code><span class="sig-paren">(</span><em>initial_string</em>, <em>pattern_to_be_replaced</em>, <em>replacement_pattern</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.strings.StrReplace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a concrete version of the replaced string
+(replace ONLY th efirst occurrence of the pattern)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>initial_string</strong> – string in which the pattern needs to be replaced</li>
+<li><strong>pattern_to_be_replaced</strong> – substring that has to be replaced inside initial_string</li>
+<li><strong>replacement_poattern</strong> – pattern that has to be inserted in initial_string t replace
+pattern_to_be_replaced</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a concrete representation of the replaced string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.strings.StrLen">
+<code class="descclassname">claripy.strings.</code><code class="descname">StrLen</code><span class="sig-paren">(</span><em>input_string</em>, <em>bitlength</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.strings.StrLen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a concrete Bit-Vector of 32(?) bit size and as value the length of the string in bytes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input_string</strong> – the string we want to calculate the length</li>
+<li><strong>bitlength</strong> – bitlength of the bitvector representing the length of the string</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Bit vector holding the size of the string in bytes</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.strings.StrContains">
+<code class="descclassname">claripy.strings.</code><code class="descname">StrContains</code><span class="sig-paren">(</span><em>input_string</em>, <em>substring</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.strings.StrContains" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the substring is contained in the concrete value of the input_string
+otherwise false.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input_string</strong> – the string we want to check</li>
+<li><strong>substring</strong> – the string we want to check if it’s contained inside the input_string</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True is substring is contained in input_string else false</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.strings.StrPrefixOf">
+<code class="descclassname">claripy.strings.</code><code class="descname">StrPrefixOf</code><span class="sig-paren">(</span><em>prefix</em>, <em>input_string</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.strings.StrPrefixOf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the concrete value of the input_string starts with prefix
+otherwise false.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>prefix</strong> – prefix we want to check</li>
+<li><strong>input_string</strong> – the string we want to check</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if the input_string starts with prefix else false</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.strings.StrSuffixOf">
+<code class="descclassname">claripy.strings.</code><code class="descname">StrSuffixOf</code><span class="sig-paren">(</span><em>suffix</em>, <em>input_string</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.strings.StrSuffixOf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the concrete value of the input_string ends with suffix
+otherwise false.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>suffix</strong> – suffix we want to check</li>
+<li><strong>input_string</strong> – the string we want to check</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>:return : True if the input_string ends with suffix else false</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.strings.StrIndexOf">
+<code class="descclassname">claripy.strings.</code><code class="descname">StrIndexOf</code><span class="sig-paren">(</span><em>input_string</em>, <em>substring</em>, <em>startIndex</em>, <em>bitlength</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.strings.StrIndexOf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the concrete value of the input_string ends with suffix
+otherwise false.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input_string</strong> – the string we want to check</li>
+<li><strong>substring</strong> – the substring we want to find the index</li>
+<li><strong>startIndex</strong> – the index to start searching at</li>
+<li><strong>bitlength</strong> – bitlength of the bitvector representing the index of the substring</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return BVV:</th><td class="field-body"><p class="first last">index of the substring in bit-vector representation or -1 in bitvector representation</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.strings.StrToInt">
+<code class="descclassname">claripy.strings.</code><code class="descname">StrToInt</code><span class="sig-paren">(</span><em>input_string</em>, <em>bitlength</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.strings.StrToInt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the concrete value of the input_string ends with suffix
+otherwise false.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>input_string</strong> – the string we want to transform in an integer</li>
+<li><strong>bitlength</strong> – bitlength of the bitvector representing the index of the substring</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return BVV:</th><td class="field-body"><p class="first last">bit-vector representation of the integer resulting from ythe string or -1 in bitvector representation
+if the string cannot be transformed into an integer</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.strings.StrIsDigit">
+<code class="descclassname">claripy.strings.</code><code class="descname">StrIsDigit</code><span class="sig-paren">(</span><em>input_string</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.strings.StrIsDigit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the concrete value of the input_string is a digit otherwise returns False</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_string</strong> – the string we want to check</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if the string is a digit otherwise false</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.strings.IntToStr">
+<code class="descclassname">claripy.strings.</code><code class="descname">IntToStr</code><span class="sig-paren">(</span><em>input_bvv</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.strings.IntToStr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the string representation of the integer expressed in the BitVector</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>input_bvv</strong> – the integer expressed as a BitVector we want to convert as a string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the string representation of the integer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 </div>
@@ -5819,7 +6726,7 @@ operation.</dd>
         <a href="cle.html" class="btn btn-neutral float-right" title="cle — Binary Loader" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="angr.html" class="btn btn-neutral" title="angr — Analysis and Coordination" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="angr.html" class="btn btn-neutral float-left" title="angr — Analysis and Coordination" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -5845,26 +6752,16 @@ operation.</dd>
   
 
 
-  
-
-    
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
