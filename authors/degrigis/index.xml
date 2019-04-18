@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Degrigis on angr</title>
+    <title>degrigis on angr</title>
     <link>https://angr.github.io/authors/degrigis/</link>
-    <description>Recent content in Degrigis on angr</description>
+    <description>Recent content in degrigis on angr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 20 Nov 2018 15:48:59 -0800</lastBuildDate>

@@ -1,0 +1,362 @@
+<!DOCTYPE rowhtm>
+<html>
+<head>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/pure-min.css">
+  <link rel="stylesheet" href="/css/single.css">
+  <style type="text/css">
+    .hidden { display: none; }
+  </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="/js/no_foac.js"></script>
+  <script type="text/javascript" src="/js/clicky.js"></script>
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <title>angr</title>
+</head>
+<body>
+<header id="header">
+  <div id="topbar">
+    <div id="title">
+      <a href="/" class="nohighlight">
+        angr
+        <img id="logo" src="/img/angry_face.png">
+      </a>
+    </div>
+    <ul id="nav">
+      <div id="prompt">&gt;&gt;&gt;</div>
+      
+        <a href="/"><li>home</li></a>
+      
+        <a href="/blog"><li>blog</li></a>
+      
+        <a href="http://docs.angr.io/"><li>docs</li></a>
+      
+        <a href="https://github.com/angr"><li>code</li></a>
+      
+        <a href="/#contact"><li>get involved!</li></a>
+      
+    </ul>
+  </div>
+</header>
+<div id="bodycolumn">
+
+<h1>experimental java, android, and jni support in angr</h1>
+
+<div class="subtext">
+  
+  
+    Posted in
+    
+      <a href="https://angr.github.io//tags/announcements" class="tag">
+	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
+        announcements
+      </a>
+    
+      <a href="https://angr.github.io//tags/tutorial" class="tag">
+	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
+        tutorial
+      </a>
+    
+      <a href="https://angr.github.io//tags/extending_angr" class="tag">
+	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
+        extending angr
+      </a>
+    
+      <a href="https://angr.github.io//tags/java" class="tag">
+	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
+        java
+      </a>
+    
+      <a href="https://angr.github.io//tags/android" class="tag">
+	<img src="https://angr.github.io/img/tag.png" height="8px" width="8px">
+        android
+      </a>
+    
+  
+  
+    &nbsp;by
+    
+      <a href="https://angr.github.io//authors/anton00b" class="tag">
+	<img src="https://angr.github.io/img/author.png" height="8px" width="8px">
+	anton00b
+      </a>
+    
+      <a href="https://angr.github.io//authors/conand" class="tag">
+	<img src="https://angr.github.io/img/author.png" height="8px" width="8px">
+	conand
+      </a>
+    
+      <a href="https://angr.github.io//authors/phate" class="tag">
+	<img src="https://angr.github.io/img/author.png" height="8px" width="8px">
+	phate
+      </a>
+    
+  
+</div>
+
+
+<section class="post-content">
+
+
+<p>angr can now symbolically execute Java code and Android apps, including Android apps incorporating both compiled Java and native (C/C++) code!</p>
+
+<p>This project is the result of a multi-year effort by (in no particular order): Thorsten Eisenhofer (<a href="https://github.com/thrsten">thrsten</a>), Sebastiano Mariani (<a href="https://github.com/phat3">phate</a>), Ruoyu Wang (<a href="https://ruoyuwang.me/">fish</a>), Antonio Bianchi (<a href="https://twitter.com/anton00b">anton00b</a>), and Andrea Continella (<a href="https://twitter.com/_conand">conand</a>).</p>
+
+<p>Enabling Java support requires a few more steps than a typical angr installation.
+To get started, we recommend looking through the detailed installation instructions and a list of examples available in the official <a href="https://docs.angr.io/advanced-topics/java_support">angr documentation</a>.</p>
+
+<p><strong>WARNING: Java support is still experimental!</strong>
+You may encounter issues while analyzing Java or Android apps. Please report any bugs on the respective git repository in the <a href="https://github.com/angr/">angr project</a>. Pull requests are also welcome!</p>
+
+<h2 id="implementation">Implementation</h2>
+
+<div class="newline-image">
+  <strong>Pysoot Architecture:</strong>
+  <img style="width: 90%; margin: 3% 5% 0% 5%;" src="/img/pysoot_arch.png" />
+</div>
+
+
+<p>Java support relies primarily on our new Soot python wrapper, <a href="https://github.com/angr/pysoot">pysoot</a>, to lift both Java and DEX bytecode.
+<code>pysoot</code> lifts both Java and DEX bytecode, as well as extracts a fully serializable interface from Android apps and Java code.
+Unfortunately, as of now, it only works on Linux.</p>
+
+<p>We then leverage the generated IR in a <a href="https://github.com/angr/angr/blob/master/angr/engines/soot/engine.py">new angr engine</a> able to interpret such code.
+This engine is also able to automatically switch to executing native code if a native method is called through the JNI interface.</p>
+
+<p>Along with symbolic execution, we have also implemented some basic static analysis, specifically a basic CFG reconstruction analysis.
+Moreover, we added support for string constraint solving by integrating CVC4&rsquo;s string constraint abilities into <code>claripy</code>.</p>
+
+<h2 id="solving-a-ctf-challenge">Solving a CTF challenge</h2>
+
+<p>The challenge <code>javaisnotfun</code> from iCTF 2017 is a game implemented in mixed Java/C code.
+You can find its source code <a href="https://github.com/angr/angr-doc/blob/master/examples/ictf2017_javaisnotfun/challenge/src.tar?raw=true">here</a> and a writeup (in Chinese) <a href="https://ctftime.org/writeup/5964">here</a>.</p>
+
+<p>The challenge starts with a challenge-response game in which 5 random numbers are shown to the user, and the user has to reply with 3 numbers.
+Solving five rounds of the game allows the attacker to trigger the challenge vulnerability.</p>
+
+<p>In this example, we will focus on how to solve one round of the game using angr.
+The complete angr code is available <a href="https://github.com/angr/angr-doc/tree/master/examples/ictf2017_javaisnotfun">here</a>.</p>
+
+<p>A typical approach would require reversing the Java code and the native code used to implement the game.
+However, we can now use angr to automatically compute the 3 numbers of the solution!</p>
+
+<p>This is the source code implementing one round of the game:</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="n">Random</span> <span class="n">rnd</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
+<span class="kt">int</span> <span class="n">c1</span><span class="o">,</span><span class="n">c2</span><span class="o">,</span><span class="n">c3</span><span class="o">,</span><span class="n">c4</span><span class="o">,</span><span class="n">c5</span><span class="o">;</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">rnd</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">100</span><span class="o">);</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">rnd</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">100</span><span class="o">);</span>
+<span class="n">c3</span> <span class="o">=</span> <span class="n">rnd</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">256</span><span class="o">);</span>
+<span class="n">c4</span> <span class="o">=</span> <span class="n">rnd</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">10</span><span class="o">);</span>
+<span class="n">c5</span> <span class="o">=</span> <span class="n">rnd</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">10</span><span class="o">);</span>
+<span class="n">print</span><span class="o">(</span><span class="s">&#34;These are your unlucky numbers:&#34;</span><span class="o">);</span>
+<span class="n">print</span><span class="o">(</span><span class="n">c1</span><span class="o">);</span>
+<span class="n">print</span><span class="o">(</span><span class="n">c2</span><span class="o">);</span>
+<span class="n">print</span><span class="o">(</span><span class="n">c3</span><span class="o">);</span>
+<span class="n">c3</span> <span class="o">&lt;&lt;=</span> <span class="n">8</span><span class="o">;</span>
+
+<span class="k">switch</span><span class="o">(</span><span class="n">c4</span><span class="o">){</span>
+<span class="k">case</span> <span class="nl">0:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">c3</span> <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">3</span><span class="o">;</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">1:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">c3</span> <span class="o">*</span> <span class="n">7</span> <span class="o">+</span> <span class="n">8</span><span class="o">;</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">2:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">c3</span> <span class="o">*</span> <span class="n">3</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">3:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">c3</span> <span class="o">*</span> <span class="n">5</span> <span class="o">+</span> <span class="n">3</span><span class="o">;</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">4:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">c3</span> <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">9</span><span class="o">;</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">5:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">c3</span> <span class="o">*</span> <span class="n">9</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">6:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">c3</span> <span class="o">*</span> <span class="n">6</span> <span class="o">+</span> <span class="n">2</span><span class="o">;</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">7:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">c3</span> <span class="o">*</span> <span class="n">5</span> <span class="o">+</span> <span class="n">4</span><span class="o">;</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">8:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">c3</span> <span class="o">*</span> <span class="n">8</span> <span class="o">+</span> <span class="n">2</span><span class="o">;</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">9:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">c3</span> <span class="o">*</span> <span class="n">4</span> <span class="o">+</span> <span class="n">2</span><span class="o">;</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="k">switch</span><span class="o">(</span><span class="n">c5</span><span class="o">){</span>
+<span class="k">case</span> <span class="nl">0:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">magic0</span><span class="o">(</span><span class="n">c3</span><span class="o">);</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">1:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">magic1</span><span class="o">(</span><span class="n">c3</span><span class="o">);</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">2:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">magic2</span><span class="o">(</span><span class="n">c3</span><span class="o">);</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">3:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">magic3</span><span class="o">(</span><span class="n">c3</span><span class="o">);</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">4:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">magic4</span><span class="o">(</span><span class="n">c3</span><span class="o">);</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">5:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">magic5</span><span class="o">(</span><span class="n">c3</span><span class="o">);</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">6:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">magic6</span><span class="o">(</span><span class="n">c3</span><span class="o">);</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">7:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">magic7</span><span class="o">(</span><span class="n">c3</span><span class="o">);</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">8:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">magic8</span><span class="o">(</span><span class="n">c3</span><span class="o">);</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="k">case</span> <span class="nl">9:</span>
+  <span class="n">c3</span> <span class="o">=</span> <span class="n">magic9</span><span class="o">(</span><span class="n">c3</span><span class="o">);</span>
+  <span class="k">break</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="n">print</span><span class="o">(</span><span class="n">c4</span><span class="o">);</span>
+<span class="n">print</span><span class="o">(</span><span class="n">c5</span><span class="o">);</span>
+
+<span class="c1">//System.err.println(&#34;expected: &#34; + String.valueOf(c1+2)+&#34;|&#34;+String.valueOf(c2*3+1)+&#34;|&#34;+String.valueOf(c3));
+</span><span class="c1"></span><span class="k">if</span><span class="o">(!</span> <span class="o">(</span><span class="n">getInt</span><span class="o">()</span> <span class="o">==</span> <span class="n">c1</span> <span class="o">+</span> <span class="n">2</span><span class="o">)){</span>
+  <span class="n">gameFail</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="k">if</span><span class="o">(!</span> <span class="o">(</span><span class="n">getInt</span><span class="o">()</span> <span class="o">==</span> <span class="n">magic000</span><span class="o">(</span><span class="n">c2</span><span class="o">))){</span>
+  <span class="n">gameFail</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="k">if</span><span class="o">(!</span> <span class="o">(</span><span class="n">getInt</span><span class="o">()</span> <span class="o">==</span> <span class="n">c3</span><span class="o">)){</span>
+  <span class="n">gameFail</span><span class="o">();</span>
+<span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-C" data-lang="C"><span class="n">JNIEXPORT</span> <span class="kt">int</span> <span class="n">JNICALL</span> <span class="nf">Java_NotFun_magic000</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thisObj</span><span class="p">,</span> <span class="n">jint</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="n">n</span><span class="o">*</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">JNIEXPORT</span> <span class="kt">int</span> <span class="n">JNICALL</span> <span class="nf">Java_NotFun_magic0</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thisObj</span><span class="p">,</span> <span class="n">jint</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">JNIEXPORT</span> <span class="kt">int</span> <span class="n">JNICALL</span> <span class="nf">Java_NotFun_magic1</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thisObj</span><span class="p">,</span> <span class="n">jint</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="o">&lt;&lt;</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">JNIEXPORT</span> <span class="kt">int</span> <span class="n">JNICALL</span> <span class="nf">Java_NotFun_magic2</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thisObj</span><span class="p">,</span> <span class="n">jint</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="o">&lt;&lt;</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">JNIEXPORT</span> <span class="kt">int</span> <span class="n">JNICALL</span> <span class="nf">Java_NotFun_magic3</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thisObj</span><span class="p">,</span> <span class="n">jint</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="o">&lt;&lt;</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">JNIEXPORT</span> <span class="kt">int</span> <span class="n">JNICALL</span> <span class="nf">Java_NotFun_magic4</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thisObj</span><span class="p">,</span> <span class="n">jint</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="o">&lt;&lt;</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">JNIEXPORT</span> <span class="kt">int</span> <span class="n">JNICALL</span> <span class="nf">Java_NotFun_magic5</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thisObj</span><span class="p">,</span> <span class="n">jint</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">JNIEXPORT</span> <span class="kt">int</span> <span class="n">JNICALL</span> <span class="nf">Java_NotFun_magic6</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thisObj</span><span class="p">,</span> <span class="n">jint</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">JNIEXPORT</span> <span class="kt">int</span> <span class="n">JNICALL</span> <span class="nf">Java_NotFun_magic7</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thisObj</span><span class="p">,</span> <span class="n">jint</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">JNIEXPORT</span> <span class="kt">int</span> <span class="n">JNICALL</span> <span class="nf">Java_NotFun_magic8</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thisObj</span><span class="p">,</span> <span class="n">jint</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">7</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">JNIEXPORT</span> <span class="kt">int</span> <span class="n">JNICALL</span> <span class="nf">Java_NotFun_magic9</span><span class="p">(</span><span class="n">JNIEnv</span> <span class="o">*</span><span class="n">env</span><span class="p">,</span> <span class="n">jobject</span> <span class="n">thisObj</span><span class="p">,</span> <span class="n">jint</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+<p>Let&rsquo;s create, using angr, a function able to compute the 3 response values, given the 5 random challenge values.
+First of all we need to create an angr <code>Project</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">binary_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">self_dir</span><span class="p">,</span> <span class="s2">&#34;bin/service.jar&#34;</span><span class="p">)</span>
+<span class="n">jni_options</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;jni_libs&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;libnotfun.so&#39;</span><span class="p">]}</span>
+<span class="n">project</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">binary_path</span><span class="p">,</span> <span class="n">main_opts</span><span class="o">=</span><span class="n">jni_options</span><span class="p">)</span></code></pre></div>
+<p>As you can see, we manually specify that the <code>jar</code> file uses a native library, <code>libnotfun.so</code>.
+We then set up a few hooks.
+Since these hooks are in Java, we specify their addresses using the class <code>SootMethodDescriptor</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">project</span><span class="o">.</span><span class="n">hook</span><span class="p">(</span><span class="n">SootMethodDescriptor</span><span class="p">(</span><span class="n">class_name</span><span class="o">=</span><span class="s2">&#34;java.util.Random&#34;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;nextInt&#34;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">,))</span><span class="o">.</span><span class="n">address</span><span class="p">(),</span> <span class="n">Random_nextInt</span><span class="p">())</span>
+<span class="n">project</span><span class="o">.</span><span class="n">hook</span><span class="p">(</span><span class="n">SootMethodDescriptor</span><span class="p">(</span><span class="n">class_name</span><span class="o">=</span><span class="s2">&#34;java.lang.Integer&#34;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;valueOf&#34;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">,))</span><span class="o">.</span><span class="n">address</span><span class="p">(),</span> <span class="n">Dummy_valueOf</span><span class="p">())</span>
+<span class="n">project</span><span class="o">.</span><span class="n">hook</span><span class="p">(</span><span class="n">SootMethodDescriptor</span><span class="p">(</span><span class="n">class_name</span><span class="o">=</span><span class="s2">&#34;NotFun&#34;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;print&#34;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;java.lang.Object&#39;</span><span class="p">,))</span><span class="o">.</span><span class="n">address</span><span class="p">(),</span> <span class="n">Custom_Print</span><span class="p">())</span>
+<span class="n">project</span><span class="o">.</span><span class="n">hook</span><span class="p">(</span><span class="n">SootMethodDescriptor</span><span class="p">(</span><span class="n">class_name</span><span class="o">=</span><span class="s2">&#34;NotFun&#34;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;getInt&#34;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">())</span><span class="o">.</span><span class="n">address</span><span class="p">(),</span> <span class="n">Custom_getInt</span><span class="p">())</span></code></pre></div>
+<p>Then, we set up the symbolic execution entry point.
+Specifically, we want to start the symbolic execution from the Java method called <code>game()</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="n">game_method</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">project</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">main_object</span><span class="o">.</span><span class="n">classes</span><span class="p">[</span><span class="s1">&#39;NotFun&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">methods</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&#34;game&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">game_entry</span> <span class="o">=</span> <span class="n">SootMethodDescriptor</span><span class="o">.</span><span class="n">from_soot_method</span><span class="p">(</span><span class="n">game_method</span><span class="p">)</span><span class="o">.</span><span class="n">address</span><span class="p">()</span>
+<span class="n">entry</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">blank_state</span><span class="p">(</span><span class="n">addr</span><span class="o">=</span><span class="n">game_entry</span><span class="p">)</span>
+<span class="n">simgr</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">simgr</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span></code></pre></div>
+<p>To handle the challenge-response, we create two fake files keeping track (symbolically) of what the program prints (the 5 challenge numbers) and what the user inserts (the 3 response values).
+See the <a href="https://github.com/angr/angr-doc/tree/master/examples/ictf2017_javaisnotfun">full solution</a> for details.</p>
+
+<p>Finally, we start symbolically executing the program step-by-step.
+We prune paths reaching the <code>gameFail()</code> method, while we stash paths solving one round of the game (formally, reaching basic block 30 of the method <code>game()</code>).
+When run, <code>numeric_solutions</code> will contain the 3 response values.</p>
+<div class="highlight"><pre class="chroma"><code class="language-Python" data-lang="Python"><span class="k">print</span><span class="p">(</span><span class="s2">&#34;=&#34;</span><span class="o">*</span><span class="mi">10</span> <span class="o">+</span> <span class="s2">&#34; SYMBOLIC EXECUTION STARTED&#34;</span><span class="p">)</span>
+<span class="k">while</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">simgr</span><span class="o">.</span><span class="n">active</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">simgr</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&#34;===== &#34;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">simgr</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&#34;===== &#34;</span> <span class="o">+</span> <span class="s2">&#34;,&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">addr</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">simgr</span><span class="o">.</span><span class="n">active</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">addr</span><span class="p">)</span><span class="o">==</span><span class="n">SootAddressDescriptor</span><span class="p">]))</span>
+
+    <span class="c1"># If we reach block_idx 30, it means that we solved 1 round of the game --&gt; we stash the state</span>
+    <span class="c1"># If we reach the gameFail() method, it means that we failed --&gt; we prune the state</span>
+    <span class="n">simgr</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;stashed&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">addr</span><span class="p">)</span> <span class="o">==</span> <span class="n">SootAddressDescriptor</span>
+               <span class="ow">and</span> <span class="n">a</span><span class="o">.</span><span class="n">addr</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="n">SootMethodDescriptor</span><span class="p">(</span><span class="s2">&#34;NotFun&#34;</span><span class="p">,</span> <span class="s2">&#34;game&#34;</span><span class="p">,</span> <span class="p">())</span> <span class="ow">and</span> <span class="n">a</span><span class="o">.</span><span class="n">addr</span><span class="o">.</span><span class="n">block_idx</span> <span class="o">==</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">simgr</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="s1">&#39;pruned&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">addr</span><span class="p">)</span> <span class="o">==</span> <span class="n">SootAddressDescriptor</span>
+               <span class="ow">and</span> <span class="n">a</span><span class="o">.</span><span class="n">addr</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="n">SootMethodDescriptor</span><span class="p">(</span><span class="s2">&#34;NotFun&#34;</span><span class="p">,</span> <span class="s2">&#34;gameFail&#34;</span><span class="p">,</span> <span class="p">()))</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s2">&#34;=&#34;</span><span class="o">*</span><span class="mi">10</span> <span class="o">+</span> <span class="s2">&#34; SYMBOLIC EXECUTION ENDED&#34;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">simgr</span><span class="o">.</span><span class="n">stashed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="n">win_state</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">stashed</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">numeric_solutions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">solutions</span><span class="p">:</span>
+    <span class="n">es</span> <span class="o">=</span> <span class="n">win_state</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">eval_atmost</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">es</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="n">numeric_solutions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">es</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span></code></pre></div>
+<h2 id="limitations-and-future-work">Limitations and Future Work</h2>
+
+<p>As mentioned before, <strong>Java support is experimental!</strong></p>
+
+<p>There are many things that should be improved, for instance:</p>
+
+<ul>
+<li>Move away from <code>pysoot</code> or, at least:
+
+<ul>
+<li>Make it compatible with Windows, OSX, &hellip;</li>
+<li>Do not use Jython and Pickle (but something more efficient, such as <code>protobuf</code>) to obtain the Soot IR in Python</li>
+</ul></li>
+<li>Implement more static analyses, including, data-flow, slicing, &hellip; (this is currently work-in-progress)</li>
+<li>Many many more simprocedures to model the <em>HUGE</em> Java SDK</li>
+<li>&hellip;</li>
+</ul>
+
+<p><em>Contribution from the community is highly encouraged! Pull requests are very welcome!</em></p>
+
+</section>
+
+<br>
+</div>
+<div id="footer">
+  <p>angr owes its existence to research sponsored by DARPA under agreement number
+  <a href="http://www.darpa.mil/program/vetting-commodity-it-software-and-firmware">N66001-13-2-4039</a>!</p>
+  <p>Site icons provided by <a href="https://www.flaticon.com/authors/icomoon">Icomoon</a> and <a href="http://www.freepik.com">Freepik</a>, licensed by <a href="http://creativecommons.org/licenses/by/3.0/">CC 3.0 BY</a></p>
+  <p>For questions, hop on <a href="http://angr.slack.com">our slack</a> (get an invite <a href="/invite">here</a>)
+  or contact the angr mailing list:
+  <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;%61%6e%67%72@%6c%69%73%74%73.%63%73.%75%63%73%62.%65%64%75">angr&nbsp;~at~&nbsp;lists.cs.ucsb.edu</a>
+  </div>
+</body>
+</html>
+

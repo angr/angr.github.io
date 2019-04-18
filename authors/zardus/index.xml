@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Zardus on angr</title>
+    <title>zardus on angr</title>
     <link>https://angr.github.io/authors/zardus/</link>
-    <description>Recent content in Zardus on angr</description>
+    <description>Recent content in zardus on angr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 15 Jan 2018 15:35:26 -0800</lastBuildDate>

@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Cle on angr</title>
+    <title>cle on angr</title>
     <link>https://angr.github.io/tags/cle/</link>
-    <description>Recent content in Cle on angr</description>
+    <description>Recent content in cle on angr</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 18 Jan 2018 19:41:02 -0800</lastBuildDate>
