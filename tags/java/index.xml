@@ -242,7 +242,7 @@ When run, &lt;code&gt;numeric_solutions&lt;/code&gt; will contain the 3 response
 &lt;li&gt;Do not use Jython and Pickle (but something more efficient, such as &lt;code&gt;protobuf&lt;/code&gt;) to obtain the Soot IR in Python&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;Implement more static analyses, including, data-flow, slicing, &amp;hellip; (this is currently work-in-progress)&lt;/li&gt;
-&lt;li&gt;Many many more simprocedures to model the &lt;em&gt;HUGE&lt;/em&gt; Java SDK&lt;/li&gt;
+&lt;li&gt;Many many more simprocedures to model the &lt;em&gt;HUGE&lt;/em&gt; Java/Android framework&lt;/li&gt;
 &lt;li&gt;&amp;hellip;&lt;/li&gt;
 &lt;/ul&gt;
 
