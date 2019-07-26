@@ -160,8 +160,16 @@ Knowledge Base
 --------------
 
 .. automodule:: angr.knowledge_base
+.. automodule:: angr.knowledge_base.knowledge_base
 .. automodule:: angr.knowledge_plugins
+.. automodule:: angr.knowledge_plugins.patches
 .. automodule:: angr.knowledge_plugins.plugin
+.. automodule:: angr.knowledge_plugins.cfg
+.. automodule:: angr.knowledge_plugins.cfg.cfg_model
+.. automodule:: angr.knowledge_plugins.cfg.memory_data
+.. automodule:: angr.knowledge_plugins.cfg.cfg_manager
+.. automodule:: angr.knowledge_plugins.cfg.cfg_node
+.. automodule:: angr.knowledge_plugins.cfg.indirect_jump
 .. automodule:: angr.knowledge_plugins.comments
 .. automodule:: angr.knowledge_plugins.data
 .. automodule:: angr.knowledge_plugins.indirect_jumps
@@ -174,7 +182,20 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.variables
 .. automodule:: angr.knowledge_plugins.variables.variable_access
 .. automodule:: angr.knowledge_plugins.variables.variable_manager
+.. automodule:: angr.knowledge_plugins.sync
+.. automodule:: angr.knowledge_plugins.sync.sync_manager
+.. automodule:: angr.knowledge_plugins.xrefs
+.. automodule:: angr.knowledge_plugins.xrefs.xref
+.. automodule:: angr.knowledge_plugins.xrefs.xref_types
+.. automodule:: angr.knowledge_plugins.xrefs.xref_manager
 .. automodule:: angr.keyed_region
+
+
+Serialization
+-------------
+
+.. automodule:: angr.serializable
+.. automodule:: angr.protos
 
 
 Analysis
@@ -194,9 +215,9 @@ Analysis
 .. automodule:: angr.analyses.cfg.cfg_emulated
 .. automodule:: angr.analyses.cfg.cfg_base
 .. automodule:: angr.analyses.cfg.cfg_fast
-.. automodule:: angr.analyses.cfg.cfg_node
 .. automodule:: angr.analyses.cfg.cfg_arch_options
 .. automodule:: angr.analyses.cfg.cfg_job_base
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers.amd64_elf_got
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.x86_pe_iat
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt
@@ -205,8 +226,8 @@ Analysis
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.resolver
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers
 .. automodule:: angr.analyses.cfg.cfg_utils
-.. automodule:: angr.analyses.cfg.memory_data
 .. automodule:: angr.analyses.cfg.cfg_fast_soot
+.. automodule:: angr.analyses.cfg.segment_list
 .. automodule:: angr.analyses.cdg
 .. automodule:: angr.analyses.code_location
 .. automodule:: angr.analyses.datagraph_meta
@@ -218,6 +239,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes
 .. automodule:: angr.analyses.decompiler.optimization_passes.optimization_pass
 .. automodule:: angr.analyses.decompiler.optimization_passes.stack_canary_simplifier
+.. automodule:: angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier
 .. automodule:: angr.analyses.decompiler.structured_codegen
 .. automodule:: angr.analyses.decompiler.region_identifier
 .. automodule:: angr.analyses.decompiler.region_simplifier
@@ -225,6 +247,13 @@ Analysis
 .. automodule:: angr.engines.light.data
 .. automodule:: angr.engines.light
 .. automodule:: angr.engines.light.engine
+.. automodule:: angr.analyses.propagator
+.. automodule:: angr.analyses.propagator.values
+.. automodule:: angr.analyses.propagator.vex_vars
+.. automodule:: angr.analyses.propagator.engine_base
+.. automodule:: angr.analyses.propagator.engine_vex
+.. automodule:: angr.analyses.propagator.engine_ail
+.. automodule:: angr.analyses.propagator.propagator
 .. automodule:: angr.analyses.reaching_definitions.uses
 .. automodule:: angr.analyses.reaching_definitions.undefined
 .. automodule:: angr.analyses.reaching_definitions.definition
@@ -256,6 +285,7 @@ Analysis
 .. automodule:: angr.analyses.binary_optimizer
 .. automodule:: angr.analyses.callee_cleanup_finder
 .. automodule:: angr.analyses.dominance_frontier
+.. automodule:: angr.analyses.xrefs
 .. automodule:: angr.blade
 .. automodule:: angr.slicer
 .. automodule:: angr.annocfg
@@ -279,6 +309,7 @@ Utils
 .. automodule:: angr.utils.constants
 .. automodule:: angr.utils.graph
 .. automodule:: angr.utils.library
+.. automodule:: angr.utils.enums_conv
 
 Errors
 ------
