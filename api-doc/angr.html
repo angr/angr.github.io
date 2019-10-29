@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>angr — Analysis and Coordination &mdash; angr 8.19.7.25 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 8.19.10.29 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                8.19.7.25
+                8.19.10.29
               </div>
             
           
@@ -409,24 +409,6 @@ simulation manager.</p>
 <dt id="angr.project.Project.terminate_execution">
 <code class="sig-name descname">terminate_execution</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.project.Project.terminate_execution" title="Permalink to this definition">¶</a></dt>
 <dd><p>Terminates a symbolic execution that was started with Project.execute().</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.project.Project.use_sim_procedures">
-<em class="property">property </em><code class="sig-name descname">use_sim_procedures</code><a class="headerlink" href="#angr.project.Project.use_sim_procedures" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.project.Project.is_java_project">
-<em class="property">property </em><code class="sig-name descname">is_java_project</code><a class="headerlink" href="#angr.project.Project.is_java_project" title="Permalink to this definition">¶</a></dt>
-<dd><p>Indicates if the project’s main binary is a Java Archive.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.project.Project.is_java_jni_project">
-<em class="property">property </em><code class="sig-name descname">is_java_jni_project</code><a class="headerlink" href="#angr.project.Project.is_java_jni_project" title="Permalink to this definition">¶</a></dt>
-<dd><p>Indicates if the project’s main binary is a Java Archive, which
-interacts during its execution with native libraries (via JNI).</p>
 </dd></dl>
 
 </dd></dl>
@@ -1098,11 +1080,6 @@ SimActions. An integer is returned, or an exception is raised if the instruction
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="method">
-<dt id="angr.sim_state.SimState.options">
-<em class="property">property </em><code class="sig-name descname">options</code><a class="headerlink" href="#angr.sim_state.SimState.options" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="angr.sim_state.SimState.arch">
@@ -5564,6 +5541,46 @@ operations that varied across invocations.</p>
 <dd class="field-even"><p>a concrete value for the item</p>
 </dd>
 </dl>
+</dd></dl>
+
+<span class="target" id="module-angr.state_plugins.symbolizer"></span><dl class="class">
+<dt id="angr.state_plugins.symbolizer.SimSymbolizer">
+<em class="property">class </em><code class="sig-prename descclassname">angr.state_plugins.symbolizer.</code><code class="sig-name descname">SimSymbolizer</code><a class="headerlink" href="#angr.state_plugins.symbolizer.SimSymbolizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.state_plugins.plugin.SimStatePlugin" title="angr.state_plugins.plugin.SimStatePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.state_plugins.plugin.SimStatePlugin</span></code></a></p>
+<p>The symbolizer state plugin ensures that pointers that are stored in memory are symbolic.
+This allows for the tracking of and reasoning over these pointers (for example, to reason
+about memory disclosure).</p>
+<dl class="method">
+<dt id="angr.state_plugins.symbolizer.SimSymbolizer.init_state">
+<code class="sig-name descname">init_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.symbolizer.SimSymbolizer.init_state" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.state_plugins.symbolizer.SimSymbolizer.set_symbolization_for_all_pages">
+<code class="sig-name descname">set_symbolization_for_all_pages</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.symbolizer.SimSymbolizer.set_symbolization_for_all_pages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the symbolizer to symbolize pointers to all pages as they are written to memory..</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.state_plugins.symbolizer.SimSymbolizer.set_symbolized_target_range">
+<code class="sig-name descname">set_symbolized_target_range</code><span class="sig-paren">(</span><em class="sig-param">base</em>, <em class="sig-param">length</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.symbolizer.SimSymbolizer.set_symbolized_target_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>All pointers to the target range will be symbolized as they are written to memory.</p>
+<p>Due to optimizations, the _pages_ containing this range will be set as symbolization targets,
+not just the range itself.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.state_plugins.symbolizer.SimSymbolizer.resymbolize">
+<code class="sig-name descname">resymbolize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.symbolizer.SimSymbolizer.resymbolize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Re-symbolizes all pointers in memory. This can be called to symbolize any pointers to target regions
+that were written (and not mangled beyond recognition) before symbolization was set.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.state_plugins.symbolizer.SimSymbolizer.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><em class="sig-param">memo=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.symbolizer.SimSymbolizer.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -10279,6 +10296,16 @@ state, s.t. execution continues in the Soot engine.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A SimActionObject tracks an AST and its dependencies.</p>
 <dl class="method">
+<dt id="angr.state_plugins.sim_action_object.SimActionObject.to_claripy">
+<code class="sig-name descname">to_claripy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.sim_action_object.SimActionObject.to_claripy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.state_plugins.sim_action_object.SimActionObject.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.sim_action_object.SimActionObject.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="angr.state_plugins.sim_action_object.SimActionObject.SDiv">
 <code class="sig-name descname">SDiv</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.sim_action_object.SimActionObject.SDiv" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -10294,11 +10321,6 @@ state, s.t. execution continues in the Soot engine.</p>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="angr.state_plugins.sim_action_object.SimActionObject.to_claripy">
-<code class="sig-name descname">to_claripy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.sim_action_object.SimActionObject.to_claripy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="angr.state_plugins.sim_action_object.SimActionObject.union">
 <code class="sig-name descname">union</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.sim_action_object.SimActionObject.union" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -10306,11 +10328,6 @@ state, s.t. execution continues in the Soot engine.</p>
 <dl class="method">
 <dt id="angr.state_plugins.sim_action_object.SimActionObject.widen">
 <code class="sig-name descname">widen</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.sim_action_object.SimActionObject.widen" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.state_plugins.sim_action_object.SimActionObject.copy">
-<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.sim_action_object.SimActionObject.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -14032,11 +14049,14 @@ jumpkind of the successor.</p>
 
 <dl class="method">
 <dt id="angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_all_predecessors">
-<code class="sig-name descname">get_all_predecessors</code><span class="sig-paren">(</span><em class="sig-param">cfgnode</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_all_predecessors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_all_predecessors</code><span class="sig-paren">(</span><em class="sig-param">cfgnode</em>, <em class="sig-param">depth_limit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_all_predecessors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all predecessors of a specific node on the control flow graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>cfgnode</strong> (<a class="reference internal" href="#angr.knowledge_plugins.cfg.cfg_node.CFGNode" title="angr.knowledge_plugins.cfg.cfg_node.CFGNode"><em>CFGNode</em></a>) – The CFGNode object</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfgnode</strong> (<a class="reference internal" href="#angr.knowledge_plugins.cfg.cfg_node.CFGNode" title="angr.knowledge_plugins.cfg.cfg_node.CFGNode"><em>CFGNode</em></a>) – The CFGNode object</p></li>
+<li><p><strong>depth_limit</strong> (<em>int</em>) – Optional depth limit for the depth-first search</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of predecessors in the CFG</p>
@@ -14049,8 +14069,23 @@ jumpkind of the successor.</p>
 
 <dl class="method">
 <dt id="angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_all_successors">
-<code class="sig-name descname">get_all_successors</code><span class="sig-paren">(</span><em class="sig-param">cfgnode</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_all_successors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">get_all_successors</code><span class="sig-paren">(</span><em class="sig-param">cfgnode</em>, <em class="sig-param">depth_limit=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_all_successors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all successors of a specific node on the control flow graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfgnode</strong> (<a class="reference internal" href="#angr.knowledge_plugins.cfg.cfg_node.CFGNode" title="angr.knowledge_plugins.cfg.cfg_node.CFGNode"><em>CFGNode</em></a>) – The CFGNode object</p></li>
+<li><p><strong>depth_limit</strong> (<em>int</em>) – Optional depth limit for the depth-first search</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of successors in the CFG</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_branching_nodes">
@@ -14935,7 +14970,15 @@ the creation of a Function object.</p>
 <dl class="method">
 <dt id="angr.knowledge_plugins.functions.function.Function.parse_from_cmessage">
 <em class="property">classmethod </em><code class="sig-name descname">parse_from_cmessage</code><span class="sig-paren">(</span><em class="sig-param">cmsg</em>, <em class="sig-param">function_manager=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.parse_from_cmessage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cmsg</strong> – </p>
+</dd>
+<dt class="field-even">Return Function</dt>
+<dd class="field-even"><p>The function instantiated out of the cmsg data.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="angr.knowledge_plugins.functions.function.Function.string_references">
@@ -15138,7 +15181,12 @@ is not a callsite.</p>
 <dl class="method">
 <dt id="angr.knowledge_plugins.functions.function.Function.graph">
 <em class="property">property </em><code class="sig-name descname">graph</code><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.graph" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a local transition graph that only contain nodes in current function.</p>
+<dd><p>A local transition graph that only contain nodes in current function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>return networkx.DiGraph</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -15149,11 +15197,8 @@ is not a callsite.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>ins_addrs</strong> (<em>iterable</em>) – A collection of instruction addresses that should be included in the subgraph.</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Return networkx.DiGraph</dt>
 <dd class="field-even"><p>A subgraph.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>networkx.DiGraph</p>
 </dd>
 </dl>
 </dd></dl>
@@ -15166,11 +15211,26 @@ is not a callsite.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>insn_addr</strong> (<em>int</em>) – Address of the instruction</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Return int</dt>
 <dd class="field-even"><p>Size of the instruction in bytes, or None if the instruction is not found.</p>
 </dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function.Function.addr_to_instruction_addr">
+<code class="sig-name descname">addr_to_instruction_addr</code><span class="sig-paren">(</span><em class="sig-param">addr</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.addr_to_instruction_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain the address of the instruction that covers &#64;addr.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>addr</strong> (<em>int</em>) – An address.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Address of the instruction that covers &#64;addr, or None if this addr is not covered by any
+instruction of this function.</p>
+</dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>int</p>
+<dd class="field-odd"><p>int or None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -15236,6 +15296,31 @@ and update self.calling_convention with the declaration.</p>
 <dt id="angr.knowledge_plugins.functions.function.Function.copy">
 <code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function.Function.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.knowledge_plugins.functions.function_parser"></span><dl class="class">
+<dt id="angr.knowledge_plugins.functions.function_parser.FunctionParser">
+<em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.functions.function_parser.</code><code class="sig-name descname">FunctionParser</code><a class="headerlink" href="#angr.knowledge_plugins.functions.function_parser.FunctionParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The implementation of the serialization methods for the &lt;Function&gt; class.</p>
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function_parser.FunctionParser.serialize">
+<em class="property">static </em><code class="sig-name descname">serialize</code><span class="sig-paren">(</span><em class="sig-param">function</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function_parser.FunctionParser.serialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>:return :</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.functions.function_parser.FunctionParser.parse_from_cmsg">
+<em class="property">static </em><code class="sig-name descname">parse_from_cmsg</code><span class="sig-paren">(</span><em class="sig-param">cmsg</em>, <em class="sig-param">function_manager=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function_parser.FunctionParser.parse_from_cmsg" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cmsg</strong> – The data to instanciate the &lt;Function&gt; from.</p>
+</dd>
+<dt class="field-even">Return Function</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -16347,315 +16432,6 @@ _progress_callback.</p></li>
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.forward_analysis"></span><dl class="class">
-<dt id="angr.analyses.forward_analysis.GraphVisitor">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.</code><code class="sig-name descname">GraphVisitor</code><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A graph visitor takes a node in the graph and returns its successors. Typically it visits a control flow graph, and
-returns successors of a CFGNode each time. This is the base class of all graph visitors.</p>
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.GraphVisitor.startpoints">
-<code class="sig-name descname">startpoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor.startpoints" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get all start points to begin the traversal.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A list of startpoints that the traversal should begin with.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.GraphVisitor.successors">
-<code class="sig-name descname">successors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor.successors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get successors of a node. The node should be in the graph.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>node</strong> – The node to work with.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A list of successors.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.GraphVisitor.predecessors">
-<code class="sig-name descname">predecessors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor.predecessors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get predecessors of a node. The node should be in the graph.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>node</strong> – The node to work with.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A list of predecessors.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.GraphVisitor.sort_nodes">
-<code class="sig-name descname">sort_nodes</code><span class="sig-paren">(</span><em class="sig-param">nodes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor.sort_nodes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a list of all nodes sorted in an optimal traversal order.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>nodes</strong> (<em>iterable</em>) – A collection of nodes to sort. If none, all nodes in the graph will be used to sort.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A list of sorted nodes.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.GraphVisitor.nodes">
-<code class="sig-name descname">nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor.nodes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return an iterator of nodes following an optimal traversal order.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.GraphVisitor.nodes_iter">
-<code class="sig-name descname">nodes_iter</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor.nodes_iter" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.GraphVisitor.reset">
-<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reset the internal node traversal state. Must be called prior to visiting future nodes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.GraphVisitor.next_node">
-<code class="sig-name descname">next_node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor.next_node" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the next node to visit.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A node in the graph.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.GraphVisitor.all_successors">
-<code class="sig-name descname">all_successors</code><span class="sig-paren">(</span><em class="sig-param">node</em>, <em class="sig-param">skip_reached_fixedpoint=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor.all_successors" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns all successors to the specific node.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>node</strong> – A node in the graph.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A set of nodes that are all successors to the given node.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>set</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.GraphVisitor.revisit">
-<code class="sig-name descname">revisit</code><span class="sig-paren">(</span><em class="sig-param">node</em>, <em class="sig-param">include_self=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor.revisit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Revisit a node in the future. As a result, the successors to this node will be revisited as well.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>node</strong> – The node to revisit in the future.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.GraphVisitor.reached_fixedpoint">
-<code class="sig-name descname">reached_fixedpoint</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.GraphVisitor.reached_fixedpoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mark a node as reached fixed-point. This node as well as all its successors will not be visited in the future.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>node</strong> – The node to mark as reached fixed-point.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="angr.analyses.forward_analysis.FunctionGraphVisitor">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.</code><code class="sig-name descname">FunctionGraphVisitor</code><span class="sig-paren">(</span><em class="sig-param">func</em>, <em class="sig-param">graph=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.FunctionGraphVisitor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.GraphVisitor" title="angr.analyses.forward_analysis.GraphVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.GraphVisitor</span></code></a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>func</strong> (<em>knowledge.Function</em>) – </p>
-</dd>
-</dl>
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.FunctionGraphVisitor.startpoints">
-<code class="sig-name descname">startpoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.FunctionGraphVisitor.startpoints" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.FunctionGraphVisitor.successors">
-<code class="sig-name descname">successors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.FunctionGraphVisitor.successors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.FunctionGraphVisitor.predecessors">
-<code class="sig-name descname">predecessors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.FunctionGraphVisitor.predecessors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.FunctionGraphVisitor.sort_nodes">
-<code class="sig-name descname">sort_nodes</code><span class="sig-paren">(</span><em class="sig-param">nodes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.FunctionGraphVisitor.sort_nodes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="angr.analyses.forward_analysis.CallGraphVisitor">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.</code><code class="sig-name descname">CallGraphVisitor</code><span class="sig-paren">(</span><em class="sig-param">callgraph</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.CallGraphVisitor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.GraphVisitor" title="angr.analyses.forward_analysis.GraphVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.GraphVisitor</span></code></a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>callgraph</strong> (<em>networkx.DiGraph</em>) – </p>
-</dd>
-</dl>
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.CallGraphVisitor.startpoints">
-<code class="sig-name descname">startpoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.CallGraphVisitor.startpoints" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.CallGraphVisitor.successors">
-<code class="sig-name descname">successors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.CallGraphVisitor.successors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.CallGraphVisitor.predecessors">
-<code class="sig-name descname">predecessors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.CallGraphVisitor.predecessors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.CallGraphVisitor.sort_nodes">
-<code class="sig-name descname">sort_nodes</code><span class="sig-paren">(</span><em class="sig-param">nodes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.CallGraphVisitor.sort_nodes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="angr.analyses.forward_analysis.SingleNodeGraphVisitor">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.</code><code class="sig-name descname">SingleNodeGraphVisitor</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.SingleNodeGraphVisitor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.GraphVisitor" title="angr.analyses.forward_analysis.GraphVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.GraphVisitor</span></code></a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>node</strong> – The single node that should be in the graph.</p>
-</dd>
-</dl>
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.SingleNodeGraphVisitor.startpoints">
-<code class="sig-name descname">startpoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.SingleNodeGraphVisitor.startpoints" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.SingleNodeGraphVisitor.successors">
-<code class="sig-name descname">successors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.SingleNodeGraphVisitor.successors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.SingleNodeGraphVisitor.predecessors">
-<code class="sig-name descname">predecessors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.SingleNodeGraphVisitor.predecessors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.SingleNodeGraphVisitor.sort_nodes">
-<code class="sig-name descname">sort_nodes</code><span class="sig-paren">(</span><em class="sig-param">nodes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.SingleNodeGraphVisitor.sort_nodes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="angr.analyses.forward_analysis.LoopVisitor">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.</code><code class="sig-name descname">LoopVisitor</code><span class="sig-paren">(</span><em class="sig-param">loop</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.LoopVisitor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.GraphVisitor" title="angr.analyses.forward_analysis.GraphVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.GraphVisitor</span></code></a></p>
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.LoopVisitor.startpoints">
-<code class="sig-name descname">startpoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.LoopVisitor.startpoints" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.LoopVisitor.successors">
-<code class="sig-name descname">successors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.LoopVisitor.successors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.LoopVisitor.predecessors">
-<code class="sig-name descname">predecessors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.LoopVisitor.predecessors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.LoopVisitor.sort_nodes">
-<code class="sig-name descname">sort_nodes</code><span class="sig-paren">(</span><em class="sig-param">nodes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.LoopVisitor.sort_nodes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="angr.analyses.forward_analysis.JobInfo">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.</code><code class="sig-name descname">JobInfo</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">job</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.JobInfo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Stores information of each job.</p>
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.JobInfo.job">
-<em class="property">property </em><code class="sig-name descname">job</code><a class="headerlink" href="#angr.analyses.forward_analysis.JobInfo.job" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the latest available job.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The latest available job.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.JobInfo.merged_jobs">
-<em class="property">property </em><code class="sig-name descname">merged_jobs</code><a class="headerlink" href="#angr.analyses.forward_analysis.JobInfo.merged_jobs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.JobInfo.widened_jobs">
-<em class="property">property </em><code class="sig-name descname">widened_jobs</code><a class="headerlink" href="#angr.analyses.forward_analysis.JobInfo.widened_jobs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.JobInfo.add_job">
-<code class="sig-name descname">add_job</code><span class="sig-paren">(</span><em class="sig-param">job</em>, <em class="sig-param">merged=False</em>, <em class="sig-param">widened=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.JobInfo.add_job" title="Permalink to this definition">¶</a></dt>
-<dd><p>Appended a new job to this JobInfo node.
-:param job: The new job to append.
-:param bool merged: Whether it is a merged job or not.
-:param bool widened: Whether it is a widened job or not.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
 <dt id="angr.analyses.forward_analysis.ForwardAnalysis">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.</code><code class="sig-name descname">ForwardAnalysis</code><span class="sig-paren">(</span><em class="sig-param">order_jobs=False</em>, <em class="sig-param">allow_merging=False</em>, <em class="sig-param">allow_widening=False</em>, <em class="sig-param">status_callback=None</em>, <em class="sig-param">graph_visitor=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -16678,7 +16454,7 @@ sort the jobs in queue and optimize traversal order.</p>
 <li><p><strong>order_jobs</strong> (<em>bool</em>) – If all jobs should be ordered or not.</p></li>
 <li><p><strong>allow_merging</strong> (<em>bool</em>) – If job merging is allowed.</p></li>
 <li><p><strong>allow_widening</strong> (<em>bool</em>) – If job widening is allowed.</p></li>
-<li><p><strong>graph_visitor</strong> (<a class="reference internal" href="#angr.analyses.forward_analysis.GraphVisitor" title="angr.analyses.forward_analysis.GraphVisitor"><em>GraphVisitor</em></a><em> or </em><em>None</em>) – A graph visitor to provide successors.</p></li>
+<li><p><strong>graph_visitor</strong> (<a class="reference internal" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor" title="angr.analyses.forward_analysis.visitors.graph.GraphVisitor"><em>GraphVisitor</em></a><em> or </em><em>None</em>) – A graph visitor to provide successors.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -16720,6 +16496,303 @@ sort the jobs in queue and optimize traversal order.</p>
 </dd>
 </dl>
 </dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.forward_analysis.job_info"></span><dl class="class">
+<dt id="angr.analyses.forward_analysis.job_info.JobInfo">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.job_info.</code><code class="sig-name descname">JobInfo</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">job</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.job_info.JobInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Stores information of each job.</p>
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.job_info.JobInfo.job">
+<em class="property">property </em><code class="sig-name descname">job</code><a class="headerlink" href="#angr.analyses.forward_analysis.job_info.JobInfo.job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the latest available job.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The latest available job.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.job_info.JobInfo.merged_jobs">
+<em class="property">property </em><code class="sig-name descname">merged_jobs</code><a class="headerlink" href="#angr.analyses.forward_analysis.job_info.JobInfo.merged_jobs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.job_info.JobInfo.widened_jobs">
+<em class="property">property </em><code class="sig-name descname">widened_jobs</code><a class="headerlink" href="#angr.analyses.forward_analysis.job_info.JobInfo.widened_jobs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.job_info.JobInfo.add_job">
+<code class="sig-name descname">add_job</code><span class="sig-paren">(</span><em class="sig-param">job</em>, <em class="sig-param">merged=False</em>, <em class="sig-param">widened=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.job_info.JobInfo.add_job" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appended a new job to this JobInfo node.
+:param job: The new job to append.
+:param bool merged: Whether it is a merged job or not.
+:param bool widened: Whether it is a widened job or not.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.forward_analysis.visitors"></span><span class="target" id="module-angr.analyses.forward_analysis.visitors.call_graph"></span><dl class="class">
+<dt id="angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.visitors.call_graph.</code><code class="sig-name descname">CallGraphVisitor</code><span class="sig-paren">(</span><em class="sig-param">callgraph</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor" title="angr.analyses.forward_analysis.visitors.graph.GraphVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.visitors.graph.GraphVisitor</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>callgraph</strong> (<em>networkx.DiGraph</em>) – </p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor.successors">
+<code class="sig-name descname">successors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor.successors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor.predecessors">
+<code class="sig-name descname">predecessors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor.predecessors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor.sort_nodes">
+<code class="sig-name descname">sort_nodes</code><span class="sig-paren">(</span><em class="sig-param">nodes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor.sort_nodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.forward_analysis.visitors.function_graph"></span><dl class="class">
+<dt id="angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.visitors.function_graph.</code><code class="sig-name descname">FunctionGraphVisitor</code><span class="sig-paren">(</span><em class="sig-param">func</em>, <em class="sig-param">graph=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor" title="angr.analyses.forward_analysis.visitors.graph.GraphVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.visitors.graph.GraphVisitor</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>func</strong> (<em>knowledge.Function</em>) – </p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor.successors">
+<code class="sig-name descname">successors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor.successors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor.predecessors">
+<code class="sig-name descname">predecessors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor.predecessors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor.sort_nodes">
+<code class="sig-name descname">sort_nodes</code><span class="sig-paren">(</span><em class="sig-param">nodes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor.sort_nodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.forward_analysis.visitors.graph"></span><dl class="class">
+<dt id="angr.analyses.forward_analysis.visitors.graph.GraphVisitor">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.visitors.graph.</code><code class="sig-name descname">GraphVisitor</code><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A graph visitor takes a node in the graph and returns its successors. Typically it visits a control flow graph, and
+returns successors of a CFGNode each time. This is the base class of all graph visitors.</p>
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.graph.GraphVisitor.successors">
+<code class="sig-name descname">successors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.successors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get successors of a node. The node should be in the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – The node to work with.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of successors.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.graph.GraphVisitor.predecessors">
+<code class="sig-name descname">predecessors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.predecessors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get predecessors of a node. The node should be in the graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – The node to work with.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of predecessors.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.graph.GraphVisitor.sort_nodes">
+<code class="sig-name descname">sort_nodes</code><span class="sig-paren">(</span><em class="sig-param">nodes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.sort_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of all nodes sorted in an optimal traversal order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nodes</strong> (<em>iterable</em>) – A collection of nodes to sort. If none, all nodes in the graph will be used to sort.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of sorted nodes.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.graph.GraphVisitor.nodes">
+<code class="sig-name descname">nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator of nodes following an optimal traversal order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.graph.GraphVisitor.nodes_iter">
+<code class="sig-name descname">nodes_iter</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.nodes_iter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.graph.GraphVisitor.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the internal node traversal state. Must be called prior to visiting future nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.graph.GraphVisitor.next_node">
+<code class="sig-name descname">next_node</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.next_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the next node to visit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A node in the graph.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.graph.GraphVisitor.all_successors">
+<code class="sig-name descname">all_successors</code><span class="sig-paren">(</span><em class="sig-param">node</em>, <em class="sig-param">skip_reached_fixedpoint=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.all_successors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all successors to the specific node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – A node in the graph.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A set of nodes that are all successors to the given node.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.graph.GraphVisitor.revisit_successors">
+<code class="sig-name descname">revisit_successors</code><span class="sig-paren">(</span><em class="sig-param">node</em>, <em class="sig-param">include_self=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.revisit_successors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Revisit a node in the future. As a result, the successors to this node will be revisited as well.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – The node to revisit in the future.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.graph.GraphVisitor.revisit_node">
+<code class="sig-name descname">revisit_node</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.revisit_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Revisit a node in the future. Do not include its successors immediately.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – The node to revisit in the future.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.graph.GraphVisitor.reached_fixedpoint">
+<code class="sig-name descname">reached_fixedpoint</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.reached_fixedpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark a node as reached fixed-point. This node as well as all its successors will not be visited in the future.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – The node to mark as reached fixed-point.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.forward_analysis.visitors.loop"></span><dl class="class">
+<dt id="angr.analyses.forward_analysis.visitors.loop.LoopVisitor">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.visitors.loop.</code><code class="sig-name descname">LoopVisitor</code><span class="sig-paren">(</span><em class="sig-param">loop</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.loop.LoopVisitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor" title="angr.analyses.forward_analysis.visitors.graph.GraphVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.visitors.graph.GraphVisitor</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>loop</strong> (<a class="reference internal" href="#angr.analyses.loopfinder.Loop" title="angr.analyses.loopfinder.Loop"><em>angr.analyses.loopfinder.Loop</em></a>) – The loop to visit.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.loop.LoopVisitor.successors">
+<code class="sig-name descname">successors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.loop.LoopVisitor.successors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.loop.LoopVisitor.predecessors">
+<code class="sig-name descname">predecessors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.loop.LoopVisitor.predecessors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.loop.LoopVisitor.sort_nodes">
+<code class="sig-name descname">sort_nodes</code><span class="sig-paren">(</span><em class="sig-param">nodes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.loop.LoopVisitor.sort_nodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.forward_analysis.visitors.single_node_graph"></span><dl class="class">
+<dt id="angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.visitors.single_node_graph.</code><code class="sig-name descname">SingleNodeGraphVisitor</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor" title="angr.analyses.forward_analysis.visitors.graph.GraphVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.visitors.graph.GraphVisitor</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> – The single node that should be in the graph.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.successors">
+<code class="sig-name descname">successors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.successors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.predecessors">
+<code class="sig-name descname">predecessors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.predecessors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.sort_nodes">
+<code class="sig-name descname">sort_nodes</code><span class="sig-paren">(</span><em class="sig-param">nodes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.sort_nodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -20790,23 +20863,9 @@ to the current instance.</p>
 
 <span class="target" id="module-angr.analyses.reaching_definitions.undefined"></span><dl class="class">
 <dt id="angr.analyses.reaching_definitions.undefined.Undefined">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.undefined.</code><code class="sig-name descname">Undefined</code><span class="sig-paren">(</span><em class="sig-param">bits</em>, <em class="sig-param">type_=None</em>, <em class="sig-param">meta=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.undefined.Undefined" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.undefined.</code><code class="sig-name descname">Undefined</code><a class="headerlink" href="#angr.analyses.reaching_definitions.undefined.Undefined" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="attribute">
-<dt id="angr.analyses.reaching_definitions.undefined.Undefined.bits">
-<code class="sig-name descname">bits</code><a class="headerlink" href="#angr.analyses.reaching_definitions.undefined.Undefined.bits" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.reaching_definitions.undefined.Undefined.type_">
-<em class="property">property </em><code class="sig-name descname">type_</code><a class="headerlink" href="#angr.analyses.reaching_definitions.undefined.Undefined.type_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.reaching_definitions.undefined.Undefined.meta">
-<em class="property">property </em><code class="sig-name descname">meta</code><a class="headerlink" href="#angr.analyses.reaching_definitions.undefined.Undefined.meta" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<p>A TOP-like value indicating an unknown data source. Should live next to raw integers in DataSets.</p>
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.reaching_definitions.definition"></span><dl class="class">
@@ -20969,9 +21028,9 @@ convention.</p>
 
 </dd></dl>
 
-<span class="target" id="module-angr.analyses.reaching_definitions.reaching_definitions"></span><dl class="class">
-<dt id="angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.reaching_definitions.</code><code class="sig-name descname">LiveDefinitions</code><span class="sig-paren">(</span><em class="sig-param">arch</em>, <em class="sig-param">track_tmps=False</em>, <em class="sig-param">analysis=None</em>, <em class="sig-param">init_func=False</em>, <em class="sig-param">cc=None</em>, <em class="sig-param">func_addr=None</em>, <em class="sig-param">rtoc_value=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-angr.analyses.reaching_definitions.live_definitions"></span><dl class="class">
+<dt id="angr.analyses.reaching_definitions.live_definitions.LiveDefinitions">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.live_definitions.</code><code class="sig-name descname">LiveDefinitions</code><span class="sig-paren">(</span><em class="sig-param">arch</em>, <em class="sig-param">track_tmps=False</em>, <em class="sig-param">analysis=None</em>, <em class="sig-param">init_func=False</em>, <em class="sig-param">cc=None</em>, <em class="sig-param">func_addr=None</em>, <em class="sig-param">rtoc_value=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Represents the internal state of the ReachingDefinitionAnalysis.</p>
 <p>It contains definitions and uses for register, stack, memory, and temporary variables, uncovered during the analysis.</p>
@@ -20992,29 +21051,29 @@ variables, false otherwise.</p></li>
 </dd>
 </dl>
 <dl class="method">
-<dt id="angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.copy">
-<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.copy" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.get_sp">
-<code class="sig-name descname">get_sp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.get_sp" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.get_sp">
+<code class="sig-name descname">get_sp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.get_sp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the concrete value contained by the stack pointer.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.merge">
-<code class="sig-name descname">merge</code><span class="sig-paren">(</span><em class="sig-param">*others</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.merge" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.merge">
+<code class="sig-name descname">merge</code><span class="sig-paren">(</span><em class="sig-param">*others</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.merge" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.downsize">
-<code class="sig-name descname">downsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.downsize" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.downsize">
+<code class="sig-name descname">downsize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.downsize" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.kill_definitions">
-<code class="sig-name descname">kill_definitions</code><span class="sig-paren">(</span><em class="sig-param">atom</em>, <em class="sig-param">code_loc</em>, <em class="sig-param">data=None</em>, <em class="sig-param">dummy=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.kill_definitions" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.kill_definitions">
+<code class="sig-name descname">kill_definitions</code><span class="sig-paren">(</span><em class="sig-param">atom</em>, <em class="sig-param">code_loc</em>, <em class="sig-param">data=None</em>, <em class="sig-param">dummy=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.kill_definitions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overwrite existing definitions w.r.t ‘atom’ with a dummy definition instance. A dummy definition will not be
 removed during simplification.</p>
 <dl class="field-list simple">
@@ -21032,20 +21091,35 @@ removed during simplification.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.kill_and_add_definition">
-<code class="sig-name descname">kill_and_add_definition</code><span class="sig-paren">(</span><em class="sig-param">atom</em>, <em class="sig-param">code_loc</em>, <em class="sig-param">data</em>, <em class="sig-param">dummy=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.kill_and_add_definition" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.kill_and_add_definition">
+<code class="sig-name descname">kill_and_add_definition</code><span class="sig-paren">(</span><em class="sig-param">atom</em>, <em class="sig-param">code_loc</em>, <em class="sig-param">data</em>, <em class="sig-param">dummy=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.kill_and_add_definition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.add_use">
-<code class="sig-name descname">add_use</code><span class="sig-paren">(</span><em class="sig-param">atom</em>, <em class="sig-param">code_loc</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.add_use" title="Permalink to this definition">¶</a></dt>
+<dt id="angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.add_use">
+<code class="sig-name descname">add_use</code><span class="sig-paren">(</span><em class="sig-param">atom</em>, <em class="sig-param">code_loc</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.add_use" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.add_use_by_def">
+<code class="sig-name descname">add_use_by_def</code><span class="sig-paren">(</span><em class="sig-param">def_</em>, <em class="sig-param">code_loc</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.add_use_by_def" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.get_definitions">
+<code class="sig-name descname">get_definitions</code><span class="sig-paren">(</span><em class="sig-param">atom</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.get_definitions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.mark_guard">
+<code class="sig-name descname">mark_guard</code><span class="sig-paren">(</span><em class="sig-param">code_loc</em>, <em class="sig-param">data</em>, <em class="sig-param">target</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.mark_guard" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
+<span class="target" id="module-angr.analyses.reaching_definitions.reaching_definitions"></span><dl class="class">
 <dt id="angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionAnalysis">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.reaching_definitions.</code><code class="sig-name descname">ReachingDefinitionAnalysis</code><span class="sig-paren">(</span><em class="sig-param">func=None</em>, <em class="sig-param">block=None</em>, <em class="sig-param">func_graph=None</em>, <em class="sig-param">max_iterations=3</em>, <em class="sig-param">track_tmps=False</em>, <em class="sig-param">observation_points=None</em>, <em class="sig-param">init_state=None</em>, <em class="sig-param">init_func=False</em>, <em class="sig-param">cc=None</em>, <em class="sig-param">function_handler=None</em>, <em class="sig-param">current_local_call_depth=1</em>, <em class="sig-param">maximum_local_call_depth=5</em>, <em class="sig-param">observe_all=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionAnalysis" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.reaching_definitions.</code><code class="sig-name descname">ReachingDefinitionAnalysis</code><span class="sig-paren">(</span><em class="sig-param">subject=None</em>, <em class="sig-param">func_graph=None</em>, <em class="sig-param">max_iterations=3</em>, <em class="sig-param">track_tmps=False</em>, <em class="sig-param">observation_points=None</em>, <em class="sig-param">init_state=None</em>, <em class="sig-param">init_func=False</em>, <em class="sig-param">cc=None</em>, <em class="sig-param">function_handler=None</em>, <em class="sig-param">current_local_call_depth=1</em>, <em class="sig-param">maximum_local_call_depth=5</em>, <em class="sig-param">observe_all=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionAnalysis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a></p>
 <p>ReachingDefinitionAnalysis is a text-book implementation of a static data-flow analysis that works on either a
 function or a block. It supports both VEX and AIL. By registering observers to observation points, users may use
@@ -21061,9 +21135,7 @@ as a post-graduation TODO.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> (<em>angr.knowledge.Function</em>) – The function to run reaching definition analysis on.</p></li>
-<li><p><strong>block</strong> – A single block to run reaching definition analysis on. You cannot
-specify both <cite>func</cite> and <cite>block</cite>.</p></li>
+<li><p><strong>subject</strong> (<em>Block|Function</em>) – The subject of the analysis: a function, or a single basic block.</p></li>
 <li><p><strong>func_graph</strong> – Alternative graph for function.graph.</p></li>
 <li><p><strong>max_iterations</strong> (<em>int</em>) – The maximum number of iterations before the analysis is terminated.</p></li>
 <li><p><strong>track_tmps</strong> (<em>Boolean</em>) – Whether or not temporary variables should be taken into consideration
@@ -21071,7 +21143,7 @@ during the analysis.</p></li>
 <li><p><strong>observation_points</strong> (<em>iterable</em>) – A collection of tuples of (“node”|”insn”, ins_addr, OP_TYPE) defining
 where reaching definitions should be copied and stored. OP_TYPE can be
 OP_BEFORE or OP_AFTER.</p></li>
-<li><p><strong>init_state</strong> (<a class="reference internal" href="#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions" title="angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions"><em>angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions</em></a>) – An optional initialization state. The analysis creates and works on a
+<li><p><strong>init_state</strong> (<em>angr.analyses.reaching_definitions.LiveDefinitions</em>) – An optional initialization state. The analysis creates and works on a
 copy.</p></li>
 <li><p><strong>init_func</strong> (<em>Boolean</em>) – Whether stack and arguments are initialized or not.</p></li>
 <li><p><strong>cc</strong> (<a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><em>SimCC</em></a>) – Calling convention of the function.</p></li>
@@ -21133,6 +21205,39 @@ copy.</p></li>
 </dl>
 </dd></dl>
 
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.reaching_definitions.def_use"></span><dl class="class">
+<dt id="angr.analyses.reaching_definitions.def_use.GuardUse">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.def_use.</code><code class="sig-name descname">GuardUse</code><span class="sig-paren">(</span><em class="sig-param">target</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.def_use.GuardUse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.reaching_definitions.atoms.Atom" title="angr.analyses.reaching_definitions.atoms.Atom"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.reaching_definitions.atoms.Atom</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.reaching_definitions.def_use.DefUseState">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.def_use.</code><code class="sig-name descname">DefUseState</code><span class="sig-paren">(</span><em class="sig-param">arch</em>, <em class="sig-param">track_tmps=False</em>, <em class="sig-param">analysis=None</em>, <em class="sig-param">init_func=False</em>, <em class="sig-param">cc=None</em>, <em class="sig-param">func_addr=None</em>, <em class="sig-param">rtoc_value=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.def_use.DefUseState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions" title="angr.analyses.reaching_definitions.live_definitions.LiveDefinitions"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.reaching_definitions.live_definitions.LiveDefinitions</span></code></a></p>
+<dl class="method">
+<dt id="angr.analyses.reaching_definitions.def_use.DefUseState.add_use">
+<code class="sig-name descname">add_use</code><span class="sig-paren">(</span><em class="sig-param">atom</em>, <em class="sig-param">code_loc</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.def_use.DefUseState.add_use" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.reaching_definitions.def_use.DefUseState.kill_and_add_definition">
+<code class="sig-name descname">kill_and_add_definition</code><span class="sig-paren">(</span><em class="sig-param">atom</em>, <em class="sig-param">code_loc</em>, <em class="sig-param">data</em>, <em class="sig-param">dummy=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.def_use.DefUseState.kill_and_add_definition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.reaching_definitions.def_use.DefUseState.mark_guard">
+<code class="sig-name descname">mark_guard</code><span class="sig-paren">(</span><em class="sig-param">code_loc</em>, <em class="sig-param">data</em>, <em class="sig-param">target</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.def_use.DefUseState.mark_guard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.reaching_definitions.def_use.DefUseAnalysis">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.def_use.</code><code class="sig-name descname">DefUseAnalysis</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.def_use.DefUseAnalysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionAnalysis" title="angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionAnalysis</span></code></a></p>
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.reaching_definitions"></span><span class="target" id="module-angr.analyses.reaching_definitions.dataset"></span><dl class="class">
@@ -21954,7 +22059,7 @@ manner.</p>
 depth</p>
 <dl class="attribute">
 <dt id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.cgc.transmit.transmit'&gt;, &lt;class 'angr.procedures.cgc.receive.receive'&gt;, &lt;class 'angr.procedures.posix.read.read'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.cgc.receive.receive'&gt;, &lt;class 'angr.procedures.cgc.transmit.transmit'&gt;, &lt;class 'angr.procedures.posix.read.read'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -22756,7 +22861,7 @@ the sets, which can be used as a “weight”.</p></li>
 
 <dl class="class">
 <dt id="angr.analyses.reassembler.Operand">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reassembler.</code><code class="sig-name descname">Operand</code><span class="sig-paren">(</span><em class="sig-param">binary</em>, <em class="sig-param">insn_addr</em>, <em class="sig-param">insn_size</em>, <em class="sig-param">capstone_operand</em>, <em class="sig-param">operand_str</em>, <em class="sig-param">mnemonic</em>, <em class="sig-param">syntax=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reassembler.Operand" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reassembler.</code><code class="sig-name descname">Operand</code><span class="sig-paren">(</span><em class="sig-param">binary</em>, <em class="sig-param">insn_addr</em>, <em class="sig-param">insn_size</em>, <em class="sig-param">capstone_operand</em>, <em class="sig-param">operand_str</em>, <em class="sig-param">mnemonic</em>, <em class="sig-param">operand_offset</em>, <em class="sig-param">syntax=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reassembler.Operand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Constructor.</p>
 <dl class="field-list simple">
@@ -22767,6 +22872,7 @@ the sets, which can be used as a “weight”.</p></li>
 <li><p><strong>capstone_operand</strong> – </p></li>
 <li><p><strong>operand_str</strong> (<em>str</em>) – the string representation of this operand</p></li>
 <li><p><strong>mnemonic</strong> (<em>str</em>) – Mnemonic of the instruction that this operand belongs to.</p></li>
+<li><p><strong>operand_offset</strong> (<em>int</em>) – offset of the operand into the instruction.</p></li>
 <li><p><strong>syntax</strong> (<em>str</em>) – Provide a way to override the default syntax coming from <cite>binary</cite>.</p></li>
 </ul>
 </dd>
@@ -23152,7 +23258,7 @@ after the beginning of the section. We take care of that here.</p>
 
 <dl class="method">
 <dt id="angr.analyses.reassembler.Reassembler.register_instruction_reference">
-<code class="sig-name descname">register_instruction_reference</code><span class="sig-paren">(</span><em class="sig-param">insn_addr</em>, <em class="sig-param">ref_addr</em>, <em class="sig-param">sort</em>, <em class="sig-param">insn_size</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reassembler.Reassembler.register_instruction_reference" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_instruction_reference</code><span class="sig-paren">(</span><em class="sig-param">insn_addr</em>, <em class="sig-param">ref_addr</em>, <em class="sig-param">sort</em>, <em class="sig-param">operand_offset</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reassembler.Reassembler.register_instruction_reference" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -23562,8 +23668,8 @@ program.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>project</strong> – The angr Project instance</p></li>
-<li><p><strong>cfg</strong> – Control flow graph. Only used when path prioritizer is used.</p></li>
-<li><p><strong>detect_loops</strong> – Only used when path prioritizer is used.</p></li>
+<li><p><strong>cfg</strong> – Control flow graph.</p></li>
+<li><p><strong>detect_loops</strong> – </p></li>
 </ul>
 </dd>
 </dl>
@@ -23612,11 +23718,6 @@ form of nodes:</p>
 <dd><p>A loop tuple contains a series of IRSB addresses that form a loop. Ideally
 it always starts with the first IRSB that we meet during the execution.</p>
 </dd></dl>
-
-<dl class="method">
-<dt id="angr.annocfg.AnnotatedCFG.set_path_merge_points">
-<code class="sig-name descname">set_path_merge_points</code><span class="sig-paren">(</span><em class="sig-param">points</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG.set_path_merge_points" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 <dl class="method">
 <dt id="angr.annocfg.AnnotatedCFG.should_take_exit">
@@ -23690,29 +23791,9 @@ slice or we should never take any exit going to this block, None is returned.</p
 </dd></dl>
 
 <dl class="method">
-<dt id="angr.annocfg.AnnotatedCFG.filter_path">
-<code class="sig-name descname">filter_path</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG.filter_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Used for debugging.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> – A Path instance</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True/False</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
 <dt id="angr.annocfg.AnnotatedCFG.merge_points">
 <code class="sig-name descname">merge_points</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG.merge_points" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.annocfg.AnnotatedCFG.path_priority">
-<code class="sig-name descname">path_priority</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.annocfg.AnnotatedCFG.path_priority" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a path, returns the path priority. A lower number means a higher priority.</p>
-</dd></dl>
 
 <dl class="method">
 <dt id="angr.annocfg.AnnotatedCFG.successor_func">
@@ -24327,12 +24408,15 @@ numbering schemes and pick the right one.</p></li>
 
 <dl class="method">
 <dt id="angr.simos.javavm.SimJavaVM.get_default_value_by_type">
-<em class="property">static </em><code class="sig-name descname">get_default_value_by_type</code><span class="sig-paren">(</span><em class="sig-param">type_</em>, <em class="sig-param">state=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.javavm.SimJavaVM.get_default_value_by_type" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">get_default_value_by_type</code><span class="sig-paren">(</span><em class="sig-param">type_</em>, <em class="sig-param">state</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.javavm.SimJavaVM.get_default_value_by_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Java specify defaults values for primitive and reference types. This
 method returns the default value for a given type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>type</strong> (<em>str</em>) – Name of type.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<em>str</em>) – Name of type.</p></li>
+<li><p><strong>state</strong> (<em>str</em>) – Current SimState.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Default value for this type.</p>

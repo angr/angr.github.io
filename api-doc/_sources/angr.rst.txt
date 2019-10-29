@@ -53,6 +53,7 @@ Program State
 .. automodule:: angr.state_plugins.heap.heap_libc
 .. automodule:: angr.state_plugins.heap.heap_ptmalloc
 .. automodule:: angr.state_plugins.heap.utils
+.. automodule:: angr.state_plugins.symbolizer
 
 
 Storage
@@ -178,6 +179,7 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.functions.function_manager
     :members: FunctionManager
 .. automodule:: angr.knowledge_plugins.functions.function
+.. automodule:: angr.knowledge_plugins.functions.function_parser
 .. automodule:: angr.knowledge_plugins.functions.soot_function
 .. automodule:: angr.knowledge_plugins.variables
 .. automodule:: angr.knowledge_plugins.variables.variable_access
@@ -204,6 +206,13 @@ Analysis
 .. automodule:: angr.analyses
 .. automodule:: angr.analyses.analysis
 .. automodule:: angr.analyses.forward_analysis
+.. automodule:: angr.analyses.forward_analysis.job_info
+.. automodule:: angr.analyses.forward_analysis.visitors
+.. automodule:: angr.analyses.forward_analysis.visitors.call_graph
+.. automodule:: angr.analyses.forward_analysis.visitors.function_graph
+.. automodule:: angr.analyses.forward_analysis.visitors.graph
+.. automodule:: angr.analyses.forward_analysis.visitors.loop
+.. automodule:: angr.analyses.forward_analysis.visitors.single_node_graph
 .. automodule:: angr.analyses.backward_slice
 .. automodule:: angr.analyses.bindiff
 .. automodule:: angr.analyses.boyscout
@@ -260,7 +269,9 @@ Analysis
 .. automodule:: angr.analyses.reaching_definitions.constants
 .. automodule:: angr.analyses.reaching_definitions.atoms
 .. automodule:: angr.analyses.reaching_definitions.engine_vex
+.. automodule:: angr.analyses.reaching_definitions.live_definitions
 .. automodule:: angr.analyses.reaching_definitions.reaching_definitions
+.. automodule:: angr.analyses.reaching_definitions.def_use
 .. automodule:: angr.analyses.reaching_definitions
 .. automodule:: angr.analyses.reaching_definitions.dataset
 .. automodule:: angr.analyses.reaching_definitions.engine_ail

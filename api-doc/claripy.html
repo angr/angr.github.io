@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>claripy — Solver Engine &mdash; angr 8.19.7.25 documentation</title>
+  <title>claripy — Solver Engine &mdash; angr 8.19.10.29 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                8.19.7.25
+                8.19.10.29
               </div>
             
           
@@ -279,7 +279,7 @@ op), and 2 means simplified through z3.</p></li>
 
 <dl class="method">
 <dt id="claripy.ast.base.Base.make_like">
-<code class="sig-name descname">make_like</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.make_like" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">make_like</code><span class="sig-paren">(</span><em class="sig-param">op</em>, <em class="sig-param">args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.base.Base.make_like" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -665,7 +665,7 @@ op), and 2 means simplified through z3.</p></li>
 
 <dl class="method">
 <dt id="claripy.ast.bits.Bits.make_like">
-<code class="sig-name descname">make_like</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bits.Bits.make_like" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">make_like</code><span class="sig-paren">(</span><em class="sig-param">op</em>, <em class="sig-param">args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bits.Bits.make_like" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -778,17 +778,45 @@ still be False (i.e., if it were simplified via Z3), but it’s hard to quickly 
 <dl class="function">
 <dt id="claripy.ast.bool.ite_dict">
 <code class="sig-prename descclassname">claripy.ast.bool.</code><code class="sig-name descname">ite_dict</code><span class="sig-paren">(</span><em class="sig-param">i</em>, <em class="sig-param">d</em>, <em class="sig-param">default</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bool.ite_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return an expression of if-then-else trees which expresses a switch tree</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> – The variable which may take on multiple values affecting the final result</p></li>
+<li><p><strong>d</strong> – A dict mapping possible values for i to values which the result could be</p></li>
+<li><p><strong>default</strong> – A default value that the expression should take on if <cite>i</cite> matches none of the keys of <cite>d</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An expression encoding the result of the above</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="claripy.ast.bool.ite_cases">
 <code class="sig-prename descclassname">claripy.ast.bool.</code><code class="sig-name descname">ite_cases</code><span class="sig-paren">(</span><em class="sig-param">cases</em>, <em class="sig-param">default</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bool.ite_cases" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return an expression of if-then-else trees which expresses a series of alternatives</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cases</strong> – A list of tuples (c, v). <cite>c</cite> is the condition under which <cite>v</cite> should be the result of the expression</p></li>
+<li><p><strong>default</strong> – A default value that the expression should take on if none of the <cite>c</cite> conditions are satisfied</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An expression encoding the result of the above</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="claripy.ast.bool.reverse_ite_cases">
 <code class="sig-prename descclassname">claripy.ast.bool.</code><code class="sig-name descname">reverse_ite_cases</code><span class="sig-paren">(</span><em class="sig-param">ast</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bool.reverse_ite_cases" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Given an expression created by <cite>ite_cases</cite>, produce the cases that generated it
+:param ast:
+:return:</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="claripy.ast.bool.constraint_to_si">
@@ -1230,6 +1258,16 @@ The inverse of this function is to_bv.</p>
 <dl class="method">
 <dt id="claripy.ast.fp.FP.sort">
 <em class="property">property </em><code class="sig-name descname">sort</code><a class="headerlink" href="#claripy.ast.fp.FP.sort" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.fp.FP.isInf">
+<code class="sig-name descname">isInf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.fp.FP.isInf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.ast.fp.FP.isNaN">
+<code class="sig-name descname">isNaN</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.fp.FP.isNaN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2065,6 +2103,16 @@ approximation.</p>
 </dd></dl>
 
 <span class="target" id="module-claripy.backends.backend_z3"></span><dl class="function">
+<dt id="claripy.backends.backend_z3.z3_expr_to_smt2">
+<code class="sig-prename descclassname">claripy.backends.backend_z3.</code><code class="sig-name descname">z3_expr_to_smt2</code><span class="sig-paren">(</span><em class="sig-param">f</em>, <em class="sig-param">status='unknown'</em>, <em class="sig-param">name='benchmark'</em>, <em class="sig-param">logic=''</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.z3_expr_to_smt2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="claripy.backends.backend_z3.claripy_solver_to_smt2">
+<code class="sig-prename descclassname">claripy.backends.backend_z3.</code><code class="sig-name descname">claripy_solver_to_smt2</code><span class="sig-paren">(</span><em class="sig-param">s</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.claripy_solver_to_smt2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="claripy.backends.backend_z3.condom">
 <code class="sig-prename descclassname">claripy.backends.backend_z3.</code><code class="sig-name descname">condom</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.condom" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2150,6 +2198,11 @@ approximation.</p>
 <dl class="method">
 <dt id="claripy.backends.backend_z3.BackendZ3.solver">
 <code class="sig-name descname">solver</code><span class="sig-paren">(</span><em class="sig-param">timeout=None</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.solver" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="claripy.backends.backend_z3.BackendZ3.add">
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">s</em>, <em class="sig-param">c</em>, <em class="sig-param">track=False</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.BackendZ3.add" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -6099,6 +6152,18 @@ b is FPV(-3.2, FSORT_DOUBLE)</p>
 <dt id="claripy.fp.fpDiv">
 <code class="sig-prename descclassname">claripy.fp.</code><code class="sig-name descname">fpDiv</code><span class="sig-paren">(</span><em class="sig-param">_rm</em>, <em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.fp.fpDiv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the division of the floating point <cite>a</cite> by the floating point <cite>b</cite>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.fp.fpIsNaN">
+<code class="sig-prename descclassname">claripy.fp.</code><code class="sig-name descname">fpIsNaN</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.fp.fpIsNaN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether the argument is a floating point NaN.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="claripy.fp.fpIsInf">
+<code class="sig-prename descclassname">claripy.fp.</code><code class="sig-name descname">fpIsInf</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.fp.fpIsInf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether the argument is a floating point infinity.</p>
 </dd></dl>
 
 <span class="target" id="module-claripy.operations"></span><dl class="function">

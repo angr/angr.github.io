@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cle — Binary Loader &mdash; angr 8.19.7.25 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 8.19.10.29 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                8.19.7.25
+                8.19.10.29
               </div>
             
           
@@ -828,13 +828,6 @@ the <a class="reference internal" href="#cle.backends.Backend.get_symbol" title=
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.symbol.Symbol.demangled_name">
-<em class="property">property </em><code class="sig-name descname">demangled_name</code><a class="headerlink" href="#cle.backends.symbol.Symbol.demangled_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>The name of this symbol, run through a C++ demangler</p>
-<p>Warning: this calls out to the external program <cite>c++filt</cite> and will fail loudly if it’s not installed</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="cle.backends.symbol.Symbol.resolve_forwarder">
 <code class="sig-name descname">resolve_forwarder</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.symbol.Symbol.resolve_forwarder" title="Permalink to this definition">¶</a></dt>
 <dd><p>If this symbol is a forwarding export, return the symbol the forwarding refers to, or None if it cannot be found.</p>
@@ -1093,6 +1086,27 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 </dd></dl>
 
 <span class="target" id="module-cle.backends.elf"></span><span class="target" id="module-cle.backends.elf.elf"></span><dl class="class">
+<dt id="cle.backends.elf.elf.ELFSymbol">
+<em class="property">class </em><code class="sig-prename descclassname">cle.backends.elf.elf.</code><code class="sig-name descname">ELFSymbol</code><span class="sig-paren">(</span><em class="sig-param">owner</em>, <em class="sig-param">symb</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.elf.ELFSymbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.symbol.Symbol" title="cle.backends.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.symbol.Symbol</span></code></a></p>
+<p>Represents a symbol for the ELF format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>binding</strong> (<em>str</em>) – The binding of this symbol as an ELF enum string</p></li>
+<li><p><strong>section</strong> – The section associated with this symbol, or None</p></li>
+<li><p><strong>_subtype</strong> – The ELFSymbolType of this symbol</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="cle.backends.elf.elf.ELFSymbol.subtype">
+<em class="property">property </em><code class="sig-name descname">subtype</code><a class="headerlink" href="#cle.backends.elf.elf.ELFSymbol.subtype" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="cle.backends.elf.elf.ELF">
 <em class="property">class </em><code class="sig-prename descclassname">cle.backends.elf.elf.</code><code class="sig-name descname">ELF</code><span class="sig-paren">(</span><em class="sig-param">binary</em>, <em class="sig-param">addend=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.elf.ELF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.metaelf.MetaELF" title="cle.backends.elf.metaelf.MetaELF"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.elf.metaelf.MetaELF</span></code></a></p>
@@ -1147,27 +1161,6 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 </dd>
 </dl>
 </dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="cle.backends.elf.elf.ELFSymbol">
-<em class="property">class </em><code class="sig-prename descclassname">cle.backends.elf.elf.</code><code class="sig-name descname">ELFSymbol</code><span class="sig-paren">(</span><em class="sig-param">owner</em>, <em class="sig-param">symb</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.elf.ELFSymbol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.symbol.Symbol" title="cle.backends.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.symbol.Symbol</span></code></a></p>
-<p>Represents a symbol for the ELF format.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Variables</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>binding</strong> (<em>str</em>) – The binding of this symbol as an ELF enum string</p></li>
-<li><p><strong>section</strong> – The section associated with this symbol, or None</p></li>
-<li><p><strong>_subtype</strong> – The ELFSymbolType of this symbol</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="method">
-<dt id="cle.backends.elf.elf.ELFSymbol.subtype">
-<em class="property">property </em><code class="sig-name descname">subtype</code><a class="headerlink" href="#cle.backends.elf.elf.ELFSymbol.subtype" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -1664,6 +1657,81 @@ like RAM, MMIO, etc</p>
 </dd></dl>
 
 <span class="target" id="module-cle.backends.macho"></span><span class="target" id="module-cle.backends.macho.macho"></span><dl class="class">
+<dt id="cle.backends.macho.macho.MachOSection">
+<em class="property">class </em><code class="sig-prename descclassname">cle.backends.macho.macho.</code><code class="sig-name descname">MachOSection</code><span class="sig-paren">(</span><em class="sig-param">offset</em>, <em class="sig-param">vaddr</em>, <em class="sig-param">size</em>, <em class="sig-param">vsize</em>, <em class="sig-param">segname</em>, <em class="sig-param">sectname</em>, <em class="sig-param">align</em>, <em class="sig-param">reloff</em>, <em class="sig-param">nreloc</em>, <em class="sig-param">flags</em>, <em class="sig-param">r1</em>, <em class="sig-param">r2</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.macho.MachOSection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.region.Region" title="cle.backends.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.region.Region</span></code></a></p>
+<p>Mach-O Section, only defined within the context of a Mach-O Segment.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>offset is the offset into the file the region starts</p></li>
+<li><p>vaddr (or just addr) is the virtual address</p></li>
+<li><p>filesize (or just size) is the size of the region in the file</p></li>
+<li><p>memsize (or vsize) is the size of the region when loaded into memory</p></li>
+<li><p>segname is the corresponding segment’s name without padding</p></li>
+<li><p>sectname is the section’s name without padding</p></li>
+<li><p>align is the sections alignment as a power of 2</p></li>
+<li><p>reloff is the file offset to the section’s relocation entries</p></li>
+<li><p>nreloc is the number of relocation entries for this section</p></li>
+<li><p>flags is a bit vector containing per-section flags</p></li>
+<li><p>r1 and r2 are values for the reserved1 and reserved2 fields respectively</p></li>
+</ul>
+</div></blockquote>
+<dl class="method">
+<dt id="cle.backends.macho.macho.MachOSection.type">
+<em class="property">property </em><code class="sig-name descname">type</code><a class="headerlink" href="#cle.backends.macho.macho.MachOSection.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.macho.macho.MachOSection.attributes">
+<em class="property">property </em><code class="sig-name descname">attributes</code><a class="headerlink" href="#cle.backends.macho.macho.MachOSection.attributes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.macho.macho.MachOSegment">
+<em class="property">class </em><code class="sig-prename descclassname">cle.backends.macho.macho.</code><code class="sig-name descname">MachOSegment</code><span class="sig-paren">(</span><em class="sig-param">offset</em>, <em class="sig-param">vaddr</em>, <em class="sig-param">size</em>, <em class="sig-param">vsize</em>, <em class="sig-param">segname</em>, <em class="sig-param">nsect</em>, <em class="sig-param">sections</em>, <em class="sig-param">flags</em>, <em class="sig-param">initprot</em>, <em class="sig-param">maxprot</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.macho.MachOSegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.region.Region" title="cle.backends.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.region.Region</span></code></a></p>
+<p>Mach-O Segment</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>offset is the offset into the file the region starts</p></li>
+<li><p>vaddr (or just addr) is the virtual address</p></li>
+<li><p>filesize (or just size) is the size of the region in the file</p></li>
+<li><p>memsize (or vsize) is the size of the region when loaded into memory</p></li>
+<li><p>segname is the segment’s name without padding</p></li>
+<li><p>nsect is the number of sections contained in this segment</p></li>
+<li><p>sections is an array of MachOSections</p></li>
+<li><p>flags is a bit vector containing per-segment flags</p></li>
+<li><p>initprot and maxprot are initial and maximum permissions respectively</p></li>
+</ul>
+</div></blockquote>
+<dl class="method">
+<dt id="cle.backends.macho.macho.MachOSegment.get_section_by_name">
+<code class="sig-name descname">get_section_by_name</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.macho.MachOSegment.get_section_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches for a section by name within this segment
+:param name: Name of the section
+:return: MachOSection or None</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.macho.macho.MachOSegment.is_readable">
+<em class="property">property </em><code class="sig-name descname">is_readable</code><a class="headerlink" href="#cle.backends.macho.macho.MachOSegment.is_readable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.macho.macho.MachOSegment.is_writable">
+<em class="property">property </em><code class="sig-name descname">is_writable</code><a class="headerlink" href="#cle.backends.macho.macho.MachOSegment.is_writable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.macho.macho.MachOSegment.is_executable">
+<em class="property">property </em><code class="sig-name descname">is_executable</code><a class="headerlink" href="#cle.backends.macho.macho.MachOSegment.is_executable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="cle.backends.macho.macho.MachO">
 <em class="property">class </em><code class="sig-prename descclassname">cle.backends.macho.macho.</code><code class="sig-name descname">MachO</code><span class="sig-paren">(</span><em class="sig-param">binary</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.macho.MachO" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.Backend</span></code></a></p>
@@ -1754,9 +1822,26 @@ name, therefore this method always returns an array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – the name of the symbol</p></li>
 <li><p><strong>include_stab</strong> – Include debugging symbols NOT RECOMMENDED</p></li>
 <li><p><strong>fuzzy</strong> – Replace exact match with “contains”-style match</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.macho.macho.MachO.get_symbol_by_insertion_order">
+<code class="sig-name descname">get_symbol_by_insertion_order</code><span class="sig-paren">(</span><em class="sig-param">idx</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.macho.MachO.get_symbol_by_insertion_order" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>) – idx when this symbol was inserted</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#cle.backends.macho.symbol.AbstractMachOSymbol" title="cle.backends.macho.symbol.AbstractMachOSymbol">AbstractMachOSymbol</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1771,220 +1856,201 @@ name, therefore this method always returns an array.</p>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="cle.backends.macho.macho.MachOSection">
-<em class="property">class </em><code class="sig-prename descclassname">cle.backends.macho.macho.</code><code class="sig-name descname">MachOSection</code><span class="sig-paren">(</span><em class="sig-param">offset</em>, <em class="sig-param">vaddr</em>, <em class="sig-param">size</em>, <em class="sig-param">vsize</em>, <em class="sig-param">segname</em>, <em class="sig-param">sectname</em>, <em class="sig-param">align</em>, <em class="sig-param">reloff</em>, <em class="sig-param">nreloc</em>, <em class="sig-param">flags</em>, <em class="sig-param">r1</em>, <em class="sig-param">r2</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.macho.MachOSection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.region.Region" title="cle.backends.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.region.Region</span></code></a></p>
-<p>Mach-O Section, only defined within the context of a Mach-O Segment.</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>offset is the offset into the file the region starts</p></li>
-<li><p>vaddr (or just addr) is the virtual address</p></li>
-<li><p>filesize (or just size) is the size of the region in the file</p></li>
-<li><p>memsize (or vsize) is the size of the region when loaded into memory</p></li>
-<li><p>segname is the corresponding segment’s name without padding</p></li>
-<li><p>sectname is the section’s name without padding</p></li>
-<li><p>align is the sections alignment as a power of 2</p></li>
-<li><p>reloff is the file offset to the section’s relocation entries</p></li>
-<li><p>nreloc is the number of relocation entries for this section</p></li>
-<li><p>flags is a bit vector containing per-section flags</p></li>
-<li><p>r1 and r2 are values for the reserved1 and reserved2 fields respectively</p></li>
-</ul>
-</div></blockquote>
-<dl class="method">
-<dt id="cle.backends.macho.macho.MachOSection.type">
-<em class="property">property </em><code class="sig-name descname">type</code><a class="headerlink" href="#cle.backends.macho.macho.MachOSection.type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.macho.macho.MachOSection.attributes">
-<em class="property">property </em><code class="sig-name descname">attributes</code><a class="headerlink" href="#cle.backends.macho.macho.MachOSection.attributes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="cle.backends.macho.macho.MachOSegment">
-<em class="property">class </em><code class="sig-prename descclassname">cle.backends.macho.macho.</code><code class="sig-name descname">MachOSegment</code><span class="sig-paren">(</span><em class="sig-param">offset</em>, <em class="sig-param">vaddr</em>, <em class="sig-param">size</em>, <em class="sig-param">vsize</em>, <em class="sig-param">segname</em>, <em class="sig-param">nsect</em>, <em class="sig-param">sections</em>, <em class="sig-param">flags</em>, <em class="sig-param">initprot</em>, <em class="sig-param">maxprot</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.macho.MachOSegment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cle.backends.region.Region" title="cle.backends.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.region.Region</span></code></a></p>
-<p>Mach-O Segment</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>offset is the offset into the file the region starts</p></li>
-<li><p>vaddr (or just addr) is the virtual address</p></li>
-<li><p>filesize (or just size) is the size of the region in the file</p></li>
-<li><p>memsize (or vsize) is the size of the region when loaded into memory</p></li>
-<li><p>segname is the segment’s name without padding</p></li>
-<li><p>nsect is the number of sections contained in this segment</p></li>
-<li><p>sections is an array of MachOSections</p></li>
-<li><p>flags is a bit vector containing per-segment flags</p></li>
-<li><p>initprot and maxprot are initial and maximum permissions respectively</p></li>
-</ul>
-</div></blockquote>
-<dl class="method">
-<dt id="cle.backends.macho.macho.MachOSegment.get_section_by_name">
-<code class="sig-name descname">get_section_by_name</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.macho.MachOSegment.get_section_by_name" title="Permalink to this definition">¶</a></dt>
-<dd><p>Searches for a section by name within this segment
-:param name: Name of the section
-:return: MachOSection or None</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.macho.macho.MachOSegment.is_readable">
-<em class="property">property </em><code class="sig-name descname">is_readable</code><a class="headerlink" href="#cle.backends.macho.macho.MachOSegment.is_readable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.macho.macho.MachOSegment.is_writable">
-<em class="property">property </em><code class="sig-name descname">is_writable</code><a class="headerlink" href="#cle.backends.macho.macho.MachOSegment.is_writable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cle.backends.macho.macho.MachOSegment.is_executable">
-<em class="property">property </em><code class="sig-name descname">is_executable</code><a class="headerlink" href="#cle.backends.macho.macho.MachOSegment.is_executable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 <span class="target" id="module-cle.backends.macho.symbol"></span><dl class="class">
-<dt id="cle.backends.macho.symbol.MachOSymbol">
-<em class="property">class </em><code class="sig-prename descclassname">cle.backends.macho.symbol.</code><code class="sig-name descname">MachOSymbol</code><span class="sig-paren">(</span><em class="sig-param">owner</em>, <em class="sig-param">symtab_offset</em>, <em class="sig-param">n_strx</em>, <em class="sig-param">n_type</em>, <em class="sig-param">n_sect</em>, <em class="sig-param">n_desc</em>, <em class="sig-param">n_value</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.AbstractMachOSymbol">
+<em class="property">class </em><code class="sig-prename descclassname">cle.backends.macho.symbol.</code><code class="sig-name descname">AbstractMachOSymbol</code><span class="sig-paren">(</span><em class="sig-param">owner</em>, <em class="sig-param">name</em>, <em class="sig-param">relative_addr</em>, <em class="sig-param">size</em>, <em class="sig-param">sym_type</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.AbstractMachOSymbol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.symbol.Symbol" title="cle.backends.symbol.Symbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.symbol.Symbol</span></code></a></p>
-<p>Base class for Mach-O symbols. Made to be (somewhat) compatible with backends.Symbol.
-Note that ELF-specific fields from backends.Symbol are not used and semantics of the remaining fields differ in
+<p>Base class for Mach-O symbols.
+Defines the minimum common properties all types of mach-o symbols must have</p>
+<dl class="method">
+<dt id="cle.backends.macho.symbol.AbstractMachOSymbol.library_ordinal">
+<em class="property">property </em><code class="sig-name descname">library_ordinal</code><a class="headerlink" href="#cle.backends.macho.symbol.AbstractMachOSymbol.library_ordinal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.macho.symbol.AbstractMachOSymbol.is_stab">
+<em class="property">property </em><code class="sig-name descname">is_stab</code><a class="headerlink" href="#cle.backends.macho.symbol.AbstractMachOSymbol.is_stab" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol">
+<em class="property">class </em><code class="sig-prename descclassname">cle.backends.macho.symbol.</code><code class="sig-name descname">SymbolTableSymbol</code><span class="sig-paren">(</span><em class="sig-param">owner</em>, <em class="sig-param">symtab_offset</em>, <em class="sig-param">n_strx</em>, <em class="sig-param">n_type</em>, <em class="sig-param">n_sect</em>, <em class="sig-param">n_desc</em>, <em class="sig-param">n_value</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.macho.symbol.AbstractMachOSymbol" title="cle.backends.macho.symbol.AbstractMachOSymbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.macho.symbol.AbstractMachOSymbol</span></code></a></p>
+<p>“Regular” symbol. Made to be (somewhat) compatible with backends.Symbol.
+A SymbolTableSymbol is an entry in the binary’s symbol table.</p>
+<p>Note that ELF-specific fields from backends.Symbol are not used and semantics of the remaining fields differ in
 many cases. As a result most stock functionality from Angr and related libraries WILL NOT WORK PROPERLY on
 MachOSymbol.</p>
 <p>Much of the code below is based on heuristics as official documentation is sparse, consider yourself warned!</p>
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.library_name">
-<em class="property">property </em><code class="sig-name descname">library_name</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.library_name" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.library_name">
+<em class="property">property </em><code class="sig-name descname">library_name</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.library_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.segment_name">
-<em class="property">property </em><code class="sig-name descname">segment_name</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.segment_name" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.segment_name">
+<em class="property">property </em><code class="sig-name descname">segment_name</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.segment_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.section_name">
-<em class="property">property </em><code class="sig-name descname">section_name</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.section_name" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.section_name">
+<em class="property">property </em><code class="sig-name descname">section_name</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.section_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.value">
-<em class="property">property </em><code class="sig-name descname">value</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.value" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.referenced_symbol_index">
-<em class="property">property </em><code class="sig-name descname">referenced_symbol_index</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.referenced_symbol_index" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.referenced_symbol_index">
+<em class="property">property </em><code class="sig-name descname">referenced_symbol_index</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.referenced_symbol_index" title="Permalink to this definition">¶</a></dt>
 <dd><p>For indirect symbols n_value contains an index into the string table indicating the referenced
 symbol’s name</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_weak">
-<code class="sig-name descname">is_weak</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_weak" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_weak">
+<code class="sig-name descname">is_weak</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_weak" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_function">
-<code class="sig-name descname">is_function</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_function" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_function">
+<code class="sig-name descname">is_function</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_function" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.rebased_addr">
-<em class="property">property </em><code class="sig-name descname">rebased_addr</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.rebased_addr" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.rebased_addr">
+<em class="property">property </em><code class="sig-name descname">rebased_addr</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.rebased_addr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.resolve">
-<code class="sig-name descname">resolve</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.resolve" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.resolve">
+<code class="sig-name descname">resolve</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.resolve" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.demangled_name">
-<code class="sig-name descname">demangled_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.demangled_name" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_stab">
+<em class="property">property </em><code class="sig-name descname">is_stab</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_stab" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_stab">
-<em class="property">property </em><code class="sig-name descname">is_stab</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_stab" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_private_external">
+<em class="property">property </em><code class="sig-name descname">is_private_external</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_private_external" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_private_external">
-<em class="property">property </em><code class="sig-name descname">is_private_external</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_private_external" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_external">
+<em class="property">property </em><code class="sig-name descname">is_external</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_external" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_external">
-<em class="property">property </em><code class="sig-name descname">is_external</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_external" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.sym_type">
+<em class="property">property </em><code class="sig-name descname">sym_type</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.sym_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.sym_type">
-<em class="property">property </em><code class="sig-name descname">sym_type</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.sym_type" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_common">
+<em class="property">property </em><code class="sig-name descname">is_common</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_common" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_common">
-<em class="property">property </em><code class="sig-name descname">is_common</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_common" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.common_align">
+<em class="property">property </em><code class="sig-name descname">common_align</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.common_align" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.common_align">
-<em class="property">property </em><code class="sig-name descname">common_align</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.common_align" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.reference_type">
+<em class="property">property </em><code class="sig-name descname">reference_type</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.reference_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.reference_type">
-<em class="property">property </em><code class="sig-name descname">reference_type</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.reference_type" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.library_ordinal">
+<em class="property">property </em><code class="sig-name descname">library_ordinal</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.library_ordinal" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.library_ordinal">
-<em class="property">property </em><code class="sig-name descname">library_ordinal</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.library_ordinal" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_no_dead_strip">
+<em class="property">property </em><code class="sig-name descname">is_no_dead_strip</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_no_dead_strip" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_no_dead_strip">
-<em class="property">property </em><code class="sig-name descname">is_no_dead_strip</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_no_dead_strip" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_desc_discarded">
+<em class="property">property </em><code class="sig-name descname">is_desc_discarded</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_desc_discarded" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_desc_discarded">
-<em class="property">property </em><code class="sig-name descname">is_desc_discarded</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_desc_discarded" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_weak_referenced">
+<em class="property">property </em><code class="sig-name descname">is_weak_referenced</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_weak_referenced" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_weak_referenced">
-<em class="property">property </em><code class="sig-name descname">is_weak_referenced</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_weak_referenced" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_weak_defined">
+<em class="property">property </em><code class="sig-name descname">is_weak_defined</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_weak_defined" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_weak_defined">
-<em class="property">property </em><code class="sig-name descname">is_weak_defined</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_weak_defined" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_reference_to_weak">
+<em class="property">property </em><code class="sig-name descname">is_reference_to_weak</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_reference_to_weak" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_reference_to_weak">
-<em class="property">property </em><code class="sig-name descname">is_reference_to_weak</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_reference_to_weak" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_thumb_definition">
+<em class="property">property </em><code class="sig-name descname">is_thumb_definition</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_thumb_definition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_thumb_definition">
-<em class="property">property </em><code class="sig-name descname">is_thumb_definition</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_thumb_definition" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_symbol_resolver">
+<em class="property">property </em><code class="sig-name descname">is_symbol_resolver</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_symbol_resolver" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_symbol_resolver">
-<em class="property">property </em><code class="sig-name descname">is_symbol_resolver</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_symbol_resolver" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.SymbolTableSymbol.is_alt_entry">
+<em class="property">property </em><code class="sig-name descname">is_alt_entry</code><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_alt_entry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cle.backends.macho.symbol.BindingSymbol">
+<em class="property">class </em><code class="sig-prename descclassname">cle.backends.macho.symbol.</code><code class="sig-name descname">BindingSymbol</code><span class="sig-paren">(</span><em class="sig-param">owner</em>, <em class="sig-param">name</em>, <em class="sig-param">lib_ordinal</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.BindingSymbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.macho.symbol.AbstractMachOSymbol" title="cle.backends.macho.symbol.AbstractMachOSymbol"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.macho.symbol.AbstractMachOSymbol</span></code></a></p>
+<p>“Binding” symbol. Made to be (somewhat) compatible with backends.Symbol.
+A BindingSymbol is an imported symbol discovered during the binding process.</p>
+<p>Note that ELF-specific fields from backends.Symbol are not used and semantics of the remaining fields differ in
+many cases. As a result most stock functionality from Angr and related libraries WILL NOT WORK PROPERLY on
+MachOSymbol.</p>
+<p>Much of the code below is based on heuristics as official documentation is sparse, consider yourself warned!</p>
+<dl class="method">
+<dt id="cle.backends.macho.symbol.BindingSymbol.library_name">
+<em class="property">property </em><code class="sig-name descname">library_name</code><a class="headerlink" href="#cle.backends.macho.symbol.BindingSymbol.library_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cle.backends.macho.symbol.MachOSymbol.is_alt_entry">
-<em class="property">property </em><code class="sig-name descname">is_alt_entry</code><a class="headerlink" href="#cle.backends.macho.symbol.MachOSymbol.is_alt_entry" title="Permalink to this definition">¶</a></dt>
+<dt id="cle.backends.macho.symbol.BindingSymbol.is_function">
+<code class="sig-name descname">is_function</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.BindingSymbol.is_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.macho.symbol.BindingSymbol.rebased_addr">
+<em class="property">property </em><code class="sig-name descname">rebased_addr</code><a class="headerlink" href="#cle.backends.macho.symbol.BindingSymbol.rebased_addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.macho.symbol.BindingSymbol.resolve">
+<code class="sig-name descname">resolve</code><span class="sig-paren">(</span><em class="sig-param">obj</em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.BindingSymbol.resolve" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.macho.symbol.BindingSymbol.demangled_name">
+<code class="sig-name descname">demangled_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.BindingSymbol.demangled_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cle.backends.macho.symbol.BindingSymbol.library_ordinal">
+<em class="property">property </em><code class="sig-name descname">library_ordinal</code><a class="headerlink" href="#cle.backends.macho.symbol.BindingSymbol.library_ordinal" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

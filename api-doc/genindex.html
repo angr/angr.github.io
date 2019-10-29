@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; angr 8.19.7.25 documentation</title>
+  <title>Index &mdash; angr 8.19.10.29 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                8.19.7.25
+                8.19.10.29
               </div>
             
           
@@ -199,6 +199,8 @@
 </li>
       <li><a href="claripy.html#claripy.ops.AbstractLocation">AbstractLocation() (in module claripy.ops)</a>
 </li>
+      <li><a href="cle.html#cle.backends.macho.symbol.AbstractMachOSymbol">AbstractMachOSymbol (class in cle.backends.macho.symbol)</a>
+</li>
       <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy">AbstractSMTLibSolverProxy (class in claripy.backends.backend_smtlib_solvers)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGNode.accessed_data_references">accessed_data_references() (angr.knowledge_plugins.cfg.cfg_node.CFGNode property)</a>
@@ -233,6 +235,8 @@
         <li><a href="angr.html#angr.state_plugins.solver.SimSolver.add">(angr.state_plugins.solver.SimSolver method)</a>
 </li>
         <li><a href="claripy.html#claripy.backends.Backend.add">(claripy.backends.Backend method)</a>
+</li>
+        <li><a href="claripy.html#claripy.backends.backend_z3.BackendZ3.add">(claripy.backends.backend_z3.BackendZ3 method)</a>
 </li>
         <li><a href="claripy.html#claripy.frontend.Frontend.add">(claripy.frontend.Frontend method)</a>
 </li>
@@ -316,7 +320,7 @@
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.PendingJobs.add_job">add_job() (angr.analyses.cfg.cfg_fast.PendingJobs method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.forward_analysis.JobInfo.add_job">(angr.analyses.forward_analysis.JobInfo method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.job_info.JobInfo.add_job">(angr.analyses.forward_analysis.job_info.JobInfo method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.add_jumpout_site">add_jumpout_site() (angr.knowledge_plugins.functions.function.Function method)</a>
@@ -375,12 +379,16 @@
 </li>
       <li><a href="angr.html#angr.engines.successors.SimSuccessors.add_successor">add_successor() (angr.engines.successors.SimSuccessors method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.add_use">add_use() (angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions method)</a>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.def_use.DefUseState.add_use">add_use() (angr.analyses.reaching_definitions.def_use.DefUseState method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.add_use">(angr.analyses.reaching_definitions.live_definitions.LiveDefinitions method)</a>
+</li>
         <li><a href="angr.html#angr.analyses.reaching_definitions.uses.Uses.add_use">(angr.analyses.reaching_definitions.uses.Uses method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.add_use_by_def">add_use_by_def() (angr.analyses.reaching_definitions.live_definitions.LiveDefinitions method)</a>
+</li>
       <li><a href="angr.html#angr.keyed_region.KeyedRegion.add_variable">add_variable() (angr.keyed_region.KeyedRegion method)</a>
 
       <ul>
@@ -430,13 +438,13 @@
 </li>
         <li><a href="pyvex.html#pyvex.expr.Load.addr">(pyvex.expr.Load attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.addr">(pyvex.lifting.gym.ARMSpotter attribute)</a>
-</li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.addr">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.ARMSpotter.addr">(pyvex.lifting.gym.arm_spotter.ARMSpotter attribute)</a>
 </li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.addr">(pyvex.lifting.gym.ARMSpotter attribute)</a>
+</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.addr">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.addr">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.addr">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
@@ -474,6 +482,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.addr_invalid">addr_invalid() (angr.state_plugins.cgc.SimStateCGC method)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.addr_to_instruction_addr">addr_to_instruction_addr() (angr.knowledge_plugins.functions.function.Function method)</a>
 </li>
       <li><a href="cle.html#cle.backends.Backend.addr_to_offset">addr_to_offset() (cle.backends.Backend method)</a>
 
@@ -573,7 +583,7 @@
 </li>
       <li><a href="angr.html#angr.analyses.veritesting.Veritesting.all_stashes">all_stashes (angr.analyses.veritesting.Veritesting attribute)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.all_successors">all_successors() (angr.analyses.forward_analysis.GraphVisitor method)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.all_successors">all_successors() (angr.analyses.forward_analysis.visitors.graph.GraphVisitor method)</a>
 
       <ul>
         <li><a href="angr.html#angr.state_hierarchy.StateHierarchy.all_successors">(angr.state_hierarchy.StateHierarchy method)</a>
@@ -598,9 +608,9 @@
       <ul>
         <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.allow_arch_optimizations">(pyvex.lifting.gym.ARMSpotter attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.allow_arch_optimizations">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.allow_arch_optimizations">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.allow_arch_optimizations">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.allow_arch_optimizations">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
@@ -741,6 +751,20 @@
 </li>
       <li><a href="angr.html#module-angr.analyses.forward_analysis">angr.analyses.forward_analysis (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.analyses.forward_analysis.job_info">angr.analyses.forward_analysis.job_info (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.forward_analysis.visitors">angr.analyses.forward_analysis.visitors (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.forward_analysis.visitors.call_graph">angr.analyses.forward_analysis.visitors.call_graph (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.forward_analysis.visitors.function_graph">angr.analyses.forward_analysis.visitors.function_graph (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.forward_analysis.visitors.graph">angr.analyses.forward_analysis.visitors.graph (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.forward_analysis.visitors.loop">angr.analyses.forward_analysis.visitors.loop (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.forward_analysis.visitors.single_node_graph">angr.analyses.forward_analysis.visitors.single_node_graph (module)</a>
+</li>
       <li><a href="angr.html#module-angr.analyses.identifier.identify">angr.analyses.identifier.identify (module)</a>
 </li>
       <li><a href="angr.html#module-angr.analyses.loop_analysis">angr.analyses.loop_analysis (module)</a>
@@ -769,6 +793,8 @@
 </li>
       <li><a href="angr.html#module-angr.analyses.reaching_definitions.dataset">angr.analyses.reaching_definitions.dataset (module)</a>
 </li>
+      <li><a href="angr.html#module-angr.analyses.reaching_definitions.def_use">angr.analyses.reaching_definitions.def_use (module)</a>
+</li>
       <li><a href="angr.html#module-angr.analyses.reaching_definitions.definition">angr.analyses.reaching_definitions.definition (module)</a>
 </li>
       <li><a href="angr.html#module-angr.analyses.reaching_definitions.engine_ail">angr.analyses.reaching_definitions.engine_ail (module)</a>
@@ -776,6 +802,8 @@
       <li><a href="angr.html#module-angr.analyses.reaching_definitions.engine_vex">angr.analyses.reaching_definitions.engine_vex (module)</a>
 </li>
       <li><a href="angr.html#module-angr.analyses.reaching_definitions.external_codeloc">angr.analyses.reaching_definitions.external_codeloc (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.analyses.reaching_definitions.live_definitions">angr.analyses.reaching_definitions.live_definitions (module)</a>
 </li>
       <li><a href="angr.html#module-angr.analyses.reaching_definitions.reaching_definitions">angr.analyses.reaching_definitions.reaching_definitions (module)</a>
 </li>
@@ -887,6 +915,8 @@
 </li>
       <li><a href="angr.html#module-angr.exploration_techniques.common">angr.exploration_techniques.common (module)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#module-angr.exploration_techniques.dfs">angr.exploration_techniques.dfs (module)</a>
 </li>
       <li><a href="angr.html#module-angr.exploration_techniques.director">angr.exploration_techniques.director (module)</a>
@@ -899,8 +929,6 @@
 </li>
       <li><a href="angr.html#module-angr.exploration_techniques.loop_seer">angr.exploration_techniques.loop_seer (module)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#module-angr.exploration_techniques.manual_mergepoint">angr.exploration_techniques.manual_mergepoint (module)</a>
 </li>
       <li><a href="angr.html#module-angr.exploration_techniques.memory_watcher">angr.exploration_techniques.memory_watcher (module)</a>
@@ -956,6 +984,8 @@
       <li><a href="angr.html#module-angr.knowledge_plugins.functions.function">angr.knowledge_plugins.functions.function (module)</a>
 </li>
       <li><a href="angr.html#module-angr.knowledge_plugins.functions.function_manager">angr.knowledge_plugins.functions.function_manager (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.knowledge_plugins.functions.function_parser">angr.knowledge_plugins.functions.function_parser (module)</a>
 </li>
       <li><a href="angr.html#module-angr.knowledge_plugins.functions.soot_function">angr.knowledge_plugins.functions.soot_function (module)</a>
 </li>
@@ -1100,6 +1130,8 @@
       <li><a href="angr.html#module-angr.state_plugins.solver">angr.state_plugins.solver (module)</a>
 </li>
       <li><a href="angr.html#module-angr.state_plugins.symbolic_memory">angr.state_plugins.symbolic_memory (module)</a>
+</li>
+      <li><a href="angr.html#module-angr.state_plugins.symbolizer">angr.state_plugins.symbolizer (module)</a>
 </li>
       <li><a href="angr.html#module-angr.state_plugins.trace_additions">angr.state_plugins.trace_additions (module)</a>
 </li>
@@ -1334,13 +1366,13 @@
       <li><a href="pyvex.html#pyvex.block.IRSB.arch">arch (pyvex.block.IRSB attribute)</a>
 
       <ul>
-        <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.arch">(pyvex.lifting.gym.ARMSpotter attribute)</a>
-</li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.arch">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.ARMSpotter.arch">(pyvex.lifting.gym.arm_spotter.ARMSpotter attribute)</a>
 </li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.arch">(pyvex.lifting.gym.ARMSpotter attribute)</a>
+</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.arch">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.arch">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.arch">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
@@ -1730,8 +1762,6 @@
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_STM.bin_format">(pyvex.lifting.gym.arm_spotter.Instruction_STM attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_WFI.bin_format">(pyvex.lifting.gym.arm_spotter.Instruction_WFI attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tCPSID.bin_format">(pyvex.lifting.gym.arm_spotter.Instruction_tCPSID attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tDMB.bin_format">(pyvex.lifting.gym.arm_spotter.Instruction_tDMB attribute)</a>
@@ -1739,6 +1769,8 @@
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tMRS.bin_format">(pyvex.lifting.gym.arm_spotter.Instruction_tMRS attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tMSR.bin_format">(pyvex.lifting.gym.arm_spotter.Instruction_tMSR attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_WFI.bin_format">(pyvex.lifting.gym.arm_spotter.Instruction_WFI attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.Instruction_ENDBR.bin_format">(pyvex.lifting.gym.x86_spotter.Instruction_ENDBR attribute)</a>
 </li>
@@ -1765,6 +1797,8 @@
 </li>
       <li><a href="cle.html#cle.backends.macho.binding.BindingState">BindingState (class in cle.backends.macho.binding)</a>
 </li>
+      <li><a href="cle.html#cle.backends.macho.symbol.BindingSymbol">BindingSymbol (class in cle.backends.macho.symbol)</a>
+</li>
       <li><a href="cle.html#cle.backends.binja.BinjaBin.BINJA_ARCH_MAP">BINJA_ARCH_MAP (cle.backends.binja.BinjaBin attribute)</a>
 </li>
       <li><a href="cle.html#cle.backends.binja.BinjaSymbol.BINJA_DATA_SYM_TYPES">BINJA_DATA_SYM_TYPES (cle.backends.binja.BinjaSymbol attribute)</a>
@@ -1785,11 +1819,9 @@
 </li>
       <li><a href="angr.html#angr.analyses.stack_pointer_tracker.Register.bitlen">bitlen (angr.analyses.stack_pointer_tracker.Register attribute)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.reaching_definitions.undefined.Undefined.bits">bits (angr.analyses.reaching_definitions.undefined.Undefined attribute)</a>
+      <li><a href="archinfo.html#archinfo.arch.Arch.bits">bits (archinfo.arch.Arch attribute)</a>
 
       <ul>
-        <li><a href="archinfo.html#archinfo.arch.Arch.bits">(archinfo.arch.Arch attribute)</a>
-</li>
         <li><a href="archinfo.html#archinfo.arch_aarch64.ArchAArch64.bits">(archinfo.arch_aarch64.ArchAArch64 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_amd64.ArchAMD64.bits">(archinfo.arch_amd64.ArchAMD64 attribute)</a>
@@ -2058,9 +2090,9 @@
       <ul>
         <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.bytes_offset">(pyvex.lifting.gym.ARMSpotter attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.bytes_offset">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.bytes_offset">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.bytes_offset">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.bytes_offset">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
@@ -2251,7 +2283,7 @@
 </li>
       <li><a href="angr.html#angr.knowledge_base.knowledge_base.KnowledgeBase.callgraph">callgraph() (angr.knowledge_base.knowledge_base.KnowledgeBase property)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.CallGraphVisitor">CallGraphVisitor (class in angr.analyses.forward_analysis)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor">CallGraphVisitor (class in angr.analyses.forward_analysis.visitors.call_graph)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.calling_convention">calling_convention (angr.knowledge_plugins.functions.function.Function attribute)</a>
 
@@ -2715,6 +2747,8 @@
 </li>
       <li><a href="claripy.html#module-claripy.vsa.valueset">claripy.vsa.valueset (module)</a>
 </li>
+      <li><a href="claripy.html#claripy.backends.backend_z3.claripy_solver_to_smt2">claripy_solver_to_smt2() (in module claripy.backends.backend_z3)</a>
+</li>
       <li><a href="claripy.html#claripy.errors.ClaripyASTError">ClaripyASTError</a>
 </li>
       <li><a href="claripy.html#claripy.errors.ClaripyBackendVSAError">ClaripyBackendVSAError</a>
@@ -3004,9 +3038,9 @@
       <ul>
         <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.collect_data_refs">(pyvex.lifting.gym.ARMSpotter attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.collect_data_refs">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.collect_data_refs">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.collect_data_refs">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.collect_data_refs">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
@@ -3037,7 +3071,7 @@
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.instr_helper.Instruction.commit_result">commit_result() (pyvex.lifting.util.instr_helper.Instruction method)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.common_align">common_align() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.common_align">common_align() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="claripy.html#claripy.bv.compare_bits">compare_bits() (in module claripy.bv)</a>
 </li>
@@ -3112,8 +3146,6 @@
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_STM.compute_result">(pyvex.lifting.gym.arm_spotter.Instruction_STM method)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_WFI.compute_result">(pyvex.lifting.gym.arm_spotter.Instruction_WFI method)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tCPSID.compute_result">(pyvex.lifting.gym.arm_spotter.Instruction_tCPSID method)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tDMB.compute_result">(pyvex.lifting.gym.arm_spotter.Instruction_tDMB method)</a>
@@ -3121,6 +3153,8 @@
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tMRS.compute_result">(pyvex.lifting.gym.arm_spotter.Instruction_tMRS method)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tMSR.compute_result">(pyvex.lifting.gym.arm_spotter.Instruction_tMSR method)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_WFI.compute_result">(pyvex.lifting.gym.arm_spotter.Instruction_WFI method)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.Instruction_ENDBR.compute_result">(pyvex.lifting.gym.x86_spotter.Instruction_ENDBR method)</a>
 </li>
@@ -3384,7 +3418,7 @@
 </li>
         <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorVEXState.copy">(angr.analyses.propagator.propagator.PropagatorVEXState method)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.copy">(angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions method)</a>
+        <li><a href="angr.html#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.copy">(angr.analyses.reaching_definitions.live_definitions.LiveDefinitions method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.reaching_definitions.uses.Uses.copy">(angr.analyses.reaching_definitions.uses.Uses method)</a>
 </li>
@@ -3398,11 +3432,11 @@
 </li>
         <li><a href="angr.html#angr.analyses.vfg.VFG.copy">(angr.analyses.vfg.VFG method)</a>
 </li>
-        <li><a href="angr.html#angr.concretization_strategies.SimConcretizationStrategy.copy">(angr.concretization_strategies.SimConcretizationStrategy method)</a>
-</li>
         <li><a href="angr.html#angr.concretization_strategies.norepeats.SimConcretizationStrategyNorepeats.copy">(angr.concretization_strategies.norepeats.SimConcretizationStrategyNorepeats method)</a>
 </li>
         <li><a href="angr.html#angr.concretization_strategies.norepeats_range.SimConcretizationStrategyNorepeatsRange.copy">(angr.concretization_strategies.norepeats_range.SimConcretizationStrategyNorepeatsRange method)</a>
+</li>
+        <li><a href="angr.html#angr.concretization_strategies.SimConcretizationStrategy.copy">(angr.concretization_strategies.SimConcretizationStrategy method)</a>
 </li>
         <li><a href="angr.html#angr.engines.hub.EnginePreset.copy">(angr.engines.hub.EnginePreset method)</a>
 </li>
@@ -3521,6 +3555,8 @@
         <li><a href="angr.html#angr.state_plugins.solver.SimSolver.copy">(angr.state_plugins.solver.SimSolver method)</a>
 </li>
         <li><a href="angr.html#angr.state_plugins.symbolic_memory.SimSymbolicMemory.copy">(angr.state_plugins.symbolic_memory.SimSymbolicMemory method)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.symbolizer.SimSymbolizer.copy">(angr.state_plugins.symbolizer.SimSymbolizer method)</a>
 </li>
         <li><a href="angr.html#angr.state_plugins.trace_additions.ChallRespInfo.copy">(angr.state_plugins.trace_additions.ChallRespInfo method)</a>
 </li>
@@ -3726,13 +3762,13 @@
       <li><a href="cle.html#cle.backends.externs.simdata.common.StaticData.data">data (cle.backends.externs.simdata.common.StaticData attribute)</a>
 
       <ul>
-        <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.data">(pyvex.lifting.gym.ARMSpotter attribute)</a>
-</li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.data">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.ARMSpotter.data">(pyvex.lifting.gym.arm_spotter.ARMSpotter attribute)</a>
 </li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.data">(pyvex.lifting.gym.ARMSpotter attribute)</a>
+</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.data">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.data">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.data">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
@@ -3919,7 +3955,11 @@
 </li>
       <li><a href="angr.html#angr.analyses.ddg.DDGViewInstruction.definitions">definitions() (angr.analyses.ddg.DDGViewInstruction property)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.def_use.DefUseAnalysis">DefUseAnalysis (class in angr.analyses.reaching_definitions.def_use)</a>
+</li>
       <li><a href="angr.html#angr.analyses.vsa_ddg.DefUseChain">DefUseChain (class in angr.analyses.vsa_ddg)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.def_use.DefUseState">DefUseState (class in angr.analyses.reaching_definitions.def_use)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.filesystem.SimFilesystem.delete">delete() (angr.state_plugins.filesystem.SimFilesystem method)</a>
 
@@ -3935,18 +3975,16 @@
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.jni_references.SimStateJNIReferences.delete_reference">delete_reference() (angr.state_plugins.jni_references.SimStateJNIReferences method)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn.delete_uc">delete_uc() (angr.state_plugins.unicorn_engine.Unicorn static method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn.delete_uc">delete_uc() (angr.state_plugins.unicorn_engine.Unicorn static method)</a>
+</li>
       <li><a href="pyvex.html#pyvex.stmt.IMark.delta">delta (pyvex.stmt.IMark attribute)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.demangled_name">demangled_name() (angr.knowledge_plugins.functions.function.Function property)</a>
 
       <ul>
-        <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.demangled_name">(cle.backends.macho.symbol.MachOSymbol method)</a>
-</li>
-        <li><a href="cle.html#cle.backends.symbol.Symbol.demangled_name">(cle.backends.symbol.Symbol property)</a>
+        <li><a href="cle.html#cle.backends.macho.symbol.BindingSymbol.demangled_name">(cle.backends.macho.symbol.BindingSymbol method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.demote">demote() (angr.state_plugins.history.SimStateHistory method)</a>
@@ -4015,6 +4053,8 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.solver.disable_timing">disable_timing() (in module angr.state_plugins.solver)</a>
 </li>
+      <li><a href="archinfo.html#archinfo.arch.Arch.disasm">disasm() (archinfo.arch.Arch method)</a>
+</li>
       <li><a href="pyvex.html#pyvex.lifting.util.instr_helper.Instruction.disassemble">disassemble() (pyvex.lifting.util.instr_helper.Instruction method)</a>
 
       <ul>
@@ -4074,7 +4114,7 @@
       <li><a href="angr.html#angr.analyses.cfg.cfg_emulated.CFGEmulated.downsize">downsize() (angr.analyses.cfg.cfg_emulated.CFGEmulated method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.downsize">(angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions method)</a>
+        <li><a href="angr.html#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.downsize">(angr.analyses.reaching_definitions.live_definitions.LiveDefinitions method)</a>
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGENode.downsize">(angr.knowledge_plugins.cfg.cfg_node.CFGENode method)</a>
 </li>
@@ -4689,8 +4729,6 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.trace_additions.ZenPlugin.filter_constraints">filter_constraints() (angr.state_plugins.trace_additions.ZenPlugin method)</a>
 </li>
-      <li><a href="angr.html#angr.annocfg.AnnotatedCFG.filter_path">filter_path() (angr.annocfg.AnnotatedCFG method)</a>
-</li>
       <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState.filter_variables">filter_variables() (angr.analyses.propagator.propagator.PropagatorAILState method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGENode.final_states">final_states (angr.knowledge_plugins.cfg.cfg_node.CFGENode attribute)</a>
@@ -4893,15 +4931,19 @@
 </li>
       <li><a href="claripy.html#claripy.fp.fpDiv">fpDiv() (in module claripy.fp)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.fp.fpEQ">fpEQ() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpFP">fpFP() (in module claripy.fp)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.fp.fpGEQ">fpGEQ() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpGT">fpGT() (in module claripy.fp)</a>
+</li>
+      <li><a href="claripy.html#claripy.fp.fpIsInf">fpIsInf() (in module claripy.fp)</a>
+</li>
+      <li><a href="claripy.html#claripy.fp.fpIsNaN">fpIsNaN() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpLEQ">fpLEQ() (in module claripy.fp)</a>
 </li>
@@ -5137,13 +5179,15 @@
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionFakeRetEdge">FunctionFakeRetEdge (class in angr.analyses.cfg.cfg_fast)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.FunctionGraphVisitor">FunctionGraphVisitor (class in angr.analyses.forward_analysis)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor">FunctionGraphVisitor (class in angr.analyses.forward_analysis.visitors.function_graph)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_job_base.FunctionKey">FunctionKey (class in angr.analyses.cfg.cfg_job_base)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reassembler.FunctionLabel">FunctionLabel (class in angr.analyses.reassembler)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function_manager.FunctionManager">FunctionManager (class in angr.knowledge_plugins.functions.function_manager)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.functions.function_parser.FunctionParser">FunctionParser (class in angr.knowledge_plugins.functions.function_parser)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionReturn">FunctionReturn (class in angr.analyses.cfg.cfg_fast)</a>
 </li>
@@ -5337,6 +5381,8 @@
 </li>
       <li><a href="angr.html#angr.simos.javavm.SimJavaVM.get_default_value_by_type">get_default_value_by_type() (angr.simos.javavm.SimJavaVM static method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.get_definitions">get_definitions() (angr.analyses.reaching_definitions.live_definitions.LiveDefinitions method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cdg.CDG.get_dependants">get_dependants() (angr.analyses.cdg.CDG method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.PositionMapping.get_element">get_element() (angr.analyses.decompiler.structured_codegen.PositionMapping method)</a>
@@ -5529,7 +5575,7 @@
 </li>
       <li><a href="cle.html#cle.backends.java.soot.Soot.get_soot_method">get_soot_method() (cle.backends.java.soot.Soot method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.get_sp">get_sp() (angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions method)</a>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.get_sp">get_sp() (angr.analyses.reaching_definitions.live_definitions.LiveDefinitions method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.trace_additions.ChallRespInfo.get_stdin_indices">get_stdin_indices() (angr.state_plugins.trace_additions.ChallRespInfo method)</a>
 </li>
@@ -5586,6 +5632,8 @@
       <li><a href="cle.html#cle.backends.binja.BinjaBin.get_symbol_addr">get_symbol_addr() (cle.backends.binja.BinjaBin method)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.macho.MachO.get_symbol_by_address_fuzzy">get_symbol_by_address_fuzzy() (cle.backends.macho.macho.MachO method)</a>
+</li>
+      <li><a href="cle.html#cle.backends.macho.macho.MachO.get_symbol_by_insertion_order">get_symbol_by_insertion_order() (cle.backends.macho.macho.MachO method)</a>
 </li>
       <li><a href="angr.html#angr.storage.paged_memory.SimPagedMemory.get_symbolic_addrs">get_symbolic_addrs() (angr.storage.paged_memory.SimPagedMemory method)</a>
 </li>
@@ -5739,7 +5787,7 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.decompiler.region_identifier.GraphRegion">GraphRegion (class in angr.analyses.decompiler.region_identifier)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor">GraphVisitor (class in angr.analyses.forward_analysis)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor">GraphVisitor (class in angr.analyses.forward_analysis.visitors.graph)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.GSPTR">GSPTR (class in pyvex.expr)</a>
 </li>
@@ -5755,6 +5803,8 @@
         <li><a href="pyvex.html#pyvex.stmt.StoreG.guard">(pyvex.stmt.StoreG attribute)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.def_use.GuardUse">GuardUse (class in angr.analyses.reaching_definitions.def_use)</a>
+</li>
       <li><a href="pyvex.html#pyvex.lifting.util.lifter_helper.GymratLifter">GymratLifter (class in pyvex.lifting.util.lifter_helper)</a>
 </li>
   </ul></td>
@@ -6166,6 +6216,8 @@
 </li>
         <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.init_state">(angr.state_plugins.posix.SimSystemPosix method)</a>
 </li>
+        <li><a href="angr.html#angr.state_plugins.symbolizer.SimSymbolizer.init_state">(angr.state_plugins.symbolizer.SimSymbolizer method)</a>
+</li>
       </ul></li>
       <li><a href="angr.html#angr.simos.javavm.SimJavaVM.init_static_field">init_static_field() (angr.simos.javavm.SimJavaVM static method)</a>
 </li>
@@ -6280,9 +6332,9 @@
       <ul>
         <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.instrs">(pyvex.lifting.gym.ARMSpotter attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.instrs">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.instrs">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.instrs">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.disassembly.Instruction">Instruction (class in angr.analyses.disassembly)</a>
@@ -6446,9 +6498,9 @@
       <ul>
         <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.irsb">(pyvex.lifting.gym.ARMSpotter attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.irsb">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.irsb">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.irsb">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.irsb">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
@@ -6471,7 +6523,7 @@
 </li>
       <li><a href="angr.html#angr.utils.constants.is_alignment_mask">is_alignment_mask() (in module angr.utils.constants)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_alt_entry">is_alt_entry() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_alt_entry">is_alt_entry() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch_arm.is_arm_arch">is_arm_arch() (in module archinfo.arch_arm)</a>
 </li>
@@ -6489,7 +6541,7 @@
 </li>
       <li><a href="cle.html#cle.backends.symbol.Symbol.is_common">is_common (cle.backends.symbol.Symbol attribute)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_common">is_common() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_common">is_common() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="cle.html#cle.backends.binja.BinjaBin.is_compatible">is_compatible() (cle.backends.binja.BinjaBin static method)</a>
 
@@ -6549,7 +6601,7 @@
         <li><a href="cle.html#cle.backends.pe.pe.PE.is_default">(cle.backends.pe.pe.PE attribute)</a>
 </li>
       </ul></li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_desc_discarded">is_desc_discarded() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_desc_discarded">is_desc_discarded() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="angr.html#angr.engines.successors.SimSuccessors.is_empty">is_empty() (angr.engines.successors.SimSuccessors property)</a>
 
@@ -6589,7 +6641,7 @@
 </li>
       <li><a href="cle.html#cle.backends.symbol.Symbol.is_extern">is_extern (cle.backends.symbol.Symbol attribute)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_external">is_external() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_external">is_external() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.is_false">is_false() (angr.state_plugins.solver.SimSolver method)</a>
 
@@ -6639,9 +6691,11 @@
       </ul></li>
       <li><a href="angr.html#angr.sim_procedure.SimProcedure.IS_FUNCTION">IS_FUNCTION (angr.sim_procedure.SimProcedure attribute)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_function">is_function() (cle.backends.macho.symbol.MachOSymbol method)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.BindingSymbol.is_function">is_function() (cle.backends.macho.symbol.BindingSymbol method)</a>
 
       <ul>
+        <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_function">(cle.backends.macho.symbol.SymbolTableSymbol method)</a>
+</li>
         <li><a href="cle.html#cle.backends.symbol.Symbol.is_function">(cle.backends.symbol.Symbol property)</a>
 </li>
       </ul></li>
@@ -6675,10 +6729,6 @@
 </li>
       <li><a href="angr.html#angr.sim_procedure.SimProcedure.is_java">is_java() (angr.sim_procedure.SimProcedure property)</a>
 </li>
-      <li><a href="angr.html#angr.project.Project.is_java_jni_project">is_java_jni_project() (angr.project.Project property)</a>
-</li>
-      <li><a href="angr.html#angr.project.Project.is_java_project">is_java_project() (angr.project.Project property)</a>
-</li>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.JumpTableProcessorState.is_jumptable">is_jumptable (angr.analyses.cfg.indirect_jump_resolvers.jumptable.JumpTableProcessorState attribute)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootClassDescriptor.is_loaded">is_loaded() (archinfo.arch_soot.SootClassDescriptor property)</a>
@@ -6691,7 +6741,7 @@
 </li>
       <li><a href="claripy.html#claripy.vsa.bool_result.BoolResult.is_maybe">is_maybe() (claripy.vsa.bool_result.BoolResult static method)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_no_dead_strip">is_no_dead_strip() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_no_dead_strip">is_no_dead_strip() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="angr.html#angr.analyses.veritesting.Veritesting.is_not_in_cfg">is_not_in_cfg() (angr.analyses.veritesting.Veritesting method)</a>
 </li>
@@ -6713,7 +6763,7 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.heap.heap_ptmalloc.PTChunk.is_prev_free">is_prev_free() (angr.state_plugins.heap.heap_ptmalloc.PTChunk method)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_private_external">is_private_external() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_private_external">is_private_external() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="cle.html#cle.backends.externs.ExternSegment.is_readable">is_readable (cle.backends.externs.ExternSegment attribute)</a>
 </li>
@@ -6735,7 +6785,7 @@
         <li><a href="cle.html#cle.backends.region.Section.is_readable">(cle.backends.region.Section property)</a>
 </li>
       </ul></li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_reference_to_weak">is_reference_to_weak() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_reference_to_weak">is_reference_to_weak() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.is_simprocedure">is_simprocedure (angr.knowledge_plugins.functions.function.Function attribute)</a>
 
@@ -6751,8 +6801,12 @@
         <li><a href="claripy.html#claripy.backends.backend_smtlib.BackendSMTLibBase.is_smt_backend">(claripy.backends.backend_smtlib.BackendSMTLibBase property)</a>
 </li>
       </ul></li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_stab">is_stab() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.AbstractMachOSymbol.is_stab">is_stab() (cle.backends.macho.symbol.AbstractMachOSymbol property)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_stab">(cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.state_plugins.abstract_memory.MemoryRegion.is_stack">is_stack() (angr.state_plugins.abstract_memory.MemoryRegion property)</a>
 </li>
       <li><a href="cle.html#cle.backends.symbol.Symbol.is_static">is_static (cle.backends.symbol.Symbol attribute)</a>
@@ -6773,7 +6827,7 @@
 </li>
       <li><a href="angr.html#angr.project.Project.is_symbol_hooked">is_symbol_hooked() (angr.project.Project method)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_symbol_resolver">is_symbol_resolver() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_symbol_resolver">is_symbol_resolver() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGNode.is_syscall">is_syscall (angr.knowledge_plugins.cfg.cfg_node.CFGNode attribute)</a>
 
@@ -6805,7 +6859,7 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.is_thumb_addr">is_thumb_addr() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_thumb_definition">is_thumb_definition() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_thumb_definition">is_thumb_definition() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.macho.MachO.is_thumb_interworking">is_thumb_interworking() (cle.backends.macho.macho.MachO method)</a>
 </li>
@@ -6857,11 +6911,11 @@
 </li>
       <li><a href="cle.html#cle.backends.symbol.Symbol.is_weak">is_weak (cle.backends.symbol.Symbol attribute)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_weak">is_weak() (cle.backends.macho.symbol.MachOSymbol method)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_weak">is_weak() (cle.backends.macho.symbol.SymbolTableSymbol method)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_weak_defined">is_weak_defined() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_weak_defined">is_weak_defined() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.is_weak_referenced">is_weak_referenced() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_weak_referenced">is_weak_referenced() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="cle.html#cle.backends.externs.ExternSegment.is_writable">is_writable (cle.backends.externs.ExternSegment attribute)</a>
 </li>
@@ -6884,6 +6938,10 @@
 </li>
       </ul></li>
       <li><a href="cle.html#cle.backends.java.soot.Soot.is_zip_archive">is_zip_archive() (cle.backends.java.soot.Soot static method)</a>
+</li>
+      <li><a href="claripy.html#claripy.ast.fp.FP.isInf">isInf() (claripy.ast.fp.FP method)</a>
+</li>
+      <li><a href="claripy.html#claripy.ast.fp.FP.isNaN">isNaN() (claripy.ast.fp.FP method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.ITE">ITE (class in pyvex.expr)</a>
 </li>
@@ -6939,7 +6997,7 @@
 </li>
       <li><a href="pyvex.html#pyvex.stmt.Exit.jk">jk (pyvex.stmt.Exit attribute)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.JobInfo.job">job() (angr.analyses.forward_analysis.JobInfo property)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.job_info.JobInfo.job">job() (angr.analyses.forward_analysis.job_info.JobInfo property)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJob.job_type">job_type (angr.analyses.cfg.cfg_fast.CFGJob attribute)</a>
 </li>
@@ -6949,7 +7007,7 @@
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGJob.JOB_TYPE_NORMAL">JOB_TYPE_NORMAL (angr.analyses.cfg.cfg_fast.CFGJob attribute)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.JobInfo">JobInfo (class in angr.analyses.forward_analysis)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.job_info.JobInfo">JobInfo (class in angr.analyses.forward_analysis.job_info)</a>
 </li>
       <li><a href="angr.html#angr.analyses.forward_analysis.ForwardAnalysis.jobs">jobs() (angr.analyses.forward_analysis.ForwardAnalysis property)</a>
 </li>
@@ -7061,13 +7119,17 @@
         <li><a href="archinfo.html#archinfo.arch_x86.ArchX86.keystone_x86_syntax">(archinfo.arch_x86.ArchX86 property)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.kill_and_add_definition">kill_and_add_definition() (angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions method)</a>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.def_use.DefUseState.kill_and_add_definition">kill_and_add_definition() (angr.analyses.reaching_definitions.def_use.DefUseState method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.kill_and_add_definition">(angr.analyses.reaching_definitions.live_definitions.LiveDefinitions method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.ddg.LiveDefinitions.kill_def">kill_def() (angr.analyses.ddg.LiveDefinitions method)</a>
-</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.kill_definitions">kill_definitions() (angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions method)</a>
+      <li><a href="angr.html#angr.analyses.ddg.LiveDefinitions.kill_def">kill_def() (angr.analyses.ddg.LiveDefinitions method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.kill_definitions">kill_definitions() (angr.analyses.reaching_definitions.live_definitions.LiveDefinitions method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_base.knowledge_base.KnowledgeBase">KnowledgeBase (class in angr.knowledge_base.knowledge_base)</a>
 </li>
@@ -7219,10 +7281,20 @@
       </ul></li>
       <li><a href="cle.html#cle.backends.externs.simdata.SimData.libname">libname (cle.backends.externs.simdata.SimData attribute)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.library_name">library_name() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.BindingSymbol.library_name">library_name() (cle.backends.macho.symbol.BindingSymbol property)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.library_name">(cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.library_ordinal">library_ordinal() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      </ul></li>
+      <li><a href="cle.html#cle.backends.macho.symbol.AbstractMachOSymbol.library_ordinal">library_ordinal() (cle.backends.macho.symbol.AbstractMachOSymbol property)</a>
+
+      <ul>
+        <li><a href="cle.html#cle.backends.macho.symbol.BindingSymbol.library_ordinal">(cle.backends.macho.symbol.BindingSymbol property)</a>
 </li>
+        <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.library_ordinal">(cle.backends.macho.symbol.SymbolTableSymbol property)</a>
+</li>
+      </ul></li>
       <li><a href="archinfo.html#archinfo.arch.Arch.library_search_path">library_search_path() (archinfo.arch.Arch method)</a>
 
       <ul>
@@ -7238,9 +7310,9 @@
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lift">(in module pyvex.lifting)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.lift">(pyvex.lifting.gym.ARMSpotter method)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.ARMSpotter.lift">(pyvex.lifting.gym.arm_spotter.ARMSpotter method)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.lift">(pyvex.lifting.gym.ARMSpotter method)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.libvex.LibVEXLifter.lift">(pyvex.lifting.libvex.LibVEXLifter method)</a>
 </li>
@@ -7306,7 +7378,7 @@
       <li><a href="angr.html#angr.analyses.ddg.LiveDefinitions">LiveDefinitions (class in angr.analyses.ddg)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions">(class in angr.analyses.reaching_definitions.reaching_definitions)</a>
+        <li><a href="angr.html#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions">(class in angr.analyses.reaching_definitions.live_definitions)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.LiveVariables">LiveVariables (class in angr.knowledge_plugins.variables.variable_manager)</a>
@@ -7417,7 +7489,7 @@
 </li>
       <li><a href="angr.html#angr.exploration_techniques.loop_seer.LoopSeer">LoopSeer (class in angr.exploration_techniques.loop_seer)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.LoopVisitor">LoopVisitor (class in angr.analyses.forward_analysis)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.loop.LoopVisitor">LoopVisitor (class in angr.analyses.forward_analysis.visitors.loop)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.lower">lower() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
@@ -7467,8 +7539,6 @@
         <li><a href="cle.html#cle.backends.macho.segment.MachOSegment">(class in cle.backends.macho.segment)</a>
 </li>
       </ul></li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol">MachOSymbol (class in cle.backends.macho.symbol)</a>
-</li>
       <li><a href="pyvex.html#pyvex.stmt.Dirty.mAddr">mAddr (pyvex.stmt.Dirty attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reassembler.Reassembler.main_executable_region_limbos_contain">main_executable_region_limbos_contain() (angr.analyses.reassembler.Reassembler method)</a>
@@ -7555,6 +7625,12 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.mark_function_alignments">mark_function_alignments() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.def_use.DefUseState.mark_guard">mark_guard() (angr.analyses.reaching_definitions.def_use.DefUseState method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.mark_guard">(angr.analyses.reaching_definitions.live_definitions.LiveDefinitions method)</a>
+</li>
+      </ul></li>
       <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.ThumbInstruction.mark_instruction_start">mark_instruction_start() (pyvex.lifting.gym.arm_spotter.ThumbInstruction method)</a>
 
       <ul>
@@ -7654,9 +7730,9 @@
       <ul>
         <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.max_bytes">(pyvex.lifting.gym.ARMSpotter attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.max_bytes">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.max_bytes">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.max_bytes">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.max_bytes">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
@@ -7672,9 +7748,9 @@
       <ul>
         <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.max_inst">(pyvex.lifting.gym.ARMSpotter attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.max_inst">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.max_inst">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.max_inst">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.max_inst">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
@@ -7824,7 +7900,7 @@
 </li>
         <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorVEXState.merge">(angr.analyses.propagator.propagator.PropagatorVEXState method)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions.merge">(angr.analyses.reaching_definitions.reaching_definitions.LiveDefinitions method)</a>
+        <li><a href="angr.html#angr.analyses.reaching_definitions.live_definitions.LiveDefinitions.merge">(angr.analyses.reaching_definitions.live_definitions.LiveDefinitions method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.reaching_definitions.uses.Uses.merge">(angr.analyses.reaching_definitions.uses.Uses method)</a>
 </li>
@@ -7838,11 +7914,11 @@
 </li>
         <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery_fast.VariableRecoveryFastState.merge">(angr.analyses.variable_recovery.variable_recovery_fast.VariableRecoveryFastState method)</a>
 </li>
-        <li><a href="angr.html#angr.concretization_strategies.SimConcretizationStrategy.merge">(angr.concretization_strategies.SimConcretizationStrategy method)</a>
-</li>
         <li><a href="angr.html#angr.concretization_strategies.norepeats.SimConcretizationStrategyNorepeats.merge">(angr.concretization_strategies.norepeats.SimConcretizationStrategyNorepeats method)</a>
 </li>
         <li><a href="angr.html#angr.concretization_strategies.norepeats_range.SimConcretizationStrategyNorepeatsRange.merge">(angr.concretization_strategies.norepeats_range.SimConcretizationStrategyNorepeatsRange method)</a>
+</li>
+        <li><a href="angr.html#angr.concretization_strategies.SimConcretizationStrategy.merge">(angr.concretization_strategies.SimConcretizationStrategy method)</a>
 </li>
         <li><a href="angr.html#angr.keyed_region.KeyedRegion.merge">(angr.keyed_region.KeyedRegion method)</a>
 </li>
@@ -7947,11 +8023,9 @@
 </li>
       <li><a href="angr.html#angr.annocfg.AnnotatedCFG.merge_points">merge_points() (angr.annocfg.AnnotatedCFG method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.JobInfo.merged_jobs">merged_jobs() (angr.analyses.forward_analysis.JobInfo property)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.job_info.JobInfo.merged_jobs">merged_jobs() (angr.analyses.forward_analysis.job_info.JobInfo property)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.atoms.Parameter.meta">meta (angr.analyses.reaching_definitions.atoms.Parameter attribute)</a>
-</li>
-      <li><a href="angr.html#angr.analyses.reaching_definitions.undefined.Undefined.meta">meta() (angr.analyses.reaching_definitions.undefined.Undefined property)</a>
 </li>
       <li><a href="cle.html#cle.backends.elf.metaelf.MetaELF">MetaELF (class in cle.backends.elf.metaelf)</a>
 </li>
@@ -8196,8 +8270,6 @@
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_STM.name">(pyvex.lifting.gym.arm_spotter.Instruction_STM attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_WFI.name">(pyvex.lifting.gym.arm_spotter.Instruction_WFI attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tCPSID.name">(pyvex.lifting.gym.arm_spotter.Instruction_tCPSID attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tDMB.name">(pyvex.lifting.gym.arm_spotter.Instruction_tDMB attribute)</a>
@@ -8205,6 +8277,8 @@
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tMRS.name">(pyvex.lifting.gym.arm_spotter.Instruction_tMRS attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_tMSR.name">(pyvex.lifting.gym.arm_spotter.Instruction_tMSR attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.Instruction_WFI.name">(pyvex.lifting.gym.arm_spotter.Instruction_WFI attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.Instruction_ENDBR.name">(pyvex.lifting.gym.x86_spotter.Instruction_ENDBR attribute)</a>
 </li>
@@ -8293,7 +8367,7 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.cfg.segment_list.SegmentList.next_free_pos">next_free_pos() (angr.analyses.cfg.segment_list.SegmentList method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.next_node">next_node() (angr.analyses.forward_analysis.GraphVisitor method)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.next_node">next_node() (angr.analyses.forward_analysis.visitors.graph.GraphVisitor method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.segment_list.SegmentList.next_pos_with_sort_not_in">next_pos_with_sort_not_in() (angr.analyses.cfg.segment_list.SegmentList method)</a>
 </li>
@@ -8318,7 +8392,7 @@
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.nodes">nodes() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.nodes">(angr.analyses.forward_analysis.GraphVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.nodes">(angr.analyses.forward_analysis.visitors.graph.GraphVisitor method)</a>
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_model.CFGModel.nodes">(angr.knowledge_plugins.cfg.cfg_model.CFGModel method)</a>
 </li>
@@ -8328,7 +8402,7 @@
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.nodes_iter">nodes_iter() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.nodes_iter">(angr.analyses.forward_analysis.GraphVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.nodes_iter">(angr.analyses.forward_analysis.visitors.graph.GraphVisitor method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.simos.windows.SecurityCookieInit.NONE">NONE (angr.simos.windows.SecurityCookieInit attribute)</a>
@@ -8597,10 +8671,10 @@
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_sgt">op_cmp_sgt() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
-      <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_sle">op_cmp_sle() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_sle">op_cmp_sle() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
+</li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_slt">op_cmp_slt() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_uge">op_cmp_uge() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
@@ -8718,9 +8792,9 @@
       <ul>
         <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.opt_level">(pyvex.lifting.gym.ARMSpotter attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.opt_level">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.opt_level">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.opt_level">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.opt_level">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
@@ -8737,8 +8811,6 @@
         <li><a href="angr.html#angr.sim_state_options.SimStateOptions.OPTIONS">(angr.sim_state_options.SimStateOptions attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.sim_state.SimState.options">options() (angr.sim_state.SimState property)</a>
-</li>
       <li><a href="claripy.html#claripy.backends.backend_vsa.BackendVSA.Or">Or() (claripy.backends.backend_vsa.BackendVSA static method)</a>
 
       <ul>
@@ -8823,6 +8895,8 @@
         <li><a href="angr.html#angr.serializable.Serializable.parse_from_cmessage">(angr.serializable.Serializable class method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.knowledge_plugins.functions.function_parser.FunctionParser.parse_from_cmsg">parse_from_cmsg() (angr.knowledge_plugins.functions.function_parser.FunctionParser static method)</a>
+</li>
       <li><a href="cle.html#cle.backends.macho.macho.MachO.parse_lc_str">parse_lc_str() (cle.backends.macho.macho.MachO method)</a>
 </li>
       <li><a href="cle.html#cle.backends.ihex.Hex.parse_record">parse_record() (cle.backends.ihex.Hex static method)</a>
@@ -8842,8 +8916,6 @@
       <li><a href="cle.html#cle.patched_stream.PatchedStream">PatchedStream (class in cle.patched_stream)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.patches.PatchManager">PatchManager (class in angr.knowledge_plugins.patches)</a>
-</li>
-      <li><a href="angr.html#angr.annocfg.AnnotatedCFG.path_priority">path_priority() (angr.annocfg.AnnotatedCFG method)</a>
 </li>
       <li><a href="angr.html#angr.errors.PathUnreachableError">PathUnreachableError</a>
 </li>
@@ -8989,16 +9061,16 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.preconstrainer.SimStatePreconstrainer.preconstrain_flag_page">preconstrain_flag_page() (angr.state_plugins.preconstrainer.SimStatePreconstrainer method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.CallGraphVisitor.predecessors">predecessors() (angr.analyses.forward_analysis.CallGraphVisitor method)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor.predecessors">predecessors() (angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.forward_analysis.FunctionGraphVisitor.predecessors">(angr.analyses.forward_analysis.FunctionGraphVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor.predecessors">(angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor method)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.predecessors">(angr.analyses.forward_analysis.GraphVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.predecessors">(angr.analyses.forward_analysis.visitors.graph.GraphVisitor method)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.forward_analysis.LoopVisitor.predecessors">(angr.analyses.forward_analysis.LoopVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.loop.LoopVisitor.predecessors">(angr.analyses.forward_analysis.visitors.loop.LoopVisitor method)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.forward_analysis.SingleNodeGraphVisitor.predecessors">(angr.analyses.forward_analysis.SingleNodeGraphVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.predecessors">(angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor method)</a>
 </li>
         <li><a href="angr.html#angr.codenode.CodeNode.predecessors">(angr.codenode.CodeNode method)</a>
 </li>
@@ -9493,7 +9565,7 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.reachable">reachable() (angr.state_plugins.history.SimStateHistory method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.reached_fixedpoint">reached_fixedpoint() (angr.analyses.forward_analysis.GraphVisitor method)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.reached_fixedpoint">reached_fixedpoint() (angr.analyses.forward_analysis.visitors.graph.GraphVisitor method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionAnalysis">ReachingDefinitionAnalysis (class in angr.analyses.reaching_definitions.reaching_definitions)</a>
 </li>
@@ -9581,9 +9653,11 @@
         <li><a href="cle.html#cle.backends.tls.TLSObject.rebase">(cle.backends.tls.TLSObject method)</a>
 </li>
       </ul></li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.rebased_addr">rebased_addr() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.BindingSymbol.rebased_addr">rebased_addr() (cle.backends.macho.symbol.BindingSymbol property)</a>
 
       <ul>
+        <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.rebased_addr">(cle.backends.macho.symbol.SymbolTableSymbol property)</a>
+</li>
         <li><a href="cle.html#cle.backends.relocation.Relocation.rebased_addr">(cle.backends.relocation.Relocation property)</a>
 </li>
         <li><a href="cle.html#cle.backends.symbol.Symbol.rebased_addr">(cle.backends.symbol.Symbol property)</a>
@@ -9613,9 +9687,9 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.reference_at">reference_at() (angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal method)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.reference_type">reference_type() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.reference_type">reference_type() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.referenced_symbol_index">referenced_symbol_index() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.referenced_symbol_index">referenced_symbol_index() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_model.CFGModel.references">references (angr.knowledge_plugins.cfg.cfg_model.CFGModel attribute)</a>
 </li>
@@ -9758,9 +9832,9 @@
       <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.register_object">register_object() (cle.backends.tls.elf_tls.ELFTLSObject method)</a>
 
       <ul>
-        <li><a href="cle.html#cle.backends.tls.TLSObject.register_object">(cle.backends.tls.TLSObject method)</a>
-</li>
         <li><a href="cle.html#cle.backends.tls.pe_tls.PETLSObject.register_object">(cle.backends.tls.pe_tls.PETLSObject method)</a>
+</li>
+        <li><a href="cle.html#cle.backends.tls.TLSObject.register_object">(cle.backends.tls.TLSObject method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.sim_state_options.SimStateOptions.register_option">register_option() (angr.sim_state_options.SimStateOptions class method)</a>
@@ -9831,10 +9905,10 @@
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.Instruction.reload_format">reload_format() (angr.analyses.disassembly.Instruction method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.reload_solver">reload_solver() (angr.state_plugins.solver.SimSolver method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="archinfo.html#archinfo.arch.Arch.reloc_b_a">reloc_b_a (archinfo.arch.Arch attribute)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch.Arch.reloc_copy">reloc_copy (archinfo.arch.Arch attribute)</a>
@@ -9902,9 +9976,9 @@
       <li><a href="angr.html#angr.analyses.reassembler.Reassembler.relocations">relocations() (angr.analyses.reassembler.Reassembler property)</a>
 
       <ul>
-        <li><a href="cle.html#cle.backends.externs.simdata.SimData.relocations">(cle.backends.externs.simdata.SimData method)</a>
-</li>
         <li><a href="cle.html#cle.backends.externs.simdata.common.PointTo.relocations">(cle.backends.externs.simdata.common.PointTo method)</a>
+</li>
+        <li><a href="cle.html#cle.backends.externs.simdata.SimData.relocations">(cle.backends.externs.simdata.SimData method)</a>
 </li>
       </ul></li>
       <li><a href="cle.html#cle.backends.elf.relocation.generic.RelocTruncate32Mixin">RelocTruncate32Mixin (class in cle.backends.elf.relocation.generic)</a>
@@ -10023,7 +10097,7 @@
       </ul></li>
       <li><a href="angr.html#angr.sim_manager.ErrorRecord.reraise">reraise() (angr.sim_manager.ErrorRecord method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.reset">reset() (angr.analyses.forward_analysis.GraphVisitor method)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.reset">reset() (angr.analyses.forward_analysis.visitors.graph.GraphVisitor method)</a>
 
       <ul>
         <li><a href="angr.html#angr.state_plugins.unicorn_engine.Uniwrapper.reset">(angr.state_plugins.unicorn_engine.Uniwrapper method)</a>
@@ -10052,7 +10126,9 @@
 </li>
         <li><a href="claripy.html#claripy.backends.backend_z3_parallel.BackendZ3Parallel.resolve">(claripy.backends.backend_z3_parallel.BackendZ3Parallel method)</a>
 </li>
-        <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.resolve">(cle.backends.macho.symbol.MachOSymbol method)</a>
+        <li><a href="cle.html#cle.backends.macho.symbol.BindingSymbol.resolve">(cle.backends.macho.symbol.BindingSymbol method)</a>
+</li>
+        <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.resolve">(cle.backends.macho.symbol.SymbolTableSymbol method)</a>
 </li>
         <li><a href="cle.html#cle.backends.relocation.Relocation.resolve">(cle.backends.relocation.Relocation method)</a>
 </li>
@@ -10106,11 +10182,11 @@
 </li>
         <li><a href="pyvex.html#pyvex.expr.Const.result_type">(pyvex.expr.Const method)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.expr.GSPTR.result_type">(pyvex.expr.GSPTR method)</a>
-</li>
         <li><a href="pyvex.html#pyvex.expr.Get.result_type">(pyvex.expr.Get method)</a>
 </li>
         <li><a href="pyvex.html#pyvex.expr.GetI.result_type">(pyvex.expr.GetI method)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.expr.GSPTR.result_type">(pyvex.expr.GSPTR method)</a>
 </li>
         <li><a href="pyvex.html#pyvex.expr.IRExpr.result_type">(pyvex.expr.IRExpr method)</a>
 </li>
@@ -10130,6 +10206,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_emulated.CFGEmulated.resume">resume() (angr.analyses.cfg.cfg_emulated.CFGEmulated method)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.symbolizer.SimSymbolizer.resymbolize">resymbolize() (angr.state_plugins.symbolizer.SimSymbolizer method)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootMethodDescriptor.ret">ret (archinfo.arch_soot.SootMethodDescriptor attribute)</a>
 </li>
@@ -10349,7 +10427,9 @@
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.reversed_processor">reversed_processor() (in module claripy.vsa.strided_interval)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.revisit">revisit() (angr.analyses.forward_analysis.GraphVisitor method)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.revisit_node">revisit_node() (angr.analyses.forward_analysis.visitors.graph.GraphVisitor method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.revisit_successors">revisit_successors() (angr.analyses.forward_analysis.visitors.graph.GraphVisitor method)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.RM">RM (class in claripy.fp)</a>
 </li>
@@ -10455,7 +10535,7 @@
 </li>
       <li><a href="angr.html#angr.analyses.reassembler.Reassembler.section_alignment">section_alignment() (angr.analyses.reassembler.Reassembler method)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.section_name">section_name() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.section_name">section_name() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="cle.html#cle.backends.Backend.sections">sections() (cle.backends.Backend property)</a>
 </li>
@@ -10491,7 +10571,7 @@
         <li><a href="cle.html#cle.backends.region.Segment">(class in cle.backends.region)</a>
 </li>
       </ul></li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.segment_name">segment_name() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.segment_name">segment_name() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.memory_data.MemoryDataSort.SegmentBoundary">SegmentBoundary (angr.knowledge_plugins.cfg.memory_data.MemoryDataSort attribute)</a>
 </li>
@@ -10515,8 +10595,12 @@
 </li>
       <li><a href="angr.html#angr.serializable.Serializable">Serializable (class in angr.serializable)</a>
 </li>
-      <li><a href="angr.html#angr.serializable.Serializable.serialize">serialize() (angr.serializable.Serializable method)</a>
+      <li><a href="angr.html#angr.knowledge_plugins.functions.function_parser.FunctionParser.serialize">serialize() (angr.knowledge_plugins.functions.function_parser.FunctionParser static method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.serializable.Serializable.serialize">(angr.serializable.Serializable method)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.block.Block.serialize_to_cmessage">serialize_to_cmessage() (angr.block.Block method)</a>
 
       <ul>
@@ -10601,8 +10685,6 @@
         <li><a href="angr.html#angr.keyed_region.RegionObject.set_object">(angr.keyed_region.RegionObject method)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.annocfg.AnnotatedCFG.set_path_merge_points">set_path_merge_points() (angr.annocfg.AnnotatedCFG method)</a>
-</li>
       <li><a href="angr.html#angr.state_plugins.heap.heap_ptmalloc.PTChunk.set_prev_freeness">set_prev_freeness() (angr.state_plugins.heap.heap_ptmalloc.PTChunk method)</a>
 </li>
       <li><a href="angr.html#angr.procedures.definitions.SimLibrary.set_prototype">set_prototype() (angr.procedures.definitions.SimLibrary method)</a>
@@ -10689,6 +10771,10 @@
         <li><a href="angr.html#angr.state_plugins.plugin.SimStatePlugin.set_strongref_state">(angr.state_plugins.plugin.SimStatePlugin method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.state_plugins.symbolizer.SimSymbolizer.set_symbolization_for_all_pages">set_symbolization_for_all_pages() (angr.state_plugins.symbolizer.SimSymbolizer method)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.symbolizer.SimSymbolizer.set_symbolized_target_range">set_symbolized_target_range() (angr.state_plugins.symbolizer.SimSymbolizer method)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn.set_tracking">set_tracking() (angr.state_plugins.unicorn_engine.Unicorn method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.scratch.SimStateScratch.set_tyenv">set_tyenv() (angr.state_plugins.scratch.SimStateScratch method)</a>
@@ -10714,11 +10800,11 @@
       <li><a href="angr.html#angr.exploration_techniques.cacher.Cacher.setup">setup() (angr.exploration_techniques.cacher.Cacher method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.setup">(angr.exploration_techniques.ExplorationTechnique method)</a>
-</li>
         <li><a href="angr.html#angr.exploration_techniques.dfs.DFS.setup">(angr.exploration_techniques.dfs.DFS method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.driller_core.DrillerCore.setup">(angr.exploration_techniques.driller_core.DrillerCore method)</a>
+</li>
+        <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.setup">(angr.exploration_techniques.ExplorationTechnique method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.explorer.Explorer.setup">(angr.exploration_techniques.explorer.Explorer method)</a>
 </li>
@@ -11283,6 +11369,8 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.symbolic_memory.SimSymbolicMemory">SimSymbolicMemory (class in angr.state_plugins.symbolic_memory)</a>
 </li>
+      <li><a href="angr.html#angr.state_plugins.symbolizer.SimSymbolizer">SimSymbolizer (class in angr.state_plugins.symbolizer)</a>
+</li>
       <li><a href="angr.html#angr.procedures.definitions.SimSyscallLibrary">SimSyscallLibrary (class in angr.procedures.definitions)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix">SimSystemPosix (class in angr.state_plugins.posix)</a>
@@ -11373,7 +11461,7 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.single_valued">single_valued() (angr.state_plugins.solver.SimSolver method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.SingleNodeGraphVisitor">SingleNodeGraphVisitor (class in angr.analyses.forward_analysis)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor">SingleNodeGraphVisitor (class in angr.analyses.forward_analysis.visitors.single_node_graph)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.base.Base.singlevalued">singlevalued() (claripy.ast.base.Base property)</a>
 
@@ -11504,9 +11592,9 @@
       <ul>
         <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.skip_stmts">(pyvex.lifting.gym.ARMSpotter attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.skip_stmts">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.skip_stmts">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.skip_stmts">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.skip_stmts">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
@@ -11600,11 +11688,11 @@
       <li><a href="claripy.html#claripy.backends.Backend.solver">solver() (claripy.backends.Backend method)</a>
 
       <ul>
-        <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend.solver">(claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend method)</a>
-</li>
         <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.abc_popen.SolverBackendABC.solver">(claripy.backends.backend_smtlib_solvers.abc_popen.SolverBackendABC method)</a>
 </li>
         <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.cvc4_popen.SolverBackendCVC4.solver">(claripy.backends.backend_smtlib_solvers.cvc4_popen.SolverBackendCVC4 method)</a>
+</li>
+        <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend.solver">(claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend method)</a>
 </li>
         <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.z3_popen.SolverBackendZ3.solver">(claripy.backends.backend_smtlib_solvers.z3_popen.SolverBackendZ3 method)</a>
 </li>
@@ -11695,16 +11783,16 @@
       </ul></li>
       <li><a href="claripy.html#claripy.ast.fp.FP.sort">sort() (claripy.ast.fp.FP property)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.CallGraphVisitor.sort_nodes">sort_nodes() (angr.analyses.forward_analysis.CallGraphVisitor method)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor.sort_nodes">sort_nodes() (angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.forward_analysis.FunctionGraphVisitor.sort_nodes">(angr.analyses.forward_analysis.FunctionGraphVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor.sort_nodes">(angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor method)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.sort_nodes">(angr.analyses.forward_analysis.GraphVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.sort_nodes">(angr.analyses.forward_analysis.visitors.graph.GraphVisitor method)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.forward_analysis.LoopVisitor.sort_nodes">(angr.analyses.forward_analysis.LoopVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.loop.LoopVisitor.sort_nodes">(angr.analyses.forward_analysis.visitors.loop.LoopVisitor method)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.forward_analysis.SingleNodeGraphVisitor.sort_nodes">(angr.analyses.forward_analysis.SingleNodeGraphVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.sort_nodes">(angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery_fast.ProcessorState.sp_adjusted">sp_adjusted (angr.analyses.variable_recovery.variable_recovery_fast.ProcessorState attribute)</a>
@@ -11917,18 +12005,6 @@
         <li><a href="angr.html#angr.knowledge_plugins.functions.soot_function.SootFunction.startpoint">(angr.knowledge_plugins.functions.soot_function.SootFunction attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.CallGraphVisitor.startpoints">startpoints() (angr.analyses.forward_analysis.CallGraphVisitor method)</a>
-
-      <ul>
-        <li><a href="angr.html#angr.analyses.forward_analysis.FunctionGraphVisitor.startpoints">(angr.analyses.forward_analysis.FunctionGraphVisitor method)</a>
-</li>
-        <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.startpoints">(angr.analyses.forward_analysis.GraphVisitor method)</a>
-</li>
-        <li><a href="angr.html#angr.analyses.forward_analysis.LoopVisitor.startpoints">(angr.analyses.forward_analysis.LoopVisitor method)</a>
-</li>
-        <li><a href="angr.html#angr.analyses.forward_analysis.SingleNodeGraphVisitor.startpoints">(angr.analyses.forward_analysis.SingleNodeGraphVisitor method)</a>
-</li>
-      </ul></li>
       <li><a href="angr.html#angr.sim_manager.SimulationManager.stash">stash() (angr.sim_manager.SimulationManager method)</a>
 </li>
       <li><a href="angr.html#angr.sim_manager.SimulationManager.stashes">stashes() (angr.sim_manager.SimulationManager property)</a>
@@ -12002,11 +12078,11 @@
       <li><a href="cle.html#cle.backends.externs.simdata.common.PointTo.static_size">static_size() (cle.backends.externs.simdata.common.PointTo class method)</a>
 
       <ul>
-        <li><a href="cle.html#cle.backends.externs.simdata.SimData.static_size">(cle.backends.externs.simdata.SimData class method)</a>
-</li>
         <li><a href="cle.html#cle.backends.externs.simdata.common.StaticData.static_size">(cle.backends.externs.simdata.common.StaticData class method)</a>
 </li>
         <li><a href="cle.html#cle.backends.externs.simdata.common.StaticWord.static_size">(cle.backends.externs.simdata.common.StaticWord class method)</a>
+</li>
+        <li><a href="cle.html#cle.backends.externs.simdata.SimData.static_size">(cle.backends.externs.simdata.SimData class method)</a>
 </li>
       </ul></li>
       <li><a href="cle.html#cle.backends.externs.simdata.common.StaticData">StaticData (class in cle.backends.externs.simdata.common)</a>
@@ -12018,13 +12094,13 @@
       <li><a href="angr.html#angr.exploration_techniques.cacher.Cacher.step">step() (angr.exploration_techniques.cacher.Cacher method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.step">(angr.exploration_techniques.ExplorationTechnique method)</a>
-</li>
         <li><a href="angr.html#angr.exploration_techniques.dfs.DFS.step">(angr.exploration_techniques.dfs.DFS method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.director.Director.step">(angr.exploration_techniques.director.Director method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.driller_core.DrillerCore.step">(angr.exploration_techniques.driller_core.DrillerCore method)</a>
+</li>
+        <li><a href="angr.html#angr.exploration_techniques.ExplorationTechnique.step">(angr.exploration_techniques.ExplorationTechnique method)</a>
 </li>
         <li><a href="angr.html#angr.exploration_techniques.explorer.Explorer.step">(angr.exploration_techniques.explorer.Explorer method)</a>
 </li>
@@ -12250,9 +12326,9 @@
       <ul>
         <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.strict_block_end">(pyvex.lifting.gym.ARMSpotter attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.strict_block_end">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.strict_block_end">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.strict_block_end">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.strict_block_end">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
@@ -12419,16 +12495,16 @@
       </ul></li>
       <li><a href="angr.html#angr.annocfg.AnnotatedCFG.successor_func">successor_func() (angr.annocfg.AnnotatedCFG method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.CallGraphVisitor.successors">successors() (angr.analyses.forward_analysis.CallGraphVisitor method)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor.successors">successors() (angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.forward_analysis.FunctionGraphVisitor.successors">(angr.analyses.forward_analysis.FunctionGraphVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor.successors">(angr.analyses.forward_analysis.visitors.function_graph.FunctionGraphVisitor method)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.forward_analysis.GraphVisitor.successors">(angr.analyses.forward_analysis.GraphVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.graph.GraphVisitor.successors">(angr.analyses.forward_analysis.visitors.graph.GraphVisitor method)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.forward_analysis.LoopVisitor.successors">(angr.analyses.forward_analysis.LoopVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.loop.LoopVisitor.successors">(angr.analyses.forward_analysis.visitors.loop.LoopVisitor method)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.forward_analysis.SingleNodeGraphVisitor.successors">(angr.analyses.forward_analysis.SingleNodeGraphVisitor method)</a>
+        <li><a href="angr.html#angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.successors">(angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor method)</a>
 </li>
         <li><a href="angr.html#angr.codenode.CodeNode.successors">(angr.codenode.CodeNode method)</a>
 </li>
@@ -12459,7 +12535,7 @@
       </ul></li>
       <li><a href="claripy.html#claripy.ast.base.Base.swap_args">swap_args() (claripy.ast.base.Base method)</a>
 </li>
-      <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.sym_type">sym_type() (cle.backends.macho.symbol.MachOSymbol property)</a>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.sym_type">sym_type() (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
       <li><a href="angr.html#angr.exploration_techniques.symbion.Symbion">Symbion (class in angr.exploration_techniques.symbion)</a>
 </li>
@@ -12510,6 +12586,8 @@
       <li><a href="cle.html#cle.backends.elf.elf.ELF.symbols_by_name">symbols_by_name() (cle.backends.elf.elf.ELF property)</a>
 </li>
       <li><a href="cle.html#cle.backends.symbol.SymbolSubType">SymbolSubType (class in cle.backends.symbol)</a>
+</li>
+      <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol">SymbolTableSymbol (class in cle.backends.macho.symbol)</a>
 </li>
       <li><a href="cle.html#cle.backends.symbol.SymbolType">SymbolType (class in cle.backends.symbol)</a>
 </li>
@@ -12652,11 +12730,11 @@
 </li>
         <li><a href="pyvex.html#pyvex.expr.Const.tag">(pyvex.expr.Const attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.expr.GSPTR.tag">(pyvex.expr.GSPTR attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.expr.Get.tag">(pyvex.expr.Get attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.expr.GetI.tag">(pyvex.expr.GetI attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.expr.GSPTR.tag">(pyvex.expr.GSPTR attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.expr.IRExpr.tag">(pyvex.expr.IRExpr attribute)</a>
 </li>
@@ -12722,11 +12800,11 @@
 </li>
         <li><a href="pyvex.html#pyvex.expr.Const.tag_int">(pyvex.expr.Const attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.expr.GSPTR.tag_int">(pyvex.expr.GSPTR attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.expr.Get.tag_int">(pyvex.expr.Get attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.expr.GetI.tag_int">(pyvex.expr.GetI attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.expr.GSPTR.tag_int">(pyvex.expr.GSPTR attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.expr.IRExpr.tag_int">(pyvex.expr.IRExpr attribute)</a>
 </li>
@@ -12956,9 +13034,9 @@
       <ul>
         <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.traceflags">(pyvex.lifting.gym.ARMSpotter attribute)</a>
 </li>
-        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.traceflags">(pyvex.lifting.gym.X86Spotter attribute)</a>
-</li>
         <li><a href="pyvex.html#pyvex.lifting.gym.x86_spotter.X86Spotter.traceflags">(pyvex.lifting.gym.x86_spotter.X86Spotter attribute)</a>
+</li>
+        <li><a href="pyvex.html#pyvex.lifting.gym.X86Spotter.traceflags">(pyvex.lifting.gym.X86Spotter attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.traceflags">(pyvex.lifting.lifter.Lifter attribute)</a>
 </li>
@@ -13062,11 +13140,11 @@
       <li><a href="cle.html#cle.backends.externs.simdata.common.PointTo.type">type (cle.backends.externs.simdata.common.PointTo attribute)</a>
 
       <ul>
-        <li><a href="cle.html#cle.backends.externs.simdata.SimData.type">(cle.backends.externs.simdata.SimData attribute)</a>
-</li>
         <li><a href="cle.html#cle.backends.externs.simdata.common.StaticData.type">(cle.backends.externs.simdata.common.StaticData attribute)</a>
 </li>
         <li><a href="cle.html#cle.backends.externs.simdata.common.StaticWord.type">(cle.backends.externs.simdata.common.StaticWord attribute)</a>
+</li>
+        <li><a href="cle.html#cle.backends.externs.simdata.SimData.type">(cle.backends.externs.simdata.SimData attribute)</a>
 </li>
         <li><a href="pyvex.html#pyvex.const.F32.type">(pyvex.const.F32 attribute)</a>
 </li>
@@ -13108,8 +13186,6 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.atoms.Parameter.type_">type_ (angr.analyses.reaching_definitions.atoms.Parameter attribute)</a>
-</li>
-      <li><a href="angr.html#angr.analyses.reaching_definitions.undefined.Undefined.type_">type_() (angr.analyses.reaching_definitions.undefined.Undefined property)</a>
 </li>
       <li><a href="cle.html#cle.backends.symbol.SymbolType.TYPE_FUNCTION">TYPE_FUNCTION (cle.backends.symbol.SymbolType attribute)</a>
 </li>
@@ -13501,8 +13577,6 @@
         <li><a href="angr.html#angr.misc.plugins.PluginHub.use_plugin_preset">(angr.misc.plugins.PluginHub method)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.project.Project.use_sim_procedures">use_sim_procedures() (angr.project.Project property)</a>
-</li>
       <li><a href="angr.html#angr.sim_manager.SimulationManager.use_technique">use_technique() (angr.sim_manager.SimulationManager method)</a>
 </li>
       <li><a href="cle.html#cle.backends.tls.elf_tls.ELFTLSObject.user_thread_pointer">user_thread_pointer() (cle.backends.tls.elf_tls.ELFTLSObject property)</a>
@@ -13586,8 +13660,6 @@
 </li>
         <li><a href="cle.html#cle.backends.elf.relocation.generic.GenericTLSDoffsetReloc.value">(cle.backends.elf.relocation.generic.GenericTLSDoffsetReloc property)</a>
 </li>
-        <li><a href="cle.html#cle.backends.externs.simdata.SimData.value">(cle.backends.externs.simdata.SimData method)</a>
-</li>
         <li><a href="cle.html#cle.backends.externs.simdata.common.PointTo.value">(cle.backends.externs.simdata.common.PointTo method)</a>
 </li>
         <li><a href="cle.html#cle.backends.externs.simdata.common.SimDataSimpleRelocation.value">(cle.backends.externs.simdata.common.SimDataSimpleRelocation property)</a>
@@ -13596,7 +13668,9 @@
 </li>
         <li><a href="cle.html#cle.backends.externs.simdata.common.StaticWord.value">(cle.backends.externs.simdata.common.StaticWord method)</a>
 </li>
-        <li><a href="cle.html#cle.backends.macho.symbol.MachOSymbol.value">(cle.backends.macho.symbol.MachOSymbol property)</a>
+        <li><a href="cle.html#cle.backends.externs.simdata.SimData.value">(cle.backends.externs.simdata.SimData method)</a>
+</li>
+        <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.value">(cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
         <li><a href="cle.html#cle.backends.pe.relocation.generic.IMAGE_REL_BASED_DIR64.value">(cle.backends.pe.relocation.generic.IMAGE_REL_BASED_DIR64 property)</a>
 </li>
@@ -13887,7 +13961,7 @@
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.syntax_wrapper.VexValue.widen_unsigned">widen_unsigned() (pyvex.lifting.util.syntax_wrapper.VexValue method)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.forward_analysis.JobInfo.widened_jobs">widened_jobs() (angr.analyses.forward_analysis.JobInfo property)</a>
+      <li><a href="angr.html#angr.analyses.forward_analysis.job_info.JobInfo.widened_jobs">widened_jobs() (angr.analyses.forward_analysis.job_info.JobInfo property)</a>
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.DisassemblyPiece.width">width() (angr.analyses.disassembly.DisassemblyPiece method)</a>
 </li>
@@ -13999,6 +14073,8 @@
 <h2 id="Z">Z</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="claripy.html#claripy.backends.backend_z3.z3_expr_to_smt2">z3_expr_to_smt2() (in module claripy.backends.backend_z3)</a>
+</li>
       <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.z3_popen.Z3Proxy">Z3Proxy (class in claripy.backends.backend_smtlib_solvers.z3_popen)</a>
 </li>
       <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.z3str_popen.Z3StrProxy">Z3StrProxy (class in claripy.backends.backend_smtlib_solvers.z3str_popen)</a>
