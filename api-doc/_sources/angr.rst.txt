@@ -124,17 +124,15 @@ Simulation Engines
 .. automodule:: angr.engines
 .. automodule:: angr.engines.engine
 .. automodule:: angr.engines.successors
-.. automodule:: angr.engines.hub
-.. automodule:: angr.engines.vex
-.. automodule:: angr.engines.vex.engine
 .. automodule:: angr.engines.procedure
 .. automodule:: angr.engines.hook
 .. automodule:: angr.engines.syscall
-.. automodule:: angr.engines.unicorn
 .. automodule:: angr.engines.failure
-.. automodule:: angr.engines.concrete
+.. automodule:: angr.engines.vex
 .. automodule:: angr.engines.soot
 .. automodule:: angr.engines.soot.engine
+.. automodule:: angr.engines.unicorn
+.. automodule:: angr.engines.concrete
 
 Simulation Logging
 ------------------
@@ -206,6 +204,7 @@ Analysis
 .. automodule:: angr.analyses
 .. automodule:: angr.analyses.analysis
 .. automodule:: angr.analyses.forward_analysis
+.. automodule:: angr.analyses.forward_analysis.forward_analysis
 .. automodule:: angr.analyses.forward_analysis.job_info
 .. automodule:: angr.analyses.forward_analysis.visitors
 .. automodule:: angr.analyses.forward_analysis.visitors.call_graph
@@ -249,6 +248,10 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes.optimization_pass
 .. automodule:: angr.analyses.decompiler.optimization_passes.stack_canary_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier
+.. automodule:: angr.analyses.decompiler.optimization_passes.div_simplifier
+.. automodule:: angr.analyses.decompiler.optimization_passes.multi_simplifier
+.. automodule:: angr.analyses.decompiler.optimization_passes.mod_simplifier
+.. automodule:: angr.analyses.decompiler.optimization_passes.engine_base
 .. automodule:: angr.analyses.decompiler.structured_codegen
 .. automodule:: angr.analyses.decompiler.region_identifier
 .. automodule:: angr.analyses.decompiler.region_simplifier
@@ -271,7 +274,8 @@ Analysis
 .. automodule:: angr.analyses.reaching_definitions.engine_vex
 .. automodule:: angr.analyses.reaching_definitions.live_definitions
 .. automodule:: angr.analyses.reaching_definitions.reaching_definitions
-.. automodule:: angr.analyses.reaching_definitions.def_use
+.. automodule:: angr.analyses.reaching_definitions.def_use_graph
+.. automodule:: angr.analyses.reaching_definitions.subject
 .. automodule:: angr.analyses.reaching_definitions
 .. automodule:: angr.analyses.reaching_definitions.dataset
 .. automodule:: angr.analyses.reaching_definitions.engine_ail
