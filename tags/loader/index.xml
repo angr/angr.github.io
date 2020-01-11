@@ -16,78 +16,64 @@
       <pubDate>Thu, 18 Jan 2018 19:41:02 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_3/</guid>
-      <description>
-
-&lt;p&gt;Now we&amp;rsquo;re going to focus on the first actual step in the process of analyzing a program: Figuring out what it even is, and loading it into our system&amp;rsquo;s memory somehow.&lt;/p&gt;
-
+      <description>&lt;p&gt;Now we&#39;re going to focus on the first actual step in the process of analyzing a program: Figuring out what it even is, and loading it into our system&#39;s memory somehow.&lt;/p&gt;
 &lt;h2 id=&#34;cle-cle-loads-everything&#34;&gt;CLE: CLE Loads Everything&lt;/h2&gt;
-
 &lt;p&gt;The angr suite uses &lt;code&gt;CLE&lt;/code&gt; to load binaries.
 It serves as a logical implementation of the Linux loader first and foremost, but supports other OSes and formats through a series of &amp;ldquo;backends&amp;rdquo;.&lt;/p&gt;
-
 &lt;p&gt;CLE is given, by angr, a path to the &amp;ldquo;main binary&amp;rdquo;.  This is the argument to angr.Project().
-It&amp;rsquo;s CLE&amp;rsquo;s job to open it, figure out what it is, figure out what architecture it is (unless the user overrides), figure out where in memory it&amp;rsquo;s supposed to go, and load any dependencies, such as shared libraries, that it may depend on.&lt;/p&gt;
-
+It&#39;s CLE&#39;s job to open it, figure out what it is, figure out what architecture it is (unless the user overrides), figure out where in memory it&#39;s supposed to go, and load any dependencies, such as shared libraries, that it may depend on.&lt;/p&gt;
 &lt;h2 id=&#34;shortcut-what-if-my-architecture-uses-elf-files&#34;&gt;Shortcut: What if my architecture uses ELF files?&lt;/h2&gt;
-
-&lt;p&gt;You don&amp;rsquo;t need to do anything; CLE will load your binary just fine.  However, you will need to tell angr which sorts of ELF files map to the correct SimOS environment model, described in section 6.  These are tracked by the content of their EI_OSABI field.&lt;/p&gt;
-
+&lt;p&gt;You don&#39;t need to do anything; CLE will load your binary just fine.  However, you will need to tell angr which sorts of ELF files map to the correct SimOS environment model, described in section 6.  These are tracked by the content of their EI_OSABI field.&lt;/p&gt;
 &lt;p&gt;If you have pyelftools installed, you can identify this simply like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-none&#34; data-lang=&#34;none&#34;&gt;% readelf.py -h switchLeds.elf
+&lt;pre&gt;&lt;code class=&#34;language-none&#34; data-lang=&#34;none&#34;&gt;% readelf.py -h switchLeds.elf
 ELF Header:
   Magic:   7f 45 4c 46 01 01 01 ff 00 00 00 00 00 00 00 00
   Class:                             ELF32
-  Data:                              2&amp;#39;s complement, little endian
+  Data:                              2&#39;s complement, little endian
   Version:                           1 (current)
   OS/ABI:                            Standalone App
-  ABI Version:                       0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To register this with our MSP430 environment model, we would simply do:&lt;/p&gt;
+  ABI Version:                       0
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To register this with our MSP430 environment model, we would simply do:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;angr.simos&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;register_simos&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;register_simos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Standalone App&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SimMSP430&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Were your binaries made by orcs instead? Read on.&lt;/p&gt;
-
+&lt;span class=&#34;n&#34;&gt;register_simos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;Standalone App&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SimMSP430&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Were your binaries made by orcs instead? Read on.&lt;/p&gt;
 &lt;h2 id=&#34;defining-the-bf-backend&#34;&gt;Defining the BF backend&lt;/h2&gt;
-
 &lt;p&gt;For BrainFuck, we really just need to read the program in, and put it in memory, rather straight-up, at address 0.
-You could get away with using the &lt;code&gt;Blob&lt;/code&gt; loader backend directly to do this, but we&amp;rsquo;re going to make it a little more explicit and demonstrative and define our own based on it.&lt;/p&gt;
-
+You could get away with using the &lt;code&gt;Blob&lt;/code&gt; loader backend directly to do this, but we&#39;re going to make it a little more explicit and demonstrative and define our own based on it.&lt;/p&gt;
 &lt;p&gt;First, the boring stuff:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;cle.backends&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Blob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;register_backend&lt;/span&gt;
 &lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;archinfo&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arch_from_id&lt;/span&gt;
 &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;re&lt;/span&gt;
 &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;logging&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;logging&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getLogger&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;cle.bf&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;__all__&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;BF&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;logging&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getLogger&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;cle.bf&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;__all__&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;BF&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
-&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;BF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Blob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;**&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kwargs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;BF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Blob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kwargs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
 
         &lt;span class=&#34;nb&#34;&gt;super&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-                &lt;span class=&#34;n&#34;&gt;arch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;arch_from_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;bf&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;arch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;arch_from_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;bf&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
                 &lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
                 &lt;span class=&#34;n&#34;&gt;entry_point&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-                &lt;span class=&#34;o&#34;&gt;**&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kwargs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Normally, to use the Blob loader, you must specify an entry point and arch &lt;em&gt;manually&lt;/em&gt;.
-We want to be able to just use angr.Project() on a BF program and have it work, so we subclass the Blob loader, and give it this information.&lt;/p&gt;
+                &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kwargs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Normally, to use the Blob loader, you must specify an entry point and arch &lt;em&gt;manually&lt;/em&gt;.
+We want to be able to just use angr.Project() on a BF program and have it work, so we subclass the Blob loader, and give it this information.&lt;/p&gt;
 &lt;p&gt;Next, we need to tell CLE when this loader will work on the given file, so that it can pick the right backend.
-Technically, by many definitions of BF, you can have other non-instruction characters in a file and still have it be valid.  For the ease of demonstration, let&amp;rsquo;s keep it simple and support the &amp;ldquo;non-compatible&amp;rdquo; BF syntax of only the instructions and newlines.&lt;/p&gt;
+Technically, by many definitions of BF, you can have other non-instruction characters in a file and still have it be valid.  For the ease of demonstration, let&#39;s keep it simple and support the &amp;ldquo;non-compatible&amp;rdquo; BF syntax of only the instructions and newlines.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    &lt;span class=&#34;nd&#34;&gt;@staticmethod&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;is_compatible&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;bf_re&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;re&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;compile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;[+\-&amp;lt;&amp;gt;.,\[\]&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;]+&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;is_compatible&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;bf_re&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;re&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;compile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;[+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;-&amp;lt;&amp;gt;.,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;]+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;stream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;seek&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;stuff&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mh&#34;&gt;0x1000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bf_re&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stuff&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bf_re&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stuff&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
             &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;True&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;False&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Don&amp;rsquo;t forget to seek the stream to 0!! Some other &lt;code&gt;is_compatible&lt;/code&gt;, or the rest of CLE, is going to use it later.  As they used to say when I was a kid, &amp;ldquo;Be kind, rewind&amp;rdquo; :)&lt;/p&gt;
-
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;False&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Don&#39;t forget to seek the stream to 0!! Some other &lt;code&gt;is_compatible&lt;/code&gt;, or the rest of CLE, is going to use it later.  As they used to say when I was a kid, &amp;ldquo;Be kind, rewind&amp;rdquo; :)&lt;/p&gt;
 &lt;p&gt;Last but not least, we need to tell CLE about our backend.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;n&#34;&gt;register_backend&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;bf&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That&amp;rsquo;s it?? That&amp;rsquo;s it.&lt;/p&gt;
-
-&lt;p&gt;If you want to see a more complex, but not too-complex example on something a bit less contrived, check out CLE&amp;rsquo;s CGC backend.  CGC binaries are deliberately simplified ELF-like files, that were designed to make analysis easy, so they make a nice template for crazier formats.&lt;/p&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;n&#34;&gt;register_backend&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;bf&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That&#39;s it?? That&#39;s it.&lt;/p&gt;
+&lt;p&gt;If you want to see a more complex, but not too-complex example on something a bit less contrived, check out CLE&#39;s CGC backend.  CGC binaries are deliberately simplified ELF-like files, that were designed to make analysis easy, so they make a nice template for crazier formats.&lt;/p&gt;
 &lt;p&gt;Next time, we get to talk about lifters! Get that protein powder ready.&lt;/p&gt;
 </description>
     </item>

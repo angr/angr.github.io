@@ -15,18 +15,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://angr.github.io/invite/</guid>
-      <description>&lt;p&gt;&lt;h2&gt;Join our Slack!&lt;/h2&gt;
-&lt;p&gt;angr does most of its communication through a slack channel: &lt;a href=&#34;https://angr.slack.com&#34;&gt;angr.slack.com&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;To get an slack invite, submit this form:&lt;/p&gt;
-&lt;form method=POST action=&#34;https://maker.ifttt.com/trigger/angr_slack_invite/with/key/c38ZfBEsChSCJjfkniPW2G&#34;&gt;
-  &lt;div&gt;
-    Email address: &lt;input name=&#34;value1&#34;&gt;&lt;br&gt;
-    Affiliation (university, company, country, anything!): &lt;input name=&#34;value2&#34;&gt;&lt;br&gt;
-    How are you planning on using angr? &lt;input name=&#34;value3&#34;&gt;&lt;br&gt;
-    &lt;input type=submit&gt;
-  &lt;/div&gt;
-&lt;/form&gt;
-&lt;br&gt;&lt;/p&gt;
+      <description>&lt;!-- raw HTML omitted --&gt;
 </description>
     </item>
     
