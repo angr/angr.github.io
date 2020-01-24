@@ -103,75 +103,107 @@
 
 
 <section class="post-content">
+
+
 <p>Since this is a tutorial about extending the core parts of angr, we should start by focusing on how to extend the core-est of core parts: the architecture support!
-Pretty much every piece of angr's suite involves, in some way, specific information about the architecture of the program you're analyzing.  Dealing with all this low-level architecture stuff is part of what makes binaries a pain in the rear to analyze, but angr abstracts most of it away for you in the <code>archinfo</code> class, which is used by everything else to make the code flexible and platform-independent!</p>
-<p>Before we can talk about how to add a new architecture, let's talk about our target:</p>
+Pretty much every piece of angr&rsquo;s suite involves, in some way, specific information about the architecture of the program you&rsquo;re analyzing.  Dealing with all this low-level architecture stuff is part of what makes binaries a pain in the rear to analyze, but angr abstracts most of it away for you in the <code>archinfo</code> class, which is used by everything else to make the code flexible and platform-independent!</p>
+
+<p>Before we can talk about how to add a new architecture, let&rsquo;s talk about our target:</p>
+
 <h2 id="our-arch-brainfuck">Our Arch: BrainFuck.</h2>
-<p>We're going to implement BrainFuck in angr, because it's one of the simplest architectures that exists, but yet is far enough from the &ldquo;real&rdquo; architectures angr already supports to show off its flexibility.</p>
+
+<p>We&rsquo;re going to implement BrainFuck in angr, because it&rsquo;s one of the simplest architectures that exists, but yet is far enough from the &ldquo;real&rdquo; architectures angr already supports to show off its flexibility.</p>
+
 <p>BrainFuck is an esoteric programming language created by Urban Muller to be simple in concept, but really painful to actually use.</p>
-<p>BrainFuck implements a Turing machine-like abstraction, in which a infinite(ish) tape of symbols contains the program, and another tape of &ldquo;cells&rdquo;, holds the program's state (memory).
+
+<p>BrainFuck implements a Turing machine-like abstraction, in which a infinite(ish) tape of symbols contains the program, and another tape of &ldquo;cells&rdquo;, holds the program&rsquo;s state (memory).
 Each cell is an unsigned byte, and the cell being referred to by instructions is chosen by the current value of a &ldquo;pointer&rdquo;.
-BrainFuck's instruction pointer starts at 0, and the program ends when it moves past the last symbols.
+BrainFuck&rsquo;s instruction pointer starts at 0, and the program ends when it moves past the last symbols.
 The data pointer starts at cell 0.</p>
+
 <p>BrainFuck has only 8 instructions:</p>
+
 <p><code>&gt;</code> - Move the pointer to the right (increment)</p>
+
 <p><code>&lt;</code> - Move the pointer to the left (decrement)</p>
+
 <p><code>+</code> - Increment the cell under the pointer</p>
+
 <p><code>-</code> - Decrement the cell under the pointer</p>
+
 <p><code>[</code> - If the value at the pointer is zero, skip forward to the matching <code>]</code></p>
+
 <p><code>]</code> - If the value at the pointer is non-zero, skip backward to the matching <code>[</code></p>
+
 <p><code>.</code> - Output (print to stdout) the cell at the pointer</p>
+
 <p><code>,</code> - Input (get character at stdin) to the cell at ptr</p>
+
 <h2 id="defining-our-architecture">Defining our architecture</h2>
+
 <p>From the description above, we notice a few things:</p>
+
 <ul>
 <li>This is a &ldquo;Harvard&rdquo; architecture, data and memory are separate.</li>
 <li>We have two real registers here: A pointer <code>ptr</code>, and the usual instruction pointer <code>ip</code>.</li>
-<li>Memory accesses in BF are all in terms of a single byte.  There's no endianness to worry about.  However, the width of <code>ip</code> and <code>ptr</code> are not defined.</li>
+<li>Memory accesses in BF are all in terms of a single byte.  There&rsquo;s no endianness to worry about.  However, the width of <code>ip</code> and <code>ptr</code> are not defined.</li>
 <li>We have to do something about input and output.</li>
 </ul>
+
 <p>This last point is worth some discussion.
-In traditional architectures, this is handled by GPIOs, or some complicated mess of peripherals driven by the OS.  We have none of that, we just want bytes in and bytes out.  We'll need to help angr out a bit with this one; there are a few possible ways to implement this, but we're going to explore one that pretends there are mythical system calls to get our bytes in and out.  In a &ldquo;normal&rdquo; architecture, this means there's a syscall number in a register somewhere.  We're going to pretend that exists too.</p>
+In traditional architectures, this is handled by GPIOs, or some complicated mess of peripherals driven by the OS.  We have none of that, we just want bytes in and bytes out.  We&rsquo;ll need to help angr out a bit with this one; there are a few possible ways to implement this, but we&rsquo;re going to explore one that pretends there are mythical system calls to get our bytes in and out.  In a &ldquo;normal&rdquo; architecture, this means there&rsquo;s a syscall number in a register somewhere.  We&rsquo;re going to pretend that exists too.</p>
+
 <h2 id="archinfo">archinfo</h2>
+
 <p>archinfo is the class in the angr suite that holds all of this information.
 To create a new arch, you simply make a subclass of <code>archinfo.Arch</code>, and define your registers, their aliases, some info about bit widths and endianess, and so on.</p>
-<p>Now, let's lay down some code.</p>
+
+<p>Now, let&rsquo;s lay down some code.</p>
+
 <p>First, the boring stuff:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">archinfo.arch</span> <span class="kn">import</span> <span class="n">Arch</span>
 <span class="kn">from</span> <span class="nn">archinfo</span> <span class="kn">import</span> <span class="n">register_arch</span>
 
-<span class="k">class</span> <span class="nc">ArchBF</span><span class="p">(</span><span class="n">Arch</span><span class="p">)</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endness</span><span class="o">=</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">Iend_LE</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">:</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">ArchBF</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">Iend_LE</span><span class="s1">&#39;</span><span class="p">)</span>
-</code></pre></div><p>We'll call this arch little endian, since we have to say something, and in this case it doesn't matter.</p>
+<span class="k">class</span> <span class="nc">ArchBF</span><span class="p">(</span><span class="n">Arch</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endness</span><span class="o">=</span><span class="s2">&#34;Iend_LE&#34;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ArchBF</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;Iend_LE&#39;</span><span class="p">)</span></code></pre></div>
+<p>We&rsquo;ll call this arch little endian, since we have to say something, and in this case it doesn&rsquo;t matter.</p>
+
 <p>Next, some simple metadata:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">        <span class="bp">self</span><span class="o">.</span><span class="n">bits</span> <span class="o">=</span> <span class="mi">64</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">vex_arch</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">BF</span><span class="s2">&#34;</span>
-</code></pre></div><p>Names are usually all-caps.  As I mentioned above, the bit-width here corresponds to the address space and register widths, and we don't have one defined, so I picked 64.
-VEX doesn't support this arch, so <code>vex_arch</code> is None.</p>
-<p>Now here's the register file:</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">ip</span><span class="s2">&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">ptr</span><span class="s2">&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">inout</span><span class="s2">&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">ip_at_syscall</span><span class="s2">&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</code></pre></div><p>I mentioned the &lsquo;inout&rsquo; register, which is our syscall number when picking input vs output.
-However, we have another fake register <code>ip_at_syscall</code>, which is used by angr to track syscall-related return behavior.  Don't worry about it, just put it here.</p>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;BF&#34;</span></code></pre></div>
+<p>Names are usually all-caps.  As I mentioned above, the bit-width here corresponds to the address space and register widths, and we don&rsquo;t have one defined, so I picked 64.
+VEX doesn&rsquo;t support this arch, so <code>vex_arch</code> is None.</p>
+
+<p>Now here&rsquo;s the register file:</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s2">&#34;ip&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s2">&#34;ptr&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s2">&#34;inout&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s2">&#34;ip_at_syscall&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></code></pre></div>
+<p>I mentioned the &lsquo;inout&rsquo; register, which is our syscall number when picking input vs output.
+However, we have another fake register <code>ip_at_syscall</code>, which is used by angr to track syscall-related return behavior.  Don&rsquo;t worry about it, just put it here.</p>
+
 <p>You can also assign aliases, like <code>pc</code> for <code>ip</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">        <span class="bp">self</span><span class="o">.</span><span class="n">register_names</span> <span class="o">=</span> <span class="p">{</span><span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">register_names</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">ip</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">pc</span><span class="s1">&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">register_names</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">ip</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">]</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">ip</span><span class="s1">&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ip_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">ip</span><span class="s2">&#34;</span><span class="p">]</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</code></pre></div><p>Various kinds of reasoning need to where the ip is rather explicitly.  We set that here too.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">        <span class="bp">self</span><span class="o">.</span><span class="n">register_names</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_names</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;pc&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_names</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="s1">&#39;ip&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ip_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registers</span><span class="p">[</span><span class="s2">&#34;ip&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></code></pre></div>
+<p>Various kinds of reasoning need to where the ip is rather explicitly.  We set that here too.</p>
+
 <p>Finally, we need to tell archinfo about our new arch:</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">register_arch</span><span class="p">(</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">bf|brainfuck</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">any</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">ArchBF</span><span class="p">)</span>
-</code></pre></div><p>The first argument is a list of regular expressions that match the name of our architecture.  (Note, as of this writing, you can assume input is lowercase).  Next, the bit-width of our arch, which is 64.
-The third argument is the <code>endness</code>, which can either be &ldquo;Iend_LE&rdquo;, &ldquo;Iend_BE&rdquo;, or &ldquo;any&rdquo;.  (<em>these constants come from VEX, if you're curious</em>) &lsquo;any&rsquo; means this Arch will match for either endness.</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">register_arch</span><span class="p">([</span><span class="s1">&#39;bf|brainfuck&#39;</span><span class="p">],</span> <span class="mi">64</span><span class="p">,</span> <span class="s1">&#39;any&#39;</span><span class="p">,</span> <span class="n">ArchBF</span><span class="p">)</span></code></pre></div>
+<p>The first argument is a list of regular expressions that match the name of our architecture.  (Note, as of this writing, you can assume input is lowercase).  Next, the bit-width of our arch, which is 64.
+The third argument is the <code>endness</code>, which can either be &ldquo;Iend_LE&rdquo;, &ldquo;Iend_BE&rdquo;, or &ldquo;any&rdquo;.  (<em>these constants come from VEX, if you&rsquo;re curious</em>) &lsquo;any&rsquo; means this Arch will match for either endness.</p>
+
 <p>This is used by <code>archinfo.arch_from_id()</code> to look up the Arch for a given set of parameters.  Given the various circumstances under which this is needed, we deliberately make this super flexible, and encourage you to make your mappings flexible too.</p>
-<p>That's it!</p>
-<p>This doesn't do a whole lot yet, but it's an important first step.</p>
-<p>We'll build on this in the next part, where we get angr to load BF programs into its simulated memory.</p>
+
+<p>That&rsquo;s it!</p>
+
+<p>This doesn&rsquo;t do a whole lot yet, but it&rsquo;s an important first step.</p>
+
+<p>We&rsquo;ll build on this in the next part, where we get angr to load BF programs into its simulated memory.</p>
 
 </section>
 

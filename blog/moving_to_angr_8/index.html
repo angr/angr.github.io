@@ -88,30 +88,41 @@
 
 
 <section class="post-content">
+
+
 <p>The angr team is happy to announce the release of a new major version of angr, angr 8!
 angr 8 brings a variety of large and potentially breaking improvements, as well as a bunch of smaller bugfixes.
 The highlights are listed below, but we also recommend checking the angr 8 section of the <a href="https://docs.angr.io/CHANGELOG.html">Changelog</a> for a list of the major changes and the <a href="https://docs.angr.io/MIGRATION.html">Migration Guide</a> for help in migrating your project to angr 8.</p>
+
 <p>As always, to contact the angr team please reach out on <a href="http://angr.slack.com">our slack</a>.
 You can request an invitation <a href="/invite">here</a>.
 For more information on how to get involved with the angr project, see <a href="/#contact">here</a>.</p>
+
 <h1 id="highlights">Highlights:</h1>
+
 <h2 id="python-3-migration">Python 3 Migration</h2>
+
 <p>The largest change in angr 8 is the migration to Python 3. <strong>As of angr 8, angr will be dropping all Python 2 support and moving to Python 3</strong>.
 For now, we will be targeting Python 3.5, with plans to eventually move to 3.6.
 The last Python 2-compatible angr release is version 7.8.9.26.
 This release pins the version numbers of all its dependencies so it should hopefully work far into the future.
 If you need any help migrating your code to Python 3, please see the <a href="https://docs.angr.io/MIGRATION.html">Migration Guide</a>.</p>
+
 <h2 id="clemory-api-refactor">Clemory API Refactor</h2>
-<p>With the upgrade to Python 3 come a number of changes to the Clemory API (<code>project.loader.memory</code>) around replacing the Python 2 string type with Python 3's <code>bytes</code>.
+
+<p>With the upgrade to Python 3 come a number of changes to the Clemory API (<code>project.loader.memory</code>) around replacing the Python 2 string type with Python 3&rsquo;s <code>bytes</code>.
 This should make working with Clemory easier, as well as yield significant performance benefits.
 We also recommend no longer using the <code>cbackers</code> and <code>read_bytes_c</code> functions, since the improved performance makes them unnecessary.
 Except for this, migrating code to use the new API should be relatively easy.
 For a detailed explanation of the changes, see the <a href="https://docs.angr.io/MIGRATION.html">Migration Guide</a>. Thanks to <strong>@rhelmot</strong> for the refactor!</p>
+
 <p>For those interested, the commit with most of the changes can be found <a href="https://github.com/angr/cle/commit/d1b518736e48abe67cfdf0fc1b18f09cf88f17d9">here</a>.</p>
+
 <h2 id="up-to-5x-speedup-in-cfgfast">Up to 5x Speedup in CFGFast</h2>
+
 <p>Driven by the need to recover the CFG of a large blob, the angr team has significantly improved the performance of CFGFast.
 Amongst other things, angr is now able to lift blocks without converting their statements into Python objects, perform more of the analysis in C, and avoid lifting any basic block more than once.
-All combined, we've seen this give a more than 5x speedup on large binaries!
+All combined, we&rsquo;ve seen this give a more than 5x speedup on large binaries!
 For changes and benchmarking details, see <a href="https://github.com/angr/angr/pull/1092">PR #1092</a>.
 Thanks to <strong>@KevOrr</strong> for the binary that motivated the changes and <strong>@ltfish</strong> for the optimizations!</p>
 

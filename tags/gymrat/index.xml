@@ -16,57 +16,84 @@
       <pubDate>Thu, 18 Jan 2018 19:41:03 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_4/</guid>
-      <description>&lt;p&gt;In order for angr to perform any sort of analysis on binary code, we need to first translate, or lift, this code into an intermediate representation (IR) that angr uses, called VEX.&lt;/p&gt;
+      <description>
+
+&lt;p&gt;In order for angr to perform any sort of analysis on binary code, we need to first translate, or lift, this code into an intermediate representation (IR) that angr uses, called VEX.&lt;/p&gt;
+
 &lt;p&gt;VEX is the IR used by the Valgrind analysis tools. angr uses the libvex library also used by Valgrind, etc. to lift code, and uses its &lt;code&gt;pyvex&lt;/code&gt; package to provide a pythonic interface to the resulting IR objects.&lt;/p&gt;
+
 &lt;p&gt;However, libvex and Valgrind were tailor-made for doing what they do best: analyzing lots of desktop-ish programs.  What if we want to do something super non-traditional? Like Brainfuck? Or even something a bit more reasonable like MSP430.&lt;/p&gt;
-&lt;p&gt;That&#39;s where the &lt;code&gt;gymrat&lt;/code&gt; framework included with newer versions of pyvex comes in. Gymrat&#39;s goal is to make lifting just about anything easy, by moving the focus from messing with parsing and bits and what not, to simply and quickly specifying what the instructions actually &lt;em&gt;do&lt;/em&gt;, which is magically translated into VEX.&lt;/p&gt;
+
+&lt;p&gt;That&amp;rsquo;s where the &lt;code&gt;gymrat&lt;/code&gt; framework included with newer versions of pyvex comes in. Gymrat&amp;rsquo;s goal is to make lifting just about anything easy, by moving the focus from messing with parsing and bits and what not, to simply and quickly specifying what the instructions actually &lt;em&gt;do&lt;/em&gt;, which is magically translated into VEX.&lt;/p&gt;
+
 &lt;h2 id=&#34;building-your-workout-plan&#34;&gt;Building your workout plan&lt;/h2&gt;
-&lt;p&gt;Before you jump into lifting, you&#39;re going to need some sort of plan on how to structure your lifter, to make the process easier, and to make auditing the result less painful.&lt;/p&gt;
+
+&lt;p&gt;Before you jump into lifting, you&amp;rsquo;re going to need some sort of plan on how to structure your lifter, to make the process easier, and to make auditing the result less painful.&lt;/p&gt;
+
 &lt;h2 id=&#34;know-your-body&#34;&gt;Know your body&lt;/h2&gt;
+
 &lt;p&gt;The most important part of this planning process is becoming familiar with your chosen architecture, and particularly its instructions. We touched on &lt;code&gt;archinfo&lt;/code&gt; in a previous part of this tutorial, and we assume you have already built the &lt;code&gt;archinfo&lt;/code&gt; class for your architecture, with all of the register maps, and so on. In this section, we will be using the BF and MSP430 examples introduced earlier to demonstrate how we designed the lifters, and why.&lt;/p&gt;
+
 &lt;p&gt;Your first step should be to find an Instruction Set Architecture (ISA) document, containing, at least, the binary formats for the instructions, and hopefully a precise description of their effects of the processor.&lt;/p&gt;
+
 &lt;p&gt;A few questions to ask yourself while reading:&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;How are the instructions formatted? Are there a few formats that cover all possible instructions? Or is each instruction different? Is there the notion of an &amp;ldquo;opcode&amp;rdquo;?&lt;/li&gt;
 &lt;li&gt;How are arguments to the instructions specified? registers, memory address, intermediats, offsets, etc&lt;/li&gt;
 &lt;li&gt;What are the primary side-effects of instructions? (e.g., flags)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Let&#39;s consider our example of MSP430.  See &lt;a href=&#34;https://www.ti.com/sc/docs/products/micro/msp430/userguid/as_5.pdf&#34;&gt;here&lt;/a&gt; for one of many references.
+
+&lt;p&gt;Let&amp;rsquo;s consider our example of MSP430.  See &lt;a href=&#34;https://www.ti.com/sc/docs/products/micro/msp430/userguid/as_5.pdf&#34;&gt;here&lt;/a&gt; for one of many references.
 MSP430 instructions take one of three types, having zero, one or two operands.
 One operand instructions take the form src = src (op) src. Two-operand instructions take the form dst = src (op) dst. Zero-operand instructions are conditional jumps, and merely have a condition code, and a 10-bit immediate destination address offset. Each format has its own notion of &amp;ldquo;opcode&amp;rdquo;.&lt;/p&gt;
+
 &lt;p&gt;MSP430 supports a wide variety of possible sources and destinations, based on addressing mode bits, and special register values, contained in each instruction. Operands can be the usual register contents, or can be combined with an immediate 16-bit extension word.
 Instructions also support handling data of different sizes, either an 8-bit byte, or a 16-bit word, based on a flag.
 Instructions can set one of four flags (Carry, Negative, Zero, and Overflow), although the behavior of these is far from unifrom.&lt;/p&gt;
-&lt;p&gt;This means, in summary, that there is some logic that&#39;s common to all instructions, and some common to each type.  There are, of course edge cases, but all of this can be specified neatly using &lt;code&gt;gymrat&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This means, in summary, that there is some logic that&amp;rsquo;s common to all instructions, and some common to each type.  There are, of course edge cases, but all of this can be specified neatly using &lt;code&gt;gymrat&lt;/code&gt;.&lt;/p&gt;
+
 &lt;h2 id=&#34;know-your-equipment&#34;&gt;Know your equipment&lt;/h2&gt;
+
 &lt;p&gt;Here we will introduce briefly the primary classes used to write a lifter using &lt;code&gt;gymrat&lt;/code&gt;.
 All of the following are contained in &lt;code&gt;pyvex.util&lt;/code&gt;:&lt;/p&gt;
+
 &lt;h3 id=&#34;gymratlifter&#34;&gt;GymratLifter&lt;/h3&gt;
+
 &lt;p&gt;This is the actual lifter class used by &lt;code&gt;pyvex&lt;/code&gt;.
 You will need to make a subclass of this, and provide a property &lt;code&gt;instrs&lt;/code&gt; containing a list of possible instruction classes.
 &lt;code&gt;GymratLifter&lt;/code&gt;s are provided with a block of code to lift in their constructor, and when &lt;code&gt;lift()&lt;/code&gt; is called, will iterate through the code, matching instruction classes to the bytes, and populating an IRSB object (IR Super Block) with the appropriate VEX instructions. This IRSB gets returned eventually to angr, and used for its analyses.
 By default, GymratLifter will try using every instruction contained in &lt;code&gt;instrs&lt;/code&gt; until one succeeds.
-Don&#39;t forget to call &lt;code&gt;pyvex.lift.register()&lt;/code&gt; to tell pyvex that your new lifter exists.&lt;/p&gt;
+Don&amp;rsquo;t forget to call &lt;code&gt;pyvex.lift.register()&lt;/code&gt; to tell pyvex that your new lifter exists.&lt;/p&gt;
+
 &lt;h3 id=&#34;type&#34;&gt;Type&lt;/h3&gt;
+
 &lt;p&gt;In the binary world, a &amp;ldquo;type&amp;rdquo; here merely denodes how many bits wide a value is, and how it is interpreted (int, float, etc)
-This class uses &amp;ldquo;type imagination&amp;rdquo;, don&#39;t worry about what sizes it supports, it will make them up for you.
+This class uses &amp;ldquo;type imagination&amp;rdquo;, don&amp;rsquo;t worry about what sizes it supports, it will make them up for you.
 Simply use &lt;code&gt;Type.int_16&lt;/code&gt; for a 16-bit integer, or even &lt;code&gt;Type.int_9&lt;/code&gt; if you really want to (cLEMENCy you say? Yeah, we can do that.)
-You&#39;ll see these mentioned around as the argument named &lt;code&gt;ty&lt;/code&gt;.&lt;/p&gt;
+You&amp;rsquo;ll see these mentioned around as the argument named &lt;code&gt;ty&lt;/code&gt;.&lt;/p&gt;
+
 &lt;h3 id=&#34;instruction&#34;&gt;Instruction&lt;/h3&gt;
+
 &lt;p&gt;You should create a class for every instruction in your architecture, which should be subclasses of &lt;code&gt;Instruction&lt;/code&gt;.  Instructions receive the bitstream given to the lifter, and attempt to match it with a format string (&lt;code&gt;self.bin_format&lt;/code&gt;), which both identifies that this is the correct instruction, and parses the various operands and flags.  Format strings are specified similar to how many ISA documents will; for example, a 2-operand instruction, with fixed bits of 1101, and 2x2 bits of mode flags, could look like &lt;code&gt;1101ssssmmddddMM&lt;/code&gt;.  The instruction would only match if it started with 1101, and each similarly-lettered bit would be extracted into a dictionary keyed by the letter.&lt;/p&gt;
+
 &lt;p&gt;The Instruction class has a number of methods designed by overriden by its subclasses, to modify behavior for each instruction or instruction type.
-Here&#39;s a brief summary:&lt;/p&gt;
+Here&amp;rsquo;s a brief summary:&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;parse&lt;/code&gt;: Called by the lifter to try and match the instruction.  Returns a dictionary of parsed bits on success, or does something else (raise) on failure
 You may want to extend this to implement changes in how data is parsed, based on previous parsed values (e.g., get an extra word if a flag is set)&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;match_instruction&lt;/code&gt;: Optionally implement this to match the instruction based on a bit format symbol; for example, you could use &lt;code&gt;o&lt;/code&gt; as your opcode, and match it here.  Return something on success, raise on failure.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;lift&lt;/code&gt;: Called by the lifter after the instruction is matched. By default, it simply calls all of the following functions in order, but you can override this to change this or add your own.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;mark_instruction_start&lt;/code&gt;: Should be called at the beginning of lifting, creates the VEX &lt;code&gt;IMark&lt;/code&gt; instruction of the correct length.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;fetch_operands&lt;/code&gt;: Implement this to specify how operands are fetched.  You&#39;ll probably want to use &lt;code&gt;get()&lt;/code&gt; and &lt;code&gt;load()&lt;/code&gt; below.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;fetch_operands&lt;/code&gt;: Implement this to specify how operands are fetched.  You&amp;rsquo;ll probably want to use &lt;code&gt;get()&lt;/code&gt; and &lt;code&gt;load()&lt;/code&gt; below.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;compute_result&lt;/code&gt;: This is where the meat of your instruction goes. Compute the actual result, and return a VexValue of the result. You will make heavy use of the &lt;code&gt;VexValue&lt;/code&gt; syntax helpers here; for example, a normal add could simply be &lt;code&gt;return src + dst&lt;/code&gt; You should also commit your result using &lt;code&gt;put&lt;/code&gt; or `store, unless you chose to do that somewhere else.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;compute_flags&lt;/code&gt;: Compute and store the flags affected by the instruction. Gets the same arguments as &lt;code&gt;compute_result&lt;/code&gt;, plus the addition of the computed result, to make flag expressions easier.&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;Instruction also contains a few important methods meant to be called by its subclasses to implement the above methods.&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;get(reg_num, ty)&lt;/code&gt; Get register from a physical machine register into a temporary value we can do operations on.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;load(addr, ty)&lt;/code&gt;: Similar to the above, but loads from a given address in memory&lt;/li&gt;
@@ -75,35 +102,52 @@ You may want to extend this to implement changes in how data is parsed, based on
 &lt;li&gt;&lt;code&gt;jump(when, where)&lt;/code&gt;: Conditionally jump to a given location&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;constant(int_val, ty)&lt;/code&gt;: Creates a temporary values from an integer constant.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;(Note: there is also &lt;code&gt;ccall()&lt;/code&gt;; If you have something really messed up you don&#39;t think you can express correctly, such as something that needs extensive runtime information, you may need a ccall, but try to avoid it if you can.  See the python docs for info.)&lt;/p&gt;
+
+&lt;p&gt;(Note: there is also &lt;code&gt;ccall()&lt;/code&gt;; If you have something really messed up you don&amp;rsquo;t think you can express correctly, such as something that needs extensive runtime information, you may need a ccall, but try to avoid it if you can.  See the python docs for info.)&lt;/p&gt;
+
 &lt;h3 id=&#34;vexvalue&#34;&gt;VexValue&lt;/h3&gt;
-&lt;p&gt;What are all these &amp;lsquo;temprary values&amp;rsquo;? How do I actually specify what instructions do? That&#39;s the magic of &lt;code&gt;VexValue&lt;/code&gt;.
+
+&lt;p&gt;What are all these &amp;lsquo;temprary values&amp;rsquo;? How do I actually specify what instructions do? That&amp;rsquo;s the magic of &lt;code&gt;VexValue&lt;/code&gt;.
 In VEX, you cannot do operations directly on registers or memory.  They must be first loaded into a temporary variable, operated on, and then written back to the registers or memory.  We wanted the lifter author to think as little about this as possible, so VexValue makes this whole process a snap.&lt;/p&gt;
-&lt;p&gt;A VexValue can be created in two different ways: by loading it out of the machine&#39;s state using &lt;code&gt;get()&lt;/code&gt; or &lt;code&gt;put()&lt;/code&gt;, or by creating a constant value with &lt;code&gt;constant()&lt;/code&gt;.  You can then do normal python operations to them like any other value!
+
+&lt;p&gt;A VexValue can be created in two different ways: by loading it out of the machine&amp;rsquo;s state using &lt;code&gt;get()&lt;/code&gt; or &lt;code&gt;put()&lt;/code&gt;, or by creating a constant value with &lt;code&gt;constant()&lt;/code&gt;.  You can then do normal python operations to them like any other value!
 VexValues have a set &lt;code&gt;Type&lt;/code&gt; when they are created; you can cast to a new type using the &lt;code&gt;cast_to(ty)&lt;/code&gt; method.
-You can even fetch bits using python&#39;s slice and index notation!&lt;/p&gt;
-&lt;p&gt;Here&#39;s an example, the xor instruction from our MSP430 lifter.
-Of course you have to xor, but what about the types? What&#39;s the VEX operation for xor? Weird expressions for the flags?&lt;/p&gt;
+You can even fetch bits using python&amp;rsquo;s slice and index notation!&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s an example, the xor instruction from our MSP430 lifter.
+Of course you have to xor, but what about the types? What&amp;rsquo;s the VEX operation for xor? Weird expressions for the flags?&lt;/p&gt;
+
 &lt;p&gt;Nah.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;compute_result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dst&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;^&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dst&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Or something boolean:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;carry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dst&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It&#39;s pretty magic.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;compute_result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dst&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;^&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dst&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Or something boolean:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;carry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dst&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It&amp;rsquo;s pretty magic.&lt;/p&gt;
+
 &lt;h2 id=&#34;use-the-proper-form&#34;&gt;Use the proper form&lt;/h2&gt;
+
 &lt;p&gt;As in exercise, using the proper form when lifting is better for your health, and just makes things work better.
-Its time to put the two sections above together and make your lifter&#39;s design. A good lifter design, like any other piece of software, must minimize the amount of repetative code, while still being readable.  In particular, we&#39;d like to make the structure of our lifter as close to that of the documentation, to allow for better manual auditing.&lt;/p&gt;
-&lt;p&gt;Let&#39;s walk through the design of our MSP430 lifter.  We&#39;ll come back to the BF example later; it&#39;s too simple for this discussion.&lt;/p&gt;
+Its time to put the two sections above together and make your lifter&amp;rsquo;s design. A good lifter design, like any other piece of software, must minimize the amount of repetative code, while still being readable.  In particular, we&amp;rsquo;d like to make the structure of our lifter as close to that of the documentation, to allow for better manual auditing.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s walk through the design of our MSP430 lifter.  We&amp;rsquo;ll come back to the BF example later; it&amp;rsquo;s too simple for this discussion.&lt;/p&gt;
+
 &lt;p&gt;As mentioned above, there are a lot of common tasks all MSP430 instructions must do, such as resolving the operands and addressing modes, grabbing the immediate extension words, and the write-back of the results of operations. These are defined in &lt;code&gt;MSP430Instruction&lt;/code&gt;, a direct subclass of &lt;code&gt;Instruction&lt;/code&gt;.
-We&#39;ll also define how the Status Register (flags, in &lt;code&gt;compute_flags&lt;/code&gt;) works, and how the four flags are packed inside when it is updated.
-Because the three types have their own opcode, we define &lt;code&gt;match_instruction&lt;/code&gt; to check the &lt;code&gt;o&lt;/code&gt; symbol here. As a final step, how values are committed to the machine&#39;s state is dependant on the addressing mode (writing to a register, vs indexing into memory, etc), and is handled in this class as well; we expect &lt;code&gt;compute_result&lt;/code&gt; to return the value to be written out, or None if that instruction doesn&#39;t commit.&lt;/p&gt;
-&lt;p&gt;We will then define a class for each of the three types. These will set the &lt;code&gt;bin_format&lt;/code&gt; property, as well as overriding &lt;code&gt;fetch_operands&lt;/code&gt; to resolve the source and/or destination registers/immediates/etc, and simply return &lt;code&gt;src&lt;/code&gt; and &lt;code&gt;dst&lt;/code&gt;, which are passed to the instructions&lt;code&gt; &lt;/code&gt;compute_result` methods.&lt;/p&gt;
+We&amp;rsquo;ll also define how the Status Register (flags, in &lt;code&gt;compute_flags&lt;/code&gt;) works, and how the four flags are packed inside when it is updated.
+Because the three types have their own opcode, we define &lt;code&gt;match_instruction&lt;/code&gt; to check the &lt;code&gt;o&lt;/code&gt; symbol here. As a final step, how values are committed to the machine&amp;rsquo;s state is dependant on the addressing mode (writing to a register, vs indexing into memory, etc), and is handled in this class as well; we expect &lt;code&gt;compute_result&lt;/code&gt; to return the value to be written out, or None if that instruction doesn&amp;rsquo;t commit.&lt;/p&gt;
+
+&lt;p&gt;We will then define a class for each of the three types. These will set the &lt;code&gt;bin_format&lt;/code&gt; property, as well as overriding &lt;code&gt;fetch_operands&lt;/code&gt; to resolve the source and/or destination registers/immediates/etc, and simply return &lt;code&gt;src&lt;/code&gt; and &lt;code&gt;dst&lt;/code&gt;, which are passed to the instructionscompute_result` methods.&lt;/p&gt;
+
 &lt;p&gt;Finally, we will create a class for each instruction, subclassing the appropriate type, and providing only the &lt;code&gt;opcode&lt;/code&gt; (to be matched in &lt;code&gt;match_instruction&lt;/code&gt;), the &lt;code&gt;compute_result&lt;/code&gt; function, which returns the value to be committed, and the computation of any flags the instruction modifies.&lt;/p&gt;
+
 &lt;h2 id=&#34;time-to-get-swole&#34;&gt;Time to get swole!&lt;/h2&gt;
-&lt;p&gt;While we aimed these features to spare the user from thinking about an IR as much as possible (did you notice we told you almost nothing about how the IR actually works?), there&#39;s no magical formula for getting totally shredded, or for lifting every architecture.  CPU architectures, like human bodies, are different, and have their own quirks, so the best thing we can do is give you really in-depth examples.&lt;/p&gt;
+
+&lt;p&gt;While we aimed these features to spare the user from thinking about an IR as much as possible (did you notice we told you almost nothing about how the IR actually works?), there&amp;rsquo;s no magical formula for getting totally shredded, or for lifting every architecture.  CPU architectures, like human bodies, are different, and have their own quirks, so the best thing we can do is give you really in-depth examples.&lt;/p&gt;
+
 &lt;p&gt;Our fully commented example, which lifts MSP430 binary code into VEX, can be found &lt;a href=&#34;https://github.com/angr/angr-platforms/blob/master/angr_platforms/msp430/instrs_msp430.py&#34;&gt;here&lt;/a&gt;. You can also find the, much simpler, BF lifter &lt;a href=&#34;https://github.com/angr/angr-platforms/blob/master/angr_platforms/bf/lift_bf.py&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
 &lt;p&gt;Built a really rad lifter? &lt;a href=&#34;https://angr.github.io/invite&#34;&gt;Let us know on Slack&lt;/a&gt;&lt;/p&gt;
+
 &lt;p&gt;Next time, we get to talk about execution engines! Better get fueled up.&lt;/p&gt;
 </description>
     </item>
