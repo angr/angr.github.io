@@ -16,38 +16,27 @@
       <pubDate>Wed, 26 Sep 2018 14:14:02 -0700</pubDate>
       
       <guid>https://angr.github.io/blog/moving_to_angr_8/</guid>
-      <description>
-
-&lt;p&gt;The angr team is happy to announce the release of a new major version of angr, angr 8!
+      <description>&lt;p&gt;The angr team is happy to announce the release of a new major version of angr, angr 8!
 angr 8 brings a variety of large and potentially breaking improvements, as well as a bunch of smaller bugfixes.
 The highlights are listed below, but we also recommend checking the angr 8 section of the &lt;a href=&#34;https://docs.angr.io/CHANGELOG.html&#34;&gt;Changelog&lt;/a&gt; for a list of the major changes and the &lt;a href=&#34;https://docs.angr.io/MIGRATION.html&#34;&gt;Migration Guide&lt;/a&gt; for help in migrating your project to angr 8.&lt;/p&gt;
-
 &lt;p&gt;As always, to contact the angr team please reach out on &lt;a href=&#34;http://angr.slack.com&#34;&gt;our slack&lt;/a&gt;.
 You can request an invitation &lt;a href=&#34;https://angr.github.io/invite&#34;&gt;here&lt;/a&gt;.
 For more information on how to get involved with the angr project, see &lt;a href=&#34;https://angr.github.io/#contact&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
 &lt;h1 id=&#34;highlights&#34;&gt;Highlights:&lt;/h1&gt;
-
 &lt;h2 id=&#34;python-3-migration&#34;&gt;Python 3 Migration&lt;/h2&gt;
-
 &lt;p&gt;The largest change in angr 8 is the migration to Python 3. &lt;strong&gt;As of angr 8, angr will be dropping all Python 2 support and moving to Python 3&lt;/strong&gt;.
 For now, we will be targeting Python 3.5, with plans to eventually move to 3.6.
 The last Python 2-compatible angr release is version 7.8.9.26.
 This release pins the version numbers of all its dependencies so it should hopefully work far into the future.
 If you need any help migrating your code to Python 3, please see the &lt;a href=&#34;https://docs.angr.io/MIGRATION.html&#34;&gt;Migration Guide&lt;/a&gt;.&lt;/p&gt;
-
 &lt;h2 id=&#34;clemory-api-refactor&#34;&gt;Clemory API Refactor&lt;/h2&gt;
-
 &lt;p&gt;With the upgrade to Python 3 come a number of changes to the Clemory API (&lt;code&gt;project.loader.memory&lt;/code&gt;) around replacing the Python 2 string type with Python 3&amp;rsquo;s &lt;code&gt;bytes&lt;/code&gt;.
 This should make working with Clemory easier, as well as yield significant performance benefits.
 We also recommend no longer using the &lt;code&gt;cbackers&lt;/code&gt; and &lt;code&gt;read_bytes_c&lt;/code&gt; functions, since the improved performance makes them unnecessary.
 Except for this, migrating code to use the new API should be relatively easy.
 For a detailed explanation of the changes, see the &lt;a href=&#34;https://docs.angr.io/MIGRATION.html&#34;&gt;Migration Guide&lt;/a&gt;. Thanks to &lt;strong&gt;@rhelmot&lt;/strong&gt; for the refactor!&lt;/p&gt;
-
 &lt;p&gt;For those interested, the commit with most of the changes can be found &lt;a href=&#34;https://github.com/angr/cle/commit/d1b518736e48abe67cfdf0fc1b18f09cf88f17d9&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
 &lt;h2 id=&#34;up-to-5x-speedup-in-cfgfast&#34;&gt;Up to 5x Speedup in CFGFast&lt;/h2&gt;
-
 &lt;p&gt;Driven by the need to recover the CFG of a large blob, the angr team has significantly improved the performance of CFGFast.
 Amongst other things, angr is now able to lift blocks without converting their statements into Python objects, perform more of the analysis in C, and avoid lifting any basic block more than once.
 All combined, we&amp;rsquo;ve seen this give a more than 5x speedup on large binaries!
@@ -62,71 +51,46 @@ Thanks to &lt;strong&gt;@KevOrr&lt;/strong&gt; for the binary that motivated the
       <pubDate>Thu, 18 Jan 2018 19:41:03 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_4/</guid>
-      <description>
-
-&lt;p&gt;In order for angr to perform any sort of analysis on binary code, we need to first translate, or lift, this code into an intermediate representation (IR) that angr uses, called VEX.&lt;/p&gt;
-
+      <description>&lt;p&gt;In order for angr to perform any sort of analysis on binary code, we need to first translate, or lift, this code into an intermediate representation (IR) that angr uses, called VEX.&lt;/p&gt;
 &lt;p&gt;VEX is the IR used by the Valgrind analysis tools. angr uses the libvex library also used by Valgrind, etc. to lift code, and uses its &lt;code&gt;pyvex&lt;/code&gt; package to provide a pythonic interface to the resulting IR objects.&lt;/p&gt;
-
 &lt;p&gt;However, libvex and Valgrind were tailor-made for doing what they do best: analyzing lots of desktop-ish programs.  What if we want to do something super non-traditional? Like Brainfuck? Or even something a bit more reasonable like MSP430.&lt;/p&gt;
-
 &lt;p&gt;That&amp;rsquo;s where the &lt;code&gt;gymrat&lt;/code&gt; framework included with newer versions of pyvex comes in. Gymrat&amp;rsquo;s goal is to make lifting just about anything easy, by moving the focus from messing with parsing and bits and what not, to simply and quickly specifying what the instructions actually &lt;em&gt;do&lt;/em&gt;, which is magically translated into VEX.&lt;/p&gt;
-
 &lt;h2 id=&#34;building-your-workout-plan&#34;&gt;Building your workout plan&lt;/h2&gt;
-
 &lt;p&gt;Before you jump into lifting, you&amp;rsquo;re going to need some sort of plan on how to structure your lifter, to make the process easier, and to make auditing the result less painful.&lt;/p&gt;
-
 &lt;h2 id=&#34;know-your-body&#34;&gt;Know your body&lt;/h2&gt;
-
 &lt;p&gt;The most important part of this planning process is becoming familiar with your chosen architecture, and particularly its instructions. We touched on &lt;code&gt;archinfo&lt;/code&gt; in a previous part of this tutorial, and we assume you have already built the &lt;code&gt;archinfo&lt;/code&gt; class for your architecture, with all of the register maps, and so on. In this section, we will be using the BF and MSP430 examples introduced earlier to demonstrate how we designed the lifters, and why.&lt;/p&gt;
-
 &lt;p&gt;Your first step should be to find an Instruction Set Architecture (ISA) document, containing, at least, the binary formats for the instructions, and hopefully a precise description of their effects of the processor.&lt;/p&gt;
-
 &lt;p&gt;A few questions to ask yourself while reading:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;How are the instructions formatted? Are there a few formats that cover all possible instructions? Or is each instruction different? Is there the notion of an &amp;ldquo;opcode&amp;rdquo;?&lt;/li&gt;
 &lt;li&gt;How are arguments to the instructions specified? registers, memory address, intermediats, offsets, etc&lt;/li&gt;
 &lt;li&gt;What are the primary side-effects of instructions? (e.g., flags)&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;Let&amp;rsquo;s consider our example of MSP430.  See &lt;a href=&#34;https://www.ti.com/sc/docs/products/micro/msp430/userguid/as_5.pdf&#34;&gt;here&lt;/a&gt; for one of many references.
 MSP430 instructions take one of three types, having zero, one or two operands.
 One operand instructions take the form src = src (op) src. Two-operand instructions take the form dst = src (op) dst. Zero-operand instructions are conditional jumps, and merely have a condition code, and a 10-bit immediate destination address offset. Each format has its own notion of &amp;ldquo;opcode&amp;rdquo;.&lt;/p&gt;
-
 &lt;p&gt;MSP430 supports a wide variety of possible sources and destinations, based on addressing mode bits, and special register values, contained in each instruction. Operands can be the usual register contents, or can be combined with an immediate 16-bit extension word.
 Instructions also support handling data of different sizes, either an 8-bit byte, or a 16-bit word, based on a flag.
 Instructions can set one of four flags (Carry, Negative, Zero, and Overflow), although the behavior of these is far from unifrom.&lt;/p&gt;
-
 &lt;p&gt;This means, in summary, that there is some logic that&amp;rsquo;s common to all instructions, and some common to each type.  There are, of course edge cases, but all of this can be specified neatly using &lt;code&gt;gymrat&lt;/code&gt;.&lt;/p&gt;
-
 &lt;h2 id=&#34;know-your-equipment&#34;&gt;Know your equipment&lt;/h2&gt;
-
 &lt;p&gt;Here we will introduce briefly the primary classes used to write a lifter using &lt;code&gt;gymrat&lt;/code&gt;.
 All of the following are contained in &lt;code&gt;pyvex.util&lt;/code&gt;:&lt;/p&gt;
-
 &lt;h3 id=&#34;gymratlifter&#34;&gt;GymratLifter&lt;/h3&gt;
-
 &lt;p&gt;This is the actual lifter class used by &lt;code&gt;pyvex&lt;/code&gt;.
 You will need to make a subclass of this, and provide a property &lt;code&gt;instrs&lt;/code&gt; containing a list of possible instruction classes.
 &lt;code&gt;GymratLifter&lt;/code&gt;s are provided with a block of code to lift in their constructor, and when &lt;code&gt;lift()&lt;/code&gt; is called, will iterate through the code, matching instruction classes to the bytes, and populating an IRSB object (IR Super Block) with the appropriate VEX instructions. This IRSB gets returned eventually to angr, and used for its analyses.
 By default, GymratLifter will try using every instruction contained in &lt;code&gt;instrs&lt;/code&gt; until one succeeds.
 Don&amp;rsquo;t forget to call &lt;code&gt;pyvex.lift.register()&lt;/code&gt; to tell pyvex that your new lifter exists.&lt;/p&gt;
-
 &lt;h3 id=&#34;type&#34;&gt;Type&lt;/h3&gt;
-
 &lt;p&gt;In the binary world, a &amp;ldquo;type&amp;rdquo; here merely denodes how many bits wide a value is, and how it is interpreted (int, float, etc)
 This class uses &amp;ldquo;type imagination&amp;rdquo;, don&amp;rsquo;t worry about what sizes it supports, it will make them up for you.
 Simply use &lt;code&gt;Type.int_16&lt;/code&gt; for a 16-bit integer, or even &lt;code&gt;Type.int_9&lt;/code&gt; if you really want to (cLEMENCy you say? Yeah, we can do that.)
 You&amp;rsquo;ll see these mentioned around as the argument named &lt;code&gt;ty&lt;/code&gt;.&lt;/p&gt;
-
 &lt;h3 id=&#34;instruction&#34;&gt;Instruction&lt;/h3&gt;
-
 &lt;p&gt;You should create a class for every instruction in your architecture, which should be subclasses of &lt;code&gt;Instruction&lt;/code&gt;.  Instructions receive the bitstream given to the lifter, and attempt to match it with a format string (&lt;code&gt;self.bin_format&lt;/code&gt;), which both identifies that this is the correct instruction, and parses the various operands and flags.  Format strings are specified similar to how many ISA documents will; for example, a 2-operand instruction, with fixed bits of 1101, and 2x2 bits of mode flags, could look like &lt;code&gt;1101ssssmmddddMM&lt;/code&gt;.  The instruction would only match if it started with 1101, and each similarly-lettered bit would be extracted into a dictionary keyed by the letter.&lt;/p&gt;
-
 &lt;p&gt;The Instruction class has a number of methods designed by overriden by its subclasses, to modify behavior for each instruction or instruction type.
 Here&amp;rsquo;s a brief summary:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;parse&lt;/code&gt;: Called by the lifter to try and match the instruction.  Returns a dictionary of parsed bits on success, or does something else (raise) on failure
 You may want to extend this to implement changes in how data is parsed, based on previous parsed values (e.g., get an extra word if a flag is set)&lt;/li&gt;
@@ -137,9 +101,7 @@ You may want to extend this to implement changes in how data is parsed, based on
 &lt;li&gt;&lt;code&gt;compute_result&lt;/code&gt;: This is where the meat of your instruction goes. Compute the actual result, and return a VexValue of the result. You will make heavy use of the &lt;code&gt;VexValue&lt;/code&gt; syntax helpers here; for example, a normal add could simply be &lt;code&gt;return src + dst&lt;/code&gt; You should also commit your result using &lt;code&gt;put&lt;/code&gt; or `store, unless you chose to do that somewhere else.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;compute_flags&lt;/code&gt;: Compute and store the flags affected by the instruction. Gets the same arguments as &lt;code&gt;compute_result&lt;/code&gt;, plus the addition of the computed result, to make flag expressions easier.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;Instruction also contains a few important methods meant to be called by its subclasses to implement the above methods.&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;get(reg_num, ty)&lt;/code&gt; Get register from a physical machine register into a temporary value we can do operations on.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;load(addr, ty)&lt;/code&gt;: Similar to the above, but loads from a given address in memory&lt;/li&gt;
@@ -148,52 +110,35 @@ You may want to extend this to implement changes in how data is parsed, based on
 &lt;li&gt;&lt;code&gt;jump(when, where)&lt;/code&gt;: Conditionally jump to a given location&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;constant(int_val, ty)&lt;/code&gt;: Creates a temporary values from an integer constant.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;(Note: there is also &lt;code&gt;ccall()&lt;/code&gt;; If you have something really messed up you don&amp;rsquo;t think you can express correctly, such as something that needs extensive runtime information, you may need a ccall, but try to avoid it if you can.  See the python docs for info.)&lt;/p&gt;
-
 &lt;h3 id=&#34;vexvalue&#34;&gt;VexValue&lt;/h3&gt;
-
 &lt;p&gt;What are all these &amp;lsquo;temprary values&amp;rsquo;? How do I actually specify what instructions do? That&amp;rsquo;s the magic of &lt;code&gt;VexValue&lt;/code&gt;.
 In VEX, you cannot do operations directly on registers or memory.  They must be first loaded into a temporary variable, operated on, and then written back to the registers or memory.  We wanted the lifter author to think as little about this as possible, so VexValue makes this whole process a snap.&lt;/p&gt;
-
 &lt;p&gt;A VexValue can be created in two different ways: by loading it out of the machine&amp;rsquo;s state using &lt;code&gt;get()&lt;/code&gt; or &lt;code&gt;put()&lt;/code&gt;, or by creating a constant value with &lt;code&gt;constant()&lt;/code&gt;.  You can then do normal python operations to them like any other value!
 VexValues have a set &lt;code&gt;Type&lt;/code&gt; when they are created; you can cast to a new type using the &lt;code&gt;cast_to(ty)&lt;/code&gt; method.
 You can even fetch bits using python&amp;rsquo;s slice and index notation!&lt;/p&gt;
-
 &lt;p&gt;Here&amp;rsquo;s an example, the xor instruction from our MSP430 lifter.
 Of course you have to xor, but what about the types? What&amp;rsquo;s the VEX operation for xor? Weird expressions for the flags?&lt;/p&gt;
-
 &lt;p&gt;Nah.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;compute_result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dst&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;^&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dst&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Or something boolean:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;carry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dst&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;It&amp;rsquo;s pretty magic.&lt;/p&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;compute_result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dst&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;^&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dst&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Or something boolean:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;carry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;src&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;dst&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ret&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It&amp;rsquo;s pretty magic.&lt;/p&gt;
 &lt;h2 id=&#34;use-the-proper-form&#34;&gt;Use the proper form&lt;/h2&gt;
-
 &lt;p&gt;As in exercise, using the proper form when lifting is better for your health, and just makes things work better.
 Its time to put the two sections above together and make your lifter&amp;rsquo;s design. A good lifter design, like any other piece of software, must minimize the amount of repetative code, while still being readable.  In particular, we&amp;rsquo;d like to make the structure of our lifter as close to that of the documentation, to allow for better manual auditing.&lt;/p&gt;
-
 &lt;p&gt;Let&amp;rsquo;s walk through the design of our MSP430 lifter.  We&amp;rsquo;ll come back to the BF example later; it&amp;rsquo;s too simple for this discussion.&lt;/p&gt;
-
 &lt;p&gt;As mentioned above, there are a lot of common tasks all MSP430 instructions must do, such as resolving the operands and addressing modes, grabbing the immediate extension words, and the write-back of the results of operations. These are defined in &lt;code&gt;MSP430Instruction&lt;/code&gt;, a direct subclass of &lt;code&gt;Instruction&lt;/code&gt;.
 We&amp;rsquo;ll also define how the Status Register (flags, in &lt;code&gt;compute_flags&lt;/code&gt;) works, and how the four flags are packed inside when it is updated.
 Because the three types have their own opcode, we define &lt;code&gt;match_instruction&lt;/code&gt; to check the &lt;code&gt;o&lt;/code&gt; symbol here. As a final step, how values are committed to the machine&amp;rsquo;s state is dependant on the addressing mode (writing to a register, vs indexing into memory, etc), and is handled in this class as well; we expect &lt;code&gt;compute_result&lt;/code&gt; to return the value to be written out, or None if that instruction doesn&amp;rsquo;t commit.&lt;/p&gt;
-
-&lt;p&gt;We will then define a class for each of the three types. These will set the &lt;code&gt;bin_format&lt;/code&gt; property, as well as overriding &lt;code&gt;fetch_operands&lt;/code&gt; to resolve the source and/or destination registers/immediates/etc, and simply return &lt;code&gt;src&lt;/code&gt; and &lt;code&gt;dst&lt;/code&gt;, which are passed to the instructionscompute_result` methods.&lt;/p&gt;
-
+&lt;p&gt;We will then define a class for each of the three types. These will set the &lt;code&gt;bin_format&lt;/code&gt; property, as well as overriding &lt;code&gt;fetch_operands&lt;/code&gt; to resolve the source and/or destination registers/immediates/etc, and simply return &lt;code&gt;src&lt;/code&gt; and &lt;code&gt;dst&lt;/code&gt;, which are passed to the instructions&lt;code&gt; &lt;/code&gt;compute_result` methods.&lt;/p&gt;
 &lt;p&gt;Finally, we will create a class for each instruction, subclassing the appropriate type, and providing only the &lt;code&gt;opcode&lt;/code&gt; (to be matched in &lt;code&gt;match_instruction&lt;/code&gt;), the &lt;code&gt;compute_result&lt;/code&gt; function, which returns the value to be committed, and the computation of any flags the instruction modifies.&lt;/p&gt;
-
 &lt;h2 id=&#34;time-to-get-swole&#34;&gt;Time to get swole!&lt;/h2&gt;
-
 &lt;p&gt;While we aimed these features to spare the user from thinking about an IR as much as possible (did you notice we told you almost nothing about how the IR actually works?), there&amp;rsquo;s no magical formula for getting totally shredded, or for lifting every architecture.  CPU architectures, like human bodies, are different, and have their own quirks, so the best thing we can do is give you really in-depth examples.&lt;/p&gt;
-
 &lt;p&gt;Our fully commented example, which lifts MSP430 binary code into VEX, can be found &lt;a href=&#34;https://github.com/angr/angr-platforms/blob/master/angr_platforms/msp430/instrs_msp430.py&#34;&gt;here&lt;/a&gt;. You can also find the, much simpler, BF lifter &lt;a href=&#34;https://github.com/angr/angr-platforms/blob/master/angr_platforms/bf/lift_bf.py&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;Built a really rad lifter? &lt;a href=&#34;https://angr.github.io/invite&#34;&gt;Let us know on Slack&lt;/a&gt;&lt;/p&gt;
-
 &lt;p&gt;Next time, we get to talk about execution engines! Better get fueled up.&lt;/p&gt;
 </description>
     </item>
@@ -204,78 +149,64 @@ Because the three types have their own opcode, we define &lt;code&gt;match_instr
       <pubDate>Thu, 18 Jan 2018 19:41:02 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_3/</guid>
-      <description>
-
-&lt;p&gt;Now we&amp;rsquo;re going to focus on the first actual step in the process of analyzing a program: Figuring out what it even is, and loading it into our system&amp;rsquo;s memory somehow.&lt;/p&gt;
-
+      <description>&lt;p&gt;Now we&amp;rsquo;re going to focus on the first actual step in the process of analyzing a program: Figuring out what it even is, and loading it into our system&amp;rsquo;s memory somehow.&lt;/p&gt;
 &lt;h2 id=&#34;cle-cle-loads-everything&#34;&gt;CLE: CLE Loads Everything&lt;/h2&gt;
-
 &lt;p&gt;The angr suite uses &lt;code&gt;CLE&lt;/code&gt; to load binaries.
 It serves as a logical implementation of the Linux loader first and foremost, but supports other OSes and formats through a series of &amp;ldquo;backends&amp;rdquo;.&lt;/p&gt;
-
 &lt;p&gt;CLE is given, by angr, a path to the &amp;ldquo;main binary&amp;rdquo;.  This is the argument to angr.Project().
 It&amp;rsquo;s CLE&amp;rsquo;s job to open it, figure out what it is, figure out what architecture it is (unless the user overrides), figure out where in memory it&amp;rsquo;s supposed to go, and load any dependencies, such as shared libraries, that it may depend on.&lt;/p&gt;
-
 &lt;h2 id=&#34;shortcut-what-if-my-architecture-uses-elf-files&#34;&gt;Shortcut: What if my architecture uses ELF files?&lt;/h2&gt;
-
 &lt;p&gt;You don&amp;rsquo;t need to do anything; CLE will load your binary just fine.  However, you will need to tell angr which sorts of ELF files map to the correct SimOS environment model, described in section 6.  These are tracked by the content of their EI_OSABI field.&lt;/p&gt;
-
 &lt;p&gt;If you have pyelftools installed, you can identify this simply like this:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-none&#34; data-lang=&#34;none&#34;&gt;% readelf.py -h switchLeds.elf
+&lt;pre&gt;&lt;code class=&#34;language-none&#34; data-lang=&#34;none&#34;&gt;% readelf.py -h switchLeds.elf
 ELF Header:
   Magic:   7f 45 4c 46 01 01 01 ff 00 00 00 00 00 00 00 00
   Class:                             ELF32
-  Data:                              2&amp;#39;s complement, little endian
+  Data:                              2&#39;s complement, little endian
   Version:                           1 (current)
   OS/ABI:                            Standalone App
-  ABI Version:                       0&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;To register this with our MSP430 environment model, we would simply do:&lt;/p&gt;
+  ABI Version:                       0
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To register this with our MSP430 environment model, we would simply do:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;angr.simos&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;register_simos&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;register_simos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Standalone App&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SimMSP430&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Were your binaries made by orcs instead? Read on.&lt;/p&gt;
-
+&lt;span class=&#34;n&#34;&gt;register_simos&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;Standalone App&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;SimMSP430&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Were your binaries made by orcs instead? Read on.&lt;/p&gt;
 &lt;h2 id=&#34;defining-the-bf-backend&#34;&gt;Defining the BF backend&lt;/h2&gt;
-
 &lt;p&gt;For BrainFuck, we really just need to read the program in, and put it in memory, rather straight-up, at address 0.
 You could get away with using the &lt;code&gt;Blob&lt;/code&gt; loader backend directly to do this, but we&amp;rsquo;re going to make it a little more explicit and demonstrative and define our own based on it.&lt;/p&gt;
-
 &lt;p&gt;First, the boring stuff:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;cle.backends&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Blob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;register_backend&lt;/span&gt;
 &lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;archinfo&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arch_from_id&lt;/span&gt;
 &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;re&lt;/span&gt;
 &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;logging&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;logging&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getLogger&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;cle.bf&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;__all__&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;BF&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;logging&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getLogger&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;cle.bf&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;__all__&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;BF&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
-&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;BF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Blob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;**&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kwargs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;BF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Blob&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kwargs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
 
         &lt;span class=&#34;nb&#34;&gt;super&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;BF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-                &lt;span class=&#34;n&#34;&gt;arch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;arch_from_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;bf&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+                &lt;span class=&#34;n&#34;&gt;arch&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;arch_from_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;bf&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
                 &lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;offset&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
                 &lt;span class=&#34;n&#34;&gt;entry_point&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-                &lt;span class=&#34;o&#34;&gt;**&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kwargs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Normally, to use the Blob loader, you must specify an entry point and arch &lt;em&gt;manually&lt;/em&gt;.
-We want to be able to just use angr.Project() on a BF program and have it work, so we subclass the Blob loader, and give it this information.&lt;/p&gt;
+                &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kwargs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Normally, to use the Blob loader, you must specify an entry point and arch &lt;em&gt;manually&lt;/em&gt;.
+We want to be able to just use angr.Project() on a BF program and have it work, so we subclass the Blob loader, and give it this information.&lt;/p&gt;
 &lt;p&gt;Next, we need to tell CLE when this loader will work on the given file, so that it can pick the right backend.
 Technically, by many definitions of BF, you can have other non-instruction characters in a file and still have it be valid.  For the ease of demonstration, let&amp;rsquo;s keep it simple and support the &amp;ldquo;non-compatible&amp;rdquo; BF syntax of only the instructions and newlines.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;    &lt;span class=&#34;nd&#34;&gt;@staticmethod&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;is_compatible&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;bf_re&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;re&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;compile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;[+\-&amp;lt;&amp;gt;.,\[\]&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;]+&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;is_compatible&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stream&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;bf_re&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;re&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;compile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;[+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;-&amp;lt;&amp;gt;.,&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;]+&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;stream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;seek&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
         &lt;span class=&#34;n&#34;&gt;stuff&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;stream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mh&#34;&gt;0x1000&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bf_re&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stuff&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;bf_re&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stuff&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
             &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;True&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;False&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Don&amp;rsquo;t forget to seek the stream to 0!! Some other &lt;code&gt;is_compatible&lt;/code&gt;, or the rest of CLE, is going to use it later.  As they used to say when I was a kid, &amp;ldquo;Be kind, rewind&amp;rdquo; :)&lt;/p&gt;
-
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;False&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Don&amp;rsquo;t forget to seek the stream to 0!! Some other &lt;code&gt;is_compatible&lt;/code&gt;, or the rest of CLE, is going to use it later.  As they used to say when I was a kid, &amp;ldquo;Be kind, rewind&amp;rdquo; :)&lt;/p&gt;
 &lt;p&gt;Last but not least, we need to tell CLE about our backend.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;n&#34;&gt;register_backend&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;bf&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That&amp;rsquo;s it?? That&amp;rsquo;s it.&lt;/p&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;n&#34;&gt;register_backend&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;bf&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That&amp;rsquo;s it?? That&amp;rsquo;s it.&lt;/p&gt;
 &lt;p&gt;If you want to see a more complex, but not too-complex example on something a bit less contrived, check out CLE&amp;rsquo;s CGC backend.  CGC binaries are deliberately simplified ELF-like files, that were designed to make analysis easy, so they make a nice template for crazier formats.&lt;/p&gt;
-
 &lt;p&gt;Next time, we get to talk about lifters! Get that protein powder ready.&lt;/p&gt;
 </description>
     </item>
@@ -286,106 +217,74 @@ Technically, by many definitions of BF, you can have other non-instruction chara
       <pubDate>Thu, 18 Jan 2018 19:40:58 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_2/</guid>
-      <description>
-
-&lt;p&gt;Since this is a tutorial about extending the core parts of angr, we should start by focusing on how to extend the core-est of core parts: the architecture support!
+      <description>&lt;p&gt;Since this is a tutorial about extending the core parts of angr, we should start by focusing on how to extend the core-est of core parts: the architecture support!
 Pretty much every piece of angr&amp;rsquo;s suite involves, in some way, specific information about the architecture of the program you&amp;rsquo;re analyzing.  Dealing with all this low-level architecture stuff is part of what makes binaries a pain in the rear to analyze, but angr abstracts most of it away for you in the &lt;code&gt;archinfo&lt;/code&gt; class, which is used by everything else to make the code flexible and platform-independent!&lt;/p&gt;
-
 &lt;p&gt;Before we can talk about how to add a new architecture, let&amp;rsquo;s talk about our target:&lt;/p&gt;
-
 &lt;h2 id=&#34;our-arch-brainfuck&#34;&gt;Our Arch: BrainFuck.&lt;/h2&gt;
-
 &lt;p&gt;We&amp;rsquo;re going to implement BrainFuck in angr, because it&amp;rsquo;s one of the simplest architectures that exists, but yet is far enough from the &amp;ldquo;real&amp;rdquo; architectures angr already supports to show off its flexibility.&lt;/p&gt;
-
 &lt;p&gt;BrainFuck is an esoteric programming language created by Urban Muller to be simple in concept, but really painful to actually use.&lt;/p&gt;
-
 &lt;p&gt;BrainFuck implements a Turing machine-like abstraction, in which a infinite(ish) tape of symbols contains the program, and another tape of &amp;ldquo;cells&amp;rdquo;, holds the program&amp;rsquo;s state (memory).
 Each cell is an unsigned byte, and the cell being referred to by instructions is chosen by the current value of a &amp;ldquo;pointer&amp;rdquo;.
 BrainFuck&amp;rsquo;s instruction pointer starts at 0, and the program ends when it moves past the last symbols.
 The data pointer starts at cell 0.&lt;/p&gt;
-
 &lt;p&gt;BrainFuck has only 8 instructions:&lt;/p&gt;
-
 &lt;p&gt;&lt;code&gt;&amp;gt;&lt;/code&gt; - Move the pointer to the right (increment)&lt;/p&gt;
-
 &lt;p&gt;&lt;code&gt;&amp;lt;&lt;/code&gt; - Move the pointer to the left (decrement)&lt;/p&gt;
-
 &lt;p&gt;&lt;code&gt;+&lt;/code&gt; - Increment the cell under the pointer&lt;/p&gt;
-
 &lt;p&gt;&lt;code&gt;-&lt;/code&gt; - Decrement the cell under the pointer&lt;/p&gt;
-
 &lt;p&gt;&lt;code&gt;[&lt;/code&gt; - If the value at the pointer is zero, skip forward to the matching &lt;code&gt;]&lt;/code&gt;&lt;/p&gt;
-
 &lt;p&gt;&lt;code&gt;]&lt;/code&gt; - If the value at the pointer is non-zero, skip backward to the matching &lt;code&gt;[&lt;/code&gt;&lt;/p&gt;
-
 &lt;p&gt;&lt;code&gt;.&lt;/code&gt; - Output (print to stdout) the cell at the pointer&lt;/p&gt;
-
 &lt;p&gt;&lt;code&gt;,&lt;/code&gt; - Input (get character at stdin) to the cell at ptr&lt;/p&gt;
-
 &lt;h2 id=&#34;defining-our-architecture&#34;&gt;Defining our architecture&lt;/h2&gt;
-
 &lt;p&gt;From the description above, we notice a few things:&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;This is a &amp;ldquo;Harvard&amp;rdquo; architecture, data and memory are separate.&lt;/li&gt;
 &lt;li&gt;We have two real registers here: A pointer &lt;code&gt;ptr&lt;/code&gt;, and the usual instruction pointer &lt;code&gt;ip&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;Memory accesses in BF are all in terms of a single byte.  There&amp;rsquo;s no endianness to worry about.  However, the width of &lt;code&gt;ip&lt;/code&gt; and &lt;code&gt;ptr&lt;/code&gt; are not defined.&lt;/li&gt;
 &lt;li&gt;We have to do something about input and output.&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;This last point is worth some discussion.
 In traditional architectures, this is handled by GPIOs, or some complicated mess of peripherals driven by the OS.  We have none of that, we just want bytes in and bytes out.  We&amp;rsquo;ll need to help angr out a bit with this one; there are a few possible ways to implement this, but we&amp;rsquo;re going to explore one that pretends there are mythical system calls to get our bytes in and out.  In a &amp;ldquo;normal&amp;rdquo; architecture, this means there&amp;rsquo;s a syscall number in a register somewhere.  We&amp;rsquo;re going to pretend that exists too.&lt;/p&gt;
-
 &lt;h2 id=&#34;archinfo&#34;&gt;archinfo&lt;/h2&gt;
-
 &lt;p&gt;archinfo is the class in the angr suite that holds all of this information.
 To create a new arch, you simply make a subclass of &lt;code&gt;archinfo.Arch&lt;/code&gt;, and define your registers, their aliases, some info about bit widths and endianess, and so on.&lt;/p&gt;
-
 &lt;p&gt;Now, let&amp;rsquo;s lay down some code.&lt;/p&gt;
-
 &lt;p&gt;First, the boring stuff:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;archinfo.arch&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Arch&lt;/span&gt;
 &lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;archinfo&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;register_arch&lt;/span&gt;
 
-&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;ArchBF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Arch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;endness&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Iend_LE&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
-        &lt;span class=&#34;nb&#34;&gt;super&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ArchBF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;Iend_LE&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;We&amp;rsquo;ll call this arch little endian, since we have to say something, and in this case it doesn&amp;rsquo;t matter.&lt;/p&gt;
-
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;ArchBF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Arch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;endness&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;Iend_LE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;super&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ArchBF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;Iend_LE&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We&amp;rsquo;ll call this arch little endian, since we have to say something, and in this case it doesn&amp;rsquo;t matter.&lt;/p&gt;
 &lt;p&gt;Next, some simple metadata:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bits&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;64&lt;/span&gt;
         &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vex_arch&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;None&lt;/span&gt;
-        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;BF&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Names are usually all-caps.  As I mentioned above, the bit-width here corresponds to the address space and register widths, and we don&amp;rsquo;t have one defined, so I picked 64.
+        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;BF&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Names are usually all-caps.  As I mentioned above, the bit-width here corresponds to the address space and register widths, and we don&amp;rsquo;t have one defined, so I picked 64.
 VEX doesn&amp;rsquo;t support this arch, so &lt;code&gt;vex_arch&lt;/code&gt; is None.&lt;/p&gt;
-
 &lt;p&gt;Now here&amp;rsquo;s the register file:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
-        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;ip&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;ptr&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;inout&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;ip_at_syscall&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I mentioned the &amp;lsquo;inout&amp;rsquo; register, which is our syscall number when picking input vs output.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;ip&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;ptr&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;inout&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;ip_at_syscall&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I mentioned the &amp;lsquo;inout&amp;rsquo; register, which is our syscall number when picking input vs output.
 However, we have another fake register &lt;code&gt;ip_at_syscall&lt;/code&gt;, which is used by angr to track syscall-related return behavior.  Don&amp;rsquo;t worry about it, just put it here.&lt;/p&gt;
-
 &lt;p&gt;You can also assign aliases, like &lt;code&gt;pc&lt;/code&gt; for &lt;code&gt;ip&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;register_names&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
-        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;register_names&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;ip&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;pc&amp;#39;&lt;/span&gt;
-        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;register_names&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;ip&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;ip&amp;#39;&lt;/span&gt;
-        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ip_offset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;ip&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Various kinds of reasoning need to where the ip is rather explicitly.  We set that here too.&lt;/p&gt;
-
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;register_names&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;register_names&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;ip&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;pc&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;
+        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;register_names&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;ip&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;ip&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;
+        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ip_offset&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;registers&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;ip&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Various kinds of reasoning need to where the ip is rather explicitly.  We set that here too.&lt;/p&gt;
 &lt;p&gt;Finally, we need to tell archinfo about our new arch:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;n&#34;&gt;register_arch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;bf|brainfuck&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;64&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;any&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArchBF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The first argument is a list of regular expressions that match the name of our architecture.  (Note, as of this writing, you can assume input is lowercase).  Next, the bit-width of our arch, which is 64.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;n&#34;&gt;register_arch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;bf|brainfuck&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;64&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;any&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ArchBF&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The first argument is a list of regular expressions that match the name of our architecture.  (Note, as of this writing, you can assume input is lowercase).  Next, the bit-width of our arch, which is 64.
 The third argument is the &lt;code&gt;endness&lt;/code&gt;, which can either be &amp;ldquo;Iend_LE&amp;rdquo;, &amp;ldquo;Iend_BE&amp;rdquo;, or &amp;ldquo;any&amp;rdquo;.  (&lt;em&gt;these constants come from VEX, if you&amp;rsquo;re curious&lt;/em&gt;) &amp;lsquo;any&amp;rsquo; means this Arch will match for either endness.&lt;/p&gt;
-
 &lt;p&gt;This is used by &lt;code&gt;archinfo.arch_from_id()&lt;/code&gt; to look up the Arch for a given set of parameters.  Given the various circumstances under which this is needed, we deliberately make this super flexible, and encourage you to make your mappings flexible too.&lt;/p&gt;
-
 &lt;p&gt;That&amp;rsquo;s it!&lt;/p&gt;
-
 &lt;p&gt;This doesn&amp;rsquo;t do a whole lot yet, but it&amp;rsquo;s an important first step.&lt;/p&gt;
-
 &lt;p&gt;We&amp;rsquo;ll build on this in the next part, where we get angr to load BF programs into its simulated memory.&lt;/p&gt;
 </description>
     </item>
@@ -396,113 +295,80 @@ The third argument is the &lt;code&gt;endness&lt;/code&gt;, which can either be 
       <pubDate>Thu, 18 Jan 2018 18:51:25 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_1/</guid>
-      <description>
-
-&lt;p&gt;In this n+1-part series, we will be exploring how you can extend &lt;a href=&#34;http://angr.io/&#34; title=&#34;angr&#34;&gt;angr&lt;/a&gt; with new features, without editing angr itself!&lt;/p&gt;
-
+      <description>&lt;p&gt;In this n+1-part series, we will be exploring how you can extend &lt;a href=&#34;http://angr.io/&#34; title=&#34;angr&#34;&gt;angr&lt;/a&gt; with new features, without editing angr itself!&lt;/p&gt;
 &lt;p&gt;angr is the popular framework for analyzing binary programs, from embedded firmware, to hardcore CTF challenges, all from the comfort of Python.
 angr&amp;rsquo;s roots lie in the Valgrind VEX instrumentation framework, meaning it benefits from the multi-architecture support and community maintenance.
 However, we live in a big world full of crazy things that aren&amp;rsquo;t Intel or ARM-based Linux machines.&lt;/p&gt;
-
 &lt;p&gt;What about microcontrollers?&lt;/p&gt;
-
 &lt;p&gt;What about Android bytecode?&lt;/p&gt;
-
 &lt;p&gt;What about Javascript?&lt;/p&gt;
-
-&lt;p&gt;What about &lt;strong&gt;&lt;em&gt;BrainFuck&lt;/em&gt;&lt;/strong&gt;??&lt;/p&gt;
-
+&lt;p&gt;What about &lt;em&gt;&lt;strong&gt;BrainFuck&lt;/strong&gt;&lt;/em&gt;??&lt;/p&gt;
 &lt;p&gt;(&lt;em&gt;gasp&lt;/em&gt;! Not BrainFuck! Anything but BrainFuck!)&lt;/p&gt;
-
 &lt;p&gt;If you find yourself asking any of those sorts of questions, this is the guide for you!
 angr now supports extensions to each of its core components: the loader, architecture database, lifter, execution engine, and simulated OS layer.
 We will be exploring each in turn, with the goal of bringing the complete suite of powerful angr analyses to bear on a totally new class of program that it was not designed to before.&lt;/p&gt;
-
 &lt;p&gt;In order to not overcomplicate things, and make the core ideas clear, we&amp;rsquo;re going to start with something conceptually simple.&lt;/p&gt;
-
 &lt;p&gt;Sorry, that BrainFuck thing was not a joke.
 In this guide, we&amp;rsquo;re going to build the most insanely overkill BrainFuck analysis platform ever constructed.  By the time you&amp;rsquo;re done here, you&amp;rsquo;ll be able to totally obliterate any of the Brainfuck crack-me programs that I hear may even actually exist.&lt;/p&gt;
-
 &lt;p&gt;First, let&amp;rsquo;s go over the components themselves, and how they fit together.&lt;/p&gt;
-
 &lt;h1 id=&#34;the-angr-lifecycle&#34;&gt;The angr lifecycle&lt;/h1&gt;
-
 &lt;p&gt;If you&amp;rsquo;ve used angr before, you&amp;rsquo;ve probably done this:
 (blatantly stolen from &lt;a href=&#34;https://github.com/angr/angr-doc/tree/master/examples/fauxware&#34;&gt;angr-doc&amp;rsquo;s fauxware example&lt;/a&gt;)&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;angr&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;angr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Project&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;crackme&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;state&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;factory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entry_state&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;angr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Project&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;crackme&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;state&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;factory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entry_state&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;sm&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;factory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;simgr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;state&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;sm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;step&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;until&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;lambda&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lpg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lpg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;active&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;input_0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;active&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;posix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dumps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That&amp;rsquo;s only a few lines, but there&amp;rsquo;s a whole lot going on here.
+&lt;span class=&#34;n&#34;&gt;input_0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;active&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;posix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dumps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That&amp;rsquo;s only a few lines, but there&amp;rsquo;s a whole lot going on here.
 In that little snippet, we load a binary, lift it from machine-code to an intermediate representation that we can reason about a bit more mathematically (VEX, by default), execute representation symbolically, and finally, print the input we needed to give the program to get to the first real branch, computed using a SMT-solver.&lt;/p&gt;
-
 &lt;div class=&#34;newline-image&#34;&gt;
   &lt;strong&gt;the angr lifecycle:&lt;/strong&gt;
   &lt;img style=&#34;width: 90%; margin: 3% 5% 0% 5%;&#34; src=&#34;https://angr.github.io/img/angr_diagram.png&#34; /&gt;
 &lt;/div&gt;
 
-
 &lt;h2 id=&#34;cle-the-loader&#34;&gt;CLE, the loader&lt;/h2&gt;
-
 &lt;p&gt;The first thing that happens when you create an angr project is angr has to figure out what the heck you just told it to load.
 For this, it turns to the loader, CLE (CLE Loads Everythig) to come up with an educated guess, extract the executable code and data from whatever format it&amp;rsquo;s in, take a guess as what architecture it&amp;rsquo;s for, and create a representation of the program&amp;rsquo;s memory map as if the real loader had been used.
 CLE supports a set of &amp;ldquo;backends&amp;rdquo; that service various formats, such as ELF, PE, and CGC.
 For the common cases, this means loading an ELF, which brings with it the complicated mess of header parsing, library resolution, and strange memory layouts you both require and expect.
 It also supports the exact opposite of this, pure binary blobs, with a backend that just takes the bytes and puts them in the right place in memory.
 The result is a Loader object, which has the memory of the main program itself (&lt;code&gt;Loader.main_object&lt;/code&gt;) and any libraries.&lt;/p&gt;
-
 &lt;h2 id=&#34;archinfo-the-architecture-db&#34;&gt;Archinfo, the architecture DB&lt;/h2&gt;
-
 &lt;p&gt;During CLE&amp;rsquo;s loading, it takes a guess as to what architecture the program is for.
 This is usually via either a header (as in ELFs) or some simple heuristic.
 Either way, it makes a guess, and uses it to fetch an &lt;code&gt;Arch&lt;/code&gt; object from the &lt;code&gt;archinfo&lt;/code&gt; package corresponding to it.
 This contains a map of the register file, bit width, usual endian-ness, and so on.
 Literally everything else relies on this, as you can imagine.&lt;/p&gt;
-
 &lt;h2 id=&#34;simengine-the-simulated-executer&#34;&gt;SimEngine, the simulated executer&lt;/h2&gt;
-
 &lt;p&gt;Next, angr will locate an execution engine capable of dealing with the code it just loaded.
 Engines are responsible for interpreting the code in some meaningful way.
 Fundamentally, they take a program&amp;rsquo;s &lt;em&gt;state&lt;/em&gt;&amp;ndash; a snapshot of the registers, memory, and so on&amp;ndash; do some thing to it, usually a basic block&amp;rsquo;s worth of instructions, and produce a set of &lt;em&gt;successors&lt;/em&gt;, coresponding to all the possible program states that can be reached by executing the current block.
 When branches are encountered, they collect &lt;em&gt;constraints&lt;/em&gt; on the state which capture the conditions needed to take each path of the branch.
 In aggregate, this is what gives angr its reasoning power.&lt;/p&gt;
-
 &lt;h2 id=&#34;pyvex-the-lifter&#34;&gt;PyVEX, the lifter&lt;/h2&gt;
-
 &lt;p&gt;angr&amp;rsquo;s default engine, SimEngineVEX, supports many architectures, simply because it doesn&amp;rsquo;t run on their machine code directly. It uses an intermediate representation, known as VEX, which machine code is translated (&lt;em&gt;lifted&lt;/em&gt;) into.
 As an alternative to creating your own engine for a new architecture, if it is similar enough to a &amp;ldquo;normal&amp;rdquo; PC architecture, the faster solution is to simply create a Lifter for it, allowing SimEngineVEX to take care of the rest.
 We will explore both Lifters and Engines in this guide.&lt;/p&gt;
-
 &lt;h2 id=&#34;claripy-the-solver&#34;&gt;Claripy, the solver&lt;/h2&gt;
-
 &lt;p&gt;Every action an engine performs, even something as simple as incrementing the program counter, is not necessarily an operation on a concrete value.
 The value could instead be a complicated expression, that when computed on, should actually result in an even bigger expression.
 Creating, composing, and eventually solving these is Claripy&amp;rsquo;s job.
 Claripy uses a SMT-solver, currently Microsoft&amp;rsquo;s Z3, to do all of this heavy-lifting.
 Thankfully, we won&amp;rsquo;t need to delve into that in this series, as SMT-solving is some serious black magic.&lt;/p&gt;
-
 &lt;h2 id=&#34;simos-the-rest-of-the-nasty-bits&#34;&gt;SimOS, the rest of the nasty bits&lt;/h2&gt;
-
 &lt;p&gt;If we just view the engine&amp;rsquo;s work on a program from the states it provides, we&amp;rsquo;re going to have a lot of work to do to get anything useful out.
 Where is stdin? What the heck do I do with files? Network? Are you kidding?
 These higher-level abstractions are provided by the OS, and don&amp;rsquo;t exist at the bare machine level.
 Therefore, SimOS&amp;rsquo; job is to provide all of that to angr, so that it can be reasoned about without all the pain of interpreting just what the fake hardware would do.
 Based on a guess from CLE, a SimOS is created (ex. SimLinux), which defines the OS-specific embellishments on the initial state of the program, all its system calls, and convenient symbolic summaries of what syscalls and common library functions do, known as &lt;em&gt;SimProcedures&lt;/em&gt;.
 These make angr dramatically faster and more compatible, as symbolically executing libc itself is, to say the least, insanely painful.&lt;/p&gt;
-
 &lt;h1 id=&#34;angr-the-real-deal&#34;&gt;angr, the real deal&lt;/h1&gt;
-
 &lt;p&gt;Finally, with a Loader, an Engine, an Arch, and a SimOS, we can get to work!
 All of this is packaged into a Project, and offered to the higher-level analyses, such as Control-flow Graph reconstruction, program slicing, and path-based reasoning, as in the earlier example.&lt;/p&gt;
-
 &lt;p&gt;In the next part, we&amp;rsquo;ll introduce our chosen architecture, BrainFuck, and discuss the implementation of additional architectures.&lt;/p&gt;
-
 &lt;hr&gt;
-
 &lt;p&gt;Image icons made by&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.freepik.com&#34;&gt;Freepik&lt;/a&gt; from &lt;a href=&#34;https://www.flaticon.com/&#34;&gt;Flaticon&lt;/a&gt;, licensed by &lt;a href=&#34;http://creativecommons.org/licenses/by/3.0/&#34;&gt;CC 3.0 BY&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.flaticon.com/authors/smashicons&#34;&gt;Smashicons&lt;/a&gt; from &lt;a href=&#34;https://www.flaticon.com/&#34;&gt;Flaticon&lt;/a&gt;, licensed by &lt;a href=&#34;http://creativecommons.org/licenses/by/3.0/&#34;&gt;CC 3.0 BY&lt;/a&gt;&lt;/li&gt;
@@ -524,7 +390,6 @@ In this n+1-part series, we will be exploring how you can extend angr with new f
 We&amp;rsquo;ll be covering a range of topics from &lt;code&gt;gymrat&lt;/code&gt; to Analyses, and including a plethora of examples and explanations along the way.
 If you&amp;rsquo;re interested in learning how to port angr to a new architecture, write a custom engine or analysis, or even (&lt;em&gt;gasp&lt;/em&gt;)
 use angr to analyze BrainFuck programs, then read on.&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://angr.github.io/blog/throwing_a_tantrum_part_1/&#34;&gt;Part 1: Angr Internals&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://angr.github.io/blog/throwing_a_tantrum_part_2/&#34;&gt;Part 2: Architectures&lt;/a&gt;&lt;/li&gt;
@@ -534,7 +399,6 @@ use angr to analyze BrainFuck programs, then read on.&lt;/p&gt;
 &lt;li&gt;Part 6: SimOS&lt;/li&gt;
 &lt;li&gt;Part 7: Analyses&lt;/li&gt;
 &lt;/ul&gt;
-
 &lt;p&gt;For any questions or feedback, please reach out to us on &lt;a href=&#34;angr.slack.com&#34;&gt;our slack&lt;/a&gt; (get an invite &lt;a href=&#34;https://angr.github.io/invite.html&#34;&gt;here&lt;/a&gt;).&lt;/p&gt;
 </description>
     </item>
@@ -547,7 +411,6 @@ use angr to analyze BrainFuck programs, then read on.&lt;/p&gt;
       <guid>https://angr.github.io/blog/angr_blog_starting_up_again/</guid>
       <description>&lt;p&gt;Like most New Year resolutions, we did a pretty terrible job of continuing to post on the angr blog throughout 2017.
 We learned from this, so this time we&amp;rsquo;re making an May resolution and bringing the angr blog back!&lt;/p&gt;
-
 &lt;p&gt;We know that angr can be pretty unapproachable and that while we have &lt;a href=&#34;https://docs.angr.io/docs/examples.html&#34;&gt;examples&lt;/a&gt;,
 they&amp;rsquo;re generally a little short on the thought process that underlies our solutions.
 On this blog, we&amp;rsquo;ll be posting many examples with abundant explanation, announcements and tutorials covering new angr
@@ -556,7 +419,6 @@ To get you all started, we have a tutorial on extending angr to new architecture
 If you&amp;rsquo;ve ever wanted to use angr to symbolically execute MSP430, Xtensa, BPF, cLEMENCy,
 or even Brainfuck (&lt;em&gt;gasp&lt;/em&gt;! Not BrainFuck!), then it&amp;rsquo;s definitely worth giving it a read!
 You can find links to each of the tutorial pages &lt;a href=&#34;https://angr.github.io/blog/throwing_a_tantrum_index&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;If you have any suggestions for articles or questions for the angr team, please reach out on &lt;a href=&#34;http://angr.slack.com&#34;&gt;our slack&lt;/a&gt;!
 You can request an invitation &lt;a href=&#34;https://angr.github.io/invite&#34;&gt;here&lt;/a&gt;.
 For more information on how you can contact us and get involved with the angr project, see &lt;a href=&#34;https://angr.github.io/#contact&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;

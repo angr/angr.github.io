@@ -98,174 +98,147 @@
 
 
 <section class="post-content">
-
-
 <p>Today we are going to talk about an exciting new feature that we have recently released on <a href="https://github.com/angr/angr/commit/fe20116e8dc2aef94d0849439ff9f12a39000dfe">angr&rsquo;s master</a>: Symbion, a brand new exploration technique aimed to overcome some of the complexities that real-world programs exhibit and that can&rsquo;t or are not currently modeled in our symbolic engine.</p>
-
 <h1 id="motivation">Motivation</h1>
-
 <p>When we leverage a symbolic execution tool such as angr to analyze a program, we depend on a model of the operating system and libraries to make the analysis tractable ( in fact trying to symbolically execute everything would lead immediately to a state explosion).
 However, there are a lot of libraries and system calls out there, and we cannot hope to model them all.  In the case that a program requires an unmodeled procedure, we generally either lose precision, encounter state explosion or spend a lot of time developing a <em>SimProcedure</em>. For real-world programs, this can become a huge barrier to a useful analysis.</p>
-
 <p><strong>Instead of modeling, Symbion levereges a concrete execution of a program to support the symbolic analysis</strong>.</p>
-
 <p>Analysts may wish to symbolically reason about control flow of a program between two program points B and C, but can&rsquo;t even execute from point A to point B due to unmodeled behaviors. With Symbion, they can execute concretely up to point B, switch into angr&rsquo;s symbolic context, and compute the program input needed to reach point C.  The solution obtained by angr can then be written into the program&rsquo;s memory and by resuming the concrete execution reaching beyond point C.</p>
-
 <div class="newline-image">
   <strong>Symbion workflow:</strong>
   <img style="width: 90%; margin: 3% 5% 0% 5%;" src="/img/symbion_workflow.jpg" />
 </div>
 
-
 <p>In academia, previous works have explored similar ideas with projects like <a href="https://users.ece.cmu.edu/~dbrumley/pdf/Cha%20et%20al._2012_Unleashing%20Mayhem%20on%20Binary%20Code.pdf">Mayhem</a>, <a href="http://s3.eurecom.fr/docs/bar18_muench.pdf">AVATAR</a> and <a href="https://cseweb.ucsd.edu/~dstefan/cse291-fall16/papers/s2e.pdf">S2E</a>. We leverege some of the interesting ideas implemented in these projects with the aim of making a hybrid concrete/symbolic approach that is easy to use and flexible enough to build upon.</p>
-
 <p>Our main design goals are:</p>
-
 <ol>
-<li><p>Couple the concrete environment to the symbolic environment, without depending on what the concrete environment is and letting users to implement new <em>ConcreteTarget</em> ( the object responsible to control the concrete execution of the program in the concrete environment ) through a well-defined and simple interface.</p></li>
-
-<li><p>Allow context switches between concrete and symbolic (and vice versa), without expensive transfers of state.</p></li>
-
-<li><p>Allow changes to the concrete state, to enable further exploration based on the results of angr analyses.</p></li>
+<li>
+<p>Couple the concrete environment to the symbolic environment, without depending on what the concrete environment is and letting users to implement new <em>ConcreteTarget</em> ( the object responsible to control the concrete execution of the program in the concrete environment ) through a well-defined and simple interface.</p>
+</li>
+<li>
+<p>Allow context switches between concrete and symbolic (and vice versa), without expensive transfers of state.</p>
+</li>
+<li>
+<p>Allow changes to the concrete state, to enable further exploration based on the results of angr analyses.</p>
+</li>
 </ol>
-
 <p>With these goals in mind, we have worked to create Symbion, while minimizing the changes to the overall angr environment and workflow.</p>
-
 <h1 id="system-overview">System overview</h1>
-
 <div class="newline-image">
   <strong>Symbion main components:</strong>
   <img style="width: 90%; margin: 3% 5% 0% 5%;" src="/img/symbion_sys_overview.png" />
 </div>
 
-
 <p>The first thing we need to do when performing an analysis is creating the concrete environment we wish to use.  Symbion adds the notion of a <em>ConcreteTarget</em>, a generic abstraction for any execution environment that defines simple memory, register, and execution control interactions.</p>
-
 <p>For example, to connect to a gdbserver:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">angr_targets</span> <span class="kn">import</span> <span class="n">AvatarGDBConcreteTarget</span>
 
 <span class="c1"># Start a gdbserver instance</span>
-<span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s2">&#34;gdbserver </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">GDB_SERVER_IP</span><span class="p">,</span><span class="n">GDB_SERVER_PORT</span><span class="p">,</span><span class="s1">&#39;/bin/ls&#39;</span><span class="p">),</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">gdbserver </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">GDB_SERVER_IP</span><span class="p">,</span><span class="n">GDB_SERVER_PORT</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">/bin/ls</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">,</span>
                   <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
                   <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="c1"># Instantiation of the AvatarGDBConcreteTarget</span>
 <span class="n">avatar_gdb</span> <span class="o">=</span> <span class="n">AvatarGDBConcreteTarget</span><span class="p">(</span><span class="n">avatar2</span><span class="o">.</span><span class="n">archs</span><span class="o">.</span><span class="n">x86</span><span class="o">.</span><span class="n">X86_64</span><span class="p">,</span> <span class="n">GDB_SERVER_IP</span><span class="p">,</span>
-                                    <span class="n">GDB_SERVER_PORT</span><span class="p">)</span></code></pre></div>
-<p>While here we use a GDB concrete target, it is totally possible to implement new targets ( like full-system emulators, hardware via an attached debugger, a Windows debugger,&hellip; ) by implementing a very simple interface:</p>
+                                    <span class="n">GDB_SERVER_PORT</span><span class="p">)</span>
+</code></pre></div><p>While here we use a GDB concrete target, it is totally possible to implement new targets ( like full-system emulators, hardware via an attached debugger, a Windows debugger,&hellip; ) by implementing a very simple interface:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">   <span class="c1"># read &#39;length&#39; bytes from address in the concrete process memory</span>
-   <span class="k">def</span> <span class="nf">read_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">read_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span><span class="p">:</span>
 
    <span class="c1"># write &#39;data&#39; at &#39;address&#39; inside the concrete process memory</span>
-   <span class="k">def</span> <span class="nf">write_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">write_memory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span><span class="p">:</span>
 
    <span class="c1"># read specified &#39;register&#39; data</span>
-   <span class="k">def</span> <span class="nf">read_register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">register</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">read_register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">register</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span><span class="p">:</span>
 
    <span class="c1"># write &#39;value&#39; inside specified &#39;register&#39;</span>
-   <span class="k">def</span> <span class="nf">write_register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">register</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">write_register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">register</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span><span class="p">:</span>
 
    <span class="c1"># set a breakpoint at &#39;address&#39;</span>
-   <span class="k">def</span> <span class="nf">set_breakpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">set_breakpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span><span class="p">:</span>
 
    <span class="c1"># remove breakpoint at &#39;address&#39;</span>
-   <span class="k">def</span> <span class="nf">remove_breakpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">remove_breakpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="o">*</span><span class="o">*</span><span class="n">kwargs</span><span class="p">)</span><span class="p">:</span>
 
    <span class="c1"># get information about memory mapping of the target process</span>
-   <span class="k">def</span> <span class="nf">get_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">get_mappings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
 
    <span class="c1"># resume the execution of the concrete process</span>
-   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
 
    <span class="c1"># force stop of the concrete execution</span>
-   <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></code></pre></div>
-<p>The attentive reader may notice that this API bears a striking similarity to the <a href="https://github.com/avatartwo/avatar2/blob/master/avatar2/targets/target.py">interface</a> used by the <a href="http://s3.eurecom.fr/docs/bar18_muench.pdf">AVATAR</a> target-orchestration framework; this is intentional, and we inherit target code and capabilities from <a href="http://s3.eurecom.fr/docs/bar18_muench.pdf">AVATAR</a>&rsquo;s collection of pluggable targets.</p>
-
+   <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="p">:</span>
+</code></pre></div><p>The attentive reader may notice that this API bears a striking similarity to the <a href="https://github.com/avatartwo/avatar2/blob/master/avatar2/targets/target.py">interface</a> used by the <a href="http://s3.eurecom.fr/docs/bar18_muench.pdf">AVATAR</a> target-orchestration framework; this is intentional, and we inherit target code and capabilities from <a href="http://s3.eurecom.fr/docs/bar18_muench.pdf">AVATAR</a>&lsquo;s collection of pluggable targets.</p>
 <p>Next, we need to create the angr environment.  This is done in the usual way, but specifying that a <em>ConcreteTarget</em> is to be used:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Creating an angr Project by specifying that we are going to use a concrete target</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">binary_x64</span><span class="p">,</span> <span class="n">concrete_target</span><span class="o">=</span><span class="n">avatar_gdb</span><span class="p">,</span>
-                 <span class="n">use_sim_procedures</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></code></pre></div>
-<p>The primary user-facing component of Symbion is its <em>ExplorationTechnique</em>, which works similarly to the other available techniques. This allows us to execute the program until a certain address is reached, or any number of other conditions.</p>
-
+                 <span class="n">use_sim_procedures</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div><p>The primary user-facing component of Symbion is its <em>ExplorationTechnique</em>, which works similarly to the other available techniques. This allows us to execute the program until a certain address is reached, or any number of other conditions.</p>
 <p>Translating this idea into the script, let&rsquo;s say we want to reach <code>0x4007a4</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Create the state at the beginning of the program</span>
-<span class="n">entry_state</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">entry_state</span><span class="p">()</span>
+<span class="n">entry_state</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">entry_state</span><span class="p">(</span><span class="p">)</span>
+<span class="n">entry_state</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">SYMBION_SYNC_CLE</span><span class="p">)</span>
+<span class="n">entry_state</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">SYMBION_KEEP_STUBS_ON_SYNC</span><span class="p">)</span>
 
 <span class="c1"># Create a simulation manager to hold this exploration</span>
 <span class="n">simgr</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">simgr</span><span class="p">(</span><span class="n">entry_state</span><span class="p">)</span>
 
 <span class="c1"># Explore the program concretely until we reach 0x4007a4</span>
-<span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="mh">0x4007A4</span><span class="p">]))</span>
+<span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="mh">0x4007A4</span><span class="p">]</span><span class="p">)</span><span class="p">)</span>
 
-<span class="n">exploration</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></code></pre></div>
-<p>While this seems simple, a lot of the complexity of Symbion is hidden in the transition between the concrete and the symbolic contexts.
+<span class="n">exploration</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="p">)</span>
+</code></pre></div><p>While this seems simple, a lot of the complexity of Symbion is hidden in the transition between the concrete and the symbolic contexts.
 The whole magic occurs through a new angr execution engine (<em>SimEngineConcrete</em>) and an accompanying <em>Concrete state plugin</em> ( these are complex enough to warrant their own blog post and will be discussed later ).
 For now, it suffices to say that at the end of its execution (when we have reached the target address), the <em>SimEngineConcrete</em> returns a <em>SimState</em> reflecting the current state of the concrete target.</p>
-
 <div class="newline-image">
   <strong>Interaction with ConcreteTarget:</strong>
   <img style="width: 90%; margin: 3% 5% 0% 5%;" src="/img/symbion_ct_interaction.gif" />
 </div>
 
-
 <p>However, this synchronization does <em>not</em> need to copy any memory; during the synchronization with the concrete target, we modify the state&rsquo;s memory backend such that reads are lazily redirected to the underlying concrete memory.</p>
-
 <div class="newline-image">
   <strong>Lazy memory redirection:</strong>
   <img style="width: 90%; margin: 3% 5% 0% 5%;" src="/img/symbion_lazymem.jpg" />
 </div>
 
-
 <p>We are again free to perform any analysis we wish.  Note that while this state forwards memory reads to the underlying concrete target, writes are <em>not</em> forwarded, and will remain only in this symbolic state, until they are concretized and applied to the target.
 Concretization is triggered by the use of the <em>concretize</em> argument passed to Symbion. We only need to supply a list of addresses, and the variable we wish to solve for.</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Instructing angr to use the Symbion exploration technique to bring the</span>
 <span class="c1"># concrete process to the address &#39;BINARY_EXECUTION_END&#39;</span>
-<span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="n">BINARY_EXECUTION_END</span><span class="p">],</span>
-                                  <span class="n">concretize</span> <span class="o">=</span> <span class="p">[(</span><span class="n">address</span><span class="p">,</span><span class="n">my_variable</span><span class="p">)]))</span></code></pre></div>
-<h1 id="example">Example</h1>
-
+<span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="n">BINARY_EXECUTION_END</span><span class="p">]</span><span class="p">,</span>
+                                  <span class="n">memory_concretize</span> <span class="o">=</span> <span class="p">[</span><span class="p">(</span><span class="n">address</span><span class="p">,</span><span class="n">my_variable</span><span class="p">)</span><span class="p">]</span><span class="p">)</span><span class="p">)</span>
+</code></pre></div><h1 id="example">Example</h1>
 <p>For this example, we are going to use a homemade toy binary (a 64-bit Linux ELF) that will make decisions about the execution based on an internal hardcoded configuration.
 The binary has also been packed with <a href="https://upx.github.io/">UPX</a> in order to hinder as much as possible the analysis with angr.</p>
-
 <p>Disclaimer: this homemade &ldquo;malware&rdquo; is definitely not a real-world case scenario, but its level of complexity is perfectly suited for showing how Symbion works. We are planning to show you real-world cases in future blog posts!</p>
-
 <p>Before starting make sure you cloned the <a href="https://github.com/angr/angr-targets">angr-targets</a> and you installed it in your python virtualenv.</p>
-
 <p>Let&rsquo;s begin! :D</p>
-
 <p>First thing first, let&rsquo;s get familiar with our binary.
-You can get a <a href="https://github.com/angr/binaries.git in tests/x86_64/packed_elf64">copy</a> from the angr <a href="https://github.com/angr/binaries">binaries</a> repository</p>
-
+You can get a [copy](<a href="https://github.com/angr/binaries.git">https://github.com/angr/binaries.git</a> in tests/x86_64/packed_elf64) from the angr <a href="https://github.com/angr/binaries">binaries</a> repository</p>
 <p>By executing it, you have a surprise:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>+<span class="o">]</span> Parsing malware configuration
-<span class="o">[</span>+<span class="o">]</span> Virtual environment detected!</code></pre></div>
-<p>Seems that we have an evasive behavior here!
+<span class="o">[</span>+<span class="o">]</span> Virtual environment detected!
+
+</code></pre></div><p>Seems that we have an evasive behavior here!
 We leave the reversing of the binary and the discovering of its original entry point (OEP) as an exercise to the reader, but for the sake of our example, we&rsquo;ll spoil it: <code>0x400b95</code>.
 We then execute the binary until we reach the OEP, using the procedure outlined above, and construct the control-flow graph of the unpacked binary.
 By looking at the CFG at the OEP we can easily see 4 possible behaviors of the binary:</p>
-
 <div class="newline-image">
   <strong>Malware CFG and its behaviors:</strong>
   <img style="width: 90%; margin: 3% 5% 0% 5%;" src="/img/symbion_ex1.png" />
 </div>
 
-
 <p>All this behavior depends on the hardcoded configuration mentioned at the beginning. We can spot the usage of this configuration at the address <code>0x400cd6</code>: the point where the first decision is taken from the binary.
 Seems that with the default hardcoded configuration we are following the yellow path!</p>
-
 <div class="newline-image">
   <strong>Default behavior with current configuration:</strong>
   <img style="width: 90%; margin: 3% 5% 0% 5%;" src="/img/symbion_ex2.png" />
 </div>
 
-
 <p>Now, as analysts, our job here is to study this binary&rsquo;s malicious behavior, and how it is triggered.  We see some nasty secondary payload dropped starting in the basic block at <code>0x400d6a</code>; how do we get there? And what about the basic block <code>0x400d99</code>? Well, this is what symbolic execution is good for!</p>
-
 <p>The idea is to let the binary unpack itself and reach concretely the position where the first decision is taken ( the address <code>0x400cd6</code> ), synchronize the state inside angr, define as symbolic the configuration buffer, explore symbolically and resume the program as we whish given the solution provided by angr!</p>
-
 <p>However, this binary is packed, and the memory there will be overwritten by the unpacking process.  Software breakpoints, like the ones used by GDB, will be overwritten as well.
 Instead, we manually reverse-engineer the binary and determine that we can execute from the beginning of the program until <code>0x85b853</code> to have a new stub available at <code>0x45b97f</code> and eventually wait for 4 breakpoint hits to this address to have our unpacked code at <code>0x400cd6</code>.</p>
-
 <p>Let&rsquo;s put this into code!</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -278,14 +251,14 @@ Instead, we manually reverse-engineer the binary and determine that we can execu
 
 
 <span class="c1"># First set everything up</span>
-<span class="n">binary_x64</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span>
-                                          <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;binaries&#39;</span><span class="p">,</span>
-                                          <span class="s1">&#39;tests&#39;</span><span class="p">,</span><span class="s1">&#39;x86_64&#39;</span><span class="p">,</span>
-                                          <span class="s1">&#39;packed_elf64&#39;</span><span class="p">))</span>
+<span class="n">binary_x64</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="p">)</span><span class="p">,</span>
+                                          <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">..</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">..</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">binaries</span><span class="s1">&#39;</span><span class="p">,</span>
+                                          <span class="sa"></span><span class="s1">&#39;</span><span class="s1">tests</span><span class="s1">&#39;</span><span class="p">,</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">x86_64</span><span class="s1">&#39;</span><span class="p">,</span>
+                                          <span class="sa"></span><span class="s1">&#39;</span><span class="s1">packed_elf64</span><span class="s1">&#39;</span><span class="p">)</span><span class="p">)</span>
 
 <span class="c1"># Spawning of the gdbserver analysis environment</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&#34;gdbserver </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">GDB_SERVER_IP</span><span class="p">,</span><span class="n">GDB_SERVER_PORT</span><span class="p">,</span><span class="n">binary_x64</span><span class="p">))</span>
-<span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="s2">&#34;gdbserver </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">GDB_SERVER_IP</span><span class="p">,</span><span class="n">GDB_SERVER_PORT</span><span class="p">,</span><span class="n">binary_x64</span><span class="p">),</span>
+<span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">gdbserver </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">GDB_SERVER_IP</span><span class="p">,</span><span class="n">GDB_SERVER_PORT</span><span class="p">,</span><span class="n">binary_x64</span><span class="p">)</span><span class="p">)</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">gdbserver </span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">GDB_SERVER_IP</span><span class="p">,</span><span class="n">GDB_SERVER_PORT</span><span class="p">,</span><span class="n">binary_x64</span><span class="p">)</span><span class="p">,</span>
                   <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
                   <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
                   <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -298,125 +271,116 @@ Instead, we manually reverse-engineer the binary and determine that we can execu
 <span class="n">p</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">binary_x64</span><span class="p">,</span> <span class="n">concrete_target</span><span class="o">=</span><span class="n">avatar_gdb</span><span class="p">,</span>
                              <span class="n">use_sim_procedures</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-<span class="n">entry_state</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">entry_state</span><span class="p">()</span>
+<span class="n">entry_state</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">entry_state</span><span class="p">(</span><span class="p">)</span>
+<span class="n">entry_state</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">SYMBION_SYNC_CLE</span><span class="p">)</span>
+<span class="n">entry_state</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">SYMBION_KEEP_STUBS_ON_SYNC</span><span class="p">)</span>
+
 <span class="n">simgr</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">simgr</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
 
 <span class="c1">## Now, let&#39;s the binary unpack itself</span>
-<span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="mh">0x85b853</span><span class="p">],</span>
-                                                        <span class="n">concretize</span> <span class="o">=</span> <span class="p">[]))</span>
-<span class="n">exploration</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="n">new_concrete_state</span> <span class="o">=</span> <span class="n">exploration</span><span class="o">.</span><span class="n">stashes</span><span class="p">[</span><span class="s1">&#39;found&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="mh">0x85b853</span><span class="p">]</span><span class="p">)</span><span class="p">)</span>
+<span class="n">exploration</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="p">)</span>
+<span class="n">new_concrete_state</span> <span class="o">=</span> <span class="n">exploration</span><span class="o">.</span><span class="n">stashes</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">found</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1"># Hit the new stub 4 times before having our unpacked code at 0x400cd6</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span><span class="p">:</span>
     <span class="n">simgr</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">simgr</span><span class="p">(</span><span class="n">new_concrete_state</span><span class="p">)</span>
-    <span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="mh">0x85b853</span><span class="p">]))</span>
-    <span class="n">exploration</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-    <span class="n">new_concrete_state</span> <span class="o">=</span> <span class="n">exploration</span><span class="o">.</span><span class="n">stashes</span><span class="p">[</span><span class="s1">&#39;found&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="mh">0x85b853</span><span class="p">]</span><span class="p">)</span><span class="p">)</span>
+    <span class="n">exploration</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="p">)</span>
+    <span class="n">new_concrete_state</span> <span class="o">=</span> <span class="n">exploration</span><span class="o">.</span><span class="n">stashes</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">found</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="c1">## Reaching the first decision point</span>
 <span class="n">simgr</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">simgr</span><span class="p">(</span><span class="n">new_concrete_state</span><span class="p">)</span>
-<span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="mh">0x400cd6</span><span class="p">],</span>
-                                                        <span class="n">concretize</span> <span class="o">=</span> <span class="p">[]))</span>
-<span class="n">exploration</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-<span class="n">new_concrete_state</span> <span class="o">=</span> <span class="n">exploration</span><span class="o">.</span><span class="n">stashes</span><span class="p">[</span><span class="s1">&#39;found&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></code></pre></div>
-<p>Now the new_concrete_state is synchronized with the program&rsquo;s state at <code>0x400cd6</code>.
+<span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="mh">0x400cd6</span><span class="p">]</span><span class="p">)</span>
+<span class="n">exploration</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="p">)</span>
+<span class="n">new_concrete_state</span> <span class="o">=</span> <span class="n">exploration</span><span class="o">.</span><span class="n">stashes</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">found</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div><p>Now the new_concrete_state is synchronized with the program&rsquo;s state at <code>0x400cd6</code>.
 To start to explore symbolically the program we should declare as symbolic the portion of memory that hosts the hardcoded configuration used by the malware.
 We have identified this previously at the address resolved by the operation <code>rbp-0xc0</code>.</p>
-
 <div class="newline-image">
   <strong>Address of the hardcoded configuration:</strong>
   <img style="width: 90%; margin: 3% 5% 0% 5%;" src="/img/symbion_ex3.png" />
 </div>
 
-
 <p>Let&rsquo;s leverage this info to declare such portion of memory symbolic!</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Declaring a symbolic buffer</span>
-<span class="n">arg0</span> <span class="o">=</span> <span class="n">claripy</span><span class="o">.</span><span class="n">BVS</span><span class="p">(</span><span class="s1">&#39;arg0&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="o">*</span><span class="mi">32</span><span class="p">)</span>
+<span class="n">arg0</span> <span class="o">=</span> <span class="n">claripy</span><span class="o">.</span><span class="n">BVS</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">arg0</span><span class="s1">&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="o">*</span><span class="mi">32</span><span class="p">)</span>
 
 <span class="c1"># The address of the symbolic buffer would be the one of the</span>
 <span class="c1"># hardcoded malware configuration</span>
 <span class="n">symbolic_buffer_address</span> <span class="o">=</span> <span class="n">new_concrete_state</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">rbp</span><span class="o">-</span><span class="mh">0xc0</span>
 
 <span class="c1"># Setting the symbolic buffer in memory!</span>
-<span class="n">new_concrete_state</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">symbolic_buffer_address</span><span class="p">,</span> <span class="n">arg0</span><span class="p">)</span></code></pre></div>
-<p>Time for some symbolic execution to find the value of the configuration to trigger the dropper behavior of this toy sample. ( for the sake of clarity let&rsquo;s use tag instead of raw addresses )
+<span class="n">new_concrete_state</span><span class="o">.</span><span class="n">memory</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">symbolic_buffer_address</span><span class="p">,</span> <span class="n">arg0</span><span class="p">)</span>
+</code></pre></div><p>Time for some symbolic execution to find the value of the configuration to trigger the dropper behavior of this toy sample. ( for the sake of clarity let&rsquo;s use tag instead of raw addresses )
 Also, we are going to instruct angr to specifically avoid, during the symbolic exploration, part of the binary that are related to evasion or behaviors that not interesting for this analysis.</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">simgr</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">simgr</span><span class="p">(</span><span class="n">new_concrete_state</span><span class="p">)</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s2">&#34;[2]Symbolically executing binary to find dropping of second stage&#34;</span> <span class="o">+</span>
-       <span class="s2">&#34;[ address:  &#34;</span> <span class="o">+</span> <span class="nb">hex</span><span class="p">(</span><span class="n">DROP_STAGE2_V2</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&#34; ]&#34;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">[2]Symbolically executing binary to find dropping of second stage</span><span class="s2">&#34;</span> <span class="o">+</span>
+       <span class="sa"></span><span class="s2">&#34;</span><span class="s2">[ address:  </span><span class="s2">&#34;</span> <span class="o">+</span> <span class="nb">hex</span><span class="p">(</span><span class="n">DROP_STAGE2_V2</span><span class="p">)</span> <span class="o">+</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2"> ]</span><span class="s2">&#34;</span><span class="p">)</span>
 
 <span class="c1"># Symbolically explore the malware to find a specific behavior by avoiding</span>
 <span class="c1"># evasive behaviors</span>
 <span class="n">exploration</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">explore</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="n">DROP_STAGE2_V2</span><span class="p">,</span> <span class="n">avoid</span><span class="o">=</span><span class="p">[</span><span class="n">DROP_STAGE2_V1</span><span class="p">,</span>
-                                                       <span class="n">VENV_DETECTED</span><span class="p">,</span> <span class="n">FAKE_CC</span> <span class="p">])</span>
+                                                       <span class="n">VENV_DETECTED</span><span class="p">,</span> <span class="n">FAKE_CC</span> <span class="p">]</span><span class="p">)</span>
 <span class="c1"># Get our synchronized state back!</span>
-<span class="n">new_symbolic_state</span> <span class="o">=</span> <span class="n">exploration</span><span class="o">.</span><span class="n">stashes</span><span class="p">[</span><span class="s1">&#39;found&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></code></pre></div>
-<p>Last step: now that we hold the value of the configuration to trigger that action in the binary, let&rsquo;s concretize it in the memory of the concrete execution and let&rsquo;s enjoy the triggering of our chosen behavior!</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="s2">&#34;[3]Executing binary concretely with solution found until the end &#34;</span> <span class="o">+</span>
-<span class="nb">hex</span><span class="p">(</span><span class="n">BINARY_EXECUTION_END</span><span class="p">))</span>
+<span class="n">new_symbolic_state</span> <span class="o">=</span> <span class="n">exploration</span><span class="o">.</span><span class="n">stashes</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">found</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div><p>Last step: now that we hold the value of the configuration to trigger that action in the binary, let&rsquo;s concretize it in the memory of the concrete execution and let&rsquo;s enjoy the triggering of our chosen behavior!</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">[3]Executing binary concretely with solution found until the end </span><span class="s2">&#34;</span> <span class="o">+</span>
+<span class="nb">hex</span><span class="p">(</span><span class="n">BINARY_EXECUTION_END</span><span class="p">)</span><span class="p">)</span>
 
 <span class="n">simgr</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">factory</span><span class="o">.</span><span class="n">simgr</span><span class="p">(</span><span class="n">new_symbolic_state</span><span class="p">)</span>
 
 <span class="c1"># Concretizing the solution to reach the interesting behavior in the memory</span>
 <span class="c1"># of the concrete process and resume until the end of the execution.</span>
-<span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="n">BINARY_EXECUTION_END</span><span class="p">],</span>
-                              <span class="n">concretize</span> <span class="o">=</span> <span class="p">[(</span><span class="n">symbolic_buffer_address</span><span class="p">,</span><span class="n">arg0</span><span class="p">)]))</span>
+<span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="n">BINARY_EXECUTION_END</span><span class="p">]</span><span class="p">,</span>
+                              <span class="n">memory_concretize</span> <span class="o">=</span> <span class="p">[</span><span class="p">(</span><span class="n">symbolic_buffer_address</span><span class="p">,</span><span class="n">arg0</span><span class="p">)</span><span class="p">]</span><span class="p">,</span> 
+                              <span class="n">register_concretize</span><span class="o">=</span><span class="p">[</span><span class="p">]</span><span class="p">)</span><span class="p">)</span>
 
-<span class="n">exploration</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">exploration</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="p">)</span>
 
-<span class="n">new_concrete_state</span> <span class="o">=</span> <span class="n">exploration</span><span class="o">.</span><span class="n">stashes</span><span class="p">[</span><span class="s1">&#39;found&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></code></pre></div>
-<p>Here we are making use of the <em>concretize</em> attribute of the Symbion exploration technique to overwrite that address in the memory of the concrete process with the value held in <code>arg0</code> that is the solution found with the symbolic execution. By resuming the concrete process now we should see the program dropping the second stage:</p>
+<span class="n">new_concrete_state</span> <span class="o">=</span> <span class="n">exploration</span><span class="o">.</span><span class="n">stashes</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">found</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+</code></pre></div><p>Here we are making use of the <em>concretize</em> attribute of the Symbion exploration technique to overwrite that address in the memory of the concrete process with the value held in <code>arg0</code> that is the solution found with the symbolic execution. By resuming the concrete process now we should see the program dropping the second stage:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>+<span class="o">]</span>Parsing malware configuration
-<span class="o">[</span>+<span class="o">]</span>Executing stage <span class="m">2</span> fake malware V2</code></pre></div>
-<h1 id="extras">Extras</h1>
+<span class="o">[</span>+<span class="o">]</span>Executing stage <span class="m">2</span> fake malware V2
 
+</code></pre></div><h1 id="extras">Extras</h1>
 <h2 id="timeout-the-concrete-execution">Timeout the concrete execution</h2>
-
 <p>The Symbion <em>ExplorationTechnique</em> supports the addition of a timeout to the concrete execution; this come handful in cases where you don&rsquo;t hit one of the expected breakpoints and the program keeps running or if hitting one of the breakpoints take a while and you want to be sure that you didn&rsquo;t miss your shot.
 In these cases, after an user defined value for the <em>timeout</em>, we stop the concrete execution ( warning: the <em>ConcreteTarget</em> implementation must implement the <code>stop</code> method properly ) and angr returns the synchronized state in the <em>timeout</em> stash.</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1">#[...]</span>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">
+<span class="c1">#[...]</span>
 
 <span class="c1"># specifying a timeout for the concrete execution ( in seconds )</span>
-<span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="n">BINARY_EXECUTION_END</span><span class="p">],</span>
-                              <span class="n">timeout</span> <span class="o">=</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">simgr</span><span class="o">.</span><span class="n">use_technique</span><span class="p">(</span><span class="n">angr</span><span class="o">.</span><span class="n">exploration_techniques</span><span class="o">.</span><span class="n">Symbion</span><span class="p">(</span><span class="n">find</span><span class="o">=</span><span class="p">[</span><span class="n">BINARY_EXECUTION_END</span><span class="p">]</span><span class="p">,</span>
+                              <span class="n">timeout</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span><span class="p">)</span>
 
-<span class="n">exploration</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">exploration</span> <span class="o">=</span> <span class="n">simgr</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="p">)</span>
 
-<span class="n">new_concrete_timeout_state</span> <span class="o">=</span> <span class="n">exploration</span><span class="o">.</span><span class="n">stashes</span><span class="p">[</span><span class="s1">&#39;timeout&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></code></pre></div>
-<p>At this point by investigating the returned state, users can decide to resume the execution again and wait longer or just aborting the analysis or do whatever they want!</p>
+<span class="n">new_concrete_timeout_state</span> <span class="o">=</span> <span class="n">exploration</span><span class="o">.</span><span class="n">stashes</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">timeout</span><span class="s1">&#39;</span><span class="p">]</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
+</code></pre></div><p>At this point by investigating the returned state, users can decide to resume the execution again and wait longer or just aborting the analysis or do whatever they want!</p>
 <h2 id="restoring-simprocedures">Restoring SimProcedures</h2>
-
 <p>If you&rsquo;ve decided to use <em>SimProcedures</em> during the declaration of the angr&rsquo;s Project:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Creation of the project with the new attributes &#39;concrete_target&#39;</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">binary_x64</span><span class="p">,</span> <span class="n">concrete_target</span><span class="o">=</span><span class="n">avatar_gdb</span><span class="p">,</span>
-                             <span class="n">use_sim_procedures</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  <span class="c1"># &lt;---- Using SimProcedures</span></code></pre></div>
-<p>The <em>Concrete state plugin</em> tries to update their addresses in the angr&rsquo;s internal SimProcedures table ( i.e. <code>project._sim_procedures</code> ) in order to avoid to execute libraries code that can sometimes get the <em>VEX engine</em> in troubles ( e.g. <a href="https://github.com/angr/angr/blob/master/angr/engines/vex/dirty.py">dirty calls</a> not implemented ) or lead to a early state explosion.</p>
-
+                             <span class="n">use_sim_procedures</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  <span class="c1"># &lt;---- Using SimProcedures</span>
+</code></pre></div><p>The <em>Concrete state plugin</em> tries to update their addresses in the angr&rsquo;s internal SimProcedures table ( i.e. <code>project._sim_procedures</code> ) in order to avoid to execute libraries code that can sometimes get the <em>VEX engine</em> in troubles ( e.g. <a href="https://github.com/angr/angr/blob/master/angr/engines/vex/dirty.py">dirty calls</a> not implemented ) or lead to a early state explosion.</p>
 <h1 id="future-works">Future Works</h1>
-
 <p>The current version of Symbion is a very basic implementation of the interesting concept of mixing concrete and symbolic execution to support analysis of very complex target. We have plenty of exciting ideas to push this project:</p>
-
 <ol>
 <li>Support for a <strong>snapshot engine</strong> that empowers user to restore a specific state of the concrete process.</li>
 <li>Support for a <strong>watchpoint mechanism</strong> to support the stopping of the concrete execution as soon as it touches a symbolic defined portion of memory.</li>
-<li>Support for other architectures ( yeah, right now just x86 is supported! ).</li>
 <li>Exciting real world demos! :-)</li>
 </ol>
-
 <h1 id="conclusions">Conclusions</h1>
-
 <p>The presented example showed how we leverage Symbion to discover the malware configuration that eventually trigger a specific action of interest in the binary. We accomplished that by strategically skipping the initial phase of malware unpacking delegating its execution to the concrete environment, then we synchronized the state of the unpacked program inside angr and by declaring part of memory symbolic and levereging symbolic execution we discover the correct value to avoid the malware evasion and trigger the dropping of the second stage.</p>
-
 <p>The flexibility of the designed interface should open the door to different implementations of <em>ConcreteTargets</em> and the building of new tools that will let analysts to combine these concrete and symbolic analyses in new and exciting ways.</p>
-
 <p>We think that this new primitive will let us explore new execution method of very complex target
 and give space to new ideas regarding the exploitation of symbolic execution for real world
 programs. We are excited to release this to the community, to see how you all will use angr to
 push the boundaries of program analysis even further.</p>
-
 <p>Stay tuned for more example and updates about the project!</p>
 
 </section>

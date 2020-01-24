@@ -18,7 +18,6 @@
       <guid>https://angr.github.io/blog/angr_blog_starting_up_again/</guid>
       <description>&lt;p&gt;Like most New Year resolutions, we did a pretty terrible job of continuing to post on the angr blog throughout 2017.
 We learned from this, so this time we&amp;rsquo;re making an May resolution and bringing the angr blog back!&lt;/p&gt;
-
 &lt;p&gt;We know that angr can be pretty unapproachable and that while we have &lt;a href=&#34;https://docs.angr.io/docs/examples.html&#34;&gt;examples&lt;/a&gt;,
 they&amp;rsquo;re generally a little short on the thought process that underlies our solutions.
 On this blog, we&amp;rsquo;ll be posting many examples with abundant explanation, announcements and tutorials covering new angr
@@ -27,7 +26,6 @@ To get you all started, we have a tutorial on extending angr to new architecture
 If you&amp;rsquo;ve ever wanted to use angr to symbolically execute MSP430, Xtensa, BPF, cLEMENCy,
 or even Brainfuck (&lt;em&gt;gasp&lt;/em&gt;! Not BrainFuck!), then it&amp;rsquo;s definitely worth giving it a read!
 You can find links to each of the tutorial pages &lt;a href=&#34;https://angr.github.io/blog/throwing_a_tantrum_index&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-
 &lt;p&gt;If you have any suggestions for articles or questions for the angr team, please reach out on &lt;a href=&#34;http://angr.slack.com&#34;&gt;our slack&lt;/a&gt;!
 You can request an invitation &lt;a href=&#34;https://angr.github.io/invite&#34;&gt;here&lt;/a&gt;.
 For more information on how you can contact us and get involved with the angr project, see &lt;a href=&#34;https://angr.github.io/#contact&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;

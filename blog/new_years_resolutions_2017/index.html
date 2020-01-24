@@ -83,14 +83,10 @@
 
 
 <section class="post-content">
-
-
 <p>From academic research to the Cyber Grand Challenge, angr has had a busy 2016!
 Now that the angr team is (mostly) back from the holidays, it&rsquo;s time to plan a busy and successful 2017.
 For this year, we are looking at three major areas of improvement: usability, contributability, and applicability.</p>
-
 <h2 id="usability">Usability</h2>
-
 <p>First, we would like to make angr more approachable and usable by the community.
 We recognize that, in its current state, angr is <em>very</em> hard to get started with.
 Currently, we try to provide documentation (both as <a href="http://docs.angr.io">prose</a> and as <a href="http://api.angr.io">API references</a>,
@@ -99,29 +95,32 @@ of the subtleties of binary analysis in general and angr specifically.
 Because of this, much of the power of angr is completely unknown to the community, with a depressing amount of people using angr
 just to <code>find</code> and <code>avoid</code> addresses in CTF challenges.
 We have a few ideas to make this better:</p>
-
 <ol>
-<li><p><strong>Training:</strong>
+<li>
+<p><strong>Training:</strong>
 Last month, we ran an all-day angr tutorial at ACSAC.
 The response from this was very positive, and we&rsquo;ll be looking at more venues to run these sorts of classes.
-If you&rsquo;re interested in this, get in touch!</p></li>
-
-<li><p><strong>An angr &ldquo;course&rdquo;:</strong>
+If you&rsquo;re interested in this, get in touch!</p>
+</li>
+<li>
+<p><strong>An angr &ldquo;course&rdquo;:</strong>
 Another idea on the TODO list is a course that gradually introduces angr concepts.
 Again, we started down this road with the ACSAC tutorial, and some of the
 <a href="https://github.com/angr/acsac-course">resulting exercises</a> can be reused for a comprehensive course.
 This is also something that seems to have community interest, with
-<a href="https://github.com/angr/angr-doc/pull/113">contributions</a> beginning to roll in.</p></li>
-
-<li><p><strong>More blog-post micro-examples:</strong>
+<a href="https://github.com/angr/angr-doc/pull/113">contributions</a> beginning to roll in.</p>
+</li>
+<li>
+<p><strong>More blog-post micro-examples:</strong>
 Many of our examples are CTF challenges.
 This is good because it shows angr working in often-adversarial conditions, but it also means that many of the examples are too
 confusing.
 We plan to make a series of smaller examples, that can be blogged and explained, that demonstrate specific angr features or phi
 losophies, similar to Miasm&rsquo;s and Triton&rsquo;s blog examples.
-Hopefully, this will help new users approach angr without too much pain.</p></li>
-
-<li><p><strong>Better support channels:</strong>
+Hopefully, this will help new users approach angr without too much pain.</p>
+</li>
+<li>
+<p><strong>Better support channels:</strong>
 Currently, angr support happens mainly through IRC, GitHub issues, and the mailing list.
 Unfortunately, with the way the world has been heading, most of us (shamefully) spend very little time actually looking at our
 IRC clients, and instead mostly hang out on various slacks.
@@ -136,15 +135,13 @@ g) to bring us to you.
 As a reminder, slack can be accessed through an
 <a href="https://get.slack.help/hc/en-us/articles/201727913-Connect-to-Slack-over-IRC-and-XMPP">IRC gateway</a>
 The freenode <code>#angr</code> channel will continue to exist, but please keep in mind that responses there will be much more hit and miss
-than on slack.</p></li>
+than on slack.</p>
+</li>
 </ol>
-
 <p>Of course, the limiting factor with usability and support is time.
 As a group of students, we have many high-priority demands on our time, and documentation and usability often takes a back seat.
 As in the case of the course PR, we hope this time pressure will be partially mitigated by the community.</p>
-
 <h2 id="contributions">Contributions</h2>
-
 <p>A second area for us to improve is the ease with which people can make contributions to the project.
 Currently, angr development is carried out in two different places: we do development on our internal gitlab infrastructure, and
 then periodically synchronize it to GitHub.
@@ -158,9 +155,7 @@ Worse, during such processes, we would be unable to accept PRs, as it&rsquo;d ca
 be a nightmare.
 In fact, this is <em>currently</em> happening, and many PRs are sitting around until the currently huge development effort
 (about which I&rsquo;ll talk below) concludes.</p>
-
 <p>Our plan is to solve this through the following:</p>
-
 <ol>
 <li><strong>Moving our testing to TravisCI:</strong>
 This is currently underway, with most angr sub-projects now being tested on Travis, and more to come.
@@ -168,14 +163,10 @@ This will allow us to avoid having to pull in PRs into gitlab for testing, and w
 <li><strong>Moving our development to GitHub:</strong>
 Once testing fully works on TravisCI, we will move our development fully to gitHub. Throughout the last year, we&rsquo;ve been working to make angr more modular, so that our research can be implemented <em>outside</em> of angr, using angr as an actual framework.</li>
 </ol>
-
 <p>With this (almost) done, and CI (almost) on Travis, there is (almost) nothing stopping us from developing on GitHub directly.</p>
-
 <p>Once we move to GitHub, the PRs can be accepted quickly, and the project continuously looks alive from the outside,
 we think (hope) that community enthusiasm and contributions will increase.</p>
-
 <h2 id="applicability">Applicability</h2>
-
 <p>Currently, angr is one of the most powerful binary analysis frameworks out there.
 We support the 32-bit and 64-bit variants of x86, ARM, MIPS, and PPC,
 and offer a range of static analyses along with a powerful symbolic execution engine.
@@ -184,9 +175,7 @@ a <a href="https://github.com/angr/patcherex">binary patching engine</a>,
 a <a href="https://github.com/shellphish/driller">next-generation fuzzer</a>,
 an <a href="https://github.com/shellphish/rex">auto-exploitation engine</a>,
 and other exiting stuff.</p>
-
 <p>However, we&rsquo;d like to drive it further.</p>
-
 <p>The long-running development branch alluded to earlier is an effort that we&rsquo;re undertaking
 to make angr expandable to other targets.
 For example, using LLVM, angr could analyze source code and, using SOOT, Java bytecode.
@@ -194,7 +183,6 @@ Additionally, developments in the <a href="https://lists.nongnu.org/archive/html
 from rev.ng might allow us to use QEMU&rsquo;s TCG to expand support to many additional binary platforms.
 Essentially, we&rsquo;re working to make angr more or less independent of the specific backend translation and execution engine used.
 We have the following execution engines on our roadmap:</p>
-
 <ul>
 <li><strong>VEX (already supported):</strong> This is what angr currently uses to analyze binary code.</li>
 <li><strong>Python hooks (already supported):</strong> We already support the ability to provide manual summaries of code, in the form of python functions.</li>
@@ -204,13 +192,10 @@ We have the following execution engines on our roadmap:</p>
 <li><strong>Miasm (future):</strong> Miasm has a very cool dynamic sandbox that would be very useful to leverage in a similar way to how we currently leverage Unicorn. Unlike Unicorn, however, Miasm also has <i>syscall support</i>. We could hook into this to supplement angr&rsquo;s environent support (especially for Windows binaries), at the cost of (as Miasm&rsquo;s sandbox is purely concrete) having to concretize symbolic data that would be passed into this sandbox.</li>
 <li><strong>QEMU User, GDB, or Valgrind (far future):</strong> Similarly to Miasm (though perhaps less contained), qemu-user implements a lot of environmental support that could be leveraged. Unfortunately, QEMU is notoriously hard to expand and plug into, and most projects that do end up getting stuck with an quickly-outdated version of QEMU as their base. Likewise, we could use GDB or Valgrind for a less architecture-flexible version of this, but they have their own issues as well.</li>
 </ul>
-
 <p>We&rsquo;re currently wrapping up the underlying changes (including converting the VEX, hooks, and Unicorn Engine stuff), and they&rsquo;ll soon be merged (and pushed to GitHub).
 Once that&rsquo;s done, we&rsquo;ll likely start working on SOOT.
 If people are interested in working on some of the other potential engines on the list, let us know!</p>
-
 <h2 id="summary">Summary</h2>
-
 <p>2017 is going to be an exciting year for angr, and we hope you&rsquo;ll be with us through it all.
 Come join us on slack, send some PRs, and let&rsquo;s usher in the next generation of binary (and more!) analysis.</p>
 

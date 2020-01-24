@@ -16,113 +16,80 @@
       <pubDate>Thu, 18 Jan 2018 18:51:25 -0800</pubDate>
       
       <guid>https://angr.github.io/blog/throwing_a_tantrum_part_1/</guid>
-      <description>
-
-&lt;p&gt;In this n+1-part series, we will be exploring how you can extend &lt;a href=&#34;http://angr.io/&#34; title=&#34;angr&#34;&gt;angr&lt;/a&gt; with new features, without editing angr itself!&lt;/p&gt;
-
+      <description>&lt;p&gt;In this n+1-part series, we will be exploring how you can extend &lt;a href=&#34;http://angr.io/&#34; title=&#34;angr&#34;&gt;angr&lt;/a&gt; with new features, without editing angr itself!&lt;/p&gt;
 &lt;p&gt;angr is the popular framework for analyzing binary programs, from embedded firmware, to hardcore CTF challenges, all from the comfort of Python.
 angr&amp;rsquo;s roots lie in the Valgrind VEX instrumentation framework, meaning it benefits from the multi-architecture support and community maintenance.
 However, we live in a big world full of crazy things that aren&amp;rsquo;t Intel or ARM-based Linux machines.&lt;/p&gt;
-
 &lt;p&gt;What about microcontrollers?&lt;/p&gt;
-
 &lt;p&gt;What about Android bytecode?&lt;/p&gt;
-
 &lt;p&gt;What about Javascript?&lt;/p&gt;
-
-&lt;p&gt;What about &lt;strong&gt;&lt;em&gt;BrainFuck&lt;/em&gt;&lt;/strong&gt;??&lt;/p&gt;
-
+&lt;p&gt;What about &lt;em&gt;&lt;strong&gt;BrainFuck&lt;/strong&gt;&lt;/em&gt;??&lt;/p&gt;
 &lt;p&gt;(&lt;em&gt;gasp&lt;/em&gt;! Not BrainFuck! Anything but BrainFuck!)&lt;/p&gt;
-
 &lt;p&gt;If you find yourself asking any of those sorts of questions, this is the guide for you!
 angr now supports extensions to each of its core components: the loader, architecture database, lifter, execution engine, and simulated OS layer.
 We will be exploring each in turn, with the goal of bringing the complete suite of powerful angr analyses to bear on a totally new class of program that it was not designed to before.&lt;/p&gt;
-
 &lt;p&gt;In order to not overcomplicate things, and make the core ideas clear, we&amp;rsquo;re going to start with something conceptually simple.&lt;/p&gt;
-
 &lt;p&gt;Sorry, that BrainFuck thing was not a joke.
 In this guide, we&amp;rsquo;re going to build the most insanely overkill BrainFuck analysis platform ever constructed.  By the time you&amp;rsquo;re done here, you&amp;rsquo;ll be able to totally obliterate any of the Brainfuck crack-me programs that I hear may even actually exist.&lt;/p&gt;
-
 &lt;p&gt;First, let&amp;rsquo;s go over the components themselves, and how they fit together.&lt;/p&gt;
-
 &lt;h1 id=&#34;the-angr-lifecycle&#34;&gt;The angr lifecycle&lt;/h1&gt;
-
 &lt;p&gt;If you&amp;rsquo;ve used angr before, you&amp;rsquo;ve probably done this:
 (blatantly stolen from &lt;a href=&#34;https://github.com/angr/angr-doc/tree/master/examples/fauxware&#34;&gt;angr-doc&amp;rsquo;s fauxware example&lt;/a&gt;)&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;angr&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;angr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Project&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;crackme&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;state&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;factory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entry_state&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;angr&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Project&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;crackme&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;state&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;factory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entry_state&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;sm&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;factory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;simgr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;state&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;n&#34;&gt;sm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;step&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;until&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;lambda&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;lpg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;lpg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;active&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;input_0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;active&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;posix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dumps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That&amp;rsquo;s only a few lines, but there&amp;rsquo;s a whole lot going on here.
+&lt;span class=&#34;n&#34;&gt;input_0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sm&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;active&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;posix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dumps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;That&amp;rsquo;s only a few lines, but there&amp;rsquo;s a whole lot going on here.
 In that little snippet, we load a binary, lift it from machine-code to an intermediate representation that we can reason about a bit more mathematically (VEX, by default), execute representation symbolically, and finally, print the input we needed to give the program to get to the first real branch, computed using a SMT-solver.&lt;/p&gt;
-
 &lt;div class=&#34;newline-image&#34;&gt;
   &lt;strong&gt;the angr lifecycle:&lt;/strong&gt;
   &lt;img style=&#34;width: 90%; margin: 3% 5% 0% 5%;&#34; src=&#34;https://angr.github.io/img/angr_diagram.png&#34; /&gt;
 &lt;/div&gt;
 
-
 &lt;h2 id=&#34;cle-the-loader&#34;&gt;CLE, the loader&lt;/h2&gt;
-
 &lt;p&gt;The first thing that happens when you create an angr project is angr has to figure out what the heck you just told it to load.
 For this, it turns to the loader, CLE (CLE Loads Everythig) to come up with an educated guess, extract the executable code and data from whatever format it&amp;rsquo;s in, take a guess as what architecture it&amp;rsquo;s for, and create a representation of the program&amp;rsquo;s memory map as if the real loader had been used.
 CLE supports a set of &amp;ldquo;backends&amp;rdquo; that service various formats, such as ELF, PE, and CGC.
 For the common cases, this means loading an ELF, which brings with it the complicated mess of header parsing, library resolution, and strange memory layouts you both require and expect.
 It also supports the exact opposite of this, pure binary blobs, with a backend that just takes the bytes and puts them in the right place in memory.
 The result is a Loader object, which has the memory of the main program itself (&lt;code&gt;Loader.main_object&lt;/code&gt;) and any libraries.&lt;/p&gt;
-
 &lt;h2 id=&#34;archinfo-the-architecture-db&#34;&gt;Archinfo, the architecture DB&lt;/h2&gt;
-
 &lt;p&gt;During CLE&amp;rsquo;s loading, it takes a guess as to what architecture the program is for.
 This is usually via either a header (as in ELFs) or some simple heuristic.
 Either way, it makes a guess, and uses it to fetch an &lt;code&gt;Arch&lt;/code&gt; object from the &lt;code&gt;archinfo&lt;/code&gt; package corresponding to it.
 This contains a map of the register file, bit width, usual endian-ness, and so on.
 Literally everything else relies on this, as you can imagine.&lt;/p&gt;
-
 &lt;h2 id=&#34;simengine-the-simulated-executer&#34;&gt;SimEngine, the simulated executer&lt;/h2&gt;
-
 &lt;p&gt;Next, angr will locate an execution engine capable of dealing with the code it just loaded.
 Engines are responsible for interpreting the code in some meaningful way.
 Fundamentally, they take a program&amp;rsquo;s &lt;em&gt;state&lt;/em&gt;&amp;ndash; a snapshot of the registers, memory, and so on&amp;ndash; do some thing to it, usually a basic block&amp;rsquo;s worth of instructions, and produce a set of &lt;em&gt;successors&lt;/em&gt;, coresponding to all the possible program states that can be reached by executing the current block.
 When branches are encountered, they collect &lt;em&gt;constraints&lt;/em&gt; on the state which capture the conditions needed to take each path of the branch.
 In aggregate, this is what gives angr its reasoning power.&lt;/p&gt;
-
 &lt;h2 id=&#34;pyvex-the-lifter&#34;&gt;PyVEX, the lifter&lt;/h2&gt;
-
 &lt;p&gt;angr&amp;rsquo;s default engine, SimEngineVEX, supports many architectures, simply because it doesn&amp;rsquo;t run on their machine code directly. It uses an intermediate representation, known as VEX, which machine code is translated (&lt;em&gt;lifted&lt;/em&gt;) into.
 As an alternative to creating your own engine for a new architecture, if it is similar enough to a &amp;ldquo;normal&amp;rdquo; PC architecture, the faster solution is to simply create a Lifter for it, allowing SimEngineVEX to take care of the rest.
 We will explore both Lifters and Engines in this guide.&lt;/p&gt;
-
 &lt;h2 id=&#34;claripy-the-solver&#34;&gt;Claripy, the solver&lt;/h2&gt;
-
 &lt;p&gt;Every action an engine performs, even something as simple as incrementing the program counter, is not necessarily an operation on a concrete value.
 The value could instead be a complicated expression, that when computed on, should actually result in an even bigger expression.
 Creating, composing, and eventually solving these is Claripy&amp;rsquo;s job.
 Claripy uses a SMT-solver, currently Microsoft&amp;rsquo;s Z3, to do all of this heavy-lifting.
 Thankfully, we won&amp;rsquo;t need to delve into that in this series, as SMT-solving is some serious black magic.&lt;/p&gt;
-
 &lt;h2 id=&#34;simos-the-rest-of-the-nasty-bits&#34;&gt;SimOS, the rest of the nasty bits&lt;/h2&gt;
-
 &lt;p&gt;If we just view the engine&amp;rsquo;s work on a program from the states it provides, we&amp;rsquo;re going to have a lot of work to do to get anything useful out.
 Where is stdin? What the heck do I do with files? Network? Are you kidding?
 These higher-level abstractions are provided by the OS, and don&amp;rsquo;t exist at the bare machine level.
 Therefore, SimOS&amp;rsquo; job is to provide all of that to angr, so that it can be reasoned about without all the pain of interpreting just what the fake hardware would do.
 Based on a guess from CLE, a SimOS is created (ex. SimLinux), which defines the OS-specific embellishments on the initial state of the program, all its system calls, and convenient symbolic summaries of what syscalls and common library functions do, known as &lt;em&gt;SimProcedures&lt;/em&gt;.
 These make angr dramatically faster and more compatible, as symbolically executing libc itself is, to say the least, insanely painful.&lt;/p&gt;
-
 &lt;h1 id=&#34;angr-the-real-deal&#34;&gt;angr, the real deal&lt;/h1&gt;
-
 &lt;p&gt;Finally, with a Loader, an Engine, an Arch, and a SimOS, we can get to work!
 All of this is packaged into a Project, and offered to the higher-level analyses, such as Control-flow Graph reconstruction, program slicing, and path-based reasoning, as in the earlier example.&lt;/p&gt;
-
 &lt;p&gt;In the next part, we&amp;rsquo;ll introduce our chosen architecture, BrainFuck, and discuss the implementation of additional architectures.&lt;/p&gt;
-
 &lt;hr&gt;
-
 &lt;p&gt;Image icons made by&lt;/p&gt;
-
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.freepik.com&#34;&gt;Freepik&lt;/a&gt; from &lt;a href=&#34;https://www.flaticon.com/&#34;&gt;Flaticon&lt;/a&gt;, licensed by &lt;a href=&#34;http://creativecommons.org/licenses/by/3.0/&#34;&gt;CC 3.0 BY&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.flaticon.com/authors/smashicons&#34;&gt;Smashicons&lt;/a&gt; from &lt;a href=&#34;https://www.flaticon.com/&#34;&gt;Flaticon&lt;/a&gt;, licensed by &lt;a href=&#34;http://creativecommons.org/licenses/by/3.0/&#34;&gt;CC 3.0 BY&lt;/a&gt;&lt;/li&gt;
