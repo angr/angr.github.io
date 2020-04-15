@@ -177,10 +177,10 @@ You can even fetch bits using python&rsquo;s slice and index notation!</p>
 <p>Here&rsquo;s an example, the xor instruction from our MSP430 lifter.
 Of course you have to xor, but what about the types? What&rsquo;s the VEX operation for xor? Weird expressions for the flags?</p>
 <p>Nah.</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">compute_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">)</span><span class="p">:</span>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">compute_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">src</span> <span class="o">^</span> <span class="n">dst</span>
 </code></pre></div><p>Or something boolean:</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">carry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">ret</span><span class="p">)</span><span class="p">:</span>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python">    <span class="k">def</span> <span class="nf">carry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">dst</span><span class="p">,</span> <span class="n">ret</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span>
 </code></pre></div><p>It&rsquo;s pretty magic.</p>
 <h2 id="use-the-proper-form">Use the proper form</h2>
