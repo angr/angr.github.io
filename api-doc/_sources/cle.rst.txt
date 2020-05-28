@@ -20,6 +20,7 @@ Backends
 .. automodule:: cle.backends.elf
 .. automodule:: cle.backends.elf.elf
 .. automodule:: cle.backends.elf.elfcore
+.. automodule:: cle.backends.elf.lsda
 .. automodule:: cle.backends.elf.metaelf
 .. automodule:: cle.backends.elf.symbol
 .. automodule:: cle.backends.elf.symbol_type
@@ -50,6 +51,8 @@ Backends
 .. automodule:: cle.backends.java.jar
 .. automodule:: cle.backends.java
 .. automodule:: cle.backends.java.soot
+.. automodule:: cle.backends.xbe
+.. automodule:: cle.backends.static_archive
 
 
 Relocations
@@ -93,6 +96,8 @@ Thread-local storage
 .. automodule:: cle.backends.tls
 .. automodule:: cle.backends.tls.elf_tls
 .. automodule:: cle.backends.tls.pe_tls
+.. automodule:: cle.backends.tls.elfcore_tls
+.. automodule:: cle.backends.tls.minidump_tls
 
 
 Misc. Utilities

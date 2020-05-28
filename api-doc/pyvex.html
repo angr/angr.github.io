@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyvex — Binary Translator &mdash; angr 8.20.1.7 documentation</title>
+  <title>pyvex — Binary Translator &mdash; angr 8.20.5.27 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                8.20.1.7
+                8.20.5.27
               </div>
             
           
@@ -169,7 +169,7 @@ For an introduction to VEX, take a look here: <a class="reference external" href
 <span id="translation-interface"></span><h2>Translation Interface<a class="headerlink" href="#module-pyvex.block" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyvex.block.IRSB">
-<em class="property">class </em><code class="sig-prename descclassname">pyvex.block.</code><code class="sig-name descname">IRSB</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">mem_addr</em>, <em class="sig-param">arch</em>, <em class="sig-param">max_inst=None</em>, <em class="sig-param">max_bytes=None</em>, <em class="sig-param">bytes_offset=0</em>, <em class="sig-param">traceflags=0</em>, <em class="sig-param">opt_level=1</em>, <em class="sig-param">num_inst=None</em>, <em class="sig-param">num_bytes=None</em>, <em class="sig-param">strict_block_end=False</em>, <em class="sig-param">skip_stmts=False</em>, <em class="sig-param">collect_data_refs=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRSB" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyvex.block.</code><code class="sig-name descname">IRSB</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">mem_addr</em>, <em class="sig-param">arch</em>, <em class="sig-param">max_inst=None</em>, <em class="sig-param">max_bytes=None</em>, <em class="sig-param">bytes_offset=0</em>, <em class="sig-param">traceflags=0</em>, <em class="sig-param">opt_level=1</em>, <em class="sig-param">num_inst=None</em>, <em class="sig-param">num_bytes=None</em>, <em class="sig-param">strict_block_end=False</em>, <em class="sig-param">skip_stmts=False</em>, <em class="sig-param">collect_data_refs=False</em>, <em class="sig-param">cross_insn_opt=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.block.IRSB" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.enums.VEXObject" title="pyvex.enums.VEXObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyvex.enums.VEXObject</span></code></a></p>
 <p>The IRSB is the primary interface to pyvex. Constructing one of these will make a call into LibVEX to perform a
 translation.</p>
@@ -526,7 +526,7 @@ default exit are used.
 
 <dl class="class">
 <dt id="pyvex.stmt.IMark">
-<em class="property">class </em><code class="sig-prename descclassname">pyvex.stmt.</code><code class="sig-name descname">IMark</code><span class="sig-paren">(</span><em class="sig-param">addr</em>, <em class="sig-param">length</em>, <em class="sig-param">delta</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.IMark" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyvex.stmt.</code><code class="sig-name descname">IMark</code><span class="sig-paren">(</span><em class="sig-param">addr: int</em>, <em class="sig-param">length: int</em>, <em class="sig-param">delta: int</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.IMark" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>An instruction mark. It marks the start of the statements that represent a single machine instruction (the end of
 those statements is marked by the next IMark or the end of the IRSB).  Contains the address and length of the
@@ -592,7 +592,7 @@ instruction.</p>
 
 <dl class="class">
 <dt id="pyvex.stmt.Put">
-<em class="property">class </em><code class="sig-prename descclassname">pyvex.stmt.</code><code class="sig-name descname">Put</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">offset</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.Put" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyvex.stmt.</code><code class="sig-name descname">Put</code><span class="sig-paren">(</span><em class="sig-param">data: pyvex.expr.IRExpr</em>, <em class="sig-param">offset: NewType.&lt;locals&gt;.new_type</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.Put" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>Write to a guest register, at a fixed offset in the guest state.</p>
 <dl class="attribute">
@@ -666,7 +666,7 @@ instruction.</p>
 
 <dl class="class">
 <dt id="pyvex.stmt.WrTmp">
-<em class="property">class </em><code class="sig-prename descclassname">pyvex.stmt.</code><code class="sig-name descname">WrTmp</code><span class="sig-paren">(</span><em class="sig-param">tmp</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.WrTmp" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyvex.stmt.</code><code class="sig-name descname">WrTmp</code><span class="sig-paren">(</span><em class="sig-param">tmp: NewType.&lt;locals&gt;.new_type</em>, <em class="sig-param">data: pyvex.expr.IRExpr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.WrTmp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>Assign a value to a temporary.  Note that SSA rules require each tmp is only assigned to once.  IR sanity checking
 will reject any block containing a temporary which is not assigned to exactly once.</p>
@@ -699,7 +699,7 @@ will reject any block containing a temporary which is not assigned to exactly on
 
 <dl class="class">
 <dt id="pyvex.stmt.Store">
-<em class="property">class </em><code class="sig-prename descclassname">pyvex.stmt.</code><code class="sig-name descname">Store</code><span class="sig-paren">(</span><em class="sig-param">addr</em>, <em class="sig-param">data</em>, <em class="sig-param">end</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.Store" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyvex.stmt.</code><code class="sig-name descname">Store</code><span class="sig-paren">(</span><em class="sig-param">addr: pyvex.expr.IRExpr</em>, <em class="sig-param">data: pyvex.expr.IRExpr</em>, <em class="sig-param">end: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.stmt.Store" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.stmt.IRStmt" title="pyvex.stmt.IRStmt"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyvex.stmt.IRStmt</span></code></a></p>
 <p>Write a value to memory..</p>
 <dl class="attribute">
@@ -1291,7 +1291,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="class">
 <dt id="pyvex.expr.RdTmp">
-<em class="property">class </em><code class="sig-prename descclassname">pyvex.expr.</code><code class="sig-name descname">RdTmp</code><span class="sig-paren">(</span><em class="sig-param">tmp</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.RdTmp" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyvex.expr.</code><code class="sig-name descname">RdTmp</code><span class="sig-paren">(</span><em class="sig-param">tmp: NewType.&lt;locals&gt;.new_type</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.RdTmp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>Read the value held by a temporary.</p>
 <dl class="attribute">
@@ -1328,7 +1328,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="class">
 <dt id="pyvex.expr.Get">
-<em class="property">class </em><code class="sig-prename descclassname">pyvex.expr.</code><code class="sig-name descname">Get</code><span class="sig-paren">(</span><em class="sig-param">offset</em>, <em class="sig-param">ty</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Get" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyvex.expr.</code><code class="sig-name descname">Get</code><span class="sig-paren">(</span><em class="sig-param">offset: NewType.&lt;locals&gt;.new_type</em>, <em class="sig-param">ty: str</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>Read a guest register, at a fixed offset in the guest state.</p>
 <dl class="attribute">
@@ -1590,7 +1590,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="class">
 <dt id="pyvex.expr.Const">
-<em class="property">class </em><code class="sig-prename descclassname">pyvex.expr.</code><code class="sig-name descname">Const</code><span class="sig-paren">(</span><em class="sig-param">con</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Const" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyvex.expr.</code><code class="sig-name descname">Const</code><span class="sig-paren">(</span><em class="sig-param">con: pyvex.const.IRConst</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.expr.Const" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.expr.IRExpr" title="pyvex.expr.IRExpr"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyvex.expr.IRExpr</span></code></a></p>
 <p>A constant expression.</p>
 <dl class="attribute">
@@ -1867,7 +1867,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="attribute">
 <dt id="pyvex.const.U1.c_constructor">
-<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned char)' 0x7f9af0810c5d&gt;</em><a class="headerlink" href="#pyvex.const.U1.c_constructor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned char)' 0x7f7979f9ee87&gt;</em><a class="headerlink" href="#pyvex.const.U1.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1893,7 +1893,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="attribute">
 <dt id="pyvex.const.U8.c_constructor">
-<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned char)' 0x7f9af0810cd4&gt;</em><a class="headerlink" href="#pyvex.const.U8.c_constructor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned char)' 0x7f7979f9eefe&gt;</em><a class="headerlink" href="#pyvex.const.U8.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1919,14 +1919,14 @@ else it is a Store-Conditional.</p>
 
 <dl class="attribute">
 <dt id="pyvex.const.U16.c_constructor">
-<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned short)' 0x7f9af0810d0a&gt;</em><a class="headerlink" href="#pyvex.const.U16.c_constructor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned short)' 0x7f7979f9ef34&gt;</em><a class="headerlink" href="#pyvex.const.U16.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="pyvex.const.U32">
-<em class="property">class </em><code class="sig-prename descclassname">pyvex.const.</code><code class="sig-name descname">U32</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.const.U32" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">pyvex.const.</code><code class="sig-name descname">U32</code><span class="sig-paren">(</span><em class="sig-param">value: int</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.const.U32" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.const.IRConst" title="pyvex.const.IRConst"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyvex.const.IRConst</span></code></a></p>
 <dl class="attribute">
 <dt id="pyvex.const.U32.type">
@@ -1945,7 +1945,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="attribute">
 <dt id="pyvex.const.U32.c_constructor">
-<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned int)' 0x7f9af0810d42&gt;</em><a class="headerlink" href="#pyvex.const.U32.c_constructor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned int)' 0x7f7979f9ef6c&gt;</em><a class="headerlink" href="#pyvex.const.U32.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1971,7 +1971,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="attribute">
 <dt id="pyvex.const.U64.c_constructor">
-<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned long long)' 0x7f9af0810d75&gt;</em><a class="headerlink" href="#pyvex.const.U64.c_constructor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned long long)' 0x7f7979f9ef9f&gt;</em><a class="headerlink" href="#pyvex.const.U64.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2002,7 +2002,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="attribute">
 <dt id="pyvex.const.F32.c_constructor">
-<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(float)' 0x7f9af0810dab&gt;</em><a class="headerlink" href="#pyvex.const.F32.c_constructor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(float)' 0x7f7979f9efd5&gt;</em><a class="headerlink" href="#pyvex.const.F32.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2028,7 +2028,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="attribute">
 <dt id="pyvex.const.F32i.c_constructor">
-<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned int)' 0x7f9af0810de4&gt;</em><a class="headerlink" href="#pyvex.const.F32i.c_constructor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned int)' 0x7f7979f9f00e&gt;</em><a class="headerlink" href="#pyvex.const.F32i.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2054,7 +2054,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="attribute">
 <dt id="pyvex.const.F64.c_constructor">
-<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(double)' 0x7f9af0810e17&gt;</em><a class="headerlink" href="#pyvex.const.F64.c_constructor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(double)' 0x7f7979f9f041&gt;</em><a class="headerlink" href="#pyvex.const.F64.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2080,7 +2080,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="attribute">
 <dt id="pyvex.const.F64i.c_constructor">
-<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned long long)' 0x7f9af0810e50&gt;</em><a class="headerlink" href="#pyvex.const.F64i.c_constructor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned long long)' 0x7f7979f9f07a&gt;</em><a class="headerlink" href="#pyvex.const.F64i.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2106,7 +2106,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="attribute">
 <dt id="pyvex.const.V128.c_constructor">
-<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned short)' 0x7f9af0810e86&gt;</em><a class="headerlink" href="#pyvex.const.V128.c_constructor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned short)' 0x7f7979f9f0b0&gt;</em><a class="headerlink" href="#pyvex.const.V128.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2132,7 +2132,7 @@ else it is a Store-Conditional.</p>
 
 <dl class="attribute">
 <dt id="pyvex.const.V256.c_constructor">
-<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned int)' 0x7f9af0810ebe&gt;</em><a class="headerlink" href="#pyvex.const.V256.c_constructor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">c_constructor</code><em class="property"> = &lt;cdata 'IRConst *(*)(unsigned int)' 0x7f7979f9f0e8&gt;</em><a class="headerlink" href="#pyvex.const.V256.c_constructor" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2335,7 +2335,7 @@ rotating register files on the guest.</p>
 
 <span class="target" id="module-pyvex.lifting"></span><dl class="function">
 <dt id="pyvex.lifting.lift">
-<code class="sig-prename descclassname">pyvex.lifting.</code><code class="sig-name descname">lift</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">addr</em>, <em class="sig-param">arch</em>, <em class="sig-param">max_bytes=None</em>, <em class="sig-param">max_inst=None</em>, <em class="sig-param">bytes_offset=0</em>, <em class="sig-param">opt_level=1</em>, <em class="sig-param">traceflags=0</em>, <em class="sig-param">strict_block_end=True</em>, <em class="sig-param">inner=False</em>, <em class="sig-param">skip_stmts=False</em>, <em class="sig-param">collect_data_refs=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.lift" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">pyvex.lifting.</code><code class="sig-name descname">lift</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">addr</em>, <em class="sig-param">arch</em>, <em class="sig-param">max_bytes=None</em>, <em class="sig-param">max_inst=None</em>, <em class="sig-param">bytes_offset=0</em>, <em class="sig-param">opt_level=1</em>, <em class="sig-param">traceflags=0</em>, <em class="sig-param">strict_block_end=True</em>, <em class="sig-param">inner=False</em>, <em class="sig-param">skip_stmts=False</em>, <em class="sig-param">collect_data_refs=False</em>, <em class="sig-param">cross_insn_opt=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.lift" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursively lifts blocks using the registered lifters and postprocessors. Tries each lifter in the order in
 which they are registered on the data to lift.</p>
 <p>If a lifter raises a LiftingException on the data, it is skipped.
@@ -2387,6 +2387,42 @@ in which they are registered. Postprocessors will be run in registration order.<
 </dd></dl>
 
 <span class="target" id="module-pyvex.lifting.libvex"></span><dl class="class">
+<dt id="pyvex.lifting.libvex.VexRegisterUpdates">
+<em class="property">class </em><code class="sig-prename descclassname">pyvex.lifting.libvex.</code><code class="sig-name descname">VexRegisterUpdates</code><a class="headerlink" href="#pyvex.lifting.libvex.VexRegisterUpdates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpd_INVALID">
+<code class="sig-name descname">VexRegUpd_INVALID</code><em class="property"> = 1792</em><a class="headerlink" href="#pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpd_INVALID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdSpAtMemAccess">
+<code class="sig-name descname">VexRegUpdSpAtMemAccess</code><em class="property"> = 1793</em><a class="headerlink" href="#pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdSpAtMemAccess" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdUnwindregsAtMemAccess">
+<code class="sig-name descname">VexRegUpdUnwindregsAtMemAccess</code><em class="property"> = 1794</em><a class="headerlink" href="#pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdUnwindregsAtMemAccess" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdAllregsAtMemAccess">
+<code class="sig-name descname">VexRegUpdAllregsAtMemAccess</code><em class="property"> = 1795</em><a class="headerlink" href="#pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdAllregsAtMemAccess" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdAllregsAtEachInsn">
+<code class="sig-name descname">VexRegUpdAllregsAtEachInsn</code><em class="property"> = 1796</em><a class="headerlink" href="#pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdAllregsAtEachInsn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdLdAllregsAtEachInsn">
+<code class="sig-name descname">VexRegUpdLdAllregsAtEachInsn</code><em class="property"> = 1797</em><a class="headerlink" href="#pyvex.lifting.libvex.VexRegisterUpdates.VexRegUpdLdAllregsAtEachInsn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="pyvex.lifting.libvex.LibVEXLifter">
 <em class="property">class </em><code class="sig-prename descclassname">pyvex.lifting.libvex.</code><code class="sig-name descname">LibVEXLifter</code><span class="sig-paren">(</span><em class="sig-param">arch</em>, <em class="sig-param">addr</em><span class="sig-paren">)</span><a class="headerlink" href="#pyvex.lifting.libvex.LibVEXLifter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyvex.lifting.lifter.Lifter" title="pyvex.lifting.lifter.Lifter"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyvex.lifting.lifter.Lifter</span></code></a></p>
@@ -2444,6 +2480,11 @@ in which they are registered. Postprocessors will be run in registration order.<
 <dl class="attribute">
 <dt id="pyvex.lifting.lifter.Lifter.collect_data_refs">
 <code class="sig-name descname">collect_data_refs</code><a class="headerlink" href="#pyvex.lifting.lifter.Lifter.collect_data_refs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyvex.lifting.lifter.Lifter.cross_insn_opt">
+<code class="sig-name descname">cross_insn_opt</code><a class="headerlink" href="#pyvex.lifting.lifter.Lifter.cross_insn_opt" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2581,6 +2622,11 @@ Ijk_NoDecode, signalling to pyvex that other lifters should be used on the undec
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyvex.lifting.gym.ARMSpotter.cross_insn_opt">
+<code class="sig-name descname">cross_insn_opt</code><a class="headerlink" href="#pyvex.lifting.gym.ARMSpotter.cross_insn_opt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyvex.lifting.gym.ARMSpotter.data">
 <code class="sig-name descname">data</code><a class="headerlink" href="#pyvex.lifting.gym.ARMSpotter.data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2657,6 +2703,11 @@ Ijk_NoDecode, signalling to pyvex that other lifters should be used on the undec
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyvex.lifting.gym.X86Spotter.cross_insn_opt">
+<code class="sig-name descname">cross_insn_opt</code><a class="headerlink" href="#pyvex.lifting.gym.X86Spotter.cross_insn_opt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyvex.lifting.gym.X86Spotter.data">
 <code class="sig-name descname">data</code><a class="headerlink" href="#pyvex.lifting.gym.X86Spotter.data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2730,6 +2781,11 @@ Ijk_NoDecode, signalling to pyvex that other lifters should be used on the undec
 <dl class="attribute">
 <dt id="pyvex.lifting.gym.AARCH64Spotter.collect_data_refs">
 <code class="sig-name descname">collect_data_refs</code><a class="headerlink" href="#pyvex.lifting.gym.AARCH64Spotter.collect_data_refs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyvex.lifting.gym.AARCH64Spotter.cross_insn_opt">
+<code class="sig-name descname">cross_insn_opt</code><a class="headerlink" href="#pyvex.lifting.gym.AARCH64Spotter.cross_insn_opt" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -3342,6 +3398,11 @@ of the lifted code.</p>
 <dl class="attribute">
 <dt id="pyvex.lifting.util.lifter_helper.GymratLifter.collect_data_refs">
 <code class="sig-name descname">collect_data_refs</code><a class="headerlink" href="#pyvex.lifting.util.lifter_helper.GymratLifter.collect_data_refs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyvex.lifting.util.lifter_helper.GymratLifter.cross_insn_opt">
+<code class="sig-name descname">cross_insn_opt</code><a class="headerlink" href="#pyvex.lifting.util.lifter_helper.GymratLifter.cross_insn_opt" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -4324,6 +4385,11 @@ NEXT: PUT(rip) = 0x0000000000008003; Ijk_Boring</p>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyvex.lifting.gym.arm_spotter.ARMSpotter.cross_insn_opt">
+<code class="sig-name descname">cross_insn_opt</code><a class="headerlink" href="#pyvex.lifting.gym.arm_spotter.ARMSpotter.cross_insn_opt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyvex.lifting.gym.arm_spotter.ARMSpotter.data">
 <code class="sig-name descname">data</code><a class="headerlink" href="#pyvex.lifting.gym.arm_spotter.ARMSpotter.data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -4509,6 +4575,11 @@ NEXT: PUT(rip) = 0x0000000000008003; Ijk_Boring</p>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyvex.lifting.gym.aarch64_spotter.AARCH64Spotter.cross_insn_opt">
+<code class="sig-name descname">cross_insn_opt</code><a class="headerlink" href="#pyvex.lifting.gym.aarch64_spotter.AARCH64Spotter.cross_insn_opt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyvex.lifting.gym.aarch64_spotter.AARCH64Spotter.data">
 <code class="sig-name descname">data</code><a class="headerlink" href="#pyvex.lifting.gym.aarch64_spotter.AARCH64Spotter.data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -4632,6 +4703,11 @@ NEXT: PUT(rip) = 0x0000000000008003; Ijk_Boring</p>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyvex.lifting.gym.x86_spotter.X86Spotter.cross_insn_opt">
+<code class="sig-name descname">cross_insn_opt</code><a class="headerlink" href="#pyvex.lifting.gym.x86_spotter.X86Spotter.cross_insn_opt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyvex.lifting.gym.x86_spotter.X86Spotter.data">
 <code class="sig-name descname">data</code><a class="headerlink" href="#pyvex.lifting.gym.x86_spotter.X86Spotter.data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -4731,7 +4807,7 @@ majority of IRSBs, the author should implement it in PyVEX in C for the sake of 
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, The angr project
+        &copy; Copyright 2020, The angr project
 
     </p>
   </div>

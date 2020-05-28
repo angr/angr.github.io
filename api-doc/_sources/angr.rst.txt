@@ -117,6 +117,7 @@ Exploration Techniques
 .. automodule:: angr.exploration_techniques.common
 .. automodule:: angr.exploration_techniques.symbion
 .. automodule:: angr.exploration_techniques.memory_watcher
+.. automodule:: angr.exploration_techniques.bucketizer
 
 Simulation Engines
 ------------------
@@ -182,12 +183,23 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.variables
 .. automodule:: angr.knowledge_plugins.variables.variable_access
 .. automodule:: angr.knowledge_plugins.variables.variable_manager
+.. automodule:: angr.knowledge_plugins.key_definitions
+.. automodule:: angr.knowledge_plugins.key_definitions.atoms
+.. automodule:: angr.knowledge_plugins.key_definitions.constants
+.. automodule:: angr.knowledge_plugins.key_definitions.dataset
+.. automodule:: angr.knowledge_plugins.key_definitions.definition
+.. automodule:: angr.knowledge_plugins.key_definitions.key_definition_manager
+.. automodule:: angr.knowledge_plugins.key_definitions.live_definitions
+.. automodule:: angr.knowledge_plugins.key_definitions.rd_model
+.. automodule:: angr.knowledge_plugins.key_definitions.undefined
+.. automodule:: angr.knowledge_plugins.key_definitions.uses
 .. automodule:: angr.knowledge_plugins.sync
 .. automodule:: angr.knowledge_plugins.sync.sync_manager
 .. automodule:: angr.knowledge_plugins.xrefs
 .. automodule:: angr.knowledge_plugins.xrefs.xref
 .. automodule:: angr.knowledge_plugins.xrefs.xref_types
 .. automodule:: angr.knowledge_plugins.xrefs.xref_manager
+.. automodule:: angr.code_location
 .. automodule:: angr.keyed_region
 
 
@@ -196,6 +208,7 @@ Serialization
 
 .. automodule:: angr.serializable
 .. automodule:: angr.protos
+.. automodule:: angr.vaults
 
 
 Analysis
@@ -216,6 +229,7 @@ Analysis
 .. automodule:: angr.analyses.bindiff
 .. automodule:: angr.analyses.boyscout
 .. automodule:: angr.analyses.calling_convention
+.. automodule:: angr.analyses.complete_calling_conventions
 .. automodule:: angr.analyses.soot_class_hierarchy
 .. automodule:: angr.analyses.cfg
 .. automodule:: angr.analyses.cfg.cfb
@@ -226,6 +240,7 @@ Analysis
 .. automodule:: angr.analyses.cfg.cfg_arch_options
 .. automodule:: angr.analyses.cfg.cfg_job_base
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.amd64_elf_got
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers.arm_elf_fast
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.x86_pe_iat
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt
@@ -237,14 +252,30 @@ Analysis
 .. automodule:: angr.analyses.cfg.cfg_fast_soot
 .. automodule:: angr.analyses.cfg.segment_list
 .. automodule:: angr.analyses.cdg
-.. automodule:: angr.analyses.code_location
 .. automodule:: angr.analyses.datagraph_meta
 .. automodule:: angr.analyses.code_tagging
+.. automodule:: angr.angrdb
+.. automodule:: angr.angrdb.db
+.. automodule:: angr.angrdb.models
+.. automodule:: angr.angrdb.serializers
+.. automodule:: angr.angrdb.serializers.cfg_model
+.. automodule:: angr.angrdb.serializers.comments
+.. automodule:: angr.angrdb.serializers.funcs
+.. automodule:: angr.angrdb.serializers.kb
+.. automodule:: angr.angrdb.serializers.labels
+.. automodule:: angr.angrdb.serializers.loader
+.. automodule:: angr.angrdb.serializers.xrefs
 .. automodule:: angr.analyses.decompiler.structurer
 .. automodule:: angr.analyses.decompiler
+.. automodule:: angr.analyses.decompiler.ailgraph_walker
 .. automodule:: angr.analyses.decompiler.clinic
+.. automodule:: angr.analyses.decompiler.condition_processor
+.. automodule:: angr.analyses.decompiler.decompilation_options
 .. automodule:: angr.analyses.decompiler.decompiler
+.. automodule:: angr.analyses.decompiler.empty_node_remover
+.. automodule:: angr.analyses.decompiler.graph_region
 .. automodule:: angr.analyses.decompiler.optimization_passes
+.. automodule:: angr.analyses.decompiler.optimization_passes.eager_returns
 .. automodule:: angr.analyses.decompiler.optimization_passes.optimization_pass
 .. automodule:: angr.analyses.decompiler.optimization_passes.stack_canary_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier
@@ -252,9 +283,12 @@ Analysis
 .. automodule:: angr.analyses.decompiler.optimization_passes.multi_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.mod_simplifier
 .. automodule:: angr.analyses.decompiler.optimization_passes.engine_base
-.. automodule:: angr.analyses.decompiler.structured_codegen
 .. automodule:: angr.analyses.decompiler.region_identifier
 .. automodule:: angr.analyses.decompiler.region_simplifier
+.. automodule:: angr.analyses.decompiler.sequence_walker
+.. automodule:: angr.analyses.decompiler.structured_codegen
+.. automodule:: angr.analyses.decompiler.structurer_nodes
+.. automodule:: angr.analyses.decompiler.utils
 .. automodule:: angr.analyses.ddg
 .. automodule:: angr.engines.light.data
 .. automodule:: angr.engines.light
@@ -266,18 +300,12 @@ Analysis
 .. automodule:: angr.analyses.propagator.engine_vex
 .. automodule:: angr.analyses.propagator.engine_ail
 .. automodule:: angr.analyses.propagator.propagator
-.. automodule:: angr.analyses.reaching_definitions.uses
-.. automodule:: angr.analyses.reaching_definitions.undefined
-.. automodule:: angr.analyses.reaching_definitions.definition
-.. automodule:: angr.analyses.reaching_definitions.constants
-.. automodule:: angr.analyses.reaching_definitions.atoms
-.. automodule:: angr.analyses.reaching_definitions.engine_vex
-.. automodule:: angr.analyses.reaching_definitions.live_definitions
-.. automodule:: angr.analyses.reaching_definitions.reaching_definitions
-.. automodule:: angr.analyses.reaching_definitions.def_use_graph
-.. automodule:: angr.analyses.reaching_definitions.subject
 .. automodule:: angr.analyses.reaching_definitions
-.. automodule:: angr.analyses.reaching_definitions.dataset
+.. automodule:: angr.analyses.reaching_definitions.engine_vex
+.. automodule:: angr.analyses.reaching_definitions.reaching_definitions
+.. automodule:: angr.analyses.reaching_definitions.dep_graph
+.. automodule:: angr.analyses.reaching_definitions.rd_state
+.. automodule:: angr.analyses.reaching_definitions.subject
 .. automodule:: angr.analyses.reaching_definitions.engine_ail
 .. automodule:: angr.analyses.reaching_definitions.external_codeloc
 .. automodule:: angr.analyses.stack_pointer_tracker
@@ -285,7 +313,17 @@ Analysis
 .. automodule:: angr.analyses.variable_recovery.variable_recovery_base
 .. automodule:: angr.analyses.variable_recovery.variable_recovery_fast
 .. automodule:: angr.analyses.variable_recovery.variable_recovery
+.. automodule:: angr.analyses.variable_recovery.engine_ail
+.. automodule:: angr.analyses.variable_recovery.engine_vex
+.. automodule:: angr.analyses.variable_recovery.engine_base
 .. automodule:: angr.analyses.variable_recovery
+.. automodule:: angr.analyses.typehoon.lifter
+.. automodule:: angr.analyses.typehoon.simple_solver
+.. automodule:: angr.analyses.typehoon.translator
+.. automodule:: angr.analyses.typehoon.typevars
+.. automodule:: angr.analyses.typehoon.typehoon
+.. automodule:: angr.analyses.typehoon.typeconsts
+.. automodule:: angr.analyses.typehoon
 .. automodule:: angr.analyses.identifier.identify
 .. automodule:: angr.analyses.loopfinder
 .. automodule:: angr.analyses.loop_analysis
@@ -300,6 +338,7 @@ Analysis
 .. automodule:: angr.analyses.binary_optimizer
 .. automodule:: angr.analyses.callee_cleanup_finder
 .. automodule:: angr.analyses.dominance_frontier
+.. automodule:: angr.analyses.init_finder
 .. automodule:: angr.analyses.xrefs
 .. automodule:: angr.blade
 .. automodule:: angr.slicer
@@ -322,14 +361,17 @@ Utils
 -----
 .. automodule:: angr.utils
 .. automodule:: angr.utils.constants
+.. automodule:: angr.utils.enums_conv
 .. automodule:: angr.utils.graph
 .. automodule:: angr.utils.library
-.. automodule:: angr.utils.enums_conv
+.. automodule:: angr.utils.timing
 
 Errors
 ------
 .. automodule:: angr.errors
 
-Serialization
--------------
-.. automodule:: angr.vaults
+Distributed analysis
+--------------------
+.. automodule:: angr.distributed
+.. automodule:: angr.distributed.server
+.. automodule:: angr.distributed.worker

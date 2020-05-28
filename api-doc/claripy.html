@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>claripy — Solver Engine &mdash; angr 8.20.1.7 documentation</title>
+  <title>claripy — Solver Engine &mdash; angr 8.20.5.27 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                8.20.1.7
+                8.20.5.27
               </div>
             
           
@@ -1120,8 +1120,8 @@ to False or None.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>value</strong> – The value. Either an integer or a string. If it’s a string, it will be interpreted as the bytes of
-a big-endian constant.</p></li>
+<li><p><strong>value</strong> – The value. Either an integer or a bytestring. If it’s the latter, it will be interpreted as the
+bytes of a big-endian constant.</p></li>
 <li><p><strong>size</strong> – The size (in bits) of the bit-vector. Optional if you provide a string, required for an integer.</p></li>
 </ul>
 </dd>
@@ -1494,51 +1494,6 @@ Bitvector representation, otherwise it returns -1 (always using a BitVector)</p>
 <dl class="method">
 <dt id="claripy.ast.strings.String.UnitStr">
 <em class="property">static </em><code class="sig-name descname">UnitStr</code><span class="sig-paren">(</span><em class="sig-param">*args</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.strings.String.UnitStr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.strings.String.e">
-<code class="sig-name descname">e</code><a class="headerlink" href="#claripy.ast.strings.String.e" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.strings.String.g">
-<code class="sig-name descname">g</code><a class="headerlink" href="#claripy.ast.strings.String.g" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.strings.String.h">
-<code class="sig-name descname">h</code><a class="headerlink" href="#claripy.ast.strings.String.h" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.strings.String.i">
-<code class="sig-name descname">i</code><a class="headerlink" href="#claripy.ast.strings.String.i" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.strings.String.l">
-<code class="sig-name descname">l</code><a class="headerlink" href="#claripy.ast.strings.String.l" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.strings.String.n">
-<code class="sig-name descname">n</code><a class="headerlink" href="#claripy.ast.strings.String.n" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.strings.String.r">
-<code class="sig-name descname">r</code><a class="headerlink" href="#claripy.ast.strings.String.r" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.strings.String.s">
-<code class="sig-name descname">s</code><a class="headerlink" href="#claripy.ast.strings.String.s" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="claripy.ast.strings.String.t">
-<code class="sig-name descname">t</code><a class="headerlink" href="#claripy.ast.strings.String.t" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -6682,7 +6637,7 @@ disable debug mode if you are running performance critical code.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, The angr project
+        &copy; Copyright 2020, The angr project
 
     </p>
   </div>

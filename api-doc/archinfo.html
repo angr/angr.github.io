@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>archinfo — Arch Information Repository &mdash; angr 8.20.1.7 documentation</title>
+  <title>archinfo — Arch Information Repository &mdash; angr 8.20.5.27 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                8.20.1.7
+                8.20.5.27
               </div>
             
           
@@ -297,6 +297,11 @@ the general purpose registers.</p></li>
 <dl class="attribute">
 <dt id="archinfo.arch.Arch.byte_width">
 <code class="sig-name descname">byte_width</code><em class="property"> = 8</em><a class="headerlink" href="#archinfo.arch.Arch.byte_width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="archinfo.arch.Arch.elf_tls">
+<code class="sig-name descname">elf_tls</code><em class="property"> = None</em><a class="headerlink" href="#archinfo.arch.Arch.elf_tls" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -884,7 +889,7 @@ architecture has no intrinsic endianness.</p></li>
 
 <dl class="function">
 <dt id="archinfo.arch.arch_from_id">
-<code class="sig-prename descclassname">archinfo.arch.</code><code class="sig-name descname">arch_from_id</code><span class="sig-paren">(</span><em class="sig-param">ident</em>, <em class="sig-param">endness='any'</em>, <em class="sig-param">bits=''</em><span class="sig-paren">)</span><a class="headerlink" href="#archinfo.arch.arch_from_id" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">archinfo.arch.</code><code class="sig-name descname">arch_from_id</code><span class="sig-paren">(</span><em class="sig-param">ident</em>, <em class="sig-param">endness='any'</em>, <em class="sig-param">bits=''</em><span class="sig-paren">)</span> &#x2192; archinfo.arch.Arch<a class="headerlink" href="#archinfo.arch.arch_from_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Take our best guess at the arch referred to by the given identifier, and return an instance of its class.</p>
 <p>You may optionally provide the <code class="docutils literal notranslate"><span class="pre">endness</span></code> and <code class="docutils literal notranslate"><span class="pre">bits</span></code> parameters (strings) to help this function out.</p>
 </dd></dl>
@@ -1260,7 +1265,7 @@ architecture has no intrinsic endianness.</p></li>
 
 <dl class="attribute">
 <dt id="archinfo.arch_amd64.ArchAMD64.register_list">
-<code class="sig-name descname">register_list</code><em class="property"> = [&lt;Register rax&gt;, &lt;Register rcx&gt;, &lt;Register rdx&gt;, &lt;Register rbx&gt;, &lt;Register rsp&gt;, &lt;Register rbp&gt;, &lt;Register rsi&gt;, &lt;Register rdi&gt;, &lt;Register r8&gt;, &lt;Register r9&gt;, &lt;Register r10&gt;, &lt;Register r11&gt;, &lt;Register r12&gt;, &lt;Register r13&gt;, &lt;Register r14&gt;, &lt;Register r15&gt;, &lt;Register cc_op&gt;, &lt;Register cc_dep1&gt;, &lt;Register cc_dep2&gt;, &lt;Register cc_ndep&gt;, &lt;Register d&gt;, &lt;Register rip&gt;, &lt;Register ac&gt;, &lt;Register id&gt;, &lt;Register fs&gt;, &lt;Register sseround&gt;, &lt;Register cr0&gt;, &lt;Register cr2&gt;, &lt;Register cr3&gt;, &lt;Register cr4&gt;, &lt;Register cr8&gt;, &lt;Register ymm0&gt;, &lt;Register ymm1&gt;, &lt;Register ymm2&gt;, &lt;Register ymm3&gt;, &lt;Register ymm4&gt;, &lt;Register ymm5&gt;, &lt;Register ymm6&gt;, &lt;Register ymm7&gt;, &lt;Register ymm8&gt;, &lt;Register ymm9&gt;, &lt;Register ymm10&gt;, &lt;Register ymm11&gt;, &lt;Register ymm12&gt;, &lt;Register ymm13&gt;, &lt;Register ymm14&gt;, &lt;Register ymm15&gt;, &lt;Register ymm16&gt;, &lt;Register ftop&gt;, &lt;Register fpreg&gt;, &lt;Register fptag&gt;, &lt;Register fpround&gt;, &lt;Register fc3210&gt;, &lt;Register emnote&gt;, &lt;Register cmstart&gt;, &lt;Register cmlen&gt;, &lt;Register nraddr&gt;, &lt;Register gs&gt;, &lt;Register ip_at_syscall&gt;]</em><a class="headerlink" href="#archinfo.arch_amd64.ArchAMD64.register_list" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_list</code><em class="property"> = [&lt;Register rax&gt;, &lt;Register rcx&gt;, &lt;Register rdx&gt;, &lt;Register rbx&gt;, &lt;Register rsp&gt;, &lt;Register rbp&gt;, &lt;Register rsi&gt;, &lt;Register rdi&gt;, &lt;Register r8&gt;, &lt;Register r9&gt;, &lt;Register r10&gt;, &lt;Register r11&gt;, &lt;Register r12&gt;, &lt;Register r13&gt;, &lt;Register r14&gt;, &lt;Register r15&gt;, &lt;Register cc_op&gt;, &lt;Register cc_dep1&gt;, &lt;Register cc_dep2&gt;, &lt;Register cc_ndep&gt;, &lt;Register d&gt;, &lt;Register rip&gt;, &lt;Register ac&gt;, &lt;Register id&gt;, &lt;Register fs&gt;, &lt;Register sseround&gt;, &lt;Register cr0&gt;, &lt;Register cr2&gt;, &lt;Register cr3&gt;, &lt;Register cr4&gt;, &lt;Register cr8&gt;, &lt;Register ymm0&gt;, &lt;Register ymm1&gt;, &lt;Register ymm2&gt;, &lt;Register ymm3&gt;, &lt;Register ymm4&gt;, &lt;Register ymm5&gt;, &lt;Register ymm6&gt;, &lt;Register ymm7&gt;, &lt;Register ymm8&gt;, &lt;Register ymm9&gt;, &lt;Register ymm10&gt;, &lt;Register ymm11&gt;, &lt;Register ymm12&gt;, &lt;Register ymm13&gt;, &lt;Register ymm14&gt;, &lt;Register ymm15&gt;, &lt;Register ftop&gt;, &lt;Register fpreg&gt;, &lt;Register fptag&gt;, &lt;Register fpround&gt;, &lt;Register fc3210&gt;, &lt;Register emnote&gt;, &lt;Register cmstart&gt;, &lt;Register cmlen&gt;, &lt;Register nraddr&gt;, &lt;Register gs&gt;, &lt;Register ip_at_syscall&gt;]</em><a class="headerlink" href="#archinfo.arch_amd64.ArchAMD64.register_list" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2274,6 +2279,11 @@ Uses its own fancy stack layout for this, which (UGH) varies by sub-sub-architec
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="archinfo.arch_ppc64.ArchPPC64.dynamic_tag_translation">
+<code class="sig-name descname">dynamic_tag_translation</code><em class="property"> = {1879048192: 'DT_PPC64_GLINK', 1879048193: 'DT_PPC64_OPD', 1879048194: 'DT_PPC64_OPDSZ', 1879048195: 'DT_PPC64_OPT'}</em><a class="headerlink" href="#archinfo.arch_ppc64.ArchPPC64.dynamic_tag_translation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="archinfo.arch_ppc64.ArchPPC64.function_prologs">
 <code class="sig-name descname">function_prologs</code><em class="property"> = {b'[\\x00-\\xff]{2}\\x21\\x94\\xa6\\x02\\x08\\x7c'}</em><a class="headerlink" href="#archinfo.arch_ppc64.ArchPPC64.function_prologs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -2879,12 +2889,12 @@ specific paths.</p>
 
 <dl class="attribute">
 <dt id="archinfo.arch_s390x.ArchS390X.ret_offset">
-<code class="sig-name descname">ret_offset</code><em class="property"> = 208</em><a class="headerlink" href="#archinfo.arch_s390x.ArchS390X.ret_offset" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ret_offset</code><em class="property"> = 584</em><a class="headerlink" href="#archinfo.arch_s390x.ArchS390X.ret_offset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="archinfo.arch_s390x.ArchS390X.syscall_num_offset">
-<code class="sig-name descname">syscall_num_offset</code><em class="property"> = 200</em><a class="headerlink" href="#archinfo.arch_s390x.ArchS390X.syscall_num_offset" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">syscall_num_offset</code><em class="property"> = 576</em><a class="headerlink" href="#archinfo.arch_s390x.ArchS390X.syscall_num_offset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2944,7 +2954,7 @@ specific paths.</p>
 
 <dl class="attribute">
 <dt id="archinfo.arch_s390x.ArchS390X.register_list">
-<code class="sig-name descname">register_list</code><em class="property"> = [&lt;Register ia&gt;, &lt;Register r0&gt;, &lt;Register r1&gt;, &lt;Register r2&gt;, &lt;Register r3&gt;, &lt;Register r4&gt;, &lt;Register r5&gt;, &lt;Register r6&gt;, &lt;Register r7&gt;, &lt;Register r8&gt;, &lt;Register r9&gt;, &lt;Register r10&gt;, &lt;Register r11&gt;, &lt;Register r12&gt;, &lt;Register r13&gt;, &lt;Register r14&gt;, &lt;Register r15&gt;, &lt;Register f0&gt;, &lt;Register f1&gt;, &lt;Register f2&gt;, &lt;Register f3&gt;, &lt;Register f4&gt;, &lt;Register f5&gt;, &lt;Register f6&gt;, &lt;Register f7&gt;, &lt;Register f8&gt;, &lt;Register f9&gt;, &lt;Register f10&gt;, &lt;Register f11&gt;, &lt;Register f12&gt;, &lt;Register f13&gt;, &lt;Register f14&gt;, &lt;Register f15&gt;, &lt;Register a0&gt;, &lt;Register a1&gt;, &lt;Register a2&gt;, &lt;Register a3&gt;, &lt;Register a4&gt;, &lt;Register a5&gt;, &lt;Register a6&gt;, &lt;Register a7&gt;, &lt;Register a8&gt;, &lt;Register a9&gt;, &lt;Register a10&gt;, &lt;Register a11&gt;, &lt;Register a12&gt;, &lt;Register a13&gt;, &lt;Register a14&gt;, &lt;Register a15&gt;, &lt;Register nraddr&gt;, &lt;Register cmstart&gt;, &lt;Register cmlen&gt;, &lt;Register ip_at_syscall&gt;, &lt;Register emnote&gt;]</em><a class="headerlink" href="#archinfo.arch_s390x.ArchS390X.register_list" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">register_list</code><em class="property"> = [&lt;Register ia&gt;, &lt;Register r0&gt;, &lt;Register r1&gt;, &lt;Register r2&gt;, &lt;Register r3&gt;, &lt;Register r4&gt;, &lt;Register r5&gt;, &lt;Register r6&gt;, &lt;Register r7&gt;, &lt;Register r8&gt;, &lt;Register r9&gt;, &lt;Register r10&gt;, &lt;Register r11&gt;, &lt;Register r12&gt;, &lt;Register r13&gt;, &lt;Register r14&gt;, &lt;Register r15&gt;, &lt;Register v0&gt;, &lt;Register v1&gt;, &lt;Register v2&gt;, &lt;Register v3&gt;, &lt;Register v4&gt;, &lt;Register v5&gt;, &lt;Register v6&gt;, &lt;Register v7&gt;, &lt;Register v8&gt;, &lt;Register v9&gt;, &lt;Register v10&gt;, &lt;Register v11&gt;, &lt;Register v12&gt;, &lt;Register v13&gt;, &lt;Register v14&gt;, &lt;Register v15&gt;, &lt;Register v16&gt;, &lt;Register v17&gt;, &lt;Register v18&gt;, &lt;Register v19&gt;, &lt;Register v20&gt;, &lt;Register v21&gt;, &lt;Register v22&gt;, &lt;Register v23&gt;, &lt;Register v24&gt;, &lt;Register v25&gt;, &lt;Register v26&gt;, &lt;Register v27&gt;, &lt;Register v28&gt;, &lt;Register v29&gt;, &lt;Register v30&gt;, &lt;Register v31&gt;, &lt;Register a0&gt;, &lt;Register a1&gt;, &lt;Register a2&gt;, &lt;Register a3&gt;, &lt;Register a4&gt;, &lt;Register a5&gt;, &lt;Register a6&gt;, &lt;Register a7&gt;, &lt;Register a8&gt;, &lt;Register a9&gt;, &lt;Register a10&gt;, &lt;Register a11&gt;, &lt;Register a12&gt;, &lt;Register a13&gt;, &lt;Register a14&gt;, &lt;Register a15&gt;, &lt;Register nraddr&gt;, &lt;Register cmstart&gt;, &lt;Register cmlen&gt;, &lt;Register ip_at_syscall&gt;, &lt;Register emnote&gt;]</em><a class="headerlink" href="#archinfo.arch_s390x.ArchS390X.register_list" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -3056,7 +3066,7 @@ specific paths.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2018, The angr project
+        &copy; Copyright 2020, The angr project
 
     </p>
   </div>
