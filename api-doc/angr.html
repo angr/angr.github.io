@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>angr — Analysis and Coordination &mdash; angr 8.20.6.8 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 8.20.7.6 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                8.20.6.8
+                8.20.7.6
               </div>
             
           
@@ -5691,7 +5691,7 @@ you must say <code class="docutils literal notranslate"><span class="pre">s.mem[
 
 <dl class="attribute">
 <dt id="angr.state_plugins.view.SimMemView.types">
-<code class="sig-name descname">types</code><em class="property"> = {'FILE': struct FILE_t, 'TOP': TOP, 'byte': uint8_t, 'char': char, 'clock_t': long, 'double': double, 'dword': uint32_t, 'float': float, 'gid_t': unsigned int, 'int': int, 'int16_t': int16_t, 'int32_t': int32_t, 'int64_t': int64_t, 'int8_t': int8_t, 'intmax_t': int, 'long': long, 'long double': double, 'long int': long, 'long long': long long, 'long long int': long long, 'mode_t': unsigned short, 'off_t': unsigned long, 'pid_t': int, 'pthread_key_t': unsigned int, 'ptrdiff_t': long, 'qword': uint64_t, 'sem_t': unsigned int, 'short': short, 'short int': short, 'signed char': char, 'signed int': int, 'signed long': long, 'signed long int': long, 'signed long long': long long, 'signed long long int': long long, 'signed short': short, 'signed short int': short, 'sigset_t': int, 'size_t': size_t, 'socklen_t': int, 'speed_t': unsigned int, 'ssize': size_t, 'ssize_t': size_t, 'string': string_t, 'struct FILE_t': struct FILE_t, 'struct iovec': struct iovec, 'struct timespec': struct timespec, 'struct timeval': struct timeval, 'time_t': long, 'uid_t': unsigned int, 'uint16_t': uint16_t, 'uint32_t': uint32_t, 'uint64_t': uint64_t, 'uint8_t': uint8_t, 'uintmax_t': unsigned int, 'uintptr_t': unsigned long, 'unsigned char': char, 'unsigned int': unsigned int, 'unsigned long': unsigned long, 'unsigned long int': unsigned long, 'unsigned long long': unsigned long long, 'unsigned long long int': unsigned long long, 'unsigned short': unsigned short, 'unsigned short int': unsigned short, 'va_list': struct va_list, 'void': BOT, 'wchar_t': unsigned short, 'wctrans_t': unsigned short, 'wctype_t': unsigned short, 'wint_t': unsigned int, 'word': uint16_t, 'wstring': wstring_t}</em><a class="headerlink" href="#angr.state_plugins.view.SimMemView.types" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">types</code><em class="property"> = {'CharT': char, 'FILE': struct FILE_t, 'TOP': TOP, 'basic_string': string_t, 'byte': uint8_t, 'char': char, 'clock_t': long, 'double': double, 'dword': uint32_t, 'float': float, 'gid_t': unsigned int, 'int': int, 'int16_t': int16_t, 'int32_t': int32_t, 'int64_t': int64_t, 'int8_t': int8_t, 'intmax_t': int, 'long': long, 'long double': double, 'long int': long, 'long long': long long, 'long long int': long long, 'mode_t': unsigned short, 'off_t': unsigned long, 'pid_t': int, 'pthread_key_t': unsigned int, 'ptrdiff_t': long, 'qword': uint64_t, 'sem_t': unsigned int, 'short': short, 'short int': short, 'signed char': char, 'signed int': int, 'signed long': long, 'signed long int': long, 'signed long long': long long, 'signed long long int': long long, 'signed short': short, 'signed short int': short, 'sigset_t': int, 'size_t': size_t, 'socklen_t': int, 'speed_t': unsigned int, 'ssize': size_t, 'ssize_t': size_t, 'string': string_t, 'struct FILE_t': struct FILE_t, 'struct iovec': struct iovec, 'struct timespec': struct timespec, 'struct timeval': struct timeval, 'time_t': long, 'uid_t': unsigned int, 'uint16_t': uint16_t, 'uint32_t': uint32_t, 'uint64_t': uint64_t, 'uint8_t': uint8_t, 'uintmax_t': unsigned int, 'uintptr_t': unsigned long, 'unsigned char': char, 'unsigned int': unsigned int, 'unsigned long': unsigned long, 'unsigned long int': unsigned long, 'unsigned long long': unsigned long long, 'unsigned long long int': unsigned long long, 'unsigned short': unsigned short, 'unsigned short int': unsigned short, 'va_list': struct va_list, 'void': BOT, 'wchar_t': unsigned short, 'wctrans_t': unsigned short, 'wctype_t': unsigned short, 'wint_t': unsigned int, 'word': uint16_t, 'wstring': wstring_t}</em><a class="headerlink" href="#angr.state_plugins.view.SimMemView.types" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -9333,7 +9333,7 @@ state transitions.</p>
 
 <span class="target" id="module-angr.exploration_techniques.slicecutor"></span><dl class="class">
 <dt id="angr.exploration_techniques.slicecutor.Slicecutor">
-<em class="property">class </em><code class="sig-prename descclassname">angr.exploration_techniques.slicecutor.</code><code class="sig-name descname">Slicecutor</code><span class="sig-paren">(</span><em class="sig-param">annotated_cfg</em>, <em class="sig-param">force_taking_exit=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.slicecutor.Slicecutor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.exploration_techniques.slicecutor.</code><code class="sig-name descname">Slicecutor</code><span class="sig-paren">(</span><em class="sig-param">annotated_cfg</em>, <em class="sig-param">force_taking_exit=False</em>, <em class="sig-param">force_sat: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.slicecutor.Slicecutor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.ExplorationTechnique" title="angr.exploration_techniques.ExplorationTechnique"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.exploration_techniques.ExplorationTechnique</span></code></a></p>
 <p>The Slicecutor is an exploration that executes provided code slices.</p>
 <p>All parameters except <cite>annotated_cfg</cite> are optional.</p>
@@ -9343,6 +9343,8 @@ state transitions.</p>
 <li><p><strong>annotated_cfg</strong> – The AnnotatedCFG that provides the code slice.</p></li>
 <li><p><strong>force_taking_exit</strong> – Set to True if you want to create a successor based on our slice in case of
 unconstrained successors.</p></li>
+<li><p><strong>force_sat</strong> – If a branch specified by the slice is unsatisfiable, set this option to True if you
+want to force it to be satisfiable and be taken anyway.</p></li>
 </ul>
 </dd>
 </dl>
@@ -11011,6 +11013,23 @@ and metadata set. This will appear in <code class="docutils literal notranslate"
 </dd></dl>
 
 <dl class="method">
+<dt id="angr.procedures.definitions.SimLibrary.get_prototype">
+<code class="sig-name descname">get_prototype</code><span class="sig-paren">(</span><em class="sig-param">name: str</em>, <em class="sig-param">arch=None</em><span class="sig-paren">)</span> &#x2192; Optional[angr.sim_type.SimTypeFunction]<a class="headerlink" href="#angr.procedures.definitions.SimLibrary.get_prototype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a prototype of the given function name, optionally specialize the prototype to a given architecture.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the function.</p></li>
+<li><p><strong>arch</strong> – The architecture to specialize to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Prototype of the function, or None if the prototype does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="angr.procedures.definitions.SimLibrary.has_metadata">
 <code class="sig-name descname">has_metadata</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.procedures.definitions.SimLibrary.has_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if a function has either an implementation or any metadata associated with it</p>
@@ -11096,6 +11115,24 @@ if it is a mangled C++ name.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A SimProcedure instance representing a plausable stub as could be found in the library.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.procedures.definitions.SimCppLibrary.get_prototype">
+<code class="sig-name descname">get_prototype</code><span class="sig-paren">(</span><em class="sig-param">name: str</em>, <em class="sig-param">arch=None</em><span class="sig-paren">)</span> &#x2192; Optional[angr.sim_type.SimTypeFunction]<a class="headerlink" href="#angr.procedures.definitions.SimCppLibrary.get_prototype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a prototype of the given function name, optionally specialize the prototype to a given architecture. The
+function name will be demangled first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the function.</p></li>
+<li><p><strong>arch</strong> – The architecture to specialize to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Prototype of the function, or None if the prototype does not exist.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -12023,6 +12060,11 @@ Function names are ignored.</p>
 <code class="sig-name descname">ARCH</code><a class="headerlink" href="#angr.calling_conventions.SimCCMicrosoftAMD64.ARCH" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="archinfo.html#archinfo.arch_amd64.ArchAMD64" title="archinfo.arch_amd64.ArchAMD64"><code class="xref py py-class docutils literal notranslate"><span class="pre">archinfo.arch_amd64.ArchAMD64</span></code></a></p>
 </dd></dl>
+
+<dl class="attribute">
+<dt id="angr.calling_conventions.SimCCMicrosoftAMD64.STACK_ALIGNMENT">
+<code class="sig-name descname">STACK_ALIGNMENT</code><em class="property"> = 16</em><a class="headerlink" href="#angr.calling_conventions.SimCCMicrosoftAMD64.STACK_ALIGNMENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -13304,6 +13346,11 @@ Function names are ignored.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="angr.sim_type.SimType.unqualified_name">
+<code class="sig-name descname">unqualified_name</code><span class="sig-paren">(</span><em class="sig-param">lang: str = 'c++'</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#angr.sim_type.SimType.unqualified_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="angr.sim_type.SimType.size">
 <em class="property">property </em><code class="sig-name descname">size</code><a class="headerlink" href="#angr.sim_type.SimType.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>The size of the type in bits.</p>
@@ -13325,6 +13372,31 @@ Function names are ignored.</p>
 <code class="sig-name descname">c_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimType.c_repr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="angr.sim_type.SimType.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimType.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.sim_type.NamedTypeMixin">
+<em class="property">class </em><code class="sig-prename descclassname">angr.sim_type.</code><code class="sig-name descname">NamedTypeMixin</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">name: Optional[str] = None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.NamedTypeMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>SimType classes with this mixin in the class hierarchy allows setting custom class names. A typical use case is
+to represent same or similar type classes with different qualified names, such as “std::basic_string” vs
+“std::__cxx11::basic_string”. In such cases, .name stores the qualified name, and .unqualified_name() returns the
+unqualified name of the type.</p>
+<dl class="method">
+<dt id="angr.sim_type.NamedTypeMixin.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#angr.sim_type.NamedTypeMixin.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.sim_type.NamedTypeMixin.unqualified_name">
+<code class="sig-name descname">unqualified_name</code><span class="sig-paren">(</span><em class="sig-param">lang: str = 'c++'</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#angr.sim_type.NamedTypeMixin.unqualified_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -13342,6 +13414,11 @@ Function names are ignored.</p>
 <code class="sig-name descname">c_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeBottom.c_repr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="angr.sim_type.SimTypeBottom.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeBottom.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -13352,6 +13429,11 @@ Function names are ignored.</p>
 <dl class="method">
 <dt id="angr.sim_type.SimTypeTop.c_repr">
 <code class="sig-name descname">c_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeTop.c_repr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.sim_type.SimTypeTop.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeTop.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -13382,6 +13464,11 @@ Function names are ignored.</p>
 <dl class="method">
 <dt id="angr.sim_type.SimTypeReg.c_repr">
 <code class="sig-name descname">c_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeReg.c_repr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.sim_type.SimTypeReg.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeReg.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -13415,6 +13502,11 @@ Function names are ignored.</p>
 <code class="sig-name descname">store</code><span class="sig-paren">(</span><em class="sig-param">state</em>, <em class="sig-param">addr</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeNum.store" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="angr.sim_type.SimTypeNum.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeNum.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -13443,6 +13535,11 @@ Function names are ignored.</p>
 <dl class="method">
 <dt id="angr.sim_type.SimTypeInt.extract">
 <code class="sig-name descname">extract</code><span class="sig-paren">(</span><em class="sig-param">state</em>, <em class="sig-param">addr</em>, <em class="sig-param">concrete=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeInt.extract" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.sim_type.SimTypeInt.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeInt.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -13515,6 +13612,11 @@ this could be represented by a byte, but this is meant to be interpreted as a ch
 <code class="sig-name descname">extract</code><span class="sig-paren">(</span><em class="sig-param">state</em>, <em class="sig-param">addr</em>, <em class="sig-param">concrete=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeChar.extract" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="angr.sim_type.SimTypeChar.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeChar.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -13558,6 +13660,11 @@ this could be represented by a byte, but this is meant to be interpreted as a ch
 <code class="sig-name descname">c_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeFd.c_repr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="angr.sim_type.SimTypeFd.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeFd.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -13586,6 +13693,38 @@ this could be represented by a byte, but this is meant to be interpreted as a ch
 <dl class="method">
 <dt id="angr.sim_type.SimTypePointer.size">
 <em class="property">property </em><code class="sig-name descname">size</code><a class="headerlink" href="#angr.sim_type.SimTypePointer.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.sim_type.SimTypePointer.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypePointer.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.sim_type.SimTypeReference">
+<em class="property">class </em><code class="sig-prename descclassname">angr.sim_type.</code><code class="sig-name descname">SimTypeReference</code><span class="sig-paren">(</span><em class="sig-param">refs</em>, <em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeReference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.sim_type.SimTypeReg" title="angr.sim_type.SimTypeReg"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.SimTypeReg</span></code></a></p>
+<p>SimTypeReference is a type that specifies a reference to some other type.</p>
+<dl class="method">
+<dt id="angr.sim_type.SimTypeReference.c_repr">
+<code class="sig-name descname">c_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeReference.c_repr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.sim_type.SimTypeReference.make">
+<code class="sig-name descname">make</code><span class="sig-paren">(</span><em class="sig-param">refs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeReference.make" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.sim_type.SimTypeReference.size">
+<em class="property">property </em><code class="sig-name descname">size</code><a class="headerlink" href="#angr.sim_type.SimTypeReference.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.sim_type.SimTypeReference.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeReference.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -13620,6 +13759,11 @@ this could be represented by a byte, but this is meant to be interpreted as a ch
 <em class="property">property </em><code class="sig-name descname">alignment</code><a class="headerlink" href="#angr.sim_type.SimTypeFixedSizeArray.alignment" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="angr.sim_type.SimTypeFixedSizeArray.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeFixedSizeArray.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -13651,12 +13795,17 @@ this could be represented by a byte, but this is meant to be interpreted as a ch
 <em class="property">property </em><code class="sig-name descname">alignment</code><a class="headerlink" href="#angr.sim_type.SimTypeArray.alignment" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="angr.sim_type.SimTypeArray.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeArray.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="angr.sim_type.SimTypeString">
-<em class="property">class </em><code class="sig-prename descclassname">angr.sim_type.</code><code class="sig-name descname">SimTypeString</code><span class="sig-paren">(</span><em class="sig-param">length=None</em>, <em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeString" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.sim_type.SimTypeArray" title="angr.sim_type.SimTypeArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.SimTypeArray</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">angr.sim_type.</code><code class="sig-name descname">SimTypeString</code><span class="sig-paren">(</span><em class="sig-param">length=None</em>, <em class="sig-param">label=None</em>, <em class="sig-param">name: Optional[str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.sim_type.NamedTypeMixin" title="angr.sim_type.NamedTypeMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.NamedTypeMixin</span></code></a>, <a class="reference internal" href="#angr.sim_type.SimTypeArray" title="angr.sim_type.SimTypeArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.SimTypeArray</span></code></a></p>
 <p>SimTypeString is a type that represents a C-style string,
 i.e. a NUL-terminated array of bytes.</p>
 <dl class="field-list simple">
@@ -13687,12 +13836,17 @@ i.e. a NUL-terminated array of bytes.</p>
 <em class="property">property </em><code class="sig-name descname">alignment</code><a class="headerlink" href="#angr.sim_type.SimTypeString.alignment" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="angr.sim_type.SimTypeString.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeString.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="angr.sim_type.SimTypeWString">
-<em class="property">class </em><code class="sig-prename descclassname">angr.sim_type.</code><code class="sig-name descname">SimTypeWString</code><span class="sig-paren">(</span><em class="sig-param">length=None</em>, <em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeWString" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.sim_type.SimTypeArray" title="angr.sim_type.SimTypeArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.SimTypeArray</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">angr.sim_type.</code><code class="sig-name descname">SimTypeWString</code><span class="sig-paren">(</span><em class="sig-param">length=None</em>, <em class="sig-param">label=None</em>, <em class="sig-param">name: Optional[str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeWString" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.sim_type.NamedTypeMixin" title="angr.sim_type.NamedTypeMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.NamedTypeMixin</span></code></a>, <a class="reference internal" href="#angr.sim_type.SimTypeArray" title="angr.sim_type.SimTypeArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.SimTypeArray</span></code></a></p>
 <p>A wide-character null-terminated string, where each character is 2 bytes.</p>
 <dl class="method">
 <dt id="angr.sim_type.SimTypeWString.c_repr">
@@ -13712,6 +13866,11 @@ i.e. a NUL-terminated array of bytes.</p>
 <dl class="method">
 <dt id="angr.sim_type.SimTypeWString.alignment">
 <em class="property">property </em><code class="sig-name descname">alignment</code><a class="headerlink" href="#angr.sim_type.SimTypeWString.alignment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.sim_type.SimTypeWString.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeWString.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -13747,6 +13906,37 @@ a certain return value.</p>
 <em class="property">property </em><code class="sig-name descname">size</code><a class="headerlink" href="#angr.sim_type.SimTypeFunction.size" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="angr.sim_type.SimTypeFunction.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeFunction.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.sim_type.SimTypeCppFunction">
+<em class="property">class </em><code class="sig-prename descclassname">angr.sim_type.</code><code class="sig-name descname">SimTypeCppFunction</code><span class="sig-paren">(</span><em class="sig-param">args</em>, <em class="sig-param">returnty</em>, <em class="sig-param">label=None</em>, <em class="sig-param">arg_names: Tuple[str] = None</em>, <em class="sig-param">ctor: bool = False</em>, <em class="sig-param">dtor: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeCppFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.SimTypeFunction</span></code></a></p>
+<p>SimTypeCppFunction is a type that specifies an actual C++-style function with information about arguments, return
+value, and more C++-specific properties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ctor</strong> – Whether the function is a constructor or not.</p></li>
+<li><p><strong>dtor</strong> – Whether the function is a destructor or not.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="angr.sim_type.SimTypeCppFunction.c_repr">
+<code class="sig-name descname">c_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeCppFunction.c_repr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.sim_type.SimTypeCppFunction.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeCppFunction.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -13773,6 +13963,11 @@ a certain return value.</p>
 <dl class="method">
 <dt id="angr.sim_type.SimTypeLength.size">
 <em class="property">property </em><code class="sig-name descname">size</code><a class="headerlink" href="#angr.sim_type.SimTypeLength.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.sim_type.SimTypeLength.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeLength.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -13807,6 +14002,11 @@ a certain return value.</p>
 <code class="sig-name descname">c_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeFloat.c_repr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="angr.sim_type.SimTypeFloat.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeFloat.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -13829,17 +14029,17 @@ a certain return value.</p>
 <em class="property">property </em><code class="sig-name descname">alignment</code><a class="headerlink" href="#angr.sim_type.SimTypeDouble.alignment" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="angr.sim_type.SimTypeDouble.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeDouble.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="angr.sim_type.SimStruct">
-<em class="property">class </em><code class="sig-prename descclassname">angr.sim_type.</code><code class="sig-name descname">SimStruct</code><span class="sig-paren">(</span><em class="sig-param">fields</em>, <em class="sig-param">name=None</em>, <em class="sig-param">pack=False</em>, <em class="sig-param">align=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimStruct" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.sim_type.SimType" title="angr.sim_type.SimType"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.SimType</span></code></a></p>
-<dl class="method">
-<dt id="angr.sim_type.SimStruct.name">
-<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#angr.sim_type.SimStruct.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<em class="property">class </em><code class="sig-prename descclassname">angr.sim_type.</code><code class="sig-name descname">SimStruct</code><span class="sig-paren">(</span><em class="sig-param">fields: Optional[Dict[str, angr.sim_type.SimType]], name=None, pack=False, align=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimStruct" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.sim_type.NamedTypeMixin" title="angr.sim_type.NamedTypeMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.NamedTypeMixin</span></code></a>, <a class="reference internal" href="#angr.sim_type.SimType" title="angr.sim_type.SimType"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.SimType</span></code></a></p>
 <dl class="method">
 <dt id="angr.sim_type.SimStruct.offsets">
 <em class="property">property </em><code class="sig-name descname">offsets</code><a class="headerlink" href="#angr.sim_type.SimStruct.offsets" title="Permalink to this definition">¶</a></dt>
@@ -13870,6 +14070,11 @@ a certain return value.</p>
 <code class="sig-name descname">store</code><span class="sig-paren">(</span><em class="sig-param">state</em>, <em class="sig-param">addr</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimStruct.store" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="angr.sim_type.SimStruct.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimStruct.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -13885,12 +14090,17 @@ a certain return value.</p>
 </ul>
 </dd>
 </dl>
+<dl class="method">
+<dt id="angr.sim_type.SimStructValue.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimStructValue.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="angr.sim_type.SimUnion">
 <em class="property">class </em><code class="sig-prename descclassname">angr.sim_type.</code><code class="sig-name descname">SimUnion</code><span class="sig-paren">(</span><em class="sig-param">members</em>, <em class="sig-param">name=None</em>, <em class="sig-param">label=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimUnion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.sim_type.SimType" title="angr.sim_type.SimType"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.SimType</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.sim_type.NamedTypeMixin" title="angr.sim_type.NamedTypeMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.NamedTypeMixin</span></code></a>, <a class="reference internal" href="#angr.sim_type.SimType" title="angr.sim_type.SimType"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.SimType</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -13899,11 +14109,6 @@ a certain return value.</p>
 </ul>
 </dd>
 </dl>
-<dl class="method">
-<dt id="angr.sim_type.SimUnion.name">
-<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#angr.sim_type.SimUnion.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="angr.sim_type.SimUnion.size">
 <em class="property">property </em><code class="sig-name descname">size</code><a class="headerlink" href="#angr.sim_type.SimUnion.size" title="Permalink to this definition">¶</a></dt>
@@ -13917,6 +14122,27 @@ a certain return value.</p>
 <dl class="method">
 <dt id="angr.sim_type.SimUnion.c_repr">
 <code class="sig-name descname">c_repr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimUnion.c_repr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.sim_type.SimUnion.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimUnion.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.sim_type.SimCppClass">
+<em class="property">class </em><code class="sig-prename descclassname">angr.sim_type.</code><code class="sig-name descname">SimCppClass</code><span class="sig-paren">(</span><em class="sig-param">members: Dict[str, angr.sim_type.SimType], name: Optional[str] = None, pack: bool = False, align=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimCppClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.sim_type.SimStruct" title="angr.sim_type.SimStruct"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.SimStruct</span></code></a></p>
+<dl class="method">
+<dt id="angr.sim_type.SimCppClass.members">
+<em class="property">property </em><code class="sig-name descname">members</code><a class="headerlink" href="#angr.sim_type.SimCppClass.members" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.sim_type.SimCppClass.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimCppClass.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -13971,6 +14197,16 @@ definitions and one for type definitions.</p>
 </pre></div>
 </div>
 </dd></dl>
+
+<dl class="function">
+<dt id="angr.sim_type.normalize_cpp_function_name">
+<code class="sig-prename descclassname">angr.sim_type.</code><code class="sig-name descname">normalize_cpp_function_name</code><span class="sig-paren">(</span><em class="sig-param">name: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#angr.sim_type.normalize_cpp_function_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="angr.sim_type.parse_cpp_file">
+<code class="sig-prename descclassname">angr.sim_type.</code><code class="sig-name descname">parse_cpp_file</code><span class="sig-paren">(</span><em class="sig-param">cpp_decl</em>, <em class="sig-param">with_param_names: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.parse_cpp_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <span class="target" id="module-angr.type_backend"></span><dl class="class">
 <dt id="angr.type_backend.TypedValue">
@@ -14397,6 +14633,27 @@ ignored if set to None.</p></li>
 </dd></dl>
 
 <dl class="method">
+<dt id="angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_successors_and_jumpkinds">
+<code class="sig-name descname">get_successors_and_jumpkinds</code><span class="sig-paren">(</span><em class="sig-param">node</em>, <em class="sig-param">excluding_fakeret=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_successors_and_jumpkinds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of tuples where the first element is the successor of the CFG node and the second element is the
+jumpkind of the successor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> (<a class="reference internal" href="#angr.knowledge_plugins.cfg.cfg_node.CFGNode" title="angr.knowledge_plugins.cfg.cfg_node.CFGNode"><em>CFGNode</em></a>) – The node.</p></li>
+<li><p><strong>excluding_fakeret</strong> (<em>bool</em>) – True if you want to exclude all successors that are fall-through successors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of successors and their corresponding jumpkinds.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_successors_and_jumpkind">
 <code class="sig-name descname">get_successors_and_jumpkind</code><span class="sig-paren">(</span><em class="sig-param">node</em>, <em class="sig-param">excluding_fakeret=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_successors_and_jumpkind" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a list of tuples where the first element is the successor of the CFG node and the second element is the
@@ -14413,6 +14670,42 @@ jumpkind of the successor.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_predecessors_and_jumpkinds">
+<code class="sig-name descname">get_predecessors_and_jumpkinds</code><span class="sig-paren">(</span><em class="sig-param">node: angr.knowledge_plugins.cfg.cfg_node.CFGNode</em>, <em class="sig-param">excluding_fakeret: bool = True</em><span class="sig-paren">)</span> &#x2192; List[Tuple[angr.knowledge_plugins.cfg.cfg_node.CFGNode, str]]<a class="headerlink" href="#angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_predecessors_and_jumpkinds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of tuples where the first element is the predecessor of the CFG node and the second element is the
+jumpkind of the predecessor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> – The node.</p></li>
+<li><p><strong>excluding_fakeret</strong> – True if you want to exclude all predecessors that are fall-through predecessors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of predecessors and their corresponding jumpkinds.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_predecessors_and_jumpkind">
+<code class="sig-name descname">get_predecessors_and_jumpkind</code><span class="sig-paren">(</span><em class="sig-param">node: angr.knowledge_plugins.cfg.cfg_node.CFGNode</em>, <em class="sig-param">excluding_fakeret: bool = True</em><span class="sig-paren">)</span> &#x2192; List[Tuple[angr.knowledge_plugins.cfg.cfg_node.CFGNode, str]]<a class="headerlink" href="#angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_predecessors_and_jumpkind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of tuples where the first element is the predecessor of the CFG node and the second element is the
+jumpkind of the predecessor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node</strong> – The node.</p></li>
+<li><p><strong>excluding_fakeret</strong> – True if you want to exclude all predecessors that are fall-through predecessors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of predecessors and their corresponding jumpkinds.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -14741,6 +15034,16 @@ __repr__.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="angr.knowledge_plugins.cfg.cfg_node.CFGNode.successors_and_jumpkinds">
+<code class="sig-name descname">successors_and_jumpkinds</code><span class="sig-paren">(</span><em class="sig-param">excluding_fakeret=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.cfg.cfg_node.CFGNode.successors_and_jumpkinds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.cfg.cfg_node.CFGNode.predecessors_and_jumpkinds">
+<code class="sig-name descname">predecessors_and_jumpkinds</code><span class="sig-paren">(</span><em class="sig-param">excluding_fakeret=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.cfg.cfg_node.CFGNode.predecessors_and_jumpkinds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="angr.knowledge_plugins.cfg.cfg_node.CFGNode.get_data_references">
 <code class="sig-name descname">get_data_references</code><span class="sig-paren">(</span><em class="sig-param">kb=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.cfg.cfg_node.CFGNode.get_data_references" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the known data references for this CFGNode via the knowledge base.</p>
@@ -14969,6 +15272,62 @@ __repr__.</p>
 
 </dd></dl>
 
+<span class="target" id="module-angr.knowledge_plugins.propagations"></span><dl class="class">
+<dt id="angr.knowledge_plugins.propagations.Propagations">
+<em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.propagations.</code><code class="sig-name descname">Propagations</code><span class="sig-paren">(</span><em class="sig-param">kb</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.propagations.Propagations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.knowledge_plugins.plugin.KnowledgeBasePlugin" title="angr.knowledge_plugins.plugin.KnowledgeBasePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.knowledge_plugins.plugin.KnowledgeBasePlugin</span></code></a></p>
+<dl class="method">
+<dt id="angr.knowledge_plugins.propagations.Propagations.exists">
+<code class="sig-name descname">exists</code><span class="sig-paren">(</span><em class="sig-param">func_loc</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.propagations.Propagations.exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal function to check if a func, specified as a CodeLocation
+exists in our known propagations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>func_loc</strong> – CodeLocation of function</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.propagations.Propagations.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">func_loc</em>, <em class="sig-param">replacements</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.propagations.Propagations.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the replacements to known propagations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func_loc</strong> – CodeLocation of function</p></li>
+<li><p><strong>replacements</strong> – Dict of replacements</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.propagations.Propagations.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param">func_loc</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.propagations.Propagations.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the replacements for a specified function location.
+If the replacement does not exist in the known propagations, it
+returns None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>func_loc</strong> – CodeLocation of function</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dict or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.propagations.Propagations.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.propagations.Propagations.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-angr.knowledge_plugins.comments"></span><dl class="class">
 <dt id="angr.knowledge_plugins.comments.Comments">
 <em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.comments.</code><code class="sig-name descname">Comments</code><span class="sig-paren">(</span><em class="sig-param">kb</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.comments.Comments" title="Permalink to this definition">¶</a></dt>
@@ -14998,6 +15357,11 @@ __repr__.</p>
 <dl class="method">
 <dt id="angr.knowledge_plugins.indirect_jumps.IndirectJumps.copy">
 <code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.indirect_jumps.IndirectJumps.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.indirect_jumps.IndirectJumps.update_resolved_addrs">
+<code class="sig-name descname">update_resolved_addrs</code><span class="sig-paren">(</span><em class="sig-param">indirect_address: int, resolved_addresses: List[int]</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.indirect_jumps.IndirectJumps.update_resolved_addrs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -16403,8 +16767,37 @@ convention.</p>
 </dd></dl>
 
 <span class="target" id="module-angr.knowledge_plugins.key_definitions.definition"></span><dl class="class">
+<dt id="angr.knowledge_plugins.key_definitions.definition.Tag">
+<em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.key_definitions.definition.</code><code class="sig-name descname">Tag</code><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.definition.Tag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A tag for a Definition that can carry different kinds of metadata.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.knowledge_plugins.key_definitions.definition.ParamTag">
+<em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.key_definitions.definition.</code><code class="sig-name descname">ParamTag</code><span class="sig-paren">(</span><em class="sig-param">metadata: object = None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.definition.ParamTag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.knowledge_plugins.key_definitions.definition.Tag" title="angr.knowledge_plugins.key_definitions.definition.Tag"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.knowledge_plugins.key_definitions.definition.Tag</span></code></a></p>
+<p>A tag for a definition of a parameter.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.knowledge_plugins.key_definitions.definition.RetValueTag">
+<em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.key_definitions.definition.</code><code class="sig-name descname">RetValueTag</code><span class="sig-paren">(</span><em class="sig-param">metadata: object = None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.definition.RetValueTag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.knowledge_plugins.key_definitions.definition.Tag" title="angr.knowledge_plugins.key_definitions.definition.Tag"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.knowledge_plugins.key_definitions.definition.Tag</span></code></a></p>
+<p>A tag for a definiton of a return value
+of a function.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.knowledge_plugins.key_definitions.definition.InitValueTag">
+<em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.key_definitions.definition.</code><code class="sig-name descname">InitValueTag</code><span class="sig-paren">(</span><em class="sig-param">metadata: object = None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.definition.InitValueTag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.knowledge_plugins.key_definitions.definition.Tag" title="angr.knowledge_plugins.key_definitions.definition.Tag"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.knowledge_plugins.key_definitions.definition.Tag</span></code></a></p>
+<p>A tag for a definiton of an initial value</p>
+</dd></dl>
+
+<dl class="class">
 <dt id="angr.knowledge_plugins.key_definitions.definition.Definition">
-<em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.key_definitions.definition.</code><code class="sig-name descname">Definition</code><span class="sig-paren">(</span><em class="sig-param">atom: angr.knowledge_plugins.key_definitions.atoms.Atom</em>, <em class="sig-param">codeloc: angr.code_location.CodeLocation</em>, <em class="sig-param">data: angr.knowledge_plugins.key_definitions.dataset.DataSet</em>, <em class="sig-param">dummy: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.definition.Definition" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.key_definitions.definition.</code><code class="sig-name descname">Definition</code><span class="sig-paren">(</span><em class="sig-param">atom: angr.knowledge_plugins.key_definitions.atoms.Atom</em>, <em class="sig-param">codeloc: angr.code_location.CodeLocation</em>, <em class="sig-param">data: angr.knowledge_plugins.key_definitions.dataset.DataSet</em>, <em class="sig-param">dummy: bool = False</em>, <em class="sig-param">tag: angr.knowledge_plugins.key_definitions.definition.Tag = None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.definition.Definition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>An atom definition.</p>
 <dl class="field-list simple">
@@ -16436,6 +16829,11 @@ definitions marked as dummy will not be removed.</p></li>
 <dl class="attribute">
 <dt id="angr.knowledge_plugins.key_definitions.definition.Definition.data">
 <code class="sig-name descname">data</code><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.definition.Definition.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="angr.knowledge_plugins.key_definitions.definition.Definition.tag">
+<code class="sig-name descname">tag</code><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.definition.Definition.tag" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -16566,7 +16964,7 @@ uncovered during the analysis.</p>
 
 <dl class="method">
 <dt id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.kill_definitions">
-<code class="sig-name descname">kill_definitions</code><span class="sig-paren">(</span><em class="sig-param">atom: angr.knowledge_plugins.key_definitions.atoms.Atom</em>, <em class="sig-param">code_loc: angr.code_location.CodeLocation</em>, <em class="sig-param">data: Optional[angr.knowledge_plugins.key_definitions.dataset.DataSet] = None</em>, <em class="sig-param">dummy=True</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.kill_definitions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">kill_definitions</code><span class="sig-paren">(</span><em class="sig-param">atom: angr.knowledge_plugins.key_definitions.atoms.Atom</em>, <em class="sig-param">code_loc: angr.code_location.CodeLocation</em>, <em class="sig-param">data: Optional[angr.knowledge_plugins.key_definitions.dataset.DataSet] = None</em>, <em class="sig-param">dummy=True</em>, <em class="sig-param">tag: angr.knowledge_plugins.key_definitions.definition.Tag = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.kill_definitions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overwrite existing definitions w.r.t ‘atom’ with a dummy definition instance. A dummy definition will not be
 removed during simplification.</p>
 <dl class="field-list simple">
@@ -16584,7 +16982,7 @@ removed during simplification.</p>
 
 <dl class="method">
 <dt id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.kill_and_add_definition">
-<code class="sig-name descname">kill_and_add_definition</code><span class="sig-paren">(</span><em class="sig-param">atom: angr.knowledge_plugins.key_definitions.atoms.Atom, code_loc: angr.code_location.CodeLocation, data: Optional[angr.knowledge_plugins.key_definitions.dataset.DataSet], dummy=False</em><span class="sig-paren">)</span> &#x2192; Optional[angr.knowledge_plugins.key_definitions.definition.Definition]<a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.kill_and_add_definition" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">kill_and_add_definition</code><span class="sig-paren">(</span><em class="sig-param">atom: angr.knowledge_plugins.key_definitions.atoms.Atom, code_loc: angr.code_location.CodeLocation, data: Optional[angr.knowledge_plugins.key_definitions.dataset.DataSet], dummy=False, tag: angr.knowledge_plugins.key_definitions.definition.Tag = None</em><span class="sig-paren">)</span> &#x2192; Optional[angr.knowledge_plugins.key_definitions.definition.Definition]<a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.kill_and_add_definition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -18020,6 +18418,59 @@ returns successors of a CFGNode each time. This is the base class of all graph v
 
 </dd></dl>
 
+<span class="target" id="module-angr.analyses.forward_analysis.visitors.cfg"></span><dl class="class">
+<dt id="angr.analyses.forward_analysis.visitors.cfg.CFGVisitor">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.visitors.cfg.</code><code class="sig-name descname">CFGVisitor</code><span class="sig-paren">(</span><em class="sig-param">cfg</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.cfg.CFGVisitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor" title="angr.analyses.forward_analysis.visitors.graph.GraphVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.visitors.graph.GraphVisitor</span></code></a></p>
+<p>Visit a given Control Flow Graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cfg</strong> (<a class="reference internal" href="#angr.knowledge_plugins.cfg.cfg_model.CFGModel" title="angr.knowledge_plugins.cfg.cfg_model.CFGModel"><em>angr.knowledge_plugins.cfg.cfg_model.CFGModel</em></a>) – The CFG to visit.</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.cfg">
+<em class="property">property </em><code class="sig-name descname">cfg</code><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.cfg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.successors">
+<code class="sig-name descname">successors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.successors" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return List[CFGNode]</dt>
+<dd class="field-odd"><p>The list of successors of a given node.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.predecessors">
+<code class="sig-name descname">predecessors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.predecessors" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return List[CFGNode]</dt>
+<dd class="field-odd"><p>The list of predecessors of a given node.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.sort_nodes">
+<code class="sig-name descname">sort_nodes</code><span class="sig-paren">(</span><em class="sig-param">nodes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.sort_nodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.remove_from_sorted_nodes">
+<code class="sig-name descname">remove_from_sorted_nodes</code><span class="sig-paren">(</span><em class="sig-param">visited_blocks</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.remove_from_sorted_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>visited_blocks</strong> (<em>List</em><em>[</em><em>Union</em><em>[</em><a class="reference internal" href="#angr.block.Block" title="angr.block.Block"><em>Block</em></a><em>,</em><a class="reference internal" href="#angr.knowledge_plugins.cfg.cfg_node.CFGNode" title="angr.knowledge_plugins.cfg.cfg_node.CFGNode"><em>CFGNode</em></a><em>]</em><em>]</em>) – A list of visited blocks, to remove from the list of things to visit.</p>
+</dd>
+</dl>
+<p>Remove visited nodes from the iherited <cite>_sorted_nodes</cite> attribute.</p>
+</dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-angr.analyses.backward_slice"></span><dl class="class">
 <dt id="angr.analyses.backward_slice.BackwardSlice">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.backward_slice.</code><code class="sig-name descname">BackwardSlice</code><span class="sig-paren">(</span><em class="sig-param">cfg</em>, <em class="sig-param">cdg</em>, <em class="sig-param">ddg</em>, <em class="sig-param">targets=None</em>, <em class="sig-param">cfg_node=None</em>, <em class="sig-param">stmt_id=None</em>, <em class="sig-param">control_flow_slice=False</em>, <em class="sig-param">same_function=False</em>, <em class="sig-param">no_construct=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.backward_slice.BackwardSlice" title="Permalink to this definition">¶</a></dt>
@@ -19270,7 +19721,13 @@ other function</p></li>
 
 </dd></dl>
 
-<span class="target" id="module-angr.analyses.cfg.cfg_fast"></span><dl class="class">
+<span class="target" id="module-angr.analyses.cfg.cfg_fast"></span><dl class="exception">
+<dt id="angr.analyses.cfg.cfg_fast.ContinueScanningNotification">
+<em class="property">exception </em><code class="sig-prename descclassname">angr.analyses.cfg.cfg_fast.</code><code class="sig-name descname">ContinueScanningNotification</code><a class="headerlink" href="#angr.analyses.cfg.cfg_fast.ContinueScanningNotification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+</dd></dl>
+
+<dl class="class">
 <dt id="angr.analyses.cfg.cfg_fast.FunctionReturn">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.cfg.cfg_fast.</code><code class="sig-name descname">FunctionReturn</code><span class="sig-paren">(</span><em class="sig-param">callee_func_addr</em>, <em class="sig-param">caller_func_addr</em>, <em class="sig-param">call_site_addr</em>, <em class="sig-param">return_to</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_fast.FunctionReturn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -19533,7 +19990,7 @@ b) they are the return exits of non-returning functions</p>
 
 <dl class="class">
 <dt id="angr.analyses.cfg.cfg_fast.CFGJob">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.cfg.cfg_fast.</code><code class="sig-name descname">CFGJob</code><span class="sig-paren">(</span><em class="sig-param">addr</em>, <em class="sig-param">func_addr</em>, <em class="sig-param">jumpkind</em>, <em class="sig-param">ret_target=None</em>, <em class="sig-param">last_addr=None</em>, <em class="sig-param">src_node=None</em>, <em class="sig-param">src_ins_addr=None</em>, <em class="sig-param">src_stmt_idx=None</em>, <em class="sig-param">returning_source=None</em>, <em class="sig-param">syscall=False</em>, <em class="sig-param">func_edges=None</em>, <em class="sig-param">job_type='Normal'</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_fast.CFGJob" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.cfg.cfg_fast.</code><code class="sig-name descname">CFGJob</code><span class="sig-paren">(</span><em class="sig-param">addr: int</em>, <em class="sig-param">func_addr: int</em>, <em class="sig-param">jumpkind: str</em>, <em class="sig-param">ret_target: Optional[int] = None</em>, <em class="sig-param">last_addr: Optional[int] = None</em>, <em class="sig-param">src_node: Optional[angr.knowledge_plugins.cfg.cfg_node.CFGNode] = None</em>, <em class="sig-param">src_ins_addr: Optional[int] = None</em>, <em class="sig-param">src_stmt_idx: Optional[int] = None</em>, <em class="sig-param">returning_source=None</em>, <em class="sig-param">syscall: bool = False</em>, <em class="sig-param">func_edges: Optional[List] = None</em>, <em class="sig-param">job_type='Normal'</em>, <em class="sig-param">gp: Optional[int] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.cfg_fast.CFGJob" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Defines a job to work on during the CFG recovery</p>
 <dl class="attribute">
@@ -19604,6 +20061,11 @@ b) they are the return exits of non-returning functions</p>
 <dl class="attribute">
 <dt id="angr.analyses.cfg.cfg_fast.CFGJob.job_type">
 <code class="sig-name descname">job_type</code><a class="headerlink" href="#angr.analyses.cfg.cfg_fast.CFGJob.job_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.cfg.cfg_fast.CFGJob.gp">
+<code class="sig-name descname">gp</code><a class="headerlink" href="#angr.analyses.cfg.cfg_fast.CFGJob.gp" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -19954,6 +20416,17 @@ blx r3</p>
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast"></span><dl class="class">
+<dt id="angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.OverwriteTmpValueCallback">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.</code><code class="sig-name descname">OverwriteTmpValueCallback</code><span class="sig-paren">(</span><em class="sig-param">gp_value</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.OverwriteTmpValueCallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.OverwriteTmpValueCallback.overwrite_tmp_value">
+<code class="sig-name descname">overwrite_tmp_value</code><span class="sig-paren">(</span><em class="sig-param">state</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.OverwriteTmpValueCallback.overwrite_tmp_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.MipsElfFastResolver">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.</code><code class="sig-name descname">MipsElfFastResolver</code><span class="sig-paren">(</span><em class="sig-param">project</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.MipsElfFastResolver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.cfg.indirect_jump_resolvers.resolver.IndirectJumpResolver" title="angr.analyses.cfg.indirect_jump_resolvers.resolver.IndirectJumpResolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.cfg.indirect_jump_resolvers.resolver.IndirectJumpResolver</span></code></a></p>
@@ -20207,6 +20680,46 @@ not be able to recover all jump targets later in block 0x4051b0.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.cfg.indirect_jump_resolvers.const_resolver"></span><dl class="function">
+<dt id="angr.analyses.cfg.indirect_jump_resolvers.const_resolver.exists_in_replacements">
+<code class="sig-prename descclassname">angr.analyses.cfg.indirect_jump_resolvers.const_resolver.</code><code class="sig-name descname">exists_in_replacements</code><span class="sig-paren">(</span><em class="sig-param">replacements</em>, <em class="sig-param">block_loc</em>, <em class="sig-param">tmp_var</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.indirect_jump_resolvers.const_resolver.exists_in_replacements" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.cfg.indirect_jump_resolvers.const_resolver.ConstantResolver">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.cfg.indirect_jump_resolvers.const_resolver.</code><code class="sig-name descname">ConstantResolver</code><span class="sig-paren">(</span><em class="sig-param">project</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.indirect_jump_resolvers.const_resolver.ConstantResolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.cfg.indirect_jump_resolvers.resolver.IndirectJumpResolver" title="angr.analyses.cfg.indirect_jump_resolvers.resolver.IndirectJumpResolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.cfg.indirect_jump_resolvers.resolver.IndirectJumpResolver</span></code></a></p>
+<dl class="method">
+<dt id="angr.analyses.cfg.indirect_jump_resolvers.const_resolver.ConstantResolver.filter">
+<code class="sig-name descname">filter</code><span class="sig-paren">(</span><em class="sig-param">cfg</em>, <em class="sig-param">addr</em>, <em class="sig-param">func_addr</em>, <em class="sig-param">block</em>, <em class="sig-param">jumpkind</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.indirect_jump_resolvers.const_resolver.ConstantResolver.filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg.indirect_jump_resolvers.const_resolver.ConstantResolver.resolve">
+<code class="sig-name descname">resolve</code><span class="sig-paren">(</span><em class="sig-param">cfg</em>, <em class="sig-param">addr</em>, <em class="sig-param">func_addr</em>, <em class="sig-param">block</em>, <em class="sig-param">jumpkind</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.indirect_jump_resolvers.const_resolver.ConstantResolver.resolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function does the actual resolve. Our process is easy:
+Propagate all values inside the function specified, then extract
+the tmp_var used for the indirect jump from the basic bloc   k.
+Use the tmp var to locate the constant value stored in the replacments.
+If not present, returns False tuple.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cfg</strong> – CFG with specified function</p></li>
+<li><p><strong>addr</strong> – Address of indirect jump</p></li>
+<li><p><strong>func_addr</strong> – Address of function of indirect jump</p></li>
+<li><p><strong>block</strong> – Block of indirect jump (Block object)</p></li>
+<li><p><strong>jumpkind</strong> – VEX jumpkind (Ijk_Boring or Ijk_Call)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Bool tuple with replacement address</p>
 </dd>
 </dl>
 </dd></dl>
@@ -21424,7 +21937,19 @@ for example, any mapped columns or relationships.</p>
 <p>Structure a region.</p>
 </dd></dl>
 
-<span class="target" id="module-angr.analyses.decompiler"></span><span class="target" id="module-angr.analyses.decompiler.ailgraph_walker"></span><dl class="exception">
+<span class="target" id="module-angr.analyses.decompiler"></span><span class="target" id="module-angr.analyses.decompiler.ailblock_walker"></span><dl class="class">
+<dt id="angr.analyses.decompiler.ailblock_walker.AILBlockWalker">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.ailblock_walker.</code><code class="sig-name descname">AILBlockWalker</code><span class="sig-paren">(</span><em class="sig-param">handlers=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.ailblock_walker.AILBlockWalker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Walks all statements and expressions of an AIL node.</p>
+<dl class="method">
+<dt id="angr.analyses.decompiler.ailblock_walker.AILBlockWalker.walk">
+<code class="sig-name descname">walk</code><span class="sig-paren">(</span><em class="sig-param">block: ailment.block.Block</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.ailblock_walker.AILBlockWalker.walk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.decompiler.ailgraph_walker"></span><dl class="exception">
 <dt id="angr.analyses.decompiler.ailgraph_walker.RemoveNodeNotice">
 <em class="property">exception </em><code class="sig-prename descclassname">angr.analyses.decompiler.ailgraph_walker.</code><code class="sig-name descname">RemoveNodeNotice</code><a class="headerlink" href="#angr.analyses.decompiler.ailgraph_walker.RemoveNodeNotice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
@@ -21432,9 +21957,9 @@ for example, any mapped columns or relationships.</p>
 
 <dl class="class">
 <dt id="angr.analyses.decompiler.ailgraph_walker.AILGraphWalker">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.ailgraph_walker.</code><code class="sig-name descname">AILGraphWalker</code><span class="sig-paren">(</span><em class="sig-param">graph</em>, <em class="sig-param">handler</em>, <em class="sig-param">replace_nodes=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.ailgraph_walker.AILGraphWalker" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.ailgraph_walker.</code><code class="sig-name descname">AILGraphWalker</code><span class="sig-paren">(</span><em class="sig-param">graph</em>, <em class="sig-param">handler</em>, <em class="sig-param">replace_nodes: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.ailgraph_walker.AILGraphWalker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Walks an AIL graph, and optionally replaces each node with a new node.</p>
+<p>Walks an AIL graph and optionally replaces each node with a new node.</p>
 <dl class="method">
 <dt id="angr.analyses.decompiler.ailgraph_walker.AILGraphWalker.walk">
 <code class="sig-name descname">walk</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.ailgraph_walker.AILGraphWalker.walk" title="Permalink to this definition">¶</a></dt>
@@ -21668,6 +22193,37 @@ region.</p></li>
 <dt id="angr.analyses.decompiler.optimization_passes.get_default_optimization_passes">
 <code class="sig-prename descclassname">angr.analyses.decompiler.optimization_passes.</code><code class="sig-name descname">get_default_optimization_passes</code><span class="sig-paren">(</span><em class="sig-param">arch</em>, <em class="sig-param">platform</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.optimization_passes.get_default_optimization_passes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<span class="target" id="module-angr.analyses.decompiler.optimization_passes.const_derefs"></span><dl class="class">
+<dt id="angr.analyses.decompiler.optimization_passes.const_derefs.BlockWalker">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.optimization_passes.const_derefs.</code><code class="sig-name descname">BlockWalker</code><span class="sig-paren">(</span><em class="sig-param">project: Project</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.optimization_passes.const_derefs.BlockWalker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.ailblock_walker.AILBlockWalker" title="angr.analyses.decompiler.ailblock_walker.AILBlockWalker"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.ailblock_walker.AILBlockWalker</span></code></a></p>
+<dl class="method">
+<dt id="angr.analyses.decompiler.optimization_passes.const_derefs.BlockWalker.walk">
+<code class="sig-name descname">walk</code><span class="sig-paren">(</span><em class="sig-param">block: ailment.block.Block</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.optimization_passes.const_derefs.BlockWalker.walk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.decompiler.optimization_passes.const_derefs.ConstantDereferencesSimplifier">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.optimization_passes.const_derefs.</code><code class="sig-name descname">ConstantDereferencesSimplifier</code><span class="sig-paren">(</span><em class="sig-param">func</em>, <em class="sig-param">blocks</em>, <em class="sig-param">graph</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.optimization_passes.const_derefs.ConstantDereferencesSimplifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass" title="angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass</span></code></a></p>
+<p>Makes the following simplifications:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">const_addr</span><span class="p">))</span>  <span class="o">==&gt;</span>  <span class="o">*</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="n">iff</span>  <span class="o">*</span><span class="n">const_addr</span> <span class="o">==</span> <span class="n">value</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="angr.analyses.decompiler.optimization_passes.const_derefs.ConstantDereferencesSimplifier.ARCHES">
+<code class="sig-name descname">ARCHES</code><em class="property"> = ['X86', 'AMD64', 'ARM']</em><a class="headerlink" href="#angr.analyses.decompiler.optimization_passes.const_derefs.ConstantDereferencesSimplifier.ARCHES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.decompiler.optimization_passes.const_derefs.ConstantDereferencesSimplifier.PLATFORMS">
+<code class="sig-name descname">PLATFORMS</code><em class="property"> = ['linux']</em><a class="headerlink" href="#angr.analyses.decompiler.optimization_passes.const_derefs.ConstantDereferencesSimplifier.PLATFORMS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
 
 <span class="target" id="module-angr.analyses.decompiler.optimization_passes.eager_returns"></span><dl class="class">
 <dt id="angr.analyses.decompiler.optimization_passes.eager_returns.EagerReturnsSimplifier">
@@ -23691,7 +24247,7 @@ If the self._only_consts flag is set to true, only constant values will be set.<
 
 <dl class="class">
 <dt id="angr.analyses.propagator.propagator.PropagatorAnalysis">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.propagator.propagator.</code><code class="sig-name descname">PropagatorAnalysis</code><span class="sig-paren">(</span><em class="sig-param">func=None</em>, <em class="sig-param">block=None</em>, <em class="sig-param">func_graph=None</em>, <em class="sig-param">base_state=None</em>, <em class="sig-param">max_iterations=3</em>, <em class="sig-param">load_callback=None</em>, <em class="sig-param">stack_pointer_tracker=None</em>, <em class="sig-param">only_consts=False</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAnalysis" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.propagator.propagator.</code><code class="sig-name descname">PropagatorAnalysis</code><span class="sig-paren">(</span><em class="sig-param">func=None</em>, <em class="sig-param">block=None</em>, <em class="sig-param">func_graph=None</em>, <em class="sig-param">base_state=None</em>, <em class="sig-param">max_iterations=3</em>, <em class="sig-param">load_callback=None</em>, <em class="sig-param">stack_pointer_tracker=None</em>, <em class="sig-param">only_consts=False</em>, <em class="sig-param">completed_funcs=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAnalysis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a></p>
 <p>PropagatorAnalysis propagates values (either constant values or variables) and expressions inside a block or across
 a function. It supports both VEX and AIL. It performs certain arithmetic operations between constants, including
@@ -23710,9 +24266,69 @@ but are not limited to:</p>
 </ul>
 </dd></dl>
 
-<span class="target" id="module-angr.analyses.reaching_definitions"></span><span class="target" id="module-angr.analyses.reaching_definitions.engine_vex"></span><dl class="class">
+<span class="target" id="module-angr.analyses.reaching_definitions"></span><span class="target" id="module-angr.analyses.reaching_definitions.call_trace"></span><dl class="class">
+<dt id="angr.analyses.reaching_definitions.call_trace.CallSite">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.call_trace.</code><code class="sig-name descname">CallSite</code><span class="sig-paren">(</span><em class="sig-param">caller_func_addr: int</em>, <em class="sig-param">block_addr: int</em>, <em class="sig-param">callee_func_addr: int</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.call_trace.CallSite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Describes a call site on a CFG.</p>
+<dl class="attribute">
+<dt id="angr.analyses.reaching_definitions.call_trace.CallSite.caller_func_addr">
+<code class="sig-name descname">caller_func_addr</code><a class="headerlink" href="#angr.analyses.reaching_definitions.call_trace.CallSite.caller_func_addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.reaching_definitions.call_trace.CallSite.callee_func_addr">
+<code class="sig-name descname">callee_func_addr</code><a class="headerlink" href="#angr.analyses.reaching_definitions.call_trace.CallSite.callee_func_addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.reaching_definitions.call_trace.CallSite.block_addr">
+<code class="sig-name descname">block_addr</code><a class="headerlink" href="#angr.analyses.reaching_definitions.call_trace.CallSite.block_addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.reaching_definitions.call_trace.CallTrace">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.call_trace.</code><code class="sig-name descname">CallTrace</code><span class="sig-paren">(</span><em class="sig-param">target: int</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.call_trace.CallTrace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Describes a series of functions calls to get from one function (current_function_address()) to another function or
+a basic block (self.target).</p>
+<dl class="attribute">
+<dt id="angr.analyses.reaching_definitions.call_trace.CallTrace.target">
+<code class="sig-name descname">target</code><a class="headerlink" href="#angr.analyses.reaching_definitions.call_trace.CallTrace.target" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.reaching_definitions.call_trace.CallTrace.callsites">
+<code class="sig-name descname">callsites</code><a class="headerlink" href="#angr.analyses.reaching_definitions.call_trace.CallTrace.callsites" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.reaching_definitions.call_trace.CallTrace.current_function_address">
+<code class="sig-name descname">current_function_address</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#angr.analyses.reaching_definitions.call_trace.CallTrace.current_function_address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.reaching_definitions.call_trace.CallTrace.step_back">
+<code class="sig-name descname">step_back</code><span class="sig-paren">(</span><em class="sig-param">caller_func_addr: int, block_addr: Optional[int], callee_func_addr</em><span class="sig-paren">)</span> &#x2192; angr.analyses.reaching_definitions.call_trace.CallTrace<a class="headerlink" href="#angr.analyses.reaching_definitions.call_trace.CallTrace.step_back" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.reaching_definitions.call_trace.CallTrace.includes_function">
+<code class="sig-name descname">includes_function</code><span class="sig-paren">(</span><em class="sig-param">func_addr: int</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#angr.analyses.reaching_definitions.call_trace.CallTrace.includes_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.reaching_definitions.call_trace.CallTrace.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; angr.analyses.reaching_definitions.call_trace.CallTrace<a class="headerlink" href="#angr.analyses.reaching_definitions.call_trace.CallTrace.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.reaching_definitions.engine_vex"></span><dl class="class">
 <dt id="angr.analyses.reaching_definitions.engine_vex.SimEngineRDVEX">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.engine_vex.</code><code class="sig-name descname">SimEngineRDVEX</code><span class="sig-paren">(</span><em class="sig-param">project</em>, <em class="sig-param">current_local_call_depth</em>, <em class="sig-param">maximum_local_call_depth</em>, <em class="sig-param">functions=None</em>, <em class="sig-param">function_handler=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.engine_vex.SimEngineRDVEX" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.engine_vex.</code><code class="sig-name descname">SimEngineRDVEX</code><span class="sig-paren">(</span><em class="sig-param">project</em>, <em class="sig-param">call_stack</em>, <em class="sig-param">maximum_local_call_depth</em>, <em class="sig-param">functions=None</em>, <em class="sig-param">function_handler=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.engine_vex.SimEngineRDVEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.engines.light.engine.SimEngineLightVEXMixin" title="angr.engines.light.engine.SimEngineLightVEXMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.engines.light.engine.SimEngineLightVEXMixin</span></code></a>, <a class="reference internal" href="#angr.engines.light.engine.SimEngineLight" title="angr.engines.light.engine.SimEngineLight"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.engines.light.engine.SimEngineLight</span></code></a></p>
 <dl class="method">
 <dt id="angr.analyses.reaching_definitions.engine_vex.SimEngineRDVEX.process">
@@ -23723,7 +24339,7 @@ but are not limited to:</p>
 
 <span class="target" id="module-angr.analyses.reaching_definitions.reaching_definitions"></span><dl class="class">
 <dt id="angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.reaching_definitions.</code><code class="sig-name descname">ReachingDefinitionsAnalysis</code><span class="sig-paren">(</span><em class="sig-param">subject=None</em>, <em class="sig-param">func_graph=None</em>, <em class="sig-param">max_iterations=3</em>, <em class="sig-param">track_tmps=False</em>, <em class="sig-param">observation_points=None</em>, <em class="sig-param">init_state: angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState = None</em>, <em class="sig-param">cc=None</em>, <em class="sig-param">function_handler=None</em>, <em class="sig-param">current_local_call_depth=1</em>, <em class="sig-param">maximum_local_call_depth=5</em>, <em class="sig-param">observe_all=False</em>, <em class="sig-param">visited_blocks=None</em>, <em class="sig-param">dep_graph: Optional[DepGraph] = None</em>, <em class="sig-param">observe_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.reaching_definitions.</code><code class="sig-name descname">ReachingDefinitionsAnalysis</code><span class="sig-paren">(</span><em class="sig-param">subject=None</em>, <em class="sig-param">func_graph=None</em>, <em class="sig-param">max_iterations=3</em>, <em class="sig-param">track_tmps=False</em>, <em class="sig-param">observation_points=None</em>, <em class="sig-param">init_state: angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState = None</em>, <em class="sig-param">cc=None</em>, <em class="sig-param">function_handler=None</em>, <em class="sig-param">call_stack=None</em>, <em class="sig-param">maximum_local_call_depth=5</em>, <em class="sig-param">observe_all=False</em>, <em class="sig-param">visited_blocks=None</em>, <em class="sig-param">dep_graph: Optional[DepGraph] = None</em>, <em class="sig-param">observe_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a></p>
 <p>ReachingDefinitionsAnalysis is a text-book implementation of a static data-flow analysis that works on either a
 function or a block. It supports both VEX and AIL. By registering observers to observation points, users may use
@@ -23739,7 +24355,8 @@ as a post-graduation TODO.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>subject</strong> (<em>Block|Function</em>) – The subject of the analysis: a function, or a single basic block.</p></li>
+<li><p><strong>subject</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#angr.block.Block" title="angr.block.Block"><em>Block</em></a><em>,</em><a class="reference internal" href="#angr.knowledge_plugins.functions.function.Function" title="angr.knowledge_plugins.functions.function.Function"><em>Function</em></a><em>,</em><a class="reference internal" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink" title="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink"><em>CFGSliceToSink</em></a><em>]</em>) – The subject of the analysis: a function, a single basic block, or the
+representation of a slice to a sink.</p></li>
 <li><p><strong>func_graph</strong> – Alternative graph for function.graph.</p></li>
 <li><p><strong>max_iterations</strong> (<em>int</em>) – The maximum number of iterations before the analysis is terminated.</p></li>
 <li><p><strong>track_tmps</strong> (<em>Boolean</em>) – Whether or not temporary variables should be taken into consideration
@@ -23752,9 +24369,10 @@ copy.
 Default to None: the analysis then initialize its own abstract state,
 based on the given &lt;Subject&gt;.</p></li>
 <li><p><strong>cc</strong> (<a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><em>SimCC</em></a>) – Calling convention of the function.</p></li>
-<li><p><strong>function_handler</strong> (<em>list</em>) – Handler for functions, naming scheme: handle_&lt;func_name&gt;|local_function(
-&lt;ReachingDefinitions&gt;, &lt;Codeloc&gt;, &lt;IP address&gt;).</p></li>
-<li><p><strong>current_local_call_depth</strong> (<em>int</em>) – Current local function recursion depth.</p></li>
+<li><p><strong>function_handler</strong> (<a class="reference internal" href="#angr.analyses.reaching_definitions.function_handler.FunctionHandler" title="angr.analyses.reaching_definitions.function_handler.FunctionHandler"><em>FunctionHandler</em></a>) – The function handler to update the analysis state and results on
+function calls.</p></li>
+<li><p><strong>call_stack</strong> – An ordered list of Functions representing the call stack leading to the
+analysed subject, from older to newer calls.</p></li>
 <li><p><strong>maximum_local_call_depth</strong> (<em>int</em>) – Maximum local function recursion depth.</p></li>
 <li><p><strong>observe_all</strong> (<em>Boolean</em>) – Observe every statement, both before and after.</p></li>
 <li><p><strong>visited_blocks</strong> – A set of previously visited blocks.</p></li>
@@ -23904,6 +24522,54 @@ Obtained by transitively aggregating the ancestors of this definition in the gra
 
 </dd></dl>
 
+<span class="target" id="module-angr.analyses.reaching_definitions.function_handler"></span><dl class="class">
+<dt id="angr.analyses.reaching_definitions.function_handler.FunctionHandler">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.function_handler.</code><code class="sig-name descname">FunctionHandler</code><a class="headerlink" href="#angr.analyses.reaching_definitions.function_handler.FunctionHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>An abstract base class for function handlers.</p>
+<dl class="simple">
+<dt>To work properly, we expect function handlers to:</dt><dd><ul class="simple">
+<li><p>Be related to a &lt;ReachingDefinitionsAnalysis&gt;;</p></li>
+<li><p>Provide a <cite>handle_local_function</cite> method.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="angr.analyses.reaching_definitions.function_handler.FunctionHandler.hook">
+<em class="property">abstract </em><code class="sig-name descname">hook</code><span class="sig-paren">(</span><em class="sig-param">analysis</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.function_handler.FunctionHandler.hook" title="Permalink to this definition">¶</a></dt>
+<dd><p>A &lt;FunctionHandler&gt; needs information about the context in which it is executed.
+A &lt;ReachingDefinitionsAnalysis&gt; would “hook” into a handler by calling: <cite>&lt;FunctionHandler&gt;.hook(self)</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>analysis</strong> (<em>angr.analyses.ReachingDefinitionsAnalysis</em>) – A &lt;ReachingDefinitionsAnalysis&gt; using this &lt;FunctionHandler&gt;.</p>
+</dd>
+<dt class="field-even">Return FunctionHandler</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.reaching_definitions.function_handler.FunctionHandler.handle_local_function">
+<em class="property">abstract </em><code class="sig-name descname">handle_local_function</code><span class="sig-paren">(</span><em class="sig-param">state: ReachingDefinitionsState, function_address: int, call_stack: List, maximum_local_call_depth: int, visited_blocks: Set[int], dep_graph: DepGraph, src_ins_addr: Optional[int] = None, codeloc: Optional[CodeLocation] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.function_handler.FunctionHandler.handle_local_function" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> – The state at the entry of the function, i.e. the function’s input state.</p></li>
+<li><p><strong>function_address</strong> – The address of the function to handle.</p></li>
+<li><p><strong>call_stack</strong> – </p></li>
+<li><p><strong>maximum_local_call_depth</strong> – </p></li>
+<li><p><strong>visited_blocks</strong> – A set of the addresses of the previously visited blocks.</p></li>
+<li><p><strong>dep_graph</strong> – A definition-use graph, where nodes represent definitions, and edges represent uses.</p></li>
+<li><p><strong>codeloc</strong> – The code location of the call to the analysed function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return Tuple[Boolean,LiveDefinitions,List&lt;ailment.Block|Block|CodeNode|CFGNode&gt;,DepGraph]</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-angr.analyses.reaching_definitions.rd_state"></span><dl class="class">
 <dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.rd_state.</code><code class="sig-name descname">ReachingDefinitionsState</code><span class="sig-paren">(</span><em class="sig-param">arch: archinfo.arch.Arch</em>, <em class="sig-param">subject: angr.analyses.reaching_definitions.subject.Subject</em>, <em class="sig-param">track_tmps: bool = False</em>, <em class="sig-param">analysis: Optional[ReachingDefinitionsAnalysis] = None</em>, <em class="sig-param">rtoc_value=None</em>, <em class="sig-param">live_definitions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState" title="Permalink to this definition">¶</a></dt>
@@ -24025,7 +24691,7 @@ variables, false otherwise.</p></li>
 
 <dl class="method">
 <dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.kill_definitions">
-<code class="sig-name descname">kill_definitions</code><span class="sig-paren">(</span><em class="sig-param">atom: angr.knowledge_plugins.key_definitions.atoms.Atom</em>, <em class="sig-param">code_loc: angr.code_location.CodeLocation</em>, <em class="sig-param">data: Optional[angr.knowledge_plugins.key_definitions.dataset.DataSet] = None</em>, <em class="sig-param">dummy=True</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.kill_definitions" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">kill_definitions</code><span class="sig-paren">(</span><em class="sig-param">atom: angr.knowledge_plugins.key_definitions.atoms.Atom</em>, <em class="sig-param">code_loc: angr.code_location.CodeLocation</em>, <em class="sig-param">data: Optional[angr.knowledge_plugins.key_definitions.dataset.DataSet] = None</em>, <em class="sig-param">dummy=True</em>, <em class="sig-param">tag: angr.knowledge_plugins.key_definitions.definition.Tag = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.kill_definitions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Overwrite existing definitions w.r.t ‘atom’ with a dummy definition instance. A dummy definition will not be
 removed during simplification.</p>
 <dl class="field-list simple">
@@ -24044,7 +24710,7 @@ removed during simplification.</p>
 
 <dl class="method">
 <dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.kill_and_add_definition">
-<code class="sig-name descname">kill_and_add_definition</code><span class="sig-paren">(</span><em class="sig-param">atom: angr.knowledge_plugins.key_definitions.atoms.Atom, code_loc: angr.code_location.CodeLocation, data: Optional[angr.knowledge_plugins.key_definitions.dataset.DataSet], dummy=False</em><span class="sig-paren">)</span> &#x2192; Optional[angr.knowledge_plugins.key_definitions.definition.Definition]<a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.kill_and_add_definition" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">kill_and_add_definition</code><span class="sig-paren">(</span><em class="sig-param">atom: angr.knowledge_plugins.key_definitions.atoms.Atom, code_loc: angr.code_location.CodeLocation, data: Optional[angr.knowledge_plugins.key_definitions.dataset.DataSet], dummy=False, tag: angr.knowledge_plugins.key_definitions.definition.Tag = None</em><span class="sig-paren">)</span> &#x2192; Optional[angr.knowledge_plugins.key_definitions.definition.Definition]<a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.kill_and_add_definition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -24084,6 +24750,16 @@ removed during simplification.</p>
 <code class="sig-name descname">Block</code><em class="property"> = 2</em><a class="headerlink" href="#angr.analyses.reaching_definitions.subject.SubjectType.Block" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="angr.analyses.reaching_definitions.subject.SubjectType.CFGSliceToSink">
+<code class="sig-name descname">CFGSliceToSink</code><em class="property"> = 3</em><a class="headerlink" href="#angr.analyses.reaching_definitions.subject.SubjectType.CFGSliceToSink" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.reaching_definitions.subject.SubjectType.CallTrace">
+<code class="sig-name descname">CallTrace</code><em class="property"> = 4</em><a class="headerlink" href="#angr.analyses.reaching_definitions.subject.SubjectType.CallTrace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -24094,7 +24770,7 @@ removed during simplification.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>content</strong> (<em>ailment.Block|angr.Block|Function</em>) – Thing to be analysed.</p></li>
+<li><p><strong>angr.Block</strong><strong>, </strong><strong>Function</strong><strong>, </strong><strong>CFGSliceToSink</strong><strong>] </strong><strong>content</strong> (<em>Union</em><em>[</em><em>ailment.Block</em><em>,</em>) – Thing to be analysed.</p></li>
 <li><p><strong>cfg</strong> (<a class="reference internal" href="#angr.knowledge_plugins.cfg.cfg_model.CFGModel" title="angr.knowledge_plugins.cfg.cfg_model.CFGModel"><em>angr.knowledge_plugins.cfg.cfg_model.CFGModel</em></a>) – CFG of the program the thing was found in. Only used when analysing a slice.</p></li>
 <li><p><strong>func_graph</strong> (<em>networkx.DiGraph</em>) – Alternative graph for function.graph.</p></li>
 <li><p><strong>cc</strong> (<a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><em>SimCC</em></a>) – Calling convention of the function.</p></li>
@@ -24130,7 +24806,7 @@ removed during simplification.</p>
 
 <span class="target" id="module-angr.analyses.reaching_definitions.engine_ail"></span><dl class="class">
 <dt id="angr.analyses.reaching_definitions.engine_ail.SimEngineRDAIL">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.engine_ail.</code><code class="sig-name descname">SimEngineRDAIL</code><span class="sig-paren">(</span><em class="sig-param">project</em>, <em class="sig-param">current_local_call_depth</em>, <em class="sig-param">maximum_local_call_depth</em>, <em class="sig-param">function_handler=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.engine_ail.SimEngineRDAIL" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.engine_ail.</code><code class="sig-name descname">SimEngineRDAIL</code><span class="sig-paren">(</span><em class="sig-param">project</em>, <em class="sig-param">call_stack</em>, <em class="sig-param">maximum_local_call_depth</em>, <em class="sig-param">function_handler=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.engine_ail.SimEngineRDAIL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.engines.light.engine.SimEngineLightAILMixin" title="angr.engines.light.engine.SimEngineLightAILMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.engines.light.engine.SimEngineLightAILMixin</span></code></a>, <a class="reference internal" href="#angr.engines.light.engine.SimEngineLight" title="angr.engines.light.engine.SimEngineLight"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.engines.light.engine.SimEngineLight</span></code></a></p>
 <dl class="method">
 <dt id="angr.analyses.reaching_definitions.engine_ail.SimEngineRDAIL.process">
@@ -24143,6 +24819,202 @@ removed during simplification.</p>
 <dt id="angr.analyses.reaching_definitions.external_codeloc.ExternalCodeLocation">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.external_codeloc.</code><code class="sig-name descname">ExternalCodeLocation</code><a class="headerlink" href="#angr.analyses.reaching_definitions.external_codeloc.ExternalCodeLocation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.code_location.CodeLocation" title="angr.code_location.CodeLocation"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.code_location.CodeLocation</span></code></a></p>
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.cfg_slice_to_sink"></span><span class="target" id="module-angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink"></span><dl class="class">
+<dt id="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.</code><code class="sig-name descname">CFGSliceToSink</code><span class="sig-paren">(</span><em class="sig-param">target</em>, <em class="sig-param">transitions=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The representation of a slice of a CFG.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<a class="reference internal" href="#angr.knowledge_plugins.functions.function.Function" title="angr.knowledge_plugins.functions.function.Function"><em>angr.knowledge_plugins.functions.function.Function</em></a>) – The targeted sink, to which every path in the slice leads.</p></li>
+<li><p><strong>transitions</strong> (<em>Dict</em><em>[</em><em>int</em><em>,</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – A mapping representing transitions in the graph.
+Indexes are source addresses and values a list of destination addresses, for which there exists a transition
+in the slice from source to destination.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.transitions">
+<em class="property">property </em><code class="sig-name descname">transitions</code><a class="headerlink" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.transitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>The transitions in the slice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>return Dict[int,List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.transitions_as_tuples">
+<em class="property">property </em><code class="sig-name descname">transitions_as_tuples</code><a class="headerlink" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.transitions_as_tuples" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of transitions as pairs of (source, destination).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>return List[Tuple[int,int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.target">
+<em class="property">property </em><code class="sig-name descname">target</code><a class="headerlink" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.target" title="Permalink to this definition">¶</a></dt>
+<dd><p>return angr.knowledge_plugins.functions.function.Function:
+The targeted sink function, from which the slice is constructed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.nodes">
+<em class="property">property </em><code class="sig-name descname">nodes</code><a class="headerlink" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>The complete list of addresses present in the slice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>return List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.entrypoints">
+<em class="property">property </em><code class="sig-name descname">entrypoints</code><a class="headerlink" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.entrypoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Entrypoints are all source addresses that are not the destination address of any transition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return List[int]</dt>
+<dd class="field-odd"><p>The list of entrypoints addresses.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.add_transitions">
+<code class="sig-name descname">add_transitions</code><span class="sig-paren">(</span><em class="sig-param">transitions</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.add_transitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the given transitions to the current slice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transitions</strong> (<em>Dict</em><em>[</em><em>int</em><em>,</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – The list of transitions to be added to <cite>self.transitions</cite>.</p>
+</dd>
+<dt class="field-even">Return Dict[int,List[int]]</dt>
+<dd class="field-even"><p>Return the updated list of transitions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.is_empty">
+<code class="sig-name descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if a given slice does not contain any transition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return bool</dt>
+<dd class="field-odd"><p>True if the &lt;CFGSliceToSink&gt; instance does not contain any transitions. False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.path_between">
+<code class="sig-name descname">path_between</code><span class="sig-paren">(</span><em class="sig-param">source</em>, <em class="sig-param">destination</em>, <em class="sig-param">visited=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.path_between" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the existence of a path in the slice between two given node adresses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>int</em>) – The source address.</p></li>
+<li><p><strong>destination</strong> (<em>int</em>) – The destination address.</p></li>
+<li><p><strong>visited</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – Used to avoid infinite recursion if loops are present in the slice.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return bool</dt>
+<dd class="field-even"><p>True if there is a path between the source and the destination in the CFG, False if not,
+or if we have been unable to decide (because of loops).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.cfg_slice_to_sink.graph"></span><dl class="function">
+<dt id="angr.analyses.cfg_slice_to_sink.graph.slice_callgraph">
+<code class="sig-prename descclassname">angr.analyses.cfg_slice_to_sink.graph.</code><code class="sig-name descname">slice_callgraph</code><span class="sig-paren">(</span><em class="sig-param">callgraph</em>, <em class="sig-param">cfg_slice_to_sink</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_slice_to_sink.graph.slice_callgraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slice a callgraph, keeping only the nodes present in the &lt;CFGSliceToSink&gt; representation, and th transitions for which
+a path exists.</p>
+<p><em>Note</em> that this function mutates the graph passed as an argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>callgraph</strong> (<em>networkx.MultiDiGraph</em>) – The callgraph to update.</p></li>
+<li><p><strong>cfg_slice_to_sink</strong> (<a class="reference internal" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink" title="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink"><em>CFGSliceToSink</em></a>) – The representation of the slice, containing the data to update the callgraph from.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="angr.analyses.cfg_slice_to_sink.graph.slice_cfg_graph">
+<code class="sig-prename descclassname">angr.analyses.cfg_slice_to_sink.graph.</code><code class="sig-name descname">slice_cfg_graph</code><span class="sig-paren">(</span><em class="sig-param">graph</em>, <em class="sig-param">cfg_slice_to_sink</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_slice_to_sink.graph.slice_cfg_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slice a CFG graph, keeping only the transitions and nodes present in the &lt;CFGSliceToSink&gt; representation.</p>
+<p><em>Note</em> that this function mutates the graph passed as an argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>networkx.DiGraph</em>) – The graph to slice.</p></li>
+<li><p><strong>cfg_slice_to_sink</strong> (<a class="reference internal" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink" title="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink"><em>CFGSliceToSink</em></a>) – The representation of the slice, containing the data to update the CFG from.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return networkx.DiGraph</dt>
+<dd class="field-even"><p>The sliced graph.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="angr.analyses.cfg_slice_to_sink.graph.slice_function_graph">
+<code class="sig-prename descclassname">angr.analyses.cfg_slice_to_sink.graph.</code><code class="sig-name descname">slice_function_graph</code><span class="sig-paren">(</span><em class="sig-param">function_graph</em>, <em class="sig-param">cfg_slice_to_sink</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_slice_to_sink.graph.slice_function_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slice a function graph, keeping only the nodes present in the &lt;CFGSliceToSink&gt; representation.</p>
+<p>Because the &lt;CFGSliceToSink&gt; is build from the CFG, and the function graph is <em>NOT</em> a subgraph of the CFG, edges of
+the function graph will no be present in the &lt;CFGSliceToSink&gt; transitions.
+However, we use the fact that if there is an edge between two nodes in the function graph, then there must exist
+a path between these two nodes in the slice; Proof idea:
+- The &lt;CFGSliceToSink&gt; is backward and recursively constructed;
+- If a node is in the slice, then all its predecessors will be (transitively);
+- If there is an edge between two nodes in the function graph, there is a path between them in the CFG;
+- So: The origin node is a transitive predecessor of the destination one, hence if destination is in the slice,
+then origin will be too.</p>
+<p>In consequence, in the end, removing the only nodes not present in the slice, and their related transitions gives
+us the expected result: a function graph representing (a higher view of) the flow in the slice.</p>
+<p><em>Note</em> that this function mutates the graph passed as an argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>networkx.DiGraph</em>) – The graph to slice.</p></li>
+<li><p><strong>cfg_slice_to_sink</strong> (<a class="reference internal" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink" title="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink"><em>CFGSliceToSink</em></a>) – The representation of the slice, containing the data to update the CFG from.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return networkx.DiGraph</dt>
+<dd class="field-even"><p>The sliced graph.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.cfg_slice_to_sink.transitions"></span><dl class="simple">
+<dt>Some utilitary functions to manage our representation of transitions:</dt><dd><p>A dictionary, indexed by int (source addresses), which values are list of ints (target addresses).</p>
+</dd>
+</dl>
+<dl class="function">
+<dt id="angr.analyses.cfg_slice_to_sink.transitions.merge_transitions">
+<code class="sig-prename descclassname">angr.analyses.cfg_slice_to_sink.transitions.</code><code class="sig-name descname">merge_transitions</code><span class="sig-paren">(</span><em class="sig-param">transitions</em>, <em class="sig-param">existing_transitions</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg_slice_to_sink.transitions.merge_transitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge two dictionaries of transitions together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transitions</strong> (<em>Dict</em><em>[</em><em>int</em><em>,</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – Some transitions.</p></li>
+<li><p><strong>existing_transitions</strong> (<em>Dict</em><em>[</em><em>int</em><em>,</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – Other transitions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return Dict[int,List[int]]</dt>
+<dd class="field-even"><p>The merge of the two parameters.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.stack_pointer_tracker"></span><dl class="class">
@@ -24733,7 +25605,7 @@ analysis to resolve the conflicts between overlapping variables.</p>
 
 <dl class="class">
 <dt id="angr.analyses.typehoon.simple_solver.SimpleSolver">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.typehoon.simple_solver.</code><code class="sig-name descname">SimpleSolver</code><span class="sig-paren">(</span><em class="sig-param">constraints</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.simple_solver.SimpleSolver" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.typehoon.simple_solver.</code><code class="sig-name descname">SimpleSolver</code><span class="sig-paren">(</span><em class="sig-param">bits: int</em>, <em class="sig-param">constraints</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.simple_solver.SimpleSolver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>SimpleSolver is, literally, a simple, unification-based type constraint solver.</p>
 <dl class="method">
@@ -24793,15 +25665,36 @@ analysis to resolve the conflicts between overlapping variables.</p>
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.typehoon.typevars"></span><dl class="class">
+<dt id="angr.analyses.typehoon.typevars.TypeConstraint">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.typehoon.typevars.</code><code class="sig-name descname">TypeConstraint</code><a class="headerlink" href="#angr.analyses.typehoon.typevars.TypeConstraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="angr.analyses.typehoon.typevars.TypeConstraint.pp_str">
+<code class="sig-name descname">pp_str</code><span class="sig-paren">(</span><em class="sig-param">mapping: Dict[TypeVariable, Any]</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#angr.analyses.typehoon.typevars.TypeConstraint.pp_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="angr.analyses.typehoon.typevars.Equivalence">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.typehoon.typevars.</code><code class="sig-name descname">Equivalence</code><span class="sig-paren">(</span><em class="sig-param">type_a</em>, <em class="sig-param">type_b</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Equivalence" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeConstraint" title="angr.analyses.typehoon.typevars.TypeConstraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.typehoon.typevars.TypeConstraint</span></code></a></p>
+<dl class="method">
+<dt id="angr.analyses.typehoon.typevars.Equivalence.pp_str">
+<code class="sig-name descname">pp_str</code><span class="sig-paren">(</span><em class="sig-param">mapping: Dict[TypeVariable, Any]</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#angr.analyses.typehoon.typevars.Equivalence.pp_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="angr.analyses.typehoon.typevars.Existence">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.typehoon.typevars.</code><code class="sig-name descname">Existence</code><span class="sig-paren">(</span><em class="sig-param">type_</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Existence" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeConstraint" title="angr.analyses.typehoon.typevars.TypeConstraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.typehoon.typevars.TypeConstraint</span></code></a></p>
+<dl class="method">
+<dt id="angr.analyses.typehoon.typevars.Existence.pp_str">
+<code class="sig-name descname">pp_str</code><span class="sig-paren">(</span><em class="sig-param">mapping: Dict[TypeVariable, Any]</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#angr.analyses.typehoon.typevars.Existence.pp_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="angr.analyses.typehoon.typevars.Existence.replace">
 <code class="sig-name descname">replace</code><span class="sig-paren">(</span><em class="sig-param">replacements</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Existence.replace" title="Permalink to this definition">¶</a></dt>
@@ -24812,7 +25705,12 @@ analysis to resolve the conflicts between overlapping variables.</p>
 <dl class="class">
 <dt id="angr.analyses.typehoon.typevars.Subtype">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.typehoon.typevars.</code><code class="sig-name descname">Subtype</code><span class="sig-paren">(</span><em class="sig-param">super_type</em>, <em class="sig-param">sub_type</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Subtype" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeConstraint" title="angr.analyses.typehoon.typevars.TypeConstraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.typehoon.typevars.TypeConstraint</span></code></a></p>
+<dl class="method">
+<dt id="angr.analyses.typehoon.typevars.Subtype.pp_str">
+<code class="sig-name descname">pp_str</code><span class="sig-paren">(</span><em class="sig-param">mapping: Dict[TypeVariable, Any]</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#angr.analyses.typehoon.typevars.Subtype.pp_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="angr.analyses.typehoon.typevars.Subtype.replace">
 <code class="sig-name descname">replace</code><span class="sig-paren">(</span><em class="sig-param">replacements</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Subtype.replace" title="Permalink to this definition">¶</a></dt>
@@ -24821,15 +25719,59 @@ analysis to resolve the conflicts between overlapping variables.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="angr.analyses.typehoon.typevars.Add">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.typehoon.typevars.</code><code class="sig-name descname">Add</code><span class="sig-paren">(</span><em class="sig-param">type_0</em>, <em class="sig-param">type_1</em>, <em class="sig-param">type_r</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeConstraint" title="angr.analyses.typehoon.typevars.TypeConstraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.typehoon.typevars.TypeConstraint</span></code></a></p>
+<p>Describes the constraint that type_r == type0 + type1</p>
+<dl class="method">
+<dt id="angr.analyses.typehoon.typevars.Add.pp_str">
+<code class="sig-name descname">pp_str</code><span class="sig-paren">(</span><em class="sig-param">mapping: Dict[TypeVariable, Any]</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#angr.analyses.typehoon.typevars.Add.pp_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.typehoon.typevars.Add.replace">
+<code class="sig-name descname">replace</code><span class="sig-paren">(</span><em class="sig-param">replacements</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Add.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="angr.analyses.typehoon.typevars.Sub">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.typehoon.typevars.</code><code class="sig-name descname">Sub</code><span class="sig-paren">(</span><em class="sig-param">type_0</em>, <em class="sig-param">type_1</em>, <em class="sig-param">type_r</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Sub" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeConstraint" title="angr.analyses.typehoon.typevars.TypeConstraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.typehoon.typevars.TypeConstraint</span></code></a></p>
+<p>Describes the constraint that type_r == type0 - type1</p>
+<dl class="method">
+<dt id="angr.analyses.typehoon.typevars.Sub.pp_str">
+<code class="sig-name descname">pp_str</code><span class="sig-paren">(</span><em class="sig-param">mapping: Dict[TypeVariable, Any]</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#angr.analyses.typehoon.typevars.Sub.pp_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.typehoon.typevars.Sub.replace">
+<code class="sig-name descname">replace</code><span class="sig-paren">(</span><em class="sig-param">replacements</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Sub.replace" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="angr.analyses.typehoon.typevars.TypeVariable">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.typehoon.typevars.</code><code class="sig-name descname">TypeVariable</code><span class="sig-paren">(</span><em class="sig-param">idx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.TypeVariable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.typehoon.typevars.</code><code class="sig-name descname">TypeVariable</code><span class="sig-paren">(</span><em class="sig-param">idx: Optional[int] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.TypeVariable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="angr.analyses.typehoon.typevars.TypeVariable.pp_str">
+<code class="sig-name descname">pp_str</code><span class="sig-paren">(</span><em class="sig-param">mapping: Dict[TypeVariable, Any]</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#angr.analyses.typehoon.typevars.TypeVariable.pp_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="angr.analyses.typehoon.typevars.DerivedTypeVariable">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.typehoon.typevars.</code><code class="sig-name descname">DerivedTypeVariable</code><span class="sig-paren">(</span><em class="sig-param">type_var</em>, <em class="sig-param">label</em>, <em class="sig-param">idx=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.DerivedTypeVariable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeVariable" title="angr.analyses.typehoon.typevars.TypeVariable"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.typehoon.typevars.TypeVariable</span></code></a></p>
+<dl class="method">
+<dt id="angr.analyses.typehoon.typevars.DerivedTypeVariable.pp_str">
+<code class="sig-name descname">pp_str</code><span class="sig-paren">(</span><em class="sig-param">mapping: Dict[TypeVariable, Any]</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#angr.analyses.typehoon.typevars.DerivedTypeVariable.pp_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="angr.analyses.typehoon.typevars.DerivedTypeVariable.replace">
 <code class="sig-name descname">replace</code><span class="sig-paren">(</span><em class="sig-param">replacements</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.DerivedTypeVariable.replace" title="Permalink to this definition">¶</a></dt>
@@ -24959,7 +25901,7 @@ analysis to resolve the conflicts between overlapping variables.</p>
 
 <span class="target" id="module-angr.analyses.typehoon.typehoon"></span><dl class="class">
 <dt id="angr.analyses.typehoon.typehoon.Typehoon">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.typehoon.typehoon.</code><code class="sig-name descname">Typehoon</code><span class="sig-paren">(</span><em class="sig-param">constraints</em>, <em class="sig-param">ground_truth=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typehoon.Typehoon" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.typehoon.typehoon.</code><code class="sig-name descname">Typehoon</code><span class="sig-paren">(</span><em class="sig-param">constraints</em>, <em class="sig-param">ground_truth=None</em>, <em class="sig-param">var_mapping: Optional[Dict[SimVariable</em>, <em class="sig-param">TypeVariable]] = None</em>, <em class="sig-param">prioritize_char_array_over_struct: bool = True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typehoon.Typehoon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a></p>
 <p>A spiritual tribute to the long-standing typehoon project that &#64;jmg (John Grosen) worked on during his days in the
 angr team. Now I feel really bad of asking the poor guy to work directly on VEX IR without any fancy static analysis
@@ -24974,6 +25916,12 @@ VariableRecoveryFast (maybe VariableRecovery later as well) on a function, and t
 <code class="sig-name descname">update_variable_types</code><span class="sig-paren">(</span><em class="sig-param">func_addr</em>, <em class="sig-param">var_to_typevar</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typehoon.Typehoon.update_variable_types" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="method">
+<dt id="angr.analyses.typehoon.typehoon.Typehoon.pp_constraints">
+<code class="sig-name descname">pp_constraints</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#angr.analyses.typehoon.typehoon.Typehoon.pp_constraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pretty-print constraints between <em>variables</em> using the variable mapping.</p>
+</dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.typehoon.typeconsts"></span><p>All type constants used in type inference. They can be mapped, translated, or rewritten to C-style types.</p>
@@ -24984,6 +25932,11 @@ VariableRecoveryFast (maybe VariableRecovery later as well) on a function, and t
 <dl class="attribute">
 <dt id="angr.analyses.typehoon.typeconsts.TypeConstant.SIZE">
 <code class="sig-name descname">SIZE</code><em class="property"> = None</em><a class="headerlink" href="#angr.analyses.typehoon.typeconsts.TypeConstant.SIZE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.typehoon.typeconsts.TypeConstant.pp_str">
+<code class="sig-name descname">pp_str</code><span class="sig-paren">(</span><em class="sig-param">mapping</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#angr.analyses.typehoon.typeconsts.TypeConstant.pp_str" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -25356,7 +26309,7 @@ manner.</p>
 depth</p>
 <dl class="attribute">
 <dt id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.cgc.transmit.transmit'&gt;, &lt;class 'angr.procedures.posix.read.read'&gt;, &lt;class 'angr.procedures.cgc.receive.receive'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.cgc.transmit.transmit'&gt;, &lt;class 'angr.procedures.cgc.receive.receive'&gt;, &lt;class 'angr.procedures.posix.read.read'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -27627,7 +28580,7 @@ numbering schemes and pick the right one.</p></li>
 
 <dl class="method">
 <dt id="angr.simos.windows.SimWindows.state_blank">
-<code class="sig-name descname">state_blank</code><span class="sig-paren">(</span><em class="sig-param">thread_idx=0</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.windows.SimWindows.state_blank" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">state_blank</code><span class="sig-paren">(</span><em class="sig-param">thread_idx=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.windows.SimWindows.state_blank" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -28038,6 +28991,21 @@ SimType-based Python representation.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="angr.utils.library.convert_cppproto_to_py">
+<code class="sig-prename descclassname">angr.utils.library.</code><code class="sig-name descname">convert_cppproto_to_py</code><span class="sig-paren">(</span><em class="sig-param">cpp_decl: str</em>, <em class="sig-param">with_param_names: bool = False</em><span class="sig-paren">)</span> &#x2192; Tuple[Optional[str], Optional[angr.sim_type.SimTypeCppFunction], Optional[str]]<a class="headerlink" href="#angr.utils.library.convert_cppproto_to_py" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pre-process a C++-style function declaration string to its corresponding SimTypes-based Python representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cpp_decl</strong> – The C++-style function declaration string.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple of the function name, the prototype, and a string representing the SimType-based Python
+representation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="angr.utils.library.cprotos2py">
 <code class="sig-prename descclassname">angr.utils.library.</code><code class="sig-name descname">cprotos2py</code><span class="sig-paren">(</span><em class="sig-param">cprotos</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.utils.library.cprotos2py" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse a list of C function declarations and output to Python code that can be embedded into
@@ -28059,6 +29027,11 @@ angr.procedures.definitions.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="function">
+<dt id="angr.utils.library.get_cpp_function_name">
+<code class="sig-prename descclassname">angr.utils.library.</code><code class="sig-name descname">get_cpp_function_name</code><span class="sig-paren">(</span><em class="sig-param">demangled_name</em>, <em class="sig-param">specialized=True</em>, <em class="sig-param">qualified=True</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.utils.library.get_cpp_function_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <span class="target" id="module-angr.utils.timing"></span><dl class="function">
 <dt id="angr.utils.timing.timethis">
@@ -28795,8 +29768,20 @@ and potentially be picked up by another worker.</p></li>
 </dd></dl>
 
 <dl class="class">
+<dt id="angr.distributed.worker.ExplorationStatusNotifier">
+<em class="property">class </em><code class="sig-prename descclassname">angr.distributed.worker.</code><code class="sig-name descname">ExplorationStatusNotifier</code><span class="sig-paren">(</span><em class="sig-param">server_state: Dict</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.distributed.worker.ExplorationStatusNotifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.ExplorationTechnique" title="angr.exploration_techniques.ExplorationTechnique"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.exploration_techniques.ExplorationTechnique</span></code></a></p>
+<p>Force the exploration to stop if the server.stop is True.</p>
+<dl class="method">
+<dt id="angr.distributed.worker.ExplorationStatusNotifier.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param">simgr</em>, <em class="sig-param">stash='active'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.distributed.worker.ExplorationStatusNotifier.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="angr.distributed.worker.Worker">
-<em class="property">class </em><code class="sig-prename descclassname">angr.distributed.worker.</code><code class="sig-name descname">Worker</code><span class="sig-paren">(</span><em class="sig-param">worker_id</em>, <em class="sig-param">server</em>, <em class="sig-param">recursion_limit=None</em>, <em class="sig-param">techniques=None</em>, <em class="sig-param">add_options=None</em>, <em class="sig-param">remove_options=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.distributed.worker.Worker" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.distributed.worker.</code><code class="sig-name descname">Worker</code><span class="sig-paren">(</span><em class="sig-param">worker_id</em>, <em class="sig-param">server</em>, <em class="sig-param">server_state</em>, <em class="sig-param">recursion_limit=None</em>, <em class="sig-param">techniques=None</em>, <em class="sig-param">add_options=None</em>, <em class="sig-param">remove_options=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.distributed.worker.Worker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Worker implements a worker thread/process for conducting a task.</p>
 <dl class="method">

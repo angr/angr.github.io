@@ -169,7 +169,8 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.cfg.memory_data
 .. automodule:: angr.knowledge_plugins.cfg.cfg_manager
 .. automodule:: angr.knowledge_plugins.cfg.cfg_node
-.. automodule:: angr.knowledge_plugins.cfg.indirect_jump
+.. automodule:: angr.knowledge_plugins.cfg.indirect_jump 
+.. automodule:: angr.knowledge_plugins.propagations
 .. automodule:: angr.knowledge_plugins.comments
 .. automodule:: angr.knowledge_plugins.data
 .. automodule:: angr.knowledge_plugins.indirect_jumps
@@ -225,6 +226,7 @@ Analysis
 .. automodule:: angr.analyses.forward_analysis.visitors.graph
 .. automodule:: angr.analyses.forward_analysis.visitors.loop
 .. automodule:: angr.analyses.forward_analysis.visitors.single_node_graph
+.. automodule:: angr.analyses.forward_analysis.visitors.cfg
 .. automodule:: angr.analyses.backward_slice
 .. automodule:: angr.analyses.bindiff
 .. automodule:: angr.analyses.boyscout
@@ -246,6 +248,7 @@ Analysis
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.x86_elf_pic_plt
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.default_resolvers
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.jumptable
+.. automodule:: angr.analyses.cfg.indirect_jump_resolvers.const_resolver
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers.resolver
 .. automodule:: angr.analyses.cfg.indirect_jump_resolvers
 .. automodule:: angr.analyses.cfg.cfg_utils
@@ -267,6 +270,7 @@ Analysis
 .. automodule:: angr.angrdb.serializers.xrefs
 .. automodule:: angr.analyses.decompiler.structurer
 .. automodule:: angr.analyses.decompiler
+.. automodule:: angr.analyses.decompiler.ailblock_walker
 .. automodule:: angr.analyses.decompiler.ailgraph_walker
 .. automodule:: angr.analyses.decompiler.clinic
 .. automodule:: angr.analyses.decompiler.condition_processor
@@ -275,6 +279,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.empty_node_remover
 .. automodule:: angr.analyses.decompiler.graph_region
 .. automodule:: angr.analyses.decompiler.optimization_passes
+.. automodule:: angr.analyses.decompiler.optimization_passes.const_derefs
 .. automodule:: angr.analyses.decompiler.optimization_passes.eager_returns
 .. automodule:: angr.analyses.decompiler.optimization_passes.optimization_pass
 .. automodule:: angr.analyses.decompiler.optimization_passes.stack_canary_simplifier
@@ -301,13 +306,19 @@ Analysis
 .. automodule:: angr.analyses.propagator.engine_ail
 .. automodule:: angr.analyses.propagator.propagator
 .. automodule:: angr.analyses.reaching_definitions
+.. automodule:: angr.analyses.reaching_definitions.call_trace
 .. automodule:: angr.analyses.reaching_definitions.engine_vex
 .. automodule:: angr.analyses.reaching_definitions.reaching_definitions
 .. automodule:: angr.analyses.reaching_definitions.dep_graph
+.. automodule:: angr.analyses.reaching_definitions.function_handler
 .. automodule:: angr.analyses.reaching_definitions.rd_state
 .. automodule:: angr.analyses.reaching_definitions.subject
 .. automodule:: angr.analyses.reaching_definitions.engine_ail
 .. automodule:: angr.analyses.reaching_definitions.external_codeloc
+.. automodule:: angr.analyses.cfg_slice_to_sink
+.. automodule:: angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink
+.. automodule:: angr.analyses.cfg_slice_to_sink.graph
+.. automodule:: angr.analyses.cfg_slice_to_sink.transitions
 .. automodule:: angr.analyses.stack_pointer_tracker
 .. automodule:: angr.analyses.variable_recovery.annotations
 .. automodule:: angr.analyses.variable_recovery.variable_recovery_base
