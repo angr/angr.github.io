@@ -521,7 +521,7 @@ programs. We are excited to release this to the community, to see how you all wi
 push the boundaries of program analysis even further.&lt;/p&gt;
 &lt;p&gt;Stay tuned for more example and updates about the project!&lt;/p&gt;
 &lt;h1 id=&#34;citations&#34;&gt;Citations&lt;/h1&gt;
-&lt;p&gt;If you use Symbion in your paper please cite the following paper describing it:&lt;/p&gt;
+&lt;p&gt;If you use Symbion in your research please cite the following paper describing it:&lt;/p&gt;
 &lt;p&gt;@inproceedings{gritti2020symbion,
 author = {Gritti, Fabio and Fontana, Lorenzo and Gustafson, Eric and Pagani, Fabio and Continella, Andrea and Kruegel, Christopher and Vigna, Giovanni},
 booktitle = {Proceedings of the IEEE Conference on Communications and Network Security (CNS)},
