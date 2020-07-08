@@ -20,15 +20,6 @@
     </item>
     
     <item>
-      <title>announcement</title>
-      <link>https://angr.github.io/tags/announcement/</link>
-      <pubDate>Sun, 14 Apr 2019 15:48:59 -0800</pubDate>
-      
-      <guid>https://angr.github.io/tags/announcement/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>announcements</title>
       <link>https://angr.github.io/tags/announcements/</link>
       <pubDate>Sun, 14 Apr 2019 15:48:59 -0800</pubDate>
@@ -160,6 +151,15 @@
       <pubDate>Mon, 15 Jan 2018 15:48:59 -0800</pubDate>
       
       <guid>https://angr.github.io/tags/testing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>announcement</title>
+      <link>https://angr.github.io/tags/announcement/</link>
+      <pubDate>Mon, 15 Jan 2018 15:35:26 -0800</pubDate>
+      
+      <guid>https://angr.github.io/tags/announcement/</guid>
       <description></description>
     </item>
     

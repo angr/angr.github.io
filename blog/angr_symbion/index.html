@@ -168,7 +168,7 @@ However, there are a lot of libraries and system calls out there, and we cannot 
 
    <span class="c1"># force stop of the concrete execution</span>
    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</code></pre></div><p>The attentive reader may notice that this API bears a striking similarity to the <a href="https://github.com/avatartwo/avatar2/blob/master/avatar2/targets/target.py">interface</a> used by the <a href="http://s3.eurecom.fr/docs/bar18_muench.pdf">AVATAR</a> target-orchestration framework; this is intentional, and we inherit target code and capabilities from <a href="http://s3.eurecom.fr/docs/bar18_muench.pdf">AVATAR</a>&lsquo;s collection of pluggable targets.</p>
+</code></pre></div><p>The attentive reader may notice that this API bears a striking similarity to the <a href="https://github.com/avatartwo/avatar2/blob/master/avatar2/targets/target.py">interface</a> used by the <a href="http://s3.eurecom.fr/docs/bar18_muench.pdf">AVATAR</a> target-orchestration framework; this is intentional, and we inherit target code and capabilities from <a href="http://s3.eurecom.fr/docs/bar18_muench.pdf">AVATAR</a>&rsquo;s collection of pluggable targets.</p>
 <p>Next, we need to create the angr environment.  This is done in the usual way, but specifying that a <em>ConcreteTarget</em> is to be used:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Creating an angr Project by specifying that we are going to use a concrete target</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">angr</span><span class="o">.</span><span class="n">Project</span><span class="p">(</span><span class="n">binary_x64</span><span class="p">,</span> <span class="n">concrete_target</span><span class="o">=</span><span class="n">avatar_gdb</span><span class="p">,</span>
@@ -382,6 +382,15 @@ and give space to new ideas regarding the exploitation of symbolic execution for
 programs. We are excited to release this to the community, to see how you all will use angr to
 push the boundaries of program analysis even further.</p>
 <p>Stay tuned for more example and updates about the project!</p>
+<h1 id="citations">Citations</h1>
+<p>If you use Symbion in your paper please cite the following paper describing it:</p>
+<p>@inproceedings{gritti2020symbion,
+author = {Gritti, Fabio and Fontana, Lorenzo and Gustafson, Eric and Pagani, Fabio and Continella, Andrea and Kruegel, Christopher and Vigna, Giovanni},
+booktitle = {Proceedings of the IEEE Conference on Communications and Network Security (CNS)},
+month = {June},
+title = {SYMBION: Interleaving Symbolic with Concrete Execution},
+year = {2020}
+}</p>
 
 </section>
 
