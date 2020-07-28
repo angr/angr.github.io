@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>claripy — Solver Engine &mdash; angr 8.20.7.6 documentation</title>
+  <title>claripy — Solver Engine &mdash; angr 8.20.7.27 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                8.20.7.6
+                8.20.7.27
               </div>
             
           
@@ -778,19 +778,11 @@ still be False (i.e., if it were simplified via Z3), but it’s hard to quickly 
 <dl class="function">
 <dt id="claripy.ast.bool.ite_dict">
 <code class="sig-prename descclassname">claripy.ast.bool.</code><code class="sig-name descname">ite_dict</code><span class="sig-paren">(</span><em class="sig-param">i</em>, <em class="sig-param">d</em>, <em class="sig-param">default</em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.ast.bool.ite_dict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return an expression of if-then-else trees which expresses a switch tree</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>i</strong> – The variable which may take on multiple values affecting the final result</p></li>
-<li><p><strong>d</strong> – A dict mapping possible values for i to values which the result could be</p></li>
-<li><p><strong>default</strong> – A default value that the expression should take on if <cite>i</cite> matches none of the keys of <cite>d</cite></p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An expression encoding the result of the above</p>
-</dd>
-</dl>
+<dd><p>Return an expression of if-then-else trees which expresses a switch tree
+:param i: The variable which may take on multiple values affecting the final result
+:param d: A dict mapping possible values for i to values which the result could be
+:param default: A default value that the expression should take on if <cite>i</cite> matches none of the keys of <cite>d</cite>
+:return: An expression encoding the result of the above</p>
 </dd></dl>
 
 <dl class="function">

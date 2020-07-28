@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>angr — Analysis and Coordination &mdash; angr 8.20.7.6 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 8.20.7.27 documentation</title>
   
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                8.20.7.6
+                8.20.7.27
               </div>
             
           
@@ -14355,7 +14355,7 @@ you can get the result state with callable.result_state.</p>
 
 <span class="target" id="module-angr.knowledge_plugins"></span><span class="target" id="module-angr.knowledge_plugins.patches"></span><dl class="class">
 <dt id="angr.knowledge_plugins.patches.Patch">
-<em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.patches.</code><code class="sig-name descname">Patch</code><span class="sig-paren">(</span><em class="sig-param">addr</em>, <em class="sig-param">new_bytes</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.patches.Patch" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.patches.</code><code class="sig-name descname">Patch</code><span class="sig-paren">(</span><em class="sig-param">addr</em>, <em class="sig-param">new_bytes</em>, <em class="sig-param">comment: Optional[str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.patches.Patch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 
@@ -14370,7 +14370,12 @@ manager. In other words, it is not transparent.</p>
 <p>Patches should not overlap, but it’s user’s responsibility to check for and avoid overlapping patches.</p>
 <dl class="method">
 <dt id="angr.knowledge_plugins.patches.PatchManager.add_patch">
-<code class="sig-name descname">add_patch</code><span class="sig-paren">(</span><em class="sig-param">addr</em>, <em class="sig-param">new_bytes</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.patches.PatchManager.add_patch" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_patch</code><span class="sig-paren">(</span><em class="sig-param">addr</em>, <em class="sig-param">new_bytes</em>, <em class="sig-param">comment: Optional[str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.patches.PatchManager.add_patch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.patches.PatchManager.add_patch_obj">
+<code class="sig-name descname">add_patch_obj</code><span class="sig-paren">(</span><em class="sig-param">patch: angr.knowledge_plugins.patches.Patch</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.patches.PatchManager.add_patch_obj" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -14443,6 +14448,11 @@ manager. In other words, it is not transparent.</p>
 <dl class="method">
 <dt id="angr.knowledge_plugins.patches.PatchManager.overlap">
 <em class="property">static </em><code class="sig-name descname">overlap</code><span class="sig-paren">(</span><em class="sig-param">a0</em>, <em class="sig-param">a1</em>, <em class="sig-param">b0</em>, <em class="sig-param">b1</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.patches.PatchManager.overlap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.patches.PatchManager.apply_patches_to_binary">
+<code class="sig-name descname">apply_patches_to_binary</code><span class="sig-paren">(</span><em class="sig-param">binary_bytes: Optional[bytes] = None</em>, <em class="sig-param">patches: Optional[List[angr.knowledge_plugins.patches.Patch]] = None</em><span class="sig-paren">)</span> &#x2192; bytes<a class="headerlink" href="#angr.knowledge_plugins.patches.PatchManager.apply_patches_to_binary" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -16514,7 +16524,7 @@ and update self.calling_convention with the declaration.</p>
 
 <dl class="method">
 <dt id="angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.assign_variable_names">
-<code class="sig-name descname">assign_variable_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.assign_variable_names" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">assign_variable_names</code><span class="sig-paren">(</span><em class="sig-param">labels=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.assign_variable_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assign default names to all variables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -16590,6 +16600,20 @@ variable identifier.</p></li>
 <dt id="angr.knowledge_plugins.key_definitions.atoms.Atom.size">
 <em class="property">property </em><code class="sig-name descname">size</code><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.atoms.Atom.size" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.knowledge_plugins.key_definitions.atoms.Atom.from_argument">
+<em class="property">static </em><code class="sig-name descname">from_argument</code><span class="sig-paren">(</span><em class="sig-param">argument: angr.calling_conventions.SimFunctionArgument, registers: Dict[str, Tuple[int, int]]</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.atoms.Atom.from_argument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instanciate an <cite>Atom</cite> from a given argument.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>argument</strong> – The argument to create a new atom from.</p></li>
+<li><p><strong>registers</strong> – A mapping representing the registers of a given architecture.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -18415,59 +18439,6 @@ returns successors of a CFGNode each time. This is the base class of all graph v
 <dt id="angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.sort_nodes">
 <code class="sig-name descname">sort_nodes</code><span class="sig-paren">(</span><em class="sig-param">nodes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.single_node_graph.SingleNodeGraphVisitor.sort_nodes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-angr.analyses.forward_analysis.visitors.cfg"></span><dl class="class">
-<dt id="angr.analyses.forward_analysis.visitors.cfg.CFGVisitor">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.forward_analysis.visitors.cfg.</code><code class="sig-name descname">CFGVisitor</code><span class="sig-paren">(</span><em class="sig-param">cfg</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.cfg.CFGVisitor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.visitors.graph.GraphVisitor" title="angr.analyses.forward_analysis.visitors.graph.GraphVisitor"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.visitors.graph.GraphVisitor</span></code></a></p>
-<p>Visit a given Control Flow Graph.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>cfg</strong> (<a class="reference internal" href="#angr.knowledge_plugins.cfg.cfg_model.CFGModel" title="angr.knowledge_plugins.cfg.cfg_model.CFGModel"><em>angr.knowledge_plugins.cfg.cfg_model.CFGModel</em></a>) – The CFG to visit.</p>
-</dd>
-</dl>
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.cfg">
-<em class="property">property </em><code class="sig-name descname">cfg</code><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.cfg" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.successors">
-<code class="sig-name descname">successors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.successors" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return List[CFGNode]</dt>
-<dd class="field-odd"><p>The list of successors of a given node.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.predecessors">
-<code class="sig-name descname">predecessors</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.predecessors" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return List[CFGNode]</dt>
-<dd class="field-odd"><p>The list of predecessors of a given node.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.sort_nodes">
-<code class="sig-name descname">sort_nodes</code><span class="sig-paren">(</span><em class="sig-param">nodes=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.sort_nodes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.remove_from_sorted_nodes">
-<code class="sig-name descname">remove_from_sorted_nodes</code><span class="sig-paren">(</span><em class="sig-param">visited_blocks</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.visitors.cfg.CFGVisitor.remove_from_sorted_nodes" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>visited_blocks</strong> (<em>List</em><em>[</em><em>Union</em><em>[</em><a class="reference internal" href="#angr.block.Block" title="angr.block.Block"><em>Block</em></a><em>,</em><a class="reference internal" href="#angr.knowledge_plugins.cfg.cfg_node.CFGNode" title="angr.knowledge_plugins.cfg.cfg_node.CFGNode"><em>CFGNode</em></a><em>]</em><em>]</em>) – A list of visited blocks, to remove from the list of things to visit.</p>
-</dd>
-</dl>
-<p>Remove visited nodes from the iherited <cite>_sorted_nodes</cite> attribute.</p>
-</dd></dl>
 
 </dd></dl>
 
@@ -22002,6 +21973,27 @@ for example, any mapped columns or relationships.</p>
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.decompiler.condition_processor"></span><dl class="class">
+<dt id="angr.analyses.decompiler.condition_processor.TagsAnnotation">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.condition_processor.</code><code class="sig-name descname">TagsAnnotation</code><span class="sig-paren">(</span><em class="sig-param">**tags</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.condition_processor.TagsAnnotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="claripy.html#claripy.annotation.Annotation" title="claripy.annotation.Annotation"><code class="xref py py-class docutils literal notranslate"><span class="pre">claripy.annotation.Annotation</span></code></a></p>
+<dl class="method">
+<dt id="angr.analyses.decompiler.condition_processor.TagsAnnotation.eliminatable">
+<em class="property">property </em><code class="sig-name descname">eliminatable</code><a class="headerlink" href="#angr.analyses.decompiler.condition_processor.TagsAnnotation.eliminatable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.decompiler.condition_processor.TagsAnnotation.relocatable">
+<em class="property">property </em><code class="sig-name descname">relocatable</code><a class="headerlink" href="#angr.analyses.decompiler.condition_processor.TagsAnnotation.relocatable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.decompiler.condition_processor.TagsAnnotation.relocate">
+<code class="sig-name descname">relocate</code><span class="sig-paren">(</span><em class="sig-param">src</em>, <em class="sig-param">dst</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.condition_processor.TagsAnnotation.relocate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="angr.analyses.decompiler.condition_processor.ConditionProcessor">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.condition_processor.</code><code class="sig-name descname">ConditionProcessor</code><span class="sig-paren">(</span><em class="sig-param">condition_mapping=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.condition_processor.ConditionProcessor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -22846,7 +22838,7 @@ always returns.</p>
 
 <dl class="class">
 <dt id="angr.analyses.decompiler.structured_codegen.CFunctionCall">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CFunctionCall</code><span class="sig-paren">(</span><em class="sig-param">callee_target</em>, <em class="sig-param">callee_func</em>, <em class="sig-param">args</em>, <em class="sig-param">returning=True</em>, <em class="sig-param">ret_expr=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CFunctionCall" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CFunctionCall</code><span class="sig-paren">(</span><em class="sig-param">callee_target</em>, <em class="sig-param">callee_func</em>, <em class="sig-param">args</em>, <em class="sig-param">returning=True</em>, <em class="sig-param">ret_expr=None</em>, <em class="sig-param">tags=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CFunctionCall" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CStatement" title="angr.analyses.decompiler.structured_codegen.CStatement"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CStatement</span></code></a></p>
 <p>func(arg0, arg1)</p>
 <dl class="field-list simple">
@@ -22877,6 +22869,11 @@ always returns.</p>
 <dl class="attribute">
 <dt id="angr.analyses.decompiler.structured_codegen.CFunctionCall.ret_expr">
 <code class="sig-name descname">ret_expr</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CFunctionCall.ret_expr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CFunctionCall.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CFunctionCall.tags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -23049,7 +23046,7 @@ always returns.</p>
 
 <dl class="class">
 <dt id="angr.analyses.decompiler.structured_codegen.CBinaryOp">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CBinaryOp</code><span class="sig-paren">(</span><em class="sig-param">op</em>, <em class="sig-param">lhs</em>, <em class="sig-param">rhs</em>, <em class="sig-param">variable</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CBinaryOp" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CBinaryOp</code><span class="sig-paren">(</span><em class="sig-param">op</em>, <em class="sig-param">lhs</em>, <em class="sig-param">rhs</em>, <em class="sig-param">variable</em>, <em class="sig-param">tags: Optional[dict] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CBinaryOp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CExpression" title="angr.analyses.decompiler.structured_codegen.CExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CExpression</span></code></a></p>
 <p>Binary operations.</p>
 <dl class="attribute">
@@ -23070,6 +23067,11 @@ always returns.</p>
 <dl class="attribute">
 <dt id="angr.analyses.decompiler.structured_codegen.CBinaryOp.variable">
 <code class="sig-name descname">variable</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CBinaryOp.variable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CBinaryOp.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CBinaryOp.tags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -24268,7 +24270,7 @@ but are not limited to:</p>
 
 <span class="target" id="module-angr.analyses.reaching_definitions"></span><span class="target" id="module-angr.analyses.reaching_definitions.call_trace"></span><dl class="class">
 <dt id="angr.analyses.reaching_definitions.call_trace.CallSite">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.call_trace.</code><code class="sig-name descname">CallSite</code><span class="sig-paren">(</span><em class="sig-param">caller_func_addr: int</em>, <em class="sig-param">block_addr: int</em>, <em class="sig-param">callee_func_addr: int</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.call_trace.CallSite" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.call_trace.</code><code class="sig-name descname">CallSite</code><span class="sig-paren">(</span><em class="sig-param">caller_func_addr: int, block_addr: Optional[int], callee_func_addr: int</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.call_trace.CallSite" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Describes a call site on a CFG.</p>
 <dl class="attribute">
@@ -24339,7 +24341,7 @@ a basic block (self.target).</p>
 
 <span class="target" id="module-angr.analyses.reaching_definitions.reaching_definitions"></span><dl class="class">
 <dt id="angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.reaching_definitions.</code><code class="sig-name descname">ReachingDefinitionsAnalysis</code><span class="sig-paren">(</span><em class="sig-param">subject=None</em>, <em class="sig-param">func_graph=None</em>, <em class="sig-param">max_iterations=3</em>, <em class="sig-param">track_tmps=False</em>, <em class="sig-param">observation_points=None</em>, <em class="sig-param">init_state: angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState = None</em>, <em class="sig-param">cc=None</em>, <em class="sig-param">function_handler=None</em>, <em class="sig-param">call_stack=None</em>, <em class="sig-param">maximum_local_call_depth=5</em>, <em class="sig-param">observe_all=False</em>, <em class="sig-param">visited_blocks=None</em>, <em class="sig-param">dep_graph: Optional[DepGraph] = None</em>, <em class="sig-param">observe_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.reaching_definitions.</code><code class="sig-name descname">ReachingDefinitionsAnalysis</code><span class="sig-paren">(</span><em class="sig-param">subject: [&lt;class 'angr.analyses.reaching_definitions.subject.Subject'&gt;</em>, <em class="sig-param">&lt;class 'ailment.block.Block'&gt;</em>, <em class="sig-param">&lt;class 'angr.block.Block'&gt;</em>, <em class="sig-param">&lt;class 'angr.knowledge_plugins.functions.function.Function'&gt;] = None</em>, <em class="sig-param">func_graph=None</em>, <em class="sig-param">max_iterations=3</em>, <em class="sig-param">track_tmps=False</em>, <em class="sig-param">observation_points=None</em>, <em class="sig-param">init_state: angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState = None</em>, <em class="sig-param">cc=None</em>, <em class="sig-param">function_handler=None</em>, <em class="sig-param">call_stack=None</em>, <em class="sig-param">maximum_local_call_depth=5</em>, <em class="sig-param">observe_all=False</em>, <em class="sig-param">visited_blocks=None</em>, <em class="sig-param">dep_graph: Optional[DepGraph] = None</em>, <em class="sig-param">observe_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a></p>
 <p>ReachingDefinitionsAnalysis is a text-book implementation of a static data-flow analysis that works on either a
 function or a block. It supports both VEX and AIL. By registering observers to observation points, users may use
@@ -24355,8 +24357,7 @@ as a post-graduation TODO.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>subject</strong> (<em>Union</em><em>[</em><a class="reference internal" href="#angr.block.Block" title="angr.block.Block"><em>Block</em></a><em>,</em><a class="reference internal" href="#angr.knowledge_plugins.functions.function.Function" title="angr.knowledge_plugins.functions.function.Function"><em>Function</em></a><em>,</em><a class="reference internal" href="#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink" title="angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink"><em>CFGSliceToSink</em></a><em>]</em>) – The subject of the analysis: a function, a single basic block, or the
-representation of a slice to a sink.</p></li>
+<li><p><strong>subject</strong> – The subject of the analysis: a function, or a single basic block</p></li>
 <li><p><strong>func_graph</strong> – Alternative graph for function.graph.</p></li>
 <li><p><strong>max_iterations</strong> (<em>int</em>) – The maximum number of iterations before the analysis is terminated.</p></li>
 <li><p><strong>track_tmps</strong> (<em>Boolean</em>) – Whether or not temporary variables should be taken into consideration
@@ -24519,6 +24520,11 @@ Obtained by transitively aggregating the ancestors of this definition in the gra
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.reaching_definitions.dep_graph.DepGraph.contains_atom">
+<code class="sig-name descname">contains_atom</code><span class="sig-paren">(</span><em class="sig-param">atom: angr.knowledge_plugins.key_definitions.atoms.Atom</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#angr.analyses.reaching_definitions.dep_graph.DepGraph.contains_atom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -24751,27 +24757,21 @@ removed during simplification.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="angr.analyses.reaching_definitions.subject.SubjectType.CFGSliceToSink">
-<code class="sig-name descname">CFGSliceToSink</code><em class="property"> = 3</em><a class="headerlink" href="#angr.analyses.reaching_definitions.subject.SubjectType.CFGSliceToSink" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
 <dt id="angr.analyses.reaching_definitions.subject.SubjectType.CallTrace">
-<code class="sig-name descname">CallTrace</code><em class="property"> = 4</em><a class="headerlink" href="#angr.analyses.reaching_definitions.subject.SubjectType.CallTrace" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">CallTrace</code><em class="property"> = 3</em><a class="headerlink" href="#angr.analyses.reaching_definitions.subject.SubjectType.CallTrace" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="angr.analyses.reaching_definitions.subject.Subject">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.subject.</code><code class="sig-name descname">Subject</code><span class="sig-paren">(</span><em class="sig-param">content</em>, <em class="sig-param">cfg</em>, <em class="sig-param">func_graph=None</em>, <em class="sig-param">cc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.subject.Subject" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.subject.</code><code class="sig-name descname">Subject</code><span class="sig-paren">(</span><em class="sig-param">content</em>, <em class="sig-param">func_graph=None</em>, <em class="sig-param">cc=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.subject.Subject" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The thing being analysed, and the way (visitor) to analyse it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>angr.Block</strong><strong>, </strong><strong>Function</strong><strong>, </strong><strong>CFGSliceToSink</strong><strong>] </strong><strong>content</strong> (<em>Union</em><em>[</em><em>ailment.Block</em><em>,</em>) – Thing to be analysed.</p></li>
-<li><p><strong>cfg</strong> (<a class="reference internal" href="#angr.knowledge_plugins.cfg.cfg_model.CFGModel" title="angr.knowledge_plugins.cfg.cfg_model.CFGModel"><em>angr.knowledge_plugins.cfg.cfg_model.CFGModel</em></a>) – CFG of the program the thing was found in. Only used when analysing a slice.</p></li>
+<li><p><strong>angr.Block</strong><strong>, </strong><strong>Function</strong><strong>] </strong><strong>content</strong> (<em>Union</em><em>[</em><em>ailment.Block</em><em>,</em>) – Thing to be analysed.</p></li>
 <li><p><strong>func_graph</strong> (<em>networkx.DiGraph</em>) – Alternative graph for function.graph.</p></li>
 <li><p><strong>cc</strong> (<a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><em>SimCC</em></a>) – Calling convention of the function.</p></li>
 </ul>
@@ -25277,7 +25277,7 @@ us the expected result: a function graph representing (a higher view of) the flo
 
 <dl class="class">
 <dt id="angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.variable_recovery.variable_recovery_base.</code><code class="sig-name descname">VariableRecoveryStateBase</code><span class="sig-paren">(</span><em class="sig-param">block_addr</em>, <em class="sig-param">analysis</em>, <em class="sig-param">arch</em>, <em class="sig-param">func</em>, <em class="sig-param">stack_region=None</em>, <em class="sig-param">register_region=None</em>, <em class="sig-param">typevars=None</em>, <em class="sig-param">type_constraints=None</em>, <em class="sig-param">delayed_type_constraints=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.variable_recovery.variable_recovery_base.</code><code class="sig-name descname">VariableRecoveryStateBase</code><span class="sig-paren">(</span><em class="sig-param">block_addr</em>, <em class="sig-param">analysis</em>, <em class="sig-param">arch</em>, <em class="sig-param">func</em>, <em class="sig-param">stack_region=None</em>, <em class="sig-param">register_region=None</em>, <em class="sig-param">global_region=None</em>, <em class="sig-param">typevars=None</em>, <em class="sig-param">type_constraints=None</em>, <em class="sig-param">delayed_type_constraints=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The base abstract state for variable recovery analysis.</p>
 <dl class="method">
@@ -25368,7 +25368,7 @@ us the expected result: a function graph representing (a higher view of) the flo
 
 <dl class="class">
 <dt id="angr.analyses.variable_recovery.variable_recovery_fast.VariableRecoveryFastState">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.variable_recovery.variable_recovery_fast.</code><code class="sig-name descname">VariableRecoveryFastState</code><span class="sig-paren">(</span><em class="sig-param">block_addr</em>, <em class="sig-param">analysis</em>, <em class="sig-param">arch</em>, <em class="sig-param">func</em>, <em class="sig-param">stack_region=None</em>, <em class="sig-param">register_region=None</em>, <em class="sig-param">typevars=None</em>, <em class="sig-param">type_constraints=None</em>, <em class="sig-param">delayed_type_constraints=None</em>, <em class="sig-param">processor_state=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.variable_recovery.variable_recovery_fast.VariableRecoveryFastState" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.variable_recovery.variable_recovery_fast.</code><code class="sig-name descname">VariableRecoveryFastState</code><span class="sig-paren">(</span><em class="sig-param">block_addr</em>, <em class="sig-param">analysis</em>, <em class="sig-param">arch</em>, <em class="sig-param">func</em>, <em class="sig-param">stack_region=None</em>, <em class="sig-param">register_region=None</em>, <em class="sig-param">global_region=None</em>, <em class="sig-param">typevars=None</em>, <em class="sig-param">type_constraints=None</em>, <em class="sig-param">delayed_type_constraints=None</em>, <em class="sig-param">processor_state=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.variable_recovery.variable_recovery_fast.VariableRecoveryFastState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase" title="angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase</span></code></a></p>
 <p>The abstract state of variable recovery analysis.</p>
 <dl class="field-list simple">
@@ -25522,7 +25522,7 @@ analysis to resolve the conflicts between overlapping variables.</p>
 
 <span class="target" id="module-angr.analyses.variable_recovery.engine_ail"></span><dl class="class">
 <dt id="angr.analyses.variable_recovery.engine_ail.SimEngineVRAIL">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.variable_recovery.engine_ail.</code><code class="sig-name descname">SimEngineVRAIL</code><span class="sig-paren">(</span><em class="sig-param">project</em>, <em class="sig-param">kb</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.variable_recovery.engine_ail.SimEngineVRAIL" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.variable_recovery.engine_ail.</code><code class="sig-name descname">SimEngineVRAIL</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.variable_recovery.engine_ail.SimEngineVRAIL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.engines.light.engine.SimEngineLightAILMixin" title="angr.engines.light.engine.SimEngineLightAILMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.engines.light.engine.SimEngineLightAILMixin</span></code></a>, <a class="reference internal" href="#angr.analyses.variable_recovery.engine_base.SimEngineVRBase" title="angr.analyses.variable_recovery.engine_base.SimEngineVRBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.variable_recovery.engine_base.SimEngineVRBase</span></code></a></p>
 </dd></dl>
 
@@ -25795,7 +25795,7 @@ analysis to resolve the conflicts between overlapping variables.</p>
 
 <dl class="method">
 <dt id="angr.analyses.typehoon.typevars.TypeVariables.add_type_variable">
-<code class="sig-name descname">add_type_variable</code><span class="sig-paren">(</span><em class="sig-param">var</em>, <em class="sig-param">codeloc</em>, <em class="sig-param">typevar</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.TypeVariables.add_type_variable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_type_variable</code><span class="sig-paren">(</span><em class="sig-param">var: SimVariable</em>, <em class="sig-param">codeloc</em>, <em class="sig-param">typevar: angr.analyses.typehoon.typevars.TypeVariable</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.TypeVariables.add_type_variable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -25805,7 +25805,7 @@ analysis to resolve the conflicts between overlapping variables.</p>
 
 <dl class="method">
 <dt id="angr.analyses.typehoon.typevars.TypeVariables.has_type_variable_for">
-<code class="sig-name descname">has_type_variable_for</code><span class="sig-paren">(</span><em class="sig-param">var</em>, <em class="sig-param">codeloc</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.TypeVariables.has_type_variable_for" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">has_type_variable_for</code><span class="sig-paren">(</span><em class="sig-param">var: SimVariable</em>, <em class="sig-param">codeloc</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.TypeVariables.has_type_variable_for" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -26309,7 +26309,7 @@ manner.</p>
 depth</p>
 <dl class="attribute">
 <dt id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.cgc.transmit.transmit'&gt;, &lt;class 'angr.procedures.posix.read.read'&gt;, &lt;class 'angr.procedures.cgc.receive.receive'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.posix.read.read'&gt;, &lt;class 'angr.procedures.cgc.receive.receive'&gt;, &lt;class 'angr.procedures.cgc.transmit.transmit'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -27644,6 +27644,11 @@ after the beginning of the section. We take care of that here.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="method">
+<dt id="angr.analyses.reassembler.Reassembler.remove_unnecessary_stuff_glibc">
+<code class="sig-name descname">remove_unnecessary_stuff_glibc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reassembler.Reassembler.remove_unnecessary_stuff_glibc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="angr.analyses.reassembler.Reassembler.fast_memory_load">

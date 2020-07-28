@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>archinfo — Arch Information Repository &mdash; angr 8.20.7.6 documentation</title>
+  <title>archinfo — Arch Information Repository &mdash; angr 8.20.7.27 documentation</title>
   
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                8.20.7.6
+                8.20.7.27
               </div>
             
           
@@ -1240,7 +1240,7 @@ architecture has no intrinsic endianness.</p></li>
 
 <dl class="attribute">
 <dt id="archinfo.arch_amd64.ArchAMD64.function_prologs">
-<code class="sig-name descname">function_prologs</code><em class="property"> = {b'\\x48[\\x83,\\x81]\\xec[\\x00-\\xff]', b'\\x55\\x48\\x89\\xe5'}</em><a class="headerlink" href="#archinfo.arch_amd64.ArchAMD64.function_prologs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">function_prologs</code><em class="property"> = [b'\xf3\x0f\x1e\xfa\\x55\\x48\\x89\\xe5', b'\xf3\x0f\x1e\xfa\\x48[\\x83,\\x81]\\xec[\\x00-\\xff]', b'\\x55\\x48\\x89\\xe5', b'\\x48[\\x83,\\x81]\\xec[\\x00-\\xff]']</em><a class="headerlink" href="#archinfo.arch_amd64.ArchAMD64.function_prologs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2470,7 +2470,7 @@ Uses its own fancy stack layout for this, which (UGH) varies by sub-sub-architec
 
 <dl class="attribute">
 <dt id="archinfo.arch_x86.ArchX86.function_prologs">
-<code class="sig-name descname">function_prologs</code><em class="property"> = [b'\\x8b\\xff\\x55\\x8b\\xec', b'\\x55\\x8b\\xec', b'\\x55\\x89\\xe5', b'\\x55\\x57\\x56', b'\\xb8[\\x00-\\xff]\\x00\\x00\\x00[\\x50\\x51\\x52\\x53\\x55\\x56\\x57]{0,7}\\x8b[\\x00-\\xff]{2}', b'[\\x50\\x51\\x52\\x53\\x55\\x56\\x57]{1,7}\\x83\\xec[\\x00-\\xff]{2,4}', b'[\\x50\\x51\\x52\\x53\\x55\\x56\\x57]{1,7}\\x8b[\\x00-\\xff]{2}', b'(\\x81|\\x83)\\xec']</em><a class="headerlink" href="#archinfo.arch_x86.ArchX86.function_prologs" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">function_prologs</code><em class="property"> = [b'\xf3\x0f\x1e\xfb\\x8b\\xff\\x55\\x8b\\xec', b'\xf3\x0f\x1e\xfb\\x55\\x8b\\xec', b'\xf3\x0f\x1e\xfb\\x55\\x89\\xe5', b'\xf3\x0f\x1e\xfb\\x55\\x57\\x56', b'\xf3\x0f\x1e\xfb\\xb8[\\x00-\\xff]\\x00\\x00\\x00[\\x50\\x51\\x52\\x53\\x55\\x56\\x57]{0,7}\\x8b[\\x00-\\xff]{2}', b'\xf3\x0f\x1e\xfb[\\x50\\x51\\x52\\x53\\x55\\x56\\x57]{1,7}\\x83\\xec[\\x00-\\xff]{2,4}', b'\xf3\x0f\x1e\xfb[\\x50\\x51\\x52\\x53\\x55\\x56\\x57]{1,7}\\x8b[\\x00-\\xff]{2}', b'\xf3\x0f\x1e\xfb(\\x81|\\x83)\\xec', b'\\x8b\\xff\\x55\\x8b\\xec', b'\\x55\\x8b\\xec', b'\\x55\\x89\\xe5', b'\\x55\\x57\\x56', b'\\xb8[\\x00-\\xff]\\x00\\x00\\x00[\\x50\\x51\\x52\\x53\\x55\\x56\\x57]{0,7}\\x8b[\\x00-\\xff]{2}', b'[\\x50\\x51\\x52\\x53\\x55\\x56\\x57]{1,7}\\x83\\xec[\\x00-\\xff]{2,4}', b'[\\x50\\x51\\x52\\x53\\x55\\x56\\x57]{1,7}\\x8b[\\x00-\\xff]{2}', b'(\\x81|\\x83)\\xec']</em><a class="headerlink" href="#archinfo.arch_x86.ArchX86.function_prologs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
