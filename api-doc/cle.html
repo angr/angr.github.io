@@ -3825,6 +3825,27 @@ object it came from.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc">
+<em class="property">class </em><code class="sig-prename descclassname">cle.backends.elf.relocation.generic.</code><code class="sig-name descname">GenericTLSDescriptorReloc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">owner</span></em>, <em class="sig-param"><span class="n">symbol</span></em>, <em class="sig-param"><span class="n">relative_addr</span></em>, <em class="sig-param"><span class="n">addend</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.elfreloc.ELFReloc" title="cle.backends.elf.relocation.elfreloc.ELFReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.elf.relocation.elfreloc.ELFReloc</span></code></a></p>
+<dl class="py attribute">
+<dt id="cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc.RESOLVER_ADDR">
+<code class="sig-name descname">RESOLVER_ADDR</code><em class="property"> = NotImplemented</em><a class="headerlink" href="#cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc.RESOLVER_ADDR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc.AUTO_HANDLE_NONE">
+<code class="sig-name descname">AUTO_HANDLE_NONE</code><em class="property"> = True</em><a class="headerlink" href="#cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc.AUTO_HANDLE_NONE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc.relocate">
+<code class="sig-name descname">relocate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc.relocate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="cle.backends.elf.relocation.generic.GenericTLSModIdReloc">
 <em class="property">class </em><code class="sig-prename descclassname">cle.backends.elf.relocation.generic.</code><code class="sig-name descname">GenericTLSModIdReloc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">owner</span></em>, <em class="sig-param"><span class="n">symbol</span></em>, <em class="sig-param"><span class="n">relative_addr</span></em>, <em class="sig-param"><span class="n">addend</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.generic.GenericTLSModIdReloc" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.elfreloc.ELFReloc" title="cle.backends.elf.relocation.elfreloc.ELFReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.elf.relocation.elfreloc.ELFReloc</span></code></a></p>
@@ -5034,6 +5055,17 @@ for whether or not the target is Thumb.</p>
 <dt id="cle.backends.elf.relocation.arm64.R_AARCH64_TLS_TPREL">
 <em class="property">class </em><code class="sig-prename descclassname">cle.backends.elf.relocation.arm64.</code><code class="sig-name descname">R_AARCH64_TLS_TPREL</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">owner</span></em>, <em class="sig-param"><span class="n">symbol</span></em>, <em class="sig-param"><span class="n">relative_addr</span></em>, <em class="sig-param"><span class="n">addend</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.arm64.R_AARCH64_TLS_TPREL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.generic.GenericTLSOffsetReloc" title="cle.backends.elf.relocation.generic.GenericTLSOffsetReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.elf.relocation.generic.GenericTLSOffsetReloc</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="cle.backends.elf.relocation.arm64.R_AARCH64_TLSDESC">
+<em class="property">class </em><code class="sig-prename descclassname">cle.backends.elf.relocation.arm64.</code><code class="sig-name descname">R_AARCH64_TLSDESC</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">owner</span></em>, <em class="sig-param"><span class="n">symbol</span></em>, <em class="sig-param"><span class="n">relative_addr</span></em>, <em class="sig-param"><span class="n">addend</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.arm64.R_AARCH64_TLSDESC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc" title="cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.elf.relocation.generic.GenericTLSDescriptorReloc</span></code></a></p>
+<dl class="py attribute">
+<dt id="cle.backends.elf.relocation.arm64.R_AARCH64_TLSDESC.RESOLVER_ADDR">
+<code class="sig-name descname">RESOLVER_ADDR</code><em class="property"> = 18446744073709551104</em><a class="headerlink" href="#cle.backends.elf.relocation.arm64.R_AARCH64_TLSDESC.RESOLVER_ADDR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
