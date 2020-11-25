@@ -4390,6 +4390,146 @@ meaningful things to the state.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="angr.state_plugins.unicorn_engine.TaintEntityEnum">
+<em class="property">class </em><code class="sig-prename descclassname">angr.state_plugins.unicorn_engine.</code><code class="sig-name descname">TaintEntityEnum</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.TaintEntityEnum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.TaintEntityEnum.TAINT_ENTITY_REG">
+<code class="sig-name descname">TAINT_ENTITY_REG</code><em class="property"> = 0</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.TaintEntityEnum.TAINT_ENTITY_REG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.TaintEntityEnum.TAINT_ENTITY_TMP">
+<code class="sig-name descname">TAINT_ENTITY_TMP</code><em class="property"> = 1</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.TaintEntityEnum.TAINT_ENTITY_TMP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.TaintEntityEnum.TAINT_ENTITY_MEM">
+<code class="sig-name descname">TAINT_ENTITY_MEM</code><em class="property"> = 2</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.TaintEntityEnum.TAINT_ENTITY_MEM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.TaintEntityEnum.TAINT_ENTITY_NONE">
+<code class="sig-name descname">TAINT_ENTITY_NONE</code><em class="property"> = 3</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.TaintEntityEnum.TAINT_ENTITY_NONE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="angr.state_plugins.unicorn_engine.MemoryValue">
+<em class="property">class </em><code class="sig-prename descclassname">angr.state_plugins.unicorn_engine.</code><code class="sig-name descname">MemoryValue</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.MemoryValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_ctypes.Structure</span></code></p>
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.MemoryValue.address">
+<code class="sig-name descname">address</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.MemoryValue.address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.MemoryValue.size">
+<code class="sig-name descname">size</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.MemoryValue.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.MemoryValue.value">
+<code class="sig-name descname">value</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.MemoryValue.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="angr.state_plugins.unicorn_engine.RegisterValue">
+<em class="property">class </em><code class="sig-prename descclassname">angr.state_plugins.unicorn_engine.</code><code class="sig-name descname">RegisterValue</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.RegisterValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_ctypes.Structure</span></code></p>
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.RegisterValue.offset">
+<code class="sig-name descname">offset</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.RegisterValue.offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.RegisterValue.value">
+<code class="sig-name descname">value</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.RegisterValue.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="angr.state_plugins.unicorn_engine.InstrDetails">
+<em class="property">class </em><code class="sig-prename descclassname">angr.state_plugins.unicorn_engine.</code><code class="sig-name descname">InstrDetails</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.InstrDetails" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_ctypes.Structure</span></code></p>
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.InstrDetails.has_memory_dep">
+<code class="sig-name descname">has_memory_dep</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.InstrDetails.has_memory_dep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.InstrDetails.instr_addr">
+<code class="sig-name descname">instr_addr</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.InstrDetails.instr_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.InstrDetails.memory_values">
+<code class="sig-name descname">memory_values</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.InstrDetails.memory_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.InstrDetails.memory_values_count">
+<code class="sig-name descname">memory_values_count</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.InstrDetails.memory_values_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="angr.state_plugins.unicorn_engine.BlockDetails">
+<em class="property">class </em><code class="sig-prename descclassname">angr.state_plugins.unicorn_engine.</code><code class="sig-name descname">BlockDetails</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.BlockDetails" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_ctypes.Structure</span></code></p>
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.BlockDetails.block_addr">
+<code class="sig-name descname">block_addr</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.BlockDetails.block_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.BlockDetails.block_size">
+<code class="sig-name descname">block_size</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.BlockDetails.block_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.BlockDetails.register_values">
+<code class="sig-name descname">register_values</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.BlockDetails.register_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.BlockDetails.register_values_count">
+<code class="sig-name descname">register_values_count</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.BlockDetails.register_values_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.BlockDetails.symbolic_instrs">
+<code class="sig-name descname">symbolic_instrs</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.BlockDetails.symbolic_instrs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.BlockDetails.symbolic_instrs_count">
+<code class="sig-name descname">symbolic_instrs_count</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.BlockDetails.symbolic_instrs_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="angr.state_plugins.unicorn_engine.STOP">
 <em class="property">class </em><code class="sig-prename descclassname">angr.state_plugins.unicorn_engine.</code><code class="sig-name descname">STOP</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -4404,64 +4544,188 @@ meaningful things to the state.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_MEM">
-<code class="sig-name descname">STOP_SYMBOLIC_MEM</code><em class="property"> = 2</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_MEM" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_REG">
-<code class="sig-name descname">STOP_SYMBOLIC_REG</code><em class="property"> = 3</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_REG" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt id="angr.state_plugins.unicorn_engine.STOP.STOP_ERROR">
-<code class="sig-name descname">STOP_ERROR</code><em class="property"> = 4</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_ERROR" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">STOP_ERROR</code><em class="property"> = 2</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_ERROR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="angr.state_plugins.unicorn_engine.STOP.STOP_SYSCALL">
-<code class="sig-name descname">STOP_SYSCALL</code><em class="property"> = 5</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SYSCALL" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">STOP_SYSCALL</code><em class="property"> = 3</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SYSCALL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="angr.state_plugins.unicorn_engine.STOP.STOP_EXECNONE">
-<code class="sig-name descname">STOP_EXECNONE</code><em class="property"> = 6</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_EXECNONE" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">STOP_EXECNONE</code><em class="property"> = 4</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_EXECNONE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="angr.state_plugins.unicorn_engine.STOP.STOP_ZEROPAGE">
-<code class="sig-name descname">STOP_ZEROPAGE</code><em class="property"> = 7</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_ZEROPAGE" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">STOP_ZEROPAGE</code><em class="property"> = 5</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_ZEROPAGE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="angr.state_plugins.unicorn_engine.STOP.STOP_NOSTART">
-<code class="sig-name descname">STOP_NOSTART</code><em class="property"> = 8</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_NOSTART" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">STOP_NOSTART</code><em class="property"> = 6</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_NOSTART" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="angr.state_plugins.unicorn_engine.STOP.STOP_SEGFAULT">
-<code class="sig-name descname">STOP_SEGFAULT</code><em class="property"> = 9</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SEGFAULT" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">STOP_SEGFAULT</code><em class="property"> = 7</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SEGFAULT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="angr.state_plugins.unicorn_engine.STOP.STOP_ZERO_DIV">
-<code class="sig-name descname">STOP_ZERO_DIV</code><em class="property"> = 10</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_ZERO_DIV" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">STOP_ZERO_DIV</code><em class="property"> = 8</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_ZERO_DIV" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="angr.state_plugins.unicorn_engine.STOP.STOP_NODECODE">
-<code class="sig-name descname">STOP_NODECODE</code><em class="property"> = 11</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_NODECODE" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">STOP_NODECODE</code><em class="property"> = 9</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_NODECODE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="angr.state_plugins.unicorn_engine.STOP.STOP_HLT">
-<code class="sig-name descname">STOP_HLT</code><em class="property"> = 12</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_HLT" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">STOP_HLT</code><em class="property"> = 10</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_HLT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_VEX_LIFT_FAILED">
+<code class="sig-name descname">STOP_VEX_LIFT_FAILED</code><em class="property"> = 11</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_VEX_LIFT_FAILED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_CONDITION">
+<code class="sig-name descname">STOP_SYMBOLIC_CONDITION</code><em class="property"> = 12</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_CONDITION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_PC">
+<code class="sig-name descname">STOP_SYMBOLIC_PC</code><em class="property"> = 13</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_PC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_READ_ADDR">
+<code class="sig-name descname">STOP_SYMBOLIC_READ_ADDR</code><em class="property"> = 14</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_READ_ADDR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_READ_SYMBOLIC_TRACKING_DISABLED">
+<code class="sig-name descname">STOP_SYMBOLIC_READ_SYMBOLIC_TRACKING_DISABLED</code><em class="property"> = 15</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_READ_SYMBOLIC_TRACKING_DISABLED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_WRITE_ADDR">
+<code class="sig-name descname">STOP_SYMBOLIC_WRITE_ADDR</code><em class="property"> = 16</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_WRITE_ADDR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_BLOCK_EXIT_CONDITION">
+<code class="sig-name descname">STOP_SYMBOLIC_BLOCK_EXIT_CONDITION</code><em class="property"> = 17</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_BLOCK_EXIT_CONDITION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_BLOCK_EXIT_TARGET">
+<code class="sig-name descname">STOP_SYMBOLIC_BLOCK_EXIT_TARGET</code><em class="property"> = 18</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SYMBOLIC_BLOCK_EXIT_TARGET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_PUTI">
+<code class="sig-name descname">STOP_UNSUPPORTED_STMT_PUTI</code><em class="property"> = 19</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_PUTI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_STOREG">
+<code class="sig-name descname">STOP_UNSUPPORTED_STMT_STOREG</code><em class="property"> = 20</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_STOREG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_LOADG">
+<code class="sig-name descname">STOP_UNSUPPORTED_STMT_LOADG</code><em class="property"> = 21</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_LOADG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_CAS">
+<code class="sig-name descname">STOP_UNSUPPORTED_STMT_CAS</code><em class="property"> = 22</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_CAS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_LLSC">
+<code class="sig-name descname">STOP_UNSUPPORTED_STMT_LLSC</code><em class="property"> = 23</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_LLSC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_DIRTY">
+<code class="sig-name descname">STOP_UNSUPPORTED_STMT_DIRTY</code><em class="property"> = 24</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_DIRTY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_EXPR_GETI">
+<code class="sig-name descname">STOP_UNSUPPORTED_EXPR_GETI</code><em class="property"> = 25</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_EXPR_GETI" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_UNKNOWN">
+<code class="sig-name descname">STOP_UNSUPPORTED_STMT_UNKNOWN</code><em class="property"> = 26</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_STMT_UNKNOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_EXPR_UNKNOWN">
+<code class="sig-name descname">STOP_UNSUPPORTED_EXPR_UNKNOWN</code><em class="property"> = 27</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_UNSUPPORTED_EXPR_UNKNOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_UNKNOWN_MEMORY_WRITE">
+<code class="sig-name descname">STOP_UNKNOWN_MEMORY_WRITE</code><em class="property"> = 28</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_UNKNOWN_MEMORY_WRITE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.stop_message">
+<code class="sig-name descname">stop_message</code><em class="property"> = {0: 'Reached maximum steps', 1: 'Hit a stop point', 2: 'Something wrong', 3: 'Unable to handle syscall', 4: 'Fetching empty page', 5: 'Accessing zero page', 6: 'Failed to start', 7: 'Permissions or mapping error', 8: 'Divide by zero', 9: 'Instruction decoding error', 10: 'hlt instruction encountered', 11: 'Failed to lift block to VEX', 12: 'Symbolic condition for ITE', 13: 'Instruction pointer became symbolic', 14: 'Attempted to read from symbolic address', 15: 'Attempted to read symbolic data from memory but symbolic tracking is disabled', 16: 'Attempted to write to symbolic address', 17: &quot;Guard condition of block's exit statement is symbolic&quot;, 18: 'Target of default exit of block is symbolic', 19: 'Symbolic taint propagation for PutI statement not yet supported', 20: 'Symbolic taint propagation for StoreG statement not yet supported', 21: 'Symbolic taint propagation for LoadG statement not yet supported', 22: 'Symbolic taint propagation for CAS statement not yet supported', 23: 'Symbolic taint propagation for LLSC statement not yet supported', 24: 'Symbolic taint propagation for Dirty statement not yet supported', 25: 'Symbolic taint propagation for GetI expression not yet supported', 26: 'Canoo propagate symbolic taint for unsupported VEX statement type', 27: 'Cannot propagate symbolic taint for unsupported VEX expression', 28: 'Cannot find a memory write at instruction; likely because unicorn reported PC value incorrectly'}</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.stop_message" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.symbolic_stop_reasons">
+<code class="sig-name descname">symbolic_stop_reasons</code><em class="property"> = [12, 13, 14, 15, 16, 17, 18]</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.symbolic_stop_reasons" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.unsupported_reasons">
+<code class="sig-name descname">unsupported_reasons</code><em class="property"> = [19, 20, 21, 22, 23, 24, 26, 27, 11]</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.unsupported_reasons" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="angr.state_plugins.unicorn_engine.STOP.name_stop">
 <em class="property">static </em><code class="sig-name descname">name_stop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.name_stop" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.state_plugins.unicorn_engine.STOP.get_stop_msg">
+<em class="property">static </em><code class="sig-name descname">get_stop_msg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stop_reason</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.get_stop_msg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="angr.state_plugins.unicorn_engine.StopDetails">
+<em class="property">class </em><code class="sig-prename descclassname">angr.state_plugins.unicorn_engine.</code><code class="sig-name descname">StopDetails</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.StopDetails" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_ctypes.Structure</span></code></p>
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.StopDetails.block_addr">
+<code class="sig-name descname">block_addr</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.StopDetails.block_addr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.StopDetails.block_size">
+<code class="sig-name descname">block_size</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.StopDetails.block_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.StopDetails.stop_reason">
+<code class="sig-name descname">stop_reason</code><a class="headerlink" href="#angr.state_plugins.unicorn_engine.StopDetails.stop_reason" title="Permalink to this definition">¶</a></dt>
+<dd><p>Structure/Union member</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -4549,7 +4813,7 @@ meaningful things to the state.</p>
 
 <dl class="py class">
 <dt id="angr.state_plugins.unicorn_engine.Unicorn">
-<em class="property">class </em><code class="sig-prename descclassname">angr.state_plugins.unicorn_engine.</code><code class="sig-name descname">Unicorn</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">syscall_hooks</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cache_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">unicount</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">symbolic_var_counts</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">symbolic_inst_counts</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">concretized_asts</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">always_concretize</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">never_concretize</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">concretize_at</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">concretization_threshold_memory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">concretization_threshold_registers</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">concretization_threshold_instruction</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cooldown_symbolic_registers</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">cooldown_symbolic_memory</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">cooldown_nonunicorn_blocks</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">cooldown_stop_point</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">max_steps</span><span class="o">=</span><span class="default_value">1000000</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.unicorn_engine.Unicorn" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.state_plugins.unicorn_engine.</code><code class="sig-name descname">Unicorn</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">syscall_hooks</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cache_key</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">unicount</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">symbolic_var_counts</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">symbolic_inst_counts</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">concretized_asts</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">always_concretize</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">never_concretize</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">concretize_at</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">concretization_threshold_memory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">concretization_threshold_registers</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">concretization_threshold_instruction</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cooldown_symbolic_stop</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">cooldown_unsupported_stop</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">cooldown_nonunicorn_blocks</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">cooldown_stop_point</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">max_steps</span><span class="o">=</span><span class="default_value">1000000</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.unicorn_engine.Unicorn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.state_plugins.plugin.SimStatePlugin" title="angr.state_plugins.plugin.SimStatePlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.state_plugins.plugin.SimStatePlugin</span></code></a></p>
 <p>setup the unicorn engine for a state</p>
 <p>Initializes the Unicorn plugin for angr. This plugin handles communication with
@@ -4653,11 +4917,6 @@ UnicornEngine.</p>
 <dl class="py method">
 <dt id="angr.state_plugins.unicorn_engine.Unicorn.write_msr">
 <code class="sig-name descname">write_msr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">val</span></em>, <em class="sig-param"><span class="n">msr</span><span class="o">=</span><span class="default_value">3221225728</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.unicorn_engine.Unicorn.write_msr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="angr.state_plugins.unicorn_engine.Unicorn.reg_blacklist">
-<code class="sig-name descname">reg_blacklist</code><em class="property"> = ('cs', 'ds', 'es', 'fs', 'gs', 'ss', 'mm0', 'mm1', 'mm2', 'mm3', 'mm4', 'mm5', 'mm6', 'mm7')</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.Unicorn.reg_blacklist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -9409,7 +9668,7 @@ interesting.</p></li>
 
 <dl class="py class">
 <dt id="angr.exploration_techniques.tracer.Tracer">
-<em class="property">class </em><code class="sig-prename descclassname">angr.exploration_techniques.tracer.</code><code class="sig-name descname">Tracer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trace</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resiliency</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">keep_predecessors</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">crash_addr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">copy_states</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'strict'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.tracer.Tracer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.exploration_techniques.tracer.</code><code class="sig-name descname">Tracer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trace</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resiliency</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">keep_predecessors</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">crash_addr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">copy_states</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">'strict'</span></em>, <em class="sig-param"><span class="n">aslr</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.tracer.Tracer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.ExplorationTechnique" title="angr.exploration_techniques.ExplorationTechnique"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.exploration_techniques.ExplorationTechnique</span></code></a></p>
 <p>An exploration technique that follows an angr path with a concrete input.
 The tracing result is the state at the last address of the trace, which can be found in the
@@ -9432,6 +9691,8 @@ the missed states. It will be re-added for the last 2% of the trace
 in order to set the predecessors list correctly. If you turn this
 on you may want to enable the LAZY_SOLVES option.</p></li>
 <li><p><strong>mode</strong> – Tracing mode.</p></li>
+<li><p><strong>aslr</strong> – Whether there are aslr slides. if not, tracer uses trace address
+as state address.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables</dt>
@@ -17151,7 +17412,7 @@ locations:
 
 <span class="target" id="module-angr.knowledge_plugins.key_definitions.live_definitions"></span><dl class="py class">
 <dt id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions">
-<em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.key_definitions.live_definitions.</code><code class="sig-name descname">LiveDefinitions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">track_tmps</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.key_definitions.live_definitions.</code><code class="sig-name descname">LiveDefinitions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">track_tmps</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">canonical_size</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A LiveDefinitions instance contains definitions and uses for register, stack, memory, and temporary variables,
 uncovered during the analysis.</p>
@@ -17854,7 +18115,7 @@ name (for SimProcedures).</p>
 
 <dl class="py attribute">
 <dt id="angr.keyed_region.StoredObject.size">
-<code class="sig-name descname">size</code><a class="headerlink" href="#angr.keyed_region.StoredObject.size" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">size</code><em class="property">: Union[‘UnknownSize’, int]</em><a class="headerlink" href="#angr.keyed_region.StoredObject.size" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -17928,7 +18189,7 @@ name (for SimProcedures).</p>
 
 <dl class="py class">
 <dt id="angr.keyed_region.KeyedRegion">
-<em class="property">class </em><code class="sig-prename descclassname">angr.keyed_region.</code><code class="sig-name descname">KeyedRegion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tree</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">phi_node_contains</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.keyed_region.KeyedRegion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.keyed_region.</code><code class="sig-name descname">KeyedRegion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tree</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">phi_node_contains</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">canonical_size</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.keyed_region.KeyedRegion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>KeyedRegion keeps a mapping between stack offsets and all objects covering that offset. It assumes no variable in
 this region overlap with another variable in this region.</p>
@@ -24745,7 +25006,7 @@ a basic block (self.target).</p>
 
 <span class="target" id="module-angr.analyses.reaching_definitions.reaching_definitions"></span><dl class="py class">
 <dt id="angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.reaching_definitions.</code><code class="sig-name descname">ReachingDefinitionsAnalysis</code><span class="sig-paren">(</span><em class="sig-param">subject: [&lt;class 'angr.analyses.reaching_definitions.subject.Subject'&gt;</em>, <em class="sig-param">&lt;class 'ailment.block.Block'&gt;</em>, <em class="sig-param">&lt;class 'angr.block.Block'&gt;</em>, <em class="sig-param">&lt;class 'angr.knowledge_plugins.functions.function.Function'&gt;] = None</em>, <em class="sig-param">func_graph=None</em>, <em class="sig-param">max_iterations=3</em>, <em class="sig-param">track_tmps=False</em>, <em class="sig-param">observation_points=None</em>, <em class="sig-param">init_state: angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState = None</em>, <em class="sig-param">cc=None</em>, <em class="sig-param">function_handler=None</em>, <em class="sig-param">call_stack: Optional[List[int]] = None</em>, <em class="sig-param">maximum_local_call_depth=5</em>, <em class="sig-param">observe_all=False</em>, <em class="sig-param">visited_blocks=None</em>, <em class="sig-param">dep_graph: Optional[DepGraph] = None</em>, <em class="sig-param">observe_callback=None</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.reaching_definitions.</code><code class="sig-name descname">ReachingDefinitionsAnalysis</code><span class="sig-paren">(</span><em class="sig-param">subject: [&lt;class 'angr.analyses.reaching_definitions.subject.Subject'&gt;</em>, <em class="sig-param">&lt;class 'ailment.block.Block'&gt;</em>, <em class="sig-param">&lt;class 'angr.block.Block'&gt;</em>, <em class="sig-param">&lt;class 'angr.knowledge_plugins.functions.function.Function'&gt;] = None</em>, <em class="sig-param">func_graph=None</em>, <em class="sig-param">max_iterations=3</em>, <em class="sig-param">track_tmps=False</em>, <em class="sig-param">observation_points=None</em>, <em class="sig-param">init_state: angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState = None</em>, <em class="sig-param">cc=None</em>, <em class="sig-param">function_handler=None</em>, <em class="sig-param">call_stack: Optional[List[int]] = None</em>, <em class="sig-param">maximum_local_call_depth=5</em>, <em class="sig-param">observe_all=False</em>, <em class="sig-param">visited_blocks=None</em>, <em class="sig-param">dep_graph: Optional[DepGraph] = None</em>, <em class="sig-param">observe_callback=None</em>, <em class="sig-param">canonical_size=8</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a></p>
 <p>ReachingDefinitionsAnalysis is a text-book implementation of a static data-flow analysis that works on either a
 function or a block. It supports both VEX and AIL. By registering observers to observation points, users may use
@@ -24786,6 +25047,8 @@ empty.</p></li>
 <li><p><strong>visited_blocks</strong> – A set of previously visited blocks.</p></li>
 <li><p><strong>dep_graph</strong> – An initial dependency graph to add the result of the analysis to. Set it
 to None to skip dependency graph generation.</p></li>
+<li><p><strong>canonical_size</strong> – The sizes (in bytes) that objects with an UNKNOWN_SIZE are treated as
+for operations where sizes are necessary.</p></li>
 </ul>
 </dd>
 </dl>
@@ -25015,7 +25278,7 @@ A &lt;ReachingDefinitionsAnalysis&gt; would “hook” into a handler by calling
 
 <span class="target" id="module-angr.analyses.reaching_definitions.rd_state"></span><dl class="py class">
 <dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.rd_state.</code><code class="sig-name descname">ReachingDefinitionsState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">subject</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#angr.analyses.reaching_definitions.subject.Subject" title="angr.analyses.reaching_definitions.subject.Subject">angr.analyses.reaching_definitions.subject.Subject</a></span></em>, <em class="sig-param"><span class="n">track_tmps</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">analysis</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>ReachingDefinitionsAnalysis<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtoc_value</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">live_definitions</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.rd_state.</code><code class="sig-name descname">ReachingDefinitionsState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">subject</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#angr.analyses.reaching_definitions.subject.Subject" title="angr.analyses.reaching_definitions.subject.Subject">angr.analyses.reaching_definitions.subject.Subject</a></span></em>, <em class="sig-param"><span class="n">track_tmps</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">analysis</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>ReachingDefinitionsAnalysis<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtoc_value</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">live_definitions</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">canonical_size</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Represents the internal state of the ReachingDefinitionsAnalysis.</p>
 <p>It contains a data class LiveDefinitions, which stores both definitions and uses for register, stack, memory, and
@@ -26746,7 +27009,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.cgc.receive.receive'&gt;, &lt;class 'angr.procedures.cgc.transmit.transmit'&gt;, &lt;class 'angr.procedures.posix.read.read'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.cgc.transmit.transmit'&gt;, &lt;class 'angr.procedures.cgc.receive.receive'&gt;, &lt;class 'angr.procedures.posix.read.read'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
