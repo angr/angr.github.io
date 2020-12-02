@@ -168,7 +168,7 @@ Thankfully, we won&rsquo;t need to delve into that in this series, as SMT-solvin
 <p>If we just view the engine&rsquo;s work on a program from the states it provides, we&rsquo;re going to have a lot of work to do to get anything useful out.
 Where is stdin? What the heck do I do with files? Network? Are you kidding?
 These higher-level abstractions are provided by the OS, and don&rsquo;t exist at the bare machine level.
-Therefore, SimOS&rsquo; job is to provide all of that to angr, so that it can be reasoned about without all the pain of interpreting just what the fake hardware would do.
+Therefore, SimOS' job is to provide all of that to angr, so that it can be reasoned about without all the pain of interpreting just what the fake hardware would do.
 Based on a guess from CLE, a SimOS is created (ex. SimLinux), which defines the OS-specific embellishments on the initial state of the program, all its system calls, and convenient symbolic summaries of what syscalls and common library functions do, known as <em>SimProcedures</em>.
 These make angr dramatically faster and more compatible, as symbolically executing libc itself is, to say the least, insanely painful.</p>
 <h1 id="angr-the-real-deal">angr, the real deal</h1>

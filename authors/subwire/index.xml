@@ -17,6 +17,7 @@
       
       <guid>https://angr.github.io/blog/angr_symbion/</guid>
       <description>&lt;p&gt;Today we are going to talk about an exciting new feature that we have recently released on &lt;a href=&#34;https://github.com/angr/angr/commit/fe20116e8dc2aef94d0849439ff9f12a39000dfe&#34;&gt;angr&amp;rsquo;s master&lt;/a&gt;: Symbion, a brand new exploration technique aimed to overcome some of the complexities that real-world programs exhibit and that can&amp;rsquo;t or are not currently modeled in our symbolic engine.&lt;/p&gt;
+&lt;p&gt;Before moving on the interesting details remember: if you use Symbion in your research please cite the &lt;a href=&#34;https://ieeexplore.ieee.org/abstract/document/9162164&#34;&gt;paper&lt;/a&gt;! :D&lt;/p&gt;
 &lt;h1 id=&#34;motivation&#34;&gt;Motivation&lt;/h1&gt;
 &lt;p&gt;When we leverage a symbolic execution tool such as angr to analyze a program, we depend on a model of the operating system and libraries to make the analysis tractable ( in fact trying to symbolically execute everything would lead immediately to a state explosion).
 However, there are a lot of libraries and system calls out there, and we cannot hope to model them all.  In the case that a program requires an unmodeled procedure, we generally either lose precision, encounter state explosion or spend a lot of time developing a &lt;em&gt;SimProcedure&lt;/em&gt;. For real-world programs, this can become a huge barrier to a useful analysis.&lt;/p&gt;
@@ -301,7 +302,6 @@ programs. We are excited to release this to the community, to see how you all wi
 push the boundaries of program analysis even further.&lt;/p&gt;
 &lt;p&gt;Stay tuned for more example and updates about the project!&lt;/p&gt;
 &lt;h1 id=&#34;citations&#34;&gt;Citations&lt;/h1&gt;
-&lt;p&gt;If you use Symbion in your research please cite the following paper describing it:&lt;/p&gt;
 &lt;p&gt;@inproceedings{gritti2020symbion,
 author = {Gritti, Fabio and Fontana, Lorenzo and Gustafson, Eric and Pagani, Fabio and Continella, Andrea and Kruegel, Christopher and Vigna, Giovanni},
 booktitle = {Proceedings of the IEEE Conference on Communications and Network Security (CNS)},
@@ -627,7 +627,7 @@ Thankfully, we won&amp;rsquo;t need to delve into that in this series, as SMT-so
 &lt;p&gt;If we just view the engine&amp;rsquo;s work on a program from the states it provides, we&amp;rsquo;re going to have a lot of work to do to get anything useful out.
 Where is stdin? What the heck do I do with files? Network? Are you kidding?
 These higher-level abstractions are provided by the OS, and don&amp;rsquo;t exist at the bare machine level.
-Therefore, SimOS&amp;rsquo; job is to provide all of that to angr, so that it can be reasoned about without all the pain of interpreting just what the fake hardware would do.
+Therefore, SimOS&#39; job is to provide all of that to angr, so that it can be reasoned about without all the pain of interpreting just what the fake hardware would do.
 Based on a guess from CLE, a SimOS is created (ex. SimLinux), which defines the OS-specific embellishments on the initial state of the program, all its system calls, and convenient symbolic summaries of what syscalls and common library functions do, known as &lt;em&gt;SimProcedures&lt;/em&gt;.
 These make angr dramatically faster and more compatible, as symbolically executing libc itself is, to say the least, insanely painful.&lt;/p&gt;
 &lt;h1 id=&#34;angr-the-real-deal&#34;&gt;angr, the real deal&lt;/h1&gt;

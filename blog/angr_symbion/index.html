@@ -99,6 +99,7 @@
 
 <section class="post-content">
 <p>Today we are going to talk about an exciting new feature that we have recently released on <a href="https://github.com/angr/angr/commit/fe20116e8dc2aef94d0849439ff9f12a39000dfe">angr&rsquo;s master</a>: Symbion, a brand new exploration technique aimed to overcome some of the complexities that real-world programs exhibit and that can&rsquo;t or are not currently modeled in our symbolic engine.</p>
+<p>Before moving on the interesting details remember: if you use Symbion in your research please cite the <a href="https://ieeexplore.ieee.org/abstract/document/9162164">paper</a>! :D</p>
 <h1 id="motivation">Motivation</h1>
 <p>When we leverage a symbolic execution tool such as angr to analyze a program, we depend on a model of the operating system and libraries to make the analysis tractable ( in fact trying to symbolically execute everything would lead immediately to a state explosion).
 However, there are a lot of libraries and system calls out there, and we cannot hope to model them all.  In the case that a program requires an unmodeled procedure, we generally either lose precision, encounter state explosion or spend a lot of time developing a <em>SimProcedure</em>. For real-world programs, this can become a huge barrier to a useful analysis.</p>
@@ -383,7 +384,6 @@ programs. We are excited to release this to the community, to see how you all wi
 push the boundaries of program analysis even further.</p>
 <p>Stay tuned for more example and updates about the project!</p>
 <h1 id="citations">Citations</h1>
-<p>If you use Symbion in your research please cite the following paper describing it:</p>
 <p>@inproceedings{gritti2020symbion,
 author = {Gritti, Fabio and Fontana, Lorenzo and Gustafson, Eric and Pagani, Fabio and Continella, Andrea and Kruegel, Christopher and Vigna, Giovanni},
 booktitle = {Proceedings of the IEEE Conference on Communications and Network Security (CNS)},
