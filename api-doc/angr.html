@@ -17305,10 +17305,23 @@ convention.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="angr.knowledge_plugins.key_definitions.dataset.size_of_datasets">
+<code class="sig-prename descclassname">angr.knowledge_plugins.key_definitions.dataset.</code><code class="sig-name descname">size_of_datasets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">datasets</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#angr.knowledge_plugins.key_definitions.dataset.DataSet" title="angr.knowledge_plugins.key_definitions.dataset.DataSet">angr.knowledge_plugins.key_definitions.dataset.DataSet</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#angr.knowledge_plugins.key_definitions.dataset.DataSet" title="angr.knowledge_plugins.key_definitions.dataset.DataSet">angr.knowledge_plugins.key_definitions.dataset.DataSet</a><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.dataset.size_of_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the size of all datasets are equal, then the result will be of that size; Otherwise, it will be of size UNKNOWN_SIZE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>datasets</strong> – The datasets to get the size from.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The common size of the given datasets.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="angr.knowledge_plugins.key_definitions.dataset.dataset_from_datasets">
 <code class="sig-prename descclassname">angr.knowledge_plugins.key_definitions.dataset.</code><code class="sig-name descname">dataset_from_datasets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">datasets</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#angr.knowledge_plugins.key_definitions.dataset.DataSet" title="angr.knowledge_plugins.key_definitions.dataset.DataSet">angr.knowledge_plugins.key_definitions.dataset.DataSet</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#angr.knowledge_plugins.key_definitions.dataset.DataSet" title="angr.knowledge_plugins.key_definitions.dataset.DataSet">angr.knowledge_plugins.key_definitions.dataset.DataSet</a><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.dataset.dataset_from_datasets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Instantiate a &lt;DataSet&gt; by “merging” several &lt;DataSet&gt;s.
-If the size of all datasets are equal, then the result will be of that size; Otherwise, it will be of size UNKNOWN_SIZE.</p>
+<dd><p>Instantiate a &lt;DataSet&gt; by “merging” several &lt;DataSet&gt;s.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>datasets</strong> – The datasets to merge into one.</p>
@@ -17369,6 +17382,18 @@ definitions marked as dummy will not be removed.</p></li>
 <dl class="py method">
 <dt id="angr.knowledge_plugins.key_definitions.definition.Definition.size">
 <em class="property">property </em><code class="sig-name descname">size</code><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.definition.Definition.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.knowledge_plugins.key_definitions.heap_address"></span><dl class="py class">
+<dt id="angr.knowledge_plugins.key_definitions.heap_address.HeapAddress">
+<em class="property">class </em><code class="sig-prename descclassname">angr.knowledge_plugins.key_definitions.heap_address.</code><code class="sig-name descname">HeapAddress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span><a class="reference internal" href="#angr.knowledge_plugins.key_definitions.undefined.Undefined" title="angr.knowledge_plugins.key_definitions.undefined.Undefined">angr.knowledge_plugins.key_definitions.undefined.Undefined</a><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.heap_address.HeapAddress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The representation of an address on the heap.</p>
+<dl class="py method">
+<dt id="angr.knowledge_plugins.key_definitions.heap_address.HeapAddress.value">
+<em class="property">property </em><code class="sig-name descname">value</code><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.heap_address.HeapAddress.value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -17442,6 +17467,11 @@ uncovered during the analysis.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.heap_definitions">
+<code class="sig-name descname">heap_definitions</code><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.heap_definitions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.tmp_definitions">
 <code class="sig-name descname">tmp_definitions</code><em class="property">: Dict<span class="p">[</span>int<span class="p">, </span>Set<span class="p">[</span>Definition<span class="p">]</span><span class="p">]</span></em><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.tmp_definitions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -17454,6 +17484,11 @@ uncovered during the analysis.</p>
 <dl class="py attribute">
 <dt id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.stack_uses">
 <code class="sig-name descname">stack_uses</code><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.stack_uses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.heap_uses">
+<code class="sig-name descname">heap_uses</code><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.heap_uses" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -17512,7 +17547,7 @@ removed during simplification.</p>
 
 <dl class="py method">
 <dt id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.add_use">
-<code class="sig-name descname">add_use</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">atom</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#angr.knowledge_plugins.key_definitions.atoms.Atom" title="angr.knowledge_plugins.key_definitions.atoms.Atom">angr.knowledge_plugins.key_definitions.atoms.Atom</a></span></em>, <em class="sig-param"><span class="n">code_loc</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.add_use" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_use</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">atom</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#angr.knowledge_plugins.key_definitions.atoms.Atom" title="angr.knowledge_plugins.key_definitions.atoms.Atom">angr.knowledge_plugins.key_definitions.atoms.Atom</a></span></em>, <em class="sig-param"><span class="n">code_loc</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#angr.code_location.CodeLocation" title="angr.code_location.CodeLocation">angr.code_location.CodeLocation</a></span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.add_use" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -18051,7 +18086,7 @@ bounded by start and end.  Useful for finding references from a basic block or f
 
 <span class="target" id="module-angr.code_location"></span><dl class="py class">
 <dt id="angr.code_location.CodeLocation">
-<em class="property">class </em><code class="sig-prename descclassname">angr.code_location.</code><code class="sig-name descname">CodeLocation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">block_addr</span></em>, <em class="sig-param"><span class="n">stmt_idx</span></em>, <em class="sig-param"><span class="n">sim_procedure</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ins_addr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.code_location.CodeLocation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.code_location.</code><code class="sig-name descname">CodeLocation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">block_addr</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">stmt_idx</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">sim_procedure</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ins_addr</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">context</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Tuple<span class="p">[</span>int<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.code_location.CodeLocation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Stands for a specific program point by specifying basic block address and statement ID (for IRSBs), or SimProcedure
 name (for SimProcedures).</p>
@@ -18059,22 +18094,24 @@ name (for SimProcedures).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>block_addr</strong> (<em>int</em>) – Address of the block</p></li>
-<li><p><strong>stmt_idx</strong> (<em>int</em>) – Statement ID. None for SimProcedures</p></li>
+<li><p><strong>block_addr</strong> – Address of the block</p></li>
+<li><p><strong>stmt_idx</strong> – Statement ID. None for SimProcedures</p></li>
 <li><p><strong>sim_procedure</strong> (<em>class</em>) – The corresponding SimProcedure class.</p></li>
-<li><p><strong>ins_addr</strong> (<em>int</em>) – The instruction address. Optional.</p></li>
+<li><p><strong>ins_addr</strong> – The instruction address.</p></li>
+<li><p><strong>context</strong> – A tuple that represents the context of this CodeLocation in contextful mode, or
+None in contextless mode.</p></li>
 <li><p><strong>kwargs</strong> – Optional arguments, will be stored, but not used in __eq__ or __hash__.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt id="angr.code_location.CodeLocation.block_addr">
-<code class="sig-name descname">block_addr</code><a class="headerlink" href="#angr.code_location.CodeLocation.block_addr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">block_addr</code><em class="property">: int</em><a class="headerlink" href="#angr.code_location.CodeLocation.block_addr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="angr.code_location.CodeLocation.stmt_idx">
-<code class="sig-name descname">stmt_idx</code><a class="headerlink" href="#angr.code_location.CodeLocation.stmt_idx" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stmt_idx</code><em class="property">: int</em><a class="headerlink" href="#angr.code_location.CodeLocation.stmt_idx" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -18084,7 +18121,12 @@ name (for SimProcedures).</p>
 
 <dl class="py attribute">
 <dt id="angr.code_location.CodeLocation.ins_addr">
-<code class="sig-name descname">ins_addr</code><a class="headerlink" href="#angr.code_location.CodeLocation.ins_addr" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ins_addr</code><em class="property">: Optional<span class="p">[</span>int<span class="p">]</span></em><a class="headerlink" href="#angr.code_location.CodeLocation.ins_addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.code_location.CodeLocation.context">
+<code class="sig-name descname">context</code><em class="property">: Optional<span class="p">[</span>Tuple<span class="p">[</span>int<span class="p">]</span><span class="p">]</span></em><a class="headerlink" href="#angr.code_location.CodeLocation.context" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -25006,7 +25048,7 @@ a basic block (self.target).</p>
 
 <span class="target" id="module-angr.analyses.reaching_definitions.reaching_definitions"></span><dl class="py class">
 <dt id="angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.reaching_definitions.</code><code class="sig-name descname">ReachingDefinitionsAnalysis</code><span class="sig-paren">(</span><em class="sig-param">subject: [&lt;class 'angr.analyses.reaching_definitions.subject.Subject'&gt;</em>, <em class="sig-param">&lt;class 'ailment.block.Block'&gt;</em>, <em class="sig-param">&lt;class 'angr.block.Block'&gt;</em>, <em class="sig-param">&lt;class 'angr.knowledge_plugins.functions.function.Function'&gt;] = None</em>, <em class="sig-param">func_graph=None</em>, <em class="sig-param">max_iterations=3</em>, <em class="sig-param">track_tmps=False</em>, <em class="sig-param">observation_points=None</em>, <em class="sig-param">init_state: angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState = None</em>, <em class="sig-param">cc=None</em>, <em class="sig-param">function_handler=None</em>, <em class="sig-param">call_stack: Optional[List[int]] = None</em>, <em class="sig-param">maximum_local_call_depth=5</em>, <em class="sig-param">observe_all=False</em>, <em class="sig-param">visited_blocks=None</em>, <em class="sig-param">dep_graph: Optional[DepGraph] = None</em>, <em class="sig-param">observe_callback=None</em>, <em class="sig-param">canonical_size=8</em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.reaching_definitions.</code><code class="sig-name descname">ReachingDefinitionsAnalysis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">subject</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference internal" href="#angr.analyses.reaching_definitions.subject.Subject" title="angr.analyses.reaching_definitions.subject.Subject">angr.analyses.reaching_definitions.subject.Subject</a><span class="p">, </span>ailment.block.Block<span class="p">, </span><a class="reference internal" href="#angr.block.Block" title="angr.block.Block">angr.block.Block</a><span class="p">, </span><a class="reference internal" href="#angr.knowledge_plugins.functions.function.Function" title="angr.knowledge_plugins.functions.function.Function">angr.knowledge_plugins.functions.function.Function</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_graph</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">max_iterations</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">track_tmps</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">observation_points</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">init_state</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState" title="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState">angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">function_handler</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">call_stack</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span>int<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">maximum_local_call_depth</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">observe_all</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">visited_blocks</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dep_graph</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>DepGraph<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">observe_callback</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">canonical_size</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a></p>
 <p>ReachingDefinitionsAnalysis is a text-book implementation of a static data-flow analysis that works on either a
 function or a block. It supports both VEX and AIL. By registering observers to observation points, users may use
@@ -25041,7 +25083,7 @@ function calls.</p></li>
 leading to the analysed subject, from older to newer calls. Setting it
 to None to limit the analysis to a single function and disable call
 stack tracking; In that case, all contexts in CodeLocation will be
-empty.</p></li>
+None, which makes CodeLocation objects contextless.</p></li>
 <li><p><strong>maximum_local_call_depth</strong> (<em>int</em>) – Maximum local function recursion depth.</p></li>
 <li><p><strong>observe_all</strong> (<em>Boolean</em>) – Observe every statement, both before and after.</p></li>
 <li><p><strong>visited_blocks</strong> – A set of previously visited blocks.</p></li>
@@ -25228,6 +25270,59 @@ dependency graph; Adds them if necessary.</p>
 
 </dd></dl>
 
+<span class="target" id="module-angr.analyses.reaching_definitions.heap_allocator"></span><dl class="py class">
+<dt id="angr.analyses.reaching_definitions.heap_allocator.HeapAllocator">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.heap_allocator.</code><code class="sig-name descname">HeapAllocator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">canonical_size</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.heap_allocator.HeapAllocator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A simple modelisation to help represent heap memory management during a &lt;ReachingDefinitionsAnalysis&gt;:
+- Act as if allocations were always done in consecutive memory segments;
+- Take care of the size not to screw potential pointer arithmetic (avoid overlapping segments).</p>
+<p>The content of the heap itself is modeled using a &lt;KeyedRegion&gt; attribute in the &lt;LiveDefinitions&gt; state;
+This class serves to generate consistent heap addresses to be used by the aforementionned.</p>
+<p><em>Note:</em> This has <strong>NOT</strong> been made to help detect heap vulnerabilities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>canonical_size</strong> – The concrete size an &lt;UNKNOWN_SIZE&gt; defaults to.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="angr.analyses.reaching_definitions.heap_allocator.HeapAllocator.allocate">
+<code class="sig-name descname">allocate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span><a class="reference internal" href="#angr.knowledge_plugins.key_definitions.unknown_size.UnknownSize" title="angr.knowledge_plugins.key_definitions.unknown_size.UnknownSize">angr.knowledge_plugins.key_definitions.unknown_size.UnknownSize</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#angr.knowledge_plugins.key_definitions.heap_address.HeapAddress" title="angr.knowledge_plugins.key_definitions.heap_address.HeapAddress">angr.knowledge_plugins.key_definitions.heap_address.HeapAddress</a><a class="headerlink" href="#angr.analyses.reaching_definitions.heap_allocator.HeapAllocator.allocate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gives an address for a new memory chunck of &lt;size&gt; bytes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> – The requested size for the chunck, in number of bytes.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The address of the chunck.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.reaching_definitions.heap_allocator.HeapAllocator.free">
+<code class="sig-name descname">free</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">address</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference internal" href="#angr.knowledge_plugins.key_definitions.undefined.Undefined" title="angr.knowledge_plugins.key_definitions.undefined.Undefined">angr.knowledge_plugins.key_definitions.undefined.Undefined</a><span class="p">, </span><a class="reference internal" href="#angr.knowledge_plugins.key_definitions.heap_address.HeapAddress" title="angr.knowledge_plugins.key_definitions.heap_address.HeapAddress">angr.knowledge_plugins.key_definitions.heap_address.HeapAddress</a><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.heap_allocator.HeapAllocator.free" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mark the chunck pointed by &lt;address&gt; as freed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>address</strong> – The address of the chunck to free.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.reaching_definitions.heap_allocator.HeapAllocator.allocated_addresses">
+<em class="property">property </em><code class="sig-name descname">allocated_addresses</code><a class="headerlink" href="#angr.analyses.reaching_definitions.heap_allocator.HeapAllocator.allocated_addresses" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of addresses that are currently allocated on the heap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>return</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-angr.analyses.reaching_definitions.function_handler"></span><dl class="py class">
 <dt id="angr.analyses.reaching_definitions.function_handler.FunctionHandler">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.function_handler.</code><code class="sig-name descname">FunctionHandler</code><a class="headerlink" href="#angr.analyses.reaching_definitions.function_handler.FunctionHandler" title="Permalink to this definition">¶</a></dt>
@@ -25278,7 +25373,7 @@ A &lt;ReachingDefinitionsAnalysis&gt; would “hook” into a handler by calling
 
 <span class="target" id="module-angr.analyses.reaching_definitions.rd_state"></span><dl class="py class">
 <dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.rd_state.</code><code class="sig-name descname">ReachingDefinitionsState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">subject</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#angr.analyses.reaching_definitions.subject.Subject" title="angr.analyses.reaching_definitions.subject.Subject">angr.analyses.reaching_definitions.subject.Subject</a></span></em>, <em class="sig-param"><span class="n">track_tmps</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">analysis</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>ReachingDefinitionsAnalysis<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtoc_value</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">live_definitions</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">canonical_size</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.reaching_definitions.rd_state.</code><code class="sig-name descname">ReachingDefinitionsState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">subject</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#angr.analyses.reaching_definitions.subject.Subject" title="angr.analyses.reaching_definitions.subject.Subject">angr.analyses.reaching_definitions.subject.Subject</a></span></em>, <em class="sig-param"><span class="n">track_tmps</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">analysis</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>ReachingDefinitionsAnalysis<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rtoc_value</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">live_definitions</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">canonical_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">8</span></em>, <em class="sig-param"><span class="n">heap_allocator</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#angr.analyses.reaching_definitions.heap_allocator.HeapAllocator" title="angr.analyses.reaching_definitions.heap_allocator.HeapAllocator">angr.analyses.reaching_definitions.heap_allocator.HeapAllocator</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Represents the internal state of the ReachingDefinitionsAnalysis.</p>
 <p>It contains a data class LiveDefinitions, which stores both definitions and uses for register, stack, memory, and
@@ -25293,6 +25388,9 @@ Should be set to true when the analysis has counted uses and definitions for tem
 variables, false otherwise.</p></li>
 <li><p><strong>analysis</strong> – The analysis that generated the state represented by this object.</p></li>
 <li><p><strong>rtoc_value</strong> – When the targeted architecture is ppc64, the initial function needs to know the <cite>rtoc_value</cite>.</p></li>
+<li><p><strong>live_definitions</strong> – </p></li>
+<li><p><strong>canonical_size</strong> – The sizes (in bytes) that objects with an UNKNOWN_SIZE are treated as for operations where sizes are necessary.</p></li>
+<li><p><strong>heap_allocator</strong> – Mechanism to model the management of heap memory.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Variables</dt>
@@ -25317,6 +25415,11 @@ variables, false otherwise.</p></li>
 <dl class="py attribute">
 <dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.all_definitions">
 <code class="sig-name descname">all_definitions</code><em class="property">: Set<span class="p">[</span>Definition<span class="p">]</span></em><a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.all_definitions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.heap_allocator">
+<code class="sig-name descname">heap_allocator</code><a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.heap_allocator" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -25360,6 +25463,16 @@ variables, false otherwise.</p></li>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.heap_definitions">
+<em class="property">property </em><code class="sig-name descname">heap_definitions</code><a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.heap_definitions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.heap_uses">
+<em class="property">property </em><code class="sig-name descname">heap_uses</code><a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.heap_uses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.memory_uses">
 <em class="property">property </em><code class="sig-name descname">memory_uses</code><a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.memory_uses" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -25375,6 +25488,11 @@ variables, false otherwise.</p></li>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.get_sp">
+<code class="sig-name descname">get_sp</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.get_sp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.dep_graph">
 <em class="property">property </em><code class="sig-name descname">dep_graph</code><a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.dep_graph" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -25383,12 +25501,6 @@ variables, false otherwise.</p></li>
 <dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.copy">
 <code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState" title="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState">angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState</a><a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="py method">
-<dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.get_sp">
-<code class="sig-name descname">get_sp</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.get_sp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the concrete value contained by the stack pointer.</p>
-</dd></dl>
 
 <dl class="py method">
 <dt id="angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.merge">
@@ -27009,7 +27121,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.cgc.transmit.transmit'&gt;, &lt;class 'angr.procedures.cgc.receive.receive'&gt;, &lt;class 'angr.procedures.posix.read.read'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.cgc.transmit.transmit'&gt;, &lt;class 'angr.procedures.posix.read.read'&gt;, &lt;class 'angr.procedures.cgc.receive.receive'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">

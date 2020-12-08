@@ -671,12 +671,16 @@
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.all_uses">all_uses() (angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis property)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.heap.heap_brk.SimHeapBrk.allocate">allocate() (angr.state_plugins.heap.heap_brk.SimHeapBrk method)</a>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.heap_allocator.HeapAllocator.allocate">allocate() (angr.analyses.reaching_definitions.heap_allocator.HeapAllocator method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.state_plugins.heap.heap_brk.SimHeapBrk.allocate">(angr.state_plugins.heap.heap_brk.SimHeapBrk method)</a>
+</li>
         <li><a href="cle.html#cle.backends.externs.ExternObject.allocate">(cle.backends.externs.ExternObject method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.heap_allocator.HeapAllocator.allocated_addresses">allocated_addresses() (angr.analyses.reaching_definitions.heap_allocator.HeapAllocator property)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.heap.heap_freelist.SimHeapFreelist.allocated_chunks">allocated_chunks() (angr.state_plugins.heap.heap_freelist.SimHeapFreelist method)</a>
 
       <ul>
@@ -1429,6 +1433,13 @@
 </li>
       </ul></li>
       <li>
+    angr.analyses.reaching_definitions.heap_allocator
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.reaching_definitions.heap_allocator">module</a>
+</li>
+      </ul></li>
+      <li>
     angr.analyses.reaching_definitions.rd_state
 
       <ul>
@@ -2002,8 +2013,6 @@
         <li><a href="angr.html#module-angr.exploration_techniques.director">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.exploration_techniques.driller_core
 
@@ -2011,6 +2020,8 @@
         <li><a href="angr.html#module-angr.exploration_techniques.driller_core">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.exploration_techniques.explorer
 
@@ -2282,6 +2293,13 @@
 
       <ul>
         <li><a href="angr.html#module-angr.knowledge_plugins.key_definitions.definition">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.knowledge_plugins.key_definitions.heap_address
+
+      <ul>
+        <li><a href="angr.html#module-angr.knowledge_plugins.key_definitions.heap_address">module</a>
 </li>
       </ul></li>
       <li>
@@ -3468,6 +3486,8 @@
 </li>
       <li><a href="archinfo.html#archinfo.arch_arm.ArchARMHF">ArchARMHF (class in archinfo.arch_arm)</a>
 </li>
+      <li><a href="archinfo.html#archinfo.arch_avr.ArchAVR8">ArchAVR8 (class in archinfo.arch_avr)</a>
+</li>
       <li><a href="archinfo.html#archinfo.archerror.ArchError">ArchError</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier.ARCHES">ARCHES (angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier attribute)</a>
@@ -3521,6 +3541,13 @@
 
       <ul>
         <li><a href="archinfo.html#module-archinfo.arch_arm">module</a>
+</li>
+      </ul></li>
+      <li>
+    archinfo.arch_avr
+
+      <ul>
+        <li><a href="archinfo.html#module-archinfo.arch_avr">module</a>
 </li>
       </ul></li>
       <li>
@@ -4053,6 +4080,8 @@
         <li><a href="archinfo.html#archinfo.arch_amd64.ArchAMD64.bits">(archinfo.arch_amd64.ArchAMD64 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_arm.ArchARM.bits">(archinfo.arch_arm.ArchARM attribute)</a>
+</li>
+        <li><a href="archinfo.html#archinfo.arch_avr.ArchAVR8.bits">(archinfo.arch_avr.ArchAVR8 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_mips32.ArchMIPS32.bits">(archinfo.arch_mips32.ArchMIPS32 attribute)</a>
 </li>
@@ -6603,6 +6632,8 @@
         <li><a href="angr.html#angr.analyses.reassembler.Data.content">(angr.analyses.reassembler.Data property)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.code_location.CodeLocation.context">context (angr.code_location.CodeLocation attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.context_sensitivity_level">context_sensitivity_level() (angr.analyses.cfg.cfg_base.CFGBase property)</a>
 
       <ul>
@@ -7722,6 +7753,8 @@
 </li>
         <li><a href="archinfo.html#archinfo.arch_arm.ArchARMEL.elf_tls">(archinfo.arch_arm.ArchARMEL attribute)</a>
 </li>
+        <li><a href="archinfo.html#archinfo.arch_avr.ArchAVR8.elf_tls">(archinfo.arch_avr.ArchAVR8 attribute)</a>
+</li>
         <li><a href="archinfo.html#archinfo.arch_mips32.ArchMIPS32.elf_tls">(archinfo.arch_mips32.ArchMIPS32 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_mips64.ArchMIPS64.elf_tls">(archinfo.arch_mips64.ArchMIPS64 attribute)</a>
@@ -7911,10 +7944,10 @@
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.ERANGE">ERANGE (angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EROFS">EROFS (angr.state_plugins.posix.SimSystemPosix attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EROFS">EROFS (angr.state_plugins.posix.SimSystemPosix attribute)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.libc.SimStateLibc.errno">errno() (angr.state_plugins.libc.SimStateLibc property)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.lifter_helper.GymratLifter.error">error() (pyvex.lifting.util.lifter_helper.GymratLifter method)</a>
@@ -8547,9 +8580,11 @@
         <li><a href="claripy.html#claripy.ast.fp.FPV">(in module claripy.ast.fp)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.state_plugins.heap.heap_libc.SimHeapLibc.free">free() (angr.state_plugins.heap.heap_libc.SimHeapLibc method)</a>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.heap_allocator.HeapAllocator.free">free() (angr.analyses.reaching_definitions.heap_allocator.HeapAllocator method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.state_plugins.heap.heap_libc.SimHeapLibc.free">(angr.state_plugins.heap.heap_libc.SimHeapLibc method)</a>
+</li>
         <li><a href="angr.html#angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc.free">(angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc method)</a>
 </li>
       </ul></li>
@@ -9597,14 +9632,14 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.TypeVariables.has_type_variable_for">has_type_variable_for() (angr.analyses.typehoon.typevars.TypeVariables method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.has_unresolved_calls">has_unresolved_calls() (angr.knowledge_plugins.functions.function.Function property)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.has_unresolved_jumps">has_unresolved_jumps() (angr.knowledge_plugins.functions.function.Function property)</a>
 </li>
       <li><a href="angr.html#angr.analyses.code_tagging.CodeTags.HAS_XOR">HAS_XOR (angr.analyses.code_tagging.CodeTags attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.code_tagging.CodeTagging.has_xor">has_xor() (angr.analyses.code_tagging.CodeTagging method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.ail_simplifier.HasCallNotification">HasCallNotification</a>
@@ -9616,6 +9651,20 @@
       <li><a href="angr.html#angr.analyses.decompiler.graph_region.GraphRegion.head">head (angr.analyses.decompiler.graph_region.GraphRegion attribute)</a>
 </li>
       <li><a href="archinfo.html#archinfo.tls.TLSArchInfo.head_offsets">head_offsets() (archinfo.tls.TLSArchInfo property)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.heap_allocator">heap_allocator (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState attribute)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.heap_definitions">heap_definitions (angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.heap_definitions">heap_definitions() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState property)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.heap_uses">heap_uses (angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.heap_uses">heap_uses() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState property)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.heap_address.HeapAddress">HeapAddress (class in angr.knowledge_plugins.key_definitions.heap_address)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.heap_allocator.HeapAllocator">HeapAllocator (class in angr.analyses.reaching_definitions.heap_allocator)</a>
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.Comment.height">height() (angr.analyses.disassembly.Comment method)</a>
 
@@ -10123,6 +10172,8 @@
         <li><a href="archinfo.html#archinfo.arch_amd64.ArchAMD64.instruction_alignment">(archinfo.arch_amd64.ArchAMD64 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_arm.ArchARM.instruction_alignment">(archinfo.arch_arm.ArchARM attribute)</a>
+</li>
+        <li><a href="archinfo.html#archinfo.arch_avr.ArchAVR8.instruction_alignment">(archinfo.arch_avr.ArchAVR8 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_mips32.ArchMIPS32.instruction_alignment">(archinfo.arch_mips32.ArchMIPS32 attribute)</a>
 </li>
@@ -11194,6 +11245,8 @@
 </li>
         <li><a href="archinfo.html#archinfo.arch_arm.ArchARM.linux_name">(archinfo.arch_arm.ArchARM attribute)</a>
 </li>
+        <li><a href="archinfo.html#archinfo.arch_avr.ArchAVR8.linux_name">(archinfo.arch_avr.ArchAVR8 attribute)</a>
+</li>
         <li><a href="archinfo.html#archinfo.arch_mips32.ArchMIPS32.linux_name">(archinfo.arch_mips32.ArchMIPS32 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_mips64.ArchMIPS64.linux_name">(archinfo.arch_mips64.ArchMIPS64 attribute)</a>
@@ -11229,10 +11282,10 @@
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.LiveVariables">LiveVariables (class in angr.knowledge_plugins.variables.variable_manager)</a>
 </li>
-      <li><a href="pyvex.html#pyvex.stmt.LLSC">LLSC (class in pyvex.stmt)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="pyvex.html#pyvex.stmt.LLSC">LLSC (class in pyvex.stmt)</a>
+</li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.Load">Load (class in angr.analyses.typehoon.typevars)</a>
 
       <ul>
@@ -11679,6 +11732,8 @@
         <li><a href="archinfo.html#archinfo.arch_amd64.ArchAMD64.max_inst_bytes">(archinfo.arch_amd64.ArchAMD64 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_arm.ArchARM.max_inst_bytes">(archinfo.arch_arm.ArchARM attribute)</a>
+</li>
+        <li><a href="archinfo.html#archinfo.arch_avr.ArchAVR8.max_inst_bytes">(archinfo.arch_avr.ArchAVR8 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_mips32.ArchMIPS32.max_inst_bytes">(archinfo.arch_mips32.ArchMIPS32 attribute)</a>
 </li>
@@ -12341,6 +12396,8 @@
 </li>
         <li><a href="angr.html#module-angr.analyses.reaching_definitions.function_handler">angr.analyses.reaching_definitions.function_handler</a>
 </li>
+        <li><a href="angr.html#module-angr.analyses.reaching_definitions.heap_allocator">angr.analyses.reaching_definitions.heap_allocator</a>
+</li>
         <li><a href="angr.html#module-angr.analyses.reaching_definitions.rd_state">angr.analyses.reaching_definitions.rd_state</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.reaching_definitions.reaching_definitions">angr.analyses.reaching_definitions.reaching_definitions</a>
@@ -12584,6 +12641,8 @@
         <li><a href="angr.html#module-angr.knowledge_plugins.key_definitions.dataset">angr.knowledge_plugins.key_definitions.dataset</a>
 </li>
         <li><a href="angr.html#module-angr.knowledge_plugins.key_definitions.definition">angr.knowledge_plugins.key_definitions.definition</a>
+</li>
+        <li><a href="angr.html#module-angr.knowledge_plugins.key_definitions.heap_address">angr.knowledge_plugins.key_definitions.heap_address</a>
 </li>
         <li><a href="angr.html#module-angr.knowledge_plugins.key_definitions.key_definition_manager">angr.knowledge_plugins.key_definitions.key_definition_manager</a>
 </li>
@@ -12862,6 +12921,8 @@
         <li><a href="archinfo.html#module-archinfo.arch_amd64">archinfo.arch_amd64</a>
 </li>
         <li><a href="archinfo.html#module-archinfo.arch_arm">archinfo.arch_arm</a>
+</li>
+        <li><a href="archinfo.html#module-archinfo.arch_avr">archinfo.arch_avr</a>
 </li>
         <li><a href="archinfo.html#module-archinfo.arch_mips32">archinfo.arch_mips32</a>
 </li>
@@ -13314,6 +13375,8 @@
         <li><a href="archinfo.html#archinfo.arch_arm.ArchARMEL.name">(archinfo.arch_arm.ArchARMEL attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_arm.ArchARMHF.name">(archinfo.arch_arm.ArchARMHF attribute)</a>
+</li>
+        <li><a href="archinfo.html#archinfo.arch_avr.ArchAVR8.name">(archinfo.arch_avr.ArchAVR8 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_mips32.ArchMIPS32.name">(archinfo.arch_mips32.ArchMIPS32 attribute)</a>
 </li>
@@ -14676,6 +14739,8 @@
         <li><a href="archinfo.html#archinfo.arch_amd64.ArchAMD64.qemu_name">(archinfo.arch_amd64.ArchAMD64 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_arm.ArchARM.qemu_name">(archinfo.arch_arm.ArchARM attribute)</a>
+</li>
+        <li><a href="archinfo.html#archinfo.arch_avr.ArchAVR8.qemu_name">(archinfo.arch_avr.ArchAVR8 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_mips32.ArchMIPS32.qemu_name">(archinfo.arch_mips32.ArchMIPS32 attribute)</a>
 </li>
@@ -17190,6 +17255,8 @@
         <li><a href="pyvex.html#pyvex.const.IRConst.size">(pyvex.const.IRConst property)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.dataset.size_of_datasets">size_of_datasets() (in module angr.knowledge_plugins.key_definitions.dataset)</a>
+</li>
       <li><a href="angr.html#angr.storage.memory_mixins.size_resolution_mixin.SizeConcretizationMixin">SizeConcretizationMixin (class in angr.storage.memory_mixins.size_resolution_mixin)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.size_resolution_mixin.SizeNormalizationMixin">SizeNormalizationMixin (class in angr.storage.memory_mixins.size_resolution_mixin)</a>
@@ -17246,10 +17313,10 @@
         <li><a href="claripy.html#claripy.bv.SLE">(in module claripy.bv)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.blade.Blade.slice">slice() (angr.blade.Blade property)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.blade.Blade.slice">slice() (angr.blade.Blade property)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg_slice_to_sink.graph.slice_callgraph">slice_callgraph() (in module angr.analyses.cfg_slice_to_sink.graph)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg_slice_to_sink.graph.slice_cfg_graph">slice_cfg_graph() (in module angr.analyses.cfg_slice_to_sink.graph)</a>
@@ -18876,10 +18943,10 @@
         <li><a href="claripy.html#claripy.backend_object.BackendObject.to_claripy">(claripy.backend_object.BackendObject method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGNode.to_codenode">to_codenode() (angr.knowledge_plugins.cfg.cfg_node.CFGNode method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.engines.concrete.SimEngineConcrete.to_engine">to_engine() (angr.engines.concrete.SimEngineConcrete method)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.fp.FP.to_fp">to_fp() (claripy.ast.fp.FP method)</a>
@@ -19000,6 +19067,8 @@
         <li><a href="archinfo.html#archinfo.arch_arm.ArchARMEL.triplet">(archinfo.arch_arm.ArchARMEL attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_arm.ArchARMHF.triplet">(archinfo.arch_arm.ArchARMHF attribute)</a>
+</li>
+        <li><a href="archinfo.html#archinfo.arch_avr.ArchAVR8.triplet">(archinfo.arch_avr.ArchAVR8 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_mips32.ArchMIPS32.triplet">(archinfo.arch_mips32.ArchMIPS32 attribute)</a>
 </li>
@@ -19666,9 +19735,11 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.disassembly.Value">Value (class in angr.analyses.disassembly)</a>
 </li>
-      <li><a href="claripy.html#claripy.bv.BVV.value">value() (claripy.bv.BVV property)</a>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.heap_address.HeapAddress.value">value() (angr.knowledge_plugins.key_definitions.heap_address.HeapAddress property)</a>
 
       <ul>
+        <li><a href="claripy.html#claripy.bv.BVV.value">(claripy.bv.BVV property)</a>
+</li>
         <li><a href="claripy.html#claripy.vsa.bool_result.BoolResult.value">(claripy.vsa.bool_result.BoolResult method)</a>
 </li>
         <li><a href="claripy.html#claripy.vsa.bool_result.FalseResult.value">(claripy.vsa.bool_result.FalseResult property)</a>
@@ -19922,6 +19993,8 @@
         <li><a href="archinfo.html#archinfo.arch_amd64.ArchAMD64.vex_arch">(archinfo.arch_amd64.ArchAMD64 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_arm.ArchARM.vex_arch">(archinfo.arch_arm.ArchARM attribute)</a>
+</li>
+        <li><a href="archinfo.html#archinfo.arch_avr.ArchAVR8.vex_arch">(archinfo.arch_avr.ArchAVR8 attribute)</a>
 </li>
         <li><a href="archinfo.html#archinfo.arch_mips32.ArchMIPS32.vex_arch">(archinfo.arch_mips32.ArchMIPS32 attribute)</a>
 </li>
