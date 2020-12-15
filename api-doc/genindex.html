@@ -9189,6 +9189,8 @@
       <ul>
         <li><a href="angr.html#angr.procedures.definitions.SimLibrary.get_prototype">(angr.procedures.definitions.SimLibrary method)</a>
 </li>
+        <li><a href="angr.html#angr.procedures.definitions.SimSyscallLibrary.get_prototype">(angr.procedures.definitions.SimSyscallLibrary method)</a>
+</li>
       </ul></li>
       <li><a href="cle.html#cle.backends.externs.ExternObject.get_pseudo_addr">get_pseudo_addr() (cle.backends.externs.ExternObject method)</a>
 </li>
@@ -9610,6 +9612,8 @@
 
       <ul>
         <li><a href="angr.html#angr.procedures.definitions.SimLibrary.has_prototype">(angr.procedures.definitions.SimLibrary method)</a>
+</li>
+        <li><a href="angr.html#angr.procedures.definitions.SimSyscallLibrary.has_prototype">(angr.procedures.definitions.SimSyscallLibrary method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGNode.has_return">has_return (angr.knowledge_plugins.cfg.cfg_node.CFGNode attribute)</a>
@@ -11262,6 +11266,8 @@
       </ul></li>
       <li><a href="angr.html#angr.calling_conventions.SimCCO32LinuxSyscall.linux_syscall_update_a3">linux_syscall_update_a3() (angr.calling_conventions.SimCCO32LinuxSyscall static method)</a>
 </li>
+      <li><a href="angr.html#angr.calling_conventions.SimCCPowerPCLinuxSyscall.linux_syscall_update_cr0">linux_syscall_update_cr0() (angr.calling_conventions.SimCCPowerPCLinuxSyscall static method)</a>
+</li>
       <li><a href="angr.html#angr.misc.plugins.PluginPreset.list_default_plugins">list_default_plugins() (angr.misc.plugins.PluginPreset method)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.list_page.ListPage">ListPage (class in angr.storage.memory_mixins.paged_memory.pages.list_page)</a>
@@ -11282,8 +11288,6 @@
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.LiveVariables">LiveVariables (class in angr.knowledge_plugins.variables.variable_manager)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.stmt.LLSC">LLSC (class in pyvex.stmt)</a>
 </li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.Load">Load (class in angr.analyses.typehoon.typevars)</a>
@@ -11292,6 +11296,8 @@
         <li><a href="pyvex.html#pyvex.expr.Load">(class in pyvex.expr)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.stack_pointer_tracker.StackPointerTrackerState.load">load() (angr.analyses.stack_pointer_tracker.StackPointerTrackerState method)</a>
 
       <ul>
@@ -11419,7 +11425,15 @@
       <li><a href="angr.html#angr.knowledge_plugins.labels.Labels.lookup">lookup() (angr.knowledge_plugins.labels.Labels method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.state_plugins.filesystem.SimConcreteFilesystem.lookup">(angr.state_plugins.filesystem.SimConcreteFilesystem method)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.filesystem.SimMount.lookup">(angr.state_plugins.filesystem.SimMount method)</a>
+</li>
         <li><a href="angr.html#angr.state_plugins.jni_references.SimStateJNIReferences.lookup">(angr.state_plugins.jni_references.SimStateJNIReferences method)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.posix.PosixDevFS.lookup">(angr.state_plugins.posix.PosixDevFS method)</a>
+</li>
+        <li><a href="angr.html#angr.state_plugins.posix.PosixProcFS.lookup">(angr.state_plugins.posix.PosixProcFS method)</a>
 </li>
         <li><a href="cle.html#cle.backends.externs.simdata.lookup">(in module cle.backends.externs.simdata)</a>
 </li>
@@ -15325,6 +15339,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.reassembler.Reassembler.register_instruction_reference">register_instruction_reference() (angr.analyses.reassembler.Reassembler method)</a>
 </li>
+      <li><a href="angr.html#angr.utils.library.register_kernel_types">register_kernel_types() (in module angr.utils.library)</a>
+</li>
       <li><a href="archinfo.html#archinfo.arch.Arch.register_list">register_list (archinfo.arch.Arch attribute)</a>
 
       <ul>
@@ -16324,9 +16340,17 @@
       <li><a href="angr.html#angr.state_plugins.heap.heap_ptmalloc.PTChunk.set_prev_freeness">set_prev_freeness() (angr.state_plugins.heap.heap_ptmalloc.PTChunk method)</a>
 </li>
       <li><a href="angr.html#angr.procedures.definitions.SimLibrary.set_prototype">set_prototype() (angr.procedures.definitions.SimLibrary method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.procedures.definitions.SimSyscallLibrary.set_prototype">(angr.procedures.definitions.SimSyscallLibrary method)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.procedures.definitions.SimLibrary.set_prototypes">set_prototypes() (angr.procedures.definitions.SimLibrary method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.procedures.definitions.SimSyscallLibrary.set_prototypes">(angr.procedures.definitions.SimSyscallLibrary method)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.state_plugins.gdb.GDB.set_regs">set_regs() (angr.state_plugins.gdb.GDB method)</a>
 
       <ul>
@@ -16339,6 +16363,10 @@
         <li><a href="angr.html#angr.calling_conventions.SimCCO32LinuxSyscall.set_return_val">(angr.calling_conventions.SimCCO32LinuxSyscall method)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCO64LinuxSyscall.set_return_val">(angr.calling_conventions.SimCCO64LinuxSyscall method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCPowerPC64LinuxSyscall.set_return_val">(angr.calling_conventions.SimCCPowerPC64LinuxSyscall method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCPowerPCLinuxSyscall.set_return_val">(angr.calling_conventions.SimCCPowerPCLinuxSyscall method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.congruency_check.CongruencyCheck.set_simgr">set_simgr() (angr.analyses.congruency_check.CongruencyCheck method)</a>
@@ -16666,6 +16694,8 @@
       <li><a href="angr.html#angr.calling_conventions.SimCCSoot">SimCCSoot (class in angr.calling_conventions)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCCStdcall">SimCCStdcall (class in angr.calling_conventions)</a>
+</li>
+      <li><a href="angr.html#angr.calling_conventions.SimCCSyscall">SimCCSyscall (class in angr.calling_conventions)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCCSystemVAMD64">SimCCSystemVAMD64 (class in angr.calling_conventions)</a>
 </li>
@@ -18509,6 +18539,12 @@
         <li><a href="angr.html#angr.simos.userland.SimUserland.syscall_abi">(angr.simos.userland.SimUserland method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.simos.simos.SimOS.syscall_cc">syscall_cc() (angr.simos.simos.SimOS method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.simos.userland.SimUserland.syscall_cc">(angr.simos.userland.SimUserland method)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.simos.simos.SimOS.syscall_from_addr">syscall_from_addr() (angr.simos.simos.SimOS method)</a>
 
       <ul>
@@ -18543,6 +18579,8 @@
         <li><a href="angr.html#angr.calling_conventions.SimCCPowerPCLinuxSyscall.syscall_num">(angr.calling_conventions.SimCCPowerPCLinuxSyscall static method)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCS390XLinuxSyscall.syscall_num">(angr.calling_conventions.SimCCS390XLinuxSyscall static method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCSyscall.syscall_num">(angr.calling_conventions.SimCCSyscall static method)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCX86LinuxSyscall.syscall_num">(angr.calling_conventions.SimCCX86LinuxSyscall static method)</a>
 </li>

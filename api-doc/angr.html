@@ -1881,6 +1881,11 @@ This method is supposed to be called by breakpoint implementors. A typical workf
 <dd></dd></dl>
 
 <dl class="py method">
+<dt id="angr.state_plugins.posix.PosixDevFS.lookup">
+<code class="sig-name descname">lookup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.posix.PosixDevFS.lookup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="angr.state_plugins.posix.PosixDevFS.merge">
 <code class="sig-name descname">merge</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">others</span></em>, <em class="sig-param"><span class="n">conditions</span></em>, <em class="sig-param"><span class="n">common_ancestor</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.posix.PosixDevFS.merge" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1915,6 +1920,11 @@ This method is supposed to be called by breakpoint implementors. A typical workf
 <dl class="py method">
 <dt id="angr.state_plugins.posix.PosixProcFS.delete">
 <code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.posix.PosixProcFS.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.state_plugins.posix.PosixProcFS.lookup">
+<code class="sig-name descname">lookup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.posix.PosixProcFS.lookup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2527,6 +2537,21 @@ Since this a SimStatePlugin you may also want to implement set_state, copy, merg
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt id="angr.state_plugins.filesystem.SimMount.lookup">
+<code class="sig-name descname">lookup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sim_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.filesystem.SimMount.lookup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Look up the path of a SimFile in the mountpoint</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sim_file</strong> – A SimFile object needs to be looked up</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A string representing the path of the file in the mountpoint
+Or None if the SimFile does not exist in the mountpoint</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -2552,6 +2577,11 @@ Since this a SimStatePlugin you may also want to implement set_state, copy, merg
 <dl class="py method">
 <dt id="angr.state_plugins.filesystem.SimConcreteFilesystem.delete">
 <code class="sig-name descname">delete</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path_elements</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.filesystem.SimConcreteFilesystem.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.state_plugins.filesystem.SimConcreteFilesystem.lookup">
+<code class="sig-name descname">lookup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sim_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.filesystem.SimConcreteFilesystem.lookup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -5840,7 +5870,7 @@ you must say <code class="docutils literal notranslate"><span class="pre">s.mem[
 
 <dl class="py attribute">
 <dt id="angr.state_plugins.view.SimMemView.types">
-<code class="sig-name descname">types</code><em class="property"> = {'CharT': char, 'FILE': struct FILE_t, 'TOP': TOP, 'basic_string': string_t, 'byte': uint8_t, 'char': char, 'clock_t': long, 'double': double, 'dword': uint32_t, 'float': float, 'gid_t': unsigned int, 'int': int, 'int16_t': int16_t, 'int32_t': int32_t, 'int64_t': int64_t, 'int8_t': int8_t, 'intmax_t': int, 'long': long, 'long double': double, 'long int': long, 'long long': long long, 'long long int': long long, 'mode_t': unsigned short, 'off_t': unsigned long, 'pid_t': int, 'pthread_key_t': unsigned int, 'ptrdiff_t': long, 'qword': uint64_t, 'sem_t': unsigned int, 'short': short, 'short int': short, 'signed char': char, 'signed int': int, 'signed long': long, 'signed long int': long, 'signed long long': long long, 'signed long long int': long long, 'signed short': short, 'signed short int': short, 'sigset_t': int, 'size_t': size_t, 'socklen_t': int, 'speed_t': unsigned int, 'ssize': size_t, 'ssize_t': size_t, 'string': string_t, 'struct FILE_t': struct FILE_t, 'struct iovec': struct iovec, 'struct timespec': struct timespec, 'struct timeval': struct timeval, 'time_t': long, 'uid_t': unsigned int, 'uint16_t': uint16_t, 'uint32_t': uint32_t, 'uint64_t': uint64_t, 'uint8_t': uint8_t, 'uintmax_t': unsigned int, 'uintptr_t': unsigned long, 'unsigned char': char, 'unsigned int': unsigned int, 'unsigned long': unsigned long, 'unsigned long int': unsigned long, 'unsigned long long': unsigned long long, 'unsigned long long int': unsigned long long, 'unsigned short': unsigned short, 'unsigned short int': unsigned short, 'va_list': struct va_list, 'void': BOT, 'wchar_t': unsigned short, 'wctrans_t': unsigned short, 'wctype_t': unsigned short, 'wint_t': unsigned int, 'word': uint16_t, 'wstring': wstring_t}</em><a class="headerlink" href="#angr.state_plugins.view.SimMemView.types" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">types</code><em class="property"> = {'BOT': BOT, 'CharT': char, 'FILE': struct FILE_t, 'TOP': TOP, 'basic_string': string_t, 'byte': uint8_t, 'char': char, 'clock_t': long, 'double': double, 'dword': uint32_t, 'float': float, 'gid_t': unsigned int, 'int': int, 'int16_t': int16_t, 'int32_t': int32_t, 'int64_t': int64_t, 'int8_t': int8_t, 'intmax_t': int, 'long': long, 'long double': double, 'long int': long, 'long long': long long, 'long long int': long long, 'mode_t': unsigned short, 'off_t': unsigned long, 'pid_t': int, 'pthread_key_t': unsigned int, 'ptrdiff_t': long, 'qword': uint64_t, 'sem_t': unsigned int, 'short': short, 'short int': short, 'signed': int, 'signed char': char, 'signed int': int, 'signed long': long, 'signed long int': long, 'signed long long': long long, 'signed long long int': long long, 'signed short': short, 'signed short int': short, 'sigset_t': int, 'size_t': size_t, 'socklen_t': int, 'speed_t': unsigned int, 'ssize': size_t, 'ssize_t': size_t, 'string': string_t, 'struct FILE_t': struct FILE_t, 'struct iovec': struct iovec, 'struct timespec': struct timespec, 'struct timeval': struct timeval, 'time_t': long, 'uid_t': unsigned int, 'uint16_t': uint16_t, 'uint32_t': uint32_t, 'uint64_t': uint64_t, 'uint8_t': uint8_t, 'uintmax_t': unsigned int, 'uintptr_t': unsigned long, 'unsigned': unsigned int, 'unsigned char': char, 'unsigned int': unsigned int, 'unsigned long': unsigned long, 'unsigned long int': unsigned long, 'unsigned long long': unsigned long long, 'unsigned long long int': unsigned long long, 'unsigned short': unsigned short, 'unsigned short int': unsigned short, 'va_list': struct va_list, 'void': BOT, 'wchar_t': unsigned short, 'wctrans_t': unsigned short, 'wctype_t': unsigned short, 'wint_t': unsigned int, 'word': uint16_t, 'wstring': wstring_t}</em><a class="headerlink" href="#angr.state_plugins.view.SimMemView.types" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -10450,7 +10480,7 @@ statement (for example, from a SimProcedure).</p></li>
 to a SimSuccessors.</p>
 <dl class="py method">
 <dt id="angr.engines.procedure.ProcedureMixin.process_procedure">
-<code class="sig-name descname">process_procedure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">successors</span></em>, <em class="sig-param"><span class="n">procedure</span></em>, <em class="sig-param"><span class="n">ret_to</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.engines.procedure.ProcedureMixin.process_procedure" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">process_procedure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">successors</span></em>, <em class="sig-param"><span class="n">procedure</span></em>, <em class="sig-param"><span class="n">ret_to</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">arguments</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.engines.procedure.ProcedureMixin.process_procedure" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -11610,7 +11640,7 @@ name.</p>
 <em class="property">class </em><code class="sig-prename descclassname">angr.procedures.definitions.</code><code class="sig-name descname">SimSyscallLibrary</code><a class="headerlink" href="#angr.procedures.definitions.SimSyscallLibrary" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.procedures.definitions.SimLibrary" title="angr.procedures.definitions.SimLibrary"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.procedures.definitions.SimLibrary</span></code></a></p>
 <p>SimSyscallLibrary is a specialized version of SimLibrary for dealing not with a dynamic library’s API but rather
-an operating system’s syscall API. Because this interface is inherantly lower-level than a dynamic library, many
+an operating system’s syscall API. Because this interface is inherently lower-level than a dynamic library, many
 parts of this class has been changed to store data based on an “ABI name” (ABI = application binary interface,
 like an API but for when there’s no programming language) instead of an architecture. An ABI name is just an
 arbitrary string with which a calling convention and a syscall numbering is associated.</p>
@@ -11696,6 +11726,35 @@ associates them with numbers.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="angr.procedures.definitions.SimSyscallLibrary.set_prototype">
+<code class="sig-name descname">set_prototype</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">abi</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">proto</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a></span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#angr.procedures.definitions.SimSyscallLibrary.set_prototype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the prototype of a function in the form of a SimTypeFunction containing argument and return types</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>abi</strong> – ABI of the syscall.</p></li>
+<li><p><strong>name</strong> – The name of the syscall as a string</p></li>
+<li><p><strong>proto</strong> – The prototype of the syscall as a SimTypeFunction</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="angr.procedures.definitions.SimSyscallLibrary.set_prototypes">
+<code class="sig-name descname">set_prototypes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">abi</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">protos</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#angr.procedures.definitions.SimSyscallLibrary.set_prototypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the prototypes of many syscalls.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>abi</strong> – ABI of the syscalls.</p></li>
+<li><p><strong>protos</strong> – Dictionary mapping syscall names to SimTypeFunction objects</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="angr.procedures.definitions.SimSyscallLibrary.get">
 <code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">number</span></em>, <em class="sig-param"><span class="n">arch</span></em>, <em class="sig-param"><span class="n">abi_list</span><span class="o">=</span><span class="default_value">()</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.procedures.definitions.SimSyscallLibrary.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>The get() function for SimSyscallLibrary looks a little different from its original version.</p>
@@ -11738,6 +11797,25 @@ implementation is available</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="angr.procedures.definitions.SimSyscallLibrary.get_prototype">
+<code class="sig-name descname">get_prototype</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">abi</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">arch</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">]</span><a class="headerlink" href="#angr.procedures.definitions.SimSyscallLibrary.get_prototype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a prototype of the given syscall name and its ABI, optionally specialize the prototype to a given
+architecture.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>abi</strong> – ABI of the prototype to get.</p></li>
+<li><p><strong>name</strong> – Name of the syscall.</p></li>
+<li><p><strong>arch</strong> – The architecture to specialize to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Prototype of the syscall, or None if the prototype does not exist.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="angr.procedures.definitions.SimSyscallLibrary.has_metadata">
 <code class="sig-name descname">has_metadata</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">number</span></em>, <em class="sig-param"><span class="n">arch</span></em>, <em class="sig-param"><span class="n">abi_list</span><span class="o">=</span><span class="default_value">()</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.procedures.definitions.SimSyscallLibrary.has_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pretty much the intersection of SimLibrary.has_metadata() and SimSyscallLibrary.get().</p>
@@ -11769,6 +11847,23 @@ implementation is available</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A bool of whether or not an implementation of the syscall is available</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="angr.procedures.definitions.SimSyscallLibrary.has_prototype">
+<code class="sig-name descname">has_prototype</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">abi</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#angr.procedures.definitions.SimSyscallLibrary.has_prototype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if a function has a prototype associated with it. Demangle the function name if it is a mangled C++ name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>abi</strong> – Name of the ABI.</p></li>
+<li><p><strong>name</strong> – The syscall name.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -12505,9 +12600,37 @@ Function names are ignored.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="angr.calling_conventions.SimCCSyscall">
+<em class="property">class </em><code class="sig-prename descclassname">angr.calling_conventions.</code><code class="sig-name descname">SimCCSyscall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">args</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ret_val</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_delta</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_ty</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCSyscall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCC</span></code></a></p>
+<p>The base class of all syscall CCs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arch</strong> – The Archinfo arch for this CC</p></li>
+<li><p><strong>args</strong> – A list of SimFunctionArguments describing where the arguments go</p></li>
+<li><p><strong>ret_val</strong> – A SimFunctionArgument describing where the return value goes</p></li>
+<li><p><strong>sp_delta</strong> – The amount the stack pointer changes over the course of this function - CURRENTLY UNUSED</p></li>
+<li><p><strong>func_ty</strong> – A SimTypeFunction for the function itself, or a string that can be parsed into a
+SimTypeFunction instance.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example func_ty strings:
+&gt;&gt;&gt; “int func(char*, int)”
+&gt;&gt;&gt; “int f(int, int, int*);”
+Function names are ignored.</p>
+<dl class="py method">
+<dt id="angr.calling_conventions.SimCCSyscall.syscall_num">
+<em class="property">static </em><code class="sig-name descname">syscall_num</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#angr.calling_conventions.SimCCSyscall.syscall_num" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="angr.calling_conventions.SimCCX86LinuxSyscall">
 <em class="property">class </em><code class="sig-prename descclassname">angr.calling_conventions.</code><code class="sig-name descname">SimCCX86LinuxSyscall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">args</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ret_val</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_delta</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_ty</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCX86LinuxSyscall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCC</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCCSyscall" title="angr.calling_conventions.SimCCSyscall"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCCSyscall</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -12560,7 +12683,7 @@ Function names are ignored.</p>
 <dl class="py class">
 <dt id="angr.calling_conventions.SimCCX86WindowsSyscall">
 <em class="property">class </em><code class="sig-prename descclassname">angr.calling_conventions.</code><code class="sig-name descname">SimCCX86WindowsSyscall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">args</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ret_val</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_delta</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_ty</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCX86WindowsSyscall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCC</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCCSyscall" title="angr.calling_conventions.SimCCSyscall"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCCSyscall</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -12670,7 +12793,7 @@ Function names are ignored.</p>
 <dl class="py class">
 <dt id="angr.calling_conventions.SimCCAMD64LinuxSyscall">
 <em class="property">class </em><code class="sig-prename descclassname">angr.calling_conventions.</code><code class="sig-name descname">SimCCAMD64LinuxSyscall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">args</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ret_val</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_delta</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_ty</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCAMD64LinuxSyscall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCC</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCCSyscall" title="angr.calling_conventions.SimCCSyscall"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCCSyscall</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -12718,7 +12841,7 @@ Function names are ignored.</p>
 <dl class="py class">
 <dt id="angr.calling_conventions.SimCCAMD64WindowsSyscall">
 <em class="property">class </em><code class="sig-prename descclassname">angr.calling_conventions.</code><code class="sig-name descname">SimCCAMD64WindowsSyscall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">args</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ret_val</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_delta</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_ty</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCAMD64WindowsSyscall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCC</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCCSyscall" title="angr.calling_conventions.SimCCSyscall"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCCSyscall</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -12824,7 +12947,7 @@ Function names are ignored.</p>
 <dl class="py class">
 <dt id="angr.calling_conventions.SimCCARMLinuxSyscall">
 <em class="property">class </em><code class="sig-prename descclassname">angr.calling_conventions.</code><code class="sig-name descname">SimCCARMLinuxSyscall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">args</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ret_val</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_delta</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_ty</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCARMLinuxSyscall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCC</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCCSyscall" title="angr.calling_conventions.SimCCSyscall"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCCSyscall</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -12925,7 +13048,7 @@ Function names are ignored.</p>
 <dl class="py class">
 <dt id="angr.calling_conventions.SimCCAArch64LinuxSyscall">
 <em class="property">class </em><code class="sig-prename descclassname">angr.calling_conventions.</code><code class="sig-name descname">SimCCAArch64LinuxSyscall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">args</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ret_val</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_delta</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_ty</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCAArch64LinuxSyscall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCC</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCCSyscall" title="angr.calling_conventions.SimCCSyscall"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCCSyscall</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -13036,7 +13159,7 @@ Function names are ignored.</p>
 <dl class="py class">
 <dt id="angr.calling_conventions.SimCCO32LinuxSyscall">
 <em class="property">class </em><code class="sig-prename descclassname">angr.calling_conventions.</code><code class="sig-name descname">SimCCO32LinuxSyscall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">args</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ret_val</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_delta</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_ty</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCO32LinuxSyscall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCC</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCCSyscall" title="angr.calling_conventions.SimCCSyscall"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCCSyscall</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -13152,7 +13275,7 @@ Function names are ignored.</p>
 <dl class="py class">
 <dt id="angr.calling_conventions.SimCCO64LinuxSyscall">
 <em class="property">class </em><code class="sig-prename descclassname">angr.calling_conventions.</code><code class="sig-name descname">SimCCO64LinuxSyscall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">args</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ret_val</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_delta</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_ty</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCO64LinuxSyscall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCC</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCCSyscall" title="angr.calling_conventions.SimCCSyscall"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCCSyscall</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -13171,7 +13294,7 @@ SimTypeFunction instance.</p></li>
 Function names are ignored.</p>
 <dl class="py attribute">
 <dt id="angr.calling_conventions.SimCCO64LinuxSyscall.ARG_REGS">
-<code class="sig-name descname">ARG_REGS</code><em class="property">: List<span class="p">[</span>str<span class="p">]</span></em><em class="property"> = ['a0', 'a1', 'a2', 'a3']</em><a class="headerlink" href="#angr.calling_conventions.SimCCO64LinuxSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ARG_REGS</code><em class="property">: List<span class="p">[</span>str<span class="p">]</span></em><em class="property"> = ['a0', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7']</em><a class="headerlink" href="#angr.calling_conventions.SimCCO64LinuxSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -13263,7 +13386,7 @@ Function names are ignored.</p>
 <dl class="py class">
 <dt id="angr.calling_conventions.SimCCPowerPCLinuxSyscall">
 <em class="property">class </em><code class="sig-prename descclassname">angr.calling_conventions.</code><code class="sig-name descname">SimCCPowerPCLinuxSyscall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">args</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ret_val</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_delta</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_ty</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCPowerPCLinuxSyscall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCC</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCCSyscall" title="angr.calling_conventions.SimCCSyscall"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCCSyscall</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -13309,6 +13432,16 @@ Function names are ignored.</p>
 <dl class="py method">
 <dt id="angr.calling_conventions.SimCCPowerPCLinuxSyscall.syscall_num">
 <em class="property">static </em><code class="sig-name descname">syscall_num</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCPowerPCLinuxSyscall.syscall_num" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.calling_conventions.SimCCPowerPCLinuxSyscall.linux_syscall_update_cr0">
+<em class="property">static </em><code class="sig-name descname">linux_syscall_update_cr0</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCPowerPCLinuxSyscall.linux_syscall_update_cr0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.calling_conventions.SimCCPowerPCLinuxSyscall.set_return_val">
+<code class="sig-name descname">set_return_val</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">val</span></em>, <em class="sig-param"><span class="n">is_fp</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stack_base</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCPowerPCLinuxSyscall.set_return_val" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -13369,7 +13502,7 @@ Function names are ignored.</p>
 <dl class="py class">
 <dt id="angr.calling_conventions.SimCCPowerPC64LinuxSyscall">
 <em class="property">class </em><code class="sig-prename descclassname">angr.calling_conventions.</code><code class="sig-name descname">SimCCPowerPC64LinuxSyscall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">args</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ret_val</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_delta</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_ty</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCPowerPC64LinuxSyscall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCC</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCCSyscall" title="angr.calling_conventions.SimCCSyscall"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCCSyscall</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -13388,7 +13521,7 @@ SimTypeFunction instance.</p></li>
 Function names are ignored.</p>
 <dl class="py attribute">
 <dt id="angr.calling_conventions.SimCCPowerPC64LinuxSyscall.ARG_REGS">
-<code class="sig-name descname">ARG_REGS</code><em class="property">: List<span class="p">[</span>str<span class="p">]</span></em><em class="property"> = []</em><a class="headerlink" href="#angr.calling_conventions.SimCCPowerPC64LinuxSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ARG_REGS</code><em class="property">: List<span class="p">[</span>str<span class="p">]</span></em><em class="property"> = ['r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'r10']</em><a class="headerlink" href="#angr.calling_conventions.SimCCPowerPC64LinuxSyscall.ARG_REGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -13415,6 +13548,11 @@ Function names are ignored.</p>
 <dl class="py method">
 <dt id="angr.calling_conventions.SimCCPowerPC64LinuxSyscall.syscall_num">
 <em class="property">static </em><code class="sig-name descname">syscall_num</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCPowerPC64LinuxSyscall.syscall_num" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.calling_conventions.SimCCPowerPC64LinuxSyscall.set_return_val">
+<code class="sig-name descname">set_return_val</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em>, <em class="sig-param"><span class="n">val</span></em>, <em class="sig-param"><span class="n">is_fp</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stack_base</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCPowerPC64LinuxSyscall.set_return_val" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -13531,7 +13669,7 @@ Function names are ignored.</p>
 <dl class="py class">
 <dt id="angr.calling_conventions.SimCCS390XLinuxSyscall">
 <em class="property">class </em><code class="sig-prename descclassname">angr.calling_conventions.</code><code class="sig-name descname">SimCCS390XLinuxSyscall</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arch</span><span class="p">:</span> <span class="n"><a class="reference internal" href="archinfo.html#archinfo.arch.Arch" title="archinfo.arch.Arch">archinfo.arch.Arch</a></span></em>, <em class="sig-param"><span class="n">args</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ret_val</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument">angr.calling_conventions.SimFunctionArgument</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_delta</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">func_ty</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span><a class="reference internal" href="#angr.sim_type.SimTypeFunction" title="angr.sim_type.SimTypeFunction">angr.sim_type.SimTypeFunction</a><span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimCCS390XLinuxSyscall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCC" title="angr.calling_conventions.SimCC"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCC</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimCCSyscall" title="angr.calling_conventions.SimCCSyscall"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimCCSyscall</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -27121,7 +27259,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.cgc.transmit.transmit'&gt;, &lt;class 'angr.procedures.posix.read.read'&gt;, &lt;class 'angr.procedures.cgc.receive.receive'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.cgc.transmit.transmit'&gt;, &lt;class 'angr.procedures.cgc.receive.receive'&gt;, &lt;class 'angr.procedures.posix.read.read'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -29106,7 +29244,12 @@ behavior that can’t be handled by ordinary control flow.</p>
 
 <dl class="py method">
 <dt id="angr.simos.simos.SimOS.syscall_abi">
-<code class="sig-name descname">syscall_abi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.simos.SimOS.syscall_abi" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">syscall_abi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#angr.simos.simos.SimOS.syscall_abi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.simos.simos.SimOS.syscall_cc">
+<code class="sig-name descname">syscall_cc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span> &#x2192; Optional<span class="p">[</span><a class="reference internal" href="#angr.calling_conventions.SimCCSyscall" title="angr.calling_conventions.SimCCSyscall">angr.calling_conventions.SimCCSyscall</a><span class="p">]</span><a class="headerlink" href="#angr.simos.simos.SimOS.syscall_cc" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -29285,6 +29428,11 @@ addresses, where a SimProcedure from the syscall library provided at constructio
 <dl class="py method">
 <dt id="angr.simos.userland.SimUserland.configure_project">
 <code class="sig-name descname">configure_project</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">abi_list</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.simos.userland.SimUserland.configure_project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.simos.userland.SimUserland.syscall_cc">
+<code class="sig-name descname">syscall_cc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">state</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#angr.calling_conventions.SimCCSyscall" title="angr.calling_conventions.SimCCSyscall">angr.calling_conventions.SimCCSyscall</a><a class="headerlink" href="#angr.simos.userland.SimUserland.syscall_cc" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -29790,6 +29938,11 @@ original object.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="angr.utils.library.register_kernel_types">
+<code class="sig-prename descclassname">angr.utils.library.</code><code class="sig-name descname">register_kernel_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.utils.library.register_kernel_types" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt id="angr.utils.library.convert_cproto_to_py">
 <code class="sig-prename descclassname">angr.utils.library.</code><code class="sig-name descname">convert_cproto_to_py</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">c_decl</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.utils.library.convert_cproto_to_py" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a C-style function declaration string to its corresponding SimTypes-based Python representation.</p>
@@ -29824,7 +29977,7 @@ representation.</p>
 
 <dl class="py function">
 <dt id="angr.utils.library.cprotos2py">
-<code class="sig-prename descclassname">angr.utils.library.</code><code class="sig-name descname">cprotos2py</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cprotos</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.utils.library.cprotos2py" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">angr.utils.library.</code><code class="sig-name descname">cprotos2py</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cprotos</span></em>, <em class="sig-param"><span class="n">fd_spots</span><span class="o">=</span><span class="default_value">frozenset({})</span></em>, <em class="sig-param"><span class="n">remove_sys_prefix</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.utils.library.cprotos2py" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse a list of C function declarations and output to Python code that can be embedded into
 angr.procedures.definitions.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># parse the list of glibc C prototypes and output to a file</span>
