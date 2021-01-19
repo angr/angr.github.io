@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.5405 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.5450 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                9.0.5405
+                9.0.5450
               </div>
             
           
@@ -4720,13 +4720,18 @@ meaningful things to the state.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt id="angr.state_plugins.unicorn_engine.STOP.STOP_SYSCALL_ARM">
+<code class="sig-name descname">STOP_SYSCALL_ARM</code><em class="property"> = 30</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.STOP_SYSCALL_ARM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt id="angr.state_plugins.unicorn_engine.STOP.stop_message">
-<code class="sig-name descname">stop_message</code><em class="property"> = {0: 'Reached maximum steps', 1: 'Hit a stop point', 2: 'Something wrong', 3: 'Unable to handle syscall', 4: 'Fetching empty page', 5: 'Accessing zero page', 6: 'Failed to start', 7: 'Permissions or mapping error', 8: 'Divide by zero', 9: 'Instruction decoding error', 10: 'hlt instruction encountered', 11: 'Failed to lift block to VEX', 12: 'Symbolic condition for ITE', 13: 'Instruction pointer became symbolic', 14: 'Attempted to read from symbolic address', 15: 'Attempted to read symbolic data from memory but symbolic tracking is disabled', 16: 'Attempted to write to symbolic address', 17: &quot;Guard condition of block's exit statement is symbolic&quot;, 18: 'Target of default exit of block is symbolic', 19: 'Symbolic taint propagation for PutI statement not yet supported', 20: 'Symbolic taint propagation for StoreG statement not yet supported', 21: 'Symbolic taint propagation for LoadG statement not yet supported', 22: 'Symbolic taint propagation for CAS statement not yet supported', 23: 'Symbolic taint propagation for LLSC statement not yet supported', 24: 'Symbolic taint propagation for Dirty statement not yet supported', 25: 'Symbolic taint propagation for GetI expression not yet supported', 26: 'Canoo propagate symbolic taint for unsupported VEX statement type', 27: 'Cannot propagate symbolic taint for unsupported VEX expression', 28: 'Cannot find a memory write at instruction; likely because unicorn reported PC value incorrectly', 29: 'A symbolic memory dependency on stack is no longer in scope'}</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.stop_message" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">stop_message</code><em class="property"> = {0: 'Reached maximum steps', 1: 'Hit a stop point', 2: 'Something wrong', 3: 'Unable to handle syscall', 4: 'Fetching empty page', 5: 'Accessing zero page', 6: 'Failed to start', 7: 'Permissions or mapping error', 8: 'Divide by zero', 9: 'Instruction decoding error', 10: 'hlt instruction encountered', 11: 'Failed to lift block to VEX', 12: 'Symbolic condition for ITE', 13: 'Instruction pointer became symbolic', 14: 'Attempted to read from symbolic address', 15: 'Attempted to read symbolic data from memory but symbolic tracking is disabled', 16: 'Attempted to write to symbolic address', 17: &quot;Guard condition of block's exit statement is symbolic&quot;, 18: 'Target of default exit of block is symbolic', 19: 'Symbolic taint propagation for PutI statement not yet supported', 20: 'Symbolic taint propagation for StoreG statement not yet supported', 21: 'Symbolic taint propagation for LoadG statement not yet supported', 22: 'Symbolic taint propagation for CAS statement not yet supported', 23: 'Symbolic taint propagation for LLSC statement not yet supported', 24: 'Symbolic taint propagation for Dirty statement not yet supported', 25: 'Symbolic taint propagation for GetI expression not yet supported', 26: 'Canoo propagate symbolic taint for unsupported VEX statement type', 27: 'Cannot propagate symbolic taint for unsupported VEX expression', 28: 'Cannot find a memory write at instruction; likely because unicorn reported PC value incorrectly', 29: 'A symbolic memory dependency on stack is no longer in scope', 30: 'ARM syscalls are currently not supported by SimEngineUnicorn'}</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.stop_message" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt id="angr.state_plugins.unicorn_engine.STOP.symbolic_stop_reasons">
-<code class="sig-name descname">symbolic_stop_reasons</code><em class="property"> = [12, 13, 14, 15, 16, 17, 18]</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.symbolic_stop_reasons" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">symbolic_stop_reasons</code><em class="property"> = [12, 13, 14, 15, 16, 17, 18, 30]</em><a class="headerlink" href="#angr.state_plugins.unicorn_engine.STOP.symbolic_stop_reasons" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -27486,7 +27491,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.cgc.receive.receive'&gt;, &lt;class 'angr.procedures.cgc.transmit.transmit'&gt;, &lt;class 'angr.procedures.posix.read.read'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.posix.read.read'&gt;, &lt;class 'angr.procedures.cgc.receive.receive'&gt;, &lt;class 'angr.procedures.cgc.transmit.transmit'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
