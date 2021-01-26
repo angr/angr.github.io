@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.5450 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.5609 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                9.0.5450
+                9.0.5609
               </div>
             
           
@@ -22933,6 +22933,11 @@ for example, any mapped columns or relationships.</p>
 <code class="sig-name descname">walk_statement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stmt</span><span class="p">:</span> <span class="n">ailment.statement.Statement</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.ailblock_walker.AILBlockWalker.walk_statement" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt id="angr.analyses.decompiler.ailblock_walker.AILBlockWalker.walk_expression">
+<code class="sig-name descname">walk_expression</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span><span class="p">:</span> <span class="n">ailment.expression.Expression</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.ailblock_walker.AILBlockWalker.walk_expression" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.decompiler.ailgraph_walker"></span><dl class="py exception">
@@ -22955,7 +22960,7 @@ for example, any mapped columns or relationships.</p>
 
 <span class="target" id="module-angr.analyses.decompiler.block_simplifier"></span><dl class="py class">
 <dt id="angr.analyses.decompiler.block_simplifier.BlockSimplifier">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.block_simplifier.</code><code class="sig-name descname">BlockSimplifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">block</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Block<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">remove_dead_memdefs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">stack_pointer_tracker</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.block_simplifier.BlockSimplifier" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.block_simplifier.</code><code class="sig-name descname">BlockSimplifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">block</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Block<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">remove_dead_memdefs</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">stack_pointer_tracker</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">peephole_optimizations</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Iterable<span class="p">[</span>Union<span class="p">[</span>Type<span class="p">[</span><a class="reference internal" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase" title="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase">angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase</a><span class="p">]</span><span class="p">, </span>Type<span class="p">[</span><a class="reference internal" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase" title="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase">angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase</a><span class="p">]</span><span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.block_simplifier.BlockSimplifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a></p>
 <p>Simplify an AIL block.</p>
 <dl class="field-list simple">
@@ -22975,7 +22980,7 @@ in test cases.</p>
 
 <span class="target" id="module-angr.analyses.decompiler.clinic"></span><dl class="py class">
 <dt id="angr.analyses.decompiler.clinic.Clinic">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.clinic.</code><code class="sig-name descname">Clinic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">remove_dead_memdefs</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">exception_edges</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sp_tracker_track_memory</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">optimization_passes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cfg</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.clinic.Clinic" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.clinic.</code><code class="sig-name descname">Clinic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">remove_dead_memdefs</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">exception_edges</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sp_tracker_track_memory</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">optimization_passes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cfg</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">peephole_optimizations</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Iterable<span class="p">[</span>Union<span class="p">[</span>Type<span class="p">[</span>PeepholeOptimizationStmtBase<span class="p">]</span><span class="p">, </span>Type<span class="p">[</span>PeepholeOptimizationExprBase<span class="p">]</span><span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.clinic.Clinic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a></p>
 <p>A Clinic deals with AILments.</p>
 <dl class="py method">
@@ -23113,7 +23118,7 @@ get_last_statement() should switch to get_last_statements() and properly handle 
 
 <span class="target" id="module-angr.analyses.decompiler.decompiler"></span><dl class="py class">
 <dt id="angr.analyses.decompiler.decompiler.Decompiler">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.decompiler.</code><code class="sig-name descname">Decompiler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">cfg</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">optimization_passes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_tracker_track_memory</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.decompiler.Decompiler" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.decompiler.</code><code class="sig-name descname">Decompiler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">cfg</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">options</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">optimization_passes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sp_tracker_track_memory</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">peephole_optimizations</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Iterable<span class="p">[</span>Union<span class="p">[</span>Type<span class="p">[</span>PeepholeOptimizationStmtBase<span class="p">]</span><span class="p">, </span>Type<span class="p">[</span>PeepholeOptimizationExprBase<span class="p">]</span><span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.decompiler.Decompiler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a></p>
 <dl class="py method">
 <dt id="angr.analyses.decompiler.decompiler.Decompiler.options_to_params">
@@ -23275,7 +23280,7 @@ same hash.</p></li>
 </dl>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.optimization_passes.eager_returns.EagerReturnsSimplifier.ARCHES">
-<code class="sig-name descname">ARCHES</code><em class="property"> = ['X86', 'AMD64']</em><a class="headerlink" href="#angr.analyses.decompiler.optimization_passes.eager_returns.EagerReturnsSimplifier.ARCHES" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ARCHES</code><em class="property"> = ['X86', 'AMD64', 'ARMCortexM']</em><a class="headerlink" href="#angr.analyses.decompiler.optimization_passes.eager_returns.EagerReturnsSimplifier.ARCHES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -23328,7 +23333,7 @@ same hash.</p></li>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass" title="angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass</span></code></a></p>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.optimization_passes.stack_canary_simplifier.StackCanarySimplifier.ARCHES">
-<code class="sig-name descname">ARCHES</code><em class="property"> = ['X86', 'AMD64']</em><a class="headerlink" href="#angr.analyses.decompiler.optimization_passes.stack_canary_simplifier.StackCanarySimplifier.ARCHES" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ARCHES</code><em class="property"> = ['X86', 'AMD64', 'ARMEL', 'ARMCortexM']</em><a class="headerlink" href="#angr.analyses.decompiler.optimization_passes.stack_canary_simplifier.StackCanarySimplifier.ARCHES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -23344,7 +23349,7 @@ same hash.</p></li>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass" title="angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass</span></code></a></p>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier.ARCHES">
-<code class="sig-name descname">ARCHES</code><em class="property"> = ['X86', 'AMD64', 'ARMEL']</em><a class="headerlink" href="#angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier.ARCHES" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">ARCHES</code><em class="property"> = ['X86', 'AMD64', 'ARMEL', 'ARMCortexM']</em><a class="headerlink" href="#angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier.ARCHES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -23467,6 +23472,304 @@ same hash.</p></li>
 
 </dd></dl>
 
+<span class="target" id="module-angr.analyses.decompiler.peephole_optimizations"></span><span class="target" id="module-angr.analyses.decompiler.peephole_optimizations.base"></span><dl class="py class">
+<dt id="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.peephole_optimizations.base.</code><code class="sig-name descname">PeepholeOptimizationStmtBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.name">
+<code class="sig-name descname">name</code><em class="property"> = 'Peephole Optimization - Statement'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.description">
+<code class="sig-name descname">description</code><em class="property"> = 'Peephole Optimization - Statement'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.stmt_classes">
+<code class="sig-name descname">stmt_classes</code><em class="property"> = None</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.stmt_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.project">
+<code class="sig-name descname">project</code><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stmt</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.peephole_optimizations.base.</code><code class="sig-name descname">PeepholeOptimizationExprBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.name">
+<code class="sig-name descname">name</code><em class="property"> = 'Peephole Optimization - Expression'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.description">
+<code class="sig-name descname">description</code><em class="property"> = 'Peephole Optimization - Expression'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.expr_classes">
+<code class="sig-name descname">expr_classes</code><em class="property"> = None</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.expr_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.project">
+<code class="sig-name descname">project</code><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.project" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.is_bool_expr">
+<em class="property">static </em><code class="sig-name descname">is_bool_expr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ail_expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.is_bool_expr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n"></span><dl class="py class">
+<dt id="angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.</code><code class="sig-name descname">ASubASubN</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase" title="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase</span></code></a></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN.name">
+<code class="sig-name descname">name</code><em class="property"> = 'expr - (expr - N) =&gt; N'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN.expr_classes">
+<code class="sig-name descname">expr_classes</code><em class="property"> = (&lt;class 'ailment.expression.BinaryOp'&gt;,)</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN.expr_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span><span class="p">:</span> <span class="n">ailment.expression.BinaryOp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n.ASubASubN.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1"></span><dl class="py class">
+<dt id="angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.</code><code class="sig-name descname">BoolExprXor1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase" title="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase</span></code></a></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1.name">
+<code class="sig-name descname">name</code><em class="property"> = 'bool_expr ^ 1 =&gt; !bool_expr (a)'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1.expr_classes">
+<code class="sig-name descname">expr_classes</code><em class="property"> = (&lt;class 'ailment.expression.BinaryOp'&gt;,)</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1.expr_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span><span class="p">:</span> <span class="n">ailment.expression.BinaryOp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs"></span><dl class="py class">
+<dt id="angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.</code><code class="sig-name descname">CoalesceSameCascadingIfs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase" title="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase</span></code></a></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs.name">
+<code class="sig-name descname">name</code><em class="property"> = 'Coalescing cascading If constructs'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs.stmt_classes">
+<code class="sig-name descname">stmt_classes</code><em class="property"> = (&lt;class 'ailment.statement.ConditionalJump'&gt;,)</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs.stmt_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stmt</span><span class="p">:</span> <span class="n">ailment.statement.ConditionalJump</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.decompiler.peephole_optimizations.constant_derefs"></span><dl class="py class">
+<dt id="angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.peephole_optimizations.constant_derefs.</code><code class="sig-name descname">ConstantDereferences</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase" title="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase</span></code></a></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences.name">
+<code class="sig-name descname">name</code><em class="property"> = 'Dereference constant references'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences.stmt_classes">
+<code class="sig-name descname">stmt_classes</code><em class="property"> = (&lt;class 'ailment.statement.Assignment'&gt;,)</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences.stmt_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stmt</span><span class="p">:</span> <span class="n">ailment.statement.Assignment</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.decompiler.peephole_optimizations.conv_shl_shr"></span><dl class="py class">
+<dt id="angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.</code><code class="sig-name descname">ConvShlShr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase" title="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase</span></code></a></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr.name">
+<code class="sig-name descname">name</code><em class="property"> = '(expr &lt;&lt; P) &gt;&gt; Q =&gt; (expr &amp; mask) &gt;&gt; R'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr.expr_classes">
+<code class="sig-name descname">expr_classes</code><em class="property"> = (&lt;class 'ailment.expression.BinaryOp'&gt;,)</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr.expr_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span><span class="p">:</span> <span class="n">ailment.expression.BinaryOp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.decompiler.peephole_optimizations.one_sub_bool"></span><dl class="py class">
+<dt id="angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.peephole_optimizations.one_sub_bool.</code><code class="sig-name descname">OneSubBool</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase" title="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase</span></code></a></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool.name">
+<code class="sig-name descname">name</code><em class="property"> = '1 - bool_expr =&gt; !bool_expr'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool.expr_classes">
+<code class="sig-name descname">expr_classes</code><em class="property"> = (&lt;class 'ailment.expression.BinaryOp'&gt;,)</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool.expr_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span><span class="p">:</span> <span class="n">ailment.expression.BinaryOp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body"></span><dl class="py class">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body.RemoveEmptyIfBody">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body.</code><code class="sig-name descname">RemoveEmptyIfBody</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body.RemoveEmptyIfBody" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase" title="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationStmtBase</span></code></a></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body.RemoveEmptyIfBody.name">
+<code class="sig-name descname">name</code><em class="property"> = 'Remove empty If bodies'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body.RemoveEmptyIfBody.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body.RemoveEmptyIfBody.stmt_classes">
+<code class="sig-name descname">stmt_classes</code><em class="property"> = (&lt;class 'ailment.statement.ConditionalJump'&gt;,)</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body.RemoveEmptyIfBody.stmt_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body.RemoveEmptyIfBody.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stmt</span><span class="p">:</span> <span class="n">ailment.statement.ConditionalJump</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body.RemoveEmptyIfBody.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks"></span><dl class="py class">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks.RemoveRedundantBitmasks">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks.</code><code class="sig-name descname">RemoveRedundantBitmasks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks.RemoveRedundantBitmasks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase" title="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase</span></code></a></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks.RemoveRedundantBitmasks.name">
+<code class="sig-name descname">name</code><em class="property"> = 'Remove redundant bitmasks'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks.RemoveRedundantBitmasks.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks.RemoveRedundantBitmasks.expr_classes">
+<code class="sig-name descname">expr_classes</code><em class="property"> = (&lt;class 'ailment.expression.BinaryOp'&gt;,)</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks.RemoveRedundantBitmasks.expr_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks.RemoveRedundantBitmasks.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span><span class="p">:</span> <span class="n">ailment.expression.BinaryOp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks.RemoveRedundantBitmasks.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots"></span><dl class="py class">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots.RemoveRedundantNots">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots.</code><code class="sig-name descname">RemoveRedundantNots</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots.RemoveRedundantNots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase" title="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase</span></code></a></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots.RemoveRedundantNots.name">
+<code class="sig-name descname">name</code><em class="property"> = 'Remove redundant Nots'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots.RemoveRedundantNots.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots.RemoveRedundantNots.expr_classes">
+<code class="sig-name descname">expr_classes</code><em class="property"> = (&lt;class 'ailment.expression.UnaryOp'&gt;,)</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots.RemoveRedundantNots.expr_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots.RemoveRedundantNots.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span><span class="p">:</span> <span class="n">ailment.expression.UnaryOp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots.RemoveRedundantNots.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts"></span><dl class="py class">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts.RemoveRedundantShifts">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts.</code><code class="sig-name descname">RemoveRedundantShifts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts.RemoveRedundantShifts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase" title="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase</span></code></a></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts.RemoveRedundantShifts.name">
+<code class="sig-name descname">name</code><em class="property"> = 'Remove redundant bitshifts'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts.RemoveRedundantShifts.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts.RemoveRedundantShifts.expr_classes">
+<code class="sig-name descname">expr_classes</code><em class="property"> = (&lt;class 'ailment.expression.BinaryOp'&gt;,)</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts.RemoveRedundantShifts.expr_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts.RemoveRedundantShifts.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span><span class="p">:</span> <span class="n">ailment.expression.BinaryOp</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts.RemoveRedundantShifts.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.decompiler.peephole_optimizations.single_bit_xor"></span><dl class="py class">
+<dt id="angr.analyses.decompiler.peephole_optimizations.single_bit_xor.SingleBitXor">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.peephole_optimizations.single_bit_xor.</code><code class="sig-name descname">SingleBitXor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">project</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.single_bit_xor.SingleBitXor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase" title="angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase</span></code></a></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.single_bit_xor.SingleBitXor.name">
+<code class="sig-name descname">name</code><em class="property"> = 'bool_expr ^ 1 =&gt; !bool_expr (b)'</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.single_bit_xor.SingleBitXor.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.peephole_optimizations.single_bit_xor.SingleBitXor.expr_classes">
+<code class="sig-name descname">expr_classes</code><em class="property"> = (&lt;class 'ailment.expression.Convert'&gt;,)</em><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.single_bit_xor.SingleBitXor.expr_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.peephole_optimizations.single_bit_xor.SingleBitXor.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span><span class="p">:</span> <span class="n">ailment.expression.Convert</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.peephole_optimizations.single_bit_xor.SingleBitXor.optimize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <span class="target" id="module-angr.analyses.decompiler.region_identifier"></span><dl class="py class">
 <dt id="angr.analyses.decompiler.region_identifier.RegionIdentifier">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.region_identifier.</code><code class="sig-name descname">RegionIdentifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em>, <em class="sig-param"><span class="n">cond_proc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">graph</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.region_identifier.RegionIdentifier" title="Permalink to this definition">¶</a></dt>
@@ -23516,6 +23819,31 @@ same hash.</p></li>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.sequence_walker.SequenceWalker" title="angr.analyses.decompiler.sequence_walker.SequenceWalker"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.sequence_walker.SequenceWalker</span></code></a></p>
 <p>Remove unnecessary else branches and make the else node a direct successor of the previous If node if the If node
 always returns.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="angr.analyses.decompiler.region_simplifier.CascadingIfsRemover">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.region_simplifier.</code><code class="sig-name descname">CascadingIfsRemover</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.region_simplifier.CascadingIfsRemover" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.sequence_walker.SequenceWalker" title="angr.analyses.decompiler.sequence_walker.SequenceWalker"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.sequence_walker.SequenceWalker</span></code></a></p>
+<p>Coalesce cascading If constructs. Transforming the following construct:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">cond_a</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cond_b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">true_body</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>into:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">cond_a</span> <span class="ow">and</span> <span class="n">cond_b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">true_body</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="p">}</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="angr.analyses.decompiler.region_simplifier.CascadingIfsRemover.is_empty_node">
+<em class="property">static </em><code class="sig-name descname">is_empty_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">node</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.region_simplifier.CascadingIfsRemover.is_empty_node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -23589,14 +23917,68 @@ always returns.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt id="angr.analyses.decompiler.structured_codegen.InstructionMappingElement">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">InstructionMappingElement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ins_addr</span></em>, <em class="sig-param"><span class="n">posmap_pos</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.InstructionMappingElement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.InstructionMappingElement.ins_addr">
+<code class="sig-name descname">ins_addr</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.InstructionMappingElement.ins_addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.InstructionMappingElement.posmap_pos">
+<code class="sig-name descname">posmap_pos</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.InstructionMappingElement.posmap_pos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="angr.analyses.decompiler.structured_codegen.InstructionMapping">
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">InstructionMapping</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.InstructionMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="angr.analyses.decompiler.structured_codegen.InstructionMapping.items">
+<code class="sig-name descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.InstructionMapping.items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.structured_codegen.InstructionMapping.add_mapping">
+<code class="sig-name descname">add_mapping</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ins_addr</span></em>, <em class="sig-param"><span class="n">posmap_pos</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.InstructionMapping.add_mapping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.analyses.decompiler.structured_codegen.InstructionMapping.get_nearest_pos">
+<code class="sig-name descname">get_nearest_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ins_addr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.InstructionMapping.get_nearest_pos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CConstruct">
 <em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CConstruct</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CConstruct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Represents a program construct in C.</p>
+<p>Represents a program construct in C.
+Acts as the base class for all other representation constructions.</p>
 <dl class="py method">
 <dt id="angr.analyses.decompiler.structured_codegen.CConstruct.c_repr">
-<code class="sig-name descname">c_repr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indent</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">posmap</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CConstruct.c_repr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">c_repr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indent</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">posmap</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stmt_posmap</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">insmap</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CConstruct.c_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the C reperesentation of the code and displays it by
+constructing a large string. This function is called by each program function that needs to be decompiled.
+The posmap and stmt_posmap act as position maps for the location of each variable and statment to be
+tracked for later GUI operations. The stmt_posmap also contains expressions that are nested inside of
+statments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>indent</strong> – # of indents (int)</p></li>
+<li><p><strong>posmap</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="angr.analyses.decompiler.structured_codegen.CConstruct.c_repr_chunks">
@@ -23729,7 +24111,7 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CWhileLoop">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CWhileLoop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">condition</span></em>, <em class="sig-param"><span class="n">body</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CWhileLoop" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CWhileLoop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">condition</span></em>, <em class="sig-param"><span class="n">body</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CWhileLoop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CLoop" title="angr.analyses.decompiler.structured_codegen.CLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CLoop</span></code></a></p>
 <p>Represents a while loop in C.</p>
 <dl class="py attribute">
@@ -23742,6 +24124,11 @@ always returns.</p>
 <code class="sig-name descname">body</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CWhileLoop.body" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CWhileLoop.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CWhileLoop.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt id="angr.analyses.decompiler.structured_codegen.CWhileLoop.c_repr_chunks">
 <code class="sig-name descname">c_repr_chunks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indent</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CWhileLoop.c_repr_chunks" title="Permalink to this definition">¶</a></dt>
@@ -23751,7 +24138,7 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CDoWhileLoop">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CDoWhileLoop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">condition</span></em>, <em class="sig-param"><span class="n">body</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CDoWhileLoop" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CDoWhileLoop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">condition</span></em>, <em class="sig-param"><span class="n">body</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CDoWhileLoop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CLoop" title="angr.analyses.decompiler.structured_codegen.CLoop"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CLoop</span></code></a></p>
 <p>Represents a do-while loop in C.</p>
 <dl class="py attribute">
@@ -23764,6 +24151,11 @@ always returns.</p>
 <code class="sig-name descname">body</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CDoWhileLoop.body" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CDoWhileLoop.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CDoWhileLoop.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt id="angr.analyses.decompiler.structured_codegen.CDoWhileLoop.c_repr_chunks">
 <code class="sig-name descname">c_repr_chunks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indent</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CDoWhileLoop.c_repr_chunks" title="Permalink to this definition">¶</a></dt>
@@ -23773,7 +24165,7 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CIfElse">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CIfElse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">condition</span></em>, <em class="sig-param"><span class="n">true_node</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">false_node</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CIfElse" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CIfElse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">condition</span></em>, <em class="sig-param"><span class="n">true_node</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">false_node</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CIfElse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CStatement" title="angr.analyses.decompiler.structured_codegen.CStatement"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CStatement</span></code></a></p>
 <p>Represents an if-else construct in C.</p>
 <dl class="py attribute">
@@ -23791,6 +24183,11 @@ always returns.</p>
 <code class="sig-name descname">false_node</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CIfElse.false_node" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CIfElse.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CIfElse.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt id="angr.analyses.decompiler.structured_codegen.CIfElse.c_repr_chunks">
 <code class="sig-name descname">c_repr_chunks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indent</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CIfElse.c_repr_chunks" title="Permalink to this definition">¶</a></dt>
@@ -23800,12 +24197,17 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CIfBreak">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CIfBreak</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">condition</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CIfBreak" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CIfBreak</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">condition</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CIfBreak" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CStatement" title="angr.analyses.decompiler.structured_codegen.CStatement"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CStatement</span></code></a></p>
 <p>Represents an if-break statement in C.</p>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.structured_codegen.CIfBreak.condition">
 <code class="sig-name descname">condition</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CIfBreak.condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CIfBreak.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CIfBreak.tags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -23817,9 +24219,14 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CBreak">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CBreak</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CBreak" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CBreak</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CBreak" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CStatement" title="angr.analyses.decompiler.structured_codegen.CStatement"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CStatement</span></code></a></p>
 <p>Represents a break statement in C.</p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CBreak.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CBreak.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt id="angr.analyses.decompiler.structured_codegen.CBreak.c_repr_chunks">
 <code class="sig-name descname">c_repr_chunks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indent</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CBreak.c_repr_chunks" title="Permalink to this definition">¶</a></dt>
@@ -23829,9 +24236,14 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CContinue">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CContinue</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CContinue" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CContinue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CContinue" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CStatement" title="angr.analyses.decompiler.structured_codegen.CStatement"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CStatement</span></code></a></p>
 <p>Represents a continue statement in C.</p>
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CContinue.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CContinue.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt id="angr.analyses.decompiler.structured_codegen.CContinue.c_repr_chunks">
 <code class="sig-name descname">c_repr_chunks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indent</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CContinue.c_repr_chunks" title="Permalink to this definition">¶</a></dt>
@@ -23841,7 +24253,7 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CSwitchCase">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CSwitchCase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">switch</span></em>, <em class="sig-param"><span class="n">cases</span></em>, <em class="sig-param"><span class="n">default</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CSwitchCase" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CSwitchCase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">switch</span></em>, <em class="sig-param"><span class="n">cases</span></em>, <em class="sig-param"><span class="n">default</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CSwitchCase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CStatement" title="angr.analyses.decompiler.structured_codegen.CStatement"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CStatement</span></code></a></p>
 <p>Represents a switch-case statement in C.</p>
 <dl class="py attribute">
@@ -23859,6 +24271,11 @@ always returns.</p>
 <code class="sig-name descname">default</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CSwitchCase.default" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CSwitchCase.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CSwitchCase.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt id="angr.analyses.decompiler.structured_codegen.CSwitchCase.c_repr_chunks">
 <code class="sig-name descname">c_repr_chunks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indent</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CSwitchCase.c_repr_chunks" title="Permalink to this definition">¶</a></dt>
@@ -23868,7 +24285,7 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CAssignment">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CAssignment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lhs</span></em>, <em class="sig-param"><span class="n">rhs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CAssignment" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CAssignment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lhs</span></em>, <em class="sig-param"><span class="n">rhs</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CAssignment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CStatement" title="angr.analyses.decompiler.structured_codegen.CStatement"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CStatement</span></code></a></p>
 <p>a = b</p>
 <dl class="py attribute">
@@ -23879,6 +24296,11 @@ always returns.</p>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.structured_codegen.CAssignment.rhs">
 <code class="sig-name descname">rhs</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CAssignment.rhs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CAssignment.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CAssignment.tags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -23947,11 +24369,16 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CReturn">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CReturn</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">retval</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CReturn" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CReturn</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">retval</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CReturn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CStatement" title="angr.analyses.decompiler.structured_codegen.CStatement"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CStatement</span></code></a></p>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.structured_codegen.CReturn.retval">
 <code class="sig-name descname">retval</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CReturn.retval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CReturn.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CReturn.tags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -23963,11 +24390,16 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CGoto">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CGoto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CGoto" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CGoto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CGoto" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CStatement" title="angr.analyses.decompiler.structured_codegen.CStatement"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CStatement</span></code></a></p>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.structured_codegen.CGoto.target">
 <code class="sig-name descname">target</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CGoto.target" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CGoto.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CGoto.tags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -23996,7 +24428,7 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CStructField">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CStructField</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">struct_type</span></em>, <em class="sig-param"><span class="n">offset</span></em>, <em class="sig-param"><span class="n">field</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CStructField" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CStructField</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">struct_type</span></em>, <em class="sig-param"><span class="n">offset</span></em>, <em class="sig-param"><span class="n">field</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CStructField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CExpression" title="angr.analyses.decompiler.structured_codegen.CExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CExpression</span></code></a></p>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.structured_codegen.CStructField.struct_type">
@@ -24011,6 +24443,11 @@ always returns.</p>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.structured_codegen.CStructField.field">
 <code class="sig-name descname">field</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CStructField.field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CStructField.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CStructField.tags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -24043,7 +24480,7 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CVariable">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CVariable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">variable</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">variable_type</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CVariable" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CVariable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">variable</span></em>, <em class="sig-param"><span class="n">offset</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">variable_type</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CVariable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CExpression" title="angr.analyses.decompiler.structured_codegen.CExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CExpression</span></code></a></p>
 <p>Read value from a variable.</p>
 <dl class="py attribute">
@@ -24061,6 +24498,11 @@ always returns.</p>
 <code class="sig-name descname">variable_type</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CVariable.variable_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CVariable.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CVariable.tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt id="angr.analyses.decompiler.structured_codegen.CVariable.type">
 <em class="property">property </em><code class="sig-name descname">type</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CVariable.type" title="Permalink to this definition">¶</a></dt>
@@ -24075,7 +24517,7 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CUnaryOp">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CUnaryOp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">op</span></em>, <em class="sig-param"><span class="n">operand</span></em>, <em class="sig-param"><span class="n">variable</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CUnaryOp" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CUnaryOp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">op</span></em>, <em class="sig-param"><span class="n">operand</span></em>, <em class="sig-param"><span class="n">variable</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CUnaryOp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CExpression" title="angr.analyses.decompiler.structured_codegen.CExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CExpression</span></code></a></p>
 <p>Unary operations.</p>
 <dl class="py attribute">
@@ -24091,6 +24533,11 @@ always returns.</p>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.structured_codegen.CUnaryOp.variable">
 <code class="sig-name descname">variable</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CUnaryOp.variable" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CUnaryOp.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CUnaryOp.tags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -24154,7 +24601,7 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CTypeCast">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CTypeCast</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_type</span></em>, <em class="sig-param"><span class="n">dst_type</span></em>, <em class="sig-param"><span class="n">expr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CTypeCast" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CTypeCast</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_type</span></em>, <em class="sig-param"><span class="n">dst_type</span></em>, <em class="sig-param"><span class="n">expr</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CTypeCast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CExpression" title="angr.analyses.decompiler.structured_codegen.CExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CExpression</span></code></a></p>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.structured_codegen.CTypeCast.src_type">
@@ -24169,6 +24616,11 @@ always returns.</p>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.structured_codegen.CTypeCast.expr">
 <code class="sig-name descname">expr</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CTypeCast.expr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CTypeCast.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CTypeCast.tags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -24242,7 +24694,7 @@ always returns.</p>
 
 <dl class="py class">
 <dt id="angr.analyses.decompiler.structured_codegen.CITE">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CITE</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cond</span></em>, <em class="sig-param"><span class="n">iftrue</span></em>, <em class="sig-param"><span class="n">iffalse</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CITE" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.decompiler.structured_codegen.</code><code class="sig-name descname">CITE</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cond</span></em>, <em class="sig-param"><span class="n">iftrue</span></em>, <em class="sig-param"><span class="n">iffalse</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CITE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structured_codegen.CExpression" title="angr.analyses.decompiler.structured_codegen.CExpression"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structured_codegen.CExpression</span></code></a></p>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.structured_codegen.CITE.cond">
@@ -24257,6 +24709,11 @@ always returns.</p>
 <dl class="py attribute">
 <dt id="angr.analyses.decompiler.structured_codegen.CITE.iffalse">
 <code class="sig-name descname">iffalse</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CITE.iffalse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.analyses.decompiler.structured_codegen.CITE.tags">
+<code class="sig-name descname">tags</code><a class="headerlink" href="#angr.analyses.decompiler.structured_codegen.CITE.tags" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -25149,7 +25606,7 @@ or memory variables.</p></li>
 
 <span class="target" id="module-angr.analyses.propagator.engine_base"></span><dl class="py class">
 <dt id="angr.analyses.propagator.engine_base.SimEnginePropagatorBase">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.propagator.engine_base.</code><code class="sig-name descname">SimEnginePropagatorBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stack_pointer_tracker</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.engine_base.SimEnginePropagatorBase" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.propagator.engine_base.</code><code class="sig-name descname">SimEnginePropagatorBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stack_pointer_tracker</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">propagate_tmps</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.engine_base.SimEnginePropagatorBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.engines.light.engine.SimEngineLight" title="angr.engines.light.engine.SimEngineLight"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.engines.light.engine.SimEngineLight</span></code></a></p>
 <dl class="py method">
 <dt id="angr.analyses.propagator.engine_base.SimEnginePropagatorBase.process">
@@ -25160,14 +25617,19 @@ or memory variables.</p></li>
 
 <span class="target" id="module-angr.analyses.propagator.engine_vex"></span><dl class="py class">
 <dt id="angr.analyses.propagator.engine_vex.SimEnginePropagatorVEX">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.propagator.engine_vex.</code><code class="sig-name descname">SimEnginePropagatorVEX</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stack_pointer_tracker</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.engine_vex.SimEnginePropagatorVEX" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.propagator.engine_vex.</code><code class="sig-name descname">SimEnginePropagatorVEX</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stack_pointer_tracker</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">propagate_tmps</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.engine_vex.SimEnginePropagatorVEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.engines.light.engine.SimEngineLightVEXMixin" title="angr.engines.light.engine.SimEngineLightVEXMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.engines.light.engine.SimEngineLightVEXMixin</span></code></a>, <a class="reference internal" href="#angr.analyses.propagator.engine_base.SimEnginePropagatorBase" title="angr.analyses.propagator.engine_base.SimEnginePropagatorBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.propagator.engine_base.SimEnginePropagatorBase</span></code></a></p>
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.propagator.engine_ail"></span><dl class="py class">
 <dt id="angr.analyses.propagator.engine_ail.SimEnginePropagatorAIL">
-<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.propagator.engine_ail.</code><code class="sig-name descname">SimEnginePropagatorAIL</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stack_pointer_tracker</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.engine_ail.SimEnginePropagatorAIL" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">angr.analyses.propagator.engine_ail.</code><code class="sig-name descname">SimEnginePropagatorAIL</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stack_pointer_tracker</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">propagate_tmps</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.engine_ail.SimEnginePropagatorAIL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.engines.light.engine.SimEngineLightAILMixin" title="angr.engines.light.engine.SimEngineLightAILMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.engines.light.engine.SimEngineLightAILMixin</span></code></a>, <a class="reference internal" href="#angr.analyses.propagator.engine_base.SimEnginePropagatorBase" title="angr.analyses.propagator.engine_base.SimEnginePropagatorBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.propagator.engine_base.SimEnginePropagatorBase</span></code></a></p>
+<dl class="py method">
+<dt id="angr.analyses.propagator.engine_ail.SimEnginePropagatorAIL.is_using_outdated_def">
+<code class="sig-name descname">is_using_outdated_def</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expr</span><span class="p">:</span> <span class="n">ailment.expression.Expression</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#angr.analyses.propagator.engine_ail.SimEnginePropagatorAIL.is_using_outdated_def" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.propagator.propagator"></span><dl class="py class">
@@ -25283,17 +25745,17 @@ If the self._only_consts flag is set to true, only constant values will be set.<
 
 <dl class="py method">
 <dt id="angr.analyses.propagator.propagator.PropagatorAILState.store_variable">
-<code class="sig-name descname">store_variable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">old</span></em>, <em class="sig-param"><span class="n">new</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.store_variable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">store_variable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">old</span></em>, <em class="sig-param"><span class="n">new</span></em>, <em class="sig-param"><span class="n">def_at</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.store_variable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="angr.analyses.propagator.propagator.PropagatorAILState.store_stack_variable">
-<code class="sig-name descname">store_stack_variable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">addr</span></em>, <em class="sig-param"><span class="n">size</span></em>, <em class="sig-param"><span class="n">new</span></em>, <em class="sig-param"><span class="n">endness</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.store_stack_variable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">store_stack_variable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">addr</span></em>, <em class="sig-param"><span class="n">size</span></em>, <em class="sig-param"><span class="n">new</span></em>, <em class="sig-param"><span class="n">endness</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.store_stack_variable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="angr.analyses.propagator.propagator.PropagatorAILState.get_variable">
-<code class="sig-name descname">get_variable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">variable</span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.get_variable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_variable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">variable</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.get_variable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -27491,7 +27953,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.posix.read.read'&gt;, &lt;class 'angr.procedures.cgc.receive.receive'&gt;, &lt;class 'angr.procedures.cgc.transmit.transmit'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">whitelist</code><em class="property"> = {&lt;class 'angr.procedures.cgc.transmit.transmit'&gt;, &lt;class 'angr.procedures.cgc.receive.receive'&gt;, &lt;class 'angr.procedures.posix.read.read'&gt;}</em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">

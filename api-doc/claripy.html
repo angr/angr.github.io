@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>claripy — Solver Engine &mdash; angr 9.0.5450 documentation</title>
+  <title>claripy — Solver Engine &mdash; angr 9.0.5609 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                9.0.5450
+                9.0.5609
               </div>
             
           
@@ -6393,12 +6393,10 @@ A &amp; mask != b</p>
 <em class="property">static </em><code class="sig-name descname">zeroext_extract_comparing_against_constant_simplifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">op</span></em>, <em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.simplifications.SimplificationManager.zeroext_extract_comparing_against_constant_simplifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>This simplifier handles the following cases:</p>
 <blockquote>
-<div><p>Extract(hi, lo, Concat(0, A)) == b, and
-Extract(hi, lo, Concat(0, A)) != b, and
-Extract(hi, lo, ZeroExt(n, A)) == b, and
-Extract(hi, lo, ZeroExt(n, A)) != b</p>
+<div><p>Extract(hi, 0, Concat(0, A)) op b, and
+Extract(hi, 0, ZeroExt(n, A)) op b</p>
 </div></blockquote>
-<p>If the high bits of b are 0, Extract and Concat/ZeroExt can be eliminated.</p>
+<p>Extract can be eliminated if the high bits of Concat(0, A) or ZeroExt(n, A) are all zeros.</p>
 </dd></dl>
 
 <dl class="py method">
