@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; angr 9.0.5610 documentation</title>
+  <title>Index &mdash; angr 9.0.5739 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                9.0.5610
+                9.0.5739
               </div>
             
           
@@ -604,6 +604,10 @@
       <li><a href="angr.html#angr.storage.memory_mixins.convenient_mappings_mixin.ConvenientMappingsMixin.addrs_for_name">addrs_for_name() (angr.storage.memory_mixins.convenient_mappings_mixin.ConvenientMappingsMixin method)</a>
 </li>
       <li><a href="angr.html#angr.sim_procedure.SimProcedure.ADDS_EXITS">ADDS_EXITS (angr.sim_procedure.SimProcedure attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPassStage.AFTER_GLOBAL_SIMPLIFICATION">AFTER_GLOBAL_SIMPLIFICATION (angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPassStage attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPassStage.AFTER_SINGLE_BLOCK_SIMPLIFICATION">AFTER_SINGLE_BLOCK_SIMPLIFICATION (angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPassStage attribute)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.AggressiveConcretizationAnnotation">AggressiveConcretizationAnnotation (class in angr.state_plugins.unicorn_engine)</a>
 </li>
@@ -1223,6 +1227,13 @@
 
       <ul>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.constant_derefs">module</a>
+</li>
+      </ul></li>
+      <li>
+    angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and">module</a>
 </li>
       </ul></li>
       <li>
@@ -3894,6 +3905,8 @@
         <li><a href="angr.html#angr.analyses.reassembler.Procedure.assign_labels">(angr.analyses.reassembler.Procedure method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.assign_unified_variable_names">assign_unified_variable_names() (angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal method)</a>
+</li>
       <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.assign_variable_names">assign_variable_names() (angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.AddressTransferringTypes.Assignment">Assignment (angr.analyses.cfg.indirect_jump_resolvers.jumptable.AddressTransferringTypes attribute)</a>
@@ -4026,6 +4039,8 @@
         <li><a href="pyvex.html#pyvex.stmt.AbiHint.base">(pyvex.stmt.AbiHint attribute)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.sim_variable.SimStackVariable.base_addr">base_addr (angr.sim_variable.SimStackVariable attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.JumpTargetBaseAddr.base_addr_available">base_addr_available() (angr.analyses.cfg.indirect_jump_resolvers.jumptable.JumpTargetBaseAddr property)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_data.RegionDescriptor.base_address">base_address (angr.storage.memory_mixins.regioned_memory.region_data.RegionDescriptor attribute)</a>
@@ -4234,10 +4249,10 @@
         <li><a href="claripy.html#claripy.vsa.valueset.ValueSet.bits">(claripy.vsa.valueset.ValueSet property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.bv.BitVecVal">BitVecVal() (in module claripy.bv)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.simplifications.SimplificationManager.bitwise_add_simplifier">bitwise_add_simplifier() (claripy.simplifications.SimplificationManager static method)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.bitwise_and">bitwise_and() (claripy.vsa.strided_interval.StridedInterval method)</a>
@@ -4326,8 +4341,12 @@
         <li><a href="angr.html#angr.analyses.vfg.VFGJob.block_id">(angr.analyses.vfg.VFGJob property)</a>
 </li>
       </ul></li>
-      <li><a href="archinfo.html#archinfo.arch_soot.SootAddressDescriptor.block_idx">block_idx (archinfo.arch_soot.SootAddressDescriptor attribute)</a>
+      <li><a href="angr.html#angr.code_location.CodeLocation.block_idx">block_idx (angr.code_location.CodeLocation attribute)</a>
+
+      <ul>
+        <li><a href="archinfo.html#archinfo.arch_soot.SootAddressDescriptor.block_idx">(archinfo.arch_soot.SootAddressDescriptor attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.bindiff.FunctionDiff.block_matches">block_matches() (angr.analyses.bindiff.FunctionDiff property)</a>
 </li>
       <li><a href="angr.html#angr.block.Block.BLOCK_MAX_SIZE">BLOCK_MAX_SIZE (angr.block.Block attribute)</a>
@@ -4346,12 +4365,12 @@
 </li>
       <li><a href="angr.html#angr.codenode.BlockNode">BlockNode (class in angr.codenode)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass.blocks">blocks() (angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass property)</a>
-
-      <ul>
-        <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.blocks">(angr.knowledge_plugins.functions.function.Function property)</a>
+      <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.blocks">blocks() (angr.knowledge_plugins.functions.function.Function property)</a>
 </li>
-      </ul></li>
+      <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass.blocks_by_addr">blocks_by_addr() (angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass property)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass.blocks_by_addr_and_idx">blocks_by_addr_and_idx() (angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass property)</a>
+</li>
       <li><a href="angr.html#angr.analyses.bindiff.FunctionDiff.blocks_probably_identical">blocks_probably_identical() (angr.analyses.bindiff.FunctionDiff method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.binary_optimizer.BinaryOptimizer.BLOCKS_THRESHOLD">BLOCKS_THRESHOLD (angr.analyses.binary_optimizer.BinaryOptimizer attribute)</a>
@@ -4949,6 +4968,8 @@
       <li><a href="pyvex.html#pyvex.expr.CCall">CCall (class in pyvex.expr)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.instr_helper.Instruction.ccall">ccall() (pyvex.lifting.util.instr_helper.Instruction method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.CClosingObject">CClosingObject (class in angr.analyses.decompiler.structured_codegen)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.CConstant">CConstant (class in angr.analyses.decompiler.structured_codegen)</a>
 </li>
@@ -6029,8 +6050,6 @@
         <li><a href="cle.html#module-cle.backends.macho.symbol">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cle.backends.minidump
 
@@ -6045,6 +6064,8 @@
         <li><a href="cle.html#module-cle.backends.named_region">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cle.backends.pe
 
@@ -6764,6 +6785,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.ContinueScanningNotification">ContinueScanningNotification</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd">ConvASub0ShrAnd (class in angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and)</a>
+</li>
       <li><a href="angr.html#angr.storage.memory_mixins.convenient_mappings_mixin.ConvenientMappingsMixin">ConvenientMappingsMixin (class in angr.storage.memory_mixins.convenient_mappings_mixin)</a>
 </li>
       <li><a href="claripy.html#claripy.backends.Backend.convert">convert() (claripy.backends.Backend method)</a>
@@ -6954,6 +6977,18 @@
         <li><a href="angr.html#angr.sim_type.SimUnion.copy">(angr.sim_type.SimUnion method)</a>
 </li>
         <li><a href="angr.html#angr.sim_type.SimUnionValue.copy">(angr.sim_type.SimUnionValue method)</a>
+</li>
+        <li><a href="angr.html#angr.sim_variable.SimConstantVariable.copy">(angr.sim_variable.SimConstantVariable method)</a>
+</li>
+        <li><a href="angr.html#angr.sim_variable.SimMemoryVariable.copy">(angr.sim_variable.SimMemoryVariable method)</a>
+</li>
+        <li><a href="angr.html#angr.sim_variable.SimRegisterVariable.copy">(angr.sim_variable.SimRegisterVariable method)</a>
+</li>
+        <li><a href="angr.html#angr.sim_variable.SimStackVariable.copy">(angr.sim_variable.SimStackVariable method)</a>
+</li>
+        <li><a href="angr.html#angr.sim_variable.SimTemporaryVariable.copy">(angr.sim_variable.SimTemporaryVariable method)</a>
+</li>
+        <li><a href="angr.html#angr.sim_variable.SimVariable.copy">(angr.sim_variable.SimVariable method)</a>
 </li>
         <li><a href="angr.html#angr.sim_variable.SimVariableSet.copy">(angr.sim_variable.SimVariableSet method)</a>
 </li>
@@ -8252,6 +8287,8 @@
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase.expr_classes">(angr.analyses.decompiler.peephole_optimizations.base.PeepholeOptimizationExprBase attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1.expr_classes">(angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1.BoolExprXor1 attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd.expr_classes">(angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr.expr_classes">(angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr attribute)</a>
 </li>
@@ -12594,6 +12631,8 @@
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.constant_derefs">angr.analyses.decompiler.peephole_optimizations.constant_derefs</a>
 </li>
+        <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and">angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and</a>
+</li>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.conv_shl_shr">angr.analyses.decompiler.peephole_optimizations.conv_shl_shr</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.decompiler.peephole_optimizations.one_sub_bool">angr.analyses.decompiler.peephole_optimizations.one_sub_bool</a>
@@ -13652,6 +13691,8 @@
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences.name">(angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences attribute)</a>
 </li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd.name">(angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd attribute)</a>
+</li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr.name">(angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool.name">(angr.analyses.decompiler.peephole_optimizations.one_sub_bool.OneSubBool attribute)</a>
@@ -14187,10 +14228,10 @@
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_cmp_ult">op_cmp_ult() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_extract_lsb">op_extract_lsb() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.const.F32.op_format">op_format (pyvex.const.F32 attribute)</a>
 
       <ul>
@@ -14263,6 +14304,8 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.open_socket">open_socket() (angr.state_plugins.posix.SimSystemPosix method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.CClosingObject.opening_symbol">opening_symbol (angr.analyses.decompiler.structured_codegen.CClosingObject attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.CUnaryOp.operand">operand (angr.analyses.decompiler.structured_codegen.CUnaryOp attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.Operand">Operand (class in angr.analyses.disassembly)</a>
@@ -14313,6 +14356,8 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass">OptimizationPass (class in angr.analyses.decompiler.optimization_passes.optimization_pass)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPassStage">OptimizationPassStage (class in angr.analyses.decompiler.optimization_passes.optimization_pass)</a>
+</li>
       <li><a href="angr.html#angr.analyses.binary_optimizer.BinaryOptimizer.optimize">optimize() (angr.analyses.binary_optimizer.BinaryOptimizer method)</a>
 
       <ul>
@@ -14327,6 +14372,8 @@
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs.optimize">(angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs.CoalesceSameCascadingIfs method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences.optimize">(angr.analyses.decompiler.peephole_optimizations.constant_derefs.ConstantDereferences method)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd.optimize">(angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and.ConvASub0ShrAnd method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr.optimize">(angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr method)</a>
 </li>
@@ -15795,10 +15842,10 @@
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_data.RegionDescriptor.related_function_address">related_function_address (angr.storage.memory_mixins.regioned_memory.region_data.RegionDescriptor attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_data.RegionMap.relativize">relativize() (angr.storage.memory_mixins.regioned_memory.region_data.RegionMap method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.heap.heap_brk.SimHeapBrk.release">release() (angr.state_plugins.heap.heap_brk.SimHeapBrk method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_base.knowledge_base.KnowledgeBase.release_plugin">release_plugin() (angr.knowledge_base.knowledge_base.KnowledgeBase method)</a>
@@ -15966,6 +16013,8 @@
       <li><a href="angr.html#angr.analyses.reassembler.Reassembler.remove_unnecessary_stuff">remove_unnecessary_stuff() (angr.analyses.reassembler.Reassembler method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reassembler.Reassembler.remove_unnecessary_stuff_glibc">remove_unnecessary_stuff_glibc() (angr.analyses.reassembler.Reassembler method)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.uses.Uses.remove_use">remove_use() (angr.knowledge_plugins.key_definitions.uses.Uses method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.uses.Uses.remove_uses">remove_uses() (angr.knowledge_plugins.key_definitions.uses.Uses method)</a>
 </li>
@@ -16810,6 +16859,8 @@
       <li><a href="angr.html#angr.state_plugins.scratch.SimStateScratch.set_tyenv">set_tyenv() (angr.state_plugins.scratch.SimStateScratch method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.CExpression.set_type">set_type() (angr.analyses.decompiler.structured_codegen.CExpression method)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.set_unified_variable">set_unified_variable() (angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal method)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimComboArg.set_value">set_value() (angr.calling_conventions.SimComboArg method)</a>
 
@@ -17731,8 +17782,6 @@
 </li>
       <li><a href="claripy.html#claripy.backends.backend_z3.SmartLRUCache">SmartLRUCache (class in claripy.backends.backend_z3)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.sim_action_object.SimActionObject.SMod">SMod() (angr.state_plugins.sim_action_object.SimActionObject method)</a>
 
       <ul>
@@ -17743,6 +17792,8 @@
       </ul></li>
       <li><a href="claripy.html#claripy.frontend_mixins.smtlib_script_dumper_mixin.SMTLibScriptDumperMixin">SMTLibScriptDumperMixin (class in claripy.frontend_mixins.smtlib_script_dumper_mixin)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend">SMTLibSolverBackend (class in claripy.backends.backend_smtlib_solvers)</a>
 </li>
       <li><a href="claripy.html#claripy.smtlib_utils.SMTParser">SMTParser (class in claripy.smtlib_utils)</a>
@@ -18121,6 +18172,24 @@
 </li>
       <li><a href="angr.html#angr.analyses.stack_pointer_tracker.StackPointerTrackerState">StackPointerTrackerState (class in angr.analyses.stack_pointer_tracker)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier.STAGE">STAGE (angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.const_derefs.ConstantDereferencesSimplifier.STAGE">(angr.analyses.decompiler.optimization_passes.const_derefs.ConstantDereferencesSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.div_simplifier.DivSimplifier.STAGE">(angr.analyses.decompiler.optimization_passes.div_simplifier.DivSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.eager_returns.EagerReturnsSimplifier.STAGE">(angr.analyses.decompiler.optimization_passes.eager_returns.EagerReturnsSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.mod_simplifier.ModSimplifier.STAGE">(angr.analyses.decompiler.optimization_passes.mod_simplifier.ModSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.multi_simplifier.MultiSimplifier.STAGE">(angr.analyses.decompiler.optimization_passes.multi_simplifier.MultiSimplifier attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass.STAGE">(angr.analyses.decompiler.optimization_passes.optimization_pass.OptimizationPass attribute)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.stack_canary_simplifier.StackCanarySimplifier.STAGE">(angr.analyses.decompiler.optimization_passes.stack_canary_simplifier.StackCanarySimplifier attribute)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.cfg.segment_list.Segment.start">start (angr.analyses.cfg.segment_list.Segment attribute)</a>
 
       <ul>
@@ -19974,6 +20043,12 @@
       <li><a href="archinfo.html#archinfo.arch.Arch.unicorn_support">unicorn_support() (archinfo.arch.Arch property)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch_arm.ArchARM.unicorn_thumb">unicorn_thumb() (archinfo.arch_arm.ArchARM property)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.CVariable.unified_variable">unified_variable (angr.analyses.decompiler.structured_codegen.CVariable attribute)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.unified_variable">unified_variable() (angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal method)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.unify_variables">unify_variables() (angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.jumptable.UninitReadMeta.uninit_read_base">uninit_read_base (angr.analyses.cfg.indirect_jump_resolvers.jumptable.UninitReadMeta attribute)</a>
 </li>
