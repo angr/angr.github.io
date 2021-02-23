@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; angr 9.0.5903 documentation</title>
+  <title>Index &mdash; angr 9.0.6136 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                9.0.5903
+                9.0.6136
               </div>
             
           
@@ -6274,6 +6274,8 @@
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.PendingJobs.cleanup">cleanup() (angr.analyses.cfg.cfg_fast.PendingJobs method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.StructuredCodeGenerator.cleanup">(angr.analyses.decompiler.structured_codegen.StructuredCodeGenerator method)</a>
+</li>
         <li><a href="claripy.html#claripy.ast.bool.cleanup">(in module claripy.ast.bool)</a>
 </li>
         <li><a href="claripy.html#claripy.ast.bv.cleanup">(in module claripy.ast.bv)</a>
@@ -7945,6 +7947,8 @@
 </li>
       <li><a href="cle.html#cle.backends.elf.elfcore.ELFCore">ELFCore (class in cle.backends.elf.elfcore)</a>
 </li>
+      <li><a href="cle.html#cle.loader.Loader.elfcore_object">elfcore_object() (cle.loader.Loader property)</a>
+</li>
       <li><a href="cle.html#cle.backends.tls.elfcore_tls.ELFCoreThread">ELFCoreThread (class in cle.backends.tls.elfcore_tls)</a>
 </li>
       <li><a href="cle.html#cle.backends.tls.elfcore_tls.ELFCoreThreadManager">ELFCoreThreadManager (class in cle.backends.tls.elfcore_tls)</a>
@@ -8129,6 +8133,18 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.solver.error_converter">error_converter() (in module angr.state_plugins.solver)</a>
 </li>
+      <li><a href="angr.html#angr.calling_conventions.SimCCO32LinuxSyscall.ERROR_REG">ERROR_REG (angr.calling_conventions.SimCCO32LinuxSyscall attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimCCO64LinuxSyscall.ERROR_REG">(angr.calling_conventions.SimCCO64LinuxSyscall attribute)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCPowerPC64LinuxSyscall.ERROR_REG">(angr.calling_conventions.SimCCPowerPC64LinuxSyscall attribute)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCPowerPCLinuxSyscall.ERROR_REG">(angr.calling_conventions.SimCCPowerPCLinuxSyscall attribute)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCSyscall.ERROR_REG">(angr.calling_conventions.SimCCSyscall attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.sim_manager.SimulationManager.errored">errored() (angr.sim_manager.SimulationManager property)</a>
@@ -8927,8 +8943,6 @@
         <li><a href="angr.html#angr.calling_conventions.SimCCSoot.func_ty">(angr.calling_conventions.SimCCSoot attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCStdcall.func_ty">(angr.calling_conventions.SimCCStdcall attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCSyscall.func_ty">(angr.calling_conventions.SimCCSyscall attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCSystemVAMD64.func_ty">(angr.calling_conventions.SimCCSystemVAMD64 attribute)</a>
 </li>
@@ -11547,9 +11561,7 @@
         <li><a href="archinfo.html#archinfo.arch_x86.ArchX86.linux_name">(archinfo.arch_x86.ArchX86 attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.calling_conventions.SimCCO32LinuxSyscall.linux_syscall_update_a3">linux_syscall_update_a3() (angr.calling_conventions.SimCCO32LinuxSyscall static method)</a>
-</li>
-      <li><a href="angr.html#angr.calling_conventions.SimCCPowerPCLinuxSyscall.linux_syscall_update_cr0">linux_syscall_update_cr0() (angr.calling_conventions.SimCCPowerPCLinuxSyscall static method)</a>
+      <li><a href="angr.html#angr.calling_conventions.SimCCSyscall.linux_syscall_update_error_reg">linux_syscall_update_error_reg() (angr.calling_conventions.SimCCSyscall method)</a>
 </li>
       <li><a href="angr.html#angr.misc.plugins.PluginPreset.list_default_plugins">list_default_plugins() (angr.misc.plugins.PluginPreset method)</a>
 </li>
@@ -15628,6 +15640,8 @@
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Register.reg_offset">reg_offset (angr.knowledge_plugins.key_definitions.atoms.Register attribute)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.StructuredCodeGenerator.regenerate_text">regenerate_text() (angr.analyses.decompiler.structured_codegen.StructuredCodeGenerator method)</a>
+</li>
       <li><a href="angr.html#angr.sim_variable.SimVariable.region">region (angr.sim_variable.SimVariable attribute)</a>
 
       <ul>
@@ -16038,6 +16052,8 @@
         <li><a href="angr.html#angr.analyses.disassembly.DisassemblyPiece.render">(angr.analyses.disassembly.DisassemblyPiece method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.StructuredCodeGenerator.render_text">render_text() (angr.analyses.decompiler.structured_codegen.StructuredCodeGenerator method)</a>
+</li>
       <li><a href="angr.html#angr.exploration_techniques.tracer.RepHook">RepHook (class in angr.exploration_techniques.tracer)</a>
 </li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.Add.replace">replace() (angr.analyses.typehoon.typevars.Add method)</a>
@@ -16769,13 +16785,7 @@
       <li><a href="angr.html#angr.calling_conventions.SimCC.set_return_val">set_return_val() (angr.calling_conventions.SimCC method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.calling_conventions.SimCCO32LinuxSyscall.set_return_val">(angr.calling_conventions.SimCCO32LinuxSyscall method)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCO64LinuxSyscall.set_return_val">(angr.calling_conventions.SimCCO64LinuxSyscall method)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCPowerPC64LinuxSyscall.set_return_val">(angr.calling_conventions.SimCCPowerPC64LinuxSyscall method)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCPowerPCLinuxSyscall.set_return_val">(angr.calling_conventions.SimCCPowerPCLinuxSyscall method)</a>
+        <li><a href="angr.html#angr.calling_conventions.SimCCSyscall.set_return_val">(angr.calling_conventions.SimCCSyscall method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.congruency_check.CongruencyCheck.set_simgr">set_simgr() (angr.analyses.congruency_check.CongruencyCheck method)</a>
@@ -17794,8 +17804,6 @@
       </ul></li>
       <li><a href="claripy.html#claripy.frontend_mixins.smtlib_script_dumper_mixin.SMTLibScriptDumperMixin">SMTLibScriptDumperMixin (class in claripy.frontend_mixins.smtlib_script_dumper_mixin)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend">SMTLibSolverBackend (class in claripy.backends.backend_smtlib_solvers)</a>
 </li>
       <li><a href="claripy.html#claripy.smtlib_utils.SMTParser">SMTParser (class in claripy.smtlib_utils)</a>
@@ -17836,6 +17844,8 @@
         <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.solution">(claripy.vsa.strided_interval.StridedInterval method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.typehoon.simple_solver.SimpleSolver.solve">solve() (angr.analyses.typehoon.simple_solver.SimpleSolver method)</a>
 </li>
       <li><a href="claripy.html#claripy.frontend_mixins.solve_block_mixin.SolveBlockMixin">SolveBlockMixin (class in claripy.frontend_mixins.solve_block_mixin)</a>
@@ -19038,6 +19048,18 @@
 
       <ul>
         <li><a href="angr.html#angr.simos.userland.SimUserland.syscall_cc">(angr.simos.userland.SimUserland method)</a>
+</li>
+      </ul></li>
+      <li><a href="angr.html#angr.calling_conventions.SimCCO32LinuxSyscall.SYSCALL_ERRNO_START">SYSCALL_ERRNO_START (angr.calling_conventions.SimCCO32LinuxSyscall attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimCCO64LinuxSyscall.SYSCALL_ERRNO_START">(angr.calling_conventions.SimCCO64LinuxSyscall attribute)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCPowerPC64LinuxSyscall.SYSCALL_ERRNO_START">(angr.calling_conventions.SimCCPowerPC64LinuxSyscall attribute)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCPowerPCLinuxSyscall.SYSCALL_ERRNO_START">(angr.calling_conventions.SimCCPowerPCLinuxSyscall attribute)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCSyscall.SYSCALL_ERRNO_START">(angr.calling_conventions.SimCCSyscall attribute)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.simos.simos.SimOS.syscall_from_addr">syscall_from_addr() (angr.simos.simos.SimOS method)</a>
