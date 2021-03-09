@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; angr 9.0.6281 documentation</title>
+  <title>Index &mdash; angr 9.0.6421 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                9.0.6281
+                9.0.6421
               </div>
             
           
@@ -4759,8 +4759,6 @@
 </li>
       <li><a href="angr.html#angr.factory.AngrObjectFactory.call_state">call_state() (angr.factory.AngrObjectFactory method)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.callstack.CallStack.call_target">call_target() (angr.state_plugins.callstack.CallStack property)</a>
-</li>
       <li><a href="angr.html#angr.callable.Callable">Callable (class in angr.callable)</a>
 </li>
       <li><a href="angr.html#angr.factory.AngrObjectFactory.callable">callable() (angr.factory.AngrObjectFactory method)</a>
@@ -5068,6 +5066,8 @@
       <li><a href="cle.html#cle.backends.cgc.cgc.CGC">CGC (class in cle.backends.cgc.cgc)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.CGoto">CGoto (class in angr.analyses.decompiler.structured_codegen)</a>
+</li>
+      <li><a href="angr.html#angr.storage.memory_mixins.convenient_mappings_mixin.ChainMapCOW">ChainMapCOW (class in angr.storage.memory_mixins.convenient_mappings_mixin)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.trace_additions.ChallRespInfo">ChallRespInfo (class in angr.state_plugins.trace_additions)</a>
 </li>
@@ -6066,8 +6066,6 @@
         <li><a href="cle.html#module-cle.backends.named_region">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cle.backends.pe
 
@@ -6075,6 +6073,8 @@
         <li><a href="cle.html#module-cle.backends.pe">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cle.backends.pe.pe
 
@@ -6271,6 +6271,8 @@
         <li><a href="cle.html#module-cle.utils">module</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.storage.memory_mixins.convenient_mappings_mixin.ChainMapCOW.clean">clean() (angr.storage.memory_mixins.convenient_mappings_mixin.ChainMapCOW method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.PendingJobs.cleanup">cleanup() (angr.analyses.cfg.cfg_fast.PendingJobs method)</a>
 
       <ul>
@@ -7012,6 +7014,8 @@
 </li>
         <li><a href="angr.html#angr.state_plugins.globals.SimStateGlobals.copy">(angr.state_plugins.globals.SimStateGlobals method)</a>
 </li>
+        <li><a href="angr.html#angr.state_plugins.heap.heap_base.SimHeapBase.copy">(angr.state_plugins.heap.heap_base.SimHeapBase method)</a>
+</li>
         <li><a href="angr.html#angr.state_plugins.heap.heap_brk.SimHeapBrk.copy">(angr.state_plugins.heap.heap_brk.SimHeapBrk method)</a>
 </li>
         <li><a href="angr.html#angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc.copy">(angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc method)</a>
@@ -7090,6 +7094,8 @@
 </li>
         <li><a href="angr.html#angr.storage.memory_mixins.address_concretization_mixin.AddressConcretizationMixin.copy">(angr.storage.memory_mixins.address_concretization_mixin.AddressConcretizationMixin method)</a>
 </li>
+        <li><a href="angr.html#angr.storage.memory_mixins.convenient_mappings_mixin.ChainMapCOW.copy">(angr.storage.memory_mixins.convenient_mappings_mixin.ChainMapCOW method)</a>
+</li>
         <li><a href="angr.html#angr.storage.memory_mixins.convenient_mappings_mixin.ConvenientMappingsMixin.copy">(angr.storage.memory_mixins.convenient_mappings_mixin.ConvenientMappingsMixin method)</a>
 </li>
         <li><a href="angr.html#angr.storage.memory_mixins.default_filler_mixin.ExplicitFillerMixin.copy">(angr.storage.memory_mixins.default_filler_mixin.ExplicitFillerMixin method)</a>
@@ -7112,6 +7118,8 @@
 </li>
         <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.permissions_mixin.PermissionsMixin.copy">(angr.storage.memory_mixins.paged_memory.pages.permissions_mixin.PermissionsMixin method)</a>
 </li>
+        <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.refcount_mixin.RefcountMixin.copy">(angr.storage.memory_mixins.paged_memory.pages.refcount_mixin.RefcountMixin method)</a>
+</li>
         <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.pages.ultra_page.UltraPage.copy">(angr.storage.memory_mixins.paged_memory.pages.ultra_page.UltraPage method)</a>
 </li>
         <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.stack_allocation_mixin.StackAllocationMixin.copy">(angr.storage.memory_mixins.paged_memory.stack_allocation_mixin.StackAllocationMixin method)</a>
@@ -7123,6 +7131,8 @@
         <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.regioned_address_concretization_mixin.RegionedAddressConcretizationMixin.copy">(angr.storage.memory_mixins.regioned_memory.regioned_address_concretization_mixin.RegionedAddressConcretizationMixin method)</a>
 </li>
         <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.regioned_memory_mixin.RegionedMemoryMixin.copy">(angr.storage.memory_mixins.regioned_memory.regioned_memory_mixin.RegionedMemoryMixin method)</a>
+</li>
+        <li><a href="angr.html#angr.storage.memory_mixins.size_resolution_mixin.SizeConcretizationMixin.copy">(angr.storage.memory_mixins.size_resolution_mixin.SizeConcretizationMixin method)</a>
 </li>
         <li><a href="angr.html#angr.storage.memory_mixins.slotted_memory.SlottedMemoryMixin.copy">(angr.storage.memory_mixins.slotted_memory.SlottedMemoryMixin method)</a>
 </li>
@@ -7887,8 +7897,12 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.eager_returns.EagerReturnsSimplifier">EagerReturnsSimplifier (class in angr.analyses.decompiler.optimization_passes.eager_returns)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EBADF">EBADF (angr.state_plugins.posix.SimSystemPosix attribute)</a>
+      <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.EBADF">EBADF (angr.state_plugins.cgc.SimStateCGC attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EBADF">(angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EBUSY">EBUSY (angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.ECHILD">ECHILD (angr.state_plugins.posix.SimSystemPosix attribute)</a>
@@ -7897,16 +7911,24 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EEXIST">EEXIST (angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EFAULT">EFAULT (angr.state_plugins.posix.SimSystemPosix attribute)</a>
+      <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.EFAULT">EFAULT (angr.state_plugins.cgc.SimStateCGC attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EFAULT">(angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EFBIG">EFBIG (angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
       <li><a href="cle.html#cle.backends.FunctionHintSource.EH_FRAME">EH_FRAME (cle.backends.FunctionHintSource attribute)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EINTR">EINTR (angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EINVAL">EINVAL (angr.state_plugins.posix.SimSystemPosix attribute)</a>
+      <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.EINVAL">EINVAL (angr.state_plugins.cgc.SimStateCGC attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EINVAL">(angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EIO">EIO (angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EISDIR">EISDIR (angr.state_plugins.posix.SimSystemPosix attribute)</a>
@@ -8065,9 +8087,15 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.ENOEXEC">ENOEXEC (angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.ENOMEM">ENOMEM (angr.state_plugins.posix.SimSystemPosix attribute)</a>
+      <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.ENOMEM">ENOMEM (angr.state_plugins.cgc.SimStateCGC attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.ENOMEM">(angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.ENOSPC">ENOSPC (angr.state_plugins.posix.SimSystemPosix attribute)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.ENOSYS">ENOSYS (angr.state_plugins.cgc.SimStateCGC attribute)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.ENOTBLK">ENOTBLK (angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
@@ -8109,8 +8137,12 @@
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EPERM">EPERM (angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EPIPE">EPIPE (angr.state_plugins.posix.SimSystemPosix attribute)</a>
+      <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.EPIPE">EPIPE (angr.state_plugins.cgc.SimStateCGC attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EPIPE">(angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
+      </ul></li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.eq">eq() (claripy.vsa.strided_interval.StridedInterval method)</a>
 </li>
       <li><a href="claripy.html#claripy.simplifications.SimplificationManager.eq_simplifier">eq_simplifier() (claripy.simplifications.SimplificationManager static method)</a>
@@ -8131,6 +8163,8 @@
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.lifter_helper.GymratLifter.error">error() (pyvex.lifting.util.lifter_helper.GymratLifter method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.solver.error_converter">error_converter() (in module angr.state_plugins.solver)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCCO32LinuxSyscall.ERROR_REG">ERROR_REG (angr.calling_conventions.SimCCO32LinuxSyscall attribute)</a>
@@ -8145,8 +8179,6 @@
         <li><a href="angr.html#angr.calling_conventions.SimCCSyscall.ERROR_REG">(angr.calling_conventions.SimCCSyscall attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.sim_manager.SimulationManager.errored">errored() (angr.sim_manager.SimulationManager property)</a>
 </li>
       <li><a href="angr.html#angr.sim_manager.ErrorRecord">ErrorRecord (class in angr.sim_manager)</a>
@@ -8432,6 +8464,8 @@
       <li><a href="angr.html#angr.analyses.reassembler.Reassembler.fast_memory_load">fast_memory_load() (angr.analyses.reassembler.Reassembler method)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.FastMemory">FastMemory (class in angr.storage.memory_mixins)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.FD_SETSIZE">FD_SETSIZE (angr.state_plugins.cgc.SimStateCGC attribute)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.instr_helper.Instruction.fetch_operands">fetch_operands() (pyvex.lifting.util.instr_helper.Instruction method)</a>
 </li>
@@ -8753,10 +8787,10 @@
 </li>
       <li><a href="claripy.html#claripy.fp.fpLEQ">fpLEQ() (in module claripy.fp)</a>
 </li>
-      <li><a href="claripy.html#claripy.fp.fpLT">fpLT() (in module claripy.fp)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="claripy.html#claripy.fp.fpLT">fpLT() (in module claripy.fp)</a>
+</li>
       <li><a href="claripy.html#claripy.fp.fpMul">fpMul() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpNE">fpNE() (in module claripy.fp)</a>
@@ -11999,6 +12033,8 @@
         <li><a href="cle.html#cle.loader.Loader.max_addr">(cle.loader.Loader property)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.max_allocation">max_allocation (angr.state_plugins.cgc.SimStateCGC attribute)</a>
+</li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.WarrenMethods.max_and">max_and() (claripy.vsa.strided_interval.WarrenMethods static method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.gym.aarch64_spotter.AARCH64Spotter.max_bytes">max_bytes (pyvex.lifting.gym.aarch64_spotter.AARCH64Spotter attribute)</a>
@@ -15858,10 +15894,10 @@
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_data.RegionDescriptor.related_function_address">related_function_address (angr.storage.memory_mixins.regioned_memory.region_data.RegionDescriptor attribute)</a>
 </li>
-      <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_data.RegionMap.relativize">relativize() (angr.storage.memory_mixins.regioned_memory.region_data.RegionMap method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_data.RegionMap.relativize">relativize() (angr.storage.memory_mixins.regioned_memory.region_data.RegionMap method)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.heap.heap_brk.SimHeapBrk.release">release() (angr.state_plugins.heap.heap_brk.SimHeapBrk method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_base.knowledge_base.KnowledgeBase.release_plugin">release_plugin() (angr.knowledge_base.knowledge_base.KnowledgeBase method)</a>
@@ -16385,8 +16421,6 @@
       <li><a href="angr.html#angr.calling_conventions.SimCC.return_addr">return_addr() (angr.calling_conventions.SimCC property)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGENode.return_target">return_target (angr.knowledge_plugins.cfg.cfg_node.CFGENode attribute)</a>
-</li>
-      <li><a href="angr.html#angr.state_plugins.callstack.CallStack.return_target">return_target() (angr.state_plugins.callstack.CallStack property)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionReturn.return_to">return_to (angr.analyses.cfg.cfg_fast.FunctionReturn attribute)</a>
 </li>
@@ -17810,6 +17844,8 @@
 </li>
       <li><a href="angr.html#angr.factory.AngrObjectFactory.snippet">snippet() (angr.factory.AngrObjectFactory method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.solution">solution() (angr.state_plugins.solver.SimSolver method)</a>
 
       <ul>
@@ -17844,8 +17880,6 @@
         <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.solution">(claripy.vsa.strided_interval.StridedInterval method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.typehoon.simple_solver.SimpleSolver.solve">solve() (angr.analyses.typehoon.simple_solver.SimpleSolver method)</a>
 </li>
       <li><a href="claripy.html#claripy.frontend_mixins.solve_block_mixin.SolveBlockMixin">SolveBlockMixin (class in claripy.frontend_mixins.solve_block_mixin)</a>
@@ -18127,8 +18161,6 @@
       <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.stack_definitions">stack_definitions() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState property)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.regioned_memory_mixin.RegionedMemoryMixin.stack_id">stack_id() (angr.storage.memory_mixins.regioned_memory.regioned_memory_mixin.RegionedMemoryMixin method)</a>
-</li>
-      <li><a href="angr.html#angr.state_plugins.callstack.CallStack.stack_pointer">stack_pointer() (angr.state_plugins.callstack.CallStack property)</a>
 </li>
       <li><a href="angr.html#angr.sim_state.SimState.stack_pop">stack_pop() (angr.sim_state.SimState method)</a>
 </li>
