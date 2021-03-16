@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.6421 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.6488 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                9.0.6421
+                9.0.6488
               </div>
             
           
@@ -715,6 +715,120 @@ Function names are ignored.</p>
 </dd></dl>
 
 <span class="target" id="module-angr.block"></span><dl class="py class">
+<dt id="angr.block.DisassemblerBlock">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.block.</span></code><code class="sig-name descname"><span class="pre">DisassemblerBlock</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.block.DisassemblerBlock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Helper class to represent a block of dissassembled target architecture
+instructions</p>
+<dl class="py attribute">
+<dt id="angr.block.DisassemblerBlock.addr">
+<code class="sig-name descname"><span class="pre">addr</span></code><a class="headerlink" href="#angr.block.DisassemblerBlock.addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.block.DisassemblerBlock.insns">
+<code class="sig-name descname"><span class="pre">insns</span></code><a class="headerlink" href="#angr.block.DisassemblerBlock.insns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.block.DisassemblerBlock.thumb">
+<code class="sig-name descname"><span class="pre">thumb</span></code><a class="headerlink" href="#angr.block.DisassemblerBlock.thumb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.block.DisassemblerBlock.arch">
+<code class="sig-name descname"><span class="pre">arch</span></code><a class="headerlink" href="#angr.block.DisassemblerBlock.arch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.block.DisassemblerBlock.pp">
+<code class="sig-name descname"><span class="pre">pp</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.block.DisassemblerBlock.pp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="angr.block.DisassemblerInsn">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.block.</span></code><code class="sig-name descname"><span class="pre">DisassemblerInsn</span></code><a class="headerlink" href="#angr.block.DisassemblerInsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Helper class to represent a disassembled target architecture instruction</p>
+<dl class="py method">
+<dt id="angr.block.DisassemblerInsn.size">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">size</span></code><a class="headerlink" href="#angr.block.DisassemblerInsn.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.block.DisassemblerInsn.address">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">address</span></code><a class="headerlink" href="#angr.block.DisassemblerInsn.address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.block.DisassemblerInsn.mnemonic">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">mnemonic</span></code><a class="headerlink" href="#angr.block.DisassemblerInsn.mnemonic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.block.DisassemblerInsn.op_str">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">op_str</span></code><a class="headerlink" href="#angr.block.DisassemblerInsn.op_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="angr.block.CapstoneBlock">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.block.</span></code><code class="sig-name descname"><span class="pre">CapstoneBlock</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.block.CapstoneBlock" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.block.DisassemblerBlock" title="angr.block.DisassemblerBlock"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.block.DisassemblerBlock</span></code></a></p>
+<p>Deep copy of the capstone blocks, which have serious issues with having extended lifespans
+outside of capstone itself</p>
+<dl class="py attribute">
+<dt id="angr.block.CapstoneBlock.addr">
+<code class="sig-name descname"><span class="pre">addr</span></code><a class="headerlink" href="#angr.block.CapstoneBlock.addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.block.CapstoneBlock.insns">
+<code class="sig-name descname"><span class="pre">insns</span></code><a class="headerlink" href="#angr.block.CapstoneBlock.insns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.block.CapstoneBlock.thumb">
+<code class="sig-name descname"><span class="pre">thumb</span></code><a class="headerlink" href="#angr.block.CapstoneBlock.thumb" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="angr.block.CapstoneBlock.arch">
+<code class="sig-name descname"><span class="pre">arch</span></code><a class="headerlink" href="#angr.block.CapstoneBlock.arch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="angr.block.CapstoneInsn">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.block.</span></code><code class="sig-name descname"><span class="pre">CapstoneInsn</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capstone_insn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.block.CapstoneInsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.block.DisassemblerInsn" title="angr.block.DisassemblerInsn"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.block.DisassemblerInsn</span></code></a></p>
+<dl class="py method">
+<dt id="angr.block.CapstoneInsn.size">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">size</span></code><a class="headerlink" href="#angr.block.CapstoneInsn.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.block.CapstoneInsn.address">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">address</span></code><a class="headerlink" href="#angr.block.CapstoneInsn.address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.block.CapstoneInsn.mnemonic">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">mnemonic</span></code><a class="headerlink" href="#angr.block.CapstoneInsn.mnemonic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.block.CapstoneInsn.op_str">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">op_str</span></code><a class="headerlink" href="#angr.block.CapstoneInsn.op_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="angr.block.Block">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.block.</span></code><code class="sig-name descname"><span class="pre">Block</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byte_string</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backup_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_stop_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_inst</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">traceflags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict_block_end</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collect_data_refs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cross_insn_opt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.block.Block" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.serializable.Serializable" title="angr.serializable.Serializable"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.serializable.Serializable</span></code></a></p>
@@ -757,6 +871,12 @@ Function names are ignored.</p>
 <dt id="angr.block.Block.vex_nostmt">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">vex_nostmt</span></code><a class="headerlink" href="#angr.block.Block.vex_nostmt" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt id="angr.block.Block.disassembly">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">disassembly</span></code><a class="headerlink" href="#angr.block.Block.disassembly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide a disassebly object using whatever disassembler is available</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="angr.block.Block.capstone">
@@ -814,45 +934,6 @@ Function names are ignored.</p>
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">codenode</span></code><a class="headerlink" href="#angr.block.SootBlock.codenode" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
-<dl class="py class">
-<dt id="angr.block.CapstoneBlock">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.block.</span></code><code class="sig-name descname"><span class="pre">CapstoneBlock</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">insns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.block.CapstoneBlock" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Deep copy of the capstone blocks, which have serious issues with having extended lifespans
-outside of capstone itself</p>
-<dl class="py attribute">
-<dt id="angr.block.CapstoneBlock.addr">
-<code class="sig-name descname"><span class="pre">addr</span></code><a class="headerlink" href="#angr.block.CapstoneBlock.addr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="angr.block.CapstoneBlock.insns">
-<code class="sig-name descname"><span class="pre">insns</span></code><a class="headerlink" href="#angr.block.CapstoneBlock.insns" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="angr.block.CapstoneBlock.thumb">
-<code class="sig-name descname"><span class="pre">thumb</span></code><a class="headerlink" href="#angr.block.CapstoneBlock.thumb" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="angr.block.CapstoneBlock.arch">
-<code class="sig-name descname"><span class="pre">arch</span></code><a class="headerlink" href="#angr.block.CapstoneBlock.arch" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="angr.block.CapstoneBlock.pp">
-<code class="sig-name descname"><span class="pre">pp</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.block.CapstoneBlock.pp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="angr.block.CapstoneInsn">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.block.</span></code><code class="sig-name descname"><span class="pre">CapstoneInsn</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">capstone_insn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.block.CapstoneInsn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 </dd></dl>
 
 </div>
@@ -9553,7 +9634,7 @@ preemptively avoided.</p>
 <span class="target" id="module-angr.exploration_techniques.spiller"></span><dl class="py class">
 <dt id="angr.exploration_techniques.spiller.PickledState">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.exploration_techniques.spiller.</span></code><code class="sig-name descname"><span class="pre">PickledState</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.spiller.PickledState" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
 <p>A simple constructor that allows initialization from kwargs.</p>
 <p>Sets attributes on the constructed instance using the names and
 values in <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>.</p>
@@ -18398,6 +18479,22 @@ be pulled from the current user.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt id="angr.knowledge_plugins.sync.sync_manager.SynchronizationManager.push_stack_variables">
+<code class="sig-name descname"><span class="pre">push_stack_variables</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_variables</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.sim_variable.SimStackVariable" title="angr.sim_variable.SimStackVariable"><span class="pre">angr.sim_variable.SimStackVariable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_manager</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal" title="angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal"><span class="pre">angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.sync.sync_manager.SynchronizationManager.push_stack_variables" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stack_variables</strong> – </p></li>
+<li><p><strong>var_manager</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="angr.knowledge_plugins.sync.sync_manager.SynchronizationManager.pull_function">
 <code class="sig-name descname"><span class="pre">pull_function</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.sync.sync_manager.SynchronizationManager.pull_function" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pull a function downwards.</p>
@@ -18470,6 +18567,22 @@ be pulled from the current user.</p></li>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Iterable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="angr.knowledge_plugins.sync.sync_manager.SynchronizationManager.pull_stack_variables">
+<code class="sig-name descname"><span class="pre">pull_stack_variables</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.sync.sync_manager.SynchronizationManager.pull_stack_variables" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func_addr</strong> – </p></li>
+<li><p><strong>user</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
 </dd>
 </dl>
 </dd></dl>
@@ -22546,7 +22659,7 @@ designed to use an SQL-based database as the storage backend.</p>
 <span class="target" id="module-angr.angrdb.models"></span><dl class="py class">
 <dt id="angr.angrdb.models.DbInformation">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.angrdb.models.</span></code><code class="sig-name descname"><span class="pre">DbInformation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.models.DbInformation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
 <p>Stores information related to the current database. Basically a key-value store.</p>
 <p>A simple constructor that allows initialization from kwargs.</p>
 <p>Sets attributes on the constructed instance using the names and
@@ -22574,7 +22687,7 @@ for example, any mapped columns or relationships.</p>
 <dl class="py class">
 <dt id="angr.angrdb.models.DbObject">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.angrdb.models.</span></code><code class="sig-name descname"><span class="pre">DbObject</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.models.DbObject" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
 <p>Models a binary object.</p>
 <p>A simple constructor that allows initialization from kwargs.</p>
 <p>Sets attributes on the constructed instance using the names and
@@ -22617,7 +22730,7 @@ for example, any mapped columns or relationships.</p>
 <dl class="py class">
 <dt id="angr.angrdb.models.DbKnowledgeBase">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.angrdb.models.</span></code><code class="sig-name descname"><span class="pre">DbKnowledgeBase</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.models.DbKnowledgeBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
 <p>Models a knowledge base.</p>
 <p>A simple constructor that allows initialization from kwargs.</p>
 <p>Sets attributes on the constructed instance using the names and
@@ -22665,7 +22778,7 @@ for example, any mapped columns or relationships.</p>
 <dl class="py class">
 <dt id="angr.angrdb.models.DbCFGModel">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.angrdb.models.</span></code><code class="sig-name descname"><span class="pre">DbCFGModel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.models.DbCFGModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
 <p>Models a CFGFast instance.</p>
 <p>A simple constructor that allows initialization from kwargs.</p>
 <p>Sets attributes on the constructed instance using the names and
@@ -22703,7 +22816,7 @@ for example, any mapped columns or relationships.</p>
 <dl class="py class">
 <dt id="angr.angrdb.models.DbFunction">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.angrdb.models.</span></code><code class="sig-name descname"><span class="pre">DbFunction</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.models.DbFunction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
 <p>Models a Function instance.</p>
 <p>A simple constructor that allows initialization from kwargs.</p>
 <p>Sets attributes on the constructed instance using the names and
@@ -22741,7 +22854,7 @@ for example, any mapped columns or relationships.</p>
 <dl class="py class">
 <dt id="angr.angrdb.models.DbXRefs">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.angrdb.models.</span></code><code class="sig-name descname"><span class="pre">DbXRefs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.models.DbXRefs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
 <p>Models an XRefManager instance.</p>
 <p>A simple constructor that allows initialization from kwargs.</p>
 <p>Sets attributes on the constructed instance using the names and
@@ -22774,7 +22887,7 @@ for example, any mapped columns or relationships.</p>
 <dl class="py class">
 <dt id="angr.angrdb.models.DbComment">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.angrdb.models.</span></code><code class="sig-name descname"><span class="pre">DbComment</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.models.DbComment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
 <p>Models a comment.</p>
 <p>A simple constructor that allows initialization from kwargs.</p>
 <p>Sets attributes on the constructed instance using the names and
@@ -22817,7 +22930,7 @@ for example, any mapped columns or relationships.</p>
 <dl class="py class">
 <dt id="angr.angrdb.models.DbLabel">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">angr.angrdb.models.</span></code><code class="sig-name descname"><span class="pre">DbLabel</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.models.DbLabel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
 <p>Models a label.</p>
 <p>A simple constructor that allows initialization from kwargs.</p>
 <p>Sets attributes on the constructed instance using the names and
@@ -28284,7 +28397,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<code class="sig-name descname"><span class="pre">whitelist</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">whitelist</span></code><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -28900,8 +29013,9 @@ the sets, which can be used as a “weight”.</p></li>
 
 <dl class="py method">
 <dt id="angr.analyses.disassembly.Disassembly.parse_block">
-<code class="sig-name descname"><span class="pre">parse_block</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.disassembly.Disassembly.parse_block" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname"><span class="pre">parse_block</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#angr.codenode.BlockNode" title="angr.codenode.BlockNode"><span class="pre">angr.codenode.BlockNode</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#angr.analyses.disassembly.Disassembly.parse_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse instructions for a given block node</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="angr.analyses.disassembly.Disassembly.render">

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; angr 9.0.6421 documentation</title>
+  <title>Index &mdash; angr 9.0.6488 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                9.0.6421
+                9.0.6488
               </div>
             
           
@@ -494,6 +494,8 @@
 </li>
         <li><a href="angr.html#angr.block.CapstoneBlock.addr">(angr.block.CapstoneBlock attribute)</a>
 </li>
+        <li><a href="angr.html#angr.block.DisassemblerBlock.addr">(angr.block.DisassemblerBlock attribute)</a>
+</li>
         <li><a href="angr.html#angr.codenode.CodeNode.addr">(angr.codenode.CodeNode attribute)</a>
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGNode.addr">(angr.knowledge_plugins.cfg.cfg_node.CFGNode attribute)</a>
@@ -579,9 +581,13 @@
         <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_data.AddressWrapper.address">(angr.storage.memory_mixins.regioned_memory.region_data.AddressWrapper attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.knowledge_plugins.cfg.memory_data.MemoryData.address">address() (angr.knowledge_plugins.cfg.memory_data.MemoryData property)</a>
+      <li><a href="angr.html#angr.block.CapstoneInsn.address">address() (angr.block.CapstoneInsn property)</a>
 
       <ul>
+        <li><a href="angr.html#angr.block.DisassemblerInsn.address">(angr.block.DisassemblerInsn property)</a>
+</li>
+        <li><a href="angr.html#angr.knowledge_plugins.cfg.memory_data.MemoryData.address">(angr.knowledge_plugins.cfg.memory_data.MemoryData property)</a>
+</li>
         <li><a href="archinfo.html#archinfo.arch_soot.SootMethodDescriptor.address">(archinfo.arch_soot.SootMethodDescriptor method)</a>
 </li>
       </ul></li>
@@ -3519,6 +3525,8 @@
         <li><a href="angr.html#angr.block.Block.arch">(angr.block.Block attribute)</a>
 </li>
         <li><a href="angr.html#angr.block.CapstoneBlock.arch">(angr.block.CapstoneBlock attribute)</a>
+</li>
+        <li><a href="angr.html#angr.block.DisassemblerBlock.arch">(angr.block.DisassemblerBlock attribute)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.ARCH">ARCH (angr.calling_conventions.SimCC attribute)</a>
@@ -7599,14 +7607,14 @@
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.history.SimStateHistory.demote">demote() (angr.state_plugins.history.SimStateHistory method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.dep_graph">dep_graph() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState property)</a>
 
       <ul>
         <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.dep_graph">(angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.ddg.DDGViewItem.dependents">dependents() (angr.analyses.ddg.DDGViewItem property)</a>
 </li>
       <li><a href="angr.html#angr.analyses.ddg.DDGViewItem.depends_on">depends_on() (angr.analyses.ddg.DDGViewItem property)</a>
@@ -7697,7 +7705,13 @@
         <li><a href="pyvex.html#pyvex.lifting.util.lifter_helper.GymratLifter.disassemble">(pyvex.lifting.util.lifter_helper.GymratLifter method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.block.DisassemblerBlock">DisassemblerBlock (class in angr.block)</a>
+</li>
+      <li><a href="angr.html#angr.block.DisassemblerInsn">DisassemblerInsn (class in angr.block)</a>
+</li>
       <li><a href="angr.html#angr.analyses.disassembly.Disassembly">Disassembly (class in angr.analyses.disassembly)</a>
+</li>
+      <li><a href="angr.html#angr.block.Block.disassembly">disassembly() (angr.block.Block property)</a>
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.DisassemblyPiece">DisassemblyPiece (class in angr.analyses.disassembly)</a>
 </li>
@@ -10448,7 +10462,11 @@
       <li><a href="angr.html#angr.knowledge_plugins.xrefs.xref.XRef.insn_op_type">insn_op_type (angr.knowledge_plugins.xrefs.xref.XRef attribute)</a>
 </li>
       <li><a href="angr.html#angr.block.CapstoneBlock.insns">insns (angr.block.CapstoneBlock attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.block.DisassemblerBlock.insns">(angr.block.DisassemblerBlock attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.sim_state.SimState.inspect">inspect (angr.sim_state.SimState attribute)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.clouseau_mixin.InspectMixinHigh">InspectMixinHigh (class in angr.storage.memory_mixins.clouseau_mixin)</a>
@@ -12528,7 +12546,13 @@
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.mkunop">mkunop() (in module pyvex.lifting.util.vex_helper)</a>
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.Instruction.mnemonic">mnemonic() (angr.analyses.disassembly.Instruction property)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.block.CapstoneInsn.mnemonic">(angr.block.CapstoneInsn property)</a>
 </li>
+        <li><a href="angr.html#angr.block.DisassemblerInsn.mnemonic">(angr.block.DisassemblerInsn property)</a>
+</li>
+      </ul></li>
       <li><a href="claripy.html#claripy.bv.BVV.mod">mod (claripy.bv.BVV attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.model">model() (angr.analyses.cfg.cfg_base.CFGBase property)</a>
@@ -14280,8 +14304,6 @@
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_extract_lsb">op_extract_lsb() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.const.F32.op_format">op_format (pyvex.const.F32 attribute)</a>
 
       <ul>
@@ -14306,6 +14328,8 @@
         <li><a href="pyvex.html#pyvex.const.V256.op_format">(pyvex.const.V256 attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_generic">op_generic() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.Binop.op_int">op_int (pyvex.expr.Binop attribute)</a>
@@ -14328,6 +14352,12 @@
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_smul">op_smul() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
+      <li><a href="angr.html#angr.block.CapstoneInsn.op_str">op_str() (angr.block.CapstoneInsn property)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.block.DisassemblerInsn.op_str">(angr.block.DisassemblerInsn property)</a>
+</li>
+      </ul></li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_sub">op_sub() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.op_to_one_bit">op_to_one_bit() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
@@ -14765,7 +14795,7 @@
 </li>
         <li><a href="angr.html#angr.block.Block.pp">(angr.block.Block method)</a>
 </li>
-        <li><a href="angr.html#angr.block.CapstoneBlock.pp">(angr.block.CapstoneBlock method)</a>
+        <li><a href="angr.html#angr.block.DisassemblerBlock.pp">(angr.block.DisassemblerBlock method)</a>
 </li>
         <li><a href="pyvex.html#pyvex.block.IRSB.pp">(pyvex.block.IRSB method)</a>
 </li>
@@ -14804,10 +14834,10 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.preconstrainer.SimStatePreconstrainer.preconstrain">preconstrain() (angr.state_plugins.preconstrainer.SimStatePreconstrainer method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.preconstrainer.SimStatePreconstrainer.preconstrain_file">preconstrain_file() (angr.state_plugins.preconstrainer.SimStatePreconstrainer method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.preconstrainer.SimStatePreconstrainer.preconstrain_flag_page">preconstrain_flag_page() (angr.state_plugins.preconstrainer.SimStatePreconstrainer method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor.predecessors">predecessors() (angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor method)</a>
@@ -14992,6 +15022,8 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.sync.sync_manager.SynchronizationManager.pull_patches">pull_patches() (angr.knowledge_plugins.sync.sync_manager.SynchronizationManager method)</a>
 </li>
+      <li><a href="angr.html#angr.knowledge_plugins.sync.sync_manager.SynchronizationManager.pull_stack_variables">pull_stack_variables() (angr.knowledge_plugins.sync.sync_manager.SynchronizationManager method)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.callstack.CallStack.push">push() (angr.state_plugins.callstack.CallStack method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.sync.sync_manager.SynchronizationManager.push_comment">push_comment() (angr.knowledge_plugins.sync.sync_manager.SynchronizationManager method)</a>
@@ -15003,6 +15035,8 @@
       <li><a href="angr.html#angr.state_plugins.scratch.SimStateScratch.push_priv">push_priv() (angr.state_plugins.scratch.SimStateScratch method)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.javavm_memory.javavm_memory_mixin.JavaVmMemoryMixin.push_stack_frame">push_stack_frame() (angr.storage.memory_mixins.javavm_memory.javavm_memory_mixin.JavaVmMemoryMixin method)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.sync.sync_manager.SynchronizationManager.push_stack_variables">push_stack_variables() (angr.knowledge_plugins.sync.sync_manager.SynchronizationManager method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.stmt.Put">Put (class in pyvex.stmt)</a>
 </li>
@@ -17665,6 +17699,10 @@
       <ul>
         <li><a href="angr.html#angr.analyses.typehoon.typeconsts.TypeConstant.size">(angr.analyses.typehoon.typeconsts.TypeConstant property)</a>
 </li>
+        <li><a href="angr.html#angr.block.CapstoneInsn.size">(angr.block.CapstoneInsn property)</a>
+</li>
+        <li><a href="angr.html#angr.block.DisassemblerInsn.size">(angr.block.DisassemblerInsn property)</a>
+</li>
         <li><a href="angr.html#angr.block.SootBlock.size">(angr.block.SootBlock property)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.AllocHelper.size">(angr.calling_conventions.AllocHelper method)</a>
@@ -17842,10 +17880,10 @@
 </li>
       <li><a href="claripy.html#claripy.smtlib_utils.SMTParser">SMTParser (class in claripy.smtlib_utils)</a>
 </li>
-      <li><a href="angr.html#angr.factory.AngrObjectFactory.snippet">snippet() (angr.factory.AngrObjectFactory method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.factory.AngrObjectFactory.snippet">snippet() (angr.factory.AngrObjectFactory method)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.solution">solution() (angr.state_plugins.solver.SimSolver method)</a>
 
       <ul>
@@ -19476,6 +19514,8 @@
 
       <ul>
         <li><a href="angr.html#angr.block.CapstoneBlock.thumb">(angr.block.CapstoneBlock attribute)</a>
+</li>
+        <li><a href="angr.html#angr.block.DisassemblerBlock.thumb">(angr.block.DisassemblerBlock attribute)</a>
 </li>
         <li><a href="angr.html#angr.codenode.CodeNode.thumb">(angr.codenode.CodeNode attribute)</a>
 </li>
