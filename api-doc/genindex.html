@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; angr 9.0.6642 documentation</title>
+  <title>Index &mdash; angr 9.0.6790 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                9.0.6642
+                9.0.6790
               </div>
             
           
@@ -1504,6 +1504,13 @@
 </li>
       </ul></li>
       <li>
+    angr.analyses.proximity_graph
+
+      <ul>
+        <li><a href="angr.html#module-angr.analyses.proximity_graph">module</a>
+</li>
+      </ul></li>
+      <li>
     angr.analyses.reaching_definitions
 
       <ul>
@@ -2077,6 +2084,8 @@
         <li><a href="angr.html#module-angr.engines.unicorn">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.engines.vex
 
@@ -2084,8 +2093,6 @@
         <li><a href="angr.html#module-angr.engines.vex">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     angr.errors
 
@@ -4063,6 +4070,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier.BasePointerSaveSimplifier">BasePointerSaveSimplifier (class in angr.analyses.decompiler.optimization_passes.base_ptr_save_simplifier)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.proximity_graph.BaseProxiNode">BaseProxiNode (class in angr.analyses.proximity_graph)</a>
+</li>
       <li><a href="claripy.html#claripy.operations.basic_length_calc">basic_length_calc() (in module claripy.operations)</a>
 </li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatParser.basic_spec">basic_spec (angr.procedures.stubs.format_parser.FormatParser attribute)</a>
@@ -4259,10 +4268,10 @@
         <li><a href="claripy.html#claripy.vsa.valueset.ValueSet.bits">(claripy.vsa.valueset.ValueSet property)</a>
 </li>
       </ul></li>
-      <li><a href="claripy.html#claripy.bv.BitVecVal">BitVecVal() (in module claripy.bv)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="claripy.html#claripy.bv.BitVecVal">BitVecVal() (in module claripy.bv)</a>
+</li>
       <li><a href="claripy.html#claripy.simplifications.SimplificationManager.bitwise_add_simplifier">bitwise_add_simplifier() (claripy.simplifications.SimplificationManager static method)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.bitwise_and">bitwise_and() (claripy.vsa.strided_interval.StridedInterval method)</a>
@@ -4832,6 +4841,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.callout_sites">callout_sites() (angr.knowledge_plugins.functions.function.Function property)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.proximity_graph.CallProxiNode">CallProxiNode (class in angr.analyses.proximity_graph)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.call_trace.CallSite">CallSite (class in angr.analyses.reaching_definitions.call_trace)</a>
 </li>
@@ -8803,12 +8814,12 @@
 </li>
       <li><a href="claripy.html#claripy.fp.fpLEQ">fpLEQ() (in module claripy.fp)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.fp.fpLT">fpLT() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpMul">fpMul() (in module claripy.fp)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.fp.fpNE">fpNE() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpNeg">fpNeg() (in module claripy.fp)</a>
@@ -9013,9 +9024,11 @@
 </li>
       <li><a href="angr.html#angr.angrdb.models.DbKnowledgeBase.funcs">funcs (angr.angrdb.models.DbKnowledgeBase attribute)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.reaching_definitions.subject.SubjectType.Function">Function (angr.analyses.reaching_definitions.subject.SubjectType attribute)</a>
+      <li><a href="angr.html#angr.analyses.proximity_graph.ProxiNodeTypes.Function">Function (angr.analyses.proximity_graph.ProxiNodeTypes attribute)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.reaching_definitions.subject.SubjectType.Function">(angr.analyses.reaching_definitions.subject.SubjectType attribute)</a>
+</li>
         <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function">(class in angr.knowledge_plugins.functions.function)</a>
 </li>
       </ul></li>
@@ -9101,6 +9114,8 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.vfg.FunctionAnalysis">FunctionAnalysis (class in angr.analyses.vfg)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.proximity_graph.ProxiNodeTypes.FunctionCall">FunctionCall (angr.analyses.proximity_graph.ProxiNodeTypes attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionCallEdge">FunctionCallEdge (class in angr.analyses.cfg.cfg_fast)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function_manager.FunctionDict">FunctionDict (class in angr.knowledge_plugins.functions.function_manager)</a>
@@ -9128,6 +9143,8 @@
       <li><a href="angr.html#angr.angrdb.serializers.funcs.FunctionManagerSerializer">FunctionManagerSerializer (class in angr.angrdb.serializers.funcs)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function_parser.FunctionParser">FunctionParser (class in angr.knowledge_plugins.functions.function_parser)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.proximity_graph.FunctionProxiNode">FunctionProxiNode (class in angr.analyses.proximity_graph)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionReturn">FunctionReturn (class in angr.analyses.cfg.cfg_fast)</a>
 </li>
@@ -10629,7 +10646,13 @@
 </li>
       <li><a href="pyvex.html#pyvex.expr.int_type_for_size">int_type_for_size() (in module pyvex.expr)</a>
 </li>
-      <li><a href="angr.html#angr.knowledge_plugins.cfg.memory_data.MemoryDataSort.Integer">Integer (angr.knowledge_plugins.cfg.memory_data.MemoryDataSort attribute)</a>
+      <li><a href="angr.html#angr.analyses.proximity_graph.ProxiNodeTypes.Integer">Integer (angr.analyses.proximity_graph.ProxiNodeTypes attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.knowledge_plugins.cfg.memory_data.MemoryDataSort.Integer">(angr.knowledge_plugins.cfg.memory_data.MemoryDataSort attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="angr.html#angr.analyses.proximity_graph.IntegerProxiNode">IntegerProxiNode (class in angr.analyses.proximity_graph)</a>
 </li>
       <li><a href="angr.html#angr.keyed_region.RegionObject.internal_objects">internal_objects() (angr.keyed_region.RegionObject property)</a>
 </li>
@@ -10653,14 +10676,14 @@
         <li><a href="claripy.html#claripy.vsa.valueset.ValueSet.intersection">(claripy.vsa.valueset.ValueSet method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.ast.strings.String.IntToStr">IntToStr() (claripy.ast.strings.String static method)</a>
 
       <ul>
         <li><a href="claripy.html#claripy.strings.IntToStr">(in module claripy.strings)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.JumpKind.Invalid">Invalid (pyvex.lifting.util.vex_helper.JumpKind attribute)</a>
 </li>
       <li><a href="pyvex.html#pyvex.block.IRSB.invalidate_direct_next">invalidate_direct_next() (pyvex.block.IRSB method)</a>
@@ -12425,8 +12448,6 @@
 </li>
       <li><a href="angr.html#angr.analyses.forward_analysis.job_info.JobInfo.merged_jobs">merged_jobs() (angr.analyses.forward_analysis.job_info.JobInfo property)</a>
 </li>
-      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Parameter.meta">meta (angr.knowledge_plugins.key_definitions.atoms.Parameter attribute)</a>
-</li>
       <li><a href="cle.html#cle.backends.elf.metaelf.MetaELF">MetaELF (class in cle.backends.elf.metaelf)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootAddressDescriptor.method">method (archinfo.arch_soot.SootAddressDescriptor attribute)</a>
@@ -12782,6 +12803,8 @@
         <li><a href="angr.html#module-angr.analyses.propagator.values">angr.analyses.propagator.values</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.propagator.vex_vars">angr.analyses.propagator.vex_vars</a>
+</li>
+        <li><a href="angr.html#module-angr.analyses.proximity_graph">angr.analyses.proximity_graph</a>
 </li>
         <li><a href="angr.html#module-angr.analyses.reaching_definitions">angr.analyses.reaching_definitions</a>
 </li>
@@ -14546,8 +14569,6 @@
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin">PagedMemoryMixin (class in angr.storage.memory_mixins.paged_memory.paged_memory_mixin)</a>
 </li>
-      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Parameter">Parameter (class in angr.knowledge_plugins.key_definitions.atoms)</a>
-</li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.tag.ParameterTag">ParameterTag (class in angr.knowledge_plugins.key_definitions.tag)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootMethodDescriptor.params">params (archinfo.arch_soot.SootMethodDescriptor attribute)</a>
@@ -14838,8 +14859,6 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.preconstrainer.SimStatePreconstrainer.preconstrain_file">preconstrain_file() (angr.state_plugins.preconstrainer.SimStatePreconstrainer method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.preconstrainer.SimStatePreconstrainer.preconstrain_flag_page">preconstrain_flag_page() (angr.state_plugins.preconstrainer.SimStatePreconstrainer method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor.predecessors">predecessors() (angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor method)</a>
@@ -14860,6 +14879,8 @@
         <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGNode.predecessors">(angr.knowledge_plugins.cfg.cfg_node.CFGNode property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGNode.predecessors_and_jumpkinds">predecessors_and_jumpkinds() (angr.knowledge_plugins.cfg.cfg_node.CFGNode method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.trace_additions.ChallRespInfo.prep_tracer">prep_tracer() (angr.state_plugins.trace_additions.ChallRespInfo static method)</a>
@@ -15005,6 +15026,10 @@
       <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorVEXState">PropagatorVEXState (class in angr.analyses.propagator.propagator)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.prototype">prototype() (angr.knowledge_plugins.functions.function.Function property)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.proximity_graph.ProximityGraphAnalysis">ProximityGraphAnalysis (class in angr.analyses.proximity_graph)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.proximity_graph.ProxiNodeTypes">ProxiNodeTypes (class in angr.analyses.proximity_graph)</a>
 </li>
       <li><a href="angr.html#angr.sim_manager.SimulationManager.prune">prune() (angr.sim_manager.SimulationManager method)</a>
 </li>
@@ -17721,8 +17746,6 @@
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.MemoryLocation.size">(angr.knowledge_plugins.key_definitions.atoms.MemoryLocation property)</a>
 </li>
-        <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Parameter.size">(angr.knowledge_plugins.key_definitions.atoms.Parameter property)</a>
-</li>
         <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Register.size">(angr.knowledge_plugins.key_definitions.atoms.Register property)</a>
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Tmp.size">(angr.knowledge_plugins.key_definitions.atoms.Tmp property)</a>
@@ -17884,8 +17907,6 @@
 </li>
       <li><a href="claripy.html#claripy.smtlib_utils.SMTParser">SMTParser (class in claripy.smtlib_utils)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.factory.AngrObjectFactory.snippet">snippet() (angr.factory.AngrObjectFactory method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.solution">solution() (angr.state_plugins.solver.SimSolver method)</a>
@@ -17922,6 +17943,8 @@
         <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.solution">(claripy.vsa.strided_interval.StridedInterval method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.typehoon.simple_solver.SimpleSolver.solve">solve() (angr.analyses.typehoon.simple_solver.SimpleSolver method)</a>
 </li>
       <li><a href="claripy.html#claripy.frontend_mixins.solve_block_mixin.SolveBlockMixin">SolveBlockMixin (class in claripy.frontend_mixins.solve_block_mixin)</a>
@@ -18750,9 +18773,11 @@
       </ul></li>
       <li><a href="claripy.html#claripy.operations.strindexof_bv_size_calc">strindexof_bv_size_calc() (in module claripy.operations)</a>
 </li>
-      <li><a href="angr.html#angr.knowledge_plugins.cfg.memory_data.MemoryDataSort.String">String (angr.knowledge_plugins.cfg.memory_data.MemoryDataSort attribute)</a>
+      <li><a href="angr.html#angr.analyses.proximity_graph.ProxiNodeTypes.String">String (angr.analyses.proximity_graph.ProxiNodeTypes attribute)</a>
 
       <ul>
+        <li><a href="angr.html#angr.knowledge_plugins.cfg.memory_data.MemoryDataSort.String">(angr.knowledge_plugins.cfg.memory_data.MemoryDataSort attribute)</a>
+</li>
         <li><a href="claripy.html#claripy.ast.strings.String">(class in claripy.ast.strings)</a>
 </li>
       </ul></li>
@@ -18763,6 +18788,8 @@
       <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.string_references">string_references() (angr.knowledge_plugins.functions.function.Function method)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.strings.String.STRING_TYPE_IDENTIFIER">STRING_TYPE_IDENTIFIER (claripy.ast.strings.String attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.proximity_graph.StringProxiNode">StringProxiNode (class in angr.analyses.proximity_graph)</a>
 </li>
       <li><a href="claripy.html#claripy.backends.backend_smtlib.BackendSMTLibBase.StringS">StringS() (claripy.backends.backend_smtlib.BackendSMTLibBase method)</a>
 
@@ -19590,10 +19617,10 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Tmp.tmp_idx">tmp_idx (angr.knowledge_plugins.key_definitions.atoms.Tmp attribute)</a>
 </li>
-      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.tmp_uses">tmp_uses (angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.tmp_uses">tmp_uses (angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.tmp_uses">tmp_uses() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState property)</a>
 </li>
       <li><a href="cle.html#cle.backends.symbol.SymbolSubType.to_base_type">to_base_type() (cle.backends.symbol.SymbolSubType method)</a>
@@ -19876,8 +19903,6 @@
         <li><a href="pyvex.html#pyvex.expr.Load.type">(pyvex.expr.Load property)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Parameter.type_">type_ (angr.knowledge_plugins.key_definitions.atoms.Parameter attribute)</a>
-</li>
       <li><a href="angr.html#angr.analyses.variable_recovery.engine_base.RichR.type_constraints">type_constraints (angr.analyses.variable_recovery.engine_base.RichR attribute)</a>
 </li>
       <li><a href="cle.html#cle.backends.symbol.SymbolType.TYPE_FUNCTION">TYPE_FUNCTION (cle.backends.symbol.SymbolType attribute)</a>
@@ -20194,14 +20219,18 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.Uniwrapper">Uniwrapper (class in angr.state_plugins.unicorn_engine)</a>
 </li>
-      <li><a href="angr.html#angr.knowledge_plugins.cfg.indirect_jump.IndirectJumpType.Unknown">Unknown (angr.knowledge_plugins.cfg.indirect_jump.IndirectJumpType attribute)</a>
+      <li><a href="angr.html#angr.analyses.proximity_graph.ProxiNodeTypes.Unknown">Unknown (angr.analyses.proximity_graph.ProxiNodeTypes attribute)</a>
 
       <ul>
+        <li><a href="angr.html#angr.knowledge_plugins.cfg.indirect_jump.IndirectJumpType.Unknown">(angr.knowledge_plugins.cfg.indirect_jump.IndirectJumpType attribute)</a>
+</li>
         <li><a href="angr.html#angr.knowledge_plugins.cfg.memory_data.MemoryDataSort.Unknown">(angr.knowledge_plugins.cfg.memory_data.MemoryDataSort attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.cfg.cfb.Unknown">(class in angr.analyses.cfg.cfb)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.proximity_graph.UnknownProxiNode">UnknownProxiNode (class in angr.analyses.proximity_graph)</a>
+</li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.unknown_size.UnknownSize">UnknownSize (class in angr.knowledge_plugins.key_definitions.unknown_size)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.filesystem.SimFilesystem.unlinks">unlinks() (angr.state_plugins.filesystem.SimFilesystem property)</a>
@@ -20396,8 +20425,6 @@
 
       <ul>
         <li><a href="angr.html#angr.angrdb.models.DbInformation.value">(angr.angrdb.models.DbInformation attribute)</a>
-</li>
-        <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Parameter.value">(angr.knowledge_plugins.key_definitions.atoms.Parameter attribute)</a>
 </li>
         <li><a href="angr.html#angr.sim_variable.SimConstantVariable.value">(angr.sim_variable.SimConstantVariable attribute)</a>
 </li>
