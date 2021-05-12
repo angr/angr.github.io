@@ -84,6 +84,10 @@ Memory Mixins
 .. automodule:: angr.storage.memory_mixins.simplification_mixin
 .. automodule:: angr.storage.memory_mixins.unwrapper_mixin
 .. automodule:: angr.storage.memory_mixins.convenient_mappings_mixin
+.. automodule:: angr.storage.memory_mixins.paged_memory.pages.mv_list_page
+.. automodule:: angr.storage.memory_mixins.paged_memory.pages.multi_values
+.. automodule:: angr.storage.memory_mixins.top_merger_mixin
+.. automodule:: angr.storage.memory_mixins.multi_value_merger_mixin
 
 .. automodule:: angr.storage.memory_mixins.paged_memory
 .. automodule:: angr.storage.memory_mixins.paged_memory.paged_memory_mixin
@@ -235,10 +239,11 @@ Knowledge Base
 .. automodule:: angr.knowledge_plugins.variables
 .. automodule:: angr.knowledge_plugins.variables.variable_access
 .. automodule:: angr.knowledge_plugins.variables.variable_manager
+.. automodule:: angr.knowledge_plugins.structured_code
+.. automodule:: angr.knowledge_plugins.structured_code.manager
 .. automodule:: angr.knowledge_plugins.key_definitions
 .. automodule:: angr.knowledge_plugins.key_definitions.atoms
 .. automodule:: angr.knowledge_plugins.key_definitions.constants
-.. automodule:: angr.knowledge_plugins.key_definitions.dataset
 .. automodule:: angr.knowledge_plugins.key_definitions.definition
 .. automodule:: angr.knowledge_plugins.key_definitions.environment
 .. automodule:: angr.knowledge_plugins.key_definitions.heap_address
@@ -349,6 +354,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.base
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.a_sub_a_sub_n
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.bool_expr_xor_1
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.extended_byte_and_mask
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.coalesce_same_cascading_ifs
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.constant_derefs
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.conv_a_sub0_shr_and
@@ -356,6 +362,7 @@ Analysis
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.one_sub_bool
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.remove_empty_if_body
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.remove_redundant_bitmasks
+.. automodule:: angr.analyses.decompiler.peephole_optimizations.remove_redundant_ite_branch
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.remove_redundant_nots
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.remove_redundant_shifts
 .. automodule:: angr.analyses.decompiler.peephole_optimizations.single_bit_xor
@@ -376,6 +383,7 @@ Analysis
 .. automodule:: angr.analyses.propagator.engine_vex
 .. automodule:: angr.analyses.propagator.engine_ail
 .. automodule:: angr.analyses.propagator.propagator
+.. automodule:: angr.analyses.propagator.top_checker_mixin
 .. automodule:: angr.analyses.reaching_definitions
 .. automodule:: angr.analyses.reaching_definitions.call_trace
 .. automodule:: angr.analyses.reaching_definitions.engine_vex
