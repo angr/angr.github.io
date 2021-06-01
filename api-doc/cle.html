@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>cle — Binary Loader &mdash; angr 9.0.7491 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 9.0.7833 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                9.0.7491
+                9.0.7833
               </div>
             
           
@@ -1440,6 +1440,16 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.elf.elfcore.ELFCore.symbols" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.elfcore.ELFCore.variables">
+<span class="sig-name descname"><span class="pre">variables</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Variable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.elf.elfcore.ELFCore.variables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.elfcore.ELFCore.compilation_units">
+<span class="sig-name descname"><span class="pre">compilation_units</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">CompilationUnit</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.elf.elfcore.ELFCore.compilation_units" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-cle.backends.elf.lsda"></span><p class="rubric">References</p>
@@ -1891,6 +1901,56 @@ default types: <cite>ELFSymbolType(10)</cite> rather than <cite>ELFSymbolType((1
 <dl class="py method">
 <dt class="sig sig-object py" id="cle.backends.elf.hashtable.GNUHashTable.gnu_hash">
 <em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">gnu_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.hashtable.GNUHashTable.gnu_hash" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cle.backends.elf.variable"></span><dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.variable.Variable">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable.</span></span><span class="sig-name descname"><span class="pre">Variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.elf.variable_type.VariableType" title="cle.backends.elf.variable_type.VariableType"><span class="pre">cle.backends.elf.variable_type.VariableType</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decl_file</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decl_line</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable.Variable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Variable for DWARF
+from a DW_TAG_variable or DW_TAG_formal_parameter</p>
+</dd></dl>
+
+<span class="target" id="module-cle.backends.elf.subprogram"></span><dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.subprogram.Subprogram">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.subprogram.</span></span><span class="sig-name descname"><span class="pre">Subprogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_pc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_pc</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.subprogram.Subprogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>DW_TAG_subprogram for DWARF</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.subprogram.Subprogram.local_variables">
+<span class="sig-name descname"><span class="pre">local_variables</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.elf.variable.Variable" title="cle.backends.elf.variable.Variable"><span class="pre">cle.backends.elf.variable.Variable</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#cle.backends.elf.subprogram.Subprogram.local_variables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cle.backends.elf.variable_type"></span><dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.VariableType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.variable_type.</span></span><span class="sig-name descname"><span class="pre">VariableType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">byte_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.VariableType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>DW_TAG_base_type for DWARF</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.elf.variable_type.VariableType.read_from_die">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">read_from_die</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">die</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">elftools.dwarf.die.DIE</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.variable_type.VariableType.read_from_die" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-cle.backends.elf.compilation_unit"></span><dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.compilation_unit.CompilationUnit">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.compilation_unit.</span></span><span class="sig-name descname"><span class="pre">CompilationUnit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comp_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_pc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">high_pc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.compilation_unit.CompilationUnit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>CompilationUnit for DWARF
+See <a class="reference external" href="http://dwarfstd.org/doc/DWARF5.pdf">http://dwarfstd.org/doc/DWARF5.pdf</a> page 60</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.compilation_unit.CompilationUnit.functions">
+<span class="sig-name descname"><span class="pre">functions</span></span><em class="property"><span class="pre">:</span> <span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#cle.backends.elf.subprogram.Subprogram" title="cle.backends.elf.subprogram.Subprogram"><span class="pre">cle.backends.elf.subprogram.Subprogram</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">{}</span></em><a class="headerlink" href="#cle.backends.elf.compilation_unit.CompilationUnit.functions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.compilation_unit.CompilationUnit.global_variables">
+<span class="sig-name descname"><span class="pre">global_variables</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#cle.backends.elf.variable.Variable" title="cle.backends.elf.variable.Variable"><span class="pre">cle.backends.elf.variable.Variable</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#cle.backends.elf.compilation_unit.CompilationUnit.global_variables" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2815,6 +2875,16 @@ Intended to work in close conjunction with MachO not for standalone use</p>
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.cgc.cgc.CGC.symbols" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.cgc.cgc.CGC.variables">
+<span class="sig-name descname"><span class="pre">variables</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Variable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.cgc.cgc.CGC.variables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.cgc.cgc.CGC.compilation_units">
+<span class="sig-name descname"><span class="pre">compilation_units</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">CompilationUnit</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.cgc.cgc.CGC.compilation_units" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-cle.backends.cgc.backedcgc"></span><dl class="py class">
@@ -2880,6 +2950,16 @@ executable.</p></li>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.cgc.backedcgc.BackedCGC.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.cgc.backedcgc.BackedCGC.symbols" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.cgc.backedcgc.BackedCGC.variables">
+<span class="sig-name descname"><span class="pre">variables</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Variable</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.cgc.backedcgc.BackedCGC.variables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.cgc.backedcgc.BackedCGC.compilation_units">
+<span class="sig-name descname"><span class="pre">compilation_units</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">CompilationUnit</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.cgc.backedcgc.BackedCGC.compilation_units" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
