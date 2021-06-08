@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.7833 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.7912 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                9.0.7833
+                9.0.7912
               </div>
             
           
@@ -12429,12 +12429,12 @@ size of the corresponding argument in bytes.</p></li>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.calling_conventions.SimCC.ARG_REGS">
-<span class="sig-name descname"><span class="pre">ARG_REGS</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#angr.calling_conventions.SimCC.ARG_REGS" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ARG_REGS</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#angr.calling_conventions.SimCC.ARG_REGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.calling_conventions.SimCC.FP_ARG_REGS">
-<span class="sig-name descname"><span class="pre">FP_ARG_REGS</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#angr.calling_conventions.SimCC.FP_ARG_REGS" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">FP_ARG_REGS</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#angr.calling_conventions.SimCC.FP_ARG_REGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -12449,7 +12449,7 @@ size of the corresponding argument in bytes.</p></li>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.calling_conventions.SimCC.CALLER_SAVED_REGS">
-<span class="sig-name descname"><span class="pre">CALLER_SAVED_REGS</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#angr.calling_conventions.SimCC.CALLER_SAVED_REGS" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">CALLER_SAVED_REGS</span></span><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#angr.calling_conventions.SimCC.CALLER_SAVED_REGS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -29069,7 +29069,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
