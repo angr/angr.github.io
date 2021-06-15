@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Index &mdash; angr 9.0.7912 documentation</title>
+  <title>Index &mdash; angr 9.0.8021 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                9.0.7912
+                9.0.8021
               </div>
             
           
@@ -6953,6 +6953,8 @@
 </li>
       <li><a href="claripy.html#claripy.vsa.discrete_strided_interval_set.convert_operand_to_si">convert_operand_to_si() (in module claripy.vsa.discrete_strided_interval_set)</a>
 </li>
+      <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManager.convert_variable_list">convert_variable_list() (angr.knowledge_plugins.variables.variable_manager.VariableManager static method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.ConvertTo">ConvertTo (class in angr.analyses.typehoon.typevars)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.conv_shl_shr.ConvShlShr">ConvShlShr (class in angr.analyses.decompiler.peephole_optimizations.conv_shl_shr)</a>
@@ -9669,8 +9671,6 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_model.CFGModel.get_predecessors_and_jumpkinds">get_predecessors_and_jumpkinds() (angr.knowledge_plugins.cfg.cfg_model.CFGModel method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.procedures.definitions.SimCppLibrary.get_prototype">get_prototype() (angr.procedures.definitions.SimCppLibrary method)</a>
 
       <ul>
@@ -9679,6 +9679,8 @@
         <li><a href="angr.html#angr.procedures.definitions.SimSyscallLibrary.get_prototype">(angr.procedures.definitions.SimSyscallLibrary method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cle.html#cle.backends.externs.ExternObject.get_pseudo_addr">get_pseudo_addr() (cle.backends.externs.ExternObject method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.get_rdt_width">get_rdt_width() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
@@ -9753,6 +9755,8 @@
         <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_sp">(angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_stack_address">get_stack_address() (angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.get_stack_offset">get_stack_offset() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState method)</a>
 
       <ul>
@@ -9887,6 +9891,10 @@
         <li><a href="angr.html#angr.calling_conventions.SimStackArg.get_value">(angr.calling_conventions.SimStackArg method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_value_from_atom">get_value_from_atom() (angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions method)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_value_from_definition">get_value_from_definition() (angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.engine_base.SimplifierAILState.get_variable">get_variable() (angr.analyses.decompiler.optimization_passes.engine_base.SimplifierAILState method)</a>
 
       <ul>
@@ -11972,6 +11980,8 @@
       <li><a href="angr.html#angr.storage.memory_mixins.javavm_memory.javavm_memory_mixin.JavaVmMemoryMixin.load_array_element">load_array_element() (angr.storage.memory_mixins.javavm_memory.javavm_memory_mixin.JavaVmMemoryMixin method)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.javavm_memory.javavm_memory_mixin.JavaVmMemoryMixin.load_array_elements">load_array_elements() (angr.storage.memory_mixins.javavm_memory.javavm_memory_mixin.JavaVmMemoryMixin method)</a>
+</li>
+      <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManager.load_from_dwarf">load_from_dwarf() (angr.knowledge_plugins.variables.variable_manager.VariableManager method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorVEXState.load_local_variable">load_local_variable() (angr.analyses.propagator.propagator.PropagatorVEXState method)</a>
 </li>
@@ -19040,12 +19050,6 @@
 </li>
       <li><a href="claripy.html#claripy.operations.str_concat_length_calc">str_concat_length_calc() (in module claripy.operations)</a>
 </li>
-      <li><a href="claripy.html#claripy.operations.str_extract_check">str_extract_check() (in module claripy.operations)</a>
-</li>
-      <li><a href="claripy.html#claripy.operations.str_extract_length_calc">str_extract_length_calc() (in module claripy.operations)</a>
-</li>
-      <li><a href="claripy.html#claripy.simplifications.SimplificationManager.str_extract_simplifier">str_extract_simplifier() (claripy.simplifications.SimplificationManager static method)</a>
-</li>
       <li><a href="claripy.html#claripy.operations.str_replace_check">str_replace_check() (in module claripy.operations)</a>
 </li>
       <li><a href="claripy.html#claripy.operations.str_replace_length_calc">str_replace_length_calc() (in module claripy.operations)</a>
@@ -19066,12 +19070,6 @@
       </ul></li>
       <li><a href="cle.html#cle.utils.stream_or_path">stream_or_path() (in module cle.utils)</a>
 </li>
-      <li><a href="claripy.html#claripy.ast.strings.String.StrExtract">StrExtract() (claripy.ast.strings.String static method)</a>
-
-      <ul>
-        <li><a href="claripy.html#claripy.strings.StrExtract">(in module claripy.strings)</a>
-</li>
-      </ul></li>
       <li><a href="angr.html#angr.exploration_techniques.tracer.TracingMode.Strict">Strict (angr.exploration_techniques.tracer.TracingMode attribute)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.lifter.Lifter.strict_block_end">strict_block_end (pyvex.lifting.lifter.Lifter attribute)</a>
@@ -20563,8 +20561,6 @@
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.unique">unique() (angr.state_plugins.solver.SimSolver method)</a>
 </li>
       <li><a href="angr.html#angr.exploration_techniques.unique.UniqueSearch">UniqueSearch (class in angr.exploration_techniques.unique)</a>
-</li>
-      <li><a href="claripy.html#claripy.ast.strings.String.UnitStr">UnitStr() (claripy.ast.strings.String static method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.unicorn_engine.Uniwrapper">Uniwrapper (class in angr.state_plugins.unicorn_engine)</a>
 </li>

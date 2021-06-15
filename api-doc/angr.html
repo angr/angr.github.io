@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.7912 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.8021 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                9.0.7912
+                9.0.8021
               </div>
             
           
@@ -17948,6 +17948,16 @@ variable identifier.</p></li>
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.VariableManager.copy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.knowledge_plugins.variables.variable_manager.VariableManager.convert_variable_list">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">convert_variable_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vlist</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="cle.html#cle.backends.elf.variable.Variable" title="cle.backends.elf.variable.Variable"><span class="pre">cle.backends.elf.variable.Variable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manager</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal" title="angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal"><span class="pre">angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.VariableManager.convert_variable_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.knowledge_plugins.variables.variable_manager.VariableManager.load_from_dwarf">
+<span class="sig-name descname"><span class="pre">load_from_dwarf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cu_list</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="cle.html#cle.backends.elf.compilation_unit.CompilationUnit" title="cle.backends.elf.compilation_unit.CompilationUnit"><span class="pre">cle.backends.elf.compilation_unit.CompilationUnit</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.VariableManager.load_from_dwarf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-angr.knowledge_plugins.structured_code"></span><span class="target" id="module-angr.knowledge_plugins.structured_code.manager"></span><dl class="py class">
@@ -18430,6 +18440,11 @@ uncovered during the analysis.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_stack_address">
+<span class="sig-name descname"><span class="pre">get_stack_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="claripy.html#claripy.ast.base.Base" title="claripy.ast.base.Base"><span class="pre">claripy.ast.base.Base</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_stack_address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.stack_offset_to_stack_addr">
 <span class="sig-name descname"><span class="pre">stack_offset_to_stack_addr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.stack_offset_to_stack_addr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -18480,6 +18495,16 @@ removed during simplification.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_definitions_from_atoms">
 <span class="sig-name descname"><span class="pre">get_definitions_from_atoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.knowledge_plugins.key_definitions.atoms.Atom" title="angr.knowledge_plugins.key_definitions.atoms.Atom"><span class="pre">angr.knowledge_plugins.key_definitions.atoms.Atom</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.knowledge_plugins.key_definitions.definition.Definition" title="angr.knowledge_plugins.key_definitions.definition.Definition"><span class="pre">angr.knowledge_plugins.key_definitions.definition.Definition</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_definitions_from_atoms" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_value_from_definition">
+<span class="sig-name descname"><span class="pre">get_value_from_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">definition</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#angr.knowledge_plugins.key_definitions.definition.Definition" title="angr.knowledge_plugins.key_definitions.definition.Definition"><span class="pre">angr.knowledge_plugins.key_definitions.definition.Definition</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#angr.storage.memory_mixins.paged_memory.pages.multi_values.MultiValues" title="angr.storage.memory_mixins.paged_memory.pages.multi_values.MultiValues"><span class="pre">angr.storage.memory_mixins.paged_memory.pages.multi_values.MultiValues</span></a><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_value_from_definition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_value_from_atom">
+<span class="sig-name descname"><span class="pre">get_value_from_atom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#angr.knowledge_plugins.key_definitions.atoms.Atom" title="angr.knowledge_plugins.key_definitions.atoms.Atom"><span class="pre">angr.knowledge_plugins.key_definitions.atoms.Atom</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.storage.memory_mixins.paged_memory.pages.multi_values.MultiValues" title="angr.storage.memory_mixins.paged_memory.pages.multi_values.MultiValues"><span class="pre">angr.storage.memory_mixins.paged_memory.pages.multi_values.MultiValues</span></a><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_value_from_atom" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -29069,7 +29094,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
