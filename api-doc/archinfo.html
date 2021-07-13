@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>archinfo — Arch Information Repository &mdash; angr 9.0.8761 documentation</title>
+  <title>archinfo — Arch Information Repository &mdash; angr 9.0.9031 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                9.0.8761
+                9.0.9031
               </div>
             
           
@@ -229,7 +229,7 @@ with PyVEX.</p>
 <li><p><strong>argument</strong> (<em>bool</em>) – Whether this is an argument register</p></li>
 <li><p><strong>persistent</strong> (<em>bool</em>) – Whether this is a persistent register</p></li>
 <li><p><strong>default_value</strong> (<em>tuple</em>) – The offset of the instruction pointer in the register file</p></li>
-<li><p><strong>str linux_entry_value</strong> (<em>int</em><em>,</em>) – The offset of the instruction pointer in the register file</p></li>
+<li><p><strong>linux_entry_value</strong> (<em>int</em><em>, </em><em>str</em>) – The offset of the instruction pointer in the register file</p></li>
 <li><p><strong>concretize_unique</strong> (<em>bool</em>) – Whether this register should be concretized, if unique, at the end of each block</p></li>
 <li><p><strong>concrete</strong> (<em>bool</em>) – Whether this register should be considered during the synchronization of the concrete execution
 of the process</p></li>
@@ -934,7 +934,7 @@ architecture has no intrinsic endianness.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="archinfo.arch.arch_from_id">
-<span class="sig-prename descclassname"><span class="pre">archinfo.arch.</span></span><span class="sig-name descname"><span class="pre">arch_from_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ident</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'any'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><span class="pre">archinfo.arch.Arch</span></a><a class="headerlink" href="#archinfo.arch.arch_from_id" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">archinfo.arch.</span></span><span class="sig-name descname"><span class="pre">arch_from_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ident</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'any'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#archinfo.arch.Arch" title="archinfo.arch.Arch"><span class="pre">archinfo.arch.Arch</span></a></span></span><a class="headerlink" href="#archinfo.arch.arch_from_id" title="Permalink to this definition">¶</a></dt>
 <dd><p>Take our best guess at the arch referred to by the given identifier, and return an instance of its class.</p>
 <p>You may optionally provide the <code class="docutils literal notranslate"><span class="pre">endness</span></code> and <code class="docutils literal notranslate"><span class="pre">bits</span></code> parameters (strings) to help this function out.</p>
 </dd></dl>
