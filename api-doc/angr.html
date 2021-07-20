@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.9031 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.9166 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                9.0.9031
+                9.0.9166
               </div>
             
           
@@ -6095,77 +6095,92 @@ you must say <code class="docutils literal notranslate"><span class="pre">s.mem[
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_APPEND">
-<span class="sig-name descname"><span class="pre">O_APPEND</span></span><em class="property"> <span class="pre">=</span> <span class="pre">4096</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_APPEND" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_APPEND</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1024</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_APPEND" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_ASYNC">
-<span class="sig-name descname"><span class="pre">O_ASYNC</span></span><em class="property"> <span class="pre">=</span> <span class="pre">64</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_ASYNC" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_ASYNC</span></span><em class="property"> <span class="pre">=</span> <span class="pre">8192</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_ASYNC" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_CLOEXEC">
-<span class="sig-name descname"><span class="pre">O_CLOEXEC</span></span><em class="property"> <span class="pre">=</span> <span class="pre">512</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_CLOEXEC" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_CLOEXEC</span></span><em class="property"> <span class="pre">=</span> <span class="pre">524288</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_CLOEXEC" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_CREAT">
-<span class="sig-name descname"><span class="pre">O_CREAT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">256</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_CREAT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_CREAT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">64</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_CREAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_DIRECT">
-<span class="sig-name descname"><span class="pre">O_DIRECT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">262144</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_DIRECT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_DIRECT</span></span><em class="property"> <span class="pre">=</span> <span class="pre">16384</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_DIRECT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_DIRECTORY">
-<span class="sig-name descname"><span class="pre">O_DIRECTORY</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2097152</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_DIRECTORY" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_DIRECTORY</span></span><em class="property"> <span class="pre">=</span> <span class="pre">65536</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_DIRECTORY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.storage.file.Flags.O_DSYNC">
+<span class="sig-name descname"><span class="pre">O_DSYNC</span></span><em class="property"> <span class="pre">=</span> <span class="pre">4096</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_DSYNC" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_EXCL">
-<span class="sig-name descname"><span class="pre">O_EXCL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2048</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_EXCL" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_EXCL</span></span><em class="property"> <span class="pre">=</span> <span class="pre">128</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_EXCL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_LARGEFILE">
-<span class="sig-name descname"><span class="pre">O_LARGEFILE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1048576</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_LARGEFILE" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_LARGEFILE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">32768</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_LARGEFILE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_NOATIME">
-<span class="sig-name descname"><span class="pre">O_NOATIME</span></span><em class="property"> <span class="pre">=</span> <span class="pre">16777216</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_NOATIME" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_NOATIME</span></span><em class="property"> <span class="pre">=</span> <span class="pre">262144</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_NOATIME" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_NOCTTY">
-<span class="sig-name descname"><span class="pre">O_NOCTTY</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1024</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_NOCTTY" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_NOCTTY</span></span><em class="property"> <span class="pre">=</span> <span class="pre">256</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_NOCTTY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_NOFOLLOW">
-<span class="sig-name descname"><span class="pre">O_NOFOLLOW</span></span><em class="property"> <span class="pre">=</span> <span class="pre">4194304</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_NOFOLLOW" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_NOFOLLOW</span></span><em class="property"> <span class="pre">=</span> <span class="pre">131072</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_NOFOLLOW" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_NONBLOCK">
-<span class="sig-name descname"><span class="pre">O_NONBLOCK</span></span><em class="property"> <span class="pre">=</span> <span class="pre">8192</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_NONBLOCK" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_NONBLOCK</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2048</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_NONBLOCK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="angr.storage.file.Flags.O_NODELAY">
-<span class="sig-name descname"><span class="pre">O_NODELAY</span></span><em class="property"> <span class="pre">=</span> <span class="pre">8192</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_NODELAY" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="angr.storage.file.Flags.O_NDELAY">
+<span class="sig-name descname"><span class="pre">O_NDELAY</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2048</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_NDELAY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.storage.file.Flags.O_PATH">
+<span class="sig-name descname"><span class="pre">O_PATH</span></span><em class="property"> <span class="pre">=</span> <span class="pre">2097152</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_PATH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_SYNC">
-<span class="sig-name descname"><span class="pre">O_SYNC</span></span><em class="property"> <span class="pre">=</span> <span class="pre">67174400</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_SYNC" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_SYNC</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1052672</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_SYNC" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.storage.file.Flags.O_TMPFILE">
+<span class="sig-name descname"><span class="pre">O_TMPFILE</span></span><em class="property"> <span class="pre">=</span> <span class="pre">4259840</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_TMPFILE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.file.Flags.O_TRUNC">
-<span class="sig-name descname"><span class="pre">O_TRUNC</span></span><em class="property"> <span class="pre">=</span> <span class="pre">1024</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_TRUNC" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">O_TRUNC</span></span><em class="property"> <span class="pre">=</span> <span class="pre">512</span></em><a class="headerlink" href="#angr.storage.file.Flags.O_TRUNC" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -23183,7 +23198,7 @@ designed to use an SQL-based database as the storage backend.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.angrdb.db.AngrDB.update_dbinfo">
-<span class="sig-name descname"><span class="pre">update_dbinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.db.AngrDB.update_dbinfo" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">update_dbinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_info</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.db.AngrDB.update_dbinfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the information in database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -23197,7 +23212,7 @@ designed to use an SQL-based database as the storage backend.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.angrdb.db.AngrDB.get_dbinfo">
-<span class="sig-name descname"><span class="pre">get_dbinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.db.AngrDB.get_dbinfo" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_dbinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_info</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.db.AngrDB.get_dbinfo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get database information.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -23228,12 +23243,12 @@ designed to use an SQL-based database as the storage backend.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.angrdb.db.AngrDB.dump">
-<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kbs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">KnowledgeBase</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.db.AngrDB.dump" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kbs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">KnowledgeBase</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_info</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.db.AngrDB.dump" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.angrdb.db.AngrDB.load">
-<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kb_names</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_kbs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">KnowledgeBase</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.db.AngrDB.load" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kb_names</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_kbs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">KnowledgeBase</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_info</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.angrdb.db.AngrDB.load" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -27326,6 +27341,7 @@ type of SpOffset expression.</p>
 <dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorState">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.propagator.propagator.</span></span><span class="sig-name descname"><span class="pre">PropagatorState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_consts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prop_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equivalence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_tops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Describes the base state used in Propagator.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorState.arch">
 <span class="sig-name descname"><span class="pre">arch</span></span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorState.arch" title="Permalink to this definition">¶</a></dt>
@@ -27409,6 +27425,7 @@ If the self._only_consts flag is set to true, only constant values will be set.<
 <dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorVEXState">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.propagator.propagator.</span></span><span class="sig-name descname"><span class="pre">PropagatorVEXState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_consts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prop_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">do_binops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_tops</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorVEXState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.propagator.propagator.PropagatorState" title="angr.analyses.propagator.propagator.PropagatorState"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.propagator.propagator.PropagatorState</span></code></a></p>
+<p>Describes the state used in the VEX engine of Propagator.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorVEXState.do_binops">
 <span class="sig-name descname"><span class="pre">do_binops</span></span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorVEXState.do_binops" title="Permalink to this definition">¶</a></dt>
@@ -27450,6 +27467,7 @@ If the self._only_consts flag is set to true, only constant values will be set.<
 <dt class="sig sig-object py" id="angr.analyses.propagator.propagator.Equivalence">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.propagator.propagator.</span></span><span class="sig-name descname"><span class="pre">Equivalence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">codeloc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atom1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.propagator.Equivalence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Describes an equivalence relationship between two atoms.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.propagator.propagator.Equivalence.codeloc">
 <span class="sig-name descname"><span class="pre">codeloc</span></span><a class="headerlink" href="#angr.analyses.propagator.propagator.Equivalence.codeloc" title="Permalink to this definition">¶</a></dt>
@@ -27471,6 +27489,7 @@ If the self._only_consts flag is set to true, only constant values will be set.<
 <dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorAILState">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.propagator.propagator.</span></span><span class="sig-name descname"><span class="pre">PropagatorAILState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacements</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_consts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prop_count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equivalence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.propagator.propagator.PropagatorState" title="angr.analyses.propagator.propagator.PropagatorState"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.propagator.propagator.PropagatorState</span></code></a></p>
+<p>Describes the state used in the AIL engine of Propagator.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorAILState.copy">
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.copy" title="Permalink to this definition">¶</a></dt>
@@ -27482,23 +27501,33 @@ If the self._only_consts flag is set to true, only constant values will be set.<
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorAILState.store_variable">
-<span class="sig-name descname"><span class="pre">store_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">def_at</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.store_variable" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorAILState.store_temp">
+<span class="sig-name descname"><span class="pre">store_temp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmp_idx</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#angr.analyses.propagator.prop_value.PropValue" title="angr.analyses.propagator.prop_value.PropValue"><span class="pre">angr.analyses.propagator.prop_value.PropValue</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.store_temp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorAILState.load_tmp">
+<span class="sig-name descname"><span class="pre">load_tmp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tmp_idx</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.analyses.propagator.prop_value.PropValue" title="angr.analyses.propagator.prop_value.PropValue"><span class="pre">angr.analyses.propagator.prop_value.PropValue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.load_tmp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorAILState.store_register">
+<span class="sig-name descname"><span class="pre">store_register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">ailment.expression.Register</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#angr.analyses.propagator.prop_value.PropValue" title="angr.analyses.propagator.prop_value.PropValue"><span class="pre">angr.analyses.propagator.prop_value.PropValue</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.store_register" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorAILState.store_stack_variable">
-<span class="sig-name descname"><span class="pre">store_stack_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sp_offset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">def_at</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.store_stack_variable" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">store_stack_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sp_offset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#angr.analyses.propagator.prop_value.PropValue" title="angr.analyses.propagator.prop_value.PropValue"><span class="pre">angr.analyses.propagator.prop_value.PropValue</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.store_stack_variable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorAILState.get_variable">
-<span class="sig-name descname"><span class="pre">get_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.get_variable" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorAILState.load_register">
+<span class="sig-name descname"><span class="pre">load_register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">ailment.expression.Register</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.analyses.propagator.prop_value.PropValue" title="angr.analyses.propagator.prop_value.PropValue"><span class="pre">angr.analyses.propagator.prop_value.PropValue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.load_register" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorAILState.get_stack_variable">
-<span class="sig-name descname"><span class="pre">get_stack_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sp_offset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.get_stack_variable" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="angr.analyses.propagator.propagator.PropagatorAILState.load_stack_variable">
+<span class="sig-name descname"><span class="pre">load_stack_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sp_offset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.analyses.propagator.prop_value.PropValue" title="angr.analyses.propagator.prop_value.PropValue"><span class="pre">angr.analyses.propagator.prop_value.PropValue</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#angr.analyses.propagator.propagator.PropagatorAILState.load_stack_variable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -27539,6 +27568,114 @@ propagator performs both constant propagation and copy propagation of depth-N ex
 <li><p>Loading values from a known address</p></li>
 <li><p>Writing values to a stack variable</p></li>
 </ul>
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.propagator.prop_value"></span><dl class="py class">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.Detail">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.propagator.prop_value.</span></span><span class="sig-name descname"><span class="pre">Detail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">ailment.expression.Expression</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">def_at</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">CodeLocation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.prop_value.Detail" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A companion class used together with PropValue. It describes stored information at each offset (in bytes).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.Detail.size">
+<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.Detail.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.Detail.expr">
+<span class="sig-name descname"><span class="pre">expr</span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.Detail.expr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.Detail.def_at">
+<span class="sig-name descname"><span class="pre">def_at</span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.Detail.def_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.propagator.prop_value.</span></span><span class="sig-name descname"><span class="pre">PropValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="claripy.html#claripy.ast.bits.Bits" title="claripy.ast.bits.Bits"><span class="pre">claripy.ast.bits.Bits</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_and_details</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#angr.analyses.propagator.prop_value.Detail" title="angr.analyses.propagator.prop_value.Detail"><span class="pre">angr.analyses.propagator.prop_value.Detail</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Describes immutable basic value type that is used in Propagator.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.value">
+<span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.offset_and_details">
+<span class="sig-name descname"><span class="pre">offset_and_details</span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.offset_and_details" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.needs_details">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">needs_details</span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.needs_details" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.one_expr">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">one_expr</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional[ailment.expression.Expression]</span></em><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.one_expr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the expression that starts at offset 0 and covers the entire PropValue. Returns None if there are no
+expressions or multiple expressions.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.one_defat">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">one_defat</span></span><em class="property"><span class="pre">:</span> <span class="pre">Optional[CodeLocation]</span></em><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.one_defat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the definition location of the expression that starts at offset 0 and covers the entire PropValue. Returns
+None if there are no expressions or multiple expressions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.to_label">
+<span class="sig-name descname"><span class="pre">to_label</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.to_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.with_details">
+<span class="sig-name descname"><span class="pre">with_details</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">ailment.expression.Expression</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">def_at</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">CodeLocation</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#angr.analyses.propagator.prop_value.PropValue" title="angr.analyses.propagator.prop_value.PropValue"><span class="pre">PropValue</span></a></span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.with_details" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.all_exprs">
+<span class="sig-name descname"><span class="pre">all_exprs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">ailment.expression.Expression</span><span class="p"><span class="pre">,</span> </span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.all_exprs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.non_zero_exprs">
+<span class="sig-name descname"><span class="pre">non_zero_exprs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">ailment.expression.Expression</span><span class="p"><span class="pre">,</span> </span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.non_zero_exprs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.chop_value">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">chop_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="claripy.html#claripy.ast.bits.Bits" title="claripy.ast.bits.Bits"><span class="pre">claripy.ast.bits.Bits</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">begin_offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_offset</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="claripy.html#claripy.ast.bits.Bits" title="claripy.ast.bits.Bits"><span class="pre">claripy.ast.bits.Bits</span></a></span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.chop_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.value_and_labels">
+<span class="sig-name descname"><span class="pre">value_and_labels</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="claripy.html#claripy.ast.bits.Bits" title="claripy.ast.bits.Bits"><span class="pre">claripy.ast.bits.Bits</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.value_and_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.from_value_and_labels">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_value_and_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="claripy.html#claripy.ast.bits.Bits" title="claripy.ast.bits.Bits"><span class="pre">claripy.ast.bits.Bits</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#angr.analyses.propagator.prop_value.PropValue" title="angr.analyses.propagator.prop_value.PropValue"><span class="pre">angr.analyses.propagator.prop_value.PropValue</span></a></span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.from_value_and_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.from_value_and_details">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">from_value_and_details</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="claripy.html#claripy.ast.bits.Bits" title="claripy.ast.bits.Bits"><span class="pre">claripy.ast.bits.Bits</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">ailment.expression.Expression</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">def_at</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">CodeLocation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.from_value_and_details" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.extract_ail_expression">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">extract_ail_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">ailment.expression.Expression</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">ailment.expression.Expression</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.extract_ail_expression" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.propagator.prop_value.PropValue.extend_ail_expression">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">extend_ail_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bits</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">ailment.expression.Expression</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">ailment.expression.Expression</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#angr.analyses.propagator.prop_value.PropValue.extend_ail_expression" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.propagator.top_checker_mixin"></span><dl class="py class">
@@ -29840,7 +29977,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
