@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.9166 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.9297 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                9.0.9166
+                9.0.9297
               </div>
             
           
@@ -16959,6 +16959,11 @@ restriction.</p></li>
 <span class="sig-name descname"><span class="pre">dbg_draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'dbg_function_'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function_manager.FunctionManager.dbg_draw" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.knowledge_plugins.functions.function_manager.FunctionManager.rebuild_callgraph">
+<span class="sig-name descname"><span class="pre">rebuild_callgraph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.functions.function_manager.FunctionManager.rebuild_callgraph" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-angr.knowledge_plugins.functions.function"></span><dl class="py class">
@@ -18212,6 +18217,7 @@ variable identifier.</p></li>
 <dt class="sig sig-object py" id="angr.knowledge_plugins.key_definitions.atoms.GuardUse">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.knowledge_plugins.key_definitions.atoms.</span></span><span class="sig-name descname"><span class="pre">GuardUse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.atoms.GuardUse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.knowledge_plugins.key_definitions.atoms.Atom" title="angr.knowledge_plugins.key_definitions.atoms.Atom"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.knowledge_plugins.key_definitions.atoms.Atom</span></code></a></p>
+<p>Implements a guard use.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="angr.knowledge_plugins.key_definitions.atoms.GuardUse.size">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">size</span></span><em class="property"><span class="pre">:</span> <span class="pre">int</span></em><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.atoms.GuardUse.size" title="Permalink to this definition">¶</a></dt>
@@ -18646,7 +18652,7 @@ uncovered during the analysis.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_stack_address">
-<span class="sig-name descname"><span class="pre">get_stack_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="claripy.html#claripy.ast.base.Base" title="claripy.ast.base.Base"><span class="pre">claripy.ast.base.Base</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_stack_address" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_stack_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="claripy.html#claripy.ast.base.Base" title="claripy.ast.base.Base"><span class="pre">claripy.ast.base.Base</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_stack_address" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -27753,6 +27759,7 @@ a basic block (self.target).</p>
 <dt class="sig sig-object py" id="angr.analyses.reaching_definitions.engine_vex.SimEngineRDVEX">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.reaching_definitions.engine_vex.</span></span><span class="sig-name descname"><span class="pre">SimEngineRDVEX</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">call_stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum_local_call_depth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">functions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_handler</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.engine_vex.SimEngineRDVEX" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.engines.light.engine.SimEngineLightVEXMixin" title="angr.engines.light.engine.SimEngineLightVEXMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.engines.light.engine.SimEngineLightVEXMixin</span></code></a>, <a class="reference internal" href="#angr.engines.light.engine.SimEngineLight" title="angr.engines.light.engine.SimEngineLight"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.engines.light.engine.SimEngineLight</span></code></a></p>
+<p>Implements the VEX execution engine for reaching definition analysis.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.analyses.reaching_definitions.engine_vex.SimEngineRDVEX.process">
 <span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.reaching_definitions.engine_vex.SimEngineRDVEX.process" title="Permalink to this definition">¶</a></dt>
@@ -29977,7 +29984,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
