@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.9297 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.9355 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                9.0.9297
+                9.0.9355
               </div>
             
           
@@ -7248,7 +7248,7 @@ memory model.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="angr.storage.memory_mixins.MultiValuedMemory">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.storage.memory_mixins.</span></span><span class="sig-name descname"><span class="pre">MultiValuedMemory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_maker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.MultiValuedMemory" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.storage.memory_mixins.</span></span><span class="sig-name descname"><span class="pre">MultiValuedMemory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_missing_values_during_merging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.MultiValuedMemory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.storage.memory_mixins.size_resolution_mixin.SizeNormalizationMixin" title="angr.storage.memory_mixins.size_resolution_mixin.SizeNormalizationMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.storage.memory_mixins.size_resolution_mixin.SizeNormalizationMixin</span></code></a>, <a class="reference internal" href="#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin" title="angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin</span></code></a>, <a class="reference internal" href="#angr.storage.memory_mixins.default_filler_mixin.DefaultFillerMixin" title="angr.storage.memory_mixins.default_filler_mixin.DefaultFillerMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.storage.memory_mixins.default_filler_mixin.DefaultFillerMixin</span></code></a>, <a class="reference internal" href="#angr.storage.memory_mixins.multi_value_merger_mixin.MultiValueMergerMixin" title="angr.storage.memory_mixins.multi_value_merger_mixin.MultiValueMergerMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.storage.memory_mixins.multi_value_merger_mixin.MultiValueMergerMixin</span></code></a>, <a class="reference internal" href="#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin" title="angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin</span></code></a></p>
 </dd></dl>
 
@@ -7684,25 +7684,10 @@ process of serializing symbolic addresses into concrete ones to be specified.</p
 </dd></dl>
 
 <span class="target" id="module-angr.storage.memory_mixins.convenient_mappings_mixin"></span><dl class="py class">
-<dt class="sig sig-object py" id="angr.storage.memory_mixins.convenient_mappings_mixin.ChainMapCOW">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.storage.memory_mixins.convenient_mappings_mixin.</span></span><span class="sig-name descname"><span class="pre">ChainMapCOW</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.convenient_mappings_mixin.ChainMapCOW" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">collections.ChainMap</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="angr.storage.memory_mixins.convenient_mappings_mixin.ChainMapCOW.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.convenient_mappings_mixin.ChainMapCOW.copy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="angr.storage.memory_mixins.convenient_mappings_mixin.ChainMapCOW.clean">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.convenient_mappings_mixin.ChainMapCOW.clean" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="angr.storage.memory_mixins.convenient_mappings_mixin.ConvenientMappingsMixin">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.storage.memory_mixins.convenient_mappings_mixin.</span></span><span class="sig-name descname"><span class="pre">ConvenientMappingsMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.convenient_mappings_mixin.ConvenientMappingsMixin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.storage.memory_mixins.MemoryMixin" title="angr.storage.memory_mixins.MemoryMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.storage.memory_mixins.MemoryMixin</span></code></a></p>
+<p>Implements mappings between names and hashes of symbolic variables and these variables themselves.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.storage.memory_mixins.convenient_mappings_mixin.ConvenientMappingsMixin.copy">
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memo</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.convenient_mappings_mixin.ConvenientMappingsMixin.copy" title="Permalink to this definition">¶</a></dt>
@@ -7778,6 +7763,11 @@ Each load() returns an iterator of all values stored at that location.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.storage.memory_mixins.paged_memory.pages.mv_list_page.MVListPage.changed_bytes">
 <span class="sig-name descname"><span class="pre">changed_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#angr.storage.memory_mixins.paged_memory.pages.mv_list_page.MVListPage" title="angr.storage.memory_mixins.paged_memory.pages.mv_list_page.MVListPage"><span class="pre">angr.storage.memory_mixins.paged_memory.pages.mv_list_page.MVListPage</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_addr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.paged_memory.pages.mv_list_page.MVListPage.changed_bytes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.storage.memory_mixins.paged_memory.pages.mv_list_page.MVListPage.content_gen">
+<span class="sig-name descname"><span class="pre">content_gen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.paged_memory.pages.mv_list_page.MVListPage.content_gen" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -7939,13 +7929,18 @@ Returns the list of pages that were cleared consisting of <cite>(addr, length)</
 
 <dl class="py class">
 <dt class="sig sig-object py" id="angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.storage.memory_mixins.paged_memory.paged_memory_mixin.</span></span><span class="sig-name descname"><span class="pre">MVListPagesMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4096</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_permissions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permissions_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.storage.memory_mixins.paged_memory.paged_memory_mixin.</span></span><span class="sig-name descname"><span class="pre">MVListPagesMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_missing_values_during_merging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin" title="angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin.PAGE_TYPE">
 <span class="sig-name descname"><span class="pre">PAGE_TYPE</span></span><a class="headerlink" href="#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin.PAGE_TYPE" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="#angr.storage.memory_mixins.paged_memory.pages.mv_list_page.MVListPage" title="angr.storage.memory_mixins.paged_memory.pages.mv_list_page.MVListPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.storage.memory_mixins.paged_memory.pages.mv_list_page.MVListPage</span></code></a></p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -7957,7 +7952,7 @@ Returns the list of pages that were cleared consisting of <cite>(addr, length)</
 
 <dl class="py class">
 <dt class="sig sig-object py" id="angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesWithLabelsMixin">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.storage.memory_mixins.paged_memory.paged_memory_mixin.</span></span><span class="sig-name descname"><span class="pre">MVListPagesWithLabelsMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4096</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_permissions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permissions_map</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesWithLabelsMixin" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.storage.memory_mixins.paged_memory.paged_memory_mixin.</span></span><span class="sig-name descname"><span class="pre">MVListPagesWithLabelsMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_missing_values_during_merging</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesWithLabelsMixin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.LabeledPagesMixin" title="angr.storage.memory_mixins.paged_memory.paged_memory_mixin.LabeledPagesMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.storage.memory_mixins.paged_memory.paged_memory_mixin.LabeledPagesMixin</span></code></a>, <a class="reference internal" href="#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin" title="angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.storage.memory_mixins.paged_memory.paged_memory_mixin.MVListPagesMixin</span></code></a></p>
 </dd></dl>
 
@@ -17840,6 +17835,16 @@ and update self.calling_convention with the declaration.</p>
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.knowledge_plugins.variables.variable_manager.</span></span><span class="sig-name descname"><span class="pre">LiveVariables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">register_region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_region</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.LiveVariables" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A collection of live variables at a program point.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.knowledge_plugins.variables.variable_manager.LiveVariables.register_region">
+<span class="sig-name descname"><span class="pre">register_region</span></span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.LiveVariables.register_region" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.knowledge_plugins.variables.variable_manager.LiveVariables.stack_region">
+<span class="sig-name descname"><span class="pre">stack_region</span></span><a class="headerlink" href="#angr.knowledge_plugins.variables.variable_manager.LiveVariables.stack_region" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -18921,13 +18926,6 @@ to the current instance.</p>
 </dd></dl>
 
 <span class="target" id="module-angr.knowledge_plugins.sync"></span><span class="target" id="module-angr.knowledge_plugins.sync.sync_controller"></span><dl class="py function">
-<dt class="sig sig-object py" id="angr.knowledge_plugins.sync.sync_controller.last_push">
-<span class="sig-prename descclassname"><span class="pre">angr.knowledge_plugins.sync.sync_controller.</span></span><span class="sig-name descname"><span class="pre">last_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.sync.sync_controller.last_push" title="Permalink to this definition">¶</a></dt>
-<dd><p>Once a push function has been executed, perform an update on the last push time,
-last push function, and the local function name for the master user.</p>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="angr.knowledge_plugins.sync.sync_controller.make_state">
 <span class="sig-prename descclassname"><span class="pre">angr.knowledge_plugins.sync.sync_controller.</span></span><span class="sig-name descname"><span class="pre">make_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.sync.sync_controller.make_state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a writeable State instance and pass to <cite>f</cite> as the <cite>state</cite> kwarg if the <cite>state</cite> kwarg is None.
@@ -20002,6 +20000,11 @@ sort the jobs in queue and optimize traversal order.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis.downsize">
+<span class="sig-name descname"><span class="pre">downsize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis.downsize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -28894,7 +28897,7 @@ us the expected result: a function graph representing (a higher view of) the flo
 
 <dl class="py class">
 <dt class="sig sig-object py" id="angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryBase">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.variable_recovery.variable_recovery_base.</span></span><span class="sig-name descname"><span class="pre">VariableRecoveryBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iterations</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryBase" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.variable_recovery.variable_recovery_base.</span></span><span class="sig-name descname"><span class="pre">VariableRecoveryBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iterations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_live_variables</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a></p>
 <p>The base class for VariableRecovery and VariableRecoveryFast.</p>
 <dl class="py method">
@@ -29011,6 +29014,32 @@ us the expected result: a function graph representing (a higher view of) the flo
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase.downsize">
+<span class="sig-name descname"><span class="pre">downsize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase.downsize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove unnecessary members.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase.downsize_region">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">downsize_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#angr.storage.memory_mixins.MultiValuedMemory" title="angr.storage.memory_mixins.MultiValuedMemory"><span class="pre">angr.storage.memory_mixins.MultiValuedMemory</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#angr.storage.memory_mixins.MultiValuedMemory" title="angr.storage.memory_mixins.MultiValuedMemory"><span class="pre">angr.storage.memory_mixins.MultiValuedMemory</span></a></span></span><a class="headerlink" href="#angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryStateBase.downsize_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get rid of unnecessary references in region so that it won’t avoid garbage collection on those referenced
+objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>region</strong> – A MultiValuedMemory region.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.variable_recovery.variable_recovery_fast"></span><dl class="py class">
@@ -29052,7 +29081,7 @@ in the merged abstract state.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="angr.analyses.variable_recovery.variable_recovery_fast.VariableRecoveryFast">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.variable_recovery.variable_recovery_fast.</span></span><span class="sig-name descname"><span class="pre">VariableRecoveryFast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_sp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.sim_variable.SimVariable" title="angr.sim_variable.SimVariable"><span class="pre">angr.sim_variable.SimVariable</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.variable_recovery.variable_recovery_fast.VariableRecoveryFast" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.variable_recovery.variable_recovery_fast.</span></span><span class="sig-name descname"><span class="pre">VariableRecoveryFast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">low_priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_sp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.sim_variable.SimVariable" title="angr.sim_variable.SimVariable"><span class="pre">angr.sim_variable.SimVariable</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_live_variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.variable_recovery.variable_recovery_fast.VariableRecoveryFast" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryBase" title="angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryBase</span></code></a></p>
 <p>Recover “variables” from a function by keeping track of stack pointer offsets and pattern matching VEX statements.</p>
 <p>If calling conventions are recovered prior to running VariableRecoveryFast, variables can be recognized more
@@ -29135,7 +29164,7 @@ accurately. However, it is not a requirement.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="angr.analyses.variable_recovery.variable_recovery.VariableRecovery">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.variable_recovery.variable_recovery.</span></span><span class="sig-name descname"><span class="pre">VariableRecovery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.variable_recovery.variable_recovery.VariableRecovery" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.variable_recovery.variable_recovery.</span></span><span class="sig-name descname"><span class="pre">VariableRecovery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iterations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">store_live_variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.variable_recovery.variable_recovery.VariableRecovery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis</span></code></a>, <a class="reference internal" href="#angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryBase" title="angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.variable_recovery.variable_recovery_base.VariableRecoveryBase</span></code></a></p>
 <p>Recover “variables” from a function using forced execution.</p>
 <p>While variables play a very important role in programming, it does not really exist after compiling. However, we can
@@ -29338,6 +29367,16 @@ analysis to resolve the conflicts between overlapping variables.</p>
 <dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Equivalence">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.typehoon.typevars.</span></span><span class="sig-name descname"><span class="pre">Equivalence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Equivalence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeConstraint" title="angr.analyses.typehoon.typevars.TypeConstraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.typehoon.typevars.TypeConstraint</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Equivalence.type_a">
+<span class="sig-name descname"><span class="pre">type_a</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Equivalence.type_a" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Equivalence.type_b">
+<span class="sig-name descname"><span class="pre">type_b</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Equivalence.type_b" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Equivalence.pp_str">
 <span class="sig-name descname"><span class="pre">pp_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeVariable" title="angr.analyses.typehoon.typevars.TypeVariable"><span class="pre">angr.analyses.typehoon.typevars.TypeVariable</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Equivalence.pp_str" title="Permalink to this definition">¶</a></dt>
@@ -29349,6 +29388,11 @@ analysis to resolve the conflicts between overlapping variables.</p>
 <dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Existence">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.typehoon.typevars.</span></span><span class="sig-name descname"><span class="pre">Existence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Existence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeConstraint" title="angr.analyses.typehoon.typevars.TypeConstraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.typehoon.typevars.TypeConstraint</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Existence.type_">
+<span class="sig-name descname"><span class="pre">type_</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Existence.type_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Existence.pp_str">
 <span class="sig-name descname"><span class="pre">pp_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeVariable" title="angr.analyses.typehoon.typevars.TypeVariable"><span class="pre">angr.analyses.typehoon.typevars.TypeVariable</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Existence.pp_str" title="Permalink to this definition">¶</a></dt>
@@ -29365,6 +29409,16 @@ analysis to resolve the conflicts between overlapping variables.</p>
 <dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Subtype">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.typehoon.typevars.</span></span><span class="sig-name descname"><span class="pre">Subtype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">super_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Subtype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeConstraint" title="angr.analyses.typehoon.typevars.TypeConstraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.typehoon.typevars.TypeConstraint</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Subtype.super_type">
+<span class="sig-name descname"><span class="pre">super_type</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Subtype.super_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Subtype.sub_type">
+<span class="sig-name descname"><span class="pre">sub_type</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Subtype.sub_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Subtype.pp_str">
 <span class="sig-name descname"><span class="pre">pp_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeVariable" title="angr.analyses.typehoon.typevars.TypeVariable"><span class="pre">angr.analyses.typehoon.typevars.TypeVariable</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Subtype.pp_str" title="Permalink to this definition">¶</a></dt>
@@ -29382,6 +29436,21 @@ analysis to resolve the conflicts between overlapping variables.</p>
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.typehoon.typevars.</span></span><span class="sig-name descname"><span class="pre">Add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Add" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeConstraint" title="angr.analyses.typehoon.typevars.TypeConstraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.typehoon.typevars.TypeConstraint</span></code></a></p>
 <p>Describes the constraint that type_r == type0 + type1</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Add.type_0">
+<span class="sig-name descname"><span class="pre">type_0</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Add.type_0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Add.type_1">
+<span class="sig-name descname"><span class="pre">type_1</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Add.type_1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Add.type_r">
+<span class="sig-name descname"><span class="pre">type_r</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Add.type_r" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Add.pp_str">
 <span class="sig-name descname"><span class="pre">pp_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeVariable" title="angr.analyses.typehoon.typevars.TypeVariable"><span class="pre">angr.analyses.typehoon.typevars.TypeVariable</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Add.pp_str" title="Permalink to this definition">¶</a></dt>
@@ -29399,6 +29468,21 @@ analysis to resolve the conflicts between overlapping variables.</p>
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.typehoon.typevars.</span></span><span class="sig-name descname"><span class="pre">Sub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Sub" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeConstraint" title="angr.analyses.typehoon.typevars.TypeConstraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.typehoon.typevars.TypeConstraint</span></code></a></p>
 <p>Describes the constraint that type_r == type0 - type1</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Sub.type_0">
+<span class="sig-name descname"><span class="pre">type_0</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Sub.type_0" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Sub.type_1">
+<span class="sig-name descname"><span class="pre">type_1</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Sub.type_1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Sub.type_r">
+<span class="sig-name descname"><span class="pre">type_r</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Sub.type_r" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.Sub.pp_str">
 <span class="sig-name descname"><span class="pre">pp_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeVariable" title="angr.analyses.typehoon.typevars.TypeVariable"><span class="pre">angr.analyses.typehoon.typevars.TypeVariable</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.Sub.pp_str" title="Permalink to this definition">¶</a></dt>
@@ -29415,6 +29499,11 @@ analysis to resolve the conflicts between overlapping variables.</p>
 <dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.TypeVariable">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.typehoon.typevars.</span></span><span class="sig-name descname"><span class="pre">TypeVariable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.TypeVariable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.TypeVariable.idx">
+<span class="sig-name descname"><span class="pre">idx</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.TypeVariable.idx" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.TypeVariable.pp_str">
 <span class="sig-name descname"><span class="pre">pp_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeVariable" title="angr.analyses.typehoon.typevars.TypeVariable"><span class="pre">angr.analyses.typehoon.typevars.TypeVariable</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.TypeVariable.pp_str" title="Permalink to this definition">¶</a></dt>
@@ -29426,6 +29515,16 @@ analysis to resolve the conflicts between overlapping variables.</p>
 <dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.DerivedTypeVariable">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.typehoon.typevars.</span></span><span class="sig-name descname"><span class="pre">DerivedTypeVariable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.typehoon.typevars.DerivedTypeVariable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeVariable" title="angr.analyses.typehoon.typevars.TypeVariable"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.typehoon.typevars.TypeVariable</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.DerivedTypeVariable.type_var">
+<span class="sig-name descname"><span class="pre">type_var</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.DerivedTypeVariable.type_var" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.DerivedTypeVariable.label">
+<span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.DerivedTypeVariable.label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.analyses.typehoon.typevars.DerivedTypeVariable.pp_str">
 <span class="sig-name descname"><span class="pre">pp_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#angr.analyses.typehoon.typevars.TypeVariable" title="angr.analyses.typehoon.typevars.TypeVariable"><span class="pre">angr.analyses.typehoon.typevars.TypeVariable</span></a><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#angr.analyses.typehoon.typevars.DerivedTypeVariable.pp_str" title="Permalink to this definition">¶</a></dt>
@@ -29984,7 +30083,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -32794,6 +32893,35 @@ to create the key array for each insertion.</p>
 <dt class="sig sig-object py" id="angr.utils.constants.is_alignment_mask">
 <span class="sig-prename descclassname"><span class="pre">angr.utils.constants.</span></span><span class="sig-name descname"><span class="pre">is_alignment_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.utils.constants.is_alignment_mask" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<span class="target" id="module-angr.utils.cowdict"></span><dl class="py class">
+<dt class="sig sig-object py" id="angr.utils.cowdict.ChainMapCOW">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.utils.cowdict.</span></span><span class="sig-name descname"><span class="pre">ChainMapCOW</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapse_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.utils.cowdict.ChainMapCOW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">collections.ChainMap</span></code></p>
+<p>Implements a copy-on-write version of ChainMap that supports auto-collapsing.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.utils.cowdict.ChainMapCOW.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.utils.cowdict.ChainMapCOW.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.utils.cowdict.ChainMapCOW.clean">
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.utils.cowdict.ChainMapCOW.clean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="angr.utils.cowdict.DefaultChainMapCOW">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.utils.cowdict.</span></span><span class="sig-name descname"><span class="pre">DefaultChainMapCOW</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_factory</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collapse_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.utils.cowdict.DefaultChainMapCOW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.utils.cowdict.ChainMapCOW" title="angr.utils.cowdict.ChainMapCOW"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.utils.cowdict.ChainMapCOW</span></code></a></p>
+<p>Implements a copy-on-write version of ChainMap with default values that supports auto-collapsing.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.utils.cowdict.DefaultChainMapCOW.clean">
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.utils.cowdict.DefaultChainMapCOW.clean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
 
 <span class="target" id="module-angr.utils.enums_conv"></span><dl class="py function">
 <dt class="sig sig-object py" id="angr.utils.enums_conv.cfg_jumpkind_to_pb">
