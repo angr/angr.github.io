@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.9438 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.9506 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                9.0.9438
+                9.0.9506
               </div>
             
           
@@ -11618,7 +11618,7 @@ specifiers and store them into the pointers extracted from <cite>args</cite>.</p
 <dt class="sig sig-object py" id="angr.procedures.stubs.format_parser.FormatParser">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.procedures.stubs.format_parser.</span></span><span class="sig-name descname"><span class="pre">FormatParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbolic_return</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">returns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_syscall</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_stub</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.procedures.stubs.format_parser.FormatParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.sim_procedure.SimProcedure" title="angr.sim_procedure.SimProcedure"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_procedure.SimProcedure</span></code></a></p>
-<p>For SimProcedures relying on format strings.</p>
+<p>For SimProcedures relying on printf-style format strings.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.procedures.stubs.format_parser.FormatParser.ARGS_MISMATCH">
 <span class="sig-name descname"><span class="pre">ARGS_MISMATCH</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#angr.procedures.stubs.format_parser.FormatParser.ARGS_MISMATCH" title="Permalink to this definition">¶</a></dt>
@@ -11662,6 +11662,28 @@ specifiers and store them into the pointers extracted from <cite>args</cite>.</p
 </dd>
 </dl>
 </dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="angr.procedures.stubs.format_parser.ScanfFormatParser">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.procedures.stubs.format_parser.</span></span><span class="sig-name descname"><span class="pre">ScanfFormatParser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbolic_return</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">returns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_syscall</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_stub</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">display_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">library_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.procedures.stubs.format_parser.ScanfFormatParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.procedures.stubs.format_parser.FormatParser" title="angr.procedures.stubs.format_parser.FormatParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.procedures.stubs.format_parser.FormatParser</span></code></a></p>
+<p>For SimProcedures relying on scanf-style format strings.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.procedures.stubs.format_parser.ScanfFormatParser.basic_spec">
+<span class="sig-name descname"><span class="pre">basic_spec</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{b'A':</span> <span class="pre">float,</span> <span class="pre">b'E':</span> <span class="pre">float,</span> <span class="pre">b'F':</span> <span class="pre">float,</span> <span class="pre">b'G':</span> <span class="pre">float,</span> <span class="pre">b'X':</span> <span class="pre">unsigned</span> <span class="pre">int,</span> <span class="pre">b'a':</span> <span class="pre">float,</span> <span class="pre">b'c':</span> <span class="pre">char,</span> <span class="pre">b'd':</span> <span class="pre">int,</span> <span class="pre">b'e':</span> <span class="pre">float,</span> <span class="pre">b'f':</span> <span class="pre">float,</span> <span class="pre">b'g':</span> <span class="pre">float,</span> <span class="pre">b'i':</span> <span class="pre">int,</span> <span class="pre">b'n':</span> <span class="pre">unsigned</span> <span class="pre">int*,</span> <span class="pre">b'o':</span> <span class="pre">unsigned</span> <span class="pre">int,</span> <span class="pre">b'p':</span> <span class="pre">unsigned</span> <span class="pre">int*,</span> <span class="pre">b's':</span> <span class="pre">char*,</span> <span class="pre">b'u':</span> <span class="pre">unsigned</span> <span class="pre">int,</span> <span class="pre">b'x':</span> <span class="pre">unsigned</span> <span class="pre">int}</span></em><a class="headerlink" href="#angr.procedures.stubs.format_parser.ScanfFormatParser.basic_spec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.procedures.stubs.format_parser.ScanfFormatParser.float_spec">
+<span class="sig-name descname"><span class="pre">float_spec</span></span><em class="property"> <span class="pre">=</span> <span class="pre">[b'e',</span> <span class="pre">b'E',</span> <span class="pre">b'f',</span> <span class="pre">b'F',</span> <span class="pre">b'g',</span> <span class="pre">b'G',</span> <span class="pre">b'a',</span> <span class="pre">b'A']</span></em><a class="headerlink" href="#angr.procedures.stubs.format_parser.ScanfFormatParser.float_spec" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.procedures.stubs.format_parser.ScanfFormatParser.float_len_mod">
+<span class="sig-name descname"><span class="pre">float_len_mod</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{b'l':</span> <span class="pre">&lt;class</span> <span class="pre">'angr.sim_type.SimTypeDouble'&gt;,</span> <span class="pre">b'll':</span> <span class="pre">&lt;class</span> <span class="pre">'angr.sim_type.SimTypeDouble'&gt;}</span></em><a class="headerlink" href="#angr.procedures.stubs.format_parser.ScanfFormatParser.float_len_mod" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -22601,8 +22623,8 @@ not be able to recover all jump targets later in block 0x4051b0.</p>
 <span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jumpkind</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.indirect_jump_resolvers.const_resolver.ConstantResolver.resolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function does the actual resolve. Our process is easy:
 Propagate all values inside the function specified, then extract
-the tmp_var used for the indirect jump from the basic bloc   k.
-Use the tmp var to locate the constant value stored in the replacments.
+the tmp_var used for the indirect jump from the basic block.
+Use the tmp var to locate the constant value stored in the replacements.
 If not present, returns False tuple.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -28643,9 +28665,17 @@ us the expected result: a function graph representing (a higher view of) the flo
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.stack_pointer_tracker"></span><dl class="py class">
+<dt class="sig sig-object py" id="angr.analyses.stack_pointer_tracker.BottomType">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.stack_pointer_tracker.</span></span><span class="sig-name descname"><span class="pre">BottomType</span></span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.BottomType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The bottom value for register values.</p>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="angr.analyses.stack_pointer_tracker.Constant">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.stack_pointer_tracker.</span></span><span class="sig-name descname"><span class="pre">Constant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">val</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.Constant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represents a constant value.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.stack_pointer_tracker.Constant.val">
 <span class="sig-name descname"><span class="pre">val</span></span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.Constant.val" title="Permalink to this definition">¶</a></dt>
@@ -28657,6 +28687,7 @@ us the expected result: a function graph representing (a higher view of) the flo
 <dt class="sig sig-object py" id="angr.analyses.stack_pointer_tracker.Register">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.stack_pointer_tracker.</span></span><span class="sig-name descname"><span class="pre">Register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bitlen</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.Register" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represent a register.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.stack_pointer_tracker.Register.offset">
 <span class="sig-name descname"><span class="pre">offset</span></span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.Register.offset" title="Permalink to this definition">¶</a></dt>
@@ -28673,6 +28704,7 @@ us the expected result: a function graph representing (a higher view of) the flo
 <dt class="sig sig-object py" id="angr.analyses.stack_pointer_tracker.OffsetVal">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.stack_pointer_tracker.</span></span><span class="sig-name descname"><span class="pre">OffsetVal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.OffsetVal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Represent a value with an offset added.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="angr.analyses.stack_pointer_tracker.OffsetVal.reg">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">reg</span></span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.OffsetVal.reg" title="Permalink to this definition">¶</a></dt>
@@ -28689,6 +28721,7 @@ us the expected result: a function graph representing (a higher view of) the flo
 <dt class="sig sig-object py" id="angr.analyses.stack_pointer_tracker.FrozenStackPointerTrackerState">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.stack_pointer_tracker.</span></span><span class="sig-name descname"><span class="pre">FrozenStackPointerTrackerState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_tracking_memory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.FrozenStackPointerTrackerState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Abstract state for StackPointerTracker analysis with registers and memory values being in frozensets.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.stack_pointer_tracker.FrozenStackPointerTrackerState.regs">
 <span class="sig-name descname"><span class="pre">regs</span></span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.FrozenStackPointerTrackerState.regs" title="Permalink to this definition">¶</a></dt>
@@ -28720,6 +28753,7 @@ us the expected result: a function graph representing (a higher view of) the flo
 <dt class="sig sig-object py" id="angr.analyses.stack_pointer_tracker.StackPointerTrackerState">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.stack_pointer_tracker.</span></span><span class="sig-name descname"><span class="pre">StackPointerTrackerState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_tracking_memory</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.StackPointerTrackerState" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Abstract state for StackPointerTracker analysis.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.stack_pointer_tracker.StackPointerTrackerState.regs">
 <span class="sig-name descname"><span class="pre">regs</span></span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.StackPointerTrackerState.regs" title="Permalink to this definition">¶</a></dt>
@@ -28781,11 +28815,12 @@ us the expected result: a function graph representing (a higher view of) the flo
 <dt class="sig sig-object py" id="angr.analyses.stack_pointer_tracker.CouldNotResolveException">
 <em class="property"><span class="pre">exception</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.stack_pointer_tracker.</span></span><span class="sig-name descname"><span class="pre">CouldNotResolveException</span></span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.CouldNotResolveException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>An exception used in StackPointerTracker analysis to represent internal resolving failures.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="angr.analyses.stack_pointer_tracker.StackPointerTracker">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.stack_pointer_tracker.</span></span><span class="sig-name descname"><span class="pre">StackPointerTracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#angr.knowledge_plugins.functions.function.Function" title="angr.knowledge_plugins.functions.function.Function"><span class="pre">angr.knowledge_plugins.functions.function.Function</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_offsets</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">set</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.StackPointerTracker" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.stack_pointer_tracker.</span></span><span class="sig-name descname"><span class="pre">StackPointerTracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#angr.knowledge_plugins.functions.function.Function" title="angr.knowledge_plugins.functions.function.Function"><span class="pre">angr.knowledge_plugins.functions.function.Function</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_offsets</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.stack_pointer_tracker.StackPointerTracker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a>, <a class="reference internal" href="#angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis" title="angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.forward_analysis.forward_analysis.ForwardAnalysis</span></code></a></p>
 <p>Track the offset of stack pointer at the end of each basic block of a function.</p>
 <dl class="py method">
@@ -30083,7 +30118,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
