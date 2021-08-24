@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.9506 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.9572 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                9.0.9506
+                9.0.9572
               </div>
             
           
@@ -8197,6 +8197,7 @@ will be able to work as a page in the paged memory model.</p>
 <dt class="sig sig-object py" id="angr.storage.memory_mixins.paged_memory.pages.ultra_page.UltraPage">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.storage.memory_mixins.paged_memory.pages.ultra_page.</span></span><span class="sig-name descname"><span class="pre">UltraPage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_zero</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.paged_memory.pages.ultra_page.UltraPage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.storage.memory_mixins.paged_memory.pages.cooperation.MemoryObjectMixin" title="angr.storage.memory_mixins.paged_memory.pages.cooperation.MemoryObjectMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.storage.memory_mixins.paged_memory.pages.cooperation.MemoryObjectMixin</span></code></a>, <a class="reference internal" href="#angr.storage.memory_mixins.paged_memory.pages.PageBase" title="angr.storage.memory_mixins.paged_memory.pages.PageBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.storage.memory_mixins.paged_memory.pages.PageBase</span></code></a></p>
+<p>Default page implementation</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.storage.memory_mixins.paged_memory.pages.ultra_page.UltraPage.SUPPORTS_CONCRETE_LOAD">
 <span class="sig-name descname"><span class="pre">SUPPORTS_CONCRETE_LOAD</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#angr.storage.memory_mixins.paged_memory.pages.ultra_page.UltraPage.SUPPORTS_CONCRETE_LOAD" title="Permalink to this definition">¶</a></dt>
@@ -27351,6 +27352,7 @@ type of SpOffset expression.</p>
 <dt class="sig sig-object py" id="angr.analyses.propagator.engine_ail.SimEnginePropagatorAIL">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.propagator.engine_ail.</span></span><span class="sig-name descname"><span class="pre">SimEnginePropagatorAIL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stack_pointer_tracker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">propagate_tmps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.engine_ail.SimEnginePropagatorAIL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.engines.light.engine.SimEngineLightAILMixin" title="angr.engines.light.engine.SimEngineLightAILMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.engines.light.engine.SimEngineLightAILMixin</span></code></a>, <a class="reference internal" href="#angr.analyses.propagator.engine_base.SimEnginePropagatorBase" title="angr.analyses.propagator.engine_base.SimEnginePropagatorBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.propagator.engine_base.SimEnginePropagatorBase</span></code></a></p>
+<p>The AIl engine for Propagator.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.propagator.engine_ail.SimEnginePropagatorAIL.state">
 <span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="pre">:</span> <span class="pre">PropagatorAILState</span></em><a class="headerlink" href="#angr.analyses.propagator.engine_ail.SimEnginePropagatorAIL.state" title="Permalink to this definition">¶</a></dt>
@@ -27366,6 +27368,13 @@ type of SpOffset expression.</p>
 <span class="sig-name descname"><span class="pre">is_using_outdated_def</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">ailment.expression.Expression</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#angr.analyses.propagator.engine_ail.SimEnginePropagatorAIL.is_using_outdated_def" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<span class="target" id="module-angr.analyses.propagator.outdated_definition_walker"></span><dl class="py class">
+<dt class="sig sig-object py" id="angr.analyses.propagator.outdated_definition_walker.OutdatedDefinitionWalker">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.propagator.outdated_definition_walker.</span></span><span class="sig-name descname"><span class="pre">OutdatedDefinitionWalker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">PropagatorAILState</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.propagator.outdated_definition_walker.OutdatedDefinitionWalker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.ailblock_walker.AILBlockWalker" title="angr.analyses.decompiler.ailblock_walker.AILBlockWalker"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.ailblock_walker.AILBlockWalker</span></code></a></p>
+<p>Walks an AIL expression to find outdated definitions.</p>
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.propagator.propagator"></span><dl class="py class">
@@ -30118,7 +30127,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
