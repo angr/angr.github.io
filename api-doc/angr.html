@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.9684 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.9792 documentation</title>
   
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                9.0.9684
+                9.0.9792
               </div>
             
           
@@ -22301,6 +22301,7 @@ blx r3</p>
 <dt class="sig sig-object py" id="angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.OverwriteTmpValueCallback">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.</span></span><span class="sig-name descname"><span class="pre">OverwriteTmpValueCallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gp_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.OverwriteTmpValueCallback" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Overwrites temporary values during resolution</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.OverwriteTmpValueCallback.overwrite_tmp_value">
 <span class="sig-name descname"><span class="pre">overwrite_tmp_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.OverwriteTmpValueCallback.overwrite_tmp_value" title="Permalink to this definition">¶</a></dt>
@@ -22312,6 +22313,7 @@ blx r3</p>
 <dt class="sig sig-object py" id="angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.MipsElfFastResolver">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.</span></span><span class="sig-name descname"><span class="pre">MipsElfFastResolver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.MipsElfFastResolver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.cfg.indirect_jump_resolvers.resolver.IndirectJumpResolver" title="angr.analyses.cfg.indirect_jump_resolvers.resolver.IndirectJumpResolver"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.cfg.indirect_jump_resolvers.resolver.IndirectJumpResolver</span></code></a></p>
+<p>Indirect Jump Resolver for MIPs</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.MipsElfFastResolver.filter">
 <span class="sig-name descname"><span class="pre">filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jumpkind</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.MipsElfFastResolver.filter" title="Permalink to this definition">¶</a></dt>
@@ -22320,7 +22322,8 @@ blx r3</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.MipsElfFastResolver.resolve">
 <span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jumpkind</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.cfg.indirect_jump_resolvers.mips_elf_fast.MipsElfFastResolver.resolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>Resolves the indirect jump in MIPS ELF binaries where all external function calls are indexed using gp.</p>
+<dd><p>Wrapper for _resolve that slowly increments the max_depth used by Blade for finding sources
+until we can resolve the addr or we reach the default max_depth</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -24110,7 +24113,7 @@ in test cases.</p>
 
 <span class="target" id="module-angr.analyses.decompiler.callsite_maker"></span><dl class="py class">
 <dt class="sig sig-object py" id="angr.analyses.decompiler.callsite_maker.CallSiteMaker">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.decompiler.callsite_maker.</span></span><span class="sig-name descname"><span class="pre">CallSiteMaker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reaching_definitions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_pointer_tracker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.callsite_maker.CallSiteMaker" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.decompiler.callsite_maker.</span></span><span class="sig-name descname"><span class="pre">CallSiteMaker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reaching_definitions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_pointer_tracker</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ail_manager</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.callsite_maker.CallSiteMaker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.analysis.Analysis" title="angr.analyses.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.analysis.Analysis</span></code></a></p>
 <p>Add calling convention, declaration, and args to a call site.</p>
 </dd></dl>
@@ -26336,16 +26339,16 @@ Examples: (), {}, []</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="angr.analyses.decompiler.structurer_nodes.SequenceNode">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.decompiler.structurer_nodes.</span></span><span class="sig-name descname"><span class="pre">SequenceNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structurer_nodes.SequenceNode" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.analyses.decompiler.structurer_nodes.</span></span><span class="sig-name descname"><span class="pre">SequenceNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.structurer_nodes.SequenceNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.analyses.decompiler.structurer_nodes.BaseNode" title="angr.analyses.decompiler.structurer_nodes.BaseNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.analyses.decompiler.structurer_nodes.BaseNode</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.analyses.decompiler.structurer_nodes.SequenceNode.addr">
+<span class="sig-name descname"><span class="pre">addr</span></span><a class="headerlink" href="#angr.analyses.decompiler.structurer_nodes.SequenceNode.addr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.decompiler.structurer_nodes.SequenceNode.nodes">
 <span class="sig-name descname"><span class="pre">nodes</span></span><a class="headerlink" href="#angr.analyses.decompiler.structurer_nodes.SequenceNode.nodes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="angr.analyses.decompiler.structurer_nodes.SequenceNode.addr">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">addr</span></span><a class="headerlink" href="#angr.analyses.decompiler.structurer_nodes.SequenceNode.addr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -30129,7 +30132,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
