@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cle — Binary Loader &mdash; angr 9.0.10055 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 9.0.10072 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.0.10055
+                9.0.10072
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -582,6 +582,11 @@ define <cite>min_addr</cite> and <cite>max_addr</cite> even if <cite>has_memory<
 <span class="sig-name descname"><span class="pre">is_default</span></span><em class="property"> <span class="pre">=</span> <span class="pre">False</span></em><a class="headerlink" href="#cle.backends.Backend.is_default" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.Backend.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.Backend.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="cle.backends.Backend.close">
 <span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.Backend.close" title="Permalink to this definition"></a></dt>
@@ -604,7 +609,7 @@ define <cite>min_addr</cite> and <cite>max_addr</cite> even if <cite>has_memory<
 
 <dl class="py property">
 <dt class="sig sig-object py" id="cle.backends.Backend.segments">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">segments</span></span><a class="headerlink" href="#cle.backends.Backend.segments" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">segments</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="#cle.backends.regions.Regions" title="cle.backends.regions.Regions"><span class="pre">cle.backends.regions.Regions</span></a></em><a class="headerlink" href="#cle.backends.Backend.segments" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
@@ -1312,6 +1317,11 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.elf.ELF.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.elf.elf.ELF.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.elf.elf.ELF.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.elf.elf.ELF.symbols" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -1341,6 +1351,11 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <dl class="py method">
 <dt class="sig sig-object py" id="cle.backends.elf.elfcore.ELFCore.thread_registers">
 <span class="sig-name descname"><span class="pre">thread_registers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.elfcore.ELFCore.thread_registers" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.elfcore.ELFCore.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.elf.elfcore.ELFCore.loader" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1496,6 +1511,11 @@ while a corresponding variable without the <cite>v-</cite> refers to the flat ze
 <em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">get_text_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.metaelf.MetaELF.get_text_offset" title="Permalink to this definition"></a></dt>
 <dd><p>Offset of .text in the binary.</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.elf.metaelf.MetaELF.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.elf.metaelf.MetaELF.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.elf.metaelf.MetaELF.symbols">
@@ -1928,6 +1948,11 @@ like RAM, MMIO, etc</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.named_region.NamedRegion.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.named_region.NamedRegion.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.named_region.NamedRegion.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.named_region.NamedRegion.symbols" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -1969,6 +1994,11 @@ like RAM, MMIO, etc</p>
 <span class="sig-name descname"><span class="pre">get_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.pe.pe.PE.get_symbol" title="Permalink to this definition"></a></dt>
 <dd><p>Look up the symbol with the given name. Symbols can be looked up by ordinal with the name <code class="docutils literal notranslate"><span class="pre">&quot;ordinal.%d&quot;</span> <span class="pre">%</span> <span class="pre">num</span></code></p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.pe.pe.PE.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.pe.pe.PE.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.pe.pe.PE.symbols">
@@ -2156,6 +2186,11 @@ name, therefore this method always returns an array.</p>
 :return: MachOSegment or None</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.macho.macho.MachO.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.macho.macho.MachO.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -2333,11 +2368,6 @@ symbol’s name</p>
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">rebased_addr</span></span><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.rebased_addr" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="cle.backends.macho.symbol.SymbolTableSymbol.resolve">
-<span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.resolve" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 <dl class="py property">
 <dt class="sig sig-object py" id="cle.backends.macho.symbol.SymbolTableSymbol.is_stab">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">is_stab</span></span><a class="headerlink" href="#cle.backends.macho.symbol.SymbolTableSymbol.is_stab" title="Permalink to this definition"></a></dt>
@@ -2443,11 +2473,6 @@ MachOSymbol.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="cle.backends.macho.symbol.BindingSymbol.rebased_addr">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">rebased_addr</span></span><a class="headerlink" href="#cle.backends.macho.symbol.BindingSymbol.rebased_addr" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="cle.backends.macho.symbol.BindingSymbol.resolve">
-<span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.symbol.BindingSymbol.resolve" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2704,6 +2729,28 @@ Intended to work in close conjunction with MachO not for standalone use</p>
 <span class="sig-prename descclassname"><span class="pre">cle.backends.macho.binding.</span></span><span class="sig-name descname"><span class="pre">n_opcode_do_bind_uleb_times_skipping_uleb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#cle.backends.macho.binding.BindingState" title="cle.backends.macho.binding.BindingState"><span class="pre">cle.backends.macho.binding.BindingState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">MachO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_i</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blob</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#cle.backends.macho.binding.BindingState" title="cle.backends.macho.binding.BindingState"><span class="pre">cle.backends.macho.binding.BindingState</span></a></span></span><a class="headerlink" href="#cle.backends.macho.binding.n_opcode_do_bind_uleb_times_skipping_uleb" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.macho.binding.MachORelocation">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cle.backends.macho.binding.</span></span><span class="sig-name descname"><span class="pre">MachORelocation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><span class="pre">cle.backends.Backend</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#cle.backends.macho.symbol.AbstractMachOSymbol" title="cle.backends.macho.symbol.AbstractMachOSymbol"><span class="pre">cle.backends.macho.symbol.AbstractMachOSymbol</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_addr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.binding.MachORelocation" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.relocation.Relocation" title="cle.backends.relocation.Relocation"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.relocation.Relocation</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.macho.binding.MachORelocation.resolve_symbol">
+<span class="sig-name descname"><span class="pre">resolve_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extern_object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.binding.MachORelocation.resolve_symbol" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.macho.binding.MachORelocation.dest_addr">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">dest_addr</span></span><a class="headerlink" href="#cle.backends.macho.binding.MachORelocation.dest_addr" title="Permalink to this definition"></a></dt>
+<dd><p>mach-o rebasing is hard to handle, so this behaviour differs from other relocations</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="cle.backends.macho.binding.MachORelocation.value">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#cle.backends.macho.binding.MachORelocation.value" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="cle.backends.macho.binding.default_binding_handler">
 <span class="sig-prename descclassname"><span class="pre">cle.backends.macho.binding.</span></span><span class="sig-name descname"><span class="pre">default_binding_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#cle.backends.macho.binding.BindingState" title="cle.backends.macho.binding.BindingState"><span class="pre">cle.backends.macho.binding.BindingState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">MachO</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.macho.binding.default_binding_handler" title="Permalink to this definition"></a></dt>
@@ -2746,6 +2793,11 @@ Intended to work in close conjunction with MachO not for standalone use</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.minidump.Minidump.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.minidump.Minidump.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.minidump.Minidump.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.minidump.Minidump.symbols" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -2776,6 +2828,11 @@ Intended to work in close conjunction with MachO not for standalone use</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.cgc.cgc.CGC.supported_filetypes">
 <span class="sig-name descname"><span class="pre">supported_filetypes</span></span><em class="property"> <span class="pre">=</span> <span class="pre">['cgc']</span></em><a class="headerlink" href="#cle.backends.cgc.cgc.CGC.supported_filetypes" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.cgc.cgc.CGC.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.cgc.cgc.CGC.loader" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2856,6 +2913,11 @@ executable.</p></li>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.cgc.backedcgc.BackedCGC.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.cgc.backedcgc.BackedCGC.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.cgc.backedcgc.BackedCGC.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.cgc.backedcgc.BackedCGC.symbols" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -2931,6 +2993,11 @@ are of <code class="docutils literal notranslate"><span class="pre">(file_offset
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.blob.Blob.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.blob.Blob.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.blob.Blob.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.blob.Blob.symbols" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -2956,6 +3023,11 @@ See <a class="reference external" href="https://en.wikipedia.org/wiki/Intel_HEX"
 <dl class="py method">
 <dt class="sig sig-object py" id="cle.backends.ihex.Hex.coalesce_regions">
 <em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">coalesce_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.ihex.Hex.coalesce_regions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.ihex.Hex.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.ihex.Hex.loader" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -3093,6 +3165,11 @@ TODO: add more features as Binary Ninja’s feature set improves</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.binja.BinjaBin.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.binja.BinjaBin.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.binja.BinjaBin.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.binja.BinjaBin.symbols" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -3196,6 +3273,11 @@ TODO: add more features as Binary Ninja’s feature set improves</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.externs.ExternObject.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.externs.ExternObject.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.externs.ExternObject.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.externs.ExternObject.symbols" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -3214,6 +3296,11 @@ TODO: add more features as Binary Ninja’s feature set improves</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="cle.backends.externs.KernelObject.max_addr">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">max_addr</span></span><a class="headerlink" href="#cle.backends.externs.KernelObject.max_addr" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.externs.KernelObject.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.externs.KernelObject.loader" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -3503,6 +3590,11 @@ Note: Directory of the APK is added by default.</p></li>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.java.apk.Apk.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.java.apk.Apk.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.java.apk.Apk.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.java.apk.Apk.symbols" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -3556,6 +3648,11 @@ Note: Directory of the JAR is added by default.</p></li>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.java.jar.Jar.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.java.jar.Jar.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.java.jar.Jar.symbols">
@@ -3637,6 +3734,11 @@ Note: Directory of the JAR is added by default.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="cle.backends.java.soot.Soot.is_zip_archive">
 <em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">is_zip_archive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.java.soot.Soot.is_zip_archive" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.java.soot.Soot.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.java.soot.Soot.loader" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -3727,6 +3829,11 @@ Note: Directory of the JAR is added by default.</p></li>
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.xbe.XBE.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.xbe.XBE.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.xbe.XBE.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.xbe.XBE.symbols" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -3745,6 +3852,11 @@ Note: Directory of the JAR is added by default.</p></li>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.static_archive.StaticArchive.is_default">
 <span class="sig-name descname"><span class="pre">is_default</span></span><em class="property"> <span class="pre">=</span> <span class="pre">True</span></em><a class="headerlink" href="#cle.backends.static_archive.StaticArchive.is_default" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.static_archive.StaticArchive.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.static_archive.StaticArchive.loader" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -3787,7 +3899,7 @@ this attribute holds the symbol from a different binary that was used to resolve
 
 <dl class="py method">
 <dt class="sig sig-object py" id="cle.backends.relocation.Relocation.resolve_symbol">
-<span class="sig-name descname"><span class="pre">resolve_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solist</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extern_object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.relocation.Relocation.resolve_symbol" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">resolve_symbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solist</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thumb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extern_object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.relocation.Relocation.resolve_symbol" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -5630,6 +5742,11 @@ case, however, we have to adjust the un-rebased address first.</p>
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cle.backends.tls.</span></span><span class="sig-name descname"><span class="pre">TLSObject</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.tls.TLSObject" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.Backend" title="cle.backends.Backend"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.Backend</span></code></a></p>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.tls.TLSObject.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.tls.TLSObject.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.tls.TLSObject.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.tls.TLSObject.symbols" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -5691,6 +5808,11 @@ namedtuple from archinfo.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.tls.elf_tls.ELFTLSObject.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.tls.elf_tls.ELFTLSObject.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.tls.elf_tls.ELFTLSObject.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.tls.elf_tls.ELFTLSObject.symbols" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -5701,6 +5823,11 @@ namedtuple from archinfo.</p>
 <dt class="sig sig-object py" id="cle.backends.tls.elf_tls.ELFTLSObjectV1">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cle.backends.tls.elf_tls.</span></span><span class="sig-name descname"><span class="pre">ELFTLSObjectV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread_manager</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#cle.backends.tls.elf_tls.ELFThreadManager" title="cle.backends.tls.elf_tls.ELFThreadManager"><span class="pre">cle.backends.tls.elf_tls.ELFThreadManager</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.tls.elf_tls.ELFTLSObjectV1" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.tls.elf_tls.ELFTLSObject" title="cle.backends.tls.elf_tls.ELFTLSObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.tls.elf_tls.ELFTLSObject</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.tls.elf_tls.ELFTLSObjectV1.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.tls.elf_tls.ELFTLSObjectV1.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.tls.elf_tls.ELFTLSObjectV1.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.tls.elf_tls.ELFTLSObjectV1.symbols" title="Permalink to this definition"></a></dt>
@@ -5732,6 +5859,11 @@ namedtuple from archinfo.</p>
 <dt class="sig sig-object py" id="cle.backends.tls.elf_tls.ELFTLSObjectV2">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cle.backends.tls.elf_tls.</span></span><span class="sig-name descname"><span class="pre">ELFTLSObjectV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thread_manager</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#cle.backends.tls.elf_tls.ELFThreadManager" title="cle.backends.tls.elf_tls.ELFThreadManager"><span class="pre">cle.backends.tls.elf_tls.ELFThreadManager</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.tls.elf_tls.ELFTLSObjectV2" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.tls.elf_tls.ELFTLSObject" title="cle.backends.tls.elf_tls.ELFTLSObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.tls.elf_tls.ELFTLSObject</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.tls.elf_tls.ELFTLSObjectV2.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.tls.elf_tls.ELFTLSObjectV2.loader" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="cle.backends.tls.elf_tls.ELFTLSObjectV2.symbols">
 <span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="pre">:</span> <span class="pre">sortedcontainers.SortedKeyList</span><span class="p"><span class="pre">[</span></span><span class="pre">Symbol</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#cle.backends.tls.elf_tls.ELFTLSObjectV2.symbols" title="Permalink to this definition"></a></dt>
@@ -5843,6 +5975,11 @@ program and module.</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="cle.backends.tls.pe_tls.PETLSObject.user_thread_pointer">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">user_thread_pointer</span></span><a class="headerlink" href="#cle.backends.tls.pe_tls.PETLSObject.user_thread_pointer" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cle.backends.tls.pe_tls.PETLSObject.loader">
+<span class="sig-name descname"><span class="pre">loader</span></span><em class="property"><span class="pre">:</span> <span class="pre">Loader</span></em><a class="headerlink" href="#cle.backends.tls.pe_tls.PETLSObject.loader" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">

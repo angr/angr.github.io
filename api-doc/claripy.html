@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>claripy — Solver Engine &mdash; angr 9.0.10055 documentation</title>
+  <title>claripy — Solver Engine &mdash; angr 9.0.10072 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.0.10055
+                9.0.10072
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -104,7 +104,7 @@ Most of the time, you’ll be using claripy as a simple frontend to z3:</p>
 <span class="n">path_new</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">step</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">rax_new</span> <span class="o">=</span> <span class="n">path_new</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">regs</span><span class="o">.</span><span class="n">rax</span>
 <span class="n">path_new</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">se</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">rax_new</span> <span class="o">==</span> <span class="mi">1337</span><span class="p">)</span>
-<span class="nb">print</span> <span class="n">path_new</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">se</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">rax_start</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">path_new</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">se</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">rax_start</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 <section id="module-claripy.ast">
@@ -1971,7 +1971,7 @@ approximation.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="claripy.backends.backend_z3.SmartLRUCache">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">claripy.backends.backend_z3.</span></span><span class="sig-name descname"><span class="pre">SmartLRUCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maxsize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">getsizeof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.SmartLRUCache" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cachetools.lru.LRUCache</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">cachetools.LRUCache</span></code></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="claripy.backends.backend_z3.SmartLRUCache.popitem">
 <span class="sig-name descname"><span class="pre">popitem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#claripy.backends.backend_z3.SmartLRUCache.popitem" title="Permalink to this definition"></a></dt>
