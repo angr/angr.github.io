@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.10072 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.10159 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.0.10072
+                9.0.10159
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -5924,6 +5924,11 @@ you must say <code class="docutils literal notranslate"><span class="pre">s.mem[
 <span class="sig-name descname"><span class="pre">state</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#angr.state_plugins.view.SimMemView.state" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.state_plugins.view.SimMemView.struct">
+<span class="sig-name descname"><span class="pre">struct</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="#angr.state_plugins.view.StructMode" title="angr.state_plugins.view.StructMode"><span class="pre">angr.state_plugins.view.StructMode</span></a></em><a class="headerlink" href="#angr.state_plugins.view.SimMemView.struct" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.state_plugins.view.SimMemView.copy">
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">memo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.view.SimMemView.copy" title="Permalink to this definition"></a></dt>
@@ -5956,12 +5961,12 @@ you must say <code class="docutils literal notranslate"><span class="pre">s.mem[
 
 <dl class="py property">
 <dt class="sig sig-object py" id="angr.state_plugins.view.SimMemView.deref">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">deref</span></span><a class="headerlink" href="#angr.state_plugins.view.SimMemView.deref" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">deref</span></span><em class="property"><span class="pre">:</span> <a class="reference internal" href="#angr.state_plugins.view.SimMemView" title="angr.state_plugins.view.SimMemView"><span class="pre">angr.state_plugins.view.SimMemView</span></a></em><a class="headerlink" href="#angr.state_plugins.view.SimMemView.deref" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.state_plugins.view.SimMemView.array">
-<span class="sig-name descname"><span class="pre">array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.state_plugins.view.SimMemView.array" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#angr.state_plugins.view.SimMemView" title="angr.state_plugins.view.SimMemView"><span class="pre">angr.state_plugins.view.SimMemView</span></a></span></span><a class="headerlink" href="#angr.state_plugins.view.SimMemView.array" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -7912,7 +7917,7 @@ Returns the list of pages that were cleared consisting of <cite>(addr, length)</
 
 <dl class="py class">
 <dt class="sig sig-object py" id="angr.storage.memory_mixins.paged_memory.page_backer_mixins.ClemoryBackerMixin">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.storage.memory_mixins.paged_memory.page_backer_mixins.</span></span><span class="sig-name descname"><span class="pre">ClemoryBackerMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cle_memory_backer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.paged_memory.page_backer_mixins.ClemoryBackerMixin" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.storage.memory_mixins.paged_memory.page_backer_mixins.</span></span><span class="sig-name descname"><span class="pre">ClemoryBackerMixin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cle_memory_backer</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="cle.html#cle.loader.Loader" title="cle.loader.Loader"><span class="pre">cle.loader.Loader</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="cle.html#cle.memory.Clemory" title="cle.memory.Clemory"><span class="pre">cle.memory.Clemory</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.storage.memory_mixins.paged_memory.page_backer_mixins.ClemoryBackerMixin" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin" title="angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin</span></code></a></p>
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.storage.memory_mixins.paged_memory.page_backer_mixins.ClemoryBackerMixin.copy">
@@ -14773,7 +14778,7 @@ unqualified name of the type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>size</strong> – The size of the integer, in bytes</p></li>
+<li><p><strong>size</strong> – The size of the integer, in bits</p></li>
 <li><p><strong>signed</strong> – Whether the integer is signed or not</p></li>
 <li><p><strong>label</strong> – A label for the type</p></li>
 </ul>
@@ -15442,6 +15447,28 @@ value, and more C++-specific properties.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.sim_type.SimCppClassValue.copy">
 <span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimCppClassValue.copy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="angr.sim_type.SimTypeNumOffset">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.sim_type.</span></span><span class="sig-name descname"><span class="pre">SimTypeNumOffset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeNumOffset" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#angr.sim_type.SimTypeNum" title="angr.sim_type.SimTypeNum"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.sim_type.SimTypeNum</span></code></a></p>
+<p>like SimTypeNum, but supports an offset of 1 to 7 to a byte aligned address to allow structs with bitfields</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.sim_type.SimTypeNumOffset.extract">
+<span class="sig-name descname"><span class="pre">extract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#angr.sim_state.SimState" title="angr.sim_state.SimState"><span class="pre">angr.sim_state.SimState</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">concrete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeNumOffset.extract" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.sim_type.SimTypeNumOffset.store">
+<span class="sig-name descname"><span class="pre">store</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeNumOffset.store" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.sim_type.SimTypeNumOffset.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.sim_type.SimTypeNumOffset.copy" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -30149,7 +30176,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
