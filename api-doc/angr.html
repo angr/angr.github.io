@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.10159 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.10281 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.0.10159
+                9.0.10281
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -9771,43 +9771,6 @@ preemptively avoided.</p>
 </dd></dl>
 
 <span class="target" id="module-angr.exploration_techniques.spiller"></span><dl class="py class">
-<dt class="sig sig-object py" id="angr.exploration_techniques.spiller.PickledState">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.exploration_techniques.spiller.</span></span><span class="sig-name descname"><span class="pre">PickledState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.spiller.PickledState" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
-<p>A simple constructor that allows initialization from kwargs.</p>
-<p>Sets attributes on the constructed instance using the names and
-values in <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>.</p>
-<p>Only keys that are present as
-attributes of the instance’s class are allowed. These could be,
-for example, any mapped columns or relationships.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="angr.exploration_techniques.spiller.PickledState.id">
-<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#angr.exploration_techniques.spiller.PickledState.id" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="angr.exploration_techniques.spiller.PickledState.priority">
-<span class="sig-name descname"><span class="pre">priority</span></span><a class="headerlink" href="#angr.exploration_techniques.spiller.PickledState.priority" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="angr.exploration_techniques.spiller.PickledState.taken">
-<span class="sig-name descname"><span class="pre">taken</span></span><a class="headerlink" href="#angr.exploration_techniques.spiller.PickledState.taken" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="angr.exploration_techniques.spiller.PickledState.stash">
-<span class="sig-name descname"><span class="pre">stash</span></span><a class="headerlink" href="#angr.exploration_techniques.spiller.PickledState.stash" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="angr.exploration_techniques.spiller.PickledState.timestamp">
-<span class="sig-name descname"><span class="pre">timestamp</span></span><a class="headerlink" href="#angr.exploration_techniques.spiller.PickledState.timestamp" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="angr.exploration_techniques.spiller.PickledStatesBase">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.exploration_techniques.spiller.</span></span><span class="sig-name descname"><span class="pre">PickledStatesBase</span></span><a class="headerlink" href="#angr.exploration_techniques.spiller.PickledStatesBase" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -9855,6 +9818,7 @@ for example, any mapped columns or relationships.</p>
 <dt class="sig sig-object py" id="angr.exploration_techniques.spiller.PickledStatesList">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.exploration_techniques.spiller.</span></span><span class="sig-name descname"><span class="pre">PickledStatesList</span></span><a class="headerlink" href="#angr.exploration_techniques.spiller.PickledStatesList" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.spiller.PickledStatesBase" title="angr.exploration_techniques.spiller.PickledStatesBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.exploration_techniques.spiller.PickledStatesBase</span></code></a></p>
+<p>List-backed pickled state storage.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.exploration_techniques.spiller.PickledStatesList.sort">
 <span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.spiller.PickledStatesList.sort" title="Permalink to this definition"></a></dt>
@@ -9876,6 +9840,7 @@ for example, any mapped columns or relationships.</p>
 <dt class="sig sig-object py" id="angr.exploration_techniques.spiller.PickledStatesDb">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.exploration_techniques.spiller.</span></span><span class="sig-name descname"><span class="pre">PickledStatesDb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'sqlite:///:memory:'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.spiller.PickledStatesDb" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.exploration_techniques.spiller.PickledStatesBase" title="angr.exploration_techniques.spiller.PickledStatesBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.exploration_techniques.spiller.PickledStatesBase</span></code></a></p>
+<p>Database-backed pickled state storage.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.exploration_techniques.spiller.PickledStatesDb.sort">
 <span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.spiller.PickledStatesDb.sort" title="Permalink to this definition"></a></dt>
@@ -9910,12 +9875,22 @@ for example, any mapped columns or relationships.</p>
 <p>Automatically spill states out. It can spill out states to a different stash, spill
 them out to ANA, or first do the former and then (after enough states) the latter.</p>
 <p>Initializes the spiller.</p>
-<p>&#64;param max: the number of states that are <em>not</em> spilled
-&#64;param src_stash: the stash from which to spill states (default: active)
-&#64;param staging_stash: the stash <em>to</em> which to spill states (default: “spill_stage”)
-&#64;param staging_max: the number of states that can be in the staging stash before things get spilled to ANA (default: None. If staging_stash is set, then this means unlimited, and ANA will not be used).
-&#64;param priority_key: a function that takes a state and returns its numberical priority (MAX_INT is lowest priority). By default, self.state_priority will be used, which prioritizes by object ID.
-&#64;param vault: an angr.Vault object to handle storing and loading of states. If not provided, an angr.vaults.VaultShelf will be created with a temporary file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max</strong> – the number of states that are <em>not</em> spilled</p></li>
+<li><p><strong>src_stash</strong> – the stash from which to spill states (default: active)</p></li>
+<li><p><strong>staging_stash</strong> – the stash <em>to</em> which to spill states (default: “spill_stage”)</p></li>
+<li><p><strong>staging_max</strong> – the number of states that can be in the staging stash before things get spilled to ANA
+(default: None. If staging_stash is set, then this means unlimited, and ANA will not be
+used).</p></li>
+<li><p><strong>priority_key</strong> – a function that takes a state and returns its numerical priority (MAX_INT is lowest
+priority). By default, self.state_priority will be used, which prioritizes by object ID.</p></li>
+<li><p><strong>vault</strong> – an angr.Vault object to handle storing and loading of states. If not provided, an
+angr.vaults.VaultShelf will be created with a temporary file.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.exploration_techniques.spiller.Spiller.step">
 <span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simgr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stash</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'active'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.spiller.Spiller.step" title="Permalink to this definition"></a></dt>
@@ -9924,6 +9899,43 @@ them out to ANA, or first do the former and then (after enough states) the latte
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.exploration_techniques.spiller.Spiller.state_priority">
 <em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">state_priority</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.spiller.Spiller.state_priority" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-angr.exploration_techniques.spiller_db"></span><dl class="py class">
+<dt class="sig sig-object py" id="angr.exploration_techniques.spiller_db.PickledState">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">angr.exploration_techniques.spiller_db.</span></span><span class="sig-name descname"><span class="pre">PickledState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.exploration_techniques.spiller_db.PickledState" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sqlalchemy.orm.decl_api.Base</span></code></p>
+<p>A simple constructor that allows initialization from kwargs.</p>
+<p>Sets attributes on the constructed instance using the names and
+values in <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>.</p>
+<p>Only keys that are present as
+attributes of the instance’s class are allowed. These could be,
+for example, any mapped columns or relationships.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.exploration_techniques.spiller_db.PickledState.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#angr.exploration_techniques.spiller_db.PickledState.id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.exploration_techniques.spiller_db.PickledState.priority">
+<span class="sig-name descname"><span class="pre">priority</span></span><a class="headerlink" href="#angr.exploration_techniques.spiller_db.PickledState.priority" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.exploration_techniques.spiller_db.PickledState.taken">
+<span class="sig-name descname"><span class="pre">taken</span></span><a class="headerlink" href="#angr.exploration_techniques.spiller_db.PickledState.taken" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.exploration_techniques.spiller_db.PickledState.stash">
+<span class="sig-name descname"><span class="pre">stash</span></span><a class="headerlink" href="#angr.exploration_techniques.spiller_db.PickledState.stash" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="angr.exploration_techniques.spiller_db.PickledState.timestamp">
+<span class="sig-name descname"><span class="pre">timestamp</span></span><a class="headerlink" href="#angr.exploration_techniques.spiller_db.PickledState.timestamp" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -18929,6 +18941,11 @@ to the current instance.</p>
 </dd></dl>
 
 <span class="target" id="module-angr.knowledge_plugins.sync"></span><span class="target" id="module-angr.knowledge_plugins.sync.sync_controller"></span><dl class="py function">
+<dt class="sig sig-object py" id="angr.knowledge_plugins.sync.sync_controller.import_binsync">
+<span class="sig-prename descclassname"><span class="pre">angr.knowledge_plugins.sync.sync_controller.</span></span><span class="sig-name descname"><span class="pre">import_binsync</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.sync.sync_controller.import_binsync" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="angr.knowledge_plugins.sync.sync_controller.make_state">
 <span class="sig-prename descclassname"><span class="pre">angr.knowledge_plugins.sync.sync_controller.</span></span><span class="sig-name descname"><span class="pre">make_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.knowledge_plugins.sync.sync_controller.make_state" title="Permalink to this definition"></a></dt>
 <dd><p>Build a writeable State instance and pass to <cite>f</cite> as the <cite>state</cite> kwarg if the <cite>state</cite> kwarg is None.
@@ -30176,7 +30193,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
