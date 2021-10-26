@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; angr 9.0.10281 documentation</title>
+  <title>Index &mdash; angr 9.0.10339 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.0.10281
+                9.0.10339
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -635,6 +635,8 @@
       <li><a href="pyvex.html#pyvex.stmt.LoadG.alt">alt (pyvex.stmt.LoadG attribute)</a>
 </li>
       <li><a href="angr.html#angr.sim_procedure.SimProcedure.ALT_NAMES">ALT_NAMES (angr.sim_procedure.SimProcedure attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.calling_convention.UpdateArgumentsOption.AlwaysUpdate">AlwaysUpdate (angr.analyses.calling_convention.UpdateArgumentsOption attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.amd64_elf_got.AMD64ElfGotResolver">AMD64ElfGotResolver (class in angr.analyses.cfg.indirect_jump_resolvers.amd64_elf_got)</a>
 </li>
@@ -6949,6 +6951,8 @@
         <li><a href="pyvex.html#pyvex.stmt.IRStmt.constants">(pyvex.stmt.IRStmt property)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.ConstantSrc">ConstantSrc (class in angr.knowledge_plugins.key_definitions.atoms)</a>
+</li>
       <li><a href="angr.html#angr.analyses.identifier.identify.Identifier.constrain_all_zero">constrain_all_zero() (angr.analyses.identifier.identify.Identifier static method)</a>
 </li>
       <li><a href="claripy.html#claripy.frontends.constrained_frontend.ConstrainedFrontend">ConstrainedFrontend (class in claripy.frontends.constrained_frontend)</a>
@@ -7871,10 +7875,10 @@
         <li><a href="claripy.html#claripy.ast.base.Base.depth">(claripy.ast.base.Base attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.state_plugins.view.SimMemView.deref">deref (angr.state_plugins.view.SimMemView property)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.DerivedTypeVariable">DerivedTypeVariable (class in angr.analyses.typehoon.typevars)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.GetI.descr">descr (pyvex.expr.GetI attribute)</a>
@@ -8027,6 +8031,8 @@
         <li><a href="angr.html#angr.analyses.vfg.FunctionAnalysis.done">(angr.analyses.vfg.FunctionAnalysis property)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.calling_convention.UpdateArgumentsOption.DoNotUpdate">DoNotUpdate (angr.analyses.calling_convention.UpdateArgumentsOption attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_emulated.CFGEmulated.downsize">downsize() (angr.analyses.cfg.cfg_emulated.CFGEmulated method)</a>
 
       <ul>
@@ -9492,7 +9498,11 @@
       <li><a href="angr.html#angr.analyses.vfg.FunctionAnalysis">FunctionAnalysis (class in angr.analyses.vfg)</a>
 </li>
       <li><a href="angr.html#angr.analyses.proximity_graph.ProxiNodeTypes.FunctionCall">FunctionCall (angr.analyses.proximity_graph.ProxiNodeTypes attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.FunctionCall">(class in angr.knowledge_plugins.key_definitions.atoms)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionCallEdge">FunctionCallEdge (class in angr.analyses.cfg.cfg_fast)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function_manager.FunctionDict">FunctionDict (class in angr.knowledge_plugins.functions.function_manager)</a>
@@ -12601,6 +12611,10 @@
         <li><a href="angr.html#angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin.map_region">(angr.storage.memory_mixins.paged_memory.paged_memory_mixin.PagedMemoryMixin method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.mark_call">mark_call() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.mark_const">mark_const() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_base.CFGBase.mark_function_alignments">mark_function_alignments() (angr.analyses.cfg.cfg_base.CFGBase method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState.mark_guard">mark_guard() (angr.analyses.reaching_definitions.rd_state.ReachingDefinitionsState method)</a>
@@ -15399,6 +15413,8 @@
       <li><a href="angr.html#angr.sim_type.parse_type_with_name">parse_type_with_name() (in module angr.sim_type)</a>
 </li>
       <li><a href="angr.html#angr.sim_type.parse_types">parse_types() (in module angr.sim_type)</a>
+</li>
+      <li><a href="angr.html#angr.utils.library.parsedcprotos2py">parsedcprotos2py() (in module angr.utils.library)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.lifter_helper.ParseError">ParseError</a>
 </li>
@@ -18562,6 +18578,8 @@
 </li>
       <li><a href="angr.html#angr.errors.SimZeroDivisionException">SimZeroDivisionException</a>
 </li>
+      <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.FunctionCall.single_target">single_target (angr.knowledge_plugins.key_definitions.atoms.FunctionCall property)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.solver.SimSolver.single_valued">single_valued() (angr.state_plugins.solver.SimSolver method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.peephole_optimizations.single_bit_xor.SingleBitXor">SingleBitXor (class in angr.analyses.decompiler.peephole_optimizations.single_bit_xor)</a>
@@ -18626,6 +18644,10 @@
         <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.size">(angr.knowledge_plugins.functions.function.Function property)</a>
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Atom.size">(angr.knowledge_plugins.key_definitions.atoms.Atom property)</a>
+</li>
+        <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.ConstantSrc.size">(angr.knowledge_plugins.key_definitions.atoms.ConstantSrc property)</a>
+</li>
+        <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.FunctionCall.size">(angr.knowledge_plugins.key_definitions.atoms.FunctionCall property)</a>
 </li>
         <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.GuardUse.size">(angr.knowledge_plugins.key_definitions.atoms.GuardUse property)</a>
 </li>
@@ -21355,6 +21377,10 @@
       <li><a href="angr.html#angr.knowledge_plugins.indirect_jumps.IndirectJumps.update_resolved_addrs">update_resolved_addrs() (angr.knowledge_plugins.indirect_jumps.IndirectJumps method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.typehoon.typehoon.Typehoon.update_variable_types">update_variable_types() (angr.analyses.typehoon.typehoon.Typehoon method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.calling_convention.UpdateArgumentsOption">UpdateArgumentsOption (class in angr.analyses.calling_convention)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.calling_convention.UpdateArgumentsOption.UpdateWhenCCHasNoArgs">UpdateWhenCCHasNoArgs (angr.analyses.calling_convention.UpdateArgumentsOption attribute)</a>
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.upper">upper() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 </li>
