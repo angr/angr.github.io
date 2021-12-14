@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; angr 9.0.10730 documentation</title>
+  <title>Index &mdash; angr 9.0.10913 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.0.10730
+                9.0.10913
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -240,6 +240,8 @@
         <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.PopenSolverProxy.add_constraints">(claripy.backends.backend_smtlib_solvers.PopenSolverProxy method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.DecodingAssumption.add_data_seg">add_data_seg() (angr.analyses.cfg.cfg_fast.DecodingAssumption method)</a>
+</li>
       <li><a href="angr.html#angr.analyses.ddg.LiveDefinitions.add_def">add_def() (angr.analyses.ddg.LiveDefinitions method)</a>
 </li>
       <li><a href="angr.html#angr.misc.plugins.PluginPreset.add_default_plugin">add_default_plugin() (angr.misc.plugins.PluginPreset method)</a>
@@ -433,8 +435,6 @@
 </li>
         <li><a href="angr.html#angr.block.Block.addr">(angr.block.Block attribute)</a>
 </li>
-        <li><a href="angr.html#angr.block.CapstoneBlock.addr">(angr.block.CapstoneBlock attribute)</a>
-</li>
         <li><a href="angr.html#angr.block.DisassemblerBlock.addr">(angr.block.DisassemblerBlock attribute)</a>
 </li>
         <li><a href="angr.html#angr.codenode.CodeNode.addr">(angr.codenode.CodeNode attribute)</a>
@@ -611,6 +611,8 @@
       <li><a href="angr.html#angr.angrdb.db.AngrDB.ALL_TABLES">ALL_TABLES (angr.angrdb.db.AngrDB attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.all_uses">all_uses (angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis property)</a>
+</li>
+      <li><a href="angr.html#angr.calling_conventions.AllocHelper.alloc">alloc() (angr.calling_conventions.AllocHelper method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.heap_allocator.HeapAllocator.allocate">allocate() (angr.analyses.reaching_definitions.heap_allocator.HeapAllocator method)</a>
 
@@ -3712,8 +3714,6 @@
 </li>
         <li><a href="angr.html#angr.block.Block.arch">(angr.block.Block attribute)</a>
 </li>
-        <li><a href="angr.html#angr.block.CapstoneBlock.arch">(angr.block.CapstoneBlock attribute)</a>
-</li>
         <li><a href="angr.html#angr.block.DisassemblerBlock.arch">(angr.block.DisassemblerBlock attribute)</a>
 </li>
       </ul></li>
@@ -3949,12 +3949,6 @@
 </li>
       <li><a href="archinfo.html#archinfo.arch_x86.ArchX86">ArchX86 (class in archinfo.arch_x86)</a>
 </li>
-      <li><a href="angr.html#angr.calling_conventions.SimCC.arg">arg() (angr.calling_conventions.SimCC method)</a>
-
-      <ul>
-        <li><a href="angr.html#angr.sim_procedure.SimProcedure.arg">(angr.sim_procedure.SimProcedure method)</a>
-</li>
-      </ul></li>
       <li><a href="claripy.html#claripy.backends.backend_vsa.arg_filter">arg_filter() (in module claripy.backends.backend_vsa)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CFunction.arg_list">arg_list (angr.analyses.decompiler.structured_codegen.c.CFunction attribute)</a>
@@ -4011,7 +4005,13 @@
         <li><a href="angr.html#angr.calling_conventions.SimCCX86WindowsSyscall.ARG_REGS">(angr.calling_conventions.SimCCX86WindowsSyscall attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.calling_conventions.SimCC.arg_session">arg_session (angr.calling_conventions.SimCC property)</a>
+      <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatParser.arg_session">arg_session (angr.procedures.stubs.format_parser.FormatParser attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.procedures.stubs.format_parser.ScanfFormatParser.arg_session">(angr.procedures.stubs.format_parser.ScanfFormatParser attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="angr.html#angr.calling_conventions.SimCC.arg_session">arg_session() (angr.calling_conventions.SimCC method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CFunctionCall.args">args (angr.analyses.decompiler.structured_codegen.c.CFunctionCall attribute)</a>
 
@@ -4037,8 +4037,14 @@
         <li><a href="angr.html#angr.sim_procedure.SimProcedure.ARGS_MISMATCH">(angr.sim_procedure.SimProcedure attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.calling_conventions.ArgSession">ArgSession (class in angr.calling_conventions)</a>
+      <li><a href="angr.html#angr.calling_conventions.SimCCMicrosoftAMD64.ArgSession">ArgSession (angr.calling_conventions.SimCCMicrosoftAMD64 attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimCCUsercall.ArgSession">(angr.calling_conventions.SimCCUsercall attribute)</a>
 </li>
+        <li><a href="angr.html#angr.calling_conventions.ArgSession">(class in angr.calling_conventions)</a>
+</li>
+      </ul></li>
       <li><a href="archinfo.html#archinfo.arch.Arch.argument_register_positions">argument_register_positions (archinfo.arch.Arch attribute)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch.Arch.argument_registers">argument_registers (archinfo.arch.Arch attribute)</a>
@@ -4049,12 +4055,16 @@
 </li>
       <li><a href="angr.html#angr.engines.light.data.ArithmeticExpression">ArithmeticExpression (class in angr.engines.light.data)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.ARMDecodingMode.ARM">ARM (angr.analyses.cfg.cfg_fast.ARMDecodingMode attribute)</a>
+</li>
       <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.ARMSpotter.arm_instrs">arm_instrs (pyvex.lifting.gym.arm_spotter.ARMSpotter attribute)</a>
 
       <ul>
         <li><a href="pyvex.html#pyvex.lifting.gym.ARMSpotter.arm_instrs">(pyvex.lifting.gym.ARMSpotter attribute)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.ARMDecodingMode">ARMDecodingMode (class in angr.analyses.cfg.cfg_fast)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.indirect_jump_resolvers.arm_elf_fast.ArmElfFastResolver">ArmElfFastResolver (class in angr.analyses.cfg.indirect_jump_resolvers.arm_elf_fast)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.ARMInstruction">ARMInstruction (class in pyvex.lifting.gym.arm_spotter)</a>
@@ -4657,8 +4667,6 @@
       </ul></li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.JumpKind.Boring">Boring (pyvex.lifting.util.vex_helper.JumpKind attribute)</a>
 </li>
-      <li><a href="angr.html#angr.calling_conventions.SimCC.both_args">both_args (angr.calling_conventions.SimCC property)</a>
-</li>
       <li><a href="angr.html#angr.calling_conventions.ArgSession.both_iter">both_iter (angr.calling_conventions.ArgSession attribute)</a>
 
       <ul>
@@ -4891,6 +4899,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CAILBlock">CAILBlock (class in angr.analyses.decompiler.structured_codegen.c)</a>
 </li>
+      <li><a href="angr.html#angr.calling_conventions.AllocHelper.calc_size">calc_size() (angr.calling_conventions.AllocHelper class method)</a>
+</li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.JumpKind.Call">Call (pyvex.lifting.util.vex_helper.JumpKind attribute)</a>
 </li>
       <li><a href="angr.html#angr.sim_procedure.SimProcedure.call">call() (angr.sim_procedure.SimProcedure method)</a>
@@ -5009,8 +5019,12 @@
 </li>
       <li><a href="angr.html#angr.analyses.forward_analysis.visitors.call_graph.CallGraphVisitor">CallGraphVisitor (class in angr.analyses.forward_analysis.visitors.call_graph)</a>
 </li>
-      <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.calling_convention">calling_convention (angr.knowledge_plugins.functions.function.Function property)</a>
+      <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.calling_convention">calling_convention (angr.knowledge_plugins.functions.function.Function attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.knowledge_plugins.functions.soot_function.SootFunction.calling_convention">(angr.knowledge_plugins.functions.soot_function.SootFunction attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.calling_convention.CallingConventionAnalysis">CallingConventionAnalysis (class in angr.analyses.calling_convention)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.heap.heap_libc.SimHeapLibc.calloc">calloc() (angr.state_plugins.heap.heap_libc.SimHeapLibc method)</a>
@@ -5162,10 +5176,10 @@
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCC.ArgSession.cc">(angr.calling_conventions.SimCC.ArgSession attribute)</a>
 </li>
+        <li><a href="angr.html#angr.calling_conventions.UsercallArgSession.cc">(angr.calling_conventions.UsercallArgSession attribute)</a>
+</li>
       </ul></li>
       <li><a href="angr.html#angr.factory.AngrObjectFactory.cc">cc() (angr.factory.AngrObjectFactory method)</a>
-</li>
-      <li><a href="angr.html#angr.factory.AngrObjectFactory.cc_from_arg_kinds">cc_from_arg_kinds() (angr.factory.AngrObjectFactory method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.CCall">CCall (class in pyvex.expr)</a>
 </li>
@@ -5329,6 +5343,8 @@
         <li><a href="cle.html#cle.backends.pe.pe.PE.check_magic_compatibility">(cle.backends.pe.pe.PE class method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.calling_conventions.SimRegArg.check_offset">check_offset() (angr.calling_conventions.SimRegArg method)</a>
+</li>
       <li><a href="claripy.html#claripy.backends.Backend.check_satisfiability">check_satisfiability() (claripy.backends.Backend method)</a>
 
       <ul>
@@ -5367,7 +5383,9 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.identifier.identify.Identifier.check_tests">check_tests() (angr.analyses.identifier.identify.Identifier method)</a>
 </li>
-      <li><a href="angr.html#angr.calling_conventions.SimFunctionArgument.check_value">check_value() (angr.calling_conventions.SimFunctionArgument method)</a>
+      <li><a href="angr.html#angr.calling_conventions.SimFunctionArgument.check_value_get">check_value_get() (angr.calling_conventions.SimFunctionArgument method)</a>
+</li>
+      <li><a href="angr.html#angr.calling_conventions.SimFunctionArgument.check_value_set">check_value_set() (angr.calling_conventions.SimFunctionArgument method)</a>
 </li>
       <li><a href="cle.html#cle.backends.elf.relocation.amd64.R_X86_64_32.check_zero_extend">check_zero_extend (cle.backends.elf.relocation.amd64.R_X86_64_32 attribute)</a>
 
@@ -6332,6 +6350,8 @@
         <li><a href="cle.html#module-cle.backends.pe.relocation">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cle.backends.pe.relocation.amd64
 
@@ -6339,8 +6359,6 @@
         <li><a href="cle.html#module-cle.backends.pe.relocation.amd64">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     cle.backends.pe.relocation.arm
 
@@ -7789,6 +7807,8 @@
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.ArchSoot.decode_type_signature">decode_type_signature() (archinfo.arch_soot.ArchSoot static method)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.DecodingAssumption">DecodingAssumption (class in angr.analyses.cfg.cfg_fast)</a>
+</li>
       <li><a href="angr.html#angr.analyses.decompiler.decompilation_cache.DecompilationCache">DecompilationCache (class in angr.analyses.decompiler.decompilation_cache)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.decompilation_options.DecompilationOption">DecompilationOption (class in angr.analyses.decompiler.decompilation_options)</a>
@@ -7895,10 +7915,10 @@
         <li><a href="claripy.html#claripy.ast.base.Base.depth">(claripy.ast.base.Base attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.state_plugins.view.SimMemView.deref">deref (angr.state_plugins.view.SimMemView property)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.state_plugins.view.SimMemView.deref">deref (angr.state_plugins.view.SimMemView property)</a>
+</li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.DerivedTypeVariable">DerivedTypeVariable (class in angr.analyses.typehoon.typevars)</a>
 </li>
       <li><a href="pyvex.html#pyvex.expr.GetI.descr">descr (pyvex.expr.GetI attribute)</a>
@@ -8521,8 +8541,6 @@
 </li>
       <li><a href="angr.html#angr.sim_manager.ErrorRecord">ErrorRecord (class in angr.sim_manager)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.analysis.Analysis.errors">errors (angr.analyses.analysis.Analysis attribute)</a>
 
       <ul>
@@ -8537,6 +8555,8 @@
         <li><a href="pyvex.html#pyvex.lifting.util.lifter_helper.GymratLifter.errors">(pyvex.lifting.util.lifter_helper.GymratLifter attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.ast.bv.ESI">ESI() (in module claripy.ast.bv)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.ESPIPE">ESPIPE (angr.state_plugins.posix.SimSystemPosix attribute)</a>
@@ -8810,6 +8830,8 @@
       <li><a href="cle.html#cle.backends.elf.elf.ELF.extract_arch">extract_arch() (cle.backends.elf.elf.ELF static method)</a>
 </li>
       <li><a href="claripy.html#claripy.operations.extract_check">extract_check() (in module claripy.operations)</a>
+</li>
+      <li><a href="angr.html#angr.sim_type.SimType.extract_claripy">extract_claripy() (angr.sim_type.SimType method)</a>
 </li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatParser.extract_components">extract_components() (angr.procedures.stubs.format_parser.FormatParser method)</a>
 </li>
@@ -9170,12 +9192,10 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.FP_RETURN_VAL">FP_RETURN_VAL (angr.calling_conventions.SimCC attribute)</a>
-</li>
-      <li><a href="angr.html#angr.calling_conventions.SimCC.fp_return_val">fp_return_val (angr.calling_conventions.SimCC property)</a>
-</li>
-      <li><a href="angr.html#angr.calling_conventions.SimCCCdecl.FP_RETURN_VAL">FP_RETURN_VAL (angr.calling_conventions.SimCCCdecl attribute)</a>
 
       <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimCCCdecl.FP_RETURN_VAL">(angr.calling_conventions.SimCCCdecl attribute)</a>
+</li>
         <li><a href="angr.html#angr.calling_conventions.SimCCMicrosoftAMD64.FP_RETURN_VAL">(angr.calling_conventions.SimCCMicrosoftAMD64 attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCSystemVAMD64.FP_RETURN_VAL">(angr.calling_conventions.SimCCSystemVAMD64 attribute)</a>
@@ -9185,6 +9205,8 @@
 </li>
       <li><a href="claripy.html#claripy.fp.fpAdd">fpAdd() (in module claripy.fp)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.fp.fpDiv">fpDiv() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpEQ">fpEQ() (in module claripy.fp)</a>
@@ -9209,8 +9231,6 @@
 </li>
       <li><a href="claripy.html#claripy.fp.fpNeg">fpNeg() (in module claripy.fp)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.backends.backend_z3.BackendZ3.FPS">FPS() (claripy.backends.backend_z3.BackendZ3 method)</a>
 
       <ul>
@@ -9262,8 +9282,6 @@
       <li><a href="angr.html#angr.factory.AngrObjectFactory.fresh_block">fresh_block() (angr.factory.AngrObjectFactory method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.log.SimStateLog.fresh_constraints">fresh_constraints (angr.state_plugins.log.SimStateLog property)</a>
-</li>
-      <li><a href="angr.html#angr.calling_conventions.SimCC.from_arg_kinds">from_arg_kinds() (angr.calling_conventions.SimCC class method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Atom.from_argument">from_argument() (angr.knowledge_plugins.key_definitions.atoms.Atom static method)</a>
 </li>
@@ -9365,58 +9383,6 @@
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.Disassembly.func_lookup">func_lookup() (angr.analyses.disassembly.Disassembly method)</a>
 </li>
-      <li><a href="angr.html#angr.calling_conventions.SimCCAArch64.func_ty">func_ty (angr.calling_conventions.SimCCAArch64 attribute)</a>
-
-      <ul>
-        <li><a href="angr.html#angr.calling_conventions.SimCCAArch64LinuxSyscall.func_ty">(angr.calling_conventions.SimCCAArch64LinuxSyscall attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCAMD64LinuxSyscall.func_ty">(angr.calling_conventions.SimCCAMD64LinuxSyscall attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCAMD64WindowsSyscall.func_ty">(angr.calling_conventions.SimCCAMD64WindowsSyscall attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCARM.func_ty">(angr.calling_conventions.SimCCARM attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCARMLinuxSyscall.func_ty">(angr.calling_conventions.SimCCARMLinuxSyscall attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCCdecl.func_ty">(angr.calling_conventions.SimCCCdecl attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCMicrosoftAMD64.func_ty">(angr.calling_conventions.SimCCMicrosoftAMD64 attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCMicrosoftFastcall.func_ty">(angr.calling_conventions.SimCCMicrosoftFastcall attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCO32.func_ty">(angr.calling_conventions.SimCCO32 attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCO32LinuxSyscall.func_ty">(angr.calling_conventions.SimCCO32LinuxSyscall attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCO64.func_ty">(angr.calling_conventions.SimCCO64 attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCO64LinuxSyscall.func_ty">(angr.calling_conventions.SimCCO64LinuxSyscall attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCPowerPC.func_ty">(angr.calling_conventions.SimCCPowerPC attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCPowerPC64.func_ty">(angr.calling_conventions.SimCCPowerPC64 attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCPowerPC64LinuxSyscall.func_ty">(angr.calling_conventions.SimCCPowerPC64LinuxSyscall attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCPowerPCLinuxSyscall.func_ty">(angr.calling_conventions.SimCCPowerPCLinuxSyscall attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCS390X.func_ty">(angr.calling_conventions.SimCCS390X attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCS390XLinuxSyscall.func_ty">(angr.calling_conventions.SimCCS390XLinuxSyscall attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCSoot.func_ty">(angr.calling_conventions.SimCCSoot attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCStdcall.func_ty">(angr.calling_conventions.SimCCStdcall attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCSystemVAMD64.func_ty">(angr.calling_conventions.SimCCSystemVAMD64 attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCUnknown.func_ty">(angr.calling_conventions.SimCCUnknown attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCX86LinuxSyscall.func_ty">(angr.calling_conventions.SimCCX86LinuxSyscall attribute)</a>
-</li>
-        <li><a href="angr.html#angr.calling_conventions.SimCCX86WindowsSyscall.func_ty">(angr.calling_conventions.SimCCX86WindowsSyscall attribute)</a>
-</li>
-      </ul></li>
       <li><a href="angr.html#angr.analyses.disassembly.FuncComment">FuncComment (class in angr.analyses.disassembly)</a>
 </li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.FuncIn">FuncIn (class in angr.analyses.typehoon.typevars)</a>
@@ -9865,6 +9831,8 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.cgc.SimStateCGC.get_max_sinkhole">get_max_sinkhole() (angr.state_plugins.cgc.SimStateCGC method)</a>
 </li>
+      <li><a href="angr.html#angr.simos.javavm.SimJavaVM.get_method_native_type">get_method_native_type() (angr.simos.javavm.SimJavaVM method)</a>
+</li>
       <li><a href="cle.html#cle.utils.get_mmaped_data">get_mmaped_data() (in module cle.utils)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.key_definition_manager.KeyDefinitionManager.get_model">get_model() (angr.knowledge_plugins.key_definitions.key_definition_manager.KeyDefinitionManager method)</a>
@@ -9945,14 +9913,14 @@
         <li><a href="angr.html#angr.procedures.definitions.SimSyscallLibrary.get_prototype">(angr.procedures.definitions.SimSyscallLibrary method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cle.html#cle.backends.externs.ExternObject.get_pseudo_addr">get_pseudo_addr() (cle.backends.externs.ExternObject method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.get_rdt_width">get_rdt_width() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.get_reaching_definitions">get_reaching_definitions() (angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.get_reaching_definitions_by_insn">get_reaching_definitions_by_insn() (angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.get_reaching_definitions_by_node">get_reaching_definitions_by_node() (angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis method)</a>
@@ -9981,8 +9949,6 @@
         <li><a href="cle.html#cle.backends.pe.relocation.get_relocation">(in module cle.backends.pe.relocation)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.calling_conventions.SimCC.get_return_val">get_return_val() (angr.calling_conventions.SimCC method)</a>
-</li>
       <li><a href="angr.html#angr.annocfg.AnnotatedCFG.get_run">get_run() (angr.annocfg.AnnotatedCFG method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.trace_additions.ChallRespInfo.get_same_length_constraints">get_same_length_constraints() (angr.state_plugins.trace_additions.ChallRespInfo method)</a>
@@ -10149,16 +10115,22 @@
 </li>
       <li><a href="pyvex.html#pyvex.lifting.gym.arm_spotter.ARMInstruction.get_V">get_V() (pyvex.lifting.gym.arm_spotter.ARMInstruction method)</a>
 </li>
-      <li><a href="angr.html#angr.calling_conventions.SimComboArg.get_value">get_value() (angr.calling_conventions.SimComboArg method)</a>
+      <li><a href="angr.html#angr.calling_conventions.SimArrayArg.get_value">get_value() (angr.calling_conventions.SimArrayArg method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimComboArg.get_value">(angr.calling_conventions.SimComboArg method)</a>
+</li>
         <li><a href="angr.html#angr.calling_conventions.SimFunctionArgument.get_value">(angr.calling_conventions.SimFunctionArgument method)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimLyingRegArg.get_value">(angr.calling_conventions.SimLyingRegArg method)</a>
 </li>
+        <li><a href="angr.html#angr.calling_conventions.SimReferenceArgument.get_value">(angr.calling_conventions.SimReferenceArgument method)</a>
+</li>
         <li><a href="angr.html#angr.calling_conventions.SimRegArg.get_value">(angr.calling_conventions.SimRegArg method)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimStackArg.get_value">(angr.calling_conventions.SimStackArg method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimStructArg.get_value">(angr.calling_conventions.SimStructArg method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.get_value_from_atom">get_value_from_atom() (angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions method)</a>
@@ -10217,6 +10189,20 @@
 </li>
       <li><a href="angr.html#angr.analyses.disassembly.DisassemblyPiece.getpiece">getpiece() (angr.analyses.disassembly.DisassemblyPiece method)</a>
 </li>
+      <li><a href="angr.html#angr.calling_conventions.ArgSession.getstate">getstate() (angr.calling_conventions.ArgSession method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.calling_conventions.SerializableCounter.getstate">(angr.calling_conventions.SerializableCounter method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SerializableIterator.getstate">(angr.calling_conventions.SerializableIterator method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SerializableListIterator.getstate">(angr.calling_conventions.SerializableListIterator method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCC.ArgSession.getstate">(angr.calling_conventions.SimCC.ArgSession method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.UsercallArgSession.getstate">(angr.calling_conventions.UsercallArgSession method)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.stack_pointer_tracker.StackPointerTrackerState.give_up_on_memory_tracking">give_up_on_memory_tracking() (angr.analyses.stack_pointer_tracker.StackPointerTrackerState method)</a>
 </li>
       <li><a href="cle.html#cle.backends.elf.compilation_unit.CompilationUnit.global_variables">global_variables (cle.backends.elf.compilation_unit.CompilationUnit attribute)</a>
@@ -10305,6 +10291,12 @@
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.GuardUse">GuardUse (class in angr.knowledge_plugins.key_definitions.atoms)</a>
 </li>
+      <li><a href="angr.html#angr.calling_conventions.SimCC.guess_prototype">guess_prototype() (angr.calling_conventions.SimCC static method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimCCSoot.guess_prototype">(angr.calling_conventions.SimCCSoot static method)</a>
+</li>
+      </ul></li>
       <li><a href="pyvex.html#pyvex.lifting.util.lifter_helper.GymratLifter">GymratLifter (class in pyvex.lifting.util.lifter_helper)</a>
 </li>
   </ul></td>
@@ -10945,6 +10937,8 @@
 </li>
       <li><a href="angr.html#angr.analyses.reassembler.Reassembler.inserted_asm_before_label">inserted_asm_before_label (angr.analyses.reassembler.Reassembler property)</a>
 </li>
+      <li><a href="angr.html#angr.block.CapstoneInsn.insn">insn (angr.block.CapstoneInsn attribute)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGFast.insn_addr_to_memory_data">insn_addr_to_memory_data (angr.analyses.cfg.cfg_fast.CFGFast property)</a>
 
       <ul>
@@ -10957,12 +10951,8 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.xrefs.xref.XRef.insn_op_type">insn_op_type (angr.knowledge_plugins.xrefs.xref.XRef attribute)</a>
 </li>
-      <li><a href="angr.html#angr.block.CapstoneBlock.insns">insns (angr.block.CapstoneBlock attribute)</a>
-
-      <ul>
-        <li><a href="angr.html#angr.block.DisassemblerBlock.insns">(angr.block.DisassemblerBlock attribute)</a>
+      <li><a href="angr.html#angr.block.DisassemblerBlock.insns">insns (angr.block.DisassemblerBlock attribute)</a>
 </li>
-      </ul></li>
       <li><a href="angr.html#angr.sim_state.SimState.inspect">inspect (angr.sim_state.SimState attribute)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.clouseau_mixin.InspectMixinHigh">InspectMixinHigh (class in angr.storage.memory_mixins.clouseau_mixin)</a>
@@ -11505,6 +11495,12 @@
 </li>
       <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.is_private_external">is_private_external (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
 </li>
+      <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.is_prototype_guessed">is_prototype_guessed (angr.knowledge_plugins.functions.function.Function attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.knowledge_plugins.functions.soot_function.SootFunction.is_prototype_guessed">(angr.knowledge_plugins.functions.soot_function.SootFunction attribute)</a>
+</li>
+      </ul></li>
       <li><a href="cle.html#cle.backends.elf.regions.ELFSection.is_readable">is_readable (cle.backends.elf.regions.ELFSection property)</a>
 
       <ul>
@@ -12837,6 +12833,8 @@
         <li><a href="cle.html#cle.loader.Loader.memory">(cle.loader.Loader attribute)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.calling_conventions.SimCC.memory_args">memory_args (angr.calling_conventions.SimCC property)</a>
+</li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGFast.memory_data">memory_data (angr.analyses.cfg.cfg_fast.CFGFast property)</a>
 
       <ul>
@@ -13102,6 +13100,8 @@
       <li><a href="cle.html#cle.backends.macho.macho.MachO.MH_MAGIC">MH_MAGIC (cle.backends.macho.macho.MachO attribute)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.macho.MachO.MH_MAGIC_64">MH_MAGIC_64 (cle.backends.macho.macho.MachO attribute)</a>
+</li>
+      <li><a href="angr.html#angr.calling_conventions.MicrosoftAMD64ArgSession">MicrosoftAMD64ArgSession (class in angr.calling_conventions)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.base.Base.MID_REPR">MID_REPR (claripy.ast.base.Base attribute)</a>
 </li>
@@ -14672,10 +14672,10 @@
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.nameless_copy">nameless_copy() (claripy.vsa.strided_interval.StridedInterval method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.storage.memory_mixins.name_resolution_mixin.NameResolutionMixin">NameResolutionMixin (class in angr.storage.memory_mixins.name_resolution_mixin)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="pyvex.html#pyvex.lifting.util.syntax_wrapper.VexValue.narrow_high">narrow_high() (pyvex.lifting.util.syntax_wrapper.VexValue method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.syntax_wrapper.VexValue.narrow_low">narrow_low() (pyvex.lifting.util.syntax_wrapper.VexValue method)</a>
@@ -14728,10 +14728,16 @@
         <li><a href="pyvex.html#pyvex.block.IRSB.next">(pyvex.block.IRSB attribute)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.calling_conventions.ArgSession.next_arg">next_arg() (angr.calling_conventions.ArgSession method)</a>
+      <li><a href="angr.html#angr.calling_conventions.SimCC.next_arg">next_arg() (angr.calling_conventions.SimCC method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.calling_conventions.SimCC.ArgSession.next_arg">(angr.calling_conventions.SimCC.ArgSession method)</a>
+        <li><a href="angr.html#angr.calling_conventions.SimCCCdecl.next_arg">(angr.calling_conventions.SimCCCdecl method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCMicrosoftAMD64.next_arg">(angr.calling_conventions.SimCCMicrosoftAMD64 method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCSystemVAMD64.next_arg">(angr.calling_conventions.SimCCSystemVAMD64 method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCUsercall.next_arg">(angr.calling_conventions.SimCCUsercall method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.state_plugins.heap.heap_freelist.Chunk.next_chunk">next_chunk() (angr.state_plugins.heap.heap_freelist.Chunk method)</a>
@@ -14969,6 +14975,8 @@
       <li><a href="angr.html#angr.analyses.reassembler.ObjectLabel">ObjectLabel (class in angr.analyses.reassembler)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.observed_results">observed_results (angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis property)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.cfg.segment_list.SegmentList.occupied_by">occupied_by() (angr.analyses.cfg.segment_list.SegmentList method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.segment_list.SegmentList.occupied_by_sort">occupied_by_sort() (angr.analyses.cfg.segment_list.SegmentList method)</a>
 </li>
@@ -15324,6 +15332,8 @@
         <li><a href="angr.html#angr.analyses.cfg.cfg_fast.CFGFast.output">(angr.analyses.cfg.cfg_fast.CFGFast method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.calling_conventions.SimCCSystemVAMD64.OVERFLOW_FP_RETURN_VAL">OVERFLOW_FP_RETURN_VAL (angr.calling_conventions.SimCCSystemVAMD64 attribute)</a>
+</li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.OVERFLOW_RETURN_VAL">OVERFLOW_RETURN_VAL (angr.calling_conventions.SimCC attribute)</a>
 
       <ul>
@@ -15355,6 +15365,8 @@
       <li><a href="cle.html#cle.memory.ClemoryBase.pack">pack() (cle.memory.ClemoryBase method)</a>
 </li>
       <li><a href="cle.html#cle.memory.ClemoryBase.pack_word">pack_word() (cle.memory.ClemoryBase method)</a>
+</li>
+      <li><a href="angr.html#angr.sim_type.SimStruct.packed">packed (angr.sim_type.SimStruct property)</a>
 </li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatSpecifier.pad_chr">pad_chr (angr.procedures.stubs.format_parser.FormatSpecifier attribute)</a>
 </li>
@@ -15431,6 +15443,8 @@
       <li><a href="cle.html#cle.backends.elf.lsda.LSDAExceptionTable.parse_lsda">parse_lsda() (cle.backends.elf.lsda.LSDAExceptionTable method)</a>
 </li>
       <li><a href="cle.html#cle.backends.ihex.Hex.parse_record">parse_record() (cle.backends.ihex.Hex static method)</a>
+</li>
+      <li><a href="angr.html#angr.sim_type.parse_signature">parse_signature() (in module angr.sim_type)</a>
 </li>
       <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery_base.parse_stack_pointer">parse_stack_pointer() (in module angr.analyses.variable_recovery.variable_recovery_base)</a>
 </li>
@@ -15856,8 +15870,12 @@
 </li>
       <li><a href="angr.html#angr.analyses.propagator.prop_value.PropValue">PropValue (class in angr.analyses.propagator.prop_value)</a>
 </li>
-      <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.prototype">prototype (angr.knowledge_plugins.functions.function.Function property)</a>
+      <li><a href="angr.html#angr.knowledge_plugins.functions.function.Function.prototype">prototype (angr.knowledge_plugins.functions.function.Function attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.knowledge_plugins.functions.soot_function.SootFunction.prototype">(angr.knowledge_plugins.functions.soot_function.SootFunction attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.proximity_graph.ProximityGraphAnalysis">ProximityGraphAnalysis (class in angr.analyses.proximity_graph)</a>
 </li>
       <li><a href="angr.html#angr.analyses.proximity_graph.ProxiNodeTypes">ProxiNodeTypes (class in angr.analyses.proximity_graph)</a>
@@ -16488,12 +16506,8 @@
 </li>
       <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy.readuntil">readuntil() (claripy.backends.backend_smtlib_solvers.AbstractSMTLibSolverProxy method)</a>
 </li>
-      <li><a href="angr.html#angr.calling_conventions.ArgSession.real_args">real_args (angr.calling_conventions.ArgSession attribute)</a>
-
-      <ul>
-        <li><a href="angr.html#angr.calling_conventions.SimCC.ArgSession.real_args">(angr.calling_conventions.SimCC.ArgSession attribute)</a>
+      <li><a href="angr.html#angr.calling_conventions.UsercallArgSession.real_args">real_args (angr.calling_conventions.UsercallArgSession attribute)</a>
 </li>
-      </ul></li>
       <li><a href="angr.html#angr.state_plugins.heap.heap_libc.SimHeapLibc.realloc">realloc() (angr.state_plugins.heap.heap_libc.SimHeapLibc method)</a>
 
       <ul>
@@ -16567,6 +16581,18 @@
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CConstant.reference_values">reference_values (angr.analyses.decompiler.structured_codegen.c.CConstant attribute)</a>
 </li>
       <li><a href="cle.html#cle.backends.macho.symbol.SymbolTableSymbol.referenced_symbol_index">referenced_symbol_index (cle.backends.macho.symbol.SymbolTableSymbol property)</a>
+</li>
+      <li><a href="angr.html#angr.calling_conventions.SimFunctionArgument.refine">refine() (angr.calling_conventions.SimFunctionArgument method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimLyingRegArg.refine">(angr.calling_conventions.SimLyingRegArg method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimRegArg.refine">(angr.calling_conventions.SimRegArg method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimStackArg.refine">(angr.calling_conventions.SimStackArg method)</a>
+</li>
+      </ul></li>
+      <li><a href="angr.html#angr.calling_conventions.refine_locs_with_struct_type">refine_locs_with_struct_type() (in module angr.calling_conventions)</a>
 </li>
       <li><a href="angr.html#angr.analyses.decompiler.decompiler.Decompiler.reflow_variable_types">reflow_variable_types() (angr.analyses.decompiler.decompiler.Decompiler method)</a>
 </li>
@@ -16832,16 +16858,20 @@
 </li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.ReinterpretAs">ReinterpretAs (class in angr.analyses.typehoon.typevars)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_meta_mixin.MemoryRegionMetaMixin.related_function_addr">related_function_addr (angr.storage.memory_mixins.regioned_memory.region_meta_mixin.MemoryRegionMetaMixin property)</a>
 </li>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_data.RegionDescriptor.related_function_address">related_function_address (angr.storage.memory_mixins.regioned_memory.region_data.RegionDescriptor attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.region_data.RegionMap.relativize">relativize() (angr.storage.memory_mixins.regioned_memory.region_data.RegionMap method)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.heap.heap_brk.SimHeapBrk.release">release() (angr.state_plugins.heap.heap_brk.SimHeapBrk method)</a>
+      <li><a href="angr.html#angr.analyses.cfg.segment_list.SegmentList.release">release() (angr.analyses.cfg.segment_list.SegmentList method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.heap.heap_brk.SimHeapBrk.release">(angr.state_plugins.heap.heap_brk.SimHeapBrk method)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.knowledge_base.knowledge_base.KnowledgeBase.release_plugin">release_plugin() (angr.knowledge_base.knowledge_base.KnowledgeBase method)</a>
 
       <ul>
@@ -17380,6 +17410,16 @@
         <li><a href="angr.html#angr.calling_conventions.SimCCX86WindowsSyscall.RETURN_ADDR">(angr.calling_conventions.SimCCX86WindowsSyscall attribute)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.calling_conventions.SimCC.return_in_implicit_outparam">return_in_implicit_outparam() (angr.calling_conventions.SimCC method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimCCCdecl.return_in_implicit_outparam">(angr.calling_conventions.SimCCCdecl method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCMicrosoftAMD64.return_in_implicit_outparam">(angr.calling_conventions.SimCCMicrosoftAMD64 method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCSystemVAMD64.return_in_implicit_outparam">(angr.calling_conventions.SimCCSystemVAMD64 method)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.cfg.cfg_node.CFGENode.return_target">return_target (angr.knowledge_plugins.cfg.cfg_node.CFGENode attribute)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg_fast.FunctionReturn.return_to">return_to (angr.analyses.cfg.cfg_fast.FunctionReturn attribute)</a>
@@ -17387,12 +17427,10 @@
       <li><a href="angr.html#angr.sim_procedure.SimProcedure.return_type">return_type (angr.sim_procedure.SimProcedure property)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.RETURN_VAL">RETURN_VAL (angr.calling_conventions.SimCC attribute)</a>
-</li>
-      <li><a href="angr.html#angr.calling_conventions.SimCC.return_val">return_val (angr.calling_conventions.SimCC property)</a>
-</li>
-      <li><a href="angr.html#angr.calling_conventions.SimCCAArch64.RETURN_VAL">RETURN_VAL (angr.calling_conventions.SimCCAArch64 attribute)</a>
 
       <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimCCAArch64.RETURN_VAL">(angr.calling_conventions.SimCCAArch64 attribute)</a>
+</li>
         <li><a href="angr.html#angr.calling_conventions.SimCCAArch64LinuxSyscall.RETURN_VAL">(angr.calling_conventions.SimCCAArch64LinuxSyscall attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCAMD64LinuxSyscall.RETURN_VAL">(angr.calling_conventions.SimCCAMD64LinuxSyscall attribute)</a>
@@ -17434,6 +17472,16 @@
         <li><a href="angr.html#angr.calling_conventions.SimCCX86LinuxSyscall.RETURN_VAL">(angr.calling_conventions.SimCCX86LinuxSyscall attribute)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimCCX86WindowsSyscall.RETURN_VAL">(angr.calling_conventions.SimCCX86WindowsSyscall attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="angr.html#angr.calling_conventions.SimCC.return_val">return_val() (angr.calling_conventions.SimCC method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimCCCdecl.return_val">(angr.calling_conventions.SimCCCdecl method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCSystemVAMD64.return_val">(angr.calling_conventions.SimCCSystemVAMD64 method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCCUsercall.return_val">(angr.calling_conventions.SimCCUsercall method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CFunctionCall.returning">returning (angr.analyses.decompiler.structured_codegen.c.CFunctionCall attribute)</a>
@@ -17608,6 +17656,8 @@
 </li>
       <li><a href="angr.html#angr.sim_state.SimState.se">se (angr.sim_state.SimState property)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.cfg.segment_list.SegmentList.search">search() (angr.analyses.cfg.segment_list.SegmentList method)</a>
+</li>
       <li><a href="cle.html#cle.backends.region.Section">Section (class in cle.backends.region)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reassembler.Reassembler.section_alignment">section_alignment() (angr.analyses.reassembler.Reassembler method)</a>
@@ -17677,6 +17727,12 @@
       <li><a href="angr.html#angr.analyses.decompiler.sequence_walker.SequenceWalker">SequenceWalker (class in angr.analyses.decompiler.sequence_walker)</a>
 </li>
       <li><a href="angr.html#angr.serializable.Serializable">Serializable (class in angr.serializable)</a>
+</li>
+      <li><a href="angr.html#angr.calling_conventions.SerializableCounter">SerializableCounter (class in angr.calling_conventions)</a>
+</li>
+      <li><a href="angr.html#angr.calling_conventions.SerializableIterator">SerializableIterator (class in angr.calling_conventions)</a>
+</li>
+      <li><a href="angr.html#angr.calling_conventions.SerializableListIterator">SerializableListIterator (class in angr.calling_conventions)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.functions.function_parser.FunctionParser.serialize">serialize() (angr.knowledge_plugins.functions.function_parser.FunctionParser static method)</a>
 
@@ -17758,8 +17814,6 @@
 </li>
       <li><a href="angr.html#angr.simos.linux.SimLinux.set_entry_register_values">set_entry_register_values() (angr.simos.linux.SimLinux method)</a>
 </li>
-      <li><a href="angr.html#angr.calling_conventions.SimCC.set_func_type_with_arch">set_func_type_with_arch() (angr.calling_conventions.SimCC method)</a>
-</li>
       <li><a href="angr.html#angr.state_plugins.heap.heap_freelist.Chunk.set_fwd_chunk">set_fwd_chunk() (angr.state_plugins.heap.heap_freelist.Chunk method)</a>
 
       <ul>
@@ -17769,6 +17823,8 @@
       <li><a href="cle.html#cle.backends.binja.BinjaBin.set_got_entry">set_got_entry() (cle.backends.binja.BinjaBin method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.gdb.GDB.set_heap">set_heap() (angr.state_plugins.gdb.GDB method)</a>
+</li>
+      <li><a href="angr.html#angr.state_plugins.unicorn_engine.Unicorn.set_last_block_details">set_last_block_details() (angr.state_plugins.unicorn_engine.Unicorn method)</a>
 </li>
       <li><a href="angr.html#angr.annocfg.AnnotatedCFG.set_last_statement">set_last_statement() (angr.annocfg.AnnotatedCFG method)</a>
 </li>
@@ -17898,16 +17954,22 @@
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.set_unified_variable">set_unified_variable() (angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal method)</a>
 </li>
-      <li><a href="angr.html#angr.calling_conventions.SimComboArg.set_value">set_value() (angr.calling_conventions.SimComboArg method)</a>
+      <li><a href="angr.html#angr.calling_conventions.SimArrayArg.set_value">set_value() (angr.calling_conventions.SimArrayArg method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimComboArg.set_value">(angr.calling_conventions.SimComboArg method)</a>
+</li>
         <li><a href="angr.html#angr.calling_conventions.SimFunctionArgument.set_value">(angr.calling_conventions.SimFunctionArgument method)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimLyingRegArg.set_value">(angr.calling_conventions.SimLyingRegArg method)</a>
 </li>
+        <li><a href="angr.html#angr.calling_conventions.SimReferenceArgument.set_value">(angr.calling_conventions.SimReferenceArgument method)</a>
+</li>
         <li><a href="angr.html#angr.calling_conventions.SimRegArg.set_value">(angr.calling_conventions.SimRegArg method)</a>
 </li>
         <li><a href="angr.html#angr.calling_conventions.SimStackArg.set_value">(angr.calling_conventions.SimStackArg method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimStructArg.set_value">(angr.calling_conventions.SimStructArg method)</a>
 </li>
       </ul></li>
       <li><a href="angr.html#angr.keyed_region.KeyedRegion.set_variable">set_variable() (angr.keyed_region.KeyedRegion method)</a>
@@ -17918,6 +17980,20 @@
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal.set_variable_type">set_variable_type() (angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal method)</a>
 </li>
+      <li><a href="angr.html#angr.calling_conventions.ArgSession.setstate">setstate() (angr.calling_conventions.ArgSession method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.calling_conventions.SerializableCounter.setstate">(angr.calling_conventions.SerializableCounter method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SerializableIterator.setstate">(angr.calling_conventions.SerializableIterator method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SerializableListIterator.setstate">(angr.calling_conventions.SerializableListIterator method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimCC.ArgSession.setstate">(angr.calling_conventions.SimCC.ArgSession method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.UsercallArgSession.setstate">(angr.calling_conventions.UsercallArgSession method)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.exploration_techniques.cacher.Cacher.setup">setup() (angr.exploration_techniques.cacher.Cacher method)</a>
 
       <ul>
@@ -17953,6 +18029,8 @@
       <li><a href="angr.html#angr.calling_conventions.SimCC.setup_callsite">setup_callsite() (angr.calling_conventions.SimCC method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimCCSoot.setup_callsite">(angr.calling_conventions.SimCCSoot method)</a>
+</li>
         <li><a href="angr.html#angr.engines.soot.engine.SootMixin.setup_callsite">(angr.engines.soot.engine.SootMixin class method)</a>
 </li>
       </ul></li>
@@ -18098,6 +18176,8 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.sim_action.SimActionOperation">SimActionOperation (class in angr.state_plugins.sim_action)</a>
 </li>
+      <li><a href="angr.html#angr.calling_conventions.SimArrayArg">SimArrayArg (class in angr.calling_conventions)</a>
+</li>
       <li><a href="angr.html#angr.calling_conventions.SimCC">SimCC (class in angr.calling_conventions)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCC.ArgSession">SimCC.ArgSession (class in angr.calling_conventions)</a>
@@ -18121,6 +18201,8 @@
       <li><a href="angr.html#angr.errors.SimCCError">SimCCError</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCCMicrosoftAMD64">SimCCMicrosoftAMD64 (class in angr.calling_conventions)</a>
+</li>
+      <li><a href="angr.html#angr.calling_conventions.SimCCMicrosoftCdecl">SimCCMicrosoftCdecl (class in angr.calling_conventions)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCCMicrosoftFastcall">SimCCMicrosoftFastcall (class in angr.calling_conventions)</a>
 </li>
@@ -18153,6 +18235,8 @@
       <li><a href="angr.html#angr.calling_conventions.SimCCSystemVAMD64">SimCCSystemVAMD64 (class in angr.calling_conventions)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCCUnknown">SimCCUnknown (class in angr.calling_conventions)</a>
+</li>
+      <li><a href="angr.html#angr.calling_conventions.SimCCUsercall">SimCCUsercall (class in angr.calling_conventions)</a>
 </li>
       <li><a href="angr.html#angr.calling_conventions.SimCCX86LinuxSyscall">SimCCX86LinuxSyscall (class in angr.calling_conventions)</a>
 </li>
@@ -18350,6 +18434,8 @@
 </li>
       <li><a href="angr.html#angr.errors.SimMergeError">SimMergeError</a>
 </li>
+      <li><a href="angr.html#angr.errors.SimMissingTempError">SimMissingTempError</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.filesystem.SimMount">SimMount (class in angr.state_plugins.filesystem)</a>
 </li>
       <li><a href="angr.html#angr.errors.SimOperationError">SimOperationError</a>
@@ -18436,6 +18522,8 @@
 </li>
       <li><a href="angr.html#angr.errors.SimProcedureError">SimProcedureError</a>
 </li>
+      <li><a href="angr.html#angr.calling_conventions.SimReferenceArgument">SimReferenceArgument (class in angr.calling_conventions)</a>
+</li>
       <li><a href="angr.html#angr.calling_conventions.SimRegArg">SimRegArg (class in angr.calling_conventions)</a>
 </li>
       <li><a href="angr.html#angr.errors.SimRegionMapError">SimRegionMapError</a>
@@ -18499,6 +18587,8 @@
       <li><a href="angr.html#angr.state_plugins.scratch.SimStateScratch">SimStateScratch (class in angr.state_plugins.scratch)</a>
 </li>
       <li><a href="angr.html#angr.sim_type.SimStruct">SimStruct (class in angr.sim_type)</a>
+</li>
+      <li><a href="angr.html#angr.calling_conventions.SimStructArg">SimStructArg (class in angr.calling_conventions)</a>
 </li>
       <li><a href="angr.html#angr.sim_type.SimStructValue">SimStructValue (class in angr.sim_type)</a>
 </li>
@@ -18844,6 +18934,8 @@
         <li><a href="claripy.html#claripy.bv.SMod">(in module claripy.bv)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.frontend_mixins.smtlib_script_dumper_mixin.SMTLibScriptDumperMixin">SMTLibScriptDumperMixin (class in claripy.frontend_mixins.smtlib_script_dumper_mixin)</a>
 </li>
       <li><a href="claripy.html#claripy.backends.backend_smtlib_solvers.SMTLibSolverBackend">SMTLibSolverBackend (class in claripy.backends.backend_smtlib_solvers)</a>
@@ -18886,8 +18978,6 @@
         <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.solution">(claripy.vsa.strided_interval.StridedInterval method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.typehoon.simple_solver.SimpleSolver.solve">solve() (angr.analyses.typehoon.simple_solver.SimpleSolver method)</a>
 </li>
       <li><a href="claripy.html#claripy.frontend_mixins.solve_block_mixin.SolveBlockMixin">SolveBlockMixin (class in claripy.frontend_mixins.solve_block_mixin)</a>
@@ -19100,6 +19190,8 @@
       </ul></li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CTypeCast.src_type">src_type (angr.analyses.decompiler.structured_codegen.c.CTypeCast attribute)</a>
 </li>
+      <li><a href="angr.html#angr.calling_conventions.SimRegArg.sse_extend">sse_extend() (angr.calling_conventions.SimRegArg method)</a>
+</li>
       <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_atime">st_atime (angr.state_plugins.filesystem.Stat property)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.filesystem.Stat.st_atimensec">st_atimensec (angr.state_plugins.filesystem.Stat property)</a>
@@ -19185,6 +19277,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.storage.memory_mixins.regioned_memory.regioned_memory_mixin.RegionedMemoryMixin.stack_id">stack_id() (angr.storage.memory_mixins.regioned_memory.regioned_memory_mixin.RegionedMemoryMixin method)</a>
+</li>
+      <li><a href="angr.html#angr.calling_conventions.AllocHelper.stack_loc">stack_loc() (angr.calling_conventions.AllocHelper class method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.stack_offset_to_stack_addr">stack_offset_to_stack_addr() (angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions method)</a>
 </li>
@@ -19844,14 +19938,24 @@
       </ul></li>
       <li><a href="claripy.html#claripy.operations.strtoint_bv_size_calc">strtoint_bv_size_calc() (in module claripy.operations)</a>
 </li>
-      <li><a href="angr.html#angr.state_plugins.view.SimMemView.struct">struct (angr.state_plugins.view.SimMemView attribute)</a>
+      <li><a href="angr.html#angr.sim_type.SimStructValue.struct">struct (angr.sim_type.SimStructValue property)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.state_plugins.view.SimMemView.struct">(angr.state_plugins.view.SimMemView attribute)</a>
 </li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.typehoon.typeconsts.Struct">Struct (class in angr.analyses.typehoon.typeconsts)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch.Arch.struct_fmt">struct_fmt() (archinfo.arch.Arch method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.typehoon.translator.TypeTranslator.struct_name">struct_name() (angr.analyses.typehoon.translator.TypeTranslator method)</a>
 </li>
+      <li><a href="angr.html#angr.calling_conventions.SimCCCdecl.STRUCT_RETURN_THRESHOLD">STRUCT_RETURN_THRESHOLD (angr.calling_conventions.SimCCCdecl attribute)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimCCMicrosoftCdecl.STRUCT_RETURN_THRESHOLD">(angr.calling_conventions.SimCCMicrosoftCdecl attribute)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CStructField.struct_type">struct_type (angr.analyses.decompiler.structured_codegen.c.CStructField attribute)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.view.StructMode">StructMode (class in angr.state_plugins.view)</a>
@@ -20568,11 +20672,11 @@
         <li><a href="cle.html#cle.backends.minidump.Minidump.threads">(cle.backends.minidump.Minidump property)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.cfg.cfg_fast.ARMDecodingMode.THUMB">THUMB (angr.analyses.cfg.cfg_fast.ARMDecodingMode attribute)</a>
+</li>
       <li><a href="angr.html#angr.block.Block.thumb">thumb (angr.block.Block attribute)</a>
 
       <ul>
-        <li><a href="angr.html#angr.block.CapstoneBlock.thumb">(angr.block.CapstoneBlock attribute)</a>
-</li>
         <li><a href="angr.html#angr.block.DisassemblerBlock.thumb">(angr.block.DisassemblerBlock attribute)</a>
 </li>
         <li><a href="angr.html#angr.codenode.CodeNode.thumb">(angr.codenode.CodeNode attribute)</a>
@@ -21416,12 +21520,6 @@
 </li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.upper_bound">upper_bound (claripy.vsa.strided_interval.StridedInterval property)</a>
 </li>
-      <li><a href="angr.html#angr.calling_conventions.ArgSession.upsize_arg">upsize_arg() (angr.calling_conventions.ArgSession method)</a>
-
-      <ul>
-        <li><a href="angr.html#angr.calling_conventions.SimCC.ArgSession.upsize_arg">(angr.calling_conventions.SimCC.ArgSession method)</a>
-</li>
-      </ul></li>
       <li><a href="angr.html#angr.misc.plugins.PluginHub.use_plugin_preset">use_plugin_preset() (angr.misc.plugins.PluginHub method)</a>
 </li>
       <li><a href="angr.html#angr.sim_manager.SimulationManager.use_technique">use_technique() (angr.sim_manager.SimulationManager method)</a>
@@ -21432,6 +21530,8 @@
         <li><a href="cle.html#cle.backends.tls.pe_tls.PETLSObject.user_thread_pointer">(cle.backends.tls.pe_tls.PETLSObject property)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.calling_conventions.UsercallArgSession">UsercallArgSession (class in angr.calling_conventions)</a>
+</li>
       <li><a href="angr.html#angr.knowledge_plugins.sync.sync_controller.SyncController.users">users() (angr.knowledge_plugins.sync.sync_controller.SyncController method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.uses.Uses">Uses (class in angr.knowledge_plugins.key_definitions.uses)</a>
@@ -21451,6 +21551,8 @@
       <li><a href="pyvex.html#pyvex.const.V128">V128 (class in pyvex.const)</a>
 </li>
       <li><a href="pyvex.html#pyvex.const.V256">V256 (class in pyvex.const)</a>
+</li>
+      <li><a href="angr.html#angr.sim_procedure.SimProcedure.va_arg">va_arg() (angr.sim_procedure.SimProcedure method)</a>
 </li>
       <li><a href="cle.html#cle.backends.cgc.backedcgc.FakeSegment.vaddr">vaddr (cle.backends.cgc.backedcgc.FakeSegment attribute)</a>
 
