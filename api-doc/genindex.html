@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; angr 9.0.11508 documentation</title>
+  <title>Index &mdash; angr 9.0.11611 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.0.11508
+                9.0.11611
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -355,6 +355,8 @@
       <li><a href="angr.html#angr.annocfg.AnnotatedCFG.add_statements_to_whitelist">add_statements_to_whitelist() (angr.annocfg.AnnotatedCFG method)</a>
 </li>
       <li><a href="angr.html#angr.engines.successors.SimSuccessors.add_successor">add_successor() (angr.engines.successors.SimSuccessors method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.utils.OutBranch.add_target">add_target() (angr.analyses.decompiler.utils.OutBranch method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.add_transitions">add_transitions() (angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink method)</a>
 </li>
@@ -7272,6 +7274,8 @@
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structurer_nodes.SequenceNode.copy">(angr.analyses.decompiler.structurer_nodes.SequenceNode method)</a>
 </li>
+        <li><a href="angr.html#angr.analyses.decompiler.utils.OutBranch.copy">(angr.analyses.decompiler.utils.OutBranch method)</a>
+</li>
         <li><a href="angr.html#angr.analyses.loop_analysis.LoopAnalysisState.copy">(angr.analyses.loop_analysis.LoopAnalysisState method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState.copy">(angr.analyses.propagator.propagator.PropagatorAILState method)</a>
@@ -8519,6 +8523,8 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.posix.SimSystemPosix.EMLINK">EMLINK (angr.state_plugins.posix.SimSystemPosix attribute)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.proximity_graph.ProxiNodeTypes.Empty">Empty (angr.analyses.proximity_graph.ProxiNodeTypes attribute)</a>
+</li>
       <li><a href="claripy.html#claripy.vsa.strided_interval.StridedInterval.empty">empty() (claripy.vsa.strided_interval.StridedInterval static method)</a>
 
       <ul>
@@ -9373,10 +9379,10 @@
       </ul></li>
       <li><a href="claripy.html#claripy.fp.fpAbs">fpAbs() (in module claripy.fp)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.fp.fpAdd">fpAdd() (in module claripy.fp)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="claripy.html#claripy.fp.fpDiv">fpDiv() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpEQ">fpEQ() (in module claripy.fp)</a>
@@ -9452,6 +9458,8 @@
       <li><a href="angr.html#angr.factory.AngrObjectFactory.fresh_block">fresh_block() (angr.factory.AngrObjectFactory method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.log.SimStateLog.fresh_constraints">fresh_constraints (angr.state_plugins.log.SimStateLog property)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode.from_ailnode">from_ailnode() (angr.analyses.decompiler.utils.SuperAILNode class method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Atom.from_argument">from_argument() (angr.knowledge_plugins.key_definitions.atoms.Atom static method)</a>
 </li>
@@ -11105,6 +11113,8 @@
         <li><a href="angr.html#angr.state_plugins.posix.PosixProcFS.insert">(angr.state_plugins.posix.PosixProcFS method)</a>
 </li>
       </ul></li>
+      <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode.insert_ailnode">insert_ailnode() (angr.analyses.decompiler.utils.SuperAILNode method)</a>
+</li>
       <li><a href="claripy.html#claripy.ast.base.Base.insert_annotation">insert_annotation() (claripy.ast.base.Base method)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.base.Base.insert_annotations">insert_annotations() (claripy.ast.base.Base method)</a>
@@ -13126,6 +13136,10 @@
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.engine_base.SimplifierAILState.merge">merge() (angr.analyses.decompiler.optimization_passes.engine_base.SimplifierAILState method)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.decompiler.utils.OutBranch.merge">(angr.analyses.decompiler.utils.OutBranch method)</a>
+</li>
+        <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode.merge">(angr.analyses.decompiler.utils.SuperAILNode method)</a>
+</li>
         <li><a href="angr.html#angr.analyses.loop_analysis.LoopAnalysisState.merge">(angr.analyses.loop_analysis.LoopAnalysisState method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState.merge">(angr.analyses.propagator.propagator.PropagatorAILState method)</a>
@@ -15568,6 +15582,8 @@
 </li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatParser.other_types">other_types (angr.procedures.stubs.format_parser.FormatParser attribute)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.decompiler.utils.OutBranch">OutBranch (class in angr.analyses.decompiler.utils)</a>
+</li>
       <li><a href="angr.html#angr.analyses.propagator.outdated_definition_walker.OutdatedDefinitionWalker">OutdatedDefinitionWalker (class in angr.analyses.propagator.outdated_definition_walker)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg.OutdatedError">OutdatedError</a>
@@ -17040,6 +17056,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.sim_state_options.SimStateOptions.register_option">register_option() (angr.sim_state_options.SimStateOptions class method)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode.register_out_branch">register_out_branch() (angr.analyses.decompiler.utils.SuperAILNode method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_base.knowledge_base.KnowledgeBase.register_plugin">register_plugin() (angr.knowledge_base.knowledge_base.KnowledgeBase method)</a>
 
@@ -18982,6 +19000,8 @@
       <li><a href="angr.html#angr.analyses.cfg.segment_list.Segment.size">size (angr.analyses.cfg.segment_list.Segment property)</a>
 
       <ul>
+        <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode.size">(angr.analyses.decompiler.utils.SuperAILNode property)</a>
+</li>
         <li><a href="angr.html#angr.analyses.propagator.prop_value.Detail.size">(angr.analyses.propagator.prop_value.Detail attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.propagator.values.Top.size">(angr.analyses.propagator.values.Top attribute)</a>
@@ -19754,6 +19774,8 @@
       <ul>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CStatements.statements">(angr.analyses.decompiler.structured_codegen.c.CStatements attribute)</a>
 </li>
+        <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode.statements">(angr.analyses.decompiler.utils.SuperAILNode property)</a>
+</li>
         <li><a href="pyvex.html#pyvex.block.IRSB.statements">(pyvex.block.IRSB attribute)</a>
 </li>
       </ul></li>
@@ -20376,6 +20398,8 @@
       <li><a href="angr.html#angr.engines.engine.SuccessorsMixin">SuccessorsMixin (class in angr.engines.engine)</a>
 </li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.Subtype.super_type">super_type (angr.analyses.typehoon.typevars.Subtype attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode">SuperAILNode (class in angr.analyses.decompiler.utils)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootClassDescriptor.superclass_name">superclass_name (archinfo.arch_soot.SootClassDescriptor property)</a>
 </li>
@@ -21056,6 +21080,8 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions.tmps">tmps (angr.knowledge_plugins.key_definitions.live_definitions.LiveDefinitions attribute)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.decompiler.utils.to_ail_supergraph">to_ail_supergraph() (in module angr.analyses.decompiler.utils)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -22071,8 +22097,6 @@
 </li>
       <li><a href="angr.html#angr.angrdb.models.DbKnowledgeBase.var_collections">var_collections (angr.angrdb.models.DbKnowledgeBase attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CBinaryOp.variable">variable (angr.analyses.decompiler.structured_codegen.c.CBinaryOp attribute)</a>
 
       <ul>
@@ -22082,8 +22106,14 @@
 </li>
         <li><a href="angr.html#angr.analyses.loop_analysis.AnnotatedVariable.variable">(angr.analyses.loop_analysis.AnnotatedVariable attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.variable_recovery.engine_base.RichR.variable">(angr.analyses.variable_recovery.engine_base.RichR attribute)</a>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="angr.html#angr.analyses.proximity_graph.ProxiNodeTypes.Variable">Variable (angr.analyses.proximity_graph.ProxiNodeTypes attribute)</a>
 </li>
+      <li><a href="angr.html#angr.analyses.variable_recovery.engine_base.RichR.variable">variable (angr.analyses.variable_recovery.engine_base.RichR attribute)</a>
+
+      <ul>
         <li><a href="angr.html#angr.knowledge_plugins.variables.variable_access.VariableAccess.variable">(angr.knowledge_plugins.variables.variable_access.VariableAccess attribute)</a>
 </li>
       </ul></li>
@@ -22112,6 +22142,8 @@
       <li><a href="angr.html#angr.knowledge_plugins.variables.variable_manager.VariableManagerInternal">VariableManagerInternal (class in angr.knowledge_plugins.variables.variable_manager)</a>
 </li>
       <li><a href="angr.html#angr.angrdb.serializers.variables.VariableManagerSerializer">VariableManagerSerializer (class in angr.angrdb.serializers.variables)</a>
+</li>
+      <li><a href="angr.html#angr.analyses.proximity_graph.VariableProxiNode">VariableProxiNode (class in angr.analyses.proximity_graph)</a>
 </li>
       <li><a href="angr.html#angr.analyses.variable_recovery.variable_recovery.VariableRecovery">VariableRecovery (class in angr.analyses.variable_recovery.variable_recovery)</a>
 </li>
