@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>angr — Analysis and Coordination &mdash; angr 9.0.11611 documentation</title>
+  <title>angr — Analysis and Coordination &mdash; angr 9.0.11752 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.0.11611
+                9.0.11752
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -12448,6 +12448,12 @@ architecture.</p>
 <span class="sig-name descname"><span class="pre">refine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_fp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimFunctionArgument.refine" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.calling_conventions.SimFunctionArgument.get_footprint">
+<span class="sig-name descname"><span class="pre">get_footprint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimFunctionArgument.get_footprint" title="Permalink to this definition"></a></dt>
+<dd><p>Return a list of SimRegArg and SimStackArgs that are the base components used for this location</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -12466,6 +12472,11 @@ architecture.</p>
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.calling_conventions.SimRegArg.get_footprint">
+<span class="sig-name descname"><span class="pre">get_footprint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimRegArg.get_footprint" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.calling_conventions.SimRegArg.check_offset">
 <span class="sig-name descname"><span class="pre">check_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimRegArg.check_offset" title="Permalink to this definition"></a></dt>
@@ -12508,6 +12519,11 @@ architecture.</p>
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="angr.calling_conventions.SimStackArg.get_footprint">
+<span class="sig-name descname"><span class="pre">get_footprint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimStackArg.get_footprint" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="angr.calling_conventions.SimStackArg.set_value">
 <span class="sig-name descname"><span class="pre">set_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack_base</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimStackArg.set_value" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -12529,6 +12545,11 @@ architecture.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">angr.calling_conventions.</span></span><span class="sig-name descname"><span class="pre">SimComboArg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_fp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimComboArg" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimFunctionArgument</span></code></a></p>
 <p>An argument which spans multiple storage locations. Locations should be given least-significant first.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.calling_conventions.SimComboArg.get_footprint">
+<span class="sig-name descname"><span class="pre">get_footprint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimComboArg.get_footprint" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.calling_conventions.SimComboArg.set_value">
 <span class="sig-name descname"><span class="pre">set_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimComboArg.set_value" title="Permalink to this definition"></a></dt>
@@ -12555,6 +12576,11 @@ architecture.</p>
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="angr.calling_conventions.SimStructArg.get_footprint">
+<span class="sig-name descname"><span class="pre">get_footprint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimStructArg.get_footprint" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="angr.calling_conventions.SimStructArg.get_value">
 <span class="sig-name descname"><span class="pre">get_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimStructArg.get_value" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -12570,6 +12596,11 @@ architecture.</p>
 <dt class="sig sig-object py" id="angr.calling_conventions.SimArrayArg">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">angr.calling_conventions.</span></span><span class="sig-name descname"><span class="pre">SimArrayArg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimArrayArg" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#angr.calling_conventions.SimFunctionArgument" title="angr.calling_conventions.SimFunctionArgument"><code class="xref py py-class docutils literal notranslate"><span class="pre">angr.calling_conventions.SimFunctionArgument</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.calling_conventions.SimArrayArg.get_footprint">
+<span class="sig-name descname"><span class="pre">get_footprint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimArrayArg.get_footprint" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.calling_conventions.SimArrayArg.get_value">
 <span class="sig-name descname"><span class="pre">get_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimArrayArg.get_value" title="Permalink to this definition"></a></dt>
@@ -12596,6 +12627,11 @@ zero on the stack. It will be passed <code class="docutils literal notranslate">
 </ul>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="angr.calling_conventions.SimReferenceArgument.get_footprint">
+<span class="sig-name descname"><span class="pre">get_footprint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimReferenceArgument.get_footprint" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="angr.calling_conventions.SimReferenceArgument.get_value">
 <span class="sig-name descname"><span class="pre">get_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.calling_conventions.SimReferenceArgument.get_value" title="Permalink to this definition"></a></dt>
@@ -26990,89 +27026,12 @@ Examples: (), {}, []</p>
 <span class="sig-prename descclassname"><span class="pre">angr.analyses.decompiler.utils.</span></span><span class="sig-name descname"><span class="pre">to_ail_supergraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">networkx.classes.digraph.DiGraph</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">networkx.classes.digraph.DiGraph</span></span></span><a class="headerlink" href="#angr.analyses.decompiler.utils.to_ail_supergraph" title="Permalink to this definition"></a></dt>
 <dd><p>Takes an AIL graph and converts it into a AIL graph that treats calls and redundant jumps
 as parts of a bigger block instead of transitions. Calls to returning functions do not terminate basic blocks.</p>
+<p>Based on region_identifier super_graph</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A converted super transition graph</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="angr.analyses.decompiler.utils.OutBranch">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">angr.analyses.decompiler.utils.</span></span><span class="sig-name descname"><span class="pre">OutBranch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ins_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stmt_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">branch_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.utils.OutBranch" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Represents a branch at the end of a AILSuperNode.
-Note: this is not an edge, but instead a branch.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="angr.analyses.decompiler.utils.OutBranch.add_target">
-<span class="sig-name descname"><span class="pre">add_target</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.utils.OutBranch.add_target" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="angr.analyses.decompiler.utils.OutBranch.merge">
-<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.utils.OutBranch.merge" title="Permalink to this definition"></a></dt>
-<dd><p>Merge with the other OutBranch descriptor.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#angr.analyses.decompiler.utils.OutBranch" title="angr.analyses.decompiler.utils.OutBranch"><em>OutBranch</em></a>) – The other item to merge with.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="angr.analyses.decompiler.utils.OutBranch.copy">
-<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.utils.OutBranch.copy" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="angr.analyses.decompiler.utils.SuperAILNode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">angr.analyses.decompiler.utils.</span></span><span class="sig-name descname"><span class="pre">SuperAILNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">addr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.utils.SuperAILNode" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A single node in the SuperGraph, which will include various other ail nodes</p>
-<dl class="py property">
-<dt class="sig sig-object py" id="angr.analyses.decompiler.utils.SuperAILNode.size">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#angr.analyses.decompiler.utils.SuperAILNode.size" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="angr.analyses.decompiler.utils.SuperAILNode.statements">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">statements</span></span><a class="headerlink" href="#angr.analyses.decompiler.utils.SuperAILNode.statements" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="angr.analyses.decompiler.utils.SuperAILNode.from_ailnode">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_ailnode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ail_node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.utils.SuperAILNode.from_ailnode" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="angr.analyses.decompiler.utils.SuperAILNode.insert_ailnode">
-<span class="sig-name descname"><span class="pre">insert_ailnode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ail_node</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.utils.SuperAILNode.insert_ailnode" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="angr.analyses.decompiler.utils.SuperAILNode.register_out_branch">
-<span class="sig-name descname"><span class="pre">register_out_branch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ins_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stmt_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">branch_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_addr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.utils.SuperAILNode.register_out_branch" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="angr.analyses.decompiler.utils.SuperAILNode.merge">
-<span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#angr.analyses.decompiler.utils.SuperAILNode.merge" title="Permalink to this definition"></a></dt>
-<dd><p>Merge another supernode into the current one.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>other</strong> (<em>SuperCFGNode</em>) – The supernode to merge with.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <span class="target" id="module-angr.analyses.ddg"></span><dl class="py class">
@@ -30655,7 +30614,7 @@ manner.</p>
 depth</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="angr.analyses.veritesting.CallTracingFilter.whitelist">
-<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">whitelist</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{&lt;class</span> <span class="pre">'angr.procedures.posix.read.read'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.fgetc.fgetc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.receive.receive'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.cgc.transmit.transmit'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strlen.strlen'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.strcmp.strcmp'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.glibc.__ctype_b_loc.__ctype_b_loc'&gt;,</span> <span class="pre">&lt;class</span> <span class="pre">'angr.procedures.libc.atoi.atoi'&gt;}</span></em><a class="headerlink" href="#angr.analyses.veritesting.CallTracingFilter.whitelist" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
