@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; angr 9.0.11611 documentation</title>
+  <title>Index &mdash; angr 9.0.11752 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -27,7 +27,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.0.11611
+                9.0.11752
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -355,8 +355,6 @@
       <li><a href="angr.html#angr.annocfg.AnnotatedCFG.add_statements_to_whitelist">add_statements_to_whitelist() (angr.annocfg.AnnotatedCFG method)</a>
 </li>
       <li><a href="angr.html#angr.engines.successors.SimSuccessors.add_successor">add_successor() (angr.engines.successors.SimSuccessors method)</a>
-</li>
-      <li><a href="angr.html#angr.analyses.decompiler.utils.OutBranch.add_target">add_target() (angr.analyses.decompiler.utils.OutBranch method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink.add_transitions">add_transitions() (angr.analyses.cfg_slice_to_sink.cfg_slice_to_sink.CFGSliceToSink method)</a>
 </li>
@@ -7274,8 +7272,6 @@
 </li>
         <li><a href="angr.html#angr.analyses.decompiler.structurer_nodes.SequenceNode.copy">(angr.analyses.decompiler.structurer_nodes.SequenceNode method)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.utils.OutBranch.copy">(angr.analyses.decompiler.utils.OutBranch method)</a>
-</li>
         <li><a href="angr.html#angr.analyses.loop_analysis.LoopAnalysisState.copy">(angr.analyses.loop_analysis.LoopAnalysisState method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState.copy">(angr.analyses.propagator.propagator.PropagatorAILState method)</a>
@@ -9379,10 +9375,10 @@
       </ul></li>
       <li><a href="claripy.html#claripy.fp.fpAbs">fpAbs() (in module claripy.fp)</a>
 </li>
-      <li><a href="claripy.html#claripy.fp.fpAdd">fpAdd() (in module claripy.fp)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="claripy.html#claripy.fp.fpAdd">fpAdd() (in module claripy.fp)</a>
+</li>
       <li><a href="claripy.html#claripy.fp.fpDiv">fpDiv() (in module claripy.fp)</a>
 </li>
       <li><a href="claripy.html#claripy.fp.fpEQ">fpEQ() (in module claripy.fp)</a>
@@ -9458,8 +9454,6 @@
       <li><a href="angr.html#angr.factory.AngrObjectFactory.fresh_block">fresh_block() (angr.factory.AngrObjectFactory method)</a>
 </li>
       <li><a href="angr.html#angr.state_plugins.log.SimStateLog.fresh_constraints">fresh_constraints (angr.state_plugins.log.SimStateLog property)</a>
-</li>
-      <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode.from_ailnode">from_ailnode() (angr.analyses.decompiler.utils.SuperAILNode class method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_plugins.key_definitions.atoms.Atom.from_argument">from_argument() (angr.knowledge_plugins.key_definitions.atoms.Atom static method)</a>
 </li>
@@ -9959,6 +9953,22 @@
 </li>
       <li><a href="angr.html#angr.state_plugins.trace_additions.ZenPlugin.get_flag_rand_args">get_flag_rand_args() (angr.state_plugins.trace_additions.ZenPlugin static method)</a>
 </li>
+      <li><a href="angr.html#angr.calling_conventions.SimArrayArg.get_footprint">get_footprint() (angr.calling_conventions.SimArrayArg method)</a>
+
+      <ul>
+        <li><a href="angr.html#angr.calling_conventions.SimComboArg.get_footprint">(angr.calling_conventions.SimComboArg method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimFunctionArgument.get_footprint">(angr.calling_conventions.SimFunctionArgument method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimReferenceArgument.get_footprint">(angr.calling_conventions.SimReferenceArgument method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimRegArg.get_footprint">(angr.calling_conventions.SimRegArg method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimStackArg.get_footprint">(angr.calling_conventions.SimStackArg method)</a>
+</li>
+        <li><a href="angr.html#angr.calling_conventions.SimStructArg.get_footprint">(angr.calling_conventions.SimStructArg method)</a>
+</li>
+      </ul></li>
       <li><a href="angr.html#angr.knowledge_plugins.sync.sync_controller.SyncController.get_func_addr_from_addr">get_func_addr_from_addr() (angr.knowledge_plugins.sync.sync_controller.SyncController method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.identifier.identify.Identifier.get_func_info">get_func_info() (angr.analyses.identifier.identify.Identifier method)</a>
@@ -10091,14 +10101,14 @@
         <li><a href="angr.html#angr.procedures.definitions.SimSyscallLibrary.get_prototype">(angr.procedures.definitions.SimSyscallLibrary method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="cle.html#cle.backends.externs.ExternObject.get_pseudo_addr">get_pseudo_addr() (cle.backends.externs.ExternObject method)</a>
 </li>
       <li><a href="pyvex.html#pyvex.lifting.util.vex_helper.IRSBCustomizer.get_rdt_width">get_rdt_width() (pyvex.lifting.util.vex_helper.IRSBCustomizer method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.get_reaching_definitions">get_reaching_definitions() (angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.get_reaching_definitions_by_insn">get_reaching_definitions_by_insn() (angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis method)</a>
 </li>
       <li><a href="angr.html#angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis.get_reaching_definitions_by_node">get_reaching_definitions_by_node() (angr.analyses.reaching_definitions.reaching_definitions.ReachingDefinitionsAnalysis method)</a>
@@ -11113,8 +11123,6 @@
         <li><a href="angr.html#angr.state_plugins.posix.PosixProcFS.insert">(angr.state_plugins.posix.PosixProcFS method)</a>
 </li>
       </ul></li>
-      <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode.insert_ailnode">insert_ailnode() (angr.analyses.decompiler.utils.SuperAILNode method)</a>
-</li>
       <li><a href="claripy.html#claripy.ast.base.Base.insert_annotation">insert_annotation() (claripy.ast.base.Base method)</a>
 </li>
       <li><a href="claripy.html#claripy.ast.base.Base.insert_annotations">insert_annotations() (claripy.ast.base.Base method)</a>
@@ -13136,10 +13144,6 @@
       <li><a href="angr.html#angr.analyses.decompiler.optimization_passes.engine_base.SimplifierAILState.merge">merge() (angr.analyses.decompiler.optimization_passes.engine_base.SimplifierAILState method)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.decompiler.utils.OutBranch.merge">(angr.analyses.decompiler.utils.OutBranch method)</a>
-</li>
-        <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode.merge">(angr.analyses.decompiler.utils.SuperAILNode method)</a>
-</li>
         <li><a href="angr.html#angr.analyses.loop_analysis.LoopAnalysisState.merge">(angr.analyses.loop_analysis.LoopAnalysisState method)</a>
 </li>
         <li><a href="angr.html#angr.analyses.propagator.propagator.PropagatorAILState.merge">(angr.analyses.propagator.propagator.PropagatorAILState method)</a>
@@ -15582,8 +15586,6 @@
 </li>
       <li><a href="angr.html#angr.procedures.stubs.format_parser.FormatParser.other_types">other_types (angr.procedures.stubs.format_parser.FormatParser attribute)</a>
 </li>
-      <li><a href="angr.html#angr.analyses.decompiler.utils.OutBranch">OutBranch (class in angr.analyses.decompiler.utils)</a>
-</li>
       <li><a href="angr.html#angr.analyses.propagator.outdated_definition_walker.OutdatedDefinitionWalker">OutdatedDefinitionWalker (class in angr.analyses.propagator.outdated_definition_walker)</a>
 </li>
       <li><a href="angr.html#angr.analyses.cfg.cfg.OutdatedError">OutdatedError</a>
@@ -17056,8 +17058,6 @@
 </li>
       </ul></li>
       <li><a href="angr.html#angr.sim_state_options.SimStateOptions.register_option">register_option() (angr.sim_state_options.SimStateOptions class method)</a>
-</li>
-      <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode.register_out_branch">register_out_branch() (angr.analyses.decompiler.utils.SuperAILNode method)</a>
 </li>
       <li><a href="angr.html#angr.knowledge_base.knowledge_base.KnowledgeBase.register_plugin">register_plugin() (angr.knowledge_base.knowledge_base.KnowledgeBase method)</a>
 
@@ -19000,8 +19000,6 @@
       <li><a href="angr.html#angr.analyses.cfg.segment_list.Segment.size">size (angr.analyses.cfg.segment_list.Segment property)</a>
 
       <ul>
-        <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode.size">(angr.analyses.decompiler.utils.SuperAILNode property)</a>
-</li>
         <li><a href="angr.html#angr.analyses.propagator.prop_value.Detail.size">(angr.analyses.propagator.prop_value.Detail attribute)</a>
 </li>
         <li><a href="angr.html#angr.analyses.propagator.values.Top.size">(angr.analyses.propagator.values.Top attribute)</a>
@@ -19774,8 +19772,6 @@
       <ul>
         <li><a href="angr.html#angr.analyses.decompiler.structured_codegen.c.CStatements.statements">(angr.analyses.decompiler.structured_codegen.c.CStatements attribute)</a>
 </li>
-        <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode.statements">(angr.analyses.decompiler.utils.SuperAILNode property)</a>
-</li>
         <li><a href="pyvex.html#pyvex.block.IRSB.statements">(pyvex.block.IRSB attribute)</a>
 </li>
       </ul></li>
@@ -20398,8 +20394,6 @@
       <li><a href="angr.html#angr.engines.engine.SuccessorsMixin">SuccessorsMixin (class in angr.engines.engine)</a>
 </li>
       <li><a href="angr.html#angr.analyses.typehoon.typevars.Subtype.super_type">super_type (angr.analyses.typehoon.typevars.Subtype attribute)</a>
-</li>
-      <li><a href="angr.html#angr.analyses.decompiler.utils.SuperAILNode">SuperAILNode (class in angr.analyses.decompiler.utils)</a>
 </li>
       <li><a href="archinfo.html#archinfo.arch_soot.SootClassDescriptor.superclass_name">superclass_name (archinfo.arch_soot.SootClassDescriptor property)</a>
 </li>
