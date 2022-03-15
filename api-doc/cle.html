@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cle — Binary Loader &mdash; angr 9.0.11752 documentation</title>
+  <title>cle — Binary Loader &mdash; angr 9.1.12332 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> angr
           </a>
               <div class="version">
-                9.0.11752
+                9.1.12332
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -4959,6 +4959,28 @@ Field: doubleword64</p>
 <dt class="sig sig-object py" id="cle.backends.elf.relocation.mips.R_MIPS_TLS_DTPREL32">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.relocation.mips.</span></span><span class="sig-name descname"><span class="pre">R_MIPS_TLS_DTPREL32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.mips.R_MIPS_TLS_DTPREL32" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.generic.GenericTLSDoffsetReloc" title="cle.backends.elf.relocation.generic.GenericTLSDoffsetReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.elf.relocation.generic.GenericTLSDoffsetReloc</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.mips.R_MIPS_HI16">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.relocation.mips.</span></span><span class="sig-name descname"><span class="pre">R_MIPS_HI16</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.mips.R_MIPS_HI16" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.generic.GenericAbsoluteReloc" title="cle.backends.elf.relocation.generic.GenericAbsoluteReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.elf.relocation.generic.GenericAbsoluteReloc</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.mips.R_MIPS_HI16.relocate">
+<span class="sig-name descname"><span class="pre">relocate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.mips.R_MIPS_HI16.relocate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.mips.R_MIPS_LO16">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cle.backends.elf.relocation.mips.</span></span><span class="sig-name descname"><span class="pre">R_MIPS_LO16</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_addr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addend</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.mips.R_MIPS_LO16" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cle.backends.elf.relocation.generic.GenericAbsoluteReloc" title="cle.backends.elf.relocation.generic.GenericAbsoluteReloc"><code class="xref py py-class docutils literal notranslate"><span class="pre">cle.backends.elf.relocation.generic.GenericAbsoluteReloc</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cle.backends.elf.relocation.mips.R_MIPS_LO16.relocate">
+<span class="sig-name descname"><span class="pre">relocate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cle.backends.elf.relocation.mips.R_MIPS_LO16.relocate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-cle.backends.elf.relocation.arm"></span><dl class="py class">
